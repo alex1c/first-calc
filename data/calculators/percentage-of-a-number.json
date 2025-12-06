@@ -1,0 +1,90 @@
+{
+	"id": "percentage-of-a-number",
+	"locale": "en",
+	"category": "math",
+	"slug": "percentage-of-a-number",
+	"title": "Percentage of a Number",
+	"description": "Calculate what a certain percentage of a number is. Useful for discounts, tips, taxes, and other percentage-based calculations.",
+	"inputs": [
+		{
+			"name": "value",
+			"label": "Number",
+			"type": "number",
+			"unit": "",
+			"min": 0,
+			"helpText": "Enter the base number"
+		},
+		{
+			"name": "percent",
+			"label": "Percentage",
+			"type": "number",
+			"unit": "%",
+			"min": 0,
+			"max": 1000,
+			"helpText": "Enter the percentage value (e.g., 20 for 20%)"
+		}
+	],
+	"outputs": [
+		{
+			"name": "result",
+			"label": "Result",
+			"unit": ""
+		}
+	],
+	"formula": "value * percent / 100",
+	"variables": {
+		"value": "The base number",
+		"percent": "The percentage value"
+	},
+	"howTo": [
+		"Enter the number you want to calculate a percentage of",
+		"Enter the percentage value (e.g., 20 for 20%)",
+		"Click \"Calculate\" to get the result",
+		"The result shows what the percentage of the number is",
+		"You can use this for discounts, tips, taxes, and more"
+	],
+	"examples": [
+		{
+			"input": {
+				"value": 100,
+				"percent": 20
+			},
+			"result": {
+				"result": 20
+			},
+			"title": "Example 1: Calculate 20% of 100",
+			"description": "Calculate 20% of 100"
+		},
+		{
+			"input": {
+				"value": 250,
+				"percent": 15
+			},
+			"result": {
+				"result": 37.5
+			},
+			"title": "Example 2: Calculate 15% tip",
+			"description": "Calculate 15% tip on a $250 bill"
+		}
+	],
+	"faq": [
+		{
+			"question": "How do I calculate a percentage of a number?",
+			"answer": "To calculate a percentage of a number, multiply the number by the percentage and divide by 100. For example, 20% of 100 = (100 × 20) / 100 = 20."
+		},
+		{
+			"question": "Can I use this for discounts?",
+			"answer": "Yes! Enter the original price as the number and the discount percentage. The result will show the discount amount."
+		},
+		{
+			"question": "What if I want to calculate a tip?",
+			"answer": "Enter the bill amount as the number and the tip percentage (e.g., 15 for 15% tip). The result will show the tip amount."
+		}
+	],
+	"relatedIds": ["add-percentage", "subtract-percentage"],
+	"standardIds": [],
+	"meta": {
+		"keywords": ["percentage", "calculation", "math", "discount", "tip", "tax"]
+	}
+}
+

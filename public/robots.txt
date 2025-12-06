@@ -1,0 +1,21 @@
+# robots.txt for Calculator Portal
+
+# Allow all main sections
+User-agent: *
+Allow: /
+
+# Disallow huge nested ranges (to minimize server load)
+Disallow: /*-*-*-*
+Disallow: /*-*-*-*-*
+
+# Disallow debug parameters
+Disallow: /*?debug=*
+Disallow: /*?*debug*
+
+# Disallow admin and internal paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://first-calc.com/sitemap.xml
