@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import type { CalculatorDefinition } from '@/lib/calculators/types'
+import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 import { calculatorRegistry, standardRegistry } from '@/lib/registry/loader'
 import { getLegacyToolsForCalculator } from '@/lib/links/legacyToCalculators'
 import { getStandardsForCalculator } from '@/lib/standards/linking'
 
 interface RelatedCalculatorsBlockProps {
-	calculator: CalculatorDefinition
+	calculator: CalculatorDefinitionClient
 	locale: string
 }
 
@@ -26,7 +26,7 @@ export async function RelatedCalculatorsBlock({
 			).then((calcs) => calcs.filter((c): c is NonNullable<typeof c> => c !== undefined))
 		: []
 	const legacyTools = getLegacyToolsForCalculator(calculator.id)
-	const standardIds = getStandardsForCalculator(calculator.id, locale)
+	const standardIds = await getStandardsForCalculator(calculator.id, locale)
 	const standards = standardIds.length > 0
 		? await Promise.all(
 				standardIds.map((id) => standardRegistry.getById(id, locale)),

@@ -1,7 +1,7 @@
-import type { CalculatorDefinition } from '@/lib/calculators/types'
+import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 
 interface HowToBlockProps {
-	calculator: CalculatorDefinition
+	calculator: CalculatorDefinitionClient
 }
 
 /**
@@ -31,4 +31,7 @@ export function HowToBlock({ calculator }: HowToBlockProps) {
 		</div>
 	)
 }
+
+
+
 

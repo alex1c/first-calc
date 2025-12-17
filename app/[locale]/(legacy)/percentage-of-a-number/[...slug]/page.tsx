@@ -12,6 +12,14 @@ import {
 	getFaqForLegacyTool,
 	getExamplesForLegacyTool,
 } from '@/lib/legacy/faqExamples'
+import { UseCasesBlock } from '@/components/legacy/use-cases-block'
+import {
+	getLegacyTitle,
+	getLegacyDescription,
+	getLegacyOgTitle,
+	getLegacyOgDescription,
+	getLegacyContent,
+} from '@/lib/legacy/content'
 
 interface PercentageOfANumberPageProps {
 	params: {
@@ -27,8 +35,15 @@ export async function generateMetadata({
 
 	const parsed = parsePercentage(slug)
 
-	let title = 'Percentage of a Number - Calculator Portal'
-	let description = 'Calculate what a certain percentage of a number is. Step-by-step percent calculator.'
+	// Get base content from module
+	const baseTitle = getLegacyTitle('percentage-of-a-number', locale)
+	const baseDescription = getLegacyDescription('percentage-of-a-number', locale)
+	const ogTitle = getLegacyOgTitle('percentage-of-a-number', locale)
+	const ogDescription = getLegacyOgDescription('percentage-of-a-number', locale)
+	const content = getLegacyContent('percentage-of-a-number', locale)
+
+	let title = baseTitle
+	let description = baseDescription
 
 	if (parsed && parsed.type === 'of') {
 		const result = percentOf(parsed.value, parsed.percent)
@@ -39,7 +54,17 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords: 'percentage, calculation, math, number, percent',
+		keywords: content?.keywords[locale]?.join(', ') || 'percentage, calculation, math, number, percent',
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription,
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: ogTitle,
+			description: ogDescription,
+		},
 		alternates: {
 			languages: {
 				en: `/en/percentage-of-a-number/${slug.join('/')}`,
@@ -88,6 +113,7 @@ export default function PercentageOfANumberPage({
 	const result = percentOf(parsed.value, parsed.percent)
 	const steps = getPercentageSteps(parsed.value, parsed.percent, 'of')
 	const title = `${parsed.percent}% of ${parsed.value}`
+	const content = getLegacyContent('percentage-of-a-number', locale)
 
 	return (
 		<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
@@ -128,6 +154,22 @@ export default function PercentageOfANumberPage({
 					))}
 				</ol>
 			</div>
+
+			{/* Text content */}
+			{content && content.text[locale] && (
+				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+					{content.text[locale].map((paragraph, index) => (
+						<p key={index} className="text-gray-700 mb-4 last:mb-0">
+							{paragraph}
+						</p>
+					))}
+				</div>
+			)}
+
+			{/* Use cases */}
+			{content && content.useCases[locale] && (
+				<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+			)}
 
 			{/* Examples */}
 			<LegacyExamplesBlock

@@ -10,10 +10,18 @@ import { ResultsTable } from '@/components/legacy/results-table'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
 import { LegacyExamplesBlock } from '@/components/legacy/examples-block'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
+import { UseCasesBlock } from '@/components/legacy/use-cases-block'
 import {
 	getFaqForLegacyTool,
 	getExamplesForLegacyTool,
 } from '@/lib/legacy/faqExamples'
+import {
+	getLegacyTitle,
+	getLegacyDescription,
+	getLegacyOgTitle,
+	getLegacyOgDescription,
+	getLegacyContent,
+} from '@/lib/legacy/content'
 
 interface ChisloPropisyuPageProps {
 	params: {
@@ -30,16 +38,30 @@ export async function generateMetadata({
 	const singleNumber = parseSingleNumber(slug)
 	const range = parseRange(slug)
 
-	let title = 'Число прописью - Конвертер'
-	let description =
-		'Конвертер чисел в пропись на русском языке. Преобразуйте числа от 0 до 999,999,999 в их текстовое представление.'
+	// Get base content from module
+	const baseTitle = getLegacyTitle('chislo-propisyu', locale)
+	const baseDescription = getLegacyDescription('chislo-propisyu', locale)
+	const ogTitle = getLegacyOgTitle('chislo-propisyu', locale)
+	const ogDescription = getLegacyOgDescription('chislo-propisyu', locale)
+	const content = getLegacyContent('chislo-propisyu', locale)
+
+	let title = baseTitle
+	let description = baseDescription
 
 	if (singleNumber !== null) {
-		title = `Число ${singleNumber} прописью – калькулятор`
-		description = `Конвертируйте число ${singleNumber} в пропись на русском языке.`
+		title = locale === 'ru'
+			? `Число ${singleNumber} прописью – калькулятор`
+			: `Number ${singleNumber} in Words (Russian) – Calculator`
+		description = locale === 'ru'
+			? `Конвертируйте число ${singleNumber} в пропись на русском языке.`
+			: `Convert number ${singleNumber} to Russian words.`
 	} else if (range) {
-		title = `Числа от ${range.start} до ${range.end} прописью – калькулятор`
-		description = `Конвертируйте диапазон чисел от ${range.start} до ${range.end} в пропись на русском языке.`
+		title = locale === 'ru'
+			? `Числа от ${range.start} до ${range.end} прописью – калькулятор`
+			: `Numbers ${range.start} to ${range.end} in Words (Russian) – Calculator`
+		description = locale === 'ru'
+			? `Конвертируйте диапазон чисел от ${range.start} до ${range.end} в пропись на русском языке.`
+			: `Convert numbers from ${range.start} to ${range.end} to Russian words.`
 	}
 
 	// Disable indexing for large ranges
@@ -48,8 +70,18 @@ export async function generateMetadata({
 	return {
 		title: `${title} - Calculator Portal`,
 		description,
-		keywords: 'число прописью, конвертер чисел, русский язык, пропись',
+		keywords: content?.keywords[locale]?.join(', ') || 'число прописью, конвертер чисел, русский язык, пропись',
 		robots: shouldIndex ? 'index, follow' : 'noindex, nofollow',
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription,
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: ogTitle,
+			description: ogDescription,
+		},
 		alternates: {
 			languages: {
 				en: `/en/chislo-propisyu/${slug.join('/')}`,
@@ -124,22 +156,43 @@ export default function ChisloPropisyuPage({ params }: ChisloPropisyuPageProps) 
 		}
 
 		const title = `Число ${singleNumber} прописью`
+		const content = getLegacyContent('chislo-propisyu', locale)
 
 		return (
 			<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
 				{/* Result block */}
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
 					<div className="text-center">
-						<p className="text-sm text-gray-500 mb-2">Число</p>
-						<p className="text-4xl font-bold text-gray-900 mb-4">
-							{singleNumber.toLocaleString('ru-RU')}
+						<p className="text-sm text-gray-500 mb-2">
+							{locale === 'ru' ? 'Число' : 'Number'}
 						</p>
-						<p className="text-sm text-gray-500 mb-2">Прописью</p>
+						<p className="text-4xl font-bold text-gray-900 mb-4">
+							{singleNumber.toLocaleString(locale === 'ru' ? 'ru-RU' : 'en-US')}
+						</p>
+						<p className="text-sm text-gray-500 mb-2">
+							{locale === 'ru' ? 'Прописью' : 'In Words'}
+						</p>
 						<p className="text-3xl font-semibold text-blue-600">
 							{wordRepresentation}
 						</p>
 					</div>
 				</div>
+
+				{/* Text content */}
+				{content && content.text[locale] && (
+					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+						{content.text[locale].map((paragraph, index) => (
+							<p key={index} className="text-gray-700 mb-4 last:mb-0">
+								{paragraph}
+							</p>
+						))}
+					</div>
+				)}
+
+				{/* Use cases */}
+				{content && content.useCases[locale] && (
+					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				)}
 
 				{/* Examples */}
 				<LegacyExamplesBlock
@@ -185,6 +238,7 @@ export default function ChisloPropisyuPage({ params }: ChisloPropisyuPageProps) 
 		const numbers = generateRange(range.start, range.end, 200)
 
 		const title = `Числа от ${range.start} до ${range.end} прописью`
+		const content = getLegacyContent('chislo-propisyu', locale)
 
 		// Prepare table data
 		const tableData = numbers.map((num) => {
@@ -197,7 +251,7 @@ export default function ChisloPropisyuPage({ params }: ChisloPropisyuPageProps) 
 			}
 
 			return {
-				number: num.toLocaleString('ru-RU'),
+				number: num.toLocaleString(locale === 'ru' ? 'ru-RU' : 'en-US'),
 				words: wordRepresentation,
 			}
 		})
@@ -206,11 +260,27 @@ export default function ChisloPropisyuPage({ params }: ChisloPropisyuPageProps) 
 			<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
 				<ResultsTable
 					columns={[
-						{ header: 'Число', key: 'number' },
-						{ header: 'Прописью', key: 'words' },
+						{ header: locale === 'ru' ? 'Число' : 'Number', key: 'number' },
+						{ header: locale === 'ru' ? 'Прописью' : 'In Words', key: 'words' },
 					]}
 					data={tableData}
 				/>
+
+				{/* Text content */}
+				{content && content.text[locale] && (
+					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+						{content.text[locale].map((paragraph, index) => (
+							<p key={index} className="text-gray-700 mb-4 last:mb-0">
+								{paragraph}
+							</p>
+						))}
+					</div>
+				)}
+
+				{/* Use cases */}
+				{content && content.useCases[locale] && (
+					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				)}
 
 				{/* Examples */}
 				<LegacyExamplesBlock

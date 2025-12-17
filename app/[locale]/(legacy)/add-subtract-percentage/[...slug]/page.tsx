@@ -12,6 +12,14 @@ import {
 	getFaqForLegacyTool,
 	getExamplesForLegacyTool,
 } from '@/lib/legacy/faqExamples'
+import { UseCasesBlock } from '@/components/legacy/use-cases-block'
+import {
+	getLegacyTitle,
+	getLegacyDescription,
+	getLegacyOgTitle,
+	getLegacyOgDescription,
+	getLegacyContent,
+} from '@/lib/legacy/content'
 
 interface AddSubtractPercentagePageProps {
 	params: {
@@ -26,8 +34,15 @@ export async function generateMetadata({
 	const { locale, slug } = params
 	const parsed = parsePercentage(slug)
 
-	let title = 'Add/Subtract Percentage - Calculator Portal'
-	let description = 'Add or subtract a percentage from a number. Calculate increases and decreases by percentage.'
+	// Get base content from module
+	const baseTitle = getLegacyTitle('add-subtract-percentage', locale)
+	const baseDescription = getLegacyDescription('add-subtract-percentage', locale)
+	const ogTitle = getLegacyOgTitle('add-subtract-percentage', locale)
+	const ogDescription = getLegacyOgDescription('add-subtract-percentage', locale)
+	const content = getLegacyContent('add-subtract-percentage', locale)
+
+	let title = baseTitle
+	let description = baseDescription
 
 	if (parsed) {
 		const result =
@@ -42,7 +57,17 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords: 'percentage, add, subtract, increase, decrease, calculation',
+		keywords: content?.keywords[locale]?.join(', ') || 'percentage, add, subtract, increase, decrease, calculation',
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription,
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: ogTitle,
+			description: ogDescription,
+		},
 		alternates: {
 			languages: {
 				en: `/en/add-subtract-percentage/${slug.join('/')}`,
@@ -94,6 +119,7 @@ export default function AddSubtractPercentagePage({
 			: decreaseBy(parsed.value, parsed.percent)
 	const steps = getPercentageSteps(parsed.value, parsed.percent, parsed.type)
 	const title = `${parsed.type === 'add' ? 'Add' : 'Subtract'} ${parsed.percent}% ${parsed.type === 'add' ? 'to' : 'from'} ${parsed.value}`
+	const content = getLegacyContent('add-subtract-percentage', locale)
 
 	return (
 		<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
@@ -126,6 +152,22 @@ export default function AddSubtractPercentagePage({
 					))}
 				</ol>
 			</div>
+
+			{/* Text content */}
+			{content && content.text[locale] && (
+				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+					{content.text[locale].map((paragraph, index) => (
+						<p key={index} className="text-gray-700 mb-4 last:mb-0">
+							{paragraph}
+						</p>
+					))}
+				</div>
+			)}
+
+			{/* Use cases */}
+			{content && content.useCases[locale] && (
+				<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+			)}
 
 			<LegacyExamplesBlock
 				examples={getExamplesForLegacyTool('add-subtract-percentage')}

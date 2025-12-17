@@ -31,3 +31,6 @@ export function ArticleSchema({ article, canonicalUrl }: ArticleSchemaProps) {
 	)
 }
 
+
+
+

@@ -7,6 +7,7 @@ import {
 	getRecommendedCalculators,
 } from '@/lib/navigation/structure'
 import Link from 'next/link'
+import { CalculatorCard } from '@/components/calculators/calculator-card'
 
 interface CalculatorsPageProps {
 	params: {
@@ -58,20 +59,15 @@ export default async function CalculatorsPage({
 						<h2 className="text-2xl font-semibold text-gray-900 mb-4">
 							Popular Calculators
 						</h2>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 							{popularCalculators.map((calc) => (
-								<Link
+								<CalculatorCard
 									key={calc.id}
-									href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
-									className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
-								>
-									<h3 className="text-xl font-semibold text-gray-900 mb-2">
-										{calc.title}
-									</h3>
-									<p className="text-gray-600 text-sm">
-										{calc.shortDescription}
-									</p>
-								</Link>
+									calculator={calc}
+									locale={locale}
+									isPopular={true}
+									hasStandard={calc.standardIds && calc.standardIds.length > 0}
+								/>
 							))}
 						</div>
 					</div>
@@ -83,20 +79,15 @@ export default async function CalculatorsPage({
 						<h2 className="text-2xl font-semibold text-gray-900 mb-4">
 							New Calculators
 						</h2>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 							{newCalculators.map((calc) => (
-								<Link
+								<CalculatorCard
 									key={calc.id}
-									href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
-									className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
-								>
-									<h3 className="text-xl font-semibold text-gray-900 mb-2">
-										{calc.title}
-									</h3>
-									<p className="text-gray-600 text-sm">
-										{calc.shortDescription}
-									</p>
-								</Link>
+									calculator={calc}
+									locale={locale}
+									isNew={true}
+									hasStandard={calc.standardIds && calc.standardIds.length > 0}
+								/>
 							))}
 						</div>
 					</div>
@@ -108,20 +99,14 @@ export default async function CalculatorsPage({
 						<h2 className="text-2xl font-semibold text-gray-900 mb-4">
 							Recommended for You
 						</h2>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 							{recommendedCalculators.map((calc) => (
-								<Link
+								<CalculatorCard
 									key={calc.id}
-									href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
-									className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
-								>
-									<h3 className="text-xl font-semibold text-gray-900 mb-2">
-										{calc.title}
-									</h3>
-									<p className="text-gray-600 text-sm">
-										{calc.shortDescription}
-									</p>
-								</Link>
+									calculator={calc}
+									locale={locale}
+									hasStandard={calc.standardIds && calc.standardIds.length > 0}
+								/>
 							))}
 						</div>
 					</div>
@@ -145,31 +130,48 @@ export default async function CalculatorsPage({
 					</div>
 				</div>
 
+				{/* Table of Contents by Category */}
+				<div className="mb-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+					<h2 className="text-xl font-semibold text-gray-900 mb-4">
+						Table of Contents
+					</h2>
+					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+						{categories.map((category) => (
+							<a
+								key={category}
+								href={`#category-${category}`}
+								className="text-sm text-blue-600 hover:text-blue-800 hover:underline capitalize"
+							>
+								{category}
+							</a>
+						))}
+					</div>
+				</div>
+
 				{/* Calculators by category */}
 				<div className="space-y-8">
 					{categories.map((category) => {
 						const categoryCalculators = calculatorsByCategory[category]
 						if (categoryCalculators.length === 0) return null
 
+						const popularIds = new Set(popularCalculators.map((c) => c.id))
+						const newIds = new Set(newCalculators.map((c) => c.id))
+
 						return (
-							<div key={category}>
+							<div key={category} id={`category-${category}`}>
 								<h2 className="text-2xl font-semibold text-gray-900 mb-4 capitalize">
 									{category}
 								</h2>
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 									{categoryCalculators.map((calc) => (
-										<Link
+										<CalculatorCard
 											key={calc.id}
-											href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
-											className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
-										>
-											<h3 className="text-xl font-semibold text-gray-900 mb-2">
-												{calc.title}
-											</h3>
-											<p className="text-gray-600 text-sm">
-												{calc.shortDescription}
-											</p>
-										</Link>
+											calculator={calc}
+											locale={locale}
+											isPopular={popularIds.has(calc.id)}
+											isNew={newIds.has(calc.id)}
+											hasStandard={calc.standardIds && calc.standardIds.length > 0}
+										/>
 									))}
 								</div>
 							</div>

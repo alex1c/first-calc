@@ -10,10 +10,18 @@ import { ResultsTable } from '@/components/legacy/results-table'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
 import { LegacyExamplesBlock } from '@/components/legacy/examples-block'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
+import { UseCasesBlock } from '@/components/legacy/use-cases-block'
 import {
 	getFaqForLegacyTool,
 	getExamplesForLegacyTool,
 } from '@/lib/legacy/faqExamples'
+import {
+	getLegacyTitle,
+	getLegacyDescription,
+	getLegacyOgTitle,
+	getLegacyOgDescription,
+	getLegacyContent,
+} from '@/lib/legacy/content'
 
 interface NumbersToWordsPageProps {
 	params: {
@@ -30,9 +38,15 @@ export async function generateMetadata({
 	const singleNumber = parseSingleNumber(slug)
 	const range = parseRange(slug)
 
-	let title = 'Numbers to Words Converter - Calculator Portal'
-	let description =
-		'Convert numbers to words in English. Transform any number from 0 to 999,999,999,999 into its word representation.'
+	// Get base content from module
+	const baseTitle = getLegacyTitle('numbers-to-words', locale)
+	const baseDescription = getLegacyDescription('numbers-to-words', locale)
+	const ogTitle = getLegacyOgTitle('numbers-to-words', locale)
+	const ogDescription = getLegacyOgDescription('numbers-to-words', locale)
+	const content = getLegacyContent('numbers-to-words', locale)
+
+	let title = baseTitle
+	let description = baseDescription
 
 	if (singleNumber !== null) {
 		title = `${singleNumber} in words – number to words converter`
@@ -48,8 +62,18 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords: 'numbers to words, number converter, english, text representation',
+		keywords: content?.keywords[locale]?.join(', ') || 'numbers to words, number converter, english, text representation',
 		robots: shouldIndex ? 'index, follow' : 'noindex, nofollow',
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription,
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: ogTitle,
+			description: ogDescription,
+		},
 		alternates: {
 			languages: {
 				en: `/en/numbers-to-words/${slug.join('/')}`,
@@ -127,6 +151,7 @@ export default function NumbersToWordsPage({
 		}
 
 		const title = `Number ${singleNumber} in words`
+		const content = getLegacyContent('numbers-to-words', locale)
 
 		return (
 			<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
@@ -143,6 +168,22 @@ export default function NumbersToWordsPage({
 						</p>
 					</div>
 				</div>
+
+				{/* Text content */}
+				{content && content.text[locale] && (
+					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+						{content.text[locale].map((paragraph, index) => (
+							<p key={index} className="text-gray-700 mb-4 last:mb-0">
+								{paragraph}
+							</p>
+						))}
+					</div>
+				)}
+
+				{/* Use cases */}
+				{content && content.useCases[locale] && (
+					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				)}
 
 				{/* Examples */}
 				<LegacyExamplesBlock
@@ -188,6 +229,7 @@ export default function NumbersToWordsPage({
 		const numbers = generateRange(range.start, range.end, 200)
 
 		const title = `Numbers from ${range.start} to ${range.end} in words`
+		const content = getLegacyContent('numbers-to-words', locale)
 
 		// Prepare table data
 		const tableData = numbers.map((num) => {
@@ -214,6 +256,22 @@ export default function NumbersToWordsPage({
 					]}
 					data={tableData}
 				/>
+
+				{/* Text content */}
+				{content && content.text[locale] && (
+					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+						{content.text[locale].map((paragraph, index) => (
+							<p key={index} className="text-gray-700 mb-4 last:mb-0">
+								{paragraph}
+							</p>
+						))}
+					</div>
+				)}
+
+				{/* Use cases */}
+				{content && content.useCases[locale] && (
+					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				)}
 
 				{/* Examples */}
 				<LegacyExamplesBlock

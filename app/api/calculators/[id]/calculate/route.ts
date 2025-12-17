@@ -79,15 +79,15 @@ export async function POST(
 			const results = calculator.calculate(processedInputs)
 
 			// Format results
+			const { formatOutputValue } = await import('@/lib/calculators/format')
 			const formattedResults: Record<string, string> = {}
 			calculator.outputs.forEach((output) => {
 				const value = results[output.name]
-				if (output.format) {
-					formattedResults[output.name] = output.format(value)
-				} else {
-					formattedResults[output.name] =
-						value === null ? '—' : String(value)
-				}
+				formattedResults[output.name] = formatOutputValue(
+					value,
+					output.formatType,
+					output.unitLabel,
+				)
 			})
 
 			return NextResponse.json({
@@ -118,4 +118,7 @@ export async function POST(
 		)
 	}
 }
+
+
+
 

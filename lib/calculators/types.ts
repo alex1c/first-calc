@@ -68,7 +68,7 @@ export interface CalculatorOutput {
 	name: string
 	label: string
 	unitLabel?: string
-	format?: (value: number | string | null) => string
+	formatType?: 'number' | 'currency' | 'percentage' | 'default'
 }
 
 /**
@@ -93,6 +93,31 @@ export interface CalculatorDefinition {
 	inputs: CalculatorInput[]
 	outputs: CalculatorOutput[]
 	calculate: CalculatorFunction
+	howToBullets: string[]
+	examples: CalculatorExample[]
+	faq: CalculatorFaqItem[]
+	relatedIds?: string[]
+	standardIds?: string[]
+	meta?: {
+		keywords?: string[]
+		author?: string
+	}
+}
+
+/**
+ * Client-safe calculator definition (without calculate function)
+ * Used for passing calculator data to client components
+ */
+export interface CalculatorDefinitionClient {
+	id: string
+	slug: string
+	category: CalculatorCategory
+	title: string
+	shortDescription: string
+	longDescription?: string
+	locale: CalculatorLocale
+	inputs: CalculatorInput[]
+	outputs: CalculatorOutput[]
 	howToBullets: string[]
 	examples: CalculatorExample[]
 	faq: CalculatorFaqItem[]

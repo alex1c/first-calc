@@ -282,13 +282,26 @@ export function schemaToDefinition(
 
 /**
  * Load calculator schema from JSON file
+ * Note: This function only works on the server side (Node.js environment)
  */
 export async function loadCalculatorSchema(
 	filePath: string,
 ): Promise<CalculatorSchema> {
+	// Check if we're on the server side
+	if (typeof window !== 'undefined') {
+		throw new Error(
+			'loadCalculatorSchema can only be used on the server side',
+		)
+	}
+
 	try {
+		// Dynamic import to ensure this only runs on server
 		const fs = await import('fs/promises')
-		const content = await fs.readFile(filePath, 'utf-8')
+		const path = await import('path')
+		
+		// Resolve path relative to project root
+		const resolvedPath = path.resolve(process.cwd(), filePath)
+		const content = await fs.readFile(resolvedPath, 'utf-8')
 		const schema = JSON.parse(content) as CalculatorSchema
 
 		const validation = validateCalculatorSchema(schema)
@@ -303,4 +316,7 @@ export async function loadCalculatorSchema(
 		)
 	}
 }
+
+
+
 

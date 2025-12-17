@@ -1,7 +1,7 @@
-import type { CalculatorDefinition } from '@/lib/calculators/types'
+import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 
 interface ExamplesBlockProps {
-	calculator: CalculatorDefinition
+	calculator: CalculatorDefinitionClient
 }
 
 /**
@@ -47,4 +47,7 @@ export function ExamplesBlock({ calculator }: ExamplesBlockProps) {
 		</div>
 	)
 }
+
+
+
 

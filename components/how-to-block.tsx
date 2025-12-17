@@ -30,3 +30,6 @@ export function HowToBlock({ title, steps, locale = 'en' }: HowToBlockProps) {
 	)
 }
 
+
+
+

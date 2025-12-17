@@ -6,7 +6,15 @@ import { LegacyPageLayout } from '@/components/legacy/legacy-page-layout'
 import { ErrorDisplay } from '@/components/legacy/error-display'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
+import { UseCasesBlock } from '@/components/legacy/use-cases-block'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import {
+	getLegacyTitle,
+	getLegacyDescription,
+	getLegacyOgTitle,
+	getLegacyOgDescription,
+	getLegacyContent,
+} from '@/lib/legacy/content'
 
 interface FactorsPageProps {
 	params: {
@@ -20,10 +28,24 @@ export async function generateMetadata({
 }: FactorsPageProps): Promise<Metadata> {
 	const { locale, number } = params
 
+	const ogTitle = getLegacyOgTitle('factors', locale)
+	const ogDescription = getLegacyOgDescription('factors', locale)
+	const content = getLegacyContent('factors', locale)
+
 	return {
 		title: `Factors of ${number} – calculator`,
 		description: `Find all factors and prime factorization of ${number}. Calculate divisors and prime factors.`,
-		keywords: 'factors, divisors, prime factorization, number decomposition',
+		keywords: content?.keywords[locale]?.join(', ') || 'factors, divisors, prime factorization, number decomposition',
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription,
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: ogTitle,
+			description: ogDescription,
+		},
 		alternates: {
 			languages: {
 				en: `/en/factors/${number}`,
@@ -62,6 +84,7 @@ export default function FactorsPage({ params }: FactorsPageProps) {
 	const classification = getNumberClassification(parsedNumber)
 	const { getPrimeFactors } = await import('@/lib/factors')
 	const primeFactorsRaw = getPrimeFactors(parsedNumber)
+	const content = getLegacyContent('factors', locale)
 
 	return (
 		<LegacyPageLayout locale={locale} title={`Factors of ${parsedNumber}`} relatedLinks={false}>
@@ -135,6 +158,22 @@ export default function FactorsPage({ params }: FactorsPageProps) {
 					</div>
 				)}
 			</div>
+
+			{/* Text content */}
+			{content && content.text[locale] && (
+				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+					{content.text[locale].map((paragraph, index) => (
+						<p key={index} className="text-gray-700 mb-4 last:mb-0">
+							{paragraph}
+						</p>
+					))}
+				</div>
+			)}
+
+			{/* Use cases */}
+			{content && content.useCases[locale] && (
+				<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+			)}
 
 			<LegacyFaqBlock faq={getFaqForLegacyTool('factors')} />
 			<LegacyRelatedLinks locale={locale} toolType="factors" />

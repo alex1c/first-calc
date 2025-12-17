@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import type { CalculatorDefinition, CalculatorInput } from '@/lib/calculators/types'
+import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 
 interface CalculatorFormProps {
-	calculator: CalculatorDefinition
+	calculator: CalculatorDefinitionClient
 	onCalculate: (inputs: Record<string, number | string>) => void
 	errors: Record<string, string>
 }

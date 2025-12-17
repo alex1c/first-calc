@@ -29,6 +29,13 @@ async function main() {
 		const schemaContent = await fs.readFile(schemaPath, 'utf-8')
 		const schema: CalculatorSchema = JSON.parse(schemaContent)
 
+		// Auto-detect locale from filename if schema.ru.* pattern
+		const filename = path.basename(schemaPath)
+		if (filename.startsWith('schema.ru.') || filename.includes('.ru.')) {
+			schema.locale = 'ru'
+			console.log('✓ Auto-detected locale: ru from filename')
+		}
+
 		// Validate schema
 		const validation = validateCalculatorSchema(schema)
 		if (!validation.valid) {

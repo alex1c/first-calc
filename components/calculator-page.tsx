@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import type { CalculatorDefinition } from '@/lib/calculators/types'
+import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 import { CalculatorForm } from './calculators/calculator-form'
 import { CalculatorResults } from './calculators/calculator-results'
 import { HowToBlock } from './calculators/how-to-block'
@@ -10,15 +10,20 @@ import { FaqBlock } from './calculators/faq-block'
 import { RelatedCalculatorsWrapper } from './calculators/related-calculators-wrapper'
 
 interface CalculatorPageProps {
-	calculator: CalculatorDefinition
+	calculator: CalculatorDefinitionClient
 	locale: string
+	calculatorId: string
 }
 
 /**
  * Main calculator page component
  * Renders calculator in a standardized format with all required blocks
  */
-export function CalculatorPage({ calculator, locale }: CalculatorPageProps) {
+export function CalculatorPage({
+	calculator,
+	locale,
+	calculatorId,
+}: CalculatorPageProps) {
 	const [outputs, setOutputs] = useState<Record<string, number | string | null>>(
 		{},
 	)
@@ -117,7 +122,10 @@ export function CalculatorPage({ calculator, locale }: CalculatorPageProps) {
 					const numValue = value === '' ? 0 : Number(value)
 					// Ensure we have a valid number
 					if (isNaN(numValue) || !Number.isFinite(numValue)) {
-						throw new Error(`Invalid number for ${input.label}`)
+						setErrors({
+							_calculation: `Invalid number for ${input.label}`,
+						})
+						return
 					}
 					value = numValue
 				}
@@ -125,18 +133,36 @@ export function CalculatorPage({ calculator, locale }: CalculatorPageProps) {
 				processedInputs[input.name] = value
 			})
 
-			// Calculate
-			try {
-				const results = calculator.calculate(processedInputs)
-				setOutputs(results)
-			} catch (error) {
-				console.error('Calculation error:', error)
-				setErrors({
-					_calculation: error instanceof Error ? error.message : 'Calculation failed',
+			// Calculate via API
+			fetch(`/api/calculators/${calculatorId}/calculate`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					inputs: processedInputs,
+					locale,
+				}),
+			})
+				.then((response) => {
+					if (!response.ok) {
+						return response.json().then((errorData) => {
+							throw new Error(errorData.error || 'Calculation failed')
+						})
+					}
+					return response.json()
 				})
-			}
+				.then((data) => {
+					setOutputs(data.results)
+				})
+				.catch((error) => {
+					console.error('Calculation error:', error)
+					setErrors({
+						_calculation: error instanceof Error ? error.message : 'Calculation failed',
+					})
+				})
 		},
-		[calculator, validateInput],
+		[calculator, validateInput, calculatorId, locale],
 	)
 
 	return (

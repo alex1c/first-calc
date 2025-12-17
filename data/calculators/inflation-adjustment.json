@@ -1,0 +1,128 @@
+{
+	"id": "inflation-adjustment",
+	"locale": "en",
+	"category": "finance",
+	"slug": "inflation-adjustment",
+	"title": "Inflation Adjustment Calculator",
+	"description": "Adjust monetary values for inflation. Calculate the equivalent value of money from one year to another accounting for inflation.",
+	"inputs": [
+		{
+			"name": "amount",
+			"label": "Amount",
+			"type": "number",
+			"unit": "$",
+			"min": 0,
+			"helpText": "Enter the monetary amount to adjust"
+		},
+		{
+			"name": "startYear",
+			"label": "Start Year",
+			"type": "number",
+			"unit": "",
+			"min": 1900,
+			"max": 2100,
+			"defaultValue": 2000,
+			"helpText": "Enter the year of the original amount"
+		},
+		{
+			"name": "endYear",
+			"label": "End Year",
+			"type": "number",
+			"unit": "",
+			"min": 1900,
+			"max": 2100,
+			"defaultValue": 2024,
+			"helpText": "Enter the target year for adjustment"
+		},
+		{
+			"name": "inflationRate",
+			"label": "Annual Inflation Rate",
+			"type": "number",
+			"unit": "%",
+			"min": 0,
+			"max": 100,
+			"defaultValue": 3,
+			"helpText": "Enter the average annual inflation rate (default: 3%)"
+		}
+	],
+	"outputs": [
+		{
+			"name": "adjustedAmount",
+			"label": "Adjusted Amount",
+			"unit": "$"
+		},
+		{
+			"name": "totalInflation",
+			"label": "Total Inflation",
+			"unit": "%"
+		}
+	],
+	"formula": "(function() { const years = Math.abs(endYear - startYear); const totalInflation = Math.pow(1 + inflationRate / 100, years) - 1; const adjusted = amount * (1 + totalInflation); return { adjustedAmount: adjusted, totalInflation: totalInflation * 100 }; })()",
+	"variables": {
+		"amount": "The original monetary amount",
+		"startYear": "The year of the original amount",
+		"endYear": "The target year for adjustment",
+		"inflationRate": "The average annual inflation rate"
+	},
+	"howTo": [
+		"Enter the monetary amount you want to adjust",
+		"Enter the start year (when the amount was from)",
+		"Enter the end year (target year for adjustment)",
+		"Enter the annual inflation rate (default is 3%)",
+		"Click \"Calculate\" to see the inflation-adjusted amount"
+	],
+	"examples": [
+		{
+			"input": {
+				"amount": 1000,
+				"startYear": 2000,
+				"endYear": 2024,
+				"inflationRate": 3
+			},
+			"result": {
+				"adjustedAmount": 2027.78,
+				"totalInflation": 102.78
+			},
+			"title": "Example 1: $1000 from 2000 to 2024",
+			"description": "Adjust $1000 from year 2000 to 2024 with 3% annual inflation"
+		},
+		{
+			"input": {
+				"amount": 50000,
+				"startYear": 2010,
+				"endYear": 2024,
+				"inflationRate": 2.5
+			},
+			"result": {
+				"adjustedAmount": 69255.47,
+				"totalInflation": 38.51
+			},
+			"title": "Example 2: $50,000 salary adjustment",
+			"description": "Adjust a $50,000 salary from 2010 to 2024"
+		}
+	],
+	"faq": [
+		{
+			"question": "What is inflation adjustment?",
+			"answer": "Inflation adjustment converts a monetary value from one time period to another, accounting for the decrease in purchasing power due to inflation. It shows what an amount from the past would be worth in today's dollars."
+		},
+		{
+			"question": "How is inflation calculated?",
+			"answer": "Inflation is calculated using compound interest formula: Adjusted Amount = Original Amount × (1 + inflation rate)^years. This accounts for inflation compounding over multiple years."
+		},
+		{
+			"question": "What is a typical inflation rate?",
+			"answer": "In developed countries, a typical annual inflation rate is around 2-3%. However, inflation rates vary by country and economic conditions. You can use historical data or current economic forecasts."
+		},
+		{
+			"question": "Why adjust for inflation?",
+			"answer": "Inflation adjustment helps compare the real purchasing power of money across different time periods. It's essential for financial planning, historical analysis, and understanding the true value of investments or salaries."
+		}
+	],
+	"relatedIds": ["roi-calculator", "compound-interest"],
+	"standardIds": [],
+	"meta": {
+		"keywords": ["inflation", "inflation adjustment", "purchasing power", "finance", "money"]
+	}
+}
+

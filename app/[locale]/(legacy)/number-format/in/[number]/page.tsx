@@ -7,7 +7,15 @@ import { ErrorDisplay } from '@/components/legacy/error-display'
 import { ResultsTable } from '@/components/legacy/results-table'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
+import { UseCasesBlock } from '@/components/legacy/use-cases-block'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import {
+	getLegacyTitle,
+	getLegacyDescription,
+	getLegacyOgTitle,
+	getLegacyOgDescription,
+	getLegacyContent,
+} from '@/lib/legacy/content'
 
 interface NumberFormatInPageProps {
 	params: {
@@ -21,10 +29,24 @@ export async function generateMetadata({
 }: NumberFormatInPageProps): Promise<Metadata> {
 	const { locale, number } = params
 
+	const ogTitle = getLegacyOgTitle('number-format', locale)
+	const ogDescription = getLegacyOgDescription('number-format', locale)
+	const content = getLegacyContent('number-format', locale)
+
 	return {
 		title: `Indian Number Format - ${number} – calculator`,
 		description: `Convert ${number} to Indian number format (lakhs and crores). Compare with US format.`,
-		keywords: 'indian number format, lakh, crore, number formatting',
+		keywords: content?.keywords[locale]?.join(', ') || 'indian number format, lakh, crore, number formatting',
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription,
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: ogTitle,
+			description: ogDescription,
+		},
 		alternates: {
 			languages: {
 				en: `/en/number-format/in/${number}`,
@@ -72,6 +94,7 @@ export default function NumberFormatInPage({
 
 	const indianFormat = formatIndianNumber(parsedNumber)
 	const usFormat = new Intl.NumberFormat('en-US').format(parsedNumber)
+	const content = getLegacyContent('number-format', locale)
 
 	return (
 		<LegacyPageLayout locale={locale} title="Indian Number Format" relatedLinks={false}>
@@ -90,24 +113,21 @@ export default function NumberFormatInPage({
 				]}
 			/>
 
-			<div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
-				<h2 className="text-xl font-semibold text-gray-900 mb-3">
-					About Indian Number Format
-				</h2>
-				<p className="text-gray-700 mb-4">
-					The Indian numbering system uses lakhs (100,000) and crores
-					(10,000,000) as grouping units. After the first three digits from
-					the right, numbers are grouped in sets of two digits.
-				</p>
-				<ul className="space-y-2 text-gray-700">
-					<li>
-						<strong>1,00,000</strong> = One Lakh
-					</li>
-					<li>
-						<strong>1,00,00,000</strong> = One Crore
-					</li>
-				</ul>
-			</div>
+			{/* Text content */}
+			{content && content.text[locale] && (
+				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+					{content.text[locale].map((paragraph, index) => (
+						<p key={index} className="text-gray-700 mb-4 last:mb-0">
+							{paragraph}
+						</p>
+					))}
+				</div>
+			)}
+
+			{/* Use cases */}
+			{content && content.useCases[locale] && (
+				<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+			)}
 
 			<LegacyFaqBlock faq={getFaqForLegacyTool('number-format-in')} />
 			<LegacyRelatedLinks locale={locale} toolType="number-format-in" />

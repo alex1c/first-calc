@@ -1,7 +1,7 @@
-import type { CalculatorDefinition } from '@/lib/calculators/types'
+import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 
 interface CalculatorSchemaProps {
-	calculator: CalculatorDefinition
+	calculator: CalculatorDefinitionClient
 	canonicalUrl: string
 }
 
@@ -37,4 +37,7 @@ export function CalculatorSchema({
 		/>
 	)
 }
+
+
+
 

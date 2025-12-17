@@ -10,7 +10,15 @@ import { ErrorDisplay } from '@/components/legacy/error-display'
 import { ResultsTable } from '@/components/legacy/results-table'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
+import { UseCasesBlock } from '@/components/legacy/use-cases-block'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import {
+	getLegacyTitle,
+	getLegacyDescription,
+	getLegacyOgTitle,
+	getLegacyOgDescription,
+	getLegacyContent,
+} from '@/lib/legacy/content'
 
 interface RomanNumeralsConverterPageProps {
 	params: {
@@ -27,9 +35,15 @@ export async function generateMetadata({
 	const romanParsed = parseRoman(slug)
 	const range = parseRange(slug)
 
-	let title = 'Roman Numerals Converter - Calculator Portal'
-	let description =
-		'Convert between Arabic numbers and Roman numerals. Supports numbers from 1 to 3999 with bidirectional conversion.'
+	// Get base content from module
+	const baseTitle = getLegacyTitle('roman-numerals-converter', locale)
+	const baseDescription = getLegacyDescription('roman-numerals-converter', locale)
+	const ogTitle = getLegacyOgTitle('roman-numerals-converter', locale)
+	const ogDescription = getLegacyOgDescription('roman-numerals-converter', locale)
+	const content = getLegacyContent('roman-numerals-converter', locale)
+
+	let title = baseTitle
+	let description = baseDescription
 
 	if (romanParsed) {
 		if (romanParsed.roman) {
@@ -60,8 +74,18 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords: 'roman numerals, arabic numbers, converter, I V X L C D M',
+		keywords: content?.keywords[locale]?.join(', ') || 'roman numerals, arabic numbers, converter, I V X L C D M',
 		robots: shouldIndex ? 'index, follow' : 'noindex, nofollow',
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription,
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: ogTitle,
+			description: ogDescription,
+		},
 		alternates: {
 			languages: {
 				en: `/en/roman-numerals-converter/${slug.join('/')}`,
@@ -113,6 +137,7 @@ export default function RomanNumeralsConverterPage({
 
 		const numbers = generateRange(range.start, range.end, 200)
 		const title = `Roman numerals from ${range.start} to ${range.end}`
+		const content = getLegacyContent('roman-numerals-converter', locale)
 
 		const tableData = numbers.map((num) => {
 			try {
@@ -138,6 +163,22 @@ export default function RomanNumeralsConverterPage({
 					]}
 					data={tableData}
 				/>
+
+				{/* Text content */}
+				{content && content.text[locale] && (
+					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+						{content.text[locale].map((paragraph, index) => (
+							<p key={index} className="text-gray-700 mb-4 last:mb-0">
+								{paragraph}
+							</p>
+						))}
+					</div>
+				)}
+
+				{/* Use cases */}
+				{content && content.useCases[locale] && (
+					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				)}
 
 				<LegacyFaqBlock faq={getFaqForLegacyTool('roman-numerals-converter')} />
 
@@ -233,6 +274,8 @@ export default function RomanNumeralsConverterPage({
 		}
 	}
 
+	const content = getLegacyContent('roman-numerals-converter', locale)
+
 	return (
 		<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
 			{/* Result block */}
@@ -252,6 +295,22 @@ export default function RomanNumeralsConverterPage({
 					</div>
 				</div>
 			</div>
+
+			{/* Text content */}
+			{content && content.text[locale] && (
+				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+					{content.text[locale].map((paragraph, index) => (
+						<p key={index} className="text-gray-700 mb-4 last:mb-0">
+							{paragraph}
+						</p>
+					))}
+				</div>
+			)}
+
+			{/* Use cases */}
+			{content && content.useCases[locale] && (
+				<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+			)}
 
 			<LegacyFaqBlock faq={getFaqForLegacyTool('roman-numerals-converter')} />
 

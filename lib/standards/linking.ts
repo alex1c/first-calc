@@ -15,13 +15,11 @@ export async function getCalculatorsByStandard(
 /**
  * Get standards for a specific calculator
  */
-export function getStandardsForCalculator(
+export async function getStandardsForCalculator(
 	calculatorId: string,
 	locale: string = 'en',
-): string[] {
-	const calculator = calculators.find(
-		(calc) => calc.id === calculatorId && calc.locale === locale,
-	)
+): Promise<string[]> {
+	const calculator = await calculatorRegistry.getById(calculatorId, locale)
 	return calculator?.standardIds || []
 }
 

@@ -141,3 +141,6 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 	return toolMap[type] || []
 }
 
+
+
+

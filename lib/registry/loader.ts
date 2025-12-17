@@ -313,3 +313,6 @@ export const articleRegistry = {
 	getAll: (locale: string = 'en') => getArticleLoader().getAll(locale),
 }
 
+
+
+

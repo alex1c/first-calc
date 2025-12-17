@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import type { CalculatorDefinition } from '@/lib/calculators/types'
+import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 
 interface FaqBlockProps {
-	calculator: CalculatorDefinition
+	calculator: CalculatorDefinitionClient
 }
 
 /**
@@ -74,4 +74,7 @@ export function FaqBlock({ calculator }: FaqBlockProps) {
 		</div>
 	)
 }
+
+
+
 

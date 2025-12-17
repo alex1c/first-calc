@@ -1,0 +1,107 @@
+{
+	"id": "lcm",
+	"locale": "en",
+	"category": "math",
+	"slug": "lcm",
+	"title": "LCM Calculator - Least Common Multiple",
+	"description": "Calculate the Least Common Multiple (LCM) of two or more numbers. Find the smallest number that is a multiple of all given numbers.",
+	"inputs": [
+		{
+			"name": "a",
+			"label": "First Number",
+			"type": "number",
+			"unit": "",
+			"min": 1,
+			"helpText": "Enter the first positive integer"
+		},
+		{
+			"name": "b",
+			"label": "Second Number",
+			"type": "number",
+			"unit": "",
+			"min": 1,
+			"helpText": "Enter the second positive integer"
+		}
+	],
+	"outputs": [
+		{
+			"name": "result",
+			"label": "LCM",
+			"unit": ""
+		}
+	],
+	"formula": "(function() { const gcd = (a, b) => b === 0 ? a : gcd(b, a % b); const lcm = (a, b) => Math.abs(a * b) / gcd(a, b); return lcm(Math.abs(Math.round(a)), Math.abs(Math.round(b))); })()",
+	"variables": {
+		"a": "First number",
+		"b": "Second number"
+	},
+	"howTo": [
+		"Enter the first positive integer",
+		"Enter the second positive integer",
+		"Click \"Calculate\" to find the LCM",
+		"The result shows the least common multiple of the two numbers"
+	],
+	"examples": [
+		{
+			"input": {
+				"a": 4,
+				"b": 6
+			},
+			"result": {
+				"result": 12
+			},
+			"title": "Example 1: LCM of 4 and 6",
+			"description": "Calculate LCM(4, 6) = 12"
+		},
+		{
+			"input": {
+				"a": 15,
+				"b": 20
+			},
+			"result": {
+				"result": 60
+			},
+			"title": "Example 2: LCM of 15 and 20",
+			"description": "Calculate LCM(15, 20) = 60"
+		},
+		{
+			"input": {
+				"a": 7,
+				"b": 11
+			},
+			"result": {
+				"result": 77
+			},
+			"title": "Example 3: LCM of 7 and 11 (prime numbers)",
+			"description": "Calculate LCM(7, 11) = 77"
+		}
+	],
+	"faq": [
+		{
+			"question": "What is LCM?",
+			"answer": "LCM (Least Common Multiple) is the smallest positive integer that is a multiple of two or more numbers. It's useful for finding common denominators in fractions and solving various mathematical problems."
+		},
+		{
+			"question": "How is LCM calculated?",
+			"answer": "LCM can be calculated using the formula: LCM(a, b) = |a × b| / GCD(a, b), where GCD is the Greatest Common Divisor. This calculator uses this efficient method."
+		},
+		{
+			"question": "What's the relationship between GCD and LCM?",
+			"answer": "For any two numbers a and b: GCD(a, b) × LCM(a, b) = |a × b|. This relationship allows efficient calculation of one when you know the other."
+		},
+		{
+			"question": "Can I find LCM of more than two numbers?",
+			"answer": "Yes, you can find LCM of multiple numbers by finding LCM of the first two, then LCM of that result with the third number, and so on."
+		},
+		{
+			"question": "When is LCM used?",
+			"answer": "LCM is commonly used when adding or subtracting fractions with different denominators, finding common periods in repeating patterns, and solving problems involving multiples."
+		}
+	],
+	"relatedIds": ["gcd", "factors", "exponent"],
+	"standardIds": [],
+	"meta": {
+		"keywords": ["lcm", "least common multiple", "math", "calculation"]
+	}
+}
+

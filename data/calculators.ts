@@ -52,15 +52,7 @@ export const calculators: CalculatorDefinition[] = [
 			{
 				name: 'result',
 				label: 'Result',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('en-US', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'number',
 			},
 		],
 		calculate: calculatePercentageOfNumber,
@@ -182,15 +174,7 @@ export const calculators: CalculatorDefinition[] = [
 			{
 				name: 'result',
 				label: 'Result',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('en-US', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'number',
 			},
 		],
 		calculate: calculateAddPercentage,
@@ -296,15 +280,7 @@ export const calculators: CalculatorDefinition[] = [
 			{
 				name: 'result',
 				label: 'Result',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('en-US', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'number',
 			},
 		],
 		calculate: calculateSubtractPercentage,
@@ -427,43 +403,19 @@ export const calculators: CalculatorDefinition[] = [
 				name: 'monthlyPayment',
 				label: 'Monthly Payment',
 				unitLabel: '$',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('en-US', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'currency',
 			},
 			{
 				name: 'totalPayment',
 				label: 'Total Payment',
 				unitLabel: '$',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('en-US', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'currency',
 			},
 			{
 				name: 'totalInterest',
 				label: 'Total Interest',
 				unitLabel: '$',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('en-US', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'currency',
 			},
 		],
 		calculate: calculateLoanPayment,
@@ -617,29 +569,13 @@ export const calculators: CalculatorDefinition[] = [
 				name: 'finalAmount',
 				label: 'Final Amount',
 				unitLabel: '$',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('en-US', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'currency',
 			},
 			{
 				name: 'totalInterest',
 				label: 'Total Interest Earned',
 				unitLabel: '$',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('en-US', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'currency',
 			},
 		],
 		calculate: calculateCompoundInterest,
@@ -759,15 +695,7 @@ export const calculators: CalculatorDefinition[] = [
 			{
 				name: 'result',
 				label: 'Результат',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('ru-RU', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'number',
 			},
 		],
 		calculate: calculatePercentageOfNumber,
@@ -883,43 +811,19 @@ export const calculators: CalculatorDefinition[] = [
 				name: 'monthlyPayment',
 				label: 'Ежемесячный платеж',
 				unitLabel: '₽',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('ru-RU', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'number',
 			},
 			{
 				name: 'totalPayment',
 				label: 'Общая сумма выплат',
 				unitLabel: '₽',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('ru-RU', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'number',
 			},
 			{
 				name: 'totalInterest',
 				label: 'Общая сумма процентов',
 				unitLabel: '₽',
-				format: (value) => {
-					if (value === null) return '—'
-					return typeof value === 'number'
-						? value.toLocaleString('ru-RU', {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})
-						: String(value)
-				},
+				formatType: 'number',
 			},
 		],
 		calculate: calculateLoanPayment,

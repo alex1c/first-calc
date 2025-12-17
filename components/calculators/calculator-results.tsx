@@ -1,7 +1,8 @@
-import type { CalculatorDefinition, CalculatorOutput } from '@/lib/calculators/types'
+import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
+import { formatOutputValue } from '@/lib/calculators/format'
 
 interface CalculatorResultsProps {
-	calculator: CalculatorDefinition
+	calculator: CalculatorDefinitionClient
 	outputs: Record<string, number | string | null>
 }
 
@@ -23,11 +24,11 @@ export function CalculatorResults({
 			<div className="space-y-4">
 				{calculator.outputs.map((output) => {
 					const value = outputs[output.name]
-					const formattedValue = output.format
-						? output.format(value)
-						: value === null
-							? '—'
-							: String(value)
+					const formattedValue = formatOutputValue(
+						value,
+						output.formatType,
+						output.unitLabel,
+					)
 
 					return (
 						<div
@@ -52,4 +53,7 @@ export function CalculatorResults({
 		</div>
 	)
 }
+
+
+
 

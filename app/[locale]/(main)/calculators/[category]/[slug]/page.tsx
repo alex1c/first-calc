@@ -2,8 +2,10 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { locales, type Locale } from '@/lib/i18n'
 import { getCalculatorBySlug } from '@/lib/calculators/loader'
+import { calculatorRegistry } from '@/lib/registry/loader'
 import { CalculatorPage } from '@/components/calculator-page'
 import { CalculatorSchema } from '@/components/schema/calculator-schema'
+import { toClientDefinition } from '@/lib/calculators/client'
 
 interface CalculatorRoutePageProps {
 	params: {
@@ -52,7 +54,7 @@ export async function generateMetadata({
 	}
 }
 
-export default function CalculatorRoutePage({
+export default async function CalculatorRoutePage({
 	params,
 }: CalculatorRoutePageProps) {
 	const { locale, category, slug } = params
@@ -71,10 +73,17 @@ export default function CalculatorRoutePage({
 
 	const canonicalUrl = `https://first-calc.com/${locale}/calculators/${category}/${slug}`
 
+	// Convert to client-safe version (remove calculate function)
+	const clientCalculator = toClientDefinition(calculator)
+
 	return (
 		<>
-			<CalculatorSchema calculator={calculator} canonicalUrl={canonicalUrl} />
-			<CalculatorPage calculator={calculator} locale={locale} />
+			<CalculatorSchema calculator={clientCalculator} canonicalUrl={canonicalUrl} />
+			<CalculatorPage
+				calculator={clientCalculator}
+				locale={locale}
+				calculatorId={calculator.id}
+			/>
 		</>
 	)
 }
