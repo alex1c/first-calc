@@ -1,10 +1,15 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { locales, type Locale } from '@/lib/i18n'
+import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { articleRegistry, calculatorRegistry, standardRegistry } from '@/lib/registry/loader'
 import { generateFaq } from '@/lib/faq/generator'
 import { ArticleSchema } from '@/components/schema/article-schema'
 import Link from 'next/link'
+import { Breadcrumbs } from '@/components/navigation/breadcrumbs'
+import { getLearnBreadcrumbs } from '@/lib/navigation/breadcrumbs'
+
+// Declare required namespaces for this page
+const namespaces = ['common', 'navigation'] as const
 
 interface ArticlePageProps {
 	params: {
@@ -79,17 +84,19 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 	const faqItems = generateFaq(article.title, locale)
 	const canonicalUrl = `https://first-calc.com/${locale}/learn/${slug}`
 
+	// Load translations
+	const dict = await loadNamespaces(locale, namespaces)
+	const t = createT(dict)
+
+	// Generate breadcrumbs
+	const breadcrumbs = getLearnBreadcrumbs(locale, slug, article.title, t)
+
 	return (
 		<>
 			<ArticleSchema article={article} canonicalUrl={canonicalUrl} />
 			<div className="min-h-screen bg-gray-50">
 			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				<Link
-					href={`/${locale}/learn`}
-					className="text-blue-600 hover:text-blue-800 mb-4 inline-block"
-				>
-					← Back to Learn
-				</Link>
+				<Breadcrumbs items={breadcrumbs} className="mb-4" />
 
 				{/* Header */}
 				<h1 className="text-4xl font-bold text-gray-900 mb-4">

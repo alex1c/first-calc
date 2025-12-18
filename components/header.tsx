@@ -2,19 +2,62 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { locales, type Locale } from '@/lib/i18n'
 
-// Navigation menu items
+// Navigation menu items (will be replaced with i18n in server component)
 const menuItems = [
-	{ href: '/calculators', label: 'Calculators' },
-	{ href: '/standards', label: 'Standards' },
-	{ href: '/tools', label: 'Tools' },
-	{ href: '/learn', label: 'Learn' },
-	{ href: '/api', label: 'API' },
-	{ href: '/about', label: 'About' },
-	{ href: '/contact', label: 'Contact' },
+	{ href: '/calculators', key: 'calculators' },
+	{ href: '/standards', key: 'standards' },
+	{ href: '/tools', key: 'tools' },
+	{ href: '/learn', key: 'learn' },
+	{ href: '/api', key: 'api' },
+	{ href: '/about', key: 'about' },
+	{ href: '/contact', key: 'contact' },
 ]
+
+// Client-side translation hook (simplified - in production, use proper i18n context)
+function useClientTranslations(locale: Locale) {
+	const [dict, setDict] = useState<Record<string, any>>({})
+
+	useEffect(() => {
+		// Load navigation namespace on client
+		import(`@/locales/${locale}/navigation.json`)
+			.then((module) => {
+				setDict(module.default || module)
+			})
+			.catch(() => {
+				// Fallback to English
+				import(`@/locales/en/navigation.json`)
+					.then((module) => {
+						setDict(module.default || module)
+					})
+					.catch(() => {
+						// Use fallback labels
+						setDict({
+							menu: {
+								calculators: 'Calculators',
+								standards: 'Standards',
+								tools: 'Tools',
+								learn: 'Learn',
+								api: 'API',
+								about: 'About',
+								contact: 'Contact',
+							},
+						})
+					})
+			})
+	}, [locale])
+
+	return (key: string) => {
+		const keys = key.split('.')
+		let value: any = dict
+		for (const k of keys) {
+			value = value?.[k]
+		}
+		return typeof value === 'string' ? value : key
+	}
+}
 
 export function Header() {
 	const pathname = usePathname()
@@ -28,6 +71,9 @@ export function Header() {
 		(pathSegments[0] && locales.includes(pathSegments[0] as Locale))
 			? (pathSegments[0] as Locale)
 			: 'en'
+
+	// Load translations
+	const t = useClientTranslations(currentLocale)
 
 	// Get path without locale for navigation
 	const getLocalizedPath = (path: string) => {
@@ -64,7 +110,7 @@ export function Header() {
 								href={getLocalizedPath(item.href)}
 								className="text-gray-700 hover:text-gray-900 transition-colors"
 							>
-								{item.label}
+								{t(`menu.${item.key}`)}
 							</Link>
 						))}
 					</nav>
@@ -76,7 +122,7 @@ export function Header() {
 								type="text"
 								value={searchQuery}
 								onChange={(e) => setSearchQuery(e.target.value)}
-								placeholder="Search..."
+								placeholder={t('calculators/ui.search.placeholder') || 'Search...'}
 								className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 							/>
 							<button

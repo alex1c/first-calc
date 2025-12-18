@@ -1,106 +1,58 @@
 {
-	"id": "inflation-adjustment",
-	"locale": "ru",
-	"category": "finance",
-	"slug": "inflation-adjustment",
-	"title": "Калькулятор инфляции",
-	"description": "Скорректируйте денежные значения с учетом инфляции. Вычислите эквивалентную стоимость денег от одного года к другому с учетом инфляции.",
-	"inputs": [
-		{
-			"name": "amount",
-			"label": "Сумма",
-			"type": "number",
-			"unit": "₽",
-			"min": 0,
-			"helpText": "Введите денежную сумму для корректировки"
-		},
-		{
-			"name": "startYear",
-			"label": "Начальный год",
-			"type": "number",
-			"unit": "",
-			"min": 1900,
-			"max": 2100,
-			"defaultValue": 2000,
-			"helpText": "Введите год исходной суммы"
-		},
-		{
-			"name": "endYear",
-			"label": "Конечный год",
-			"type": "number",
-			"unit": "",
-			"min": 1900,
-			"max": 2100,
-			"defaultValue": 2024,
-			"helpText": "Введите целевой год для корректировки"
-		},
-		{
-			"name": "inflationRate",
-			"label": "Годовая инфляция",
-			"type": "number",
-			"unit": "%",
-			"min": 0,
-			"max": 100,
-			"defaultValue": 3,
-			"helpText": "Введите среднюю годовую инфляцию (по умолчанию: 3%)"
-		}
-	],
-	"outputs": [
-		{
-			"name": "adjustedAmount",
-			"label": "Скорректированная сумма",
-			"unit": "₽"
-		},
-		{
-			"name": "totalInflation",
-			"label": "Общая инфляция",
-			"unit": "%"
-		}
-	],
-	"formula": "(function() { const years = Math.abs(endYear - startYear); const totalInflation = Math.pow(1 + inflationRate / 100, years) - 1; const adjusted = amount * (1 + totalInflation); return { adjustedAmount: adjusted, totalInflation: totalInflation * 100 }; })()",
-	"variables": {
-		"amount": "Исходная денежная сумма",
-		"startYear": "Год исходной суммы",
-		"endYear": "Целевой год для корректировки",
-		"inflationRate": "Средняя годовая инфляция"
-	},
-	"howTo": [
-		"Введите денежную сумму, которую хотите скорректировать",
-		"Введите начальный год (когда была сумма)",
-		"Введите конечный год (целевой год для корректировки)",
-		"Введите годовую инфляцию (по умолчанию 3%)",
-		"Нажмите \"Вычислить\" для просмотра суммы с учетом инфляции"
-	],
-	"examples": [
-		{
-			"input": {
-				"amount": 1000,
-				"startYear": 2000,
-				"endYear": 2024,
-				"inflationRate": 3
-			},
-			"result": {
-				"adjustedAmount": 2027.78,
-				"totalInflation": 102.78
-			},
-			"title": "Пример 1: 1000₽ с 2000 по 2024 год",
-			"description": "Скорректируйте 1000₽ с 2000 по 2024 год с инфляцией 3% в год"
-		}
-	],
-	"faq": [
-		{
-			"question": "Что такое корректировка на инфляцию?",
-			"answer": "Корректировка на инфляцию преобразует денежную стоимость из одного временного периода в другой, учитывая снижение покупательной способности из-за инфляции. Она показывает, сколько бы стоила сумма из прошлого в сегодняшних деньгах."
-		},
-		{
-			"question": "Как вычисляется инфляция?",
-			"answer": "Инфляция вычисляется по формуле сложных процентов: Скорректированная сумма = Исходная сумма × (1 + инфляция)^годы. Это учитывает накопление инфляции за несколько лет."
-		}
-	],
-	"relatedIds": ["roi-calculator", "compound-interest"],
-	"standardIds": [],
-	"meta": {
-		"keywords": ["инфляция", "корректировка инфляции", "покупательная способность", "финансы", "деньги"]
-	}
+  "id": "inflation-adjustment",
+  "category": "finance",
+  "slug": "inflation-adjustment",
+  "inputs": [
+    {
+      "name": "amount",
+      "type": "number",
+      "unit": "₽",
+      "min": 0
+    },
+    {
+      "name": "startYear",
+      "type": "number",
+      "unit": "",
+      "min": 1900,
+      "max": 2100,
+      "defaultValue": 2000
+    },
+    {
+      "name": "endYear",
+      "type": "number",
+      "unit": "",
+      "min": 1900,
+      "max": 2100,
+      "defaultValue": 2024
+    },
+    {
+      "name": "inflationRate",
+      "type": "number",
+      "unit": "%",
+      "min": 0,
+      "max": 100,
+      "defaultValue": 3
+    }
+  ],
+  "outputs": [
+    {
+      "name": "adjustedAmount"
+    },
+    {
+      "name": "totalInflation"
+    }
+  ],
+  "formula": "(function() { const years = Math.abs(endYear - startYear); const totalInflation = Math.pow(1 + inflationRate / 100, years) - 1; const adjusted = amount * (1 + totalInflation); return { adjustedAmount: adjusted, totalInflation: totalInflation * 100 }; })()",
+  "variables": {
+    "amount": "Исходная денежная сумма",
+    "startYear": "Год исходной суммы",
+    "endYear": "Целевой год для корректировки",
+    "inflationRate": "Средняя годовая инфляция"
+  },
+  "relatedIds": [
+    "roi-calculator",
+    "compound-interest"
+  ],
+  "standardIds": []
 }
 

@@ -1,91 +1,28 @@
 {
-	"id": "square-root",
-	"locale": "en",
-	"category": "math",
-	"slug": "square-root",
-	"title": "Square Root Calculator",
-	"description": "Calculate the square root of any number. Find the square root of positive numbers with precision.",
-	"inputs": [
-		{
-			"name": "number",
-			"label": "Number",
-			"type": "number",
-			"unit": "",
-			"min": 0,
-			"helpText": "Enter a positive number to find its square root"
-		}
-	],
-	"outputs": [
-		{
-			"name": "result",
-			"label": "Square Root",
-			"unit": ""
-		}
-	],
-	"formula": "Math.sqrt(number)",
-	"variables": {
-		"number": "The number to find the square root of"
-	},
-	"howTo": [
-		"Enter a positive number in the input field",
-		"Click \"Calculate\" to compute the square root",
-		"The result shows the square root of the entered number",
-		"For negative numbers, the result will be NaN (Not a Number)"
-	],
-	"examples": [
-		{
-			"input": {
-				"number": 16
-			},
-			"result": {
-				"result": 4
-			},
-			"title": "Example 1: Square root of 16",
-			"description": "Calculate the square root of 16"
-		},
-		{
-			"input": {
-				"number": 25
-			},
-			"result": {
-				"result": 5
-			},
-			"title": "Example 2: Square root of 25",
-			"description": "Calculate the square root of 25"
-		},
-		{
-			"input": {
-				"number": 2
-			},
-			"result": {
-				"result": 1.4142135623730951
-			},
-			"title": "Example 3: Square root of 2",
-			"description": "Calculate the square root of 2 (irrational number)"
-		}
-	],
-	"faq": [
-		{
-			"question": "What is a square root?",
-			"answer": "A square root of a number is a value that, when multiplied by itself, gives the original number. For example, the square root of 16 is 4 because 4 × 4 = 16."
-		},
-		{
-			"question": "Can I calculate the square root of negative numbers?",
-			"answer": "No, the square root of a negative number is not a real number. In mathematics, this is represented as an imaginary number, but this calculator only works with real numbers (non-negative values)."
-		},
-		{
-			"question": "What is the square root of 0?",
-			"answer": "The square root of 0 is 0, because 0 × 0 = 0."
-		},
-		{
-			"question": "How accurate are the results?",
-			"answer": "The calculator uses JavaScript's Math.sqrt() function, which provides high precision results for most practical purposes."
-		}
-	],
-	"relatedIds": ["cube-root", "exponent", "area-rectangle"],
-	"standardIds": [],
-	"meta": {
-		"keywords": ["square root", "sqrt", "radical", "math", "calculation"]
-	}
+  "id": "square-root",
+  "category": "math",
+  "slug": "square-root",
+  "inputs": [
+    {
+      "name": "number",
+      "type": "number",
+      "unit": "",
+      "min": 0
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result"
+    }
+  ],
+  "formula": "Math.sqrt(number)",
+  "variables": {
+    "number": "The number to find the square root of"
+  },
+  "relatedIds": [
+    "cube-root",
+    "exponent",
+    "area-rectangle"
+  ],
+  "standardIds": []
 }
-

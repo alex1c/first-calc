@@ -1,0 +1,36 @@
+{
+	"title": "Eurocode 1: Actions on structures",
+	"shortDescription": "European standard for determining actions on structures, including loads and impacts.",
+	"longDescription": "Eurocode 1 provides design values of actions (imposed loads) for buildings and civil engineering works. It covers permanent actions, variable actions, accidental actions, and seismic actions.",
+	"formulas": [
+		{
+			"title": "Design value of actions",
+			"formula": "F_d = γ_F × F_k",
+			"description": "Where F_d is the design value, γ_F is the partial factor, and F_k is the characteristic value"
+		},
+		{
+			"title": "Combination of actions",
+			"formula": "Σ(γ_G × G_k + γ_Q × Q_k)",
+			"description": "Combination of permanent (G) and variable (Q) actions with their respective partial factors"
+		}
+	],
+	"tables": [
+		{
+			"title": "Partial safety factors for actions",
+			"rows": [
+				["Action type", "Permanent (γ_G)", "Variable (γ_Q)"],
+				["Unfavorable", "1.35", "1.5"],
+				["Favorable", "1.0", "0"]
+			],
+			"description": "Partial safety factors according to Eurocode 1"
+		}
+	],
+	"seo": {
+		"title": "Eurocode 1 Standard - Calculator Portal",
+		"description": "Learn about Eurocode 1: Actions on structures. European standard for structural engineering loads and impacts.",
+		"keywords": ["eurocode", "structural engineering", "loads", "actions", "CEN"]
+	}
+}
+
+
+

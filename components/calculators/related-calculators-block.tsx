@@ -41,6 +41,8 @@ export async function RelatedCalculatorsBlock({
 		return null
 	}
 
+	// Note: Translation should be passed from parent or loaded via context
+	// For now, using hardcoded English (will be replaced with i18n)
 	return (
 		<div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
 			<h2 className="text-2xl font-semibold text-gray-900 mb-4">

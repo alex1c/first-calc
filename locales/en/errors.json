@@ -1,0 +1,27 @@
+{
+	"validation": {
+		"required": "{field} is required",
+		"invalidNumber": "{field} must be a valid number",
+		"min": "{field} must be at least {min}",
+		"max": "{field} must be at most {max}",
+		"negative": "{field} cannot be negative",
+		"invalidValue": "Invalid value for {field}"
+	},
+	"calculation": {
+		"failed": "Calculation failed",
+		"invalidInput": "Invalid number for {field}",
+		"error": "An error occurred during calculation"
+	},
+	"notFound": {
+		"title": "Page Not Found",
+		"description": "The page you are looking for does not exist.",
+		"back": "Go back to home"
+	},
+	"serverError": {
+		"title": "Server Error",
+		"description": "Something went wrong on our end."
+	}
+}
+
+
+

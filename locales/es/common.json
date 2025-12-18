@@ -1,0 +1,29 @@
+{
+	"button": {
+		"calculate": "Calcular",
+		"search": "Buscar",
+		"submit": "Enviar",
+		"cancel": "Cancelar",
+		"close": "Cerrar",
+		"save": "Guardar",
+		"edit": "Editar",
+		"delete": "Eliminar"
+	},
+	"label": {
+		"results": "Resultados",
+		"examples": "Ejemplos",
+		"faq": "Preguntas Frecuentes",
+		"howTo": "Cómo Calcular",
+		"related": "Calculadoras Relacionadas",
+		"loading": "Cargando...",
+		"noResults": "No se encontraron resultados",
+		"search": "Buscar"
+	},
+	"message": {
+		"required": "Este campo es obligatorio",
+		"invalid": "Valor inválido",
+		"success": "Éxito",
+		"error": "Ocurrió un error"
+	}
+}
+

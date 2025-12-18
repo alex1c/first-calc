@@ -1,0 +1,29 @@
+{
+	"button": {
+		"calculate": "Calculate",
+		"search": "Search",
+		"submit": "Submit",
+		"cancel": "Cancel",
+		"close": "Close",
+		"save": "Save",
+		"edit": "Edit",
+		"delete": "Delete"
+	},
+	"label": {
+		"results": "Results",
+		"examples": "Examples",
+		"faq": "Frequently Asked Questions",
+		"howTo": "How to Calculate",
+		"related": "Related Calculators",
+		"loading": "Loading...",
+		"noResults": "No results found",
+		"search": "Search"
+	},
+	"message": {
+		"required": "This field is required",
+		"invalid": "Invalid value",
+		"success": "Success",
+		"error": "An error occurred"
+	}
+}
+

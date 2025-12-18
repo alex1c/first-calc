@@ -46,25 +46,25 @@ export function getPercentageSteps(
 		steps.push(`Step 1: ${percent}% of ${value}`)
 		steps.push(`Step 2: (${value} × ${percent}) / 100`)
 		const calculation = (value * percent) / 100
-		steps.push(`Step 3: ${value * percent} / 100 = ${calculation.toFixed(2)}`)
-		steps.push(`Result: ${calculation.toFixed(2)}`)
+		steps.push(`Step 3: ${value * percent} / 100 = ${calculation.toFixed(6)}`)
+		steps.push(`Result: ${calculation.toFixed(6)}`)
 	} else if (operation === 'add') {
 		steps.push(`Step 1: Original value: ${value}`)
 		steps.push(`Step 2: Calculate ${percent}% of ${value}`)
 		const percentage = (value * percent) / 100
-		steps.push(`Step 3: ${percent}% of ${value} = ${percentage.toFixed(2)}`)
+		steps.push(`Step 3: ${percent}% of ${value} = ${percentage.toFixed(6)}`)
 		const result = value + percentage
-		steps.push(`Step 4: ${value} + ${percentage.toFixed(2)} = ${result.toFixed(2)}`)
-		steps.push(`Result: ${result.toFixed(2)}`)
+		steps.push(`Step 4: ${value} + ${percentage.toFixed(6)} = ${result.toFixed(6)}`)
+		steps.push(`Result: ${result.toFixed(6)}`)
 	} else {
 		// subtract
 		steps.push(`Step 1: Original value: ${value}`)
 		steps.push(`Step 2: Calculate ${percent}% of ${value}`)
 		const percentage = (value * percent) / 100
-		steps.push(`Step 3: ${percent}% of ${value} = ${percentage.toFixed(2)}`)
+		steps.push(`Step 3: ${percent}% of ${value} = ${percentage.toFixed(6)}`)
 		const result = value - percentage
-		steps.push(`Step 4: ${value} - ${percentage.toFixed(2)} = ${result.toFixed(2)}`)
-		steps.push(`Result: ${result.toFixed(2)}`)
+		steps.push(`Step 4: ${value} - ${percentage.toFixed(6)} = ${result.toFixed(6)}`)
+		steps.push(`Result: ${result.toFixed(6)}`)
 	}
 
 	return steps

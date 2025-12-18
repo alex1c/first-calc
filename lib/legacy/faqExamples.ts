@@ -14,6 +14,7 @@ import {
 	getFaqForFactors,
 	getFaqForIndianFormat,
 	getFaqForRange,
+	getFaqForRootCalculator,
 } from './contentGenerators'
 
 /**
@@ -29,6 +30,7 @@ export function getFaqForLegacyTool(type: string): FAQItem[] {
 		factors: getFaqForFactors,
 		'number-format-in': getFaqForIndianFormat,
 		range: getFaqForRange,
+		'root-calculator': getFaqForRootCalculator,
 	}
 
 	const getter = faqMap[type]
@@ -49,6 +51,8 @@ export function getExamplesForLegacyTool(type: string): Example[] {
 	const getter = examplesMap[type]
 	return getter ? getter() : []
 }
+
+
 
 
 

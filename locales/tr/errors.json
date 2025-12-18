@@ -1,0 +1,27 @@
+{
+	"validation": {
+		"required": "{field} zorunludur",
+		"invalidNumber": "{field} geçerli bir sayı olmalıdır",
+		"min": "{field} en az {min} olmalıdır",
+		"max": "{field} en fazla {max} olmalıdır",
+		"negative": "{field} negatif olamaz",
+		"invalidValue": "{field} için geçersiz değer"
+	},
+	"calculation": {
+		"failed": "Hesaplama başarısız",
+		"invalidInput": "{field} için geçersiz sayı",
+		"error": "Hesaplama sırasında bir hata oluştu"
+	},
+	"notFound": {
+		"title": "Sayfa Bulunamadı",
+		"description": "Aradığınız sayfa mevcut değil.",
+		"back": "Ana sayfaya dön"
+	},
+	"serverError": {
+		"title": "Sunucu Hatası",
+		"description": "Bizim tarafımızda bir şeyler ters gitti."
+	}
+}
+
+
+

@@ -1,0 +1,27 @@
+{
+	"validation": {
+		"required": "{field} आवश्यक है",
+		"invalidNumber": "{field} एक वैध संख्या होनी चाहिए",
+		"min": "{field} कम से कम {min} होना चाहिए",
+		"max": "{field} अधिकतम {max} होना चाहिए",
+		"negative": "{field} ऋणात्मक नहीं हो सकता",
+		"invalidValue": "{field} के लिए अमान्य मान"
+	},
+	"calculation": {
+		"failed": "गणना विफल",
+		"invalidInput": "{field} के लिए अमान्य संख्या",
+		"error": "गणना के दौरान एक त्रुटि हुई"
+	},
+	"notFound": {
+		"title": "पृष्ठ नहीं मिला",
+		"description": "आप जिस पृष्ठ की तलाश कर रहे हैं वह मौजूद नहीं है।",
+		"back": "होम पर वापस जाएं"
+	},
+	"serverError": {
+		"title": "सर्वर त्रुटि",
+		"description": "हमारी तरफ से कुछ गलत हो गया।"
+	}
+}
+
+
+

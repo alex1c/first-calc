@@ -1,83 +1,34 @@
 {
-	"id": "area-circle",
-	"locale": "ru",
-	"category": "geometry",
-	"slug": "area-circle",
-	"title": "Калькулятор площади круга",
-	"description": "Вычислите площадь круга. Найдите площадь, введя радиус или диаметр круга.",
-	"inputs": [
-		{
-			"name": "radius",
-			"label": "Радиус",
-			"type": "number",
-			"unit": "м",
-			"min": 0,
-			"helpText": "Введите радиус круга"
-		}
-	],
-	"outputs": [
-		{
-			"name": "area",
-			"label": "Площадь",
-			"unit": "м²"
-		},
-		{
-			"name": "circumference",
-			"label": "Длина окружности",
-			"unit": "м"
-		}
-	],
-	"formula": "(function() { const area = Math.PI * radius * radius; const circumference = 2 * Math.PI * radius; return { area: area, circumference: circumference }; })()",
-	"variables": {
-		"radius": "Радиус круга"
-	},
-	"howTo": [
-		"Введите радиус круга",
-		"Нажмите \"Вычислить\" для расчета площади и длины окружности",
-		"Результат показывает площадь в квадратных единицах и длину окружности в линейных единицах"
-	],
-	"examples": [
-		{
-			"input": {
-				"radius": 5
-			},
-			"result": {
-				"area": 78.53981633974483,
-				"circumference": 31.41592653589793
-			},
-			"title": "Пример 1: Круг с радиусом 5м",
-			"description": "Вычислите площадь и длину окружности круга с радиусом 5 метров"
-		},
-		{
-			"input": {
-				"radius": 10
-			},
-			"result": {
-				"area": 314.1592653589793,
-				"circumference": 62.83185307179586
-			},
-			"title": "Пример 2: Круг с радиусом 10м",
-			"description": "Вычислите площадь и длину окружности круга с радиусом 10 метров"
-		}
-	],
-	"faq": [
-		{
-			"question": "Какова формула площади круга?",
-			"answer": "Площадь круга вычисляется по формуле: Площадь = π × r², где r — радиус, а π (пи) приблизительно равно 3.14159."
-		},
-		{
-			"question": "Что если у меня есть только диаметр?",
-			"answer": "Если у вас есть диаметр, разделите его на 2, чтобы получить радиус, затем используйте формулу площади. Альтернативно, вы можете использовать: Площадь = π × (диаметр/2)²."
-		},
-		{
-			"question": "Каково значение π (пи)?",
-			"answer": "π (пи) приблизительно равно 3.14159, но это иррациональное число с бесконечным количеством десятичных знаков. Этот калькулятор использует Math.PI JavaScript, который обеспечивает высокую точность."
-		}
-	],
-	"relatedIds": ["area-rectangle", "square-root", "exponent"],
-	"standardIds": ["iso-80000"],
-	"meta": {
-		"keywords": ["круг", "площадь", "длина окружности", "геометрия", "математика", "пи"]
-	}
+  "id": "area-circle",
+  "category": "geometry",
+  "slug": "area-circle",
+  "inputs": [
+    {
+      "name": "radius",
+      "type": "number",
+      "unit": "м",
+      "min": 0
+    }
+  ],
+  "outputs": [
+    {
+      "name": "area"
+    },
+    {
+      "name": "circumference"
+    }
+  ],
+  "formula": "(function() { const area = Math.PI * radius * radius; const circumference = 2 * Math.PI * radius; return { area: area, circumference: circumference }; })()",
+  "variables": {
+    "radius": "Радиус круга"
+  },
+  "relatedIds": [
+    "area-rectangle",
+    "square-root",
+    "exponent"
+  ],
+  "standardIds": [
+    "iso-80000"
+  ]
 }
 

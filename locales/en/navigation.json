@@ -1,0 +1,36 @@
+{
+	"menu": {
+		"calculators": "Calculators",
+		"standards": "Standards",
+		"tools": "Tools",
+		"learn": "Learn",
+		"api": "API",
+		"about": "About",
+		"contact": "Contact"
+	},
+	"breadcrumb": {
+		"home": "Home",
+		"calculators": "Calculators",
+		"standards": "Standards",
+		"learn": "Learn"
+	},
+	"categories": {
+		"math": "Mathematics",
+		"finance": "Finance",
+		"geometry": "Geometry",
+		"everyday": "Everyday",
+		"engineering": "Engineering",
+		"business": "Business"
+	},
+	"categoryDescriptions": {
+		"math": "Mathematical calculators for algebra, calculus, and number operations",
+		"finance": "Financial calculators for loans, investments, and money management",
+		"geometry": "Geometric calculators for area, volume, and shape calculations",
+		"everyday": "Everyday calculators for common calculations and conversions",
+		"engineering": "Engineering calculators for technical and scientific calculations",
+		"business": "Business calculators for profit, ROI, and business metrics"
+	},
+	"previous": "Previous",
+	"next": "Next"
+}
+

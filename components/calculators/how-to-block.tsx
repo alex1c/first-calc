@@ -2,13 +2,17 @@ import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 
 interface HowToBlockProps {
 	calculator: CalculatorDefinitionClient
+	howToLabel?: string
 }
 
 /**
  * How to calculate block component
  * Displays step-by-step instructions
  */
-export function HowToBlock({ calculator }: HowToBlockProps) {
+export function HowToBlock({
+	calculator,
+	howToLabel = 'How to Calculate',
+}: HowToBlockProps) {
 	if (!calculator.howToBullets || calculator.howToBullets.length === 0) {
 		return null
 	}
@@ -16,7 +20,7 @@ export function HowToBlock({ calculator }: HowToBlockProps) {
 	return (
 		<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
 			<h2 className="text-2xl font-semibold text-gray-900 mb-4">
-				How to Calculate
+				{howToLabel}
 			</h2>
 			<ul className="space-y-3">
 				{calculator.howToBullets.map((bullet, index) => (

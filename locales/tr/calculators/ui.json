@@ -1,0 +1,35 @@
+{
+	"page": {
+		"title": "Hesaplayıcılar",
+		"description": "Ücretsiz online hesaplayıcı koleksiyonumuzu keşfedin"
+	},
+	"sections": {
+		"popular": "Popüler Hesaplayıcılar",
+		"new": "Yeni Hesaplayıcılar",
+		"recommended": "Size Önerilenler",
+		"categories": "Kategoriye Göre Gözat",
+		"toc": "İçindekiler",
+		"all": "Tüm Hesaplayıcılar"
+	},
+	"tags": {
+		"popular": "Popüler",
+		"new": "Yeni",
+		"basedOnStandard": "Standart Tabanlı"
+	},
+	"categories": {
+		"math": "Matematik",
+		"finance": "Finans",
+		"geometry": "Geometri",
+		"everyday": "Günlük",
+		"engineering": "Mühendislik",
+		"business": "İş"
+	},
+	"search": {
+		"placeholder": "Hesaplayıcı ara...",
+		"noResults": "Hesaplayıcı bulunamadı",
+		"results": "{count} hesaplayıcı bulundu"
+	}
+}
+
+
+

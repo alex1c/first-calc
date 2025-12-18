@@ -1,0 +1,35 @@
+{
+	"page": {
+		"title": "Calculadoras",
+		"description": "Explora nuestra colección de calculadoras online gratuitas"
+	},
+	"sections": {
+		"popular": "Calculadoras Populares",
+		"new": "Nuevas Calculadoras",
+		"recommended": "Recomendadas para Ti",
+		"categories": "Explorar por Categoría",
+		"toc": "Tabla de Contenidos",
+		"all": "Todas las Calculadoras"
+	},
+	"tags": {
+		"popular": "Popular",
+		"new": "Nuevo",
+		"basedOnStandard": "Basado en Estándar"
+	},
+	"categories": {
+		"math": "Matemáticas",
+		"finance": "Finanzas",
+		"geometry": "Geometría",
+		"everyday": "Cotidiano",
+		"engineering": "Ingeniería",
+		"business": "Negocios"
+	},
+	"search": {
+		"placeholder": "Buscar calculadoras...",
+		"noResults": "No se encontraron calculadoras",
+		"results": "Se encontraron {count} calculadoras"
+	}
+}
+
+
+

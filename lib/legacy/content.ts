@@ -149,29 +149,29 @@ export function getLegacyOgDescription(
 const legacyContentMap: Record<string, LegacyContent> = {
 	'chislo-propisyu': {
 		title: {
-			en: 'Number to Words Converter (Russian) - Calculator Portal',
+			en: 'Number to Words Converter - Calculator Portal',
 			ru: 'Число прописью - Конвертер чисел в текст',
 		},
 		description: {
-			en: 'Convert numbers to words in Russian. Transform any number from 0 to 999,999,999 into its word representation. Free online number to text converter.',
-			ru: 'Конвертер чисел в пропись на русском языке. Преобразуйте любое число от 0 до 999,999,999 в его текстовое представление. Бесплатный онлайн конвертер чисел в слова.',
+			en: 'Convert numbers to words. Transform any number from 0 to 999,999,999 into its word representation. Supports multiple languages and currencies. Free online number to text converter.',
+			ru: 'Конвертер чисел в пропись. Преобразуйте любое число от 0 до 999,999,999 в его текстовое представление. Поддерживает несколько языков и валют. Бесплатный онлайн конвертер чисел в слова.',
 		},
 		ogTitle: {
-			en: 'Number to Words Converter (Russian) | Calculator Portal',
+			en: 'Number to Words Converter | Calculator Portal',
 			ru: 'Число прописью | Конвертер чисел в текст',
 		},
 		ogDescription: {
-			en: 'Convert numbers to Russian words instantly. Free online tool for converting numbers from 0 to 999,999,999 into text format.',
-			ru: 'Конвертируйте числа в пропись на русском языке мгновенно. Бесплатный онлайн инструмент для преобразования чисел от 0 до 999,999,999 в текстовый формат.',
+			en: 'Convert numbers to words instantly. Free online tool for converting numbers from 0 to 999,999,999 into text format. Supports multiple languages and currencies.',
+			ru: 'Конвертируйте числа в пропись мгновенно. Бесплатный онлайн инструмент для преобразования чисел от 0 до 999,999,999 в текстовый формат. Поддерживает несколько языков и валют.',
 		},
 		text: {
 			en: [
-				'Converting numbers to words is essential for various legal, financial, and administrative documents. Our Russian number to words converter helps you transform numeric values into their written form quickly and accurately.',
-				'This tool supports numbers from 0 to 999,999,999 and follows standard Russian grammar rules for number declension. Whether you need to write out amounts in contracts, invoices, or official documents, this converter ensures accuracy and compliance with Russian language conventions.',
+				'Converting numbers to words is essential for various legal, financial, and administrative documents. Our number to words converter helps you transform numeric values into their written form quickly and accurately.',
+				'This tool supports numbers from 0 to 999,999,999 and follows standard grammar rules for number declension. Whether you need to write out amounts in contracts, invoices, or official documents, this converter ensures accuracy and compliance with language conventions. Supports multiple languages and currency formats.',
 			],
 			ru: [
-				'Преобразование чисел в пропись необходимо для различных юридических, финансовых и административных документов. Наш конвертер чисел в пропись на русском языке помогает быстро и точно преобразовать числовые значения в их письменную форму.',
-				'Этот инструмент поддерживает числа от 0 до 999,999,999 и следует стандартным правилам русской грамматики для склонения чисел. Независимо от того, нужно ли вам записать суммы в договорах, счетах или официальных документах, этот конвертер обеспечивает точность и соответствие правилам русского языка.',
+				'Преобразование чисел в пропись необходимо для различных юридических, финансовых и административных документов. Наш конвертер чисел в пропись помогает быстро и точно преобразовать числовые значения в их письменную форму.',
+				'Этот инструмент поддерживает числа от 0 до 999,999,999 и следует стандартным правилам грамматики для склонения чисел. Независимо от того, нужно ли вам записать суммы в договорах, счетах или официальных документах, этот конвертер обеспечивает точность и соответствие правилам языка. Поддерживает несколько языков и форматов валют.',
 			],
 		},
 		useCases: {
@@ -179,7 +179,7 @@ const legacyContentMap: Record<string, LegacyContent> = {
 				'Writing amounts in legal contracts and agreements',
 				'Filling out invoices and financial documents',
 				'Creating official documents requiring number spelling',
-				'Educational purposes for learning Russian number names',
+				'Educational purposes for learning number names',
 				'Banking and financial transactions documentation',
 				'Government forms and official paperwork',
 			],
@@ -187,7 +187,7 @@ const legacyContentMap: Record<string, LegacyContent> = {
 				'Написание сумм в юридических договорах и соглашениях',
 				'Заполнение счетов и финансовых документов',
 				'Создание официальных документов, требующих написания чисел прописью',
-				'Образовательные цели для изучения названий чисел на русском языке',
+				'Образовательные цели для изучения названий чисел',
 				'Банковская и финансовая документация',
 				'Государственные формы и официальные документы',
 			],
@@ -195,7 +195,7 @@ const legacyContentMap: Record<string, LegacyContent> = {
 		keywords: {
 			en: [
 				'number to words',
-				'Russian number converter',
+				'number converter',
 				'number spelling',
 				'text converter',
 				'number in words',
@@ -578,6 +578,68 @@ const legacyContentMap: Record<string, LegacyContent> = {
 				'делители',
 				'простое число',
 				'делители числа',
+			],
+		},
+	},
+	'root-calculator': {
+		title: {
+			en: 'Root Calculator - Square, Cube, and Other Roots',
+			ru: 'Калькулятор корней - Квадратный, кубический и другие корни',
+		},
+		description: {
+			en: 'Calculate square, cube, and other roots of numbers. Supports roots of any degree from 2 to 100. Free online root calculator.',
+			ru: 'Вычислите квадратный, кубический и другие корни чисел. Поддерживает корни любой степени от 2 до 100. Бесплатный онлайн калькулятор корней.',
+		},
+		ogTitle: {
+			en: 'Root Calculator | Square, Cube, and Other Roots',
+			ru: 'Калькулятор корней | Квадратный, кубический и другие корни',
+		},
+		ogDescription: {
+			en: 'Calculate roots of any degree instantly. Free online tool for calculating square roots, cube roots, and nth roots.',
+			ru: 'Вычисляйте корни любой степени мгновенно. Бесплатный онлайн инструмент для расчета квадратных, кубических и корней n-й степени.',
+		},
+		text: {
+			en: [
+				'Root calculator allows you to calculate the root of any degree from a number. Supports square roots (√), cube roots (∛), and roots of any other degree (ⁿ√).',
+				'This tool is useful for mathematical calculations, solving equations, and performing various computations related to roots.',
+			],
+			ru: [
+				'Калькулятор корней позволяет вычислить корень любой степени из числа. Поддерживаются квадратные корни (√), кубические корни (∛) и корни любой другой степени (ⁿ√).',
+				'Этот инструмент полезен для математических расчетов, решения уравнений и выполнения различных вычислений, связанных с корнями.',
+			],
+		},
+		useCases: {
+			en: [
+				'Mathematical calculations and problem solving',
+				'Solving equations with roots',
+				'Engineering and scientific computations',
+				'Educational purposes for learning roots',
+				'Financial calculations involving roots',
+				'Academic and research applications',
+			],
+			ru: [
+				'Математические расчеты и решение задач',
+				'Решение уравнений с корнями',
+				'Инженерные и научные вычисления',
+				'Образовательные цели для изучения корней',
+				'Финансовые расчеты с корнями',
+				'Академические и исследовательские приложения',
+			],
+		},
+		keywords: {
+			en: [
+				'root calculator',
+				'square root',
+				'cube root',
+				'nth root',
+				'root calculation',
+			],
+			ru: [
+				'калькулятор корней',
+				'квадратный корень',
+				'кубический корень',
+				'корень n-й степени',
+				'вычисление корня',
 			],
 		},
 	},

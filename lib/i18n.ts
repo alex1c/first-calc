@@ -15,6 +15,17 @@ export const localeNames: Record<Locale, string> = {
 	hi: 'हिन्दी',
 }
 
+// Re-export i18n utilities
+export { loadNamespaces, clearCache } from './i18n/loadNamespaces'
+export { createT } from './i18n/t'
+export type {
+	Namespace,
+	Dictionary,
+	MergedDictionary,
+	TranslationFunction,
+	LoadNamespacesOptions,
+} from './i18n/types'
+
 
 
 

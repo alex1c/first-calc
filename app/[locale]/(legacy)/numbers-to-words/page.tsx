@@ -1,0 +1,121 @@
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import { locales, type Locale } from '@/lib/i18n'
+import { loadNamespaces, createT } from '@/lib/i18n'
+import { LegacyPageLayout } from '@/components/legacy/legacy-page-layout'
+import { LegacyLandingForm } from '@/components/legacy/legacy-landing-form'
+import { LegacyFaqBlock } from '@/components/legacy/faq-block'
+import {
+	getLegacyTitle,
+	getLegacyDescription,
+	getLegacyOgTitle,
+	getLegacyOgDescription,
+	getLegacyContent,
+} from '@/lib/legacy/content'
+import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
+import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+
+// Declare required namespaces for this page
+const namespaces = ['common', 'navigation'] as const
+
+interface NumbersToWordsLandingPageProps {
+	params: {
+		locale: Locale
+	}
+}
+
+export async function generateMetadata({
+	params,
+}: NumbersToWordsLandingPageProps): Promise<Metadata> {
+	const { locale } = params
+
+	const title = getLegacyTitle('numbers-to-words', locale)
+	const description = getLegacyDescription('numbers-to-words', locale)
+	const ogTitle = getLegacyOgTitle('numbers-to-words', locale)
+	const ogDescription = getLegacyOgDescription('numbers-to-words', locale)
+
+	return {
+		title: `${title} - Calculator Portal`,
+		description,
+		openGraph: {
+			title: ogTitle,
+			description: ogDescription,
+			type: 'website',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: ogTitle,
+			description: ogDescription,
+		},
+		alternates: {
+			languages: {
+				en: '/numbers-to-words',
+				ru: '/ru/numbers-to-words',
+				es: '/es/numbers-to-words',
+				tr: '/tr/numbers-to-words',
+				hi: '/hi/numbers-to-words',
+			},
+			canonical: `/${locale}/numbers-to-words`,
+		},
+	}
+}
+
+export default async function NumbersToWordsLandingPage({
+	params,
+}: NumbersToWordsLandingPageProps) {
+	const { locale } = params
+
+	if (!locales.includes(locale)) {
+		notFound()
+	}
+
+	// Load translations for breadcrumbs
+	const dict = await loadNamespaces(locale, namespaces)
+	const t = createT(dict)
+
+	// Get content
+	const content = getLegacyContent('numbers-to-words', locale)
+	const title = getLegacyTitle('numbers-to-words', locale)
+
+	// Generate breadcrumbs
+	const breadcrumbs = getLegacyBreadcrumbs(locale, 'numbers-to-words', [], t, title)
+
+	return (
+		<LegacyPageLayout
+			locale={locale}
+			title={title}
+			relatedLinks={true}
+			toolType="numbers-to-words"
+			breadcrumbs={breadcrumbs}
+		>
+			{/* Description */}
+			{content && content.text[locale] && (
+				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+					{content.text[locale].map((paragraph, index) => (
+						<p key={index} className="text-gray-700 mb-4 last:mb-0">
+							{paragraph}
+						</p>
+					))}
+				</div>
+			)}
+
+			{/* Form */}
+			<LegacyLandingForm
+				locale={locale}
+				toolSlug="numbers-to-words"
+				inputLabel={locale === 'ru' ? 'Введите число' : 'Enter a number'}
+				inputPlaceholder={locale === 'ru' ? 'Например: 123' : 'e.g., 123'}
+				inputType="number"
+				exampleLinks={[
+					{ href: '/numbers-to-words/123', label: '/numbers-to-words/123' },
+					{ href: '/numbers-to-words/1000', label: '/numbers-to-words/1000' },
+					{ href: '/numbers-to-words/1000000', label: '/numbers-to-words/1000000' },
+				]}
+			/>
+
+			{/* FAQ */}
+			<LegacyFaqBlock faq={getFaqForLegacyTool('numbers-to-words')} />
+		</LegacyPageLayout>
+	)
+}
+

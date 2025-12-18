@@ -3,16 +3,16 @@
  * Allows creating calculators without modifying React components
  */
 
+/**
+ * Calculator Schema (structure only, no texts)
+ * Texts are loaded from locales/{locale}/calculators/items/{slug}.json
+ */
 export interface CalculatorSchema {
 	id: string
-	locale: string
 	category: string
 	slug: string
-	title: string
-	description: string
 	inputs: Array<{
 		name: string
-		label: string
 		type: 'number' | 'text' | 'select'
 		unit?: string
 		min?: number
@@ -20,29 +20,15 @@ export interface CalculatorSchema {
 		step?: number
 		options?: Array<{ value: string; label: string }>
 		defaultValue?: number | string
-		helpText?: string
 	}>
 	outputs: Array<{
 		name: string
-		label: string
-		unit?: string
 	}>
 	formula: string // e.g., "value * percent / 100"
 	variables?: Record<string, string> // Variable descriptions
-	howTo?: string[]
-	examples?: Array<{
-		input: Record<string, number>
-		result: Record<string, number>
-		title?: string
-		description?: string
-	}>
-	faq?: Array<{ question: string; answer: string }>
 	relatedIds?: string[]
 	standardIds?: string[]
-	meta?: {
-		keywords?: string[]
-		author?: string
-	}
+	isEnabled?: boolean // Soft disable flag (default: true)
 }
 
 /**
@@ -64,21 +50,23 @@ export function validateCalculatorSchema(schema: unknown): {
 	if (!s.id || typeof s.id !== 'string') {
 		errors.push('id is required and must be a string')
 	}
-	if (!s.locale || typeof s.locale !== 'string') {
-		errors.push('locale is required and must be a string')
-	}
+	// locale is optional in schema (it's passed as parameter to schemaToDefinition)
+	// if (s.locale && typeof s.locale !== 'string') {
+	// 	errors.push('locale must be a string if provided')
+	// }
 	if (!s.category || typeof s.category !== 'string') {
 		errors.push('category is required and must be a string')
 	}
 	if (!s.slug || typeof s.slug !== 'string') {
 		errors.push('slug is required and must be a string')
 	}
-	if (!s.title || typeof s.title !== 'string') {
-		errors.push('title is required and must be a string')
-	}
-	if (!s.description || typeof s.description !== 'string') {
-		errors.push('description is required and must be a string')
-	}
+	// title and description are loaded from items files (T-серия), not required in schema
+	// if (!s.title || typeof s.title !== 'string') {
+	// 	errors.push('title is required and must be a string')
+	// }
+	// if (!s.description || typeof s.description !== 'string') {
+	// 	errors.push('description is required and must be a string')
+	// }
 
 	// Inputs validation
 	if (!Array.isArray(s.inputs) || s.inputs.length === 0) {
@@ -88,9 +76,10 @@ export function validateCalculatorSchema(schema: unknown): {
 			if (!input.name || typeof input.name !== 'string') {
 				errors.push(`inputs[${index}].name is required`)
 			}
-			if (!input.label || typeof input.label !== 'string') {
-				errors.push(`inputs[${index}].label is required`)
-			}
+			// label is loaded from items files (T-серия), not required in schema
+			// if (!input.label || typeof input.label !== 'string') {
+			// 	errors.push(`inputs[${index}].label is required`)
+			// }
 			if (!['number', 'text', 'select'].includes(input.type)) {
 				errors.push(`inputs[${index}].type must be "number", "text", or "select"`)
 			}
@@ -108,9 +97,10 @@ export function validateCalculatorSchema(schema: unknown): {
 			if (!output.name || typeof output.name !== 'string') {
 				errors.push(`outputs[${index}].name is required`)
 			}
-			if (!output.label || typeof output.label !== 'string') {
-				errors.push(`outputs[${index}].label is required`)
-			}
+			// label is loaded from items files (T-серия), not required in schema
+			// if (!output.label || typeof output.label !== 'string') {
+			// 	errors.push(`outputs[${index}].label is required`)
+			// }
 		})
 	}
 
@@ -166,13 +156,49 @@ export function executeFormula(
 
 /**
  * Convert CalculatorSchema to CalculatorDefinition
+ * Loads content from locales/{locale}/calculators/items/{slug}.json
+ * Falls back to autogen if content not found
  */
-export function schemaToDefinition(
+export async function schemaToDefinition(
 	schema: CalculatorSchema,
-): import('@/lib/calculators/types').CalculatorDefinition {
+	locale: string = 'en',
+): Promise<import('@/lib/calculators/types').CalculatorDefinition> {
+	// Load content from items file
+	const { loadCalculatorContent, getDefaultCalculatorContent } = await import(
+		'@/lib/i18n/loadItemContent'
+	)
+	const content = await loadCalculatorContent(locale as any, schema.slug)
+	const defaults = getDefaultCalculatorContent(schema.slug)
+
+	// Use content from items file, fallback to defaults
+	const title = content?.title || defaults.title || schema.slug
+	const shortDescription = content?.shortDescription || defaults.shortDescription || ''
+	const longDescription = content?.longDescription || content?.shortDescription || shortDescription
+	const howTo = content?.howTo || defaults.howTo || []
+	const examples = content?.examples || []
+	const faq = content?.faq || []
+	const seo = content?.seo
+
+	// Log if using fallback
+	if (!content) {
+		console.warn(
+			`[i18n] Calculator content not found for "${schema.slug}" (locale: ${locale}), using defaults`,
+		)
+	}
 	const { formula, variables, ...rest } = schema
 
 	// Create calculate function from formula
+	// Check if formula is valid (not code or object)
+	const isValidFormula = formula && 
+		typeof formula === 'string' && 
+		formula.trim().length > 0 &&
+		!formula.includes('export') &&
+		!formula.includes('type') &&
+		!formula.includes('interface') &&
+		!formula.includes('function') &&
+		!formula.startsWith('{') &&
+		!formula.includes('\r\n *')
+
 	const calculate: import('@/lib/calculators/types').CalculatorFunction = (
 		inputs,
 	) => {
@@ -190,93 +216,104 @@ export function schemaToDefinition(
 		const results: Record<string, number | string> = {}
 		for (const output of schema.outputs) {
 			try {
-				// For now, assume single output uses the formula directly
-				// In future, we might support multiple formulas
-				const result = executeFormula(formula, numericInputs)
-				results[output.name] = result
+				if (isValidFormula) {
+					// Use the formula
+					const result = executeFormula(formula, numericInputs)
+					results[output.name] = result
+				} else {
+					// Fallback: use first input value or 0
+					const firstInputName = schema.inputs[0]?.name
+					if (firstInputName && numericInputs[firstInputName] !== undefined) {
+						results[output.name] = numericInputs[firstInputName]
+					} else {
+						results[output.name] = 0
+					}
+				}
 			} catch (error) {
-				results[output.name] = null
+				// Fallback to first input value
+				const firstInputName = schema.inputs[0]?.name
+				if (firstInputName && numericInputs[firstInputName] !== undefined) {
+					results[output.name] = numericInputs[firstInputName]
+				} else {
+					results[output.name] = 0
+				}
 			}
 		}
 
 		return results
 	}
 
-	// Convert inputs
+	// Convert inputs - use labels from content if available
 	const calculatorInputs: import('@/lib/calculators/types').CalculatorInput[] =
-		schema.inputs.map((input) => ({
-			name: input.name,
-			label: input.label,
-			type: input.type === 'select' ? 'select' : 'number',
-			unitLabel: input.unit,
-			placeholder: `Enter ${input.label.toLowerCase()}`,
-			options: input.options,
-			min: input.min,
-			max: input.max,
-			step: input.step,
-			defaultValue: input.defaultValue,
-			helpText: input.helpText,
-			validation: {
-				required: true,
+		schema.inputs.map((input, index) => {
+			const contentInput = content?.inputs?.[index]
+			return {
+				name: input.name,
+				label: contentInput?.label || input.name,
+				type: input.type === 'select' ? 'select' : 'number',
+				unitLabel: contentInput?.unitLabel || input.unit,
+				placeholder: contentInput?.placeholder || `Enter ${input.name}`,
+				options: input.options,
 				min: input.min,
 				max: input.max,
-			},
-		}))
+				step: input.step,
+				defaultValue: input.defaultValue,
+				helpText: contentInput?.helpText,
+				validation: {
+					required: true,
+					min: input.min,
+					max: input.max,
+				},
+			}
+		})
 
-	// Convert outputs
+	// Convert outputs - use labels from content if available
 	const calculatorOutputs: import('@/lib/calculators/types').CalculatorOutput[] =
-		schema.outputs.map((output) => ({
-			name: output.name,
-			label: output.label,
-			unitLabel: output.unit,
-		}))
+		schema.outputs.map((output, index) => {
+			const contentOutput = content?.outputs?.[index]
+			return {
+				name: output.name,
+				label: contentOutput?.label || output.name,
+				unitLabel: contentOutput?.unitLabel,
+				formatType: 'number' as const,
+			}
+		})
 
-	// Convert examples
+	// Convert examples from content
 	const calculatorExamples: import('@/lib/calculators/types').CalculatorExample[] =
-		schema.examples?.map((example, index) => ({
+		examples.map((example, index) => ({
 			id: `example-${index + 1}`,
 			title: example.title || `Example ${index + 1}`,
 			inputDescription: example.description || 'Calculation example',
-			steps: Object.entries(example.input)
-				.map(([key, value]) => {
-					const inputDef = schema.inputs.find((inp) => inp.name === key)
-					return `${inputDef?.label || key}: ${value}${inputDef?.unit ? ` ${inputDef.unit}` : ''}`
-				})
-				.concat(
-					Object.entries(example.result).map(([key, value]) => {
-						const outputDef = schema.outputs.find((out) => out.name === key)
-						return `Result: ${outputDef?.label || key} = ${value}${outputDef?.unit ? ` ${outputDef.unit}` : ''}`
-					}),
-				),
-			resultDescription: Object.entries(example.result)
-				.map(([key, value]) => {
-					const outputDef = schema.outputs.find((out) => out.name === key)
-					return `${outputDef?.label || key}: ${value}${outputDef?.unit ? ` ${outputDef.unit}` : ''}`
-				})
-				.join(', '),
-		})) || []
+			steps: example.steps || [],
+			resultDescription: example.resultDescription || '',
+		}))
 
-	// Convert FAQ
-	const calculatorFaq: import('@/lib/calculators/types').CalculatorFaqItem[] =
-		schema.faq || []
+	// Convert FAQ from content
+	const calculatorFaq: import('@/lib/calculators/types').CalculatorFaqItem[] = faq
 
 	return {
 		id: schema.id,
 		slug: schema.slug,
 		category: schema.category as import('@/lib/calculators/types').CalculatorCategory,
-		title: schema.title,
-		shortDescription: schema.description,
-		longDescription: schema.description,
-		locale: schema.locale as import('@/lib/calculators/types').CalculatorLocale,
+		title,
+		shortDescription,
+		longDescription,
+		locale: locale as import('@/lib/calculators/types').CalculatorLocale,
 		inputs: calculatorInputs,
 		outputs: calculatorOutputs,
 		calculate,
-		howToBullets: schema.howTo || [],
+		howToBullets: howTo,
 		examples: calculatorExamples,
 		faq: calculatorFaq,
 		relatedIds: schema.relatedIds,
 		standardIds: schema.standardIds,
-		meta: schema.meta,
+		isEnabled: schema.isEnabled !== false, // Default to true if not specified
+		meta: seo
+			? {
+					keywords: seo.keywords,
+				}
+			: undefined,
 	}
 }
 

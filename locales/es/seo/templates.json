@@ -1,0 +1,27 @@
+{
+	"site": {
+		"name": "Portal de Calculadoras",
+		"description": "Calculadoras online gratuitas para matemáticas, finanzas, ingeniería y más"
+	},
+	"pages": {
+		"home": {
+			"title": "Calculadoras Online Gratuitas - Portal de Calculadoras",
+			"description": "Calcula cualquier cosa con nuestras calculadoras online gratuitas. Matemáticas, finanzas, ingeniería y cálculos cotidianos."
+		},
+		"calculators": {
+			"title": "Calculadoras - Portal de Calculadoras",
+			"description": "Explora nuestra colección de calculadoras online gratuitas"
+		},
+		"standards": {
+			"title": "Estándares de Ingeniería - Portal de Calculadoras",
+			"description": "Explora estándares de ingeniería y fórmulas"
+		},
+		"learn": {
+			"title": "Aprender - Portal de Calculadoras",
+			"description": "Artículos educativos y guías"
+		}
+	}
+}
+
+
+

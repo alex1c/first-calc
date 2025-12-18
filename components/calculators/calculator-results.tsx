@@ -20,7 +20,10 @@ export function CalculatorResults({
 
 	return (
 		<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-			<h2 className="text-2xl font-semibold text-gray-900 mb-6">Results</h2>
+			<h2 className="text-2xl font-semibold text-gray-900 mb-6">
+				{/* Results label - will be passed via props or use i18n context */}
+				Results
+			</h2>
 			<div className="space-y-4">
 				{calculator.outputs.map((output) => {
 					const value = outputs[output.name]

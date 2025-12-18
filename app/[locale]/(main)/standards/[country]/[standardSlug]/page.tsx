@@ -1,10 +1,15 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { locales, type Locale } from '@/lib/i18n'
+import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { standardRegistry, calculatorRegistry } from '@/lib/registry/loader'
 import { getCalculatorsByStandard } from '@/lib/standards/linking'
 import { StandardSchema } from '@/components/schema/standard-schema'
 import Link from 'next/link'
+import { Breadcrumbs } from '@/components/navigation/breadcrumbs'
+import { getStandardsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
+
+// Declare required namespaces for this page
+const namespaces = ['common', 'navigation'] as const
 
 interface StandardPageProps {
 	params: {
@@ -84,17 +89,25 @@ export default async function StandardPage({ params }: StandardPageProps) {
 
 	const canonicalUrl = `https://first-calc.com/${locale}/standards/${country}/${standardSlug}`
 
+	// Load translations
+	const dict = await loadNamespaces(locale, namespaces)
+	const t = createT(dict)
+
+	// Generate breadcrumbs
+	const breadcrumbs = getStandardsBreadcrumbs(
+		locale,
+		country,
+		standardSlug,
+		standard.title,
+		t,
+	)
+
 	return (
 		<>
 			<StandardSchema standard={standard} canonicalUrl={canonicalUrl} />
 			<div className="min-h-screen bg-gray-50">
 			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				<Link
-					href={`/${locale}/standards/${country}`}
-					className="text-blue-600 hover:text-blue-800 mb-4 inline-block"
-				>
-					← Back to {country} Standards
-				</Link>
+				<Breadcrumbs items={breadcrumbs} className="mb-4" />
 
 				{/* Header */}
 				<h1 className="text-4xl font-bold text-gray-900 mb-4">

@@ -1,91 +1,39 @@
 {
-	"id": "roi-calculator",
-	"locale": "ru",
-	"category": "finance",
-	"slug": "roi-calculator",
-	"title": "Калькулятор ROI - Доходность инвестиций",
-	"description": "Вычислите доходность инвестиций (ROI) в процентах. Измерьте прибыльность и эффективность ваших инвестиций.",
-	"inputs": [
-		{
-			"name": "initialInvestment",
-			"label": "Начальные инвестиции",
-			"type": "number",
-			"unit": "₽",
-			"min": 0,
-			"helpText": "Введите сумму начальных инвестиций"
-		},
-		{
-			"name": "finalValue",
-			"label": "Конечная стоимость",
-			"type": "number",
-			"unit": "₽",
-			"min": 0,
-			"helpText": "Введите текущую или конечную стоимость инвестиций"
-		}
-	],
-	"outputs": [
-		{
-			"name": "roi",
-			"label": "ROI",
-			"unit": "%"
-		},
-		{
-			"name": "profit",
-			"label": "Прибыль/Убыток",
-			"unit": "₽"
-		}
-	],
-	"formula": "(function() { const profit = finalValue - initialInvestment; const roi = (profit / initialInvestment) * 100; return { roi: roi, profit: profit }; })()",
-	"variables": {
-		"initialInvestment": "Сумма начальных инвестиций",
-		"finalValue": "Текущая или конечная стоимость инвестиций"
-	},
-	"howTo": [
-		"Введите сумму начальных инвестиций",
-		"Введите конечную стоимость (текущую стоимость) инвестиций",
-		"Нажмите \"Вычислить\" для расчета ROI",
-		"Результат показывает процент ROI и сумму прибыли/убытка"
-	],
-	"examples": [
-		{
-			"input": {
-				"initialInvestment": 10000,
-				"finalValue": 15000
-			},
-			"result": {
-				"roi": 50,
-				"profit": 5000
-			},
-			"title": "Пример 1: ROI 50%",
-			"description": "Вычислите ROI для инвестиций 10,000₽, которые выросли до 15,000₽"
-		},
-		{
-			"input": {
-				"initialInvestment": 5000,
-				"finalValue": 4500
-			},
-			"result": {
-				"roi": -10,
-				"profit": -500
-			},
-			"title": "Пример 2: Отрицательный ROI (убыток)",
-			"description": "Вычислите ROI для инвестиций 5,000₽, которые снизились до 4,500₽"
-		}
-	],
-	"faq": [
-		{
-			"question": "Что такое ROI?",
-			"answer": "ROI (Доходность инвестиций) — это финансовый показатель, используемый для измерения прибыльности инвестиций. Он выражается в процентах и показывает, сколько прибыли или убытка вы получили относительно ваших начальных инвестиций."
-		},
-		{
-			"question": "Как вычисляется ROI?",
-			"answer": "ROI вычисляется по формуле: ROI = ((Конечная стоимость - Начальные инвестиции) / Начальные инвестиции) × 100%. Положительный ROI указывает на прибыль, а отрицательный ROI — на убыток."
-		}
-	],
-	"relatedIds": ["compound-interest", "inflation-adjustment", "loan-payment"],
-	"standardIds": [],
-	"meta": {
-		"keywords": ["roi", "доходность инвестиций", "прибыль", "финансы", "инвестиции"]
-	}
+  "id": "roi-calculator",
+  "category": "finance",
+  "slug": "roi-calculator",
+  "inputs": [
+    {
+      "name": "initialInvestment",
+      "type": "number",
+      "unit": "₽",
+      "min": 0
+    },
+    {
+      "name": "finalValue",
+      "type": "number",
+      "unit": "₽",
+      "min": 0
+    }
+  ],
+  "outputs": [
+    {
+      "name": "roi"
+    },
+    {
+      "name": "profit"
+    }
+  ],
+  "formula": "(function() { const profit = finalValue - initialInvestment; const roi = (profit / initialInvestment) * 100; return { roi: roi, profit: profit }; })()",
+  "variables": {
+    "initialInvestment": "Сумма начальных инвестиций",
+    "finalValue": "Текущая или конечная стоимость инвестиций"
+  },
+  "relatedIds": [
+    "compound-interest",
+    "inflation-adjustment",
+    "loan-payment"
+  ],
+  "standardIds": []
 }
 

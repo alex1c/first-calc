@@ -2,12 +2,14 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { locales, type Locale } from '@/lib/i18n'
 import { numberToWordsEn } from '@/lib/legacy/numberToWordsEn'
-import { parseSingleNumber, parseRange } from '@/lib/legacy/slugParser'
+import { numberToWordsEnDecimal, numberToWordsRuDecimal } from '@/lib/legacy/decimalToWords'
+import { parseSingleNumber, parseRange, parseMoneyFormat } from '@/lib/legacy/slugParser'
 import { generateRange, validateRange } from '@/lib/legacy/parsers'
 import { LegacyPageLayout } from '@/components/legacy/legacy-page-layout'
 import { ErrorDisplay } from '@/components/legacy/error-display'
 import { ResultsTable } from '@/components/legacy/results-table'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
+import { NumberToWordsForm } from '@/components/legacy/number-to-words-form'
 import { LegacyExamplesBlock } from '@/components/legacy/examples-block'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
 import { UseCasesBlock } from '@/components/legacy/use-cases-block'
@@ -35,7 +37,8 @@ export async function generateMetadata({
 }: NumbersToWordsPageProps): Promise<Metadata> {
 	const { locale, slug } = params
 
-	const singleNumber = parseSingleNumber(slug)
+	const moneyFormat = parseMoneyFormat(slug)
+	const singleNumber = moneyFormat ? moneyFormat.number : parseSingleNumber(slug)
 	const range = parseRange(slug)
 
 	// Get base content from module
@@ -49,8 +52,23 @@ export async function generateMetadata({
 	let description = baseDescription
 
 	if (singleNumber !== null) {
-		title = `${singleNumber} in words – number to words converter`
-		description = `Convert ${singleNumber} to English words. ${singleNumber} in words is "${numberToWordsEn(singleNumber)}".`
+		try {
+			let words = ''
+			if (moneyFormat) {
+				words = numberToWordsEnDecimal(singleNumber, {
+					format: 'money',
+					currency: moneyFormat.currency,
+				})
+			} else if (singleNumber % 1 !== 0) {
+				words = numberToWordsEnDecimal(singleNumber, { format: 'numeric' })
+			} else {
+				words = numberToWordsEn(singleNumber)
+			}
+			title = `${singleNumber} in words – number to words converter`
+			description = `Convert ${singleNumber} to English words. ${singleNumber} in words is "${words}".`
+		} catch {
+			// Keep default
+		}
 	} else if (range) {
 		title = `Numbers ${range.start} to ${range.end} in words – converter`
 		description = `Convert numbers from ${range.start} to ${range.end} to English words.`
@@ -96,13 +114,15 @@ export default function NumbersToWordsPage({
 		notFound()
 	}
 
-	const singleNumber = parseSingleNumber(slug)
+	const moneyFormat = parseMoneyFormat(slug)
+	const singleNumber = moneyFormat ? moneyFormat.number : parseSingleNumber(slug)
 	const range = parseRange(slug)
 
 	// Handle single number
 	if (singleNumber !== null && !range) {
-		// Validate range
-		if (singleNumber < 0 || singleNumber > 999_999_999_999) {
+		// Validate range (support decimals, so check integer part)
+		const integerPart = Math.floor(Math.abs(singleNumber))
+		if (singleNumber < 0 || integerPart > 999_999_999_999) {
 			return (
 				<LegacyPageLayout
 					locale={locale}
@@ -123,10 +143,23 @@ export default function NumbersToWordsPage({
 			)
 		}
 
-		// Convert single number
+		// Convert single number (support decimals and money format)
 		let wordRepresentation: string
 		try {
-			wordRepresentation = numberToWordsEn(singleNumber)
+			if (moneyFormat) {
+				wordRepresentation = numberToWordsEnDecimal(singleNumber, {
+					format: 'money',
+					currency: moneyFormat.currency,
+				})
+			} else if (singleNumber % 1 !== 0) {
+				// Decimal number
+				wordRepresentation = numberToWordsEnDecimal(singleNumber, {
+					format: 'numeric',
+				})
+			} else {
+				// Integer number
+				wordRepresentation = numberToWordsEn(singleNumber)
+			}
 		} catch (error) {
 			return (
 				<LegacyPageLayout
@@ -155,6 +188,19 @@ export default function NumbersToWordsPage({
 
 		return (
 			<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
+				{/* Form for new conversion - at the top */}
+				<div className="mb-8">
+					<NumberToWordsForm
+						locale={locale}
+						toolSlug="numbers-to-words"
+						exampleLinks={[
+							{ href: '/numbers-to-words/123', label: '/numbers-to-words/123' },
+							{ href: '/numbers-to-words/1000', label: '/numbers-to-words/1000' },
+							{ href: '/numbers-to-words/555.23-money-usd', label: '/numbers-to-words/555.23-money-usd' },
+						]}
+					/>
+				</div>
+
 				{/* Result block */}
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
 					<div className="text-center">
@@ -281,6 +327,18 @@ export default function NumbersToWordsPage({
 
 				{/* FAQ */}
 				<LegacyFaqBlock faq={getFaqForLegacyTool('numbers-to-words')} />
+
+				{/* Form for new conversion */}
+				<div className="mb-8">
+					<NumberToWordsForm
+						locale={locale}
+						toolSlug="numbers-to-words"
+						exampleLinks={[
+							{ href: '/numbers-to-words/123', label: '/numbers-to-words/123' },
+							{ href: '/numbers-to-words/100-199', label: '/numbers-to-words/100-199' },
+						]}
+					/>
+				</div>
 
 				{/* Related links */}
 				<LegacyRelatedLinks locale={locale} toolType="numbers-to-words" />

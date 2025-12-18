@@ -1,0 +1,27 @@
+{
+	"site": {
+		"name": "Hesaplayıcı Portalı",
+		"description": "Matematik, finans, mühendislik ve daha fazlası için ücretsiz online hesaplayıcılar"
+	},
+	"pages": {
+		"home": {
+			"title": "Ücretsiz Online Hesaplayıcılar - Hesaplayıcı Portalı",
+			"description": "Ücretsiz online hesaplayıcılarımızla her şeyi hesaplayın. Matematik, finans, mühendislik ve günlük hesaplamalar."
+		},
+		"calculators": {
+			"title": "Hesaplayıcılar - Hesaplayıcı Portalı",
+			"description": "Ücretsiz online hesaplayıcı koleksiyonumuzu keşfedin"
+		},
+		"standards": {
+			"title": "Mühendislik Standartları - Hesaplayıcı Portalı",
+			"description": "Mühendislik standartları ve formülleri keşfedin"
+		},
+		"learn": {
+			"title": "Öğren - Hesaplayıcı Portalı",
+			"description": "Eğitici makaleler ve kılavuzlar"
+		}
+	}
+}
+
+
+

@@ -9,9 +9,15 @@
 		"lint": "next lint",
 		"test": "jest",
 		"test:watch": "jest --watch",
-		"generate:calc": "ts-node scripts/generate-calculator.ts"
+		"generate:calc": "tsx scripts/generate-calculator.ts",
+		"i18n:validate": "tsx scripts/i18n-validate.ts",
+		"i18n:check": "npm run i18n:validate",
+		"smoke:legacy": "tsx scripts/smoke-legacy.ts",
+		"find:broken": "tsx scripts/find-broken-calculators.ts",
+		"import:calc1:batch": "tsx scripts/import-calc1-batch.ts"
 	},
 	"dependencies": {
+		"@heroicons/react": "^2.2.0",
 		"next": "^14.2.0",
 		"react": "^18.3.0",
 		"react-dom": "^18.3.0"
@@ -27,8 +33,8 @@
 		"postcss": "^8.4.33",
 		"tailwindcss": "^3.4.1",
 		"ts-jest": "^29.1.2",
+		"ts-node": "^10.9.2",
+		"tsx": "^4.21.0",
 		"typescript": "^5.3.3"
 	}
 }
-
-

@@ -216,7 +216,7 @@ export function CalculatorPage({
 
 				{/* How to Calculate */}
 				<div className="mb-8">
-					<HowToBlock calculator={calculator} />
+					<HowToBlock calculator={calculator} howToLabel="How to Calculate" />
 				</div>
 
 				{/* Examples */}

@@ -6,6 +6,7 @@ import { percentOf, getPercentageSteps } from '@/lib/legacy/percentage'
 import { LegacyPageLayout } from '@/components/legacy/legacy-page-layout'
 import { ErrorDisplay } from '@/components/legacy/error-display'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
+import { PercentageForm } from '@/components/legacy/percentage-form'
 import { LegacyExamplesBlock } from '@/components/legacy/examples-block'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
 import {
@@ -48,7 +49,8 @@ export async function generateMetadata({
 	if (parsed && parsed.type === 'of') {
 		const result = percentOf(parsed.value, parsed.percent)
 		title = `${parsed.percent} percent of ${parsed.value} – calculator`
-		description = `How to calculate ${parsed.percent}% of ${parsed.value}? Step-by-step percent calculator. Result: ${result.toFixed(2)}.`
+		const resultStr = result % 1 === 0 ? result.toFixed(0) : result.toFixed(6)
+		description = `How to calculate ${parsed.percent}% of ${parsed.value}? Step-by-step percent calculator. Result: ${resultStr}.`
 	}
 
 	return {
@@ -97,12 +99,16 @@ export default function PercentageOfANumberPage({
 				relatedLinks={false}
 			>
 				<ErrorDisplay
-					error="Invalid format. Use: /value-percent (e.g., /100-20 for 20% of 100)"
+					error="Invalid format. Use: /value/percent (e.g., /100/20 for 20% of 100, supports decimals like /55.2/2.6)"
 					locale={locale}
 					examples={[
 						{
-							href: '/percentage-of-a-number/100-20',
-							label: 'Example: /percentage-of-a-number/100-20 (20% of 100)',
+							href: '/percentage-of-a-number/100/20',
+							label: 'Example: /percentage-of-a-number/100/20 (20% of 100)',
+						},
+						{
+							href: '/percentage-of-a-number/55.2/2.6',
+							label: 'Example: /percentage-of-a-number/55.2/2.6 (2.6% of 55.2)',
 						},
 					]}
 				/>
@@ -117,6 +123,19 @@ export default function PercentageOfANumberPage({
 
 	return (
 		<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
+			{/* Form for new calculation - at the top */}
+			<div className="mb-8">
+				<PercentageForm
+					locale={locale}
+					toolSlug="percentage-of-a-number"
+					exampleLinks={[
+						{ href: '/percentage-of-a-number/100/20', label: '/percentage-of-a-number/100/20' },
+						{ href: '/percentage-of-a-number/500/15', label: '/percentage-of-a-number/500/15' },
+						{ href: '/percentage-of-a-number/1000/25', label: '/percentage-of-a-number/1000/25' },
+					]}
+				/>
+			</div>
+
 			{/* Formula */}
 			<div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
 				<h2 className="text-xl font-semibold text-gray-900 mb-3">Formula</h2>
@@ -124,7 +143,7 @@ export default function PercentageOfANumberPage({
 					Result = (Value × Percentage) / 100
 				</p>
 				<p className="text-lg text-gray-700 font-mono mt-2">
-					Result = ({parsed.value} × {parsed.percent}) / 100 = {result.toFixed(2)}
+					Result = ({parsed.value} × {parsed.percent}) / 100 = {result % 1 === 0 ? result.toFixed(0) : result.toFixed(6)}
 				</p>
 			</div>
 
@@ -133,7 +152,7 @@ export default function PercentageOfANumberPage({
 				<div className="text-center">
 					<p className="text-sm text-gray-500 mb-2">Result</p>
 					<p className="text-4xl font-bold text-blue-600">
-						{result.toFixed(2)}
+						{result % 1 === 0 ? result.toFixed(0) : result.toFixed(6)}
 					</p>
 				</div>
 			</div>

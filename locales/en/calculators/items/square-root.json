@@ -1,0 +1,14 @@
+{
+  "inputs": [
+    {
+      "label": "number",
+      "unitLabel": ""
+    }
+  ],
+  "outputs": [
+    {
+      "label": "result"
+    }
+  ]
+}
+

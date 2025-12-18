@@ -1,0 +1,29 @@
+{
+	"button": {
+		"calculate": "Hesapla",
+		"search": "Ara",
+		"submit": "Gönder",
+		"cancel": "İptal",
+		"close": "Kapat",
+		"save": "Kaydet",
+		"edit": "Düzenle",
+		"delete": "Sil"
+	},
+	"label": {
+		"results": "Sonuçlar",
+		"examples": "Örnekler",
+		"faq": "Sık Sorulan Sorular",
+		"howTo": "Nasıl Hesaplanır",
+		"related": "İlgili Hesaplayıcılar",
+		"loading": "Yükleniyor...",
+		"noResults": "Sonuç bulunamadı",
+		"search": "Ara"
+	},
+	"message": {
+		"required": "Bu alan zorunludur",
+		"invalid": "Geçersiz değer",
+		"success": "Başarılı",
+		"error": "Bir hata oluştu"
+	}
+}
+

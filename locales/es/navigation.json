@@ -1,0 +1,36 @@
+{
+	"menu": {
+		"calculators": "Calculadoras",
+		"standards": "Estándares",
+		"tools": "Herramientas",
+		"learn": "Aprender",
+		"api": "API",
+		"about": "Acerca de",
+		"contact": "Contacto"
+	},
+	"breadcrumb": {
+		"home": "Inicio",
+		"calculators": "Calculadoras",
+		"standards": "Estándares",
+		"learn": "Aprender"
+	},
+	"categories": {
+		"math": "Matemáticas",
+		"finance": "Finanzas",
+		"geometry": "Geometría",
+		"everyday": "Cotidiano",
+		"engineering": "Ingeniería",
+		"business": "Negocios"
+	},
+	"categoryDescriptions": {
+		"math": "Calculadoras matemáticas para álgebra, cálculo y operaciones con números",
+		"finance": "Calculadoras financieras para préstamos, inversiones y gestión de dinero",
+		"geometry": "Calculadoras geométricas para área, volumen y cálculos de formas",
+		"everyday": "Calculadoras cotidianas para cálculos comunes y conversiones",
+		"engineering": "Calculadoras de ingeniería para cálculos técnicos y científicos",
+		"business": "Calculadoras de negocios para ganancias, ROI y métricas empresariales"
+	},
+	"previous": "Anterior",
+	"next": "Siguiente"
+}
+

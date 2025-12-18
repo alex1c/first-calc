@@ -98,6 +98,7 @@ export interface CalculatorDefinition {
 	faq: CalculatorFaqItem[]
 	relatedIds?: string[]
 	standardIds?: string[]
+	isEnabled?: boolean // Soft disable flag (default: true)
 	meta?: {
 		keywords?: string[]
 		author?: string

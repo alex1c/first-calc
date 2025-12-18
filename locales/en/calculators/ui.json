@@ -1,0 +1,35 @@
+{
+	"page": {
+		"title": "Calculators",
+		"description": "Browse our collection of free online calculators"
+	},
+	"sections": {
+		"popular": "Popular Calculators",
+		"new": "New Calculators",
+		"recommended": "Recommended for You",
+		"categories": "Browse by Category",
+		"toc": "Table of Contents",
+		"all": "All Calculators"
+	},
+	"tags": {
+		"popular": "Popular",
+		"new": "New",
+		"basedOnStandard": "Based on Standard"
+	},
+	"categories": {
+		"math": "Math",
+		"finance": "Finance",
+		"geometry": "Geometry",
+		"everyday": "Everyday",
+		"engineering": "Engineering",
+		"business": "Business"
+	},
+	"search": {
+		"placeholder": "Search calculators...",
+		"noResults": "No calculators found",
+		"results": "Found {count} calculators"
+	}
+}
+
+
+

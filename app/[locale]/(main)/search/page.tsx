@@ -4,10 +4,13 @@
 
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { locales, type Locale } from '@/lib/i18n'
+import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { searchPortal } from '@/lib/search'
 import Link from 'next/link'
 import { CalculatorCard } from '@/components/calculators/calculator-card'
+
+// Declare required namespaces for this page
+const namespaces = ['common', 'calculators/ui'] as const
 
 interface SearchPageProps {
 	params: {
@@ -46,10 +49,16 @@ export default async function SearchPage({
 	const query = q || ''
 	const results = query ? await searchPortal(query, locale) : null
 
+	// Load translations
+	const dict = await loadNamespaces(locale, namespaces)
+	const t = createT(dict)
+
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				<h1 className="text-4xl font-bold text-gray-900 mb-4">Search</h1>
+				<h1 className="text-4xl font-bold text-gray-900 mb-4">
+					{t('common.label.search')}
+				</h1>
 
 				{/* Search form */}
 				<div className="mb-8">
@@ -58,14 +67,14 @@ export default async function SearchPage({
 							type="text"
 							name="q"
 							defaultValue={query}
-							placeholder="Search calculators, standards, articles..."
+							placeholder={t('calculators/ui.search.placeholder')}
 							className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 						/>
 						<button
 							type="submit"
 							className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
 						>
-							Search
+							{t('common.button.search')}
 						</button>
 					</form>
 				</div>
@@ -84,7 +93,7 @@ export default async function SearchPage({
 						{results.calculators.length > 0 && (
 							<div>
 								<h2 className="text-2xl font-semibold text-gray-900 mb-4">
-									Calculators ({results.calculators.length})
+									{t('navigation.menu.calculators')} ({results.calculators.length})
 								</h2>
 								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 									{results.calculators.map((calc) => (
@@ -105,7 +114,7 @@ export default async function SearchPage({
 						{results.standards.length > 0 && (
 							<div>
 								<h2 className="text-2xl font-semibold text-gray-900 mb-4">
-									Standards ({results.standards.length})
+									{t('navigation.menu.standards')} ({results.standards.length})
 								</h2>
 								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 									{results.standards.map((standard) => (
@@ -138,7 +147,7 @@ export default async function SearchPage({
 						{results.articles.length > 0 && (
 							<div>
 								<h2 className="text-2xl font-semibold text-gray-900 mb-4">
-									Articles ({results.articles.length})
+									{t('navigation.menu.learn')} ({results.articles.length})
 								</h2>
 								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 									{results.articles.map((article) => (
@@ -165,10 +174,10 @@ export default async function SearchPage({
 							results.articles.length === 0 && (
 								<div className="text-center py-12">
 									<p className="text-gray-600 text-lg mb-2">
-										No results found for &quot;{query}&quot;
+										{t('common.label.noResults')} &quot;{query}&quot;
 									</p>
 									<p className="text-gray-500">
-										Try different keywords or check your spelling
+										{t('calculators/ui.search.noResults')}
 									</p>
 								</div>
 							)}
@@ -179,7 +188,7 @@ export default async function SearchPage({
 				{!query && (
 					<div className="text-center py-12">
 						<p className="text-gray-600 text-lg">
-							Enter a search query to find calculators, standards, and articles
+							{t('calculators/ui.search.placeholder')}
 						</p>
 					</div>
 				)}

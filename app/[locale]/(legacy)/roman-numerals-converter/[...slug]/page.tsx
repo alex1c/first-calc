@@ -9,6 +9,7 @@ import { LegacyPageLayout } from '@/components/legacy/legacy-page-layout'
 import { ErrorDisplay } from '@/components/legacy/error-display'
 import { ResultsTable } from '@/components/legacy/results-table'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
+import { RomanNumeralsForm } from '@/components/legacy/roman-numerals-form'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
 import { UseCasesBlock } from '@/components/legacy/use-cases-block'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
@@ -278,6 +279,18 @@ export default function RomanNumeralsConverterPage({
 
 	return (
 		<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
+			{/* Form for new conversion - at the top */}
+			<div className="mb-8">
+				<RomanNumeralsForm
+					locale={locale}
+					exampleLinks={[
+						{ href: '/roman-numerals-converter/123', label: '/roman-numerals-converter/123' },
+						{ href: '/roman-numerals-converter/XII', label: '/roman-numerals-converter/XII' },
+						{ href: '/roman-numerals-converter/MMXXIV', label: '/roman-numerals-converter/MMXXIV' },
+					]}
+				/>
+			</div>
+
 			{/* Result block */}
 			<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
 				<div className="grid grid-cols-2 gap-6 text-center">
@@ -294,6 +307,100 @@ export default function RomanNumeralsConverterPage({
 						</p>
 					</div>
 				</div>
+			</div>
+
+			{/* Description of Roman numerals */}
+			<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+				<h2 className="text-xl font-semibold text-gray-900 mb-4">
+					{locale === 'ru' ? 'О римских цифрах' : 'About Roman Numerals'}
+				</h2>
+				{locale === 'ru' ? (
+					<>
+						<p className="text-gray-700 mb-4">
+							Римские цифры — это система счисления, которая использовалась в
+							Древнем Риме и до сих пор применяется в некоторых случаях. Система
+							использует буквы латинского алфавита для обозначения чисел:
+						</p>
+						<ul className="list-disc list-inside text-gray-700 mb-4 space-y-2">
+							<li>
+								<strong>I</strong> = 1
+							</li>
+							<li>
+								<strong>V</strong> = 5
+							</li>
+							<li>
+								<strong>X</strong> = 10
+							</li>
+							<li>
+								<strong>L</strong> = 50
+							</li>
+							<li>
+								<strong>C</strong> = 100
+							</li>
+							<li>
+								<strong>D</strong> = 500
+							</li>
+							<li>
+								<strong>M</strong> = 1000
+							</li>
+						</ul>
+						<p className="text-gray-700 mb-4">
+							Римские цифры используют вычитательную нотацию для чисел 4, 9, 40,
+							90, 400, 900 (например, IV = 4, IX = 9, XL = 40, XC = 90, CD =
+							400, CM = 900).
+						</p>
+						<p className="text-gray-700 font-semibold">
+							<strong>Почему ограничение до 3999?</strong> Классическая римская
+							система счисления не имеет стандартного способа представления чисел
+							больше 3999 (MMMCMXCIX) без использования дополнительных символов
+							или надстрочных знаков. Для чисел больше 3999 обычно используются
+							другие системы или специальные обозначения.
+						</p>
+					</>
+				) : (
+					<>
+						<p className="text-gray-700 mb-4">
+							Roman numerals are a numeral system that originated in ancient Rome
+							and is still used in some cases today. The system uses letters from
+							the Latin alphabet to represent numbers:
+						</p>
+						<ul className="list-disc list-inside text-gray-700 mb-4 space-y-2">
+							<li>
+								<strong>I</strong> = 1
+							</li>
+							<li>
+								<strong>V</strong> = 5
+							</li>
+							<li>
+								<strong>X</strong> = 10
+							</li>
+							<li>
+								<strong>L</strong> = 50
+							</li>
+							<li>
+								<strong>C</strong> = 100
+							</li>
+							<li>
+								<strong>D</strong> = 500
+							</li>
+							<li>
+								<strong>M</strong> = 1000
+							</li>
+						</ul>
+						<p className="text-gray-700 mb-4">
+							Roman numerals use subtractive notation for numbers 4, 9, 40, 90,
+							400, 900 (e.g., IV = 4, IX = 9, XL = 40, XC = 90, CD = 400, CM =
+							900).
+						</p>
+						<p className="text-gray-700 font-semibold">
+							<strong>Why the limit of 3999?</strong> The classical Roman numeral
+							system does not have a standard way to represent numbers greater
+							than 3999 (MMMCMXCIX) without using additional symbols or
+							overlines. For numbers greater than 3999, other systems or special
+							notations are typically used.
+						</p>
+					</>
+				)}
 			</div>
 
 			{/* Text content */}

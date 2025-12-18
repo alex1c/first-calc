@@ -6,6 +6,7 @@ import { increaseBy, decreaseBy, getPercentageSteps } from '@/lib/legacy/percent
 import { LegacyPageLayout } from '@/components/legacy/legacy-page-layout'
 import { ErrorDisplay } from '@/components/legacy/error-display'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
+import { PercentageForm } from '@/components/legacy/percentage-form'
 import { LegacyExamplesBlock } from '@/components/legacy/examples-block'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
 import {
@@ -100,12 +101,16 @@ export default function AddSubtractPercentagePage({
 				relatedLinks={false}
 			>
 				<ErrorDisplay
-					error="Invalid format. Use: /value-percent-add or /value-percent-subtract"
+					error="Invalid format. Use: /value/percent-add or /value/percent-subtract (supports decimals, e.g., /45.2/2.3-add)"
 					locale={locale}
 					examples={[
 						{
-							href: '/add-subtract-percentage/100-20-add',
-							label: 'Example: /add-subtract-percentage/100-20-add',
+							href: '/add-subtract-percentage/100/20-add',
+							label: 'Example: /add-subtract-percentage/100/20-add',
+						},
+						{
+							href: '/add-subtract-percentage/45.2/2.3-add',
+							label: 'Example: /add-subtract-percentage/45.2/2.3-add',
 						},
 					]}
 				/>
@@ -123,6 +128,19 @@ export default function AddSubtractPercentagePage({
 
 	return (
 		<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
+			{/* Form for new calculation - at the top */}
+			<div className="mb-8">
+				<PercentageForm
+					locale={locale}
+					toolSlug="add-subtract-percentage"
+					exampleLinks={[
+						{ href: '/add-subtract-percentage/100/20-add', label: '/add-subtract-percentage/100/20-add' },
+						{ href: '/add-subtract-percentage/500/15-subtract', label: '/add-subtract-percentage/500/15-subtract' },
+						{ href: '/add-subtract-percentage/1000/25-add', label: '/add-subtract-percentage/1000/25-add' },
+					]}
+				/>
+			</div>
+
 			<div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
 				<h2 className="text-xl font-semibold text-gray-900 mb-3">Formula</h2>
 				<p className="text-lg text-gray-700 font-mono">
@@ -135,7 +153,9 @@ export default function AddSubtractPercentagePage({
 			<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
 				<div className="text-center">
 					<p className="text-sm text-gray-500 mb-2">Result</p>
-					<p className="text-4xl font-bold text-blue-600">{result.toFixed(2)}</p>
+					<p className="text-4xl font-bold text-blue-600">
+						{result % 1 === 0 ? result.toFixed(0) : result.toFixed(6)}
+					</p>
 				</div>
 			</div>
 
@@ -174,6 +194,7 @@ export default function AddSubtractPercentagePage({
 				locale={locale}
 			/>
 			<LegacyFaqBlock faq={getFaqForLegacyTool('add-subtract-percentage')} />
+
 			<LegacyRelatedLinks locale={locale} toolType="add-subtract-percentage" />
 		</LegacyPageLayout>
 	)

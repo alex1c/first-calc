@@ -1,0 +1,13 @@
+{
+	"title": "How to Calculate Loan Payment",
+	"shortDescription": "Learn how to calculate your monthly loan payment using the standard loan formula.",
+	"contentHtml": "<h2>Understanding Loan Payments</h2><p>Loan payments are calculated using the standard loan formula, also known as the annuity formula. This formula takes into account the principal amount, interest rate, and loan term.</p><h3>The Formula</h3><p>The monthly payment (M) is calculated as:</p><pre><code>M = P × [r(1+r)^n] / [(1+r)^n - 1]</code></pre><p>Where:</p><ul><li><strong>P</strong> = Principal (loan amount)</li><li><strong>r</strong> = Monthly interest rate (annual rate / 12)</li><li><strong>n</strong> = Number of payments (years × 12)</li></ul><h3>Example Calculation</h3><p>For a $100,000 loan at 5% annual interest for 30 years:</p><ul><li>Principal: $100,000</li><li>Monthly rate: 5% / 12 = 0.4167%</li><li>Number of payments: 30 × 12 = 360</li><li>Monthly payment: $536.82</li></ul><h3>Key Points</h3><ul><li>Higher interest rates increase monthly payments</li><li>Longer loan terms reduce monthly payments but increase total interest</li><li>Early payments go mostly toward interest</li></ul>",
+	"seo": {
+		"title": "How to Calculate Loan Payment - Guide",
+		"description": "Step-by-step guide to calculating loan payments using the standard loan formula. Learn about principal, interest rates, and loan terms.",
+		"keywords": ["loan", "payment", "mortgage", "calculation", "finance", "annuity"]
+	}
+}
+
+
+

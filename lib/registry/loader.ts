@@ -1,6 +1,18 @@
 /**
  * Universal registry loader
- * Supports loading from local data files, with extension points for CMS/API
+ * 
+ * Provides a unified interface for loading calculators, standards, and articles
+ * from various data sources (local files, API, CMS).
+ * 
+ * Currently supports:
+ * - Local data files (data/calculators.ts, data/standards.ts, data/articles.ts)
+ * - JSON schema files (data/calculators/*.json)
+ * 
+ * Future extensions:
+ * - API-based loading (REST API)
+ * - CMS integration (Supabase, Sanity, etc.)
+ * 
+ * All loaders filter out disabled items (isEnabled === false).
  */
 
 import type { CalculatorDefinition } from '@/lib/calculators/types'
@@ -9,11 +21,21 @@ import type { ArticleDefinition } from '@/lib/learn/types'
 
 /**
  * Data source type
+ * 
+ * Determines where data is loaded from:
+ * - local: Local TypeScript/JSON files
+ * - api: REST API endpoint
+ * - cms: CMS system (Supabase, Sanity, etc.)
  */
 type DataSource = 'local' | 'api' | 'cms'
 
 /**
- * Get data source from environment
+ * Get data source from environment variable
+ * 
+ * Reads NEXT_PUBLIC_DATA_SOURCE environment variable to determine data source.
+ * Defaults to 'local' if not set.
+ * 
+ * @returns DataSource type
  */
 function getDataSource(): DataSource {
 	const source = process.env.NEXT_PUBLIC_DATA_SOURCE || 'local'
@@ -64,9 +86,22 @@ interface ArticleLoader {
 }
 
 /**
- * Local calculator loader (from data/calculators.ts and JSON schemas)
+ * Local calculator loader implementation
+ * 
+ * Loads calculators from:
+ * 1. Hardcoded definitions in data/calculators.ts (priority)
+ * 2. JSON schema files in data/calculators/*.json
+ * 
+ * Automatically filters out disabled calculators (isEnabled === false).
  */
 class LocalCalculatorLoader implements CalculatorLoader {
+	/**
+	 * Get calculator by ID and locale
+	 * 
+	 * @param id - Calculator ID
+	 * @param locale - Locale code
+	 * @returns CalculatorDefinition if found and enabled, undefined otherwise
+	 */
 	async getById(
 		id: string,
 		locale: string,
@@ -74,16 +109,24 @@ class LocalCalculatorLoader implements CalculatorLoader {
 		const { calculators } = await import('@/data/calculators')
 		const { getCalculatorById } = await import('@/lib/calculators/loader')
 
-		// Try local data first
+		// Try hardcoded calculators first (higher priority)
 		const local = calculators.find(
 			(calc) => calc.id === id && calc.locale === locale,
 		)
 		if (local) return local
 
-		// Try JSON schema
+		// Try JSON schema files
 		return getCalculatorById(id, locale)
 	}
 
+	/**
+	 * Get calculator by slug, category, and locale
+	 * 
+	 * @param category - Calculator category
+	 * @param slug - Calculator slug
+	 * @param locale - Locale code
+	 * @returns CalculatorDefinition if found and enabled, undefined otherwise
+	 */
 	async getBySlug(
 		category: string,
 		slug: string,
@@ -93,17 +136,34 @@ class LocalCalculatorLoader implements CalculatorLoader {
 		return getCalculatorBySlug(category, slug, locale)
 	}
 
+	/**
+	 * Get all calculators for a locale
+	 * 
+	 * @param locale - Locale code
+	 * @returns Array of enabled CalculatorDefinitions
+	 */
 	async getAll(locale: string): Promise<CalculatorDefinition[]> {
 		const { getCalculatorsByLocale } = await import('@/data/calculators')
-		return getCalculatorsByLocale(locale)
+		const all = getCalculatorsByLocale(locale)
+		// Filter out disabled calculators (soft disable feature)
+		return all.filter((calc) => calc.isEnabled !== false)
 	}
 
+	/**
+	 * Get calculators by category and locale
+	 * 
+	 * @param category - Category ID
+	 * @param locale - Locale code
+	 * @returns Array of enabled CalculatorDefinitions in the category
+	 */
 	async getByCategory(
 		category: string,
 		locale: string,
 	): Promise<CalculatorDefinition[]> {
 		const { getCalculatorsByCategory } = await import('@/data/calculators')
-		return getCalculatorsByCategory(category, locale)
+		const all = getCalculatorsByCategory(category, locale)
+		// Filter out disabled calculators (soft disable feature)
+		return all.filter((calc) => calc.isEnabled !== false)
 	}
 }
 
