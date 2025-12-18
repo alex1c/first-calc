@@ -1,0 +1,11 @@
+{
+  "id": "converter",
+  "slug": "converter",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "convertUnit",
+  "inputs": [],
+  "outputs": [],
+  "defaults": {},
+  "isEnabled": false
+}

@@ -5,7 +5,21 @@
 		"min": "{field} должно быть не менее {min}",
 		"max": "{field} должно быть не более {max}",
 		"negative": "{field} не может быть отрицательным",
-		"invalidValue": "Неверное значение для {field}"
+		"invalidValue": "Неверное значение для {field}",
+		"enterNumber": "Пожалуйста, введите число",
+		"enterValidNumber": "Введите корректное число",
+		"enterValue": "Пожалуйста, введите значение",
+		"enterPercentage": "Введите процент",
+		"enterValidPercentage": "Введите корректный процент",
+		"enterRootDegree": "Введите степень корня",
+		"enterValidDegree": "Введите корректную степень",
+		"numberRangeRu": "Число должно быть от 0 до 999,999,999",
+		"numberRangeEn": "Число должно быть от 0 до 999,999,999,999",
+		"numberRangeRoman": "Число должно быть от 1 до 3999",
+		"percentageRange": "Процент должен быть от 0 до 1000",
+		"degreeRange": "Степень должна быть от 2 до 100",
+		"romanCharacters": "Используйте только символы: I, V, X, L, C, D, M",
+		"evenRootNegative": "Четный корень из отрицательного числа не существует"
 	},
 	"calculation": {
 		"failed": "Ошибка вычисления",

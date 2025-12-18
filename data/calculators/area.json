@@ -1,0 +1,54 @@
+{
+  "id": "area",
+  "slug": "area",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculateArea",
+  "inputs": [
+    {
+      "name": "figureType",
+      "type": "number"
+    },
+    {
+      "name": "radius",
+      "type": "number"
+    },
+    {
+      "name": "circle",
+      "type": "number"
+    },
+    {
+      "name": "square",
+      "type": "number"
+    },
+    {
+      "name": "triangle",
+      "type": "number"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "area"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "figureType"
+    },
+    {
+      "name": "parameters"
+    },
+    {
+      "name": "side"
+    },
+    {
+      "name": "base"
+    },
+    {
+      "name": "height"
+    }
+  ],
+  "defaults": {},
+  "isEnabled": true
+}

@@ -8,6 +8,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
+import { useClientT } from '@/lib/i18n/useClientT'
 
 interface NumberToWordsFormProps {
 	locale: Locale
@@ -25,6 +26,7 @@ export function NumberToWordsForm({
 	exampleLinks = [],
 }: NumberToWordsFormProps) {
 	const router = useRouter()
+	const t = useClientT(locale, ['legacy/ui', 'errors'])
 	const [value, setValue] = useState('')
 	const [format, setFormat] = useState<'numeric' | 'money'>('numeric')
 	const [language, setLanguage] = useState<'ru' | 'en'>(
@@ -36,41 +38,25 @@ export function NumberToWordsForm({
 		setError('')
 
 		if (!value.trim()) {
-			setError(
-				locale === 'ru'
-					? 'Пожалуйста, введите число'
-					: 'Please enter a number',
-			)
+			setError(t('errors.validation.enterNumber'))
 			return false
 		}
 
 		const num = parseFloat(value.trim())
 		if (isNaN(num) || !Number.isFinite(num)) {
-			setError(
-				locale === 'ru'
-					? 'Введите корректное число'
-					: 'Please enter a valid number',
-			)
+			setError(t('errors.validation.enterValidNumber'))
 			return false
 		}
 
 		// Validate range based on language
 		if (language === 'ru') {
 			if (num < 0 || num > 999_999_999) {
-				setError(
-					locale === 'ru'
-						? 'Число должно быть от 0 до 999,999,999'
-						: 'Number must be between 0 and 999,999,999',
-				)
+				setError(t('errors.validation.numberRangeRu'))
 				return false
 			}
 		} else {
 			if (num < 0 || num > 999_999_999_999) {
-				setError(
-					locale === 'ru'
-						? 'Число должно быть от 0 до 999,999,999,999'
-						: 'Number must be between 0 and 999,999,999,999',
-				)
+				setError(t('errors.validation.numberRangeEn'))
 				return false
 			}
 		}
@@ -121,44 +107,44 @@ export function NumberToWordsForm({
 				{/* Language selector (only for chislo-propisyu) */}
 				{isChisloPropisyu && (
 					<div>
-						<label className="block text-sm font-medium text-gray-700 mb-2">
-							{locale === 'ru' ? 'Язык' : 'Language'}
+					<label className="block text-sm font-medium text-gray-700 mb-2">
+						{t('legacy/ui.form.numberToWords.language')}
+					</label>
+					<div className="flex gap-4">
+						<label className="flex items-center">
+							<input
+								type="radio"
+								name="language"
+								value="ru"
+								checked={language === 'ru'}
+								onChange={() => setLanguage('ru')}
+								className="mr-2"
+							/>
+							<span className="text-sm text-gray-700">
+								{t('legacy/ui.form.numberToWords.languageRu')}
+							</span>
 						</label>
-						<div className="flex gap-4">
-							<label className="flex items-center">
-								<input
-									type="radio"
-									name="language"
-									value="ru"
-									checked={language === 'ru'}
-									onChange={() => setLanguage('ru')}
-									className="mr-2"
-								/>
-								<span className="text-sm text-gray-700">
-									{locale === 'ru' ? 'Русский' : 'Russian'}
-								</span>
-							</label>
-							<label className="flex items-center">
-								<input
-									type="radio"
-									name="language"
-									value="en"
-									checked={language === 'en'}
-									onChange={() => setLanguage('en')}
-									className="mr-2"
-								/>
-								<span className="text-sm text-gray-700">
-									{locale === 'ru' ? 'Английский' : 'English'}
-								</span>
-							</label>
-						</div>
+						<label className="flex items-center">
+							<input
+								type="radio"
+								name="language"
+								value="en"
+								checked={language === 'en'}
+								onChange={() => setLanguage('en')}
+								className="mr-2"
+							/>
+							<span className="text-sm text-gray-700">
+								{t('legacy/ui.form.numberToWords.languageEn')}
+							</span>
+						</label>
+					</div>
 					</div>
 				)}
 
 				{/* Format selector */}
 				<div>
 					<label className="block text-sm font-medium text-gray-700 mb-2">
-						{locale === 'ru' ? 'Формат' : 'Format'}
+						{t('legacy/ui.form.numberToWords.format')}
 					</label>
 					<div className="flex gap-4">
 						<label className="flex items-center">
@@ -171,7 +157,7 @@ export function NumberToWordsForm({
 								className="mr-2"
 							/>
 							<span className="text-sm text-gray-700">
-								{locale === 'ru' ? 'Числовой' : 'Numeric'}
+								{t('legacy/ui.form.numberToWords.formatNumeric')}
 							</span>
 						</label>
 						<label className="flex items-center">
@@ -184,7 +170,7 @@ export function NumberToWordsForm({
 								className="mr-2"
 							/>
 							<span className="text-sm text-gray-700">
-								{locale === 'ru' ? 'Денежный' : 'Money'}
+								{t('legacy/ui.form.numberToWords.formatMoney')}
 							</span>
 						</label>
 					</div>
@@ -196,7 +182,7 @@ export function NumberToWordsForm({
 						htmlFor="input-value"
 						className="block text-sm font-medium text-gray-700 mb-2"
 					>
-						{locale === 'ru' ? 'Число' : 'Number'}
+						{t('legacy/ui.form.numberToWords.number')}
 					</label>
 					<input
 						type="number"
@@ -206,9 +192,7 @@ export function NumberToWordsForm({
 							setValue(e.target.value)
 							setError('')
 						}}
-						placeholder={
-							locale === 'ru' ? 'Например: 123 или 555.23' : 'e.g., 123 or 555.23'
-						}
+						placeholder={t('legacy/ui.form.numberToWords.numberPlaceholder')}
 						min="0"
 						max={language === 'ru' ? 999_999_999 : 999_999_999_999}
 						step="0.01"
@@ -221,41 +205,17 @@ export function NumberToWordsForm({
 					)}
 					<p className="mt-1 text-xs text-gray-500">
 						{language === 'ru'
-							? locale === 'ru'
-								? 'Диапазон: 0 - 999,999,999'
-								: 'Range: 0 - 999,999,999'
-							: locale === 'ru'
-								? 'Диапазон: 0 - 999,999,999,999'
-								: 'Range: 0 - 999,999,999,999'}
+							? t('legacy/ui.form.numberToWords.rangeRu')
+							: t('legacy/ui.form.numberToWords.rangeEn')}
 					</p>
 				</div>
 
 				{/* Help text */}
 				<div className="bg-blue-50 border border-blue-200 rounded-md p-3">
 					<p className="text-sm text-blue-800">
-						{format === 'numeric' ? (
-							locale === 'ru' ? (
-								<>
-									<strong>Числовой формат:</strong> Преобразует число в пропись
-									(например: 123 → сто двадцать три)
-								</>
-							) : (
-								<>
-									<strong>Numeric format:</strong> Converts number to words
-									(e.g., 123 → one hundred twenty-three)
-								</>
-							)
-						) : locale === 'ru' ? (
-							<>
-								<strong>Денежный формат:</strong> Преобразует сумму в пропись с
-								валютой (например: 123 → сто двадцать три рубля)
-							</>
-						) : (
-							<>
-								<strong>Money format:</strong> Converts amount to words with
-								currency (e.g., 123 → one hundred twenty-three dollars)
-							</>
-						)}
+						{format === 'numeric'
+							? t('legacy/ui.form.numberToWords.helpNumeric')
+							: t('legacy/ui.form.numberToWords.helpMoney')}
 					</p>
 				</div>
 
@@ -263,14 +223,14 @@ export function NumberToWordsForm({
 					type="submit"
 					className="w-full bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
 				>
-					{locale === 'ru' ? 'Конвертировать' : 'Convert'}
+					{t('legacy/ui.form.numberToWords.convert')}
 				</button>
 			</form>
 
 			{exampleLinks.length > 0 && (
 				<div className="mt-6 pt-6 border-t border-gray-200">
 					<p className="text-sm font-medium text-gray-700 mb-3">
-						{locale === 'ru' ? 'Примеры ссылок:' : 'Example links:'}
+						{t('legacy/ui.form.common.exampleLinks')}
 					</p>
 					<ul className="space-y-2">
 						{exampleLinks.map((link, index) => {

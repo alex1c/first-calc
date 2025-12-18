@@ -1,0 +1,674 @@
+{
+  "functions": [
+    {
+      "calculationId": "add-time",
+      "file": "src/lib/calculators/add-time.ts",
+      "exports": [
+        "addTimeToDate",
+        "formatDate",
+        "formatTime",
+        "getCurrentDateTime",
+        "isValidDate",
+        "isValidTime"
+      ]
+    },
+    {
+      "calculationId": "age",
+      "file": "src/lib/calculators/age.ts",
+      "exports": [
+        "calculateAge"
+      ]
+    },
+    {
+      "calculationId": "alcohol",
+      "file": "src/lib/calculators/alcohol.ts",
+      "exports": [
+        "calculateBAC",
+        "calculateEliminationTime",
+        "calculateAlcohol"
+      ]
+    },
+    {
+      "calculationId": "angle",
+      "file": "src/lib/calculators/angle.ts",
+      "exports": [
+        "validateAngleInput",
+        "convertAngle",
+        "formatAngleValue",
+        "getUnitName",
+        "getCommonConversions"
+      ]
+    },
+    {
+      "calculationId": "area",
+      "file": "src/lib/calculators/area.ts",
+      "exports": [
+        "calculateArea"
+      ]
+    },
+    {
+      "calculationId": "baby-growth",
+      "file": "src/lib/calculators/baby-growth.ts",
+      "exports": [
+        "calculateBabyGrowth"
+      ]
+    },
+    {
+      "calculationId": "basic-math",
+      "file": "src/lib/calculators/basic-math.ts",
+      "exports": [
+        "calculateBasicMath"
+      ]
+    },
+    {
+      "calculationId": "blood-pressure",
+      "file": "src/lib/calculators/blood-pressure.ts",
+      "exports": [
+        "calculateBloodPressure"
+      ]
+    },
+    {
+      "calculationId": "bmi-health",
+      "file": "src/lib/calculators/bmi-health.ts",
+      "exports": [
+        "calculateBMI",
+        "calculateBMIHealth"
+      ]
+    },
+    {
+      "calculationId": "bmi",
+      "file": "src/lib/calculators/bmi.ts",
+      "exports": [
+        "calculateBMI",
+        "calculateBMIResult"
+      ]
+    },
+    {
+      "calculationId": "calendar",
+      "file": "src/lib/calculators/calendar.ts",
+      "exports": [
+        "generateCalendar"
+      ]
+    },
+    {
+      "calculationId": "calories",
+      "file": "src/lib/calculators/calories.ts",
+      "exports": [
+        "calculateBMR",
+        "calculateTDEE",
+        "calculateCalorieNeeds",
+        "calculateFoodCalories"
+      ]
+    },
+    {
+      "calculationId": "car-depreciation",
+      "file": "src/lib/calculators/car-depreciation.ts",
+      "exports": [
+        "calculateDepreciation",
+        "calculateCarDepreciation",
+        "calculateDepreciationComparison"
+      ]
+    },
+    {
+      "calculationId": "car-ownership",
+      "file": "src/lib/calculators/car-ownership.ts",
+      "exports": [
+        "calculateCarOwnership"
+      ]
+    },
+    {
+      "calculationId": "character-traits",
+      "file": "src/lib/calculators/character-traits.ts",
+      "exports": [
+        "generateCharacter"
+      ]
+    },
+    {
+      "calculationId": "compound-interest",
+      "file": "src/lib/calculators/compound-interest.ts",
+      "exports": [
+        "calculateCompoundInterest"
+      ]
+    },
+    {
+      "calculationId": "concrete",
+      "file": "src/lib/calculators/concrete.ts",
+      "exports": [
+        "calculateConcrete"
+      ]
+    },
+    {
+      "calculationId": "countdown",
+      "file": "src/lib/calculators/countdown.ts",
+      "exports": [
+        "calculateTimeLeft"
+      ]
+    },
+    {
+      "calculationId": "credit-loan",
+      "file": "src/lib/calculators/credit-loan.ts",
+      "exports": [
+        "calculateCreditLoan"
+      ]
+    },
+    {
+      "calculationId": "customs",
+      "file": "src/lib/calculators/customs.ts",
+      "exports": [
+        "calculateCustoms"
+      ]
+    },
+    {
+      "calculationId": "data",
+      "file": "src/lib/calculators/data.ts",
+      "exports": [
+        "validateDataInput",
+        "convertData",
+        "formatDataValue",
+        "getUnitName",
+        "getCommonConversions",
+        "getUnitDescription",
+        "getDataScale",
+        "getConversionFormula",
+        "getStandardDataReferences"
+      ]
+    },
+    {
+      "calculationId": "days-between",
+      "file": "src/lib/calculators/days-between.ts",
+      "exports": [
+        "calculateDaysBetween"
+      ]
+    },
+    {
+      "calculationId": "deadline",
+      "file": "src/lib/calculators/deadline.ts",
+      "exports": [
+        "calculateDeadline"
+      ]
+    },
+    {
+      "calculationId": "deposit",
+      "file": "src/lib/calculators/deposit.ts",
+      "exports": [
+        "calculateSimpleDeposit",
+        "calculateCapitalizedDeposit",
+        "calculateCompoundDeposit",
+        "calculateDeposit",
+        "generateDepositSchedule"
+      ]
+    },
+    {
+      "calculationId": "dose",
+      "file": "src/lib/calculators/dose.ts",
+      "exports": [
+        "calculateDose"
+      ]
+    },
+    {
+      "calculationId": "energy",
+      "file": "src/lib/calculators/energy.ts",
+      "exports": [
+        "validateEnergyInput",
+        "convertEnergy",
+        "formatEnergyValue",
+        "getUnitName",
+        "getCommonConversions",
+        "getUnitDescription",
+        "getEnergyScale",
+        "getConversionFormula",
+        "getStandardEnergyReferences"
+      ]
+    },
+    {
+      "calculationId": "equations",
+      "file": "src/lib/calculators/equations.ts",
+      "exports": [
+        "detectEquationType",
+        "solveLinear",
+        "solveQuadratic",
+        "parseAndSolve"
+      ]
+    },
+    {
+      "calculationId": "fantasy-world",
+      "file": "src/lib/calculators/fantasy-world.ts",
+      "exports": [
+        "generateFantasyWorld"
+      ]
+    },
+    {
+      "calculationId": "floor-heating",
+      "file": "src/lib/calculators/floor-heating.ts",
+      "exports": [
+        "calculateFloorHeating"
+      ]
+    },
+    {
+      "calculationId": "food-ration",
+      "file": "src/lib/calculators/food-ration.ts",
+      "exports": [
+        "calculateBMR",
+        "calculateTDEE",
+        "calculateMacronutrients",
+        "calculateBJU"
+      ]
+    },
+    {
+      "calculationId": "foundation",
+      "file": "src/lib/calculators/foundation.ts",
+      "exports": [
+        "calculateFoundation"
+      ]
+    },
+    {
+      "calculationId": "gas-usage",
+      "file": "src/lib/calculators/gas-usage.ts",
+      "exports": [
+        "calculateGasUsage",
+        "calculateGasScenarios"
+      ]
+    },
+    {
+      "calculationId": "heart-rate",
+      "file": "src/lib/calculators/heart-rate.ts",
+      "exports": [
+        "calculateMaxHeartRate",
+        "calculateZoneBoundaries",
+        "calculateAllZones",
+        "calculateHeartRate"
+      ]
+    },
+    {
+      "calculationId": "heating-cost",
+      "file": "src/lib/calculators/heating-cost.ts",
+      "exports": [
+        "calculateHeatingCost"
+      ]
+    },
+    {
+      "calculationId": "laminate",
+      "file": "src/lib/calculators/laminate.ts",
+      "exports": [
+        "calculateLaminate"
+      ]
+    },
+    {
+      "calculationId": "leasing",
+      "file": "src/lib/calculators/leasing.ts",
+      "exports": [
+        "calculateLeasing"
+      ]
+    },
+    {
+      "calculationId": "length",
+      "file": "src/lib/calculators/length.ts",
+      "exports": [
+        "validateLengthInput",
+        "convertLength",
+        "formatLengthValue",
+        "getUnitName",
+        "getConversionFactor",
+        "getCommonConversions",
+        "getUnitDescription"
+      ]
+    },
+    {
+      "calculationId": "loan-overpayment",
+      "file": "src/lib/calculators/loan-overpayment.ts",
+      "exports": [
+        "calculateLoanOverpayment"
+      ]
+    },
+    {
+      "calculationId": "loan",
+      "file": "src/lib/calculators/loan.ts",
+      "exports": [
+        "calculateAnnuityLoan",
+        "calculateDifferentiatedLoan",
+        "generatePaymentSchedule",
+        "calculateLoan"
+      ]
+    },
+    {
+      "calculationId": "love-compatibility",
+      "file": "src/lib/calculators/love-compatibility.ts",
+      "exports": [
+        "calculateLoveCompatibility"
+      ]
+    },
+    {
+      "calculationId": "materials",
+      "file": "src/lib/calculators/materials.ts",
+      "exports": [
+        "calculateMaterial"
+      ]
+    },
+    {
+      "calculationId": "name-generator",
+      "file": "src/lib/calculators/name-generator.ts",
+      "exports": [
+        "generateNames"
+      ]
+    },
+    {
+      "calculationId": "ovulation",
+      "file": "src/lib/calculators/ovulation.ts",
+      "exports": [
+        "calculateOvulation",
+        "generateCalendarData"
+      ]
+    },
+    {
+      "calculationId": "paper-weight",
+      "file": "src/lib/calculators/paper-weight.ts",
+      "exports": [
+        "calculatePaperWeight"
+      ]
+    },
+    {
+      "calculationId": "percent",
+      "file": "src/lib/calculators/percent.ts",
+      "exports": [
+        "getPercentOfNumber",
+        "getWhatPercent",
+        "getNumberFromPercent",
+        "changeByPercent"
+      ]
+    },
+    {
+      "calculationId": "planet-weight",
+      "file": "src/lib/calculators/planet-weight.ts",
+      "exports": [
+        "calculatePlanetWeight",
+        "calculateAllPlanetsWeight"
+      ]
+    },
+    {
+      "calculationId": "power-root",
+      "file": "src/lib/calculators/power-root.ts",
+      "exports": [
+        "calculatePowerRoot"
+      ]
+    },
+    {
+      "calculationId": "pregnancy",
+      "file": "src/lib/calculators/pregnancy.ts",
+      "exports": [
+        "calculateFromLMP",
+        "calculateFromConception",
+        "calculateFromIVF",
+        "calculatePregnancy"
+      ]
+    },
+    {
+      "calculationId": "pressure",
+      "file": "src/lib/calculators/pressure.ts",
+      "exports": [
+        "validatePressureInput",
+        "convertPressure",
+        "formatPressureValue",
+        "getUnitName",
+        "getCommonConversions",
+        "getUnitDescription",
+        "getPressureScale",
+        "getConversionFormula",
+        "getStandardAtmosphericPressure"
+      ]
+    },
+    {
+      "calculationId": "ring-size",
+      "file": "src/lib/calculators/ring-size.ts",
+      "exports": [
+        "calculateCircumference",
+        "calculateDiameterFromCircumference"
+      ]
+    },
+    {
+      "calculationId": "roof",
+      "file": "src/lib/calculators/roof.ts",
+      "exports": [
+        "calculateRoofArea",
+        "calculateMaterialRequirements",
+        "calculateRoofWeight",
+        "calculateRoof"
+      ]
+    },
+    {
+      "calculationId": "savings",
+      "file": "src/lib/calculators/savings.ts",
+      "exports": [
+        "calculateCompoundSavings",
+        "calculateNoInterestSavings",
+        "calculateSimpleSavings",
+        "calculateSavings",
+        "generateSavingsSchedule"
+      ]
+    },
+    {
+      "calculationId": "size-converter",
+      "file": "src/lib/calculators/size-converter.ts",
+      "exports": [
+        "validateSizeInput",
+        "convertSize",
+        "getAvailableSizes",
+        "getCountryName",
+        "getCategoryName",
+        "getGenderName",
+        "getSizeDescription",
+        "getSizeChartData",
+        "formatSizeValue",
+        "getSizeRange"
+      ]
+    },
+    {
+      "calculationId": "speed",
+      "file": "src/lib/calculators/speed.ts",
+      "exports": [
+        "validateSpeedInput",
+        "convertSpeed",
+        "formatSpeedValue",
+        "getUnitName",
+        "getCommonConversions",
+        "getUnitDescription",
+        "getSpeedScale",
+        "getConversionFormula"
+      ]
+    },
+    {
+      "calculationId": "statistics",
+      "file": "src/lib/calculators/statistics.ts",
+      "exports": [
+        "calculateMean",
+        "calculateMedian",
+        "calculateMode",
+        "calculateVariance",
+        "calculateStandardDeviation",
+        "calculateStatistics"
+      ]
+    },
+    {
+      "calculationId": "stress",
+      "file": "src/lib/calculators/stress.ts",
+      "exports": [
+        "calculateStressLevel"
+      ]
+    },
+    {
+      "calculationId": "temperature",
+      "file": "src/lib/calculators/temperature.ts",
+      "exports": [
+        "validateTemperatureInput",
+        "convertTemperature",
+        "formatTemperatureValue",
+        "getUnitName",
+        "getCommonConversions",
+        "getUnitDescription",
+        "getTemperatureScale"
+      ]
+    },
+    {
+      "calculationId": "tile-laminate",
+      "file": "src/lib/calculators/tile-laminate.ts",
+      "exports": [
+        "calculateTile",
+        "calculateLaminate",
+        "calculateTileLaminate"
+      ]
+    },
+    {
+      "calculationId": "tile",
+      "file": "src/lib/calculators/tile.ts",
+      "exports": [
+        "calculateTile"
+      ]
+    },
+    {
+      "calculationId": "timer",
+      "file": "src/lib/calculators/timer.ts",
+      "exports": [
+        "createTimer",
+        "startTimer",
+        "pauseTimer",
+        "resumeTimer",
+        "resetTimer",
+        "updateTimer",
+        "formatTime",
+        "getProgressPercentage",
+        "playNotificationSound",
+        "playBeepSound",
+        "validateTimeInput",
+        "parseTimeString",
+        "getTimeString",
+        "getPomodoroPresets",
+        "getCookingPresets",
+        "getWorkoutPresets"
+      ]
+    },
+    {
+      "calculationId": "traffic-fines",
+      "file": "src/lib/calculators/traffic-fines.ts",
+      "exports": [
+        "calculateTrafficFines"
+      ]
+    },
+    {
+      "calculationId": "unitConversions",
+      "file": "src/lib/calculators/unitConversions.ts",
+      "exports": [
+        "getUnitsForType",
+        "convertUnit",
+        "formatConversionResult",
+        "getConversionFactor",
+        "isValidUnit",
+        "getUnitType",
+        "getAvailableUnitTypes",
+        "getConversionExample",
+        "validateConversionInput"
+      ]
+    },
+    {
+      "calculationId": "vehicle-tax",
+      "file": "src/lib/calculators/vehicle-tax.ts",
+      "exports": [
+        "calculateVehicleTax"
+      ]
+    },
+    {
+      "calculationId": "ventilation",
+      "file": "src/lib/calculators/ventilation.ts",
+      "exports": [
+        "calculateVentilation"
+      ]
+    },
+    {
+      "calculationId": "vitamins",
+      "file": "src/lib/calculators/vitamins.ts",
+      "exports": [
+        "calculateVitamins"
+      ]
+    },
+    {
+      "calculationId": "volume-geometry",
+      "file": "src/lib/calculators/volume-geometry.ts",
+      "exports": [
+        "calculateVolumeGeometry"
+      ]
+    },
+    {
+      "calculationId": "volume",
+      "file": "src/lib/calculators/volume.ts",
+      "exports": [
+        "validateVolumeInput",
+        "convertVolume",
+        "formatVolumeValue",
+        "getUnitName",
+        "getCommonConversions",
+        "getUnitDescription",
+        "getVolumeScale",
+        "getConversionFormula",
+        "getStandardVolumeReferences"
+      ]
+    },
+    {
+      "calculationId": "wall-area",
+      "file": "src/lib/calculators/wall-area.ts",
+      "exports": [
+        "calculateWallArea"
+      ]
+    },
+    {
+      "calculationId": "wall",
+      "file": "src/lib/calculators/wall.ts",
+      "exports": [
+        "calculateWallArea",
+        "calculateWallVolume",
+        "calculateMaterialVolume",
+        "calculateMaterialCount",
+        "calculateMortarVolume",
+        "calculateWall"
+      ]
+    },
+    {
+      "calculationId": "wallpaper",
+      "file": "src/lib/calculators/wallpaper.ts",
+      "exports": [
+        "calculateWallpaper"
+      ]
+    },
+    {
+      "calculationId": "weight",
+      "file": "src/lib/calculators/weight.ts",
+      "exports": [
+        "validateWeightInput",
+        "convertWeight",
+        "formatWeightValue",
+        "getUnitName",
+        "getConversionFactor",
+        "getCommonConversions",
+        "getUnitDescription"
+      ]
+    },
+    {
+      "calculationId": "world-time",
+      "file": "src/lib/calculators/world-time.ts",
+      "exports": [
+        "getPopularCities",
+        "getAllCities",
+        "getCurrentTimeInCity",
+        "getCurrentTimeInMultipleCities",
+        "formatTime",
+        "formatDate",
+        "getDayOfWeek",
+        "isDaylightSavingTime",
+        "getUTCOffset",
+        "searchCities",
+        "getCitiesByCountry",
+        "getCitiesByRegion",
+        "compareTimes",
+        "getTimeZoneInfo",
+        "getWorldClockData"
+      ]
+    }
+  ]
+}

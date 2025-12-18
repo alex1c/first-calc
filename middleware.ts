@@ -126,15 +126,36 @@ export function middleware(request: NextRequest) {
 	}
 
 	// Case 3: Check if pathname matches numeric range pattern (e.g., /10000-19999)
-	// Rewrite to /en/(legacy)/range/... (or with current locale if detected)
-	// Example: /10000-19999 → /en/(legacy)/range/10000-19999
-	// Example: /210000-219999/213500-213549 → /en/(legacy)/range/210000-219999/213500-213549
-	if (isNumericRange(pathname)) {
-		const locale = detectedLocale || defaultLocale
-		const rewritePath = `/${locale}/(legacy)/range${pathname}`
-		const url = request.nextUrl.clone()
-		url.pathname = rewritePath
-		return NextResponse.rewrite(url)
+	// Rewrite to /<locale>/range/... (or with current locale if detected)
+	// Note: (legacy) is a route group and should NOT be in the URL
+	// Example: /10000-19999 → /en/range/10000-19999
+	// Example: /ru/10000-19999 → /ru/range/10000-19999
+	// Example: /210000-219999/213500-213549 → /en/range/210000-219999/213500-213549
+	// IMPORTANT: Only match pure numeric ranges, exclude any paths with non-numeric segments
+	// Regex: ^/\d+-\d+(/\d+-\d+)*/?$ - matches ONLY numeric ranges
+	const rangeRegex = /^\/\d+-\d+(\/\d+-\d+)*\/?$/
+	// Additional check: ensure path doesn't contain any non-numeric segments
+	// This prevents false matches like /numbers-to-words or /chislo-propisyu
+	if (rangeRegex.test(pathname)) {
+		// Double-check: path should only contain digits, dashes, and slashes
+		// Remove leading/trailing slashes and check each segment
+		const cleanPath = pathname.replace(/^\/|\/$/g, '')
+		const segments = cleanPath.split('/')
+		const isValidRange = segments.every((segment) => {
+			// Each segment should match: digits-digits
+			return /^\d+-\d+$/.test(segment)
+		})
+		
+		if (isValidRange) {
+			// If locale is detected (ru, es, tr, hi), use it; otherwise use default (en)
+			// But keep the original URL without /en prefix
+			const locale = detectedLocale || defaultLocale
+			// Route group (legacy) is not part of the URL, so we use /range directly
+			const rewritePath = `/${locale}/range${pathname}`
+			const url = request.nextUrl.clone()
+			url.pathname = rewritePath
+			return NextResponse.rewrite(url)
+		}
 	}
 
 	// Case 4: Path doesn't start with any locale - rewrite to /en internally

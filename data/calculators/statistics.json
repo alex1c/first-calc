@@ -1,0 +1,39 @@
+{
+  "id": "statistics",
+  "slug": "statistics",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculateMean",
+  "inputs": [],
+  "outputs": [
+    {
+      "name": "mean"
+    },
+    {
+      "name": "median"
+    },
+    {
+      "name": "mode"
+    },
+    {
+      "name": "variance"
+    },
+    {
+      "name": "standardDeviation"
+    },
+    {
+      "name": "min"
+    },
+    {
+      "name": "max"
+    },
+    {
+      "name": "count"
+    },
+    {
+      "name": "sum"
+    }
+  ],
+  "defaults": {},
+  "isEnabled": false
+}

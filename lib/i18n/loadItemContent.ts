@@ -13,30 +13,44 @@ import { defaultLocale } from '../i18n'
 
 /**
  * Load calculator content from items file
+ * Returns content and the locale it was loaded from (contentLocale)
+ * If content for requested locale doesn't exist, loads EN content entirely
  */
 export async function loadCalculatorContent(
 	locale: Locale,
 	slug: string,
-): Promise<CalculatorContentI18n | null> {
+): Promise<{ content: CalculatorContentI18n | null; contentLocale: Locale }> {
 	try {
 		const content = await import(`@/locales/${locale}/calculators/items/${slug}.json`)
-		return (content.default || content) as CalculatorContentI18n
+		return {
+			content: (content.default || content) as CalculatorContentI18n,
+			contentLocale: locale,
+		}
 	} catch (error) {
-		// Fallback to English
+		// Fallback to English - load EN content entirely
 		if (locale !== defaultLocale) {
 			try {
 				const content = await import(`@/locales/${defaultLocale}/calculators/items/${slug}.json`)
-				return (content.default || content) as CalculatorContentI18n
+				return {
+					content: (content.default || content) as CalculatorContentI18n,
+					contentLocale: defaultLocale,
+				}
 			} catch {
 				// Fallback failed, return null
 				console.warn(
 					`[i18n] Calculator content not found for slug "${slug}" in locale "${locale}" or "${defaultLocale}"`,
 				)
-				return null
+				return {
+					content: null,
+					contentLocale: locale, // Keep original locale even if content is null
+				}
 			}
 		}
 		console.warn(`[i18n] Calculator content not found for slug "${slug}" in locale "${locale}"`)
-		return null
+		return {
+			content: null,
+			contentLocale: locale,
+		}
 	}
 }
 

@@ -5,7 +5,8 @@ import { articleRegistry, calculatorRegistry, standardRegistry } from '@/lib/reg
 import { generateFaq } from '@/lib/faq/generator'
 import { ArticleSchema } from '@/components/schema/article-schema'
 import Link from 'next/link'
-import { Breadcrumbs } from '@/components/navigation/breadcrumbs'
+import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
+import { PageContainer } from '@/components/layout/page-container'
 import { getLearnBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 
 // Declare required namespaces for this page
@@ -51,7 +52,7 @@ export async function generateMetadata({
 	}
 }
 
-export default function ArticlePage({ params }: ArticlePageProps) {
+export default async function ArticlePage({ params }: ArticlePageProps) {
 	const { locale, slug } = params
 
 	if (!locales.includes(locale)) {
@@ -94,9 +95,8 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 	return (
 		<>
 			<ArticleSchema article={article} canonicalUrl={canonicalUrl} />
-			<div className="min-h-screen bg-gray-50">
-			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				<Breadcrumbs items={breadcrumbs} className="mb-4" />
+			<BreadcrumbsBar items={breadcrumbs} />
+			<PageContainer>
 
 				{/* Header */}
 				<h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -184,8 +184,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 						</div>
 					</div>
 				)}
-			</div>
-		</div>
+			</PageContainer>
 		</>
 	)
 }

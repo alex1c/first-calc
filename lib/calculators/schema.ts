@@ -11,6 +11,8 @@ export interface CalculatorSchema {
 	id: string
 	category: string
 	slug: string
+	engine?: 'formula' | 'function' // Calculation engine type (default: 'formula')
+	calculationId?: string | null // Function ID for engine='function'
 	inputs: Array<{
 		name: string
 		type: 'number' | 'text' | 'select'
@@ -24,8 +26,9 @@ export interface CalculatorSchema {
 	outputs: Array<{
 		name: string
 	}>
-	formula: string // e.g., "value * percent / 100"
+	formula?: string // e.g., "value * percent / 100" (required for engine='formula')
 	variables?: Record<string, string> // Variable descriptions
+	defaults?: Record<string, any> // Default values for inputs
 	relatedIds?: string[]
 	standardIds?: string[]
 	isEnabled?: boolean // Soft disable flag (default: true)
@@ -104,9 +107,16 @@ export function validateCalculatorSchema(schema: unknown): {
 		})
 	}
 
-	// Formula validation
-	if (!s.formula || typeof s.formula !== 'string') {
-		errors.push('formula is required and must be a string')
+	// Formula validation (only required for engine='formula')
+	const engine = s.engine || 'formula'
+	if (engine === 'formula') {
+		if (!s.formula || typeof s.formula !== 'string') {
+			errors.push('formula is required and must be a string for engine="formula"')
+		}
+	} else if (engine === 'function') {
+		if (!s.calculationId || typeof s.calculationId !== 'string') {
+			errors.push('calculationId is required and must be a string for engine="function"')
+		}
 	}
 
 	return {
@@ -167,7 +177,7 @@ export async function schemaToDefinition(
 	const { loadCalculatorContent, getDefaultCalculatorContent } = await import(
 		'@/lib/i18n/loadItemContent'
 	)
-	const content = await loadCalculatorContent(locale as any, schema.slug)
+	const { content, contentLocale } = await loadCalculatorContent(locale as any, schema.slug)
 	const defaults = getDefaultCalculatorContent(schema.slug)
 
 	// Use content from items file, fallback to defaults
@@ -185,43 +195,77 @@ export async function schemaToDefinition(
 			`[i18n] Calculator content not found for "${schema.slug}" (locale: ${locale}), using defaults`,
 		)
 	}
-	const { formula, variables, ...rest } = schema
+	const { formula, variables, engine, calculationId, ...rest } = schema
+	const calcEngine = engine || 'formula'
 
-	// Create calculate function from formula
-	// Check if formula is valid (not code or object)
-	const isValidFormula = formula && 
-		typeof formula === 'string' && 
-		formula.trim().length > 0 &&
-		!formula.includes('export') &&
-		!formula.includes('type') &&
-		!formula.includes('interface') &&
-		!formula.includes('function') &&
-		!formula.startsWith('{') &&
-		!formula.includes('\r\n *')
+	// Import calculation registry for function engine
+	let getCalculation: ((id: string) => import('@/lib/calculations/registry').CalculationFunction | undefined) | null = null
+	if (calcEngine === 'function') {
+		const registry = await import('@/lib/calculations/registry')
+		getCalculation = registry.getCalculation
+	}
 
+	// Create calculate function based on engine type
 	const calculate: import('@/lib/calculators/types').CalculatorFunction = (
 		inputs,
 	) => {
-		// Convert inputs to numbers
-		const numericInputs: Record<string, number> = {}
-		for (const [key, value] of Object.entries(inputs)) {
-			const numValue = Number(value)
-			if (isNaN(numValue)) {
-				throw new Error(`Invalid number for input: ${key}`)
+		if (calcEngine === 'function') {
+			// Use function-based calculation
+			if (!calculationId) {
+				throw new Error('calculationId is required for engine="function"')
 			}
-			numericInputs[key] = numValue
-		}
+			if (!getCalculation) {
+				throw new Error('Calculation registry not loaded')
+			}
+			const calcFn = getCalculation(calculationId)
+			if (!calcFn) {
+				throw new Error(
+					`Calculation function "${calculationId}" not found. Please ensure the calculation function is registered in lib/calculations/registry.ts`,
+				)
+			}
+			return calcFn(inputs)
+		} else {
+			// Use formula-based calculation (existing logic)
+			// Convert inputs to numbers
+			const numericInputs: Record<string, number> = {}
+			for (const [key, value] of Object.entries(inputs)) {
+				const numValue = Number(value)
+				if (isNaN(numValue)) {
+					throw new Error(`Invalid number for input: ${key}`)
+				}
+				numericInputs[key] = numValue
+			}
 
-		// Execute formula for each output
-		const results: Record<string, number | string> = {}
-		for (const output of schema.outputs) {
-			try {
-				if (isValidFormula) {
-					// Use the formula
-					const result = executeFormula(formula, numericInputs)
-					results[output.name] = result
-				} else {
-					// Fallback: use first input value or 0
+			// Check if formula is valid (not code or object)
+			const isValidFormula = formula && 
+				typeof formula === 'string' && 
+				formula.trim().length > 0 &&
+				!formula.includes('export') &&
+				!formula.includes('type') &&
+				!formula.includes('interface') &&
+				!formula.includes('function') &&
+				!formula.startsWith('{') &&
+				!formula.includes('\r\n *')
+
+			// Execute formula for each output
+			const results: Record<string, number | string> = {}
+			for (const output of schema.outputs) {
+				try {
+					if (isValidFormula) {
+						// Use the formula
+						const result = executeFormula(formula, numericInputs)
+						results[output.name] = result
+					} else {
+						// Fallback: use first input value or 0
+						const firstInputName = schema.inputs[0]?.name
+						if (firstInputName && numericInputs[firstInputName] !== undefined) {
+							results[output.name] = numericInputs[firstInputName]
+						} else {
+							results[output.name] = 0
+						}
+					}
+				} catch (error) {
+					// Fallback to first input value
 					const firstInputName = schema.inputs[0]?.name
 					if (firstInputName && numericInputs[firstInputName] !== undefined) {
 						results[output.name] = numericInputs[firstInputName]
@@ -229,18 +273,10 @@ export async function schemaToDefinition(
 						results[output.name] = 0
 					}
 				}
-			} catch (error) {
-				// Fallback to first input value
-				const firstInputName = schema.inputs[0]?.name
-				if (firstInputName && numericInputs[firstInputName] !== undefined) {
-					results[output.name] = numericInputs[firstInputName]
-				} else {
-					results[output.name] = 0
-				}
 			}
-		}
 
-		return results
+			return results
+		}
 	}
 
 	// Convert inputs - use labels from content if available
@@ -300,6 +336,7 @@ export async function schemaToDefinition(
 		shortDescription,
 		longDescription,
 		locale: locale as import('@/lib/calculators/types').CalculatorLocale,
+		contentLocale: contentLocale as import('@/lib/calculators/types').CalculatorLocale,
 		inputs: calculatorInputs,
 		outputs: calculatorOutputs,
 		calculate,

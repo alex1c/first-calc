@@ -17,7 +17,8 @@
 		"related": "İlgili Hesaplayıcılar",
 		"loading": "Yükleniyor...",
 		"noResults": "Sonuç bulunamadı",
-		"search": "Ara"
+		"search": "Ara",
+		"contentInEnglish": "İçerik İngilizce"
 	},
 	"message": {
 		"required": "Bu alan zorunludur",

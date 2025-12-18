@@ -17,7 +17,8 @@
 		"related": "Related Calculators",
 		"loading": "Loading...",
 		"noResults": "No results found",
-		"search": "Search"
+		"search": "Search",
+		"contentInEnglish": "Content in English"
 	},
 	"message": {
 		"required": "This field is required",

@@ -21,22 +21,25 @@ export function getCalculatorBreadcrumbs(
 	calculatorTitle?: string,
 	t: TranslationFunction,
 ): BreadcrumbItem[] {
+	// EN locale uses URLs without /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+
 	return [
 		{
 			label: t('navigation.breadcrumb.home'),
-			href: `/${locale}`,
+			href: basePath || '/',
 		},
 		{
 			label: t('navigation.breadcrumb.calculators'),
-			href: `/${locale}/calculators`,
+			href: `${basePath}/calculators`,
 		},
 		{
 			label: t(`navigation.categories.${category}`) || category,
-			href: `/${locale}/calculators/${category}`,
+			href: `${basePath}/calculators/${category}`,
 		},
 		{
 			label: calculatorTitle || slug,
-			href: `/${locale}/calculators/${category}/${slug}`,
+			href: `${basePath}/calculators/${category}/${slug}`,
 		},
 	]
 }
@@ -49,18 +52,21 @@ export function getCalculatorCategoryBreadcrumbs(
 	category: string,
 	t: TranslationFunction,
 ): BreadcrumbItem[] {
+	// EN locale uses URLs without /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+
 	return [
 		{
 			label: t('navigation.breadcrumb.home'),
-			href: `/${locale}`,
+			href: basePath || '/',
 		},
 		{
 			label: t('navigation.breadcrumb.calculators'),
-			href: `/${locale}/calculators`,
+			href: `${basePath}/calculators`,
 		},
 		{
 			label: t(`navigation.categories.${category}`) || category,
-			href: `/${locale}/calculators/${category}`,
+			href: `${basePath}/calculators/${category}`,
 		},
 	]
 }
@@ -72,14 +78,17 @@ export function getCalculatorsListBreadcrumbs(
 	locale: Locale,
 	t: TranslationFunction,
 ): BreadcrumbItem[] {
+	// EN locale uses URLs without /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+
 	return [
 		{
 			label: t('navigation.breadcrumb.home'),
-			href: `/${locale}`,
+			href: basePath || '/',
 		},
 		{
 			label: t('navigation.breadcrumb.calculators'),
-			href: `/${locale}/calculators`,
+			href: `${basePath}/calculators`,
 		},
 	]
 }
@@ -94,28 +103,31 @@ export function getStandardsBreadcrumbs(
 	standardTitle?: string,
 	t: TranslationFunction,
 ): BreadcrumbItem[] {
+	// EN locale uses URLs without /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+
 	const items: BreadcrumbItem[] = [
 		{
 			label: t('navigation.breadcrumb.home'),
-			href: `/${locale}`,
+			href: basePath || '/',
 		},
 		{
 			label: t('navigation.breadcrumb.standards'),
-			href: `/${locale}/standards`,
+			href: `${basePath}/standards`,
 		},
 	]
 
 	if (country) {
 		items.push({
 			label: country,
-			href: `/${locale}/standards/${country}`,
+			href: `${basePath}/standards/${country}`,
 		})
 	}
 
 	if (slug && standardTitle) {
 		items.push({
 			label: standardTitle,
-			href: `/${locale}/standards/${country || ''}/${slug}`,
+			href: `${basePath}/standards/${country || ''}/${slug}`,
 		})
 	}
 
@@ -131,21 +143,24 @@ export function getLearnBreadcrumbs(
 	articleTitle?: string,
 	t: TranslationFunction,
 ): BreadcrumbItem[] {
+	// EN locale uses URLs without /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+
 	const items: BreadcrumbItem[] = [
 		{
 			label: t('navigation.breadcrumb.home'),
-			href: `/${locale}`,
+			href: basePath || '/',
 		},
 		{
 			label: t('navigation.breadcrumb.learn'),
-			href: `/${locale}/learn`,
+			href: `${basePath}/learn`,
 		},
 	]
 
 	if (slug && articleTitle) {
 		items.push({
 			label: articleTitle,
-			href: `/${locale}/learn/${slug}`,
+			href: `${basePath}/learn/${slug}`,
 		})
 	}
 
@@ -154,6 +169,7 @@ export function getLearnBreadcrumbs(
 
 /**
  * Generate breadcrumbs for legacy pages
+ * Handles EN without prefix (no /en in URLs)
  */
 export function getLegacyBreadcrumbs(
 	locale: Locale,
@@ -162,14 +178,17 @@ export function getLegacyBreadcrumbs(
 	t: TranslationFunction,
 	toolTitle?: string,
 ): BreadcrumbItem[] {
+	// EN locale uses URLs without /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+
 	const items: BreadcrumbItem[] = [
 		{
 			label: t('navigation.breadcrumb.home'),
-			href: `/${locale}`,
+			href: basePath || '/',
 		},
 		{
 			label: t('navigation.menu.tools'),
-			href: `/${locale}/tools`,
+			href: `${basePath}/tools`,
 		},
 	]
 
@@ -177,14 +196,14 @@ export function getLegacyBreadcrumbs(
 	// Use toolTitle if provided, otherwise use toolType slug
 	items.push({
 		label: toolTitle || toolType,
-		href: `/${locale}/${toolType}`,
+		href: `${basePath}/${toolType}`,
 	})
 
 	// Add params as additional breadcrumbs
 	params.forEach((param, index) => {
 		items.push({
 			label: param,
-			href: `/${locale}/${toolType}/${params.slice(0, index + 1).join('/')}`,
+			href: `${basePath}/${toolType}/${params.slice(0, index + 1).join('/')}`,
 		})
 	})
 

@@ -1,0 +1,11 @@
+{
+  "id": "basic",
+  "slug": "basic",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculateBasicMath",
+  "inputs": [],
+  "outputs": [],
+  "defaults": {},
+  "isEnabled": false
+}

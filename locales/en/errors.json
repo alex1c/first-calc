@@ -5,7 +5,21 @@
 		"min": "{field} must be at least {min}",
 		"max": "{field} must be at most {max}",
 		"negative": "{field} cannot be negative",
-		"invalidValue": "Invalid value for {field}"
+		"invalidValue": "Invalid value for {field}",
+		"enterNumber": "Please enter a number",
+		"enterValidNumber": "Please enter a valid number",
+		"enterValue": "Please enter a value",
+		"enterPercentage": "Please enter percentage",
+		"enterValidPercentage": "Please enter a valid percentage",
+		"enterRootDegree": "Please enter root degree",
+		"enterValidDegree": "Please enter a valid degree",
+		"numberRangeRu": "Number must be between 0 and 999,999,999",
+		"numberRangeEn": "Number must be between 0 and 999,999,999,999",
+		"numberRangeRoman": "Number must be between 1 and 3999",
+		"percentageRange": "Percentage must be between 0 and 1000",
+		"degreeRange": "Degree must be between 2 and 100",
+		"romanCharacters": "Use only characters: I, V, X, L, C, D, M",
+		"evenRootNegative": "Even root of negative number does not exist"
 	},
 	"calculation": {
 		"failed": "Calculation failed",

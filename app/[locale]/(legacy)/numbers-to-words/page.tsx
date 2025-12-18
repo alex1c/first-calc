@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { locales, type Locale } from '@/lib/i18n'
 import { loadNamespaces, createT } from '@/lib/i18n'
 import { LegacyPageLayout } from '@/components/legacy/legacy-page-layout'
-import { LegacyLandingForm } from '@/components/legacy/legacy-landing-form'
+import { NumberToWordsForm } from '@/components/legacy/number-to-words-form'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
 import {
 	getLegacyTitle,
@@ -16,7 +16,7 @@ import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
 
 // Declare required namespaces for this page
-const namespaces = ['common', 'navigation'] as const
+const namespaces = ['common', 'navigation', 'legacy/notices'] as const
 
 interface NumbersToWordsLandingPageProps {
 	params: {
@@ -88,6 +88,15 @@ export default async function NumbersToWordsLandingPage({
 			toolType="numbers-to-words"
 			breadcrumbs={breadcrumbs}
 		>
+			{/* Notice for ES/TR/HI locales */}
+			{['es', 'tr', 'hi'].includes(locale) && (
+				<div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+					<p className="text-sm text-yellow-800">
+						{t('legacy/notices.numbersToWords.localizedComingSoon')}
+					</p>
+				</div>
+			)}
+
 			{/* Description */}
 			{content && content.text[locale] && (
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
@@ -100,12 +109,9 @@ export default async function NumbersToWordsLandingPage({
 			)}
 
 			{/* Form */}
-			<LegacyLandingForm
+			<NumberToWordsForm
 				locale={locale}
 				toolSlug="numbers-to-words"
-				inputLabel={locale === 'ru' ? 'Введите число' : 'Enter a number'}
-				inputPlaceholder={locale === 'ru' ? 'Например: 123' : 'e.g., 123'}
-				inputType="number"
 				exampleLinks={[
 					{ href: '/numbers-to-words/123', label: '/numbers-to-words/123' },
 					{ href: '/numbers-to-words/1000', label: '/numbers-to-words/1000' },

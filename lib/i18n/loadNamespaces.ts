@@ -3,8 +3,33 @@
  * Loads and merges multiple namespace dictionaries
  */
 
-import type { Locale, Namespace, MergedDictionary, LoadNamespacesOptions } from './types'
+import type { Locale, Namespace, MergedDictionary, LoadNamespacesOptions, Dictionary } from './types'
 import { defaultLocale } from '../i18n'
+
+/**
+ * Deep merge two dictionaries
+ * Recursively merges nested objects
+ */
+function deepMerge(target: Dictionary, source: Dictionary): void {
+	for (const key in source) {
+		if (source.hasOwnProperty(key)) {
+			if (
+				typeof source[key] === 'object' &&
+				source[key] !== null &&
+				!Array.isArray(source[key]) &&
+				typeof target[key] === 'object' &&
+				target[key] !== null &&
+				!Array.isArray(target[key])
+			) {
+				// Recursively merge nested objects
+				deepMerge(target[key] as Dictionary, source[key] as Dictionary)
+			} else {
+				// Overwrite or set value
+				target[key] = source[key]
+			}
+		}
+	}
+}
 
 // Server-side cache for loaded dictionaries
 const cache = new Map<string, MergedDictionary>()
@@ -63,9 +88,10 @@ export async function loadNamespaces(
 	const { fallbackLocale = defaultLocale, logMissing = false } = options
 
 	// Check cache first
+	// Note: In development, we skip cache to ensure fresh data
 	const cacheKey = getCacheKey(locale, namespaces)
 	const cached = cache.get(cacheKey)
-	if (cached) {
+	if (cached && process.env.NODE_ENV === 'production') {
 		return cached
 	}
 
@@ -74,13 +100,33 @@ export async function loadNamespaces(
 	const namespaceDicts = await Promise.all(namespacePromises)
 
 	// Merge dictionaries (later namespaces override earlier ones)
+	// Use deep merge to preserve nested structure
+	// IMPORTANT: Wrap each dictionary in its namespace key before merging
+	// e.g., navigation.json -> { navigation: {...} }
 	const merged: MergedDictionary = {}
-	for (const dict of namespaceDicts) {
-		Object.assign(merged, dict)
+	for (let i = 0; i < namespaces.length; i++) {
+		const ns = namespaces[i]
+		const dict = namespaceDicts[i]
+		// Split namespace by '/' to handle nested paths like 'legacy/ui'
+		const parts = ns.split('/')
+		if (parts.length === 1) {
+			// Simple namespace like 'navigation' -> wrap in { navigation: dict }
+			deepMerge(merged, { [ns]: dict })
+		} else {
+			// Nested namespace like 'legacy/ui' -> create { legacy: { ui: dict } }
+			let current = merged
+			for (let j = 0; j < parts.length - 1; j++) {
+				if (!current[parts[j]]) {
+					current[parts[j]] = {}
+				}
+				current = current[parts[j]] as Dictionary
+			}
+			current[parts[parts.length - 1]] = dict
+		}
 	}
 
-	// Cache the result (server-side only)
-	if (typeof window === 'undefined') {
+	// Cache the result (server-side only, and only in production)
+	if (typeof window === 'undefined' && process.env.NODE_ENV === 'production') {
 		cache.set(cacheKey, merged)
 	}
 
@@ -95,8 +141,14 @@ export async function loadNamespaces(
 
 /**
  * Clear the cache (useful for development)
+ * Automatically called in development mode on module load
  */
 export function clearCache(): void {
 	cache.clear()
+}
+
+// Clear cache in development mode to ensure fresh data
+if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
+	clearCache()
 }
 

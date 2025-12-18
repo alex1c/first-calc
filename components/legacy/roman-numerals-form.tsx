@@ -8,6 +8,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
+import { useClientT } from '@/lib/i18n/useClientT'
 
 interface RomanNumeralsFormProps {
 	locale: Locale
@@ -23,6 +24,7 @@ export function RomanNumeralsForm({
 	exampleLinks = [],
 }: RomanNumeralsFormProps) {
 	const router = useRouter()
+	const t = useClientT(locale, ['legacy/ui', 'errors'])
 	const [inputType, setInputType] = useState<'arabic' | 'roman'>('arabic')
 	const [value, setValue] = useState('')
 	const [error, setError] = useState('')
@@ -31,33 +33,21 @@ export function RomanNumeralsForm({
 		setError('')
 
 		if (!value.trim()) {
-			setError(
-				locale === 'ru'
-					? 'Пожалуйста, введите значение'
-					: 'Please enter a value',
-			)
+			setError(t('errors.validation.enterValue'))
 			return false
 		}
 
 		if (inputType === 'arabic') {
 			const num = parseInt(value.trim(), 10)
 			if (isNaN(num) || num < 1 || num > 3999) {
-				setError(
-					locale === 'ru'
-						? 'Число должно быть от 1 до 3999'
-						: 'Number must be between 1 and 3999',
-				)
+				setError(t('errors.validation.numberRangeRoman'))
 				return false
 			}
 		} else {
 			// Roman numeral validation (basic check)
 			const roman = value.trim().toUpperCase()
 			if (!/^[IVXLCDM]+$/.test(roman)) {
-				setError(
-					locale === 'ru'
-						? 'Используйте только символы: I, V, X, L, C, D, M'
-						: 'Use only characters: I, V, X, L, C, D, M',
-				)
+				setError(t('errors.validation.romanCharacters'))
 				return false
 			}
 		}
@@ -90,7 +80,7 @@ export function RomanNumeralsForm({
 				{/* Input type selector */}
 				<div>
 					<label className="block text-sm font-medium text-gray-700 mb-2">
-						{locale === 'ru' ? 'Тип ввода' : 'Input Type'}
+						{t('legacy/ui.form.romanNumerals.inputType')}
 					</label>
 					<div className="flex gap-4">
 						<label className="flex items-center">
@@ -107,7 +97,7 @@ export function RomanNumeralsForm({
 								className="mr-2"
 							/>
 							<span className="text-sm text-gray-700">
-								{locale === 'ru' ? 'Арабское число' : 'Arabic Number'}
+								{t('legacy/ui.form.romanNumerals.arabicNumber')}
 							</span>
 						</label>
 						<label className="flex items-center">
@@ -124,7 +114,7 @@ export function RomanNumeralsForm({
 								className="mr-2"
 							/>
 							<span className="text-sm text-gray-700">
-								{locale === 'ru' ? 'Римская цифра' : 'Roman Numeral'}
+								{t('legacy/ui.form.romanNumerals.romanNumeral')}
 							</span>
 						</label>
 					</div>
@@ -137,12 +127,8 @@ export function RomanNumeralsForm({
 						className="block text-sm font-medium text-gray-700 mb-2"
 					>
 						{inputType === 'arabic'
-							? locale === 'ru'
-								? 'Введите число (1-3999)'
-								: 'Enter number (1-3999)'
-							: locale === 'ru'
-								? 'Введите римскую цифру'
-								: 'Enter Roman numeral'}
+							? t('legacy/ui.form.romanNumerals.enterArabic')
+							: t('legacy/ui.form.romanNumerals.enterRoman')}
 					</label>
 					<input
 						type={inputType === 'arabic' ? 'number' : 'text'}
@@ -158,12 +144,8 @@ export function RomanNumeralsForm({
 						}}
 						placeholder={
 							inputType === 'arabic'
-								? locale === 'ru'
-									? 'Например: 123'
-									: 'e.g., 123'
-								: locale === 'ru'
-									? 'Например: XII'
-									: 'e.g., XII'
+								? t('legacy/ui.form.romanNumerals.arabicPlaceholder')
+								: t('legacy/ui.form.romanNumerals.romanPlaceholder')
 						}
 						min={inputType === 'arabic' ? 1 : undefined}
 						max={inputType === 'arabic' ? 3999 : undefined}
@@ -180,14 +162,14 @@ export function RomanNumeralsForm({
 					type="submit"
 					className="w-full bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
 				>
-					{locale === 'ru' ? 'Конвертировать' : 'Convert'}
+					{t('legacy/ui.form.romanNumerals.convert')}
 				</button>
 			</form>
 
 			{exampleLinks.length > 0 && (
 				<div className="mt-6 pt-6 border-t border-gray-200">
 					<p className="text-sm font-medium text-gray-700 mb-3">
-						{locale === 'ru' ? 'Примеры ссылок:' : 'Example links:'}
+						{t('legacy/ui.form.common.exampleLinks')}
 					</p>
 					<ul className="space-y-2">
 						{exampleLinks.map((link, index) => {

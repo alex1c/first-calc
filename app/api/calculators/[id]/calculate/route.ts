@@ -76,6 +76,16 @@ export async function POST(
 
 		// Perform calculation
 		try {
+			// Check if calculator is disabled
+			if (calculator.isEnabled === false) {
+				return NextResponse.json(
+					{
+						error: 'This calculator is being migrated and is temporarily unavailable',
+					},
+					{ status: 503 },
+				)
+			}
+
 			const results = calculator.calculate(processedInputs)
 
 			// Format results

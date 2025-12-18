@@ -1,7 +1,12 @@
 import { notFound } from 'next/navigation'
-import { locales, type Locale } from '@/lib/i18n'
+import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { getStandardsByCountry } from '@/data/standards'
 import Link from 'next/link'
+import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
+import { PageContainer } from '@/components/layout/page-container'
+import { getStandardsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
+
+const namespaces = ['common', 'navigation'] as const
 
 interface StandardsCountryPageProps {
 	params: {
@@ -10,7 +15,7 @@ interface StandardsCountryPageProps {
 	}
 }
 
-export default function StandardsCountryPage({
+export default async function StandardsCountryPage({
 	params,
 }: StandardsCountryPageProps) {
 	const { locale, country } = params
@@ -19,23 +24,25 @@ export default function StandardsCountryPage({
 		notFound()
 	}
 
+	// Load translations
+	const dict = await loadNamespaces(locale, namespaces)
+	const t = createT(dict)
+
 	const standards = getStandardsByCountry(country, locale)
 
 	if (standards.length === 0) {
 		notFound()
 	}
 
+	// Generate breadcrumbs
+	const breadcrumbs = getStandardsBreadcrumbs(locale, country, undefined, undefined, t)
+
 	return (
-		<div className="min-h-screen bg-gray-50">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				<Link
-					href={`/${locale}/standards`}
-					className="text-blue-600 hover:text-blue-800 mb-4 inline-block"
-				>
-					← Back to Standards
-				</Link>
+		<>
+			<BreadcrumbsBar items={breadcrumbs} />
+			<PageContainer>
 				<h1 className="text-4xl font-bold text-gray-900 mb-4">
-					{country} Standards
+					{country} {t('navigation.breadcrumb.standards')}
 				</h1>
 				<p className="text-lg text-gray-600 mb-8">
 					{standards.length} standard{standards.length !== 1 ? 's' : ''}{' '}
@@ -62,8 +69,8 @@ export default function StandardsCountryPage({
 						</Link>
 					))}
 				</div>
-			</div>
-		</div>
+			</PageContainer>
+		</>
 	)
 }
 

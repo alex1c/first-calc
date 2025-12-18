@@ -90,6 +90,8 @@ export interface CalculatorDefinition {
 	shortDescription: string
 	longDescription?: string
 	locale: CalculatorLocale
+	contentLocale: CalculatorLocale // Locale of the actual content (may differ from locale if fallback to EN)
+	tags?: string[] // Optional tags for filtering and navigation
 	inputs: CalculatorInput[]
 	outputs: CalculatorOutput[]
 	calculate: CalculatorFunction
@@ -117,6 +119,8 @@ export interface CalculatorDefinitionClient {
 	shortDescription: string
 	longDescription?: string
 	locale: CalculatorLocale
+	contentLocale: CalculatorLocale // Locale of the actual content (may differ from locale if fallback to EN)
+	tags?: string[] // Optional tags for filtering and navigation
 	inputs: CalculatorInput[]
 	outputs: CalculatorOutput[]
 	howToBullets: string[]

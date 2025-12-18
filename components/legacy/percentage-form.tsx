@@ -8,6 +8,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
+import { useClientT } from '@/lib/i18n/useClientT'
 
 interface PercentageFormProps {
 	locale: Locale
@@ -25,6 +26,7 @@ export function PercentageForm({
 	exampleLinks = [],
 }: PercentageFormProps) {
 	const router = useRouter()
+	const t = useClientT(locale, ['legacy/ui', 'errors'])
 	const [value, setValue] = useState('')
 	const [percent, setPercent] = useState('')
 	const [operation, setOperation] = useState<'of' | 'add' | 'subtract'>(
@@ -37,34 +39,23 @@ export function PercentageForm({
 
 		// Validate value
 		if (!value.trim()) {
-			newErrors.value =
-				locale === 'ru' ? 'Введите число' : 'Please enter a number'
+			newErrors.value = t('errors.validation.enterNumber')
 		} else {
 			const numValue = parseFloat(value.trim())
 			if (isNaN(numValue) || !Number.isFinite(numValue)) {
-				newErrors.value =
-					locale === 'ru'
-						? 'Введите корректное число'
-						: 'Please enter a valid number'
+				newErrors.value = t('errors.validation.enterValidNumber')
 			}
 		}
 
 		// Validate percent
 		if (!percent.trim()) {
-			newErrors.percent =
-				locale === 'ru' ? 'Введите процент' : 'Please enter percentage'
+			newErrors.percent = t('errors.validation.enterPercentage')
 		} else {
 			const numPercent = parseFloat(percent.trim())
 			if (isNaN(numPercent) || !Number.isFinite(numPercent)) {
-				newErrors.percent =
-					locale === 'ru'
-						? 'Введите корректный процент'
-						: 'Please enter a valid percentage'
+				newErrors.percent = t('errors.validation.enterValidPercentage')
 			} else if (numPercent < 0 || numPercent > 1000) {
-				newErrors.percent =
-					locale === 'ru'
-						? 'Процент должен быть от 0 до 1000'
-						: 'Percentage must be between 0 and 1000'
+				newErrors.percent = t('errors.validation.percentageRange')
 			}
 		}
 
@@ -105,7 +96,7 @@ export function PercentageForm({
 				{!isPercentageOf && (
 					<div>
 						<label className="block text-sm font-medium text-gray-700 mb-2">
-							{locale === 'ru' ? 'Операция' : 'Operation'}
+							{t('legacy/ui.form.percentage.operation')}
 						</label>
 						<div className="flex gap-4">
 							<label className="flex items-center">
@@ -118,7 +109,7 @@ export function PercentageForm({
 									className="mr-2"
 								/>
 								<span className="text-sm text-gray-700">
-									{locale === 'ru' ? 'Увеличить на' : 'Add'}
+									{t('legacy/ui.form.percentage.add')}
 								</span>
 							</label>
 							<label className="flex items-center">
@@ -131,7 +122,7 @@ export function PercentageForm({
 									className="mr-2"
 								/>
 								<span className="text-sm text-gray-700">
-									{locale === 'ru' ? 'Уменьшить на' : 'Subtract'}
+									{t('legacy/ui.form.percentage.subtract')}
 								</span>
 							</label>
 						</div>
@@ -144,7 +135,7 @@ export function PercentageForm({
 						htmlFor="input-value"
 						className="block text-sm font-medium text-gray-700 mb-2"
 					>
-						{locale === 'ru' ? 'Число' : 'Number'}
+						{t('legacy/ui.form.percentage.number')}
 					</label>
 					<input
 						type="number"
@@ -154,7 +145,7 @@ export function PercentageForm({
 							setValue(e.target.value)
 							setErrors((prev) => ({ ...prev, value: undefined }))
 						}}
-						placeholder={locale === 'ru' ? 'Например: 100' : 'e.g., 100'}
+						placeholder={t('legacy/ui.form.percentage.numberPlaceholder')}
 						step="any"
 						className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
 							errors.value ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-white'
@@ -171,7 +162,7 @@ export function PercentageForm({
 						htmlFor="input-percent"
 						className="block text-sm font-medium text-gray-700 mb-2"
 					>
-						{locale === 'ru' ? 'Процент' : 'Percentage'}
+						{t('legacy/ui.form.percentage.percent')}
 						<span className="text-gray-500 ml-1">(%)</span>
 					</label>
 					<input
@@ -182,7 +173,7 @@ export function PercentageForm({
 							setPercent(e.target.value)
 							setErrors((prev) => ({ ...prev, percent: undefined }))
 						}}
-						placeholder={locale === 'ru' ? 'Например: 20' : 'e.g., 20'}
+						placeholder={t('legacy/ui.form.percentage.percentPlaceholder')}
 						min="0"
 						max="1000"
 						step="any"
@@ -194,50 +185,18 @@ export function PercentageForm({
 						<p className="mt-2 text-sm text-red-600">{errors.percent}</p>
 					)}
 					<p className="mt-1 text-xs text-gray-500">
-						{locale === 'ru'
-							? 'Введите процент от 0 до 1000'
-							: 'Enter percentage from 0 to 1000'}
+						{t('legacy/ui.form.percentage.percentRange')}
 					</p>
 				</div>
 
 				{/* Help text */}
 				<div className="bg-blue-50 border border-blue-200 rounded-md p-3">
 					<p className="text-sm text-blue-800">
-						{isPercentageOf ? (
-							locale === 'ru' ? (
-								<>
-									<strong>Пример:</strong> Если число = 100 и процент = 20, то
-									20% от 100 = 20
-								</>
-							) : (
-								<>
-									<strong>Example:</strong> If number = 100 and percentage = 20,
-									then 20% of 100 = 20
-								</>
-							)
-						) : operation === 'add' ? (
-							locale === 'ru' ? (
-								<>
-									<strong>Пример:</strong> Если число = 100 и процент = 20, то
-									100 + 20% = 120
-								</>
-							) : (
-								<>
-									<strong>Example:</strong> If number = 100 and percentage = 20,
-									then 100 + 20% = 120
-								</>
-							)
-						) : locale === 'ru' ? (
-							<>
-								<strong>Пример:</strong> Если число = 100 и процент = 20, то 100
-								- 20% = 80
-							</>
-						) : (
-							<>
-								<strong>Example:</strong> If number = 100 and percentage = 20,
-								then 100 - 20% = 80
-							</>
-						)}
+						{isPercentageOf
+							? t('legacy/ui.form.percentage.helpOf')
+							: operation === 'add'
+								? t('legacy/ui.form.percentage.helpAdd')
+								: t('legacy/ui.form.percentage.helpSubtract')}
 					</p>
 				</div>
 
@@ -245,14 +204,14 @@ export function PercentageForm({
 					type="submit"
 					className="w-full bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
 				>
-					{locale === 'ru' ? 'Вычислить' : 'Calculate'}
+					{t('legacy/ui.form.percentage.calculate')}
 				</button>
 			</form>
 
 			{exampleLinks.length > 0 && (
 				<div className="mt-6 pt-6 border-t border-gray-200">
 					<p className="text-sm font-medium text-gray-700 mb-3">
-						{locale === 'ru' ? 'Примеры ссылок:' : 'Example links:'}
+						{t('legacy/ui.form.common.exampleLinks')}
 					</p>
 					<ul className="space-y-2">
 						{exampleLinks.map((link, index) => {

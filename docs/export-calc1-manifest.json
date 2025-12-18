@@ -1,0 +1,3879 @@
+{
+  "calculators": [
+    {
+      "slug": "credit-loan",
+      "category": "finance",
+      "engine": "function",
+      "calculationId": "calculateAnnuityLoan",
+      "inputs": [
+        {
+          "name": "loanAmount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termYears",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termMonths",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "interestRate",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "downPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "additionalPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "paymentType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "monthlyPayment",
+          "unit": null
+        },
+        {
+          "name": "totalPayments",
+          "unit": null
+        },
+        {
+          "name": "totalInterest",
+          "unit": null
+        },
+        {
+          "name": "effectiveTerm",
+          "unit": null
+        },
+        {
+          "name": "paymentSchedule",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "mortgage",
+      "category": "finance",
+      "engine": "function",
+      "calculationId": "calculateAnnuityLoan",
+      "inputs": [
+        {
+          "name": "loanAmount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termYears",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termMonths",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "interestRate",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "downPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "additionalPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "paymentType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "monthlyPayment",
+          "unit": null
+        },
+        {
+          "name": "totalPayments",
+          "unit": null
+        },
+        {
+          "name": "totalInterest",
+          "unit": null
+        },
+        {
+          "name": "effectiveTerm",
+          "unit": null
+        },
+        {
+          "name": "paymentSchedule",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "auto-loan",
+      "category": "finance",
+      "engine": "function",
+      "calculationId": "calculateAnnuityLoan",
+      "inputs": [
+        {
+          "name": "loanAmount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termYears",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termMonths",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "interestRate",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "downPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "additionalPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "paymentType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "monthlyPayment",
+          "unit": null
+        },
+        {
+          "name": "totalPayments",
+          "unit": null
+        },
+        {
+          "name": "totalInterest",
+          "unit": null
+        },
+        {
+          "name": "effectiveTerm",
+          "unit": null
+        },
+        {
+          "name": "paymentSchedule",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "consumer-loan",
+      "category": "finance",
+      "engine": "function",
+      "calculationId": "calculateAnnuityLoan",
+      "inputs": [
+        {
+          "name": "loanAmount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termYears",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termMonths",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "interestRate",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "downPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "additionalPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "paymentType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "monthlyPayment",
+          "unit": null
+        },
+        {
+          "name": "totalPayments",
+          "unit": null
+        },
+        {
+          "name": "totalInterest",
+          "unit": null
+        },
+        {
+          "name": "effectiveTerm",
+          "unit": null
+        },
+        {
+          "name": "paymentSchedule",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "loan-overpayment",
+      "category": "finance",
+      "engine": "function",
+      "calculationId": "calculateLoanOverpayment",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "investment",
+      "category": "finance",
+      "engine": "function",
+      "calculationId": "calculateCompoundSavings",
+      "inputs": [
+        {
+          "name": "targetAmount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "initialAmount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termMonths",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "monthlyContribution",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "interestRate",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "interestType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "finalAmount",
+          "unit": null
+        },
+        {
+          "name": "totalContributions",
+          "unit": null
+        },
+        {
+          "name": "totalInterest",
+          "unit": null
+        },
+        {
+          "name": "monthlyContribution",
+          "unit": null
+        },
+        {
+          "name": "achievable",
+          "unit": null
+        },
+        {
+          "name": "achievementMonth",
+          "unit": null
+        },
+        {
+          "name": "savingsSchedule",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "savings",
+      "category": "finance",
+      "engine": "function",
+      "calculationId": "calculateCompoundSavings",
+      "inputs": [
+        {
+          "name": "targetAmount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "initialAmount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termMonths",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "monthlyContribution",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "interestRate",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "interestType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "finalAmount",
+          "unit": null
+        },
+        {
+          "name": "totalContributions",
+          "unit": null
+        },
+        {
+          "name": "totalInterest",
+          "unit": null
+        },
+        {
+          "name": "monthlyContribution",
+          "unit": null
+        },
+        {
+          "name": "achievable",
+          "unit": null
+        },
+        {
+          "name": "achievementMonth",
+          "unit": null
+        },
+        {
+          "name": "savingsSchedule",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "compound-interest",
+      "category": "finance",
+      "engine": "function",
+      "calculationId": "calculateCompoundInterest",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "tax-calculator",
+      "category": "finance",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: tax-calculator.ts)"
+    },
+    {
+      "slug": "alimony",
+      "category": "finance",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: alimony.ts)"
+    },
+    {
+      "slug": "profit-margin",
+      "category": "finance",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: profit-margin.ts)"
+    },
+    {
+      "slug": "pension",
+      "category": "finance",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: pension.ts)"
+    },
+    {
+      "slug": "basic",
+      "category": "math",
+      "engine": "function",
+      "calculationId": "calculateBasicMath",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "math-percent",
+      "category": "math",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "Function file found (percent.ts) but calculation function not found"
+    },
+    {
+      "slug": "area",
+      "category": "math",
+      "engine": "function",
+      "calculationId": "calculateArea",
+      "inputs": [
+        {
+          "name": "figureType",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "radius",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "circle",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "square",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "triangle",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "area",
+          "unit": null
+        },
+        {
+          "name": "formula",
+          "unit": null
+        },
+        {
+          "name": "figureType",
+          "unit": null
+        },
+        {
+          "name": "parameters",
+          "unit": "м"
+        },
+        {
+          "name": "side",
+          "unit": null
+        },
+        {
+          "name": "base",
+          "unit": null
+        },
+        {
+          "name": "height",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "volume",
+      "category": "math",
+      "engine": "function",
+      "calculationId": "convertVolume",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "power-root",
+      "category": "math",
+      "engine": "function",
+      "calculationId": "calculatePowerRoot",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "equations",
+      "category": "math",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "Function file found (equations.ts) but calculation function not found"
+    },
+    {
+      "slug": "statistics",
+      "category": "math",
+      "engine": "function",
+      "calculationId": "calculateMean",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "mean",
+          "unit": null
+        },
+        {
+          "name": "median",
+          "unit": null
+        },
+        {
+          "name": "mode",
+          "unit": null
+        },
+        {
+          "name": "variance",
+          "unit": null
+        },
+        {
+          "name": "standardDeviation",
+          "unit": null
+        },
+        {
+          "name": "min",
+          "unit": null
+        },
+        {
+          "name": "max",
+          "unit": null
+        },
+        {
+          "name": "count",
+          "unit": null
+        },
+        {
+          "name": "sum",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "converter",
+      "category": "math",
+      "engine": "function",
+      "calculationId": "convertUnit",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "bmi",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculateBMI",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "calories",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculateBMR",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "food-ration",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculateBMR",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "pregnancy",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculateFromLMP",
+      "inputs": [
+        {
+          "name": "method",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "date",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dueDate",
+          "unit": null
+        },
+        {
+          "name": "currentWeek",
+          "unit": null
+        },
+        {
+          "name": "currentDay",
+          "unit": null
+        },
+        {
+          "name": "daysRemaining",
+          "unit": null
+        },
+        {
+          "name": "trimester",
+          "unit": null
+        },
+        {
+          "name": "dueDateRange",
+          "unit": null
+        },
+        {
+          "name": "latest",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "baby-growth",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculateBabyGrowth",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "blood-alcohol",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculateBAC",
+      "inputs": [
+        {
+          "name": "gender",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "weight",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "volume",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "strength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "startTime",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "bac",
+          "unit": null
+        },
+        {
+          "name": "eliminationTime",
+          "unit": null
+        },
+        {
+          "name": "state",
+          "unit": null
+        },
+        {
+          "name": "stateLevel",
+          "unit": null
+        },
+        {
+          "name": "isSafeToDrive",
+          "unit": null
+        },
+        {
+          "name": "warning",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "size-converter",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "convertSize",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "ring-size",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculateCircumference",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "electricity-cost",
+      "category": "life",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: electricity-cost.ts)"
+    },
+    {
+      "slug": "paper-weight",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculatePaperWeight",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "water-usage",
+      "category": "life",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: water-usage.ts)"
+    },
+    {
+      "slug": "electricity-usage",
+      "category": "life",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: electricity-usage.ts)"
+    },
+    {
+      "slug": "gas-usage",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculateGasUsage",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "heating-cost",
+      "category": "life",
+      "engine": "function",
+      "calculationId": "calculateHeatingCost",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "wallpaper",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateWallpaper",
+      "inputs": [
+        {
+          "name": "roomLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "roomWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "wallHeight",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "rollWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "rollLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "doors",
+          "type": "array",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "windows",
+          "type": "array",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "reservePercentage",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "roomLength",
+          "unit": null
+        },
+        {
+          "name": "roomWidth",
+          "unit": null
+        },
+        {
+          "name": "wallHeight",
+          "unit": null
+        },
+        {
+          "name": "totalWallArea",
+          "unit": null
+        },
+        {
+          "name": "doorsArea",
+          "unit": null
+        },
+        {
+          "name": "windowsArea",
+          "unit": null
+        },
+        {
+          "name": "openingsArea",
+          "unit": null
+        },
+        {
+          "name": "usefulWallArea",
+          "unit": null
+        },
+        {
+          "name": "rollWidth",
+          "unit": null
+        },
+        {
+          "name": "rollLength",
+          "unit": null
+        },
+        {
+          "name": "rollArea",
+          "unit": null
+        },
+        {
+          "name": "reservePercentage",
+          "unit": null
+        },
+        {
+          "name": "reserveArea",
+          "unit": null
+        },
+        {
+          "name": "totalAreaNeeded",
+          "unit": null
+        },
+        {
+          "name": "rollsNeeded",
+          "unit": null
+        },
+        {
+          "name": "recommendedRolls",
+          "unit": null
+        },
+        {
+          "name": "doorsCount",
+          "unit": null
+        },
+        {
+          "name": "windowsCount",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "paint",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateMaterial",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "tile-glue",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateMaterial",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "putty",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateMaterial",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "primer",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateMaterial",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "plaster",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateMaterial",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "foundation",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateFoundation",
+      "inputs": [
+        {
+          "name": "foundationType",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "length",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "wallThickness",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "slabLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "slabWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "slabThickness",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "columnCount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "columnLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "columnWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "columnHeight",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "concreteGrade",
+          "type": "text",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "rebarDiameter",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "rebarSpacing",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "rebarLayers",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "reservePercentage",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "foundationType",
+          "unit": null
+        },
+        {
+          "name": "length",
+          "unit": null
+        },
+        {
+          "name": "width",
+          "unit": null
+        },
+        {
+          "name": "height",
+          "unit": null
+        },
+        {
+          "name": "wallThickness",
+          "unit": null
+        },
+        {
+          "name": "slabLength",
+          "unit": null
+        },
+        {
+          "name": "slabWidth",
+          "unit": null
+        },
+        {
+          "name": "slabThickness",
+          "unit": null
+        },
+        {
+          "name": "columnCount",
+          "unit": null
+        },
+        {
+          "name": "columnLength",
+          "unit": null
+        },
+        {
+          "name": "columnWidth",
+          "unit": null
+        },
+        {
+          "name": "columnHeight",
+          "unit": null
+        },
+        {
+          "name": "totalVolume",
+          "unit": null
+        },
+        {
+          "name": "concreteVolume",
+          "unit": null
+        },
+        {
+          "name": "concreteVolumeWithReserve",
+          "unit": null
+        },
+        {
+          "name": "rebarLength",
+          "unit": null
+        },
+        {
+          "name": "rebarWeight",
+          "unit": null
+        },
+        {
+          "name": "rebarWeightWithReserve",
+          "unit": null
+        },
+        {
+          "name": "rebarCount",
+          "unit": null
+        },
+        {
+          "name": "formworkArea",
+          "unit": null
+        },
+        {
+          "name": "cement",
+          "unit": null
+        },
+        {
+          "name": "bags",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "wall-area",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateWallArea",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "ventilation",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateVentilation",
+      "inputs": [
+        {
+          "name": "roomLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "roomWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "roomHeight",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "roomType",
+          "type": "text",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "peopleCount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "airExchangeRate",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "airPerPerson",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "roomLength",
+          "unit": null
+        },
+        {
+          "name": "roomWidth",
+          "unit": null
+        },
+        {
+          "name": "roomHeight",
+          "unit": null
+        },
+        {
+          "name": "roomType",
+          "unit": null
+        },
+        {
+          "name": "peopleCount",
+          "unit": null
+        },
+        {
+          "name": "roomVolume",
+          "unit": null
+        },
+        {
+          "name": "airExchangeRate",
+          "unit": null
+        },
+        {
+          "name": "airPerPerson",
+          "unit": null
+        },
+        {
+          "name": "capacityByVolume",
+          "unit": null
+        },
+        {
+          "name": "capacityByPeople",
+          "unit": null
+        },
+        {
+          "name": "requiredCapacity",
+          "unit": null
+        },
+        {
+          "name": "recommendedSupply",
+          "unit": null
+        },
+        {
+          "name": "recommendedExhaust",
+          "unit": null
+        },
+        {
+          "name": "recommendedCombined",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "tile",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateTile",
+      "inputs": [
+        {
+          "name": "roomLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "roomWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "tileLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "tileWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "packageQuantity",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "reservePercentage",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "groutWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "roomArea",
+          "unit": null
+        },
+        {
+          "name": "tileArea",
+          "unit": null
+        },
+        {
+          "name": "tileSize",
+          "unit": null
+        },
+        {
+          "name": "totalTiles",
+          "unit": null
+        },
+        {
+          "name": "packagesNeeded",
+          "unit": null
+        },
+        {
+          "name": "reservePercentage",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "laminate",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateLaminate",
+      "inputs": [
+        {
+          "name": "roomLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "roomWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "laminateLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "laminateWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "packageQuantity",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "reservePercentage",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "roomArea",
+          "unit": null
+        },
+        {
+          "name": "laminateArea",
+          "unit": null
+        },
+        {
+          "name": "laminateSize",
+          "unit": null
+        },
+        {
+          "name": "totalPieces",
+          "unit": null
+        },
+        {
+          "name": "packagesNeeded",
+          "unit": null
+        },
+        {
+          "name": "reservePercentage",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "concrete",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateConcrete",
+      "inputs": [
+        {
+          "name": "volume",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "volumeUnit",
+          "type": "select",
+          "unit": "л",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "grade",
+          "type": "text",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "cement",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "sandProportion",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "gravelProportion",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "waterCementRatio",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "outputUnits",
+          "type": "select",
+          "unit": "кг",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "sand",
+          "type": "select",
+          "unit": "кг",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "gravel",
+          "type": "select",
+          "unit": "кг",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "water",
+          "type": "select",
+          "unit": "л",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "volume",
+          "unit": null
+        },
+        {
+          "name": "volumeUnit",
+          "unit": null
+        },
+        {
+          "name": "grade",
+          "unit": null
+        },
+        {
+          "name": "cement",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "bags",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "roof",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateRoofArea",
+      "inputs": [
+        {
+          "name": "houseLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "houseWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "roofType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "roofAngle",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "overhang",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "material",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "materialLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "materialWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "reservePercentage",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "units",
+          "type": "select",
+          "unit": "м",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "roofType",
+          "unit": null
+        },
+        {
+          "name": "material",
+          "unit": null
+        },
+        {
+          "name": "houseLength",
+          "unit": null
+        },
+        {
+          "name": "houseWidth",
+          "unit": null
+        },
+        {
+          "name": "roofAngle",
+          "unit": null
+        },
+        {
+          "name": "overhang",
+          "unit": null
+        },
+        {
+          "name": "roofArea",
+          "unit": null
+        },
+        {
+          "name": "effectiveArea",
+          "unit": null
+        },
+        {
+          "name": "overhangArea",
+          "unit": null
+        },
+        {
+          "name": "materialCount",
+          "unit": null
+        },
+        {
+          "name": "materialArea",
+          "unit": null
+        },
+        {
+          "name": "totalMaterialArea",
+          "unit": null
+        },
+        {
+          "name": "materialWeight",
+          "unit": null
+        },
+        {
+          "name": "totalWeight",
+          "unit": null
+        },
+        {
+          "name": "reservePercentage",
+          "unit": null
+        },
+        {
+          "name": "reserveArea",
+          "unit": null
+        },
+        {
+          "name": "recommendedCount",
+          "unit": null
+        },
+        {
+          "name": "areaUnit",
+          "unit": null
+        },
+        {
+          "name": "weightUnit",
+          "unit": null
+        },
+        {
+          "name": "lengthUnit",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "wall",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateWallArea",
+      "inputs": [
+        {
+          "name": "wallLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "wallHeight",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "wallThickness",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "materialType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "materialLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "materialWidth",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "materialHeight",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "jointThickness",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "reservePercentage",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "pricePerUnit",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "units",
+          "type": "select",
+          "unit": "м",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "wallLength",
+          "unit": null
+        },
+        {
+          "name": "wallHeight",
+          "unit": null
+        },
+        {
+          "name": "wallThickness",
+          "unit": null
+        },
+        {
+          "name": "materialType",
+          "unit": null
+        },
+        {
+          "name": "materialDimensions",
+          "unit": null
+        },
+        {
+          "name": "wallArea",
+          "unit": null
+        },
+        {
+          "name": "wallVolume",
+          "unit": null
+        },
+        {
+          "name": "materialVolume",
+          "unit": null
+        },
+        {
+          "name": "totalMaterialVolume",
+          "unit": null
+        },
+        {
+          "name": "materialCount",
+          "unit": null
+        },
+        {
+          "name": "materialCountWithReserve",
+          "unit": null
+        },
+        {
+          "name": "reserveCount",
+          "unit": null
+        },
+        {
+          "name": "mortarVolume",
+          "unit": null
+        },
+        {
+          "name": "mortarVolumeLiters",
+          "unit": null
+        },
+        {
+          "name": "totalCost",
+          "unit": null
+        },
+        {
+          "name": "costPerSquareMeter",
+          "unit": null
+        },
+        {
+          "name": "areaUnit",
+          "unit": null
+        },
+        {
+          "name": "volumeUnit",
+          "unit": null
+        },
+        {
+          "name": "lengthUnit",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "floor-heating",
+      "category": "construction",
+      "engine": "function",
+      "calculationId": "calculateFloorHeating",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "rebar-calculator",
+      "category": "construction",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: rebar.ts)"
+    },
+    {
+      "slug": "cable-section-calculator",
+      "category": "construction",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: cable-section.ts)"
+    },
+    {
+      "slug": "stairs-calculator",
+      "category": "construction",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: stairs.ts)"
+    },
+    {
+      "slug": "water-pipe-calculator",
+      "category": "construction",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: water-pipe.ts)"
+    },
+    {
+      "slug": "gravel",
+      "category": "construction",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: gravel.ts)"
+    },
+    {
+      "slug": "electrical",
+      "category": "construction",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: electrical.ts)"
+    },
+    {
+      "slug": "car-depreciation",
+      "category": "auto",
+      "engine": "function",
+      "calculationId": "calculateDepreciation",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "car-ownership",
+      "category": "auto",
+      "engine": "function",
+      "calculationId": "calculateCarOwnership",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "osago",
+      "category": "auto",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: osago.ts)"
+    },
+    {
+      "slug": "kasko",
+      "category": "auto",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: kasko.ts)"
+    },
+    {
+      "slug": "fuel-consumption",
+      "category": "auto",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: fuel-consumption.ts)"
+    },
+    {
+      "slug": "customs",
+      "category": "auto",
+      "engine": "function",
+      "calculationId": "calculateCustoms",
+      "inputs": [
+        {
+          "name": "carValue",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "engineVolume",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fuelType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "carAge",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "enginePower",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "duty",
+          "unit": null
+        },
+        {
+          "name": "excise",
+          "unit": null
+        },
+        {
+          "name": "vat",
+          "unit": null
+        },
+        {
+          "name": "recyclingFee",
+          "unit": null
+        },
+        {
+          "name": "total",
+          "unit": null
+        },
+        {
+          "name": "carValueRub",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "traffic-fines",
+      "category": "auto",
+      "engine": "function",
+      "calculationId": "calculateTrafficFines",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "leasing",
+      "category": "auto",
+      "engine": "function",
+      "calculationId": "calculateLeasing",
+      "inputs": [
+        {
+          "name": "carValue",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "downPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "downPaymentType",
+          "type": "select",
+          "unit": "%",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "leaseTerm",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "interestRate",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "buyoutValue",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "buyoutType",
+          "type": "select",
+          "unit": "%",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "monthlyPayment",
+          "unit": null
+        },
+        {
+          "name": "totalPayments",
+          "unit": null
+        },
+        {
+          "name": "totalCost",
+          "unit": null
+        },
+        {
+          "name": "overpayment",
+          "unit": null
+        },
+        {
+          "name": "financingAmount",
+          "unit": null
+        },
+        {
+          "name": "downPaymentAmount",
+          "unit": null
+        },
+        {
+          "name": "buyoutAmount",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "car-loan",
+      "category": "auto",
+      "engine": "function",
+      "calculationId": "calculateAnnuityLoan",
+      "inputs": [
+        {
+          "name": "loanAmount",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termYears",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "termMonths",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "interestRate",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "downPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "additionalPayment",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "paymentType",
+          "type": "select",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "monthlyPayment",
+          "unit": null
+        },
+        {
+          "name": "totalPayments",
+          "unit": null
+        },
+        {
+          "name": "totalInterest",
+          "unit": null
+        },
+        {
+          "name": "effectiveTerm",
+          "unit": null
+        },
+        {
+          "name": "paymentSchedule",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "vehicle-tax",
+      "category": "auto",
+      "engine": "function",
+      "calculationId": "calculateVehicleTax",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "lpg-payback",
+      "category": "auto",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: lpg-payback.ts)"
+    },
+    {
+      "slug": "days-between",
+      "category": "time",
+      "engine": "function",
+      "calculationId": "calculateDaysBetween",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "add-time",
+      "category": "time",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "Function file found (add-time.ts) but calculation function not found"
+    },
+    {
+      "slug": "age",
+      "category": "time",
+      "engine": "function",
+      "calculationId": "calculateAge",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "years",
+          "unit": null
+        },
+        {
+          "name": "months",
+          "unit": null
+        },
+        {
+          "name": "days",
+          "unit": null
+        },
+        {
+          "name": "totalDays",
+          "unit": null
+        },
+        {
+          "name": "birthDate",
+          "unit": null
+        },
+        {
+          "name": "calculateDate",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "agecalc",
+      "category": "time",
+      "engine": "function",
+      "calculationId": "calculateAge",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "years",
+          "unit": null
+        },
+        {
+          "name": "months",
+          "unit": null
+        },
+        {
+          "name": "days",
+          "unit": null
+        },
+        {
+          "name": "totalDays",
+          "unit": null
+        },
+        {
+          "name": "birthDate",
+          "unit": null
+        },
+        {
+          "name": "calculateDate",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "deadline",
+      "category": "time",
+      "engine": "function",
+      "calculationId": "calculateDeadline",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "endDate",
+          "unit": null
+        },
+        {
+          "name": "formattedEndDate",
+          "unit": null
+        },
+        {
+          "name": "dayOfWeek",
+          "unit": null
+        },
+        {
+          "name": "totalDays",
+          "unit": null
+        },
+        {
+          "name": "workDays",
+          "unit": null
+        },
+        {
+          "name": "weekends",
+          "unit": null
+        },
+        {
+          "name": "startDate",
+          "unit": null
+        },
+        {
+          "name": "duration",
+          "unit": null
+        },
+        {
+          "name": "isWorkDays",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "calendar",
+      "category": "time",
+      "engine": "function",
+      "calculationId": "generateCalendar",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "timer",
+      "category": "time",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "Function file found (timer.ts) but calculation function not found"
+    },
+    {
+      "slug": "countdown",
+      "category": "time",
+      "engine": "function",
+      "calculationId": "calculateTimeLeft",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "world-time",
+      "category": "time",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "Function file found (world-time.ts) but calculation function not found"
+    },
+    {
+      "slug": "bmihealth",
+      "category": "health",
+      "engine": "function",
+      "calculationId": "calculateBMI",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "heart-rate",
+      "category": "health",
+      "engine": "function",
+      "calculationId": "calculateMaxHeartRate",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "blood-pressure",
+      "category": "health",
+      "engine": "function",
+      "calculationId": "calculateBloodPressure",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "ovulation",
+      "category": "health",
+      "engine": "function",
+      "calculationId": "calculateOvulation",
+      "inputs": [
+        {
+          "name": "lastPeriodDate",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "cycleLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "periodLength",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ovulationDate",
+          "unit": null
+        },
+        {
+          "name": "fertileStart",
+          "unit": null
+        },
+        {
+          "name": "fertileEnd",
+          "unit": null
+        },
+        {
+          "name": "nextPeriod",
+          "unit": null
+        },
+        {
+          "name": "periodEnd",
+          "unit": null
+        },
+        {
+          "name": "cycleInfo",
+          "unit": null
+        },
+        {
+          "name": "periodLength",
+          "unit": null
+        },
+        {
+          "name": "ovulationDay",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "vitamins",
+      "category": "health",
+      "engine": "function",
+      "calculationId": "calculateVitamins",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "stress",
+      "category": "health",
+      "engine": "function",
+      "calculationId": "calculateStressLevel",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "totalScore",
+          "unit": null
+        },
+        {
+          "name": "level",
+          "unit": null
+        },
+        {
+          "name": "description",
+          "unit": null
+        },
+        {
+          "name": "advice",
+          "unit": null
+        },
+        {
+          "name": "color",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "dose",
+      "category": "health",
+      "engine": "function",
+      "calculationId": "calculateDose",
+      "inputs": [
+        {
+          "name": "weight",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "dosage",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "frequency",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "maxDailyDose",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": true
+        },
+        {
+          "name": "unit",
+          "type": "select",
+          "unit": "кг",
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dosePerIntake",
+          "unit": null
+        },
+        {
+          "name": "dailyDose",
+          "unit": null
+        },
+        {
+          "name": "isExceeded",
+          "unit": null
+        },
+        {
+          "name": "warning",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "ideal-weight",
+      "category": "health",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: ideal-weight.ts)"
+    },
+    {
+      "slug": "grade-calculator",
+      "category": "science",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: grade-calculator.ts)"
+    },
+    {
+      "slug": "length",
+      "category": "converter",
+      "engine": "function",
+      "calculationId": "convertLength",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "weight",
+      "category": "converter",
+      "engine": "function",
+      "calculationId": "convertWeight",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "temperature",
+      "category": "converter",
+      "engine": "function",
+      "calculationId": "convertTemperature",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "speed",
+      "category": "converter",
+      "engine": "function",
+      "calculationId": "convertSpeed",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "pressure",
+      "category": "converter",
+      "engine": "function",
+      "calculationId": "convertPressure",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "volume-converter",
+      "category": "converter",
+      "engine": "function",
+      "calculationId": "convertVolume",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "energy-converter",
+      "category": "converter",
+      "engine": "function",
+      "calculationId": "convertEnergy",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "data-converter",
+      "category": "converter",
+      "engine": "function",
+      "calculationId": "convertData",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "angle-converter",
+      "category": "converter",
+      "engine": "function",
+      "calculationId": "convertAngle",
+      "inputs": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "fromUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        },
+        {
+          "name": "toUnit",
+          "type": "unknown",
+          "unit": null,
+          "min": null,
+          "max": null,
+          "step": null,
+          "optional": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "unit": null
+        },
+        {
+          "name": "unit",
+          "unit": null
+        },
+        {
+          "name": "formattedValue",
+          "unit": null
+        }
+      ],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "planet-weight",
+      "category": "fun",
+      "engine": "function",
+      "calculationId": "calculatePlanetWeight",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "love-compatibility",
+      "category": "fun",
+      "engine": "function",
+      "calculationId": "calculateLoveCompatibility",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "nickname-generator",
+      "category": "fun",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: nickname-generator.ts)"
+    },
+    {
+      "slug": "random-number-generator",
+      "category": "fun",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: random-number-generator.ts)"
+    },
+    {
+      "slug": "lottery-generator",
+      "category": "fun",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: lottery-generator.ts)"
+    },
+    {
+      "slug": "password-generator",
+      "category": "fun",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: password-generator.ts)"
+    },
+    {
+      "slug": "dice-roller",
+      "category": "fun",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: dice-roller.ts)"
+    },
+    {
+      "slug": "coin-flipper",
+      "category": "fun",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: coin-flipper.ts)"
+    },
+    {
+      "slug": "zodiac-calculator",
+      "category": "fun",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: zodiac.ts)"
+    },
+    {
+      "slug": "name-generator",
+      "category": "fun",
+      "engine": "function",
+      "calculationId": "generateNames",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "character-traits",
+      "category": "fun",
+      "engine": "function",
+      "calculationId": "generateCharacter",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "fantasy-world",
+      "category": "fun",
+      "engine": "function",
+      "calculationId": "generateFantasyWorld",
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": null
+    },
+    {
+      "slug": "ip-calculator",
+      "category": "it",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: ip-calculator.ts)"
+    },
+    {
+      "slug": "hashrate",
+      "category": "it",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: hashrate.ts)"
+    },
+    {
+      "slug": "qr-generator",
+      "category": "it",
+      "engine": "unknown",
+      "calculationId": null,
+      "inputs": [],
+      "outputs": [],
+      "defaults": {},
+      "notes": "No calculation function file found (tried: qr-generator.ts)"
+    }
+  ]
+}

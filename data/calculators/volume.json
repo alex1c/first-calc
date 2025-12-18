@@ -1,0 +1,34 @@
+{
+  "id": "volume",
+  "slug": "volume",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "convertVolume",
+  "inputs": [
+    {
+      "name": "value",
+      "type": "number"
+    },
+    {
+      "name": "fromUnit",
+      "type": "number"
+    },
+    {
+      "name": "toUnit",
+      "type": "number"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "value"
+    },
+    {
+      "name": "unit"
+    },
+    {
+      "name": "formattedValue"
+    }
+  ],
+  "defaults": {},
+  "isEnabled": true
+}

@@ -1,0 +1,11 @@
+{
+  "id": "power-root",
+  "slug": "power-root",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculatePowerRoot",
+  "inputs": [],
+  "outputs": [],
+  "defaults": {},
+  "isEnabled": false
+}

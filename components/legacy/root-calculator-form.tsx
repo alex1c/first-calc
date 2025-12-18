@@ -8,6 +8,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
+import { useClientT } from '@/lib/i18n/useClientT'
 
 interface RootCalculatorFormProps {
 	locale: Locale
@@ -23,6 +24,7 @@ export function RootCalculatorForm({
 	exampleLinks = [],
 }: RootCalculatorFormProps) {
 	const router = useRouter()
+	const t = useClientT(locale, ['legacy/ui', 'errors'])
 	const [number, setNumber] = useState('')
 	const [degree, setDegree] = useState('2')
 	const [errors, setErrors] = useState<{ number?: string; degree?: string }>({})
@@ -32,40 +34,26 @@ export function RootCalculatorForm({
 
 		// Validate number
 		if (!number.trim()) {
-			newErrors.number =
-				locale === 'ru' ? 'Введите число' : 'Please enter a number'
+			newErrors.number = t('errors.validation.enterNumber')
 		} else {
 			const numValue = parseFloat(number.trim())
 			if (isNaN(numValue) || !Number.isFinite(numValue)) {
-				newErrors.number =
-					locale === 'ru'
-						? 'Введите корректное число'
-						: 'Please enter a valid number'
+				newErrors.number = t('errors.validation.enterValidNumber')
 			} else if (numValue < 0 && parseFloat(degree) % 2 === 0) {
 				// Even roots of negative numbers are not real
-				newErrors.number =
-					locale === 'ru'
-						? 'Четный корень из отрицательного числа не существует'
-						: 'Even root of negative number does not exist'
+				newErrors.number = t('errors.validation.evenRootNegative')
 			}
 		}
 
 		// Validate degree
 		if (!degree.trim()) {
-			newErrors.degree =
-				locale === 'ru' ? 'Введите степень корня' : 'Please enter root degree'
+			newErrors.degree = t('errors.validation.enterRootDegree')
 		} else {
 			const numDegree = parseInt(degree.trim(), 10)
 			if (isNaN(numDegree) || !Number.isFinite(numDegree)) {
-				newErrors.degree =
-					locale === 'ru'
-						? 'Введите корректную степень'
-						: 'Please enter a valid degree'
+				newErrors.degree = t('errors.validation.enterValidDegree')
 			} else if (numDegree < 2 || numDegree > 100) {
-				newErrors.degree =
-					locale === 'ru'
-						? 'Степень должна быть от 2 до 100'
-						: 'Degree must be between 2 and 100'
+				newErrors.degree = t('errors.validation.degreeRange')
 			}
 		}
 
@@ -104,7 +92,7 @@ export function RootCalculatorForm({
 						htmlFor="input-number"
 						className="block text-sm font-medium text-gray-700 mb-2"
 					>
-						{locale === 'ru' ? 'Число' : 'Number'}
+						{t('legacy/ui.form.rootCalculator.number')}
 					</label>
 					<input
 						type="number"
@@ -114,7 +102,7 @@ export function RootCalculatorForm({
 							setNumber(e.target.value)
 							setErrors((prev) => ({ ...prev, number: undefined }))
 						}}
-						placeholder={locale === 'ru' ? 'Например: 16' : 'e.g., 16'}
+						placeholder={t('legacy/ui.form.rootCalculator.numberPlaceholder')}
 						step="any"
 						className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
 							errors.number ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-white'
@@ -131,7 +119,7 @@ export function RootCalculatorForm({
 						htmlFor="input-degree"
 						className="block text-sm font-medium text-gray-700 mb-2"
 					>
-						{locale === 'ru' ? 'Степень корня' : 'Root Degree'}
+						{t('legacy/ui.form.rootCalculator.rootDegree')}
 					</label>
 					<div className="flex gap-2 mb-2">
 						{/* Quick buttons for common roots */}
@@ -147,7 +135,7 @@ export function RootCalculatorForm({
 									: 'bg-gray-50 border-gray-300 text-gray-700 hover:bg-gray-100'
 							}`}
 						>
-							√ {locale === 'ru' ? 'Квадратный' : 'Square'}
+							√ {t('legacy/ui.form.rootCalculator.square')}
 						</button>
 						<button
 							type="button"
@@ -161,7 +149,7 @@ export function RootCalculatorForm({
 									: 'bg-gray-50 border-gray-300 text-gray-700 hover:bg-gray-100'
 							}`}
 						>
-							∛ {locale === 'ru' ? 'Кубический' : 'Cube'}
+							∛ {t('legacy/ui.form.rootCalculator.cube')}
 						</button>
 						<button
 							type="button"
@@ -175,7 +163,7 @@ export function RootCalculatorForm({
 									: 'bg-gray-50 border-gray-300 text-gray-700 hover:bg-gray-100'
 							}`}
 						>
-							⁽⁴⁾√ {locale === 'ru' ? '4-й' : '4th'}
+							⁽⁴⁾√ 4th
 						</button>
 					</div>
 					<input
@@ -186,7 +174,7 @@ export function RootCalculatorForm({
 							setDegree(e.target.value)
 							setErrors((prev) => ({ ...prev, degree: undefined }))
 						}}
-						placeholder={locale === 'ru' ? 'Например: 2' : 'e.g., 2'}
+						placeholder={t('legacy/ui.form.rootCalculator.degreePlaceholder')}
 						min="2"
 						max="100"
 						step="1"
@@ -198,9 +186,7 @@ export function RootCalculatorForm({
 						<p className="mt-2 text-sm text-red-600">{errors.degree}</p>
 					)}
 					<p className="mt-1 text-xs text-gray-500">
-						{locale === 'ru'
-							? 'Введите степень корня от 2 до 100'
-							: 'Enter root degree from 2 to 100'}
+						{t('legacy/ui.form.rootCalculator.degreeRange')}
 					</p>
 				</div>
 
@@ -209,7 +195,7 @@ export function RootCalculatorForm({
 					<div className="bg-blue-50 border border-blue-200 rounded-md p-3">
 						<p className="text-sm text-blue-800">
 							<strong>
-								{locale === 'ru' ? 'Вычисляем:' : 'Calculating:'}
+								{t('legacy/ui.form.rootCalculator.calculating')}
 							</strong>{' '}
 							{getRootSymbol(degree)}
 							{number} = ?
@@ -221,25 +207,13 @@ export function RootCalculatorForm({
 				<div className="bg-gray-50 border border-gray-200 rounded-md p-3">
 					<p className="text-sm text-gray-700 mb-2">
 						<strong>
-							{locale === 'ru' ? 'Примеры:' : 'Examples:'}
+							{t('legacy/ui.form.rootCalculator.examples')}
 						</strong>
 					</p>
 					<ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
-						<li>
-							{locale === 'ru'
-								? '√16 = 4 (квадратный корень из 16)'
-								: '√16 = 4 (square root of 16)'}
-						</li>
-						<li>
-							{locale === 'ru'
-								? '∛27 = 3 (кубический корень из 27)'
-								: '∛27 = 3 (cube root of 27)'}
-						</li>
-						<li>
-							{locale === 'ru'
-								? '⁵√32 = 2 (корень 5-й степени из 32)'
-								: '⁵√32 = 2 (5th root of 32)'}
-						</li>
+						<li>{t('legacy/ui.form.rootCalculator.example1')}</li>
+						<li>{t('legacy/ui.form.rootCalculator.example2')}</li>
+						<li>{t('legacy/ui.form.rootCalculator.example3')}</li>
 					</ul>
 				</div>
 
@@ -247,14 +221,14 @@ export function RootCalculatorForm({
 					type="submit"
 					className="w-full bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
 				>
-					{locale === 'ru' ? 'Вычислить' : 'Calculate'}
+					{t('legacy/ui.form.rootCalculator.calculate')}
 				</button>
 			</form>
 
 			{exampleLinks.length > 0 && (
 				<div className="mt-6 pt-6 border-t border-gray-200">
 					<p className="text-sm font-medium text-gray-700 mb-3">
-						{locale === 'ru' ? 'Примеры ссылок:' : 'Example links:'}
+						{t('legacy/ui.form.common.exampleLinks')}
 					</p>
 					<ul className="space-y-2">
 						{exampleLinks.map((link, index) => {

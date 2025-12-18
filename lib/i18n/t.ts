@@ -41,19 +41,41 @@ function replaceTemplate(
 }
 
 /**
+ * Normalize translation key by replacing / with .
+ * Example: "calculators/ui.sections.all" -> "calculators.ui.sections.all"
+ */
+function normalizeKey(key: string): string {
+	return key.replace(/\//g, '.')
+}
+
+/**
  * Create a translation function from a dictionary
  * Supports:
  * - Key paths: "common.button.calculate"
+ * - Keys with slashes: "calculators/ui.sections.all" (normalized to "calculators.ui.sections.all")
  * - Template parameters: t("message", { name: "John" })
  */
 export function createT(dict: Dictionary): TranslationFunction {
 	return (key: string, params?: Record<string, string | number>): string => {
-		// Try to get value using key path
-		const value = getNestedValue(dict, key)
+		// Normalize key: replace / with .
+		const normalizedKey = normalizeKey(key)
+
+		// Try to get value using normalized key path
+		const value = getNestedValue(dict, normalizedKey)
 
 		if (value === undefined) {
 			// Return key as fallback (helps identify missing translations)
-			console.warn(`[i18n] Missing translation for key: "${key}"`)
+			// Log both original and normalized key for easier debugging
+			// In development, also log the dictionary structure for debugging
+			if (process.env.NODE_ENV === 'development') {
+				console.warn(
+					`[i18n] Missing translation for key: "${key}" (normalized: "${normalizedKey}")`,
+				)
+				console.warn(`[i18n] Dictionary keys:`, Object.keys(dict))
+				if (normalizedKey.startsWith('navigation.')) {
+					console.warn(`[i18n] Navigation dict:`, dict.navigation)
+				}
+			}
 			return key
 		}
 

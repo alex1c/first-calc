@@ -1,0 +1,62 @@
+{
+	"form": {
+		"numberToWords": {
+			"number": "Число",
+			"numberPlaceholder": "Например: 123 или 555.23",
+			"language": "Язык",
+			"languageRu": "Русский",
+			"languageEn": "Английский",
+			"format": "Формат",
+			"formatNumeric": "Числовой",
+			"formatMoney": "Денежный",
+			"rangeRu": "Диапазон: 0 - 999,999,999",
+			"rangeEn": "Диапазон: 0 - 999,999,999,999",
+			"helpNumeric": "Числовой формат: Преобразует число в пропись (например: 123 → сто двадцать три)",
+			"helpMoney": "Денежный формат: Преобразует сумму в пропись с валютой (например: 123 → сто двадцать три рубля)",
+			"convert": "Конвертировать"
+		},
+		"romanNumerals": {
+			"inputType": "Тип ввода",
+			"arabicNumber": "Арабское число",
+			"romanNumeral": "Римская цифра",
+			"enterArabic": "Введите число (1-3999)",
+			"enterRoman": "Введите римскую цифру",
+			"arabicPlaceholder": "Например: 123",
+			"romanPlaceholder": "Например: XII",
+			"convert": "Конвертировать"
+		},
+		"percentage": {
+			"operation": "Операция",
+			"add": "Увеличить на",
+			"subtract": "Уменьшить на",
+			"number": "Число",
+			"numberPlaceholder": "Например: 100",
+			"percent": "Процент",
+			"percentPlaceholder": "Например: 20",
+			"percentRange": "Введите процент от 0 до 1000",
+			"helpOf": "Пример: Если число = 100 и процент = 20, то 20% от 100 = 20",
+			"helpAdd": "Пример: Если число = 100 и процент = 20, то 100 + 20% = 120",
+			"helpSubtract": "Пример: Если число = 100 и процент = 20, то 100 - 20% = 80",
+			"calculate": "Вычислить"
+		},
+		"rootCalculator": {
+			"number": "Число",
+			"numberPlaceholder": "Например: 16",
+			"rootDegree": "Степень корня",
+			"square": "Квадратный",
+			"cube": "Кубический",
+			"degreePlaceholder": "Например: 2",
+			"degreeRange": "Введите степень корня от 2 до 100",
+			"calculating": "Вычисляем:",
+			"examples": "Примеры:",
+			"example1": "√16 = 4 (квадратный корень из 16)",
+			"example2": "∛27 = 3 (кубический корень из 27)",
+			"example3": "⁵√32 = 2 (корень 5-й степени из 32)",
+			"calculate": "Вычислить"
+		},
+		"common": {
+			"exampleLinks": "Примеры ссылок:"
+		}
+	}
+}
+

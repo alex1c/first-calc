@@ -12,6 +12,9 @@
 		"generate:calc": "tsx scripts/generate-calculator.ts",
 		"i18n:validate": "tsx scripts/i18n-validate.ts",
 		"i18n:check": "npm run i18n:validate",
+		"i18n:ensure-en": "tsx scripts/ensure-en-items.ts",
+		"i18n:ru-batch-01": "tsx scripts/generate-ru-items-batch.ts",
+		"i18n:polish-ru": "tsx scripts/polish-ru-items.ts",
 		"smoke:legacy": "tsx scripts/smoke-legacy.ts",
 		"find:broken": "tsx scripts/find-broken-calculators.ts",
 		"import:calc1:batch": "tsx scripts/import-calc1-batch.ts"

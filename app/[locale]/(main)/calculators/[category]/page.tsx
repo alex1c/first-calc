@@ -3,7 +3,8 @@ import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { calculatorRegistry } from '@/lib/registry/loader'
 import { getCalculatorsByCategoryWithPopularity } from '@/lib/navigation/structure'
 import Link from 'next/link'
-import { Breadcrumbs } from '@/components/navigation/breadcrumbs'
+import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
+import { PageContainer } from '@/components/layout/page-container'
 import { getCalculatorCategoryBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { CalculatorCard } from '@/components/calculators/calculator-card'
 
@@ -46,9 +47,9 @@ export default async function CalculatorsCategoryPage({
 	const categoryDescription = t(`navigation.categoryDescriptions.${category}`) || ''
 
 	return (
-		<div className="min-h-screen bg-gray-50">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				<Breadcrumbs items={breadcrumbs} className="mb-4" />
+		<>
+			<BreadcrumbsBar items={breadcrumbs} />
+			<PageContainer>
 				<h1 className="text-4xl font-bold text-gray-900 mb-4">
 					{t(`navigation.categories.${category}`) || category} {t('navigation.breadcrumb.calculators')}
 				</h1>
@@ -69,8 +70,8 @@ export default async function CalculatorsCategoryPage({
 						/>
 					))}
 				</div>
-			</div>
-		</div>
+			</PageContainer>
+		</>
 	)
 }
 

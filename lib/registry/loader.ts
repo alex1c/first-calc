@@ -144,9 +144,50 @@ class LocalCalculatorLoader implements CalculatorLoader {
 	 */
 	async getAll(locale: string): Promise<CalculatorDefinition[]> {
 		const { getCalculatorsByLocale } = await import('@/data/calculators')
-		const all = getCalculatorsByLocale(locale)
+		const { getCalculatorById } = await import('@/lib/calculators/loader')
+		
+		// Get hardcoded calculators
+		const hardcoded = getCalculatorsByLocale(locale)
+		
+		// Load JSON schema files
+		const fs = await import('fs/promises')
+		const path = await import('path')
+		const { loadCalculatorSchema, schemaToDefinition } = await import('@/lib/calculators/schema')
+		const calculatorsDir = path.join(process.cwd(), 'data', 'calculators')
+		
+		let jsonCalculators: CalculatorDefinition[] = []
+		try {
+			const files = await fs.readdir(calculatorsDir)
+			const jsonFiles = files.filter((f) => f.endsWith('.json') && !f.includes('.ru.json'))
+			
+			for (const file of jsonFiles) {
+				try {
+					const filePath = path.join(calculatorsDir, file)
+					const schema = await loadCalculatorSchema(filePath)
+					
+					// Only load enabled calculators
+					if (schema.isEnabled !== false) {
+						const calc = await schemaToDefinition(schema, locale)
+						if (calc && calc.locale === locale) {
+							jsonCalculators.push(calc)
+						}
+					}
+				} catch {
+					// Skip files that can't be loaded
+				}
+			}
+		} catch {
+			// Directory doesn't exist or can't be read
+		}
+		
+		// Combine hardcoded and JSON calculators, removing duplicates by id
+		const all = [...hardcoded, ...jsonCalculators]
+		const unique = all.filter((calc, index, self) => 
+			index === self.findIndex((c) => c.id === calc.id && c.locale === calc.locale)
+		)
+		
 		// Filter out disabled calculators (soft disable feature)
-		return all.filter((calc) => calc.isEnabled !== false)
+		return unique.filter((calc) => calc.isEnabled !== false)
 	}
 
 	/**
@@ -161,9 +202,51 @@ class LocalCalculatorLoader implements CalculatorLoader {
 		locale: string,
 	): Promise<CalculatorDefinition[]> {
 		const { getCalculatorsByCategory } = await import('@/data/calculators')
-		const all = getCalculatorsByCategory(category, locale)
+		const { getCalculatorBySlug } = await import('@/lib/calculators/loader')
+		
+		// Get hardcoded calculators
+		const hardcoded = getCalculatorsByCategory(category, locale)
+		
+		// Load JSON schema files for this category
+		// We need to scan data/calculators/*.json files
+		const fs = await import('fs/promises')
+		const path = await import('path')
+		const { loadCalculatorSchema, schemaToDefinition } = await import('@/lib/calculators/schema')
+		const calculatorsDir = path.join(process.cwd(), 'data', 'calculators')
+		
+		let jsonCalculators: CalculatorDefinition[] = []
+		try {
+			const files = await fs.readdir(calculatorsDir)
+			const jsonFiles = files.filter((f) => f.endsWith('.json') && !f.includes('.ru.json'))
+			
+			for (const file of jsonFiles) {
+				try {
+					const filePath = path.join(calculatorsDir, file)
+					const schema = await loadCalculatorSchema(filePath)
+					
+					// Only load calculators for the requested category
+					if (schema.category === category && schema.isEnabled !== false) {
+						const calc = await schemaToDefinition(schema, locale)
+						if (calc && calc.category === category && calc.locale === locale) {
+							jsonCalculators.push(calc)
+						}
+					}
+				} catch {
+					// Skip files that can't be loaded
+				}
+			}
+		} catch {
+			// Directory doesn't exist or can't be read
+		}
+		
+		// Combine hardcoded and JSON calculators, removing duplicates by id
+		const all = [...hardcoded, ...jsonCalculators]
+		const unique = all.filter((calc, index, self) => 
+			index === self.findIndex((c) => c.id === calc.id && c.locale === calc.locale)
+		)
+		
 		// Filter out disabled calculators (soft disable feature)
-		return all.filter((calc) => calc.isEnabled !== false)
+		return unique.filter((calc) => calc.isEnabled !== false)
 	}
 }
 

@@ -1,0 +1,513 @@
+{
+  "categories": [
+    {
+      "id": "finance",
+      "title": "Финансовые калькуляторы",
+      "order": 1,
+      "calculators": [
+        {
+          "slug": "mortgage",
+          "title": "Ипотечный калькулятор"
+        },
+        {
+          "slug": "auto-loan",
+          "title": "Калькулятор автокредита"
+        },
+        {
+          "slug": "alimony",
+          "title": "Калькулятор алиментов"
+        },
+        {
+          "slug": "investment",
+          "title": "Калькулятор инвестиций"
+        },
+        {
+          "slug": "profit-margin",
+          "title": "Калькулятор маржинальности"
+        },
+        {
+          "slug": "savings",
+          "title": "Калькулятор накоплений"
+        },
+        {
+          "slug": "tax-calculator",
+          "title": "Калькулятор НДС и налогов"
+        },
+        {
+          "slug": "pension",
+          "title": "Калькулятор пенсии"
+        },
+        {
+          "slug": "loan-overpayment",
+          "title": "Калькулятор переплаты по кредиту"
+        },
+        {
+          "slug": "consumer-loan",
+          "title": "Калькулятор потребительского кредита"
+        },
+        {
+          "slug": "compound-interest",
+          "title": "Калькулятор сложных процентов"
+        },
+        {
+          "slug": "credit-loan",
+          "title": "Кредитный калькулятор"
+        }
+      ]
+    },
+    {
+      "id": "math",
+      "title": "Математические калькуляторы",
+      "order": 2,
+      "calculators": [
+        {
+          "slug": "volume",
+          "title": "Калькулятор объёма тел"
+        },
+        {
+          "slug": "area",
+          "title": "Калькулятор площади фигур"
+        },
+        {
+          "slug": "basic",
+          "title": "Калькулятор простых операций"
+        },
+        {
+          "slug": "math-percent",
+          "title": "Калькулятор процентов"
+        },
+        {
+          "slug": "equations",
+          "title": "Калькулятор решения уравнений"
+        },
+        {
+          "slug": "statistics",
+          "title": "Калькулятор статистики"
+        },
+        {
+          "slug": "power-root",
+          "title": "Калькулятор степеней и корней"
+        },
+        {
+          "slug": "converter",
+          "title": "Конвертер единиц"
+        }
+      ]
+    },
+    {
+      "id": "life",
+      "title": "Бытовые калькуляторы",
+      "order": 3,
+      "calculators": [
+        {
+          "slug": "blood-alcohol",
+          "title": "Алкогольный калькулятор — расчёт промилле и времени выведения алкоголя"
+        },
+        {
+          "slug": "pregnancy",
+          "title": "Калькулятор беременности и даты родов"
+        },
+        {
+          "slug": "paper-weight",
+          "title": "Калькулятор веса бумаги"
+        },
+        {
+          "slug": "bmi",
+          "title": "Калькулятор индекса массы тела (ИМТ)"
+        },
+        {
+          "slug": "calories",
+          "title": "Калькулятор калорий"
+        },
+        {
+          "slug": "food-ration",
+          "title": "Калькулятор нормы БЖУ"
+        },
+        {
+          "slug": "water-usage",
+          "title": "Калькулятор расхода воды — Water Usage Calculator"
+        },
+        {
+          "slug": "electricity-usage",
+          "title": "Калькулятор расхода электроэнергии — Electricity Usage Calculator"
+        },
+        {
+          "slug": "baby-growth",
+          "title": "Калькулятор роста и веса ребёнка по возрасту"
+        },
+        {
+          "slug": "electricity-cost",
+          "title": "Калькулятор электроэнергии"
+        },
+        {
+          "slug": "ring-size",
+          "title": "Онлайн-конвертер размеров колец"
+        },
+        {
+          "slug": "size-converter",
+          "title": "Онлайн-конвертер размеров одежды и обуви"
+        },
+        {
+          "slug": "gas-usage",
+          "title": "Расход газа — расчёт онлайн"
+        },
+        {
+          "slug": "heating-cost",
+          "title": "Стоимость отопления — расчёт онлайн"
+        }
+      ]
+    },
+    {
+      "id": "construction",
+      "title": "Строительные калькуляторы",
+      "order": 4,
+      "calculators": [
+        {
+          "slug": "rebar-calculator",
+          "title": "Калькулятор арматуры — Rebar Calculator"
+        },
+        {
+          "slug": "concrete",
+          "title": "Калькулятор бетона"
+        },
+        {
+          "slug": "ventilation",
+          "title": "Калькулятор вентиляции"
+        },
+        {
+          "slug": "water-pipe-calculator",
+          "title": "Калькулятор водопроводных труб"
+        },
+        {
+          "slug": "primer",
+          "title": "Калькулятор грунтовки"
+        },
+        {
+          "slug": "wall",
+          "title": "Калькулятор кирпича и блоков"
+        },
+        {
+          "slug": "wallpaper",
+          "title": "Калькулятор количества обоев"
+        },
+        {
+          "slug": "paint",
+          "title": "Калькулятор краски"
+        },
+        {
+          "slug": "roof",
+          "title": "Калькулятор кровли"
+        },
+        {
+          "slug": "laminate",
+          "title": "Калькулятор ламината"
+        },
+        {
+          "slug": "stairs-calculator",
+          "title": "Калькулятор лестницы — Stair Calculator"
+        },
+        {
+          "slug": "tile",
+          "title": "Калькулятор плитки"
+        },
+        {
+          "slug": "tile-glue",
+          "title": "Калькулятор плиточного клея"
+        },
+        {
+          "slug": "wall-area",
+          "title": "Калькулятор площади стен"
+        },
+        {
+          "slug": "cable-section-calculator",
+          "title": "Калькулятор сечения кабеля — Cable Section Calculator"
+        },
+        {
+          "slug": "floor-heating",
+          "title": "Калькулятор тёплого пола"
+        },
+        {
+          "slug": "foundation",
+          "title": "Калькулятор фундамента"
+        },
+        {
+          "slug": "putty",
+          "title": "Калькулятор шпатлёвки"
+        },
+        {
+          "slug": "plaster",
+          "title": "Калькулятор штукатурки"
+        },
+        {
+          "slug": "gravel",
+          "title": "Калькулятор щебня"
+        },
+        {
+          "slug": "electrical",
+          "title": "Калькулятор электрики"
+        }
+      ]
+    },
+    {
+      "id": "auto",
+      "title": "Авто калькуляторы",
+      "order": 5,
+      "calculators": [
+        {
+          "slug": "car-loan",
+          "title": "Калькулятор автокредита"
+        },
+        {
+          "slug": "leasing",
+          "title": "Калькулятор автолизинга"
+        },
+        {
+          "slug": "car-depreciation",
+          "title": "Калькулятор амортизации автомобиля"
+        },
+        {
+          "slug": "kasko",
+          "title": "Калькулятор КАСКО"
+        },
+        {
+          "slug": "lpg-payback",
+          "title": "Калькулятор окупаемости ГБО"
+        },
+        {
+          "slug": "osago",
+          "title": "Калькулятор ОСАГО"
+        },
+        {
+          "slug": "fuel-consumption",
+          "title": "Калькулятор расхода топлива"
+        },
+        {
+          "slug": "car-ownership",
+          "title": "Калькулятор стоимости владения авто"
+        },
+        {
+          "slug": "customs",
+          "title": "Калькулятор таможенных пошлин"
+        },
+        {
+          "slug": "vehicle-tax",
+          "title": "Калькулятор транспортного налога"
+        },
+        {
+          "slug": "traffic-fines",
+          "title": "Калькулятор штрафов ГИБДД"
+        }
+      ]
+    },
+    {
+      "id": "time",
+      "title": "Время и дата",
+      "order": 6,
+      "calculators": [
+        {
+          "slug": "age",
+          "title": "Калькулятор возраста — Узнай свой точный возраст в годах, месяцах, днях"
+        },
+        {
+          "slug": "agecalc",
+          "title": "Калькулятор возраста — Узнай свой точный возраст в годах, месяцах, днях"
+        },
+        {
+          "slug": "days-between",
+          "title": "Калькулятор разницы между датами"
+        },
+        {
+          "slug": "deadline",
+          "title": "Калькулятор срока выполнения — Deadline Calculator"
+        },
+        {
+          "slug": "world-time",
+          "title": "Мировое время — World Time"
+        },
+        {
+          "slug": "countdown",
+          "title": "Обратный отсчёт — Countdown Calculator"
+        },
+        {
+          "slug": "calendar",
+          "title": "Онлайн-календарь — Online Calendar"
+        },
+        {
+          "slug": "timer",
+          "title": "Онлайн-таймер — Online Timer"
+        },
+        {
+          "slug": "add-time",
+          "title": "Прибавить дни, часы и минуты к дате"
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "title": "Здоровье и медицина",
+      "order": 7,
+      "calculators": [
+        {
+          "slug": "blood-pressure",
+          "title": "Калькулятор артериального давления онлайн"
+        },
+        {
+          "slug": "vitamins",
+          "title": "Калькулятор витаминов и минералов"
+        },
+        {
+          "slug": "dose",
+          "title": "Калькулятор дозировки по весу"
+        },
+        {
+          "slug": "ideal-weight",
+          "title": "Калькулятор идеального веса"
+        },
+        {
+          "slug": "bmihealth",
+          "title": "Калькулятор Индекса Массы Тела (BMI)"
+        },
+        {
+          "slug": "ovulation",
+          "title": "Калькулятор овуляции и менструального цикла"
+        },
+        {
+          "slug": "heart-rate",
+          "title": "Калькулятор пульса и ЧСС онлайн"
+        },
+        {
+          "slug": "stress",
+          "title": "Калькулятор уровня стресса"
+        }
+      ]
+    },
+    {
+      "id": "science",
+      "title": "Учёба и наука",
+      "order": 8,
+      "calculators": [
+        {
+          "slug": "grade-calculator",
+          "title": "Калькулятор оценок (GPA)"
+        }
+      ]
+    },
+    {
+      "id": "converter",
+      "title": "Онлайн-конвертеры",
+      "order": 9,
+      "calculators": [
+        {
+          "slug": "weight",
+          "title": "Онлайн-конвертер веса"
+        },
+        {
+          "slug": "pressure",
+          "title": "Онлайн-конвертер давления"
+        },
+        {
+          "slug": "data-converter",
+          "title": "Онлайн-конвертер данных"
+        },
+        {
+          "slug": "length",
+          "title": "Онлайн-конвертер длины"
+        },
+        {
+          "slug": "volume-converter",
+          "title": "Онлайн-конвертер объёма"
+        },
+        {
+          "slug": "speed",
+          "title": "Онлайн-конвертер скорости"
+        },
+        {
+          "slug": "temperature",
+          "title": "Онлайн-конвертер температуры"
+        },
+        {
+          "slug": "angle-converter",
+          "title": "Онлайн-конвертер углов"
+        },
+        {
+          "slug": "energy-converter",
+          "title": "Онлайн-конвертер энергии"
+        }
+      ]
+    },
+    {
+      "id": "fun",
+      "title": "Развлечения и хобби",
+      "order": 10,
+      "calculators": [
+        {
+          "slug": "fantasy-world",
+          "title": "Генератор вымышленных миров"
+        },
+        {
+          "slug": "name-generator",
+          "title": "Генератор имён и названий"
+        },
+        {
+          "slug": "lottery-generator",
+          "title": "Генератор лотерейных билетов"
+        },
+        {
+          "slug": "nickname-generator",
+          "title": "Генератор никнеймов"
+        },
+        {
+          "slug": "password-generator",
+          "title": "Генератор паролей"
+        },
+        {
+          "slug": "random-number-generator",
+          "title": "Генератор случайных чисел"
+        },
+        {
+          "slug": "character-traits",
+          "title": "Генератор характеристик персонажа"
+        },
+        {
+          "slug": "planet-weight",
+          "title": "Калькулятор веса на других планетах"
+        },
+        {
+          "slug": "zodiac-calculator",
+          "title": "Калькулятор знака зодиака"
+        },
+        {
+          "slug": "love-compatibility",
+          "title": "Калькулятор совместимости по дате рождения"
+        },
+        {
+          "slug": "dice-roller",
+          "title": "Кубики онлайн"
+        },
+        {
+          "slug": "coin-flipper",
+          "title": "Монетка онлайн"
+        }
+      ]
+    },
+    {
+      "id": "it",
+      "title": "IT-калькуляторы",
+      "order": 11,
+      "calculators": [
+        {
+          "slug": "qr-generator",
+          "title": "Генератор QR кодов"
+        },
+        {
+          "slug": "hashrate",
+          "title": "Калькулятор хешрейта для майнинга — Расчёт доходности криптовалют"
+        },
+        {
+          "slug": "ip-calculator",
+          "title": "Калькулятор IP-адресов и подсетей — IP Calculator"
+        }
+      ]
+    }
+  ]
+}

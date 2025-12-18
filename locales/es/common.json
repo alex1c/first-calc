@@ -17,7 +17,8 @@
 		"related": "Calculadoras Relacionadas",
 		"loading": "Cargando...",
 		"noResults": "No se encontraron resultados",
-		"search": "Buscar"
+		"search": "Buscar",
+		"contentInEnglish": "Contenido en inglés"
 	},
 	"message": {
 		"required": "Este campo es obligatorio",

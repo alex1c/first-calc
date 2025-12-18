@@ -1,7 +1,12 @@
 import { notFound } from 'next/navigation'
-import { locales, type Locale } from '@/lib/i18n'
+import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { getStandardsByLocale, getCountries } from '@/data/standards'
 import Link from 'next/link'
+import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
+import { PageContainer } from '@/components/layout/page-container'
+import { getStandardsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
+
+const namespaces = ['common', 'navigation'] as const
 
 interface StandardsPageProps {
 	params: {
@@ -9,15 +14,22 @@ interface StandardsPageProps {
 	}
 }
 
-export default function StandardsPage({ params }: StandardsPageProps) {
+export default async function StandardsPage({ params }: StandardsPageProps) {
 	const { locale } = params
 
 	if (!locales.includes(locale)) {
 		notFound()
 	}
 
+	// Load translations
+	const dict = await loadNamespaces(locale, namespaces)
+	const t = createT(dict)
+
 	const standards = getStandardsByLocale(locale)
 	const countries = getCountries(locale)
+
+	// Generate breadcrumbs
+	const breadcrumbs = getStandardsBreadcrumbs(locale, undefined, undefined, undefined, t)
 
 	// Group standards by country
 	const standardsByCountry = countries.reduce(
@@ -29,9 +41,12 @@ export default function StandardsPage({ params }: StandardsPageProps) {
 	)
 
 	return (
-		<div className="min-h-screen bg-gray-50">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				<h1 className="text-4xl font-bold text-gray-900 mb-4">Standards</h1>
+		<>
+			<BreadcrumbsBar items={breadcrumbs} />
+			<PageContainer>
+				<h1 className="text-4xl font-bold text-gray-900 mb-4">
+					{t('navigation.breadcrumb.standards')}
+				</h1>
 				<p className="text-lg text-gray-600 mb-8">
 					Browse international and national standards related to calculations
 				</p>
@@ -73,7 +88,7 @@ export default function StandardsPage({ params }: StandardsPageProps) {
 						)
 					})}
 				</div>
-			</div>
-		</div>
+			</PageContainer>
+		</>
 	)
 }
