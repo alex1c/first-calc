@@ -32,16 +32,28 @@ export async function POST(
 		const body = await request.json()
 		const inputs = body.inputs || {}
 
-		// Validate inputs
+		// Determine which inputs should be visible based on visibleIf conditions
+		const shouldShowInput = (input: typeof calculator.inputs[0]): boolean => {
+			if (!input.visibleIf) return true
+			const { field, value } = input.visibleIf
+			const fieldValue = inputs[field]
+			return String(fieldValue) === String(value)
+		}
+
+		// Validate only visible inputs
 		const errors: Record<string, string> = {}
-		calculator.inputs.forEach((input) => {
+		const visibleInputs = calculator.inputs.filter(shouldShowInput)
+		
+		visibleInputs.forEach((input) => {
 			const value = inputs[input.name]
+			
 			if (input.validation?.required && (value === undefined || value === '')) {
 				errors[input.name] = `${input.label} is required`
 				return
 			}
 
-			if (value !== undefined && value !== '') {
+			// Only validate as number if input type is 'number'
+			if (input.type === 'number' && value !== undefined && value !== '') {
 				const numValue = Number(value)
 				if (isNaN(numValue)) {
 					errors[input.name] = `${input.label} must be a number`
@@ -61,18 +73,29 @@ export async function POST(
 		})
 
 		if (Object.keys(errors).length > 0) {
-			return NextResponse.json({ errors }, { status: 400 })
+			return NextResponse.json({ errors, error: 'Validation failed' }, { status: 400 })
 		}
 
-		// Convert inputs to appropriate types
+		// Convert inputs to appropriate types (only for visible inputs)
 		const processedInputs: Record<string, number | string> = {}
-		calculator.inputs.forEach((input) => {
-			let value = inputs[input.name]
-			if (input.type === 'number') {
-				value = value === '' ? 0 : Number(value)
-			}
-			processedInputs[input.name] = value
-		})
+		calculator.inputs
+			.filter(shouldShowInput)
+			.forEach((input) => {
+				let value = inputs[input.name]
+				if (input.type === 'number') {
+					value = value === '' ? 0 : Number(value)
+				}
+				processedInputs[input.name] = value
+			})
+
+		// Always include shape/select fields (they control visibility)
+		calculator.inputs
+			.filter((input) => input.type === 'select')
+			.forEach((input) => {
+				if (inputs[input.name] !== undefined) {
+					processedInputs[input.name] = inputs[input.name]
+				}
+			})
 
 		// Perform calculation
 		try {

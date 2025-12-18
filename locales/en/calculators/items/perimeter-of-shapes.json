@@ -1,0 +1,191 @@
+{
+  "title": "Perimeter Calculator",
+  "shortDescription": "Calculate the perimeter of circles, squares, rectangles, and triangles. Supports multiple geometric shapes with accurate formulas.",
+  "longDescription": "Our Perimeter Calculator helps you quickly determine the perimeter (circumference) of common geometric shapes including circles, squares, rectangles, and triangles. Simply select the shape type and enter the required dimensions. The calculator uses standard mathematical formulas to provide accurate results. Perfect for students, teachers, engineers, architects, and anyone working with geometric calculations.",
+  "inputs": [
+    {
+      "label": "Shape",
+      "unitLabel": "",
+      "placeholder": "Select a shape",
+      "helpText": "Choose the geometric shape you want to calculate the perimeter for"
+    },
+    {
+      "label": "Radius",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter radius",
+      "helpText": "The distance from the center to the edge of the circle"
+    },
+    {
+      "label": "Side",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter side length",
+      "helpText": "The length of one side of the square"
+    },
+    {
+      "label": "Length",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter length",
+      "helpText": "The longer dimension of the rectangle"
+    },
+    {
+      "label": "Width",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter width",
+      "helpText": "The shorter dimension of the rectangle"
+    },
+    {
+      "label": "Side A",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter side A",
+      "helpText": "The length of the first side of the triangle"
+    },
+    {
+      "label": "Side B",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter side B",
+      "helpText": "The length of the second side of the triangle"
+    },
+    {
+      "label": "Side C",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter side C",
+      "helpText": "The length of the third side of the triangle"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Perimeter",
+      "unitLabel": "units"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Shape",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the geometric shape you want to calculate (Circle, Square, Rectangle, or Triangle)",
+    "Enter the required dimensions for your selected shape",
+    "For a circle, enter the radius (perimeter is also called circumference)",
+    "For a square, enter the side length",
+    "For a rectangle, enter both length and width",
+    "For a triangle, enter all three side lengths (a, b, c)",
+    "Click 'Calculate' to get the perimeter",
+    "The result shows the perimeter in units along with the calculation formula",
+    "You can switch between different shapes and recalculate as needed"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Circle with radius 7",
+      "description": "Calculate the perimeter (circumference) of a circle with radius 7 units",
+      "steps": [
+        "Select 'Circle' from the shape dropdown",
+        "Enter radius: 7",
+        "Click 'Calculate'",
+        "Result: Perimeter ≈ 43.9823 units",
+        "Formula: P = 2πr = 2 × π × 7 ≈ 43.9823"
+      ],
+      "resultDescription": "A circle with radius 7 has a perimeter (circumference) of approximately 43.98 units"
+    },
+    {
+      "title": "Example 2: Square with side 5",
+      "description": "Calculate the perimeter of a square with side length 5 units",
+      "steps": [
+        "Select 'Square' from the shape dropdown",
+        "Enter side: 5",
+        "Click 'Calculate'",
+        "Result: Perimeter = 20 units",
+        "Formula: P = 4a = 4 × 5 = 20"
+      ],
+      "resultDescription": "A square with side length 5 has a perimeter of 20 units"
+    },
+    {
+      "title": "Example 3: Rectangle 4 × 6",
+      "description": "Calculate the perimeter of a rectangle with length 4 and width 6 units",
+      "steps": [
+        "Select 'Rectangle' from the shape dropdown",
+        "Enter length: 4",
+        "Enter width: 6",
+        "Click 'Calculate'",
+        "Result: Perimeter = 20 units",
+        "Formula: P = 2(l+w) = 2 × (4 + 6) = 20"
+      ],
+      "resultDescription": "A rectangle with length 4 and width 6 has a perimeter of 20 units"
+    },
+    {
+      "title": "Example 4: Triangle with sides 3, 4, 5",
+      "description": "Calculate the perimeter of a triangle with sides 3, 4, and 5 units",
+      "steps": [
+        "Select 'Triangle' from the shape dropdown",
+        "Enter side A: 3",
+        "Enter side B: 4",
+        "Enter side C: 5",
+        "Click 'Calculate'",
+        "Result: Perimeter = 12 units",
+        "Formula: P = a+b+c = 3 + 4 + 5 = 12"
+      ],
+      "resultDescription": "A triangle with sides 3, 4, and 5 has a perimeter of 12 units"
+    }
+  ],
+  "faq": [
+    {
+      "question": "How do I calculate the perimeter of a circle?",
+      "answer": "To calculate the perimeter (circumference) of a circle, use the formula P = 2πr, where r is the radius. Simply enter the radius value and the calculator will compute the perimeter automatically. The perimeter of a circle is also called its circumference."
+    },
+    {
+      "question": "What is the formula for square perimeter?",
+      "answer": "The perimeter of a square is calculated as P = 4a, where a is the length of one side. Since all sides of a square are equal, you only need to know one side length and multiply it by 4."
+    },
+    {
+      "question": "How to find rectangle perimeter?",
+      "answer": "Rectangle perimeter is calculated by adding the length and width, then multiplying by 2: P = 2(l+w). Enter both length and width to get the perimeter in units."
+    },
+    {
+      "question": "What is the triangle perimeter formula?",
+      "answer": "The perimeter of a triangle is the sum of all three sides: P = a+b+c. Enter all three side lengths to get the perimeter. Make sure the sides satisfy the triangle inequality (sum of any two sides must be greater than the third)."
+    },
+    {
+      "question": "What is the difference between perimeter and area?",
+      "answer": "Perimeter measures the distance around the outside of a shape (linear units like cm, m), while area measures the space inside a shape (square units like cm², m²). Perimeter is a 1D measurement, area is a 2D measurement."
+    },
+    {
+      "question": "What is the difference between perimeter and circumference?",
+      "answer": "Perimeter and circumference both refer to the distance around a shape. 'Circumference' is specifically used for circles, while 'perimeter' is used for polygons (squares, rectangles, triangles, etc.). Both terms mean the same thing - the total length of the boundary."
+    },
+    {
+      "question": "What units should I use?",
+      "answer": "You can use any unit of length (cm, m, inches, feet, etc.). The perimeter will be in the same units as your input. For example, if you enter dimensions in meters, the perimeter will be in meters."
+    },
+    {
+      "question": "Can I calculate perimeter in different units?",
+      "answer": "The calculator accepts any unit of length. The result will be in the same units as your input. To convert between units, you'll need to convert the input values first, or convert the result afterward using appropriate conversion factors."
+    },
+    {
+      "question": "How accurate are the calculations?",
+      "answer": "The calculator uses standard mathematical formulas with high precision. For circles involving π (pi), it uses sufficient decimal places to ensure accuracy. Results are rounded to 6 decimal places for display."
+    },
+    {
+      "question": "What if I enter negative numbers?",
+      "answer": "All dimensions must be positive numbers greater than zero. The calculator will validate inputs and show an error if invalid values are entered. Perimeter cannot be negative or zero for physical shapes."
+    },
+    {
+      "question": "Can I calculate perimeter for irregular shapes?",
+      "answer": "This calculator handles regular geometric shapes (circle, square, rectangle, triangle). For irregular shapes, you may need to break them down into regular shapes or measure each side individually and add them together."
+    },
+    {
+      "question": "What is the triangle inequality?",
+      "answer": "The triangle inequality states that for any triangle, the sum of the lengths of any two sides must be greater than the length of the third side. If this condition is not met, the three sides cannot form a valid triangle. The calculator will validate this automatically."
+    },
+    {
+      "question": "How do I find the perimeter if I only know the area?",
+      "answer": "For some shapes, you can work backwards from area to find dimensions, then calculate perimeter. For example, if you know the area of a square, you can find the side length (√area), then calculate perimeter (4 × side). However, this calculator requires direct dimension inputs."
+    }
+  ],
+  "seo": {
+    "keywords": ["perimeter calculator", "circle perimeter", "square perimeter", "rectangle perimeter", "triangle perimeter", "circumference calculator", "perimeter formula", "geometry calculator", "2D shapes perimeter", "perimeter of shapes"]
+  }
+}
+

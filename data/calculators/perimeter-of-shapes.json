@@ -1,10 +1,10 @@
 {
-  "id": "area",
-  "slug": "area",
+  "id": "perimeter-of-shapes",
+  "slug": "perimeter-of-shapes",
   "category": "math",
   "engine": "function",
-  "calculationId": "calculateArea",
-  "tags": ["geometry", "area", "shapes", "circle", "square", "triangle", "rectangle"],
+  "calculationId": "calculatePerimeter",
+  "tags": ["geometry", "perimeter", "shapes", "circle", "square", "rectangle", "triangle"],
   "inputs": [
     {
       "name": "shape",
@@ -62,7 +62,7 @@
       }
     },
     {
-      "name": "base",
+      "name": "sideA",
       "type": "number",
       "min": 0,
       "max": 1000000000,
@@ -73,7 +73,18 @@
       }
     },
     {
-      "name": "height",
+      "name": "sideB",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "triangle"
+      }
+    },
+    {
+      "name": "sideC",
       "type": "number",
       "min": 0,
       "max": 1000000000,
@@ -86,7 +97,7 @@
   ],
   "outputs": [
     {
-      "name": "area"
+      "name": "perimeter"
     },
     {
       "name": "formula"
@@ -100,3 +111,4 @@
   },
   "isEnabled": true
 }
+

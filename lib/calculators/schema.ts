@@ -19,9 +19,13 @@ export interface CalculatorSchema {
 		unit?: string
 		min?: number
 		max?: number
-		step?: number
+		step?: number | 'any'
 		options?: Array<{ value: string; label: string }>
 		defaultValue?: number | string
+		visibleIf?: {
+			field: string
+			value: string | number
+		}
 	}>
 	outputs: Array<{
 		name: string
@@ -29,6 +33,7 @@ export interface CalculatorSchema {
 	formula?: string // e.g., "value * percent / 100" (required for engine='formula')
 	variables?: Record<string, string> // Variable descriptions
 	defaults?: Record<string, any> // Default values for inputs
+	tags?: string[] // Tags for filtering and related calculators
 	relatedIds?: string[]
 	standardIds?: string[]
 	isEnabled?: boolean // Soft disable flag (default: true)
@@ -203,6 +208,20 @@ export async function schemaToDefinition(
 	if (calcEngine === 'function') {
 		const registry = await import('@/lib/calculations/registry')
 		getCalculation = registry.getCalculation
+		
+		// Import calculation functions to ensure they're registered
+		// This ensures that when a calculator uses engine="function",
+		// the corresponding calculation function is loaded and registered
+		if (calculationId === 'calculateArea') {
+			await import('@/lib/calculations/area')
+		}
+		if (calculationId === 'calculateVolume') {
+			await import('@/lib/calculations/volume')
+		}
+		if (calculationId === 'calculatePerimeter') {
+			await import('@/lib/calculations/perimeter')
+		}
+		// Add more imports as needed for other calculation functions
 	}
 
 	// Create calculate function based on engine type
@@ -226,9 +245,14 @@ export async function schemaToDefinition(
 			return calcFn(inputs)
 		} else {
 			// Use formula-based calculation (existing logic)
-			// Convert inputs to numbers
+			// Convert inputs to numbers (skip select/text fields)
 			const numericInputs: Record<string, number> = {}
 			for (const [key, value] of Object.entries(inputs)) {
+				// Skip non-numeric fields (select, text)
+				const inputDef = schema.inputs.find((inp) => inp.name === key)
+				if (inputDef && (inputDef.type === 'select' || inputDef.type === 'text')) {
+					continue // Skip select/text fields
+				}
 				const numValue = Number(value)
 				if (isNaN(numValue)) {
 					throw new Error(`Invalid number for input: ${key}`)
@@ -295,6 +319,7 @@ export async function schemaToDefinition(
 				step: input.step,
 				defaultValue: input.defaultValue,
 				helpText: contentInput?.helpText,
+				visibleIf: input.visibleIf,
 				validation: {
 					required: true,
 					min: input.min,
@@ -337,6 +362,7 @@ export async function schemaToDefinition(
 		longDescription,
 		locale: locale as import('@/lib/calculators/types').CalculatorLocale,
 		contentLocale: contentLocale as import('@/lib/calculators/types').CalculatorLocale,
+		tags: schema.tags,
 		inputs: calculatorInputs,
 		outputs: calculatorOutputs,
 		calculate,

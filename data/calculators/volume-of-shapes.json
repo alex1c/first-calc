@@ -1,32 +1,21 @@
 {
-  "id": "area",
-  "slug": "area",
+  "id": "volume-of-shapes",
+  "slug": "volume-of-shapes",
   "category": "math",
   "engine": "function",
-  "calculationId": "calculateArea",
-  "tags": ["geometry", "area", "shapes", "circle", "square", "triangle", "rectangle"],
+  "calculationId": "calculateVolume",
+  "tags": ["geometry", "volume", "shapes", "cube", "sphere", "cylinder", "cone", "units"],
   "inputs": [
     {
       "name": "shape",
       "type": "select",
       "options": [
-        { "value": "circle", "label": "Circle" },
-        { "value": "square", "label": "Square" },
-        { "value": "rectangle", "label": "Rectangle" },
-        { "value": "triangle", "label": "Triangle" }
+        { "value": "cube", "label": "Cube" },
+        { "value": "sphere", "label": "Sphere" },
+        { "value": "cylinder", "label": "Cylinder" },
+        { "value": "cone", "label": "Cone" }
       ],
-      "defaultValue": "circle"
-    },
-    {
-      "name": "radius",
-      "type": "number",
-      "min": 0,
-      "max": 1000000000,
-      "step": "any",
-      "visibleIf": {
-        "field": "shape",
-        "value": "circle"
-      }
+      "defaultValue": "cube"
     },
     {
       "name": "side",
@@ -36,40 +25,29 @@
       "step": "any",
       "visibleIf": {
         "field": "shape",
-        "value": "square"
+        "value": "cube"
       }
     },
     {
-      "name": "length",
+      "name": "radius",
       "type": "number",
       "min": 0,
       "max": 1000000000,
       "step": "any",
       "visibleIf": {
         "field": "shape",
-        "value": "rectangle"
+        "value": "sphere"
       }
     },
     {
-      "name": "width",
+      "name": "radius",
       "type": "number",
       "min": 0,
       "max": 1000000000,
       "step": "any",
       "visibleIf": {
         "field": "shape",
-        "value": "rectangle"
-      }
-    },
-    {
-      "name": "base",
-      "type": "number",
-      "min": 0,
-      "max": 1000000000,
-      "step": "any",
-      "visibleIf": {
-        "field": "shape",
-        "value": "triangle"
+        "value": "cylinder"
       }
     },
     {
@@ -80,13 +58,35 @@
       "step": "any",
       "visibleIf": {
         "field": "shape",
-        "value": "triangle"
+        "value": "cylinder"
+      }
+    },
+    {
+      "name": "radius",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "cone"
+      }
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "cone"
       }
     }
   ],
   "outputs": [
     {
-      "name": "area"
+      "name": "volume"
     },
     {
       "name": "formula"
@@ -96,7 +96,8 @@
     }
   ],
   "defaults": {
-    "shape": "circle"
+    "shape": "cube"
   },
   "isEnabled": true
 }
+

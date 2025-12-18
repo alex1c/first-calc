@@ -28,9 +28,21 @@ export function CalculatorForm({
 
 	const handleInputChange = useCallback(
 		(name: string, value: string | number) => {
-			setInputs((prev) => ({ ...prev, [name]: value }))
+			setInputs((prev) => {
+				const updated = { ...prev, [name]: value }
+				// If shape changes, clear shape-specific inputs
+				if (name === 'shape') {
+					// Clear all shape-specific inputs
+					calculator.inputs.forEach((input) => {
+						if (input.visibleIf && input.visibleIf.field === 'shape') {
+							delete updated[input.name]
+						}
+					})
+				}
+				return updated
+			})
 		},
-		[],
+		[calculator.inputs],
 	)
 
 	const handleSubmit = useCallback(
@@ -41,9 +53,19 @@ export function CalculatorForm({
 		[inputs, onCalculate],
 	)
 
+	// Determine which inputs should be visible based on shape selection
+	const shouldShowInput = (input: typeof calculator.inputs[0]): boolean => {
+		if (!input.visibleIf) return true
+		const { field, value } = input.visibleIf
+		const fieldValue = inputs[field]
+		return String(fieldValue) === String(value)
+	}
+
 	return (
 		<form onSubmit={handleSubmit} className="space-y-6">
-			{calculator.inputs.map((input) => (
+			{calculator.inputs
+				.filter(shouldShowInput)
+				.map((input) => (
 				<div key={input.name}>
 					<label
 						htmlFor={input.name}
@@ -82,9 +104,9 @@ export function CalculatorForm({
 								}
 							}}
 							placeholder={input.placeholder}
-							min={input.min}
+							min={input.min ?? 0}
 							max={input.max}
-							step={input.step ?? 1}
+							step={input.step === 'any' ? 'any' : (input.step ?? 1)}
 							className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
 								errors[input.name]
 									? 'border-red-500 bg-red-50'

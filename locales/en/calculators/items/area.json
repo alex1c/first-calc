@@ -1,4 +1,159 @@
 {
-  "title": "Калькулятор площади фигур",
-  "shortDescription": "Площади фигур"
+  "title": "Area Calculator",
+  "shortDescription": "Calculate the area of circles, squares, rectangles, and triangles. Supports multiple geometric shapes with accurate formulas.",
+  "longDescription": "Our Area Calculator helps you quickly determine the area of common geometric shapes including circles, squares, rectangles, and triangles. Simply select the shape type and enter the required dimensions. The calculator uses standard mathematical formulas to provide accurate results. Perfect for students, teachers, engineers, and anyone working with geometric calculations.",
+  "inputs": [
+    {
+      "label": "Shape",
+      "unitLabel": "",
+      "placeholder": "Select a shape",
+      "helpText": "Choose the geometric shape you want to calculate the area for"
+    },
+    {
+      "label": "Radius",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter radius",
+      "helpText": "The distance from the center to the edge of the circle"
+    },
+    {
+      "label": "Side",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter side length",
+      "helpText": "The length of one side of the square"
+    },
+    {
+      "label": "Length",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter length",
+      "helpText": "The longer dimension of the rectangle"
+    },
+    {
+      "label": "Width",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter width",
+      "helpText": "The shorter dimension of the rectangle"
+    },
+    {
+      "label": "Base",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter base",
+      "helpText": "The base length of the triangle"
+    },
+    {
+      "label": "Height",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter height",
+      "helpText": "The perpendicular height from the base to the opposite vertex"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Area",
+      "unitLabel": "square units"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Shape",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the geometric shape you want to calculate (Circle, Square, Rectangle, or Triangle)",
+    "Enter the required dimensions for your selected shape",
+    "For a circle, enter the radius",
+    "For a square, enter the side length",
+    "For a rectangle, enter both length and width",
+    "For a triangle, enter the base and height",
+    "Click 'Calculate' to get the area",
+    "The result shows the area in square units along with the calculation formula",
+    "You can switch between different shapes and recalculate as needed"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Circle with radius 5",
+      "description": "Calculate the area of a circle with radius 5 units",
+      "steps": [
+        "Select 'Circle' from the shape dropdown",
+        "Enter radius: 5",
+        "Click 'Calculate'",
+        "Result: Area ≈ 78.5398 square units",
+        "Formula: π × r² = π × 5² ≈ 78.5398"
+      ],
+      "resultDescription": "A circle with radius 5 has an area of approximately 78.54 square units"
+    },
+    {
+      "title": "Example 2: Rectangle 8 × 3",
+      "description": "Calculate the area of a rectangle with length 8 and width 3",
+      "steps": [
+        "Select 'Rectangle' from the shape dropdown",
+        "Enter length: 8",
+        "Enter width: 3",
+        "Click 'Calculate'",
+        "Result: Area = 24 square units",
+        "Formula: l × w = 8 × 3 = 24"
+      ],
+      "resultDescription": "A rectangle with length 8 and width 3 has an area of 24 square units"
+    },
+    {
+      "title": "Example 3: Triangle base 6, height 4",
+      "description": "Calculate the area of a triangle with base 6 and height 4",
+      "steps": [
+        "Select 'Triangle' from the shape dropdown",
+        "Enter base: 6",
+        "Enter height: 4",
+        "Click 'Calculate'",
+        "Result: Area = 12 square units",
+        "Formula: (b × h) / 2 = (6 × 4) / 2 = 12"
+      ],
+      "resultDescription": "A triangle with base 6 and height 4 has an area of 12 square units"
+    }
+  ],
+  "faq": [
+    {
+      "question": "How do I calculate the area of a circle?",
+      "answer": "To calculate the area of a circle, use the formula A = π × r², where r is the radius. Simply enter the radius value and the calculator will compute the area automatically."
+    },
+    {
+      "question": "What is the formula for square area?",
+      "answer": "The area of a square is calculated as A = a², where a is the length of one side. Since all sides are equal, you only need to know one side length."
+    },
+    {
+      "question": "How to find rectangle area?",
+      "answer": "Rectangle area is calculated by multiplying length and width: A = l × w. Enter both dimensions to get the area in square units."
+    },
+    {
+      "question": "What is the triangle area formula?",
+      "answer": "The area of a triangle is A = (b × h) / 2, where b is the base and h is the perpendicular height. Make sure the height is measured perpendicular to the base."
+    },
+    {
+      "question": "What units should I use?",
+      "answer": "You can use any unit of length (cm, m, inches, feet, etc.). The area will be in square units of the same measurement (cm², m², in², ft², etc.)."
+    },
+    {
+      "question": "Can I calculate area in different units?",
+      "answer": "The calculator accepts any unit of length. The result will be in square units of the same measurement. For example, if you enter dimensions in meters, the area will be in square meters (m²)."
+    },
+    {
+      "question": "What is the difference between radius and diameter?",
+      "answer": "The radius is the distance from the center to the edge of a circle, while the diameter is twice the radius (distance across the circle). This calculator uses radius for circle area calculation."
+    },
+    {
+      "question": "How accurate are the calculations?",
+      "answer": "The calculator uses standard mathematical formulas with high precision. For circles, it uses π (pi) with sufficient decimal places to ensure accuracy."
+    },
+    {
+      "question": "Can I calculate area for irregular shapes?",
+      "answer": "This calculator handles regular geometric shapes (circle, square, rectangle, triangle). For irregular shapes, you may need to break them down into regular shapes or use more advanced methods."
+    },
+    {
+      "question": "What if I enter negative numbers?",
+      "answer": "All dimensions must be positive numbers greater than zero. The calculator will validate inputs and show an error if invalid values are entered."
+    }
+  ],
+  "seo": {
+    "keywords": ["area calculator", "circle area", "square area", "rectangle area", "triangle area", "geometric area", "area formula", "cm²", "m²", "square units", "geometry calculator", "shape area"]
+  }
 }

@@ -1,0 +1,162 @@
+{
+  "title": "Volume Calculator",
+  "shortDescription": "Calculate the volume of common 3D shapes using accurate mathematical formulas. Supports cube, sphere, cylinder, and cone calculations.",
+  "longDescription": "Our Volume Calculator helps you quickly determine the volume of common 3D geometric shapes including cubes, spheres, cylinders, and cones. Simply select the shape type and enter the required dimensions. The calculator uses standard mathematical formulas to provide accurate results. Perfect for students, teachers, engineers, architects, and anyone working with 3D geometric calculations.",
+  "inputs": [
+    {
+      "label": "Shape",
+      "unitLabel": "",
+      "placeholder": "Select a shape",
+      "helpText": "Choose the 3D geometric shape you want to calculate the volume for"
+    },
+    {
+      "label": "Side",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter side length",
+      "helpText": "The length of one edge of the cube"
+    },
+    {
+      "label": "Radius",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter radius",
+      "helpText": "The distance from the center to the surface of the sphere, cylinder, or cone"
+    },
+    {
+      "label": "Height",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter height",
+      "helpText": "The vertical height of the cylinder or cone"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Volume",
+      "unitLabel": "cubic units"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Shape",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the 3D geometric shape you want to calculate (Cube, Sphere, Cylinder, or Cone)",
+    "Enter the required dimensions for your selected shape",
+    "For a cube, enter the side length",
+    "For a sphere, enter the radius",
+    "For a cylinder, enter both radius and height",
+    "For a cone, enter both radius and height",
+    "Click 'Calculate' to get the volume",
+    "The result shows the volume in cubic units along with the calculation formula",
+    "You can switch between different shapes and recalculate as needed"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Cube with side 3",
+      "description": "Calculate the volume of a cube with side length 3 units",
+      "steps": [
+        "Select 'Cube' from the shape dropdown",
+        "Enter side: 3",
+        "Click 'Calculate'",
+        "Result: Volume = 27 cubic units",
+        "Formula: V = a³ = 3³ = 27"
+      ],
+      "resultDescription": "A cube with side length 3 has a volume of 27 cubic units"
+    },
+    {
+      "title": "Example 2: Sphere with radius 5",
+      "description": "Calculate the volume of a sphere with radius 5 units",
+      "steps": [
+        "Select 'Sphere' from the shape dropdown",
+        "Enter radius: 5",
+        "Click 'Calculate'",
+        "Result: Volume ≈ 523.599 cubic units",
+        "Formula: V = (4/3) × π × r³ = (4/3) × π × 5³ ≈ 523.599"
+      ],
+      "resultDescription": "A sphere with radius 5 has a volume of approximately 523.6 cubic units"
+    },
+    {
+      "title": "Example 3: Cylinder with radius 3, height 10",
+      "description": "Calculate the volume of a cylinder with radius 3 and height 10 units",
+      "steps": [
+        "Select 'Cylinder' from the shape dropdown",
+        "Enter radius: 3",
+        "Enter height: 10",
+        "Click 'Calculate'",
+        "Result: Volume ≈ 282.743 cubic units",
+        "Formula: V = π × r² × h = π × 3² × 10 ≈ 282.743"
+      ],
+      "resultDescription": "A cylinder with radius 3 and height 10 has a volume of approximately 282.7 cubic units"
+    },
+    {
+      "title": "Example 4: Cone with radius 4, height 9",
+      "description": "Calculate the volume of a cone with radius 4 and height 9 units",
+      "steps": [
+        "Select 'Cone' from the shape dropdown",
+        "Enter radius: 4",
+        "Enter height: 9",
+        "Click 'Calculate'",
+        "Result: Volume ≈ 150.796 cubic units",
+        "Formula: V = (1/3) × π × r² × h = (1/3) × π × 4² × 9 ≈ 150.796"
+      ],
+      "resultDescription": "A cone with radius 4 and height 9 has a volume of approximately 150.8 cubic units"
+    }
+  ],
+  "faq": [
+    {
+      "question": "How do I calculate the volume of a cube?",
+      "answer": "To calculate the volume of a cube, use the formula V = a³, where a is the length of one side. Simply enter the side length and the calculator will compute the volume automatically. Since all sides of a cube are equal, you only need one dimension."
+    },
+    {
+      "question": "What is the formula for sphere volume?",
+      "answer": "The volume of a sphere is calculated as V = (4/3) × π × r³, where r is the radius. Enter the radius value and the calculator will provide the volume in cubic units."
+    },
+    {
+      "question": "How to find cylinder volume?",
+      "answer": "Cylinder volume is calculated by multiplying the area of the circular base (π × r²) by the height: V = π × r² × h. Enter both radius and height to get the volume in cubic units."
+    },
+    {
+      "question": "What is the cone volume formula?",
+      "answer": "The volume of a cone is V = (1/3) × π × r² × h, where r is the radius of the base and h is the height. The formula is one-third of the cylinder volume with the same base and height."
+    },
+    {
+      "question": "What is the difference between area and volume?",
+      "answer": "Area measures the space inside a 2D shape (square units like cm², m²), while volume measures the space inside a 3D shape (cubic units like cm³, m³). Area is for flat surfaces, volume is for 3D objects."
+    },
+    {
+      "question": "What units should I use?",
+      "answer": "You can use any unit of length (cm, m, inches, feet, etc.). The volume will be in cubic units of the same measurement (cm³, m³, in³, ft³, etc.). For example, if you enter dimensions in meters, the volume will be in cubic meters (m³)."
+    },
+    {
+      "question": "Can I calculate volume in different units?",
+      "answer": "The calculator accepts any unit of length. The result will be in cubic units of the same measurement. For example, if you enter dimensions in centimeters, the volume will be in cubic centimeters (cm³)."
+    },
+    {
+      "question": "How accurate are the calculations?",
+      "answer": "The calculator uses standard mathematical formulas with high precision. For shapes involving π (pi), it uses sufficient decimal places to ensure accuracy. Results are rounded to 6 decimal places for display."
+    },
+    {
+      "question": "What if I enter negative numbers?",
+      "answer": "All dimensions must be positive numbers greater than zero. The calculator will validate inputs and show an error if invalid values are entered. Volume cannot be negative or zero for physical objects."
+    },
+    {
+      "question": "Can I calculate volume for irregular shapes?",
+      "answer": "This calculator handles regular 3D geometric shapes (cube, sphere, cylinder, cone). For irregular shapes, you may need to break them down into regular shapes or use more advanced methods like integration."
+    },
+    {
+      "question": "What is the relationship between cylinder and cone volume?",
+      "answer": "A cone with the same base radius and height as a cylinder has exactly one-third the volume of the cylinder. This is why the cone formula includes the factor (1/3)."
+    },
+    {
+      "question": "How do I convert between different volume units?",
+      "answer": "To convert between volume units, you need to know the conversion factor for the corresponding length units cubed. For example, 1 m³ = 1,000,000 cm³ (since 1 m = 100 cm, and 100³ = 1,000,000)."
+    }
+  ],
+  "seo": {
+    "keywords": ["volume calculator", "cube volume", "sphere volume", "cylinder volume", "cone volume", "3D volume", "volume formula", "cm³", "m³", "cubic units", "geometry calculator", "3D shapes volume"]
+  }
+}
+

@@ -7,11 +7,12 @@ import { CalculatorResults } from './calculators/calculator-results'
 import { HowToBlock } from './calculators/how-to-block'
 import { ExamplesBlock } from './calculators/examples-block'
 import { FaqBlock } from './calculators/faq-block'
+import { CalculatorHero } from './calculators/calculator-hero'
 
 interface CalculatorPageProps {
 	calculator: CalculatorDefinitionClient
 	locale: string
-	calculatorId: string
+	calculatorId?: string // Optional, will use calculator.id or calculator.slug as fallback
 }
 
 /**
@@ -21,8 +22,10 @@ interface CalculatorPageProps {
 export function CalculatorPage({
 	calculator,
 	locale,
-	calculatorId,
+	calculatorId: propCalculatorId,
 }: CalculatorPageProps) {
+	// Use calculator.id if calculatorId prop is not provided (fallback)
+	const calculatorId = propCalculatorId || calculator.id || calculator.slug
 	const [outputs, setOutputs] = useState<Record<string, number | string | null>>(
 		{},
 	)
@@ -55,11 +58,17 @@ export function CalculatorPage({
 					return validation.message || `${inputDef.label} must be a valid number`
 				}
 
+				// Check min (but allow 0 if min is 0)
 				if (validation.min !== undefined && numValue < validation.min) {
-					return (
-						validation.message ||
-						`${inputDef.label} must be at least ${validation.min}`
-					)
+					// Special case: if min is 0 and value is 0, it's valid
+					if (validation.min === 0 && numValue === 0) {
+						// Valid
+					} else {
+						return (
+							validation.message ||
+							`${inputDef.label} must be at least ${validation.min}`
+						)
+					}
 				}
 
 				if (validation.max !== undefined && numValue > validation.max) {
@@ -72,6 +81,11 @@ export function CalculatorPage({
 				// Prevent negative values where not allowed
 				if (numValue < 0 && inputDef.validation?.min !== undefined && inputDef.validation.min >= 0) {
 					return validation.message || `${inputDef.label} cannot be negative`
+				}
+
+				// Additional check: value must be greater than 0 (not equal to 0) for area calculations
+				if (numValue <= 0) {
+					return validation.message || `${inputDef.label} must be greater than 0`
 				}
 			}
 
@@ -91,18 +105,28 @@ export function CalculatorPage({
 	// Handle calculation
 	const handleCalculate = useCallback(
 		(inputs: Record<string, number | string>) => {
-			// Validate all inputs
+			// Determine which inputs should be visible based on shape selection
+			const shouldShowInput = (input: typeof calculator.inputs[0]): boolean => {
+				if (!input.visibleIf) return true
+				const { field, value } = input.visibleIf
+				const fieldValue = inputs[field]
+				return String(fieldValue) === String(value)
+			}
+
+			// Validate only visible inputs
 			const newErrors: Record<string, string> = {}
 			let hasErrors = false
 
-			calculator.inputs.forEach((input) => {
-				const value = inputs[input.name]
-				const error = validateInput(input.name, value)
-				if (error) {
-					newErrors[input.name] = error
-					hasErrors = true
-				}
-			})
+			calculator.inputs
+				.filter(shouldShowInput)
+				.forEach((input) => {
+					const value = inputs[input.name]
+					const error = validateInput(input.name, value)
+					if (error) {
+						newErrors[input.name] = error
+						hasErrors = true
+					}
+				})
 
 			if (hasErrors) {
 				setErrors(newErrors)
@@ -117,8 +141,13 @@ export function CalculatorPage({
 			calculator.inputs.forEach((input) => {
 				let value = inputs[input.name]
 
+				// Skip empty values for number inputs (they will be validated separately)
+				if (input.type === 'number' && (value === '' || value === null || value === undefined)) {
+					return // Skip this input, validation already caught it
+				}
+
 				if (input.type === 'number') {
-					const numValue = value === '' ? 0 : Number(value)
+					const numValue = Number(value)
 					// Ensure we have a valid number
 					if (isNaN(numValue) || !Number.isFinite(numValue)) {
 						setErrors({
@@ -133,6 +162,10 @@ export function CalculatorPage({
 			})
 
 			// Calculate via API
+			if (!calculatorId) {
+				setErrors({_calculation: 'Calculator ID is not defined'})
+				return
+			}
 			fetch(`/api/calculators/${calculatorId}/calculate`, {
 				method: 'POST',
 				headers: {
@@ -143,19 +176,34 @@ export function CalculatorPage({
 					locale,
 				}),
 			})
-				.then((response) => {
+				.then(async (response) => {
+					const data = await response.json()
 					if (!response.ok) {
-						return response.json().then((errorData) => {
-							throw new Error(errorData.error || 'Calculation failed')
-						})
+						// If there are validation errors, show them
+						if (data.errors && typeof data.errors === 'object') {
+							const validationErrors: Record<string, string> = {}
+							Object.keys(data.errors).forEach((key) => {
+								validationErrors[key] = data.errors[key]
+							})
+							setErrors(validationErrors)
+							return
+						}
+						throw new Error(data.error || data.message || 'Calculation failed')
 					}
-					return response.json()
+					return data
 				})
 				.then((data) => {
-					setOutputs(data.results)
+					if (!data) return // Skip if error was handled above
+					if (data.results) {
+						setOutputs(data.results)
+						setErrors({}) // Clear any previous errors
+					} else {
+						setErrors({
+							_calculation: 'Calculation completed but no results returned',
+						})
+					}
 				})
 				.catch((error) => {
-					console.error('Calculation error:', error)
 					setErrors({
 						_calculation: error instanceof Error ? error.message : 'Calculation failed',
 					})
@@ -167,13 +215,8 @@ export function CalculatorPage({
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-				{/* Header */}
-				<h1 className="text-4xl font-bold text-gray-900 mb-4">
-					{calculator.title}
-				</h1>
-				<p className="text-lg text-gray-600 mb-8">
-					{calculator.shortDescription}
-				</p>
+				{/* Hero Section */}
+				<CalculatorHero calculator={calculator} />
 
 				{/* Migration warning for disabled calculators */}
 				{calculator.isEnabled === false && (
@@ -207,56 +250,61 @@ export function CalculatorPage({
 					</div>
 				)}
 
-				{/* Calculator Form */}
-				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					<h2 className="text-2xl font-semibold text-gray-900 mb-6">
-						Calculator
-					</h2>
+				{/* Calculator + Results Tool Container */}
+				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 md:p-8 mb-12">
+					<div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+						{/* Calculator Form - Left side on desktop */}
+						<div className="flex-1">
+							<h2 className="text-2xl font-semibold text-gray-900 mb-6">
+								Calculator
+							</h2>
 
-					{/* Global error */}
-					{errors._calculation && (
-						<div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-							<div className="flex items-start">
-								<svg
-									className="h-5 w-5 text-red-400 mr-2 flex-shrink-0 mt-0.5"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-								>
-									<path
-										fillRule="evenodd"
-										d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-										clipRule="evenodd"
-									/>
-								</svg>
-								<p className="text-red-800">{errors._calculation}</p>
-							</div>
+							{/* Global error */}
+							{errors._calculation && (
+								<div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+									<div className="flex items-start">
+										<svg
+											className="h-5 w-5 text-red-400 mr-2 flex-shrink-0 mt-0.5"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fillRule="evenodd"
+												d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+												clipRule="evenodd"
+											/>
+										</svg>
+										<p className="text-red-800">{errors._calculation}</p>
+									</div>
+								</div>
+							)}
+
+							<CalculatorForm
+								calculator={calculator}
+								onCalculate={handleCalculate}
+								errors={errors}
+							/>
 						</div>
-					)}
 
-					<CalculatorForm
-						calculator={calculator}
-						onCalculate={handleCalculate}
-						errors={errors}
-					/>
-				</div>
-
-				{/* Results */}
-				<div className="mb-8">
-					<CalculatorResults calculator={calculator} outputs={outputs} />
+						{/* Results - Right side on desktop */}
+						<div className="flex-1 lg:border-l lg:border-gray-200 lg:pl-8">
+							<CalculatorResults calculator={calculator} outputs={outputs} />
+						</div>
+					</div>
 				</div>
 
 				{/* How to Calculate */}
-				<div className="mb-8">
+				<div className="mb-12">
 					<HowToBlock calculator={calculator} howToLabel="How to Calculate" />
 				</div>
 
 				{/* Examples */}
-				<div className="mb-8">
+				<div className="mb-12">
 					<ExamplesBlock calculator={calculator} />
 				</div>
 
 				{/* FAQ */}
-				<div className="mb-8">
+				<div className="mb-12">
 					<FaqBlock calculator={calculator} />
 				</div>
 

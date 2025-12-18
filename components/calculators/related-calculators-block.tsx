@@ -3,6 +3,7 @@ import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 import { calculatorRegistry, standardRegistry } from '@/lib/registry/loader'
 import { getLegacyToolsForCalculator } from '@/lib/links/legacyToCalculators'
 import { getStandardsForCalculator } from '@/lib/standards/linking'
+import { getRelatedByTags } from '@/lib/navigation/related-by-tags'
 
 interface RelatedCalculatorsBlockProps {
 	calculator: CalculatorDefinitionClient
@@ -18,13 +19,31 @@ export async function RelatedCalculatorsBlock({
 	calculator,
 	locale,
 }: RelatedCalculatorsBlockProps) {
-	const relatedCalculators = calculator.relatedIds
-		? await Promise.all(
-				calculator.relatedIds.map((id) =>
-					calculatorRegistry.getById(id, locale),
-				),
-			).then((calcs) => calcs.filter((c): c is NonNullable<typeof c> => c !== undefined))
-		: []
+	// Try to get related calculators by tags first
+	let relatedCalculators: Awaited<ReturnType<typeof calculatorRegistry.getById>>[] = []
+	
+	if (calculator.tags && calculator.tags.length > 0) {
+		// Use tag-based related calculators
+		const tagRelated = await getRelatedByTags(calculator.id, locale, 8)
+		relatedCalculators = tagRelated
+	} else if (calculator.relatedIds && calculator.relatedIds.length > 0) {
+		// Fallback to manual relatedIds
+		relatedCalculators = await Promise.all(
+			calculator.relatedIds.map((id) =>
+				calculatorRegistry.getById(id, locale),
+			),
+		).then((calcs) => calcs.filter((c): c is NonNullable<typeof c> => c !== undefined))
+	} else {
+		// Final fallback: same category
+		const categoryCalcs = await calculatorRegistry.getByCategory(
+			calculator.category,
+			locale,
+		)
+		relatedCalculators = categoryCalcs
+			.filter((calc) => calc.id !== calculator.id)
+			.slice(0, 8)
+	}
+	
 	const legacyTools = getLegacyToolsForCalculator(calculator.id)
 	const standardIds = await getStandardsForCalculator(calculator.id, locale)
 	const standards = standardIds.length > 0

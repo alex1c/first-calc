@@ -49,9 +49,13 @@ export interface CalculatorInput {
 	options?: Array<{ value: string; label: string }>
 	min?: number
 	max?: number
-	step?: number
+	step?: number | 'any'
 	defaultValue?: number | string
 	helpText?: string
+	visibleIf?: {
+		field: string
+		value: string | number
+	}
 	validation?: {
 		required?: boolean
 		min?: number
