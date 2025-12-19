@@ -1,0 +1,86 @@
+{
+  "id": "loan-overpayment-calculator",
+  "slug": "loan-overpayment-calculator",
+  "category": "finance",
+  "engine": "function",
+  "calculationId": "calculateLoanOverpayment",
+  "tags": ["finance", "loans", "overpayment", "interest-savings"],
+  "inputs": [
+    {
+      "name": "loanAmount",
+      "type": "number",
+      "min": 1000,
+      "max": 10000000,
+      "step": 100
+    },
+    {
+      "name": "interestRate",
+      "type": "number",
+      "min": 0,
+      "max": 30,
+      "step": 0.01
+    },
+    {
+      "name": "loanTerm",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1
+    },
+    {
+      "name": "extraPayment",
+      "type": "number",
+      "min": 0,
+      "max": 100000,
+      "step": 1,
+      "defaultValue": 0
+    },
+    {
+      "name": "paymentFrequency",
+      "type": "select",
+      "options": [
+        { "value": "monthly", "label": "Monthly" },
+        { "value": "one-time", "label": "One-time payment" }
+      ],
+      "defaultValue": "monthly"
+    },
+    {
+      "name": "paymentType",
+      "type": "select",
+      "options": [
+        { "value": "annuity", "label": "Annuity (Fixed Payment)" },
+        { "value": "differentiated", "label": "Differentiated (Declining Payment)" }
+      ],
+      "defaultValue": "annuity"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "monthlyPayment"
+    },
+    {
+      "name": "totalInterest"
+    },
+    {
+      "name": "totalInterestWithExtra"
+    },
+    {
+      "name": "interestSaved"
+    },
+    {
+      "name": "timeSaved"
+    },
+    {
+      "name": "steps"
+    }
+  ],
+  "defaults": {
+    "loanAmount": 200000,
+    "interestRate": 5.5,
+    "loanTerm": 30,
+    "extraPayment": 0,
+    "paymentFrequency": "monthly"
+  },
+  "isEnabled": true
+}
+

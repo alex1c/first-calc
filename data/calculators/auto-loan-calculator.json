@@ -1,0 +1,120 @@
+{
+	"id": "auto-loan-calculator",
+	"slug": "auto-loan-calculator",
+	"category": "finance",
+	"engine": "function",
+	"calculationId": "calculateAutoLoan",
+	"tags": ["finance", "loans", "auto-loan", "car-loan", "vehicle"],
+	"inputs": [
+		{
+			"name": "carPrice",
+			"type": "number",
+			"min": 1000,
+			"max": 500000,
+			"step": 1000
+		},
+		{
+			"name": "downPayment",
+			"type": "number",
+			"min": 0,
+			"max": 500000,
+			"step": 100,
+			"defaultValue": 0
+		},
+		{
+			"name": "interestRate",
+			"type": "number",
+			"min": 0,
+			"max": 30,
+			"step": 0.01
+		},
+		{
+			"name": "loanTerm",
+			"type": "number",
+			"min": 1,
+			"max": 10,
+			"step": 1
+		},
+		{
+			"name": "tradeInValue",
+			"type": "number",
+			"min": 0,
+			"max": 500000,
+			"step": 100,
+			"defaultValue": 0
+		},
+		{
+			"name": "paymentType",
+			"type": "select",
+			"options": [
+				{ "value": "annuity", "label": "Annuity (Fixed Payment)" },
+				{ "value": "differentiated", "label": "Differentiated (Declining Payment)" }
+			],
+			"defaultValue": "annuity"
+		},
+		{
+			"name": "salesTax",
+			"type": "number",
+			"min": 0,
+			"max": 15,
+			"step": 0.1,
+			"defaultValue": 0
+		},
+		{
+			"name": "registrationFees",
+			"type": "number",
+			"min": 0,
+			"max": 5000,
+			"step": 10,
+			"defaultValue": 0
+		},
+		{
+			"name": "extendedWarranty",
+			"type": "number",
+			"min": 0,
+			"max": 10000,
+			"step": 100,
+			"defaultValue": 0
+		},
+		{
+			"name": "gapInsurance",
+			"type": "number",
+			"min": 0,
+			"max": 1000,
+			"step": 10,
+			"defaultValue": 0
+		}
+	],
+	"outputs": [
+		{
+			"name": "loanAmount"
+		},
+		{
+			"name": "monthlyPayment"
+		},
+		{
+			"name": "totalPayment"
+		},
+		{
+			"name": "totalInterest"
+		},
+		{
+			"name": "totalCost"
+		},
+		{
+			"name": "totalFees"
+		},
+		{
+			"name": "steps"
+		}
+	],
+	"defaults": {
+		"carPrice": 30000,
+		"downPayment": 5000,
+		"interestRate": 5.5,
+		"loanTerm": 5,
+		"tradeInValue": 0
+	},
+	"isEnabled": true
+}
+

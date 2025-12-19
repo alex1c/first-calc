@@ -1,0 +1,227 @@
+{
+  "title": "Equation Solver",
+  "shortDescription": "Solve linear and quadratic equations step-by-step. Enter equations in text format or use coefficients. Get detailed solutions with explanations.",
+  "longDescription": "Our Equation Solver helps you solve linear equations (ax + b = 0) and quadratic equations (ax² + bx + c = 0) with step-by-step solutions. Enter equations in natural text format (e.g., '2x + 5 = 15' or 'x^2 + 5x + 6 = 0') or use coefficient mode for direct input. The solver provides detailed mathematical steps, explains each transformation, and shows the final solution. Perfect for students learning algebra and anyone working with equations.",
+  "inputs": [
+    {
+      "label": "Input Mode",
+      "unitLabel": "",
+      "placeholder": "Select input mode",
+      "helpText": "Choose between entering the equation as text or using coefficients directly"
+    },
+    {
+      "label": "Equation Type",
+      "unitLabel": "",
+      "placeholder": "Select equation type",
+      "helpText": "Choose Linear for equations like ax + b = 0, or Quadratic for ax² + bx + c = 0"
+    },
+    {
+      "label": "Equation",
+      "unitLabel": "",
+      "placeholder": "e.g., 2x + 5 = 15 or x^2 + 5x + 6 = 0",
+      "helpText": "Enter the equation in text format. Spaces are optional. Use x^2 or x² for quadratic terms."
+    },
+    {
+      "label": "Coefficient a",
+      "unitLabel": "",
+      "placeholder": "Enter coefficient a",
+      "helpText": "Coefficient of x (linear) or x² (quadratic). Cannot be zero for quadratic."
+    },
+    {
+      "label": "Coefficient b",
+      "unitLabel": "",
+      "placeholder": "Enter coefficient b",
+      "helpText": "Coefficient of x (linear) or x (quadratic)"
+    },
+    {
+      "label": "Coefficient c",
+      "unitLabel": "",
+      "placeholder": "Enter coefficient c",
+      "helpText": "Constant term (quadratic only)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Equation Type",
+      "unitLabel": ""
+    },
+    {
+      "label": "Normalized Form",
+      "unitLabel": ""
+    },
+    {
+      "label": "Steps",
+      "unitLabel": ""
+    },
+    {
+      "label": "Result",
+      "unitLabel": ""
+    },
+    {
+      "label": "Discriminant",
+      "unitLabel": ""
+    },
+    {
+      "label": "Roots",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select input mode: 'Enter equation' for text input or 'Enter coefficients' for direct number input",
+    "Select equation type: 'Linear' for equations like ax + b = 0, or 'Quadratic' for ax² + bx + c = 0",
+    "If using equation mode:",
+    "  - For linear: enter equations like '2x + 5 = 15' or '5x + 2 = 3x + 8'",
+    "  - For quadratic: enter equations like 'x^2 + 5x + 6 = 0' or 'x^2 - 4x + 4 = 0'",
+    "  - Spaces are optional, use x^2 or x² for quadratic terms",
+    "If using coefficients mode:",
+    "  - For linear: enter values for a and b",
+    "  - For quadratic: enter values for a, b, and c",
+    "Click 'Solve' to get step-by-step solution",
+    "Review the normalized form, solution steps, and final answer",
+    "For quadratic equations, check the discriminant to understand the nature of roots"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Linear equation - 2x + 5 = 15",
+      "description": "Solve the linear equation 2x + 5 = 15",
+      "steps": [
+        "Select input mode: 'Enter equation'",
+        "Select equation type: 'Linear'",
+        "Enter: 2x + 5 = 15",
+        "Click 'Solve'",
+        "Step 1: Normalize to 2x - 10 = 0",
+        "Step 2: Isolate x: x = 10 / 2",
+        "Result: x = 5"
+      ],
+      "resultDescription": "The equation 2x + 5 = 15 has one solution: x = 5"
+    },
+    {
+      "title": "Example 2: Linear equation - 5x + 2 = 3x + 8",
+      "description": "Solve the linear equation 5x + 2 = 3x + 8",
+      "steps": [
+        "Select input mode: 'Enter equation'",
+        "Select equation type: 'Linear'",
+        "Enter: 5x + 2 = 3x + 8",
+        "Click 'Solve'",
+        "Step 1: Normalize to 2x - 6 = 0",
+        "Step 2: Isolate x: x = 6 / 2",
+        "Result: x = 3"
+      ],
+      "resultDescription": "The equation 5x + 2 = 3x + 8 has one solution: x = 3"
+    },
+    {
+      "title": "Example 3: Quadratic equation - x² + 5x + 6 = 0",
+      "description": "Solve the quadratic equation x² + 5x + 6 = 0",
+      "steps": [
+        "Select input mode: 'Enter equation'",
+        "Select equation type: 'Quadratic'",
+        "Enter: x^2 + 5x + 6 = 0",
+        "Click 'Solve'",
+        "Step 1: Calculate discriminant D = 1",
+        "Step 2: D > 0, so two real roots",
+        "Step 3: x₁ = -2, x₂ = -3",
+        "Result: Two real roots: x = -2 and x = -3"
+      ],
+      "resultDescription": "The equation x² + 5x + 6 = 0 has two real roots: x = -2 and x = -3"
+    },
+    {
+      "title": "Example 4: Quadratic equation - x² - 4x + 4 = 0",
+      "description": "Solve the quadratic equation x² - 4x + 4 = 0",
+      "steps": [
+        "Select input mode: 'Enter equation'",
+        "Select equation type: 'Quadratic'",
+        "Enter: x^2 - 4x + 4 = 0",
+        "Click 'Solve'",
+        "Step 1: Calculate discriminant D = 0",
+        "Step 2: D = 0, so one real root",
+        "Step 3: x = 2",
+        "Result: One real root: x = 2"
+      ],
+      "resultDescription": "The equation x² - 4x + 4 = 0 has one real root (repeated): x = 2"
+    },
+    {
+      "title": "Example 5: Quadratic equation - x² + x + 1 = 0",
+      "description": "Solve the quadratic equation x² + x + 1 = 0",
+      "steps": [
+        "Select input mode: 'Enter equation'",
+        "Select equation type: 'Quadratic'",
+        "Enter: x^2 + x + 1 = 0",
+        "Click 'Solve'",
+        "Step 1: Calculate discriminant D = -3",
+        "Step 2: D < 0, so no real roots",
+        "Result: No real roots (complex roots exist)"
+      ],
+      "resultDescription": "The equation x² + x + 1 = 0 has no real roots (discriminant is negative)"
+    },
+    {
+      "title": "Example 6: Using coefficients - Linear 3x - 7 = 14",
+      "description": "Solve using coefficient mode for 3x - 7 = 14",
+      "steps": [
+        "Select input mode: 'Enter coefficients'",
+        "Select equation type: 'Linear'",
+        "Enter a = 3, b = -21 (normalized: 3x - 21 = 0)",
+        "Click 'Solve'",
+        "Result: x = 7"
+      ],
+      "resultDescription": "Using coefficient mode, the equation 3x - 7 = 14 is solved as x = 7"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is a linear equation?",
+      "answer": "A linear equation is an equation of the form ax + b = 0, where a and b are constants and a ≠ 0. It has exactly one solution: x = -b/a. Examples include 2x + 5 = 15 and 3x - 7 = 14."
+    },
+    {
+      "question": "What is a quadratic equation?",
+      "answer": "A quadratic equation is an equation of the form ax² + bx + c = 0, where a, b, and c are constants and a ≠ 0. It can have zero, one, or two real solutions depending on the discriminant D = b² - 4ac."
+    },
+    {
+      "question": "What is the discriminant?",
+      "answer": "The discriminant (D) is the expression b² - 4ac in a quadratic equation. It determines the nature of the roots: if D > 0, there are two distinct real roots; if D = 0, there is one real root (repeated); if D < 0, there are no real roots (complex roots exist)."
+    },
+    {
+      "question": "Why does a linear equation have 'no solutions' or 'infinite solutions'?",
+      "answer": "If a linear equation simplifies to 0 = 0 (e.g., 0x + 0 = 0), it's always true, so there are infinite solutions. If it simplifies to a non-zero constant = 0 (e.g., 5 = 0), it's never true, so there are no solutions."
+    },
+    {
+      "question": "What does 'no real roots' mean for quadratic equations?",
+      "answer": "When the discriminant is negative (D < 0), the quadratic equation has no real roots. However, it does have two complex roots involving the imaginary unit i (√-1). The calculator shows 'no real roots' to indicate that real number solutions don't exist."
+    },
+    {
+      "question": "Can I enter spaces in the equation?",
+      "answer": "Yes, spaces are optional. The parser will handle equations with or without spaces. For example, '2x+5=15' and '2x + 5 = 15' are both valid."
+    },
+    {
+      "question": "What formats are supported for entering equations?",
+      "answer": "For linear equations: 'ax + b = c' or 'ax + b = dx + e'. For quadratic: 'ax^2 + bx + c = 0', 'x^2 + 5x = 0', or 'x^2 - 4 = 0'. You can use x^2 or x² for quadratic terms. Missing terms are allowed (e.g., 'x^2 + 5x = 0' where c = 0)."
+    },
+    {
+      "question": "How accurate are the solutions?",
+      "answer": "Solutions are calculated with high precision and displayed with 6 decimal places. The calculations are mathematically exact for the given inputs."
+    },
+    {
+      "question": "Can I solve equations with fractions?",
+      "answer": "Yes, you can enter fractional coefficients as decimals. For example, for (1/2)x + 3 = 0, enter '0.5x + 3 = 0' or use coefficient mode with a = 0.5, b = 3."
+    },
+    {
+      "question": "What if I enter an invalid equation format?",
+      "answer": "The parser will show an error message with examples of valid formats. Make sure your equation contains exactly one '=' sign and follows the supported formats for linear or quadratic equations."
+    },
+    {
+      "question": "How do I use coefficient mode?",
+      "answer": "Select 'Enter coefficients' mode, choose the equation type (Linear or Quadratic), and enter the coefficient values directly. For linear: enter a and b. For quadratic: enter a, b, and c. The equation will be normalized automatically."
+    },
+    {
+      "question": "What's the difference between equation mode and coefficient mode?",
+      "answer": "Equation mode lets you enter the equation as natural text (e.g., '2x + 5 = 15'), which is more intuitive. Coefficient mode requires you to enter the coefficients directly (a, b, c), which is faster if you already know the coefficients."
+    },
+    {
+      "question": "Can I solve systems of equations?",
+      "answer": "No, this calculator solves single linear or quadratic equations only. For systems of equations, you would need a different tool that handles multiple equations simultaneously."
+    }
+  ],
+  "seo": {
+    "keywords": ["equation solver", "linear equation solver", "quadratic equation solver", "solve equations", "step by step equation solver", "algebra solver", "equation calculator", "ax + b = 0", "ax² + bx + c = 0"]
+  }
+}
+

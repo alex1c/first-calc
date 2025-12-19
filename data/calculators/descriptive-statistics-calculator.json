@@ -1,0 +1,53 @@
+{
+  "id": "descriptive-statistics-calculator",
+  "slug": "descriptive-statistics-calculator",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculateDescriptiveStatistics",
+  "tags": ["statistics", "descriptive-statistics", "mean", "median", "mode", "variance", "standard-deviation"],
+  "inputs": [
+    {
+      "name": "dataset",
+      "type": "text",
+      "defaultValue": ""
+    }
+  ],
+  "outputs": [
+    {
+      "name": "count"
+    },
+    {
+      "name": "sum"
+    },
+    {
+      "name": "mean"
+    },
+    {
+      "name": "median"
+    },
+    {
+      "name": "mode"
+    },
+    {
+      "name": "min"
+    },
+    {
+      "name": "max"
+    },
+    {
+      "name": "range"
+    },
+    {
+      "name": "variance"
+    },
+    {
+      "name": "standardDeviation"
+    },
+    {
+      "name": "sortedData"
+    }
+  ],
+  "defaults": {},
+  "isEnabled": true
+}
+

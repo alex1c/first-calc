@@ -1,0 +1,178 @@
+{
+  "title": "Loan Overpayment Calculator",
+  "shortDescription": "Calculate how much interest you can save by making extra payments on your loan. See time and money savings from overpayments.",
+  "longDescription": "Our loan overpayment calculator shows you how making extra payments can reduce your total interest and shorten your loan term. Compare standard loan payments with extra payments to see potential savings. Perfect for mortgages, auto loans, and personal loans.",
+  "inputs": [
+    {
+      "label": "Loan Amount",
+      "unitLabel": "$",
+      "placeholder": "Enter loan amount",
+      "helpText": "Total amount of the loan"
+    },
+    {
+      "label": "Interest Rate",
+      "unitLabel": "%",
+      "placeholder": "Enter interest rate",
+      "helpText": "Annual interest rate"
+    },
+    {
+      "label": "Loan Term",
+      "unitLabel": "years",
+      "placeholder": "Enter loan term",
+      "helpText": "Original loan term in years"
+    },
+    {
+      "label": "Extra Payment",
+      "unitLabel": "$",
+      "placeholder": "Enter extra payment",
+      "helpText": "Additional payment amount"
+    },
+    {
+      "label": "Payment Frequency",
+      "unitLabel": "",
+      "placeholder": "Select frequency",
+      "helpText": "How often you make extra payments"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Monthly Payment",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Total Interest (Standard)",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Total Interest (With Extra)",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Interest Saved",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Time Saved",
+      "unitLabel": "months"
+    }
+  ],
+  "howTo": [
+    "Enter your loan amount",
+    "Input the annual interest rate",
+    "Specify the original loan term in years",
+    "Enter the extra payment amount you plan to make",
+    "Select payment frequency (monthly extra payments or one-time payment)",
+    "Click 'Calculate' to see your savings",
+    "Review the interest saved and time saved on your loan",
+    "Compare different extra payment amounts to find the best strategy"
+  ],
+  "examples": [
+    {
+      "title": "Short vs Long Term",
+      "description": "$200,000 mortgage at 5.5%: standard 30-year vs with $100/month extra",
+      "inputs": {
+        "loanAmount": 200000,
+        "interestRate": 5.5,
+        "loanTerm": 30,
+        "extraPayment": 100,
+        "paymentFrequency": "monthly"
+      },
+      "result": "Monthly payment: $1,135.58, Interest saved: $30,000+, Time saved: ~5 years"
+    },
+    {
+      "title": "Extra Payments",
+      "description": "$150,000 loan at 6% for 20 years with $200/month extra payments",
+      "inputs": {
+        "loanAmount": 150000,
+        "interestRate": 6,
+        "loanTerm": 20,
+        "extraPayment": 200,
+        "paymentFrequency": "monthly"
+      },
+      "result": "Monthly payment: $1,074.65, Interest saved: $25,000+, Time saved: ~4 years"
+    },
+    {
+      "title": "One-time Payment",
+      "description": "$300,000 mortgage at 4.5% with $10,000 one-time extra payment",
+      "inputs": {
+        "loanAmount": 300000,
+        "interestRate": 4.5,
+        "loanTerm": 30,
+        "extraPayment": 10000,
+        "paymentFrequency": "one-time"
+      },
+      "result": "Monthly payment: $1,520.06, Interest saved: $15,000+, Time saved: ~1.5 years"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is loan overpayment?",
+      "answer": "Loan overpayment is making payments larger than the required minimum payment. This reduces principal faster, saving interest and shortening the loan term."
+    },
+    {
+      "question": "How does overpayment save money?",
+      "answer": "Overpayments reduce your principal balance faster, which means less interest accrues over time. This saves money and shortens your loan term."
+    },
+    {
+      "question": "Should I make extra payments on my loan?",
+      "answer": "Making extra payments can save significant interest, especially on long-term loans like mortgages. Consider if you have higher-interest debt to pay off first."
+    },
+    {
+      "question": "What's better: monthly extra payments or one-time payment?",
+      "answer": "Monthly extra payments provide consistent savings over time. One-time payments have immediate impact. Both strategies save interest, but monthly payments compound the savings."
+    },
+    {
+      "question": "How much can I save with extra payments?",
+      "answer": "Savings depend on loan amount, interest rate, and extra payment amount. On a $200,000 mortgage at 5%, $100/month extra can save $30,000+ in interest."
+    },
+    {
+      "question": "Will extra payments reduce my monthly payment?",
+      "answer": "No, extra payments don't reduce your required monthly payment. They reduce your principal, which shortens the loan term and total interest paid."
+    },
+    {
+      "question": "Can I make extra payments on any loan?",
+      "answer": "Most loans allow extra payments, but check your loan agreement. Some loans have prepayment penalties, though these are rare for mortgages."
+    },
+    {
+      "question": "What is a prepayment penalty?",
+      "answer": "A prepayment penalty is a fee charged for paying off a loan early. Most modern mortgages don't have prepayment penalties, but always check your loan terms."
+    },
+    {
+      "question": "Should I pay extra on principal or invest?",
+      "answer": "Compare your loan interest rate with potential investment returns. If investment returns exceed your loan rate, investing may be better. Otherwise, paying extra saves guaranteed interest."
+    },
+    {
+      "question": "How do I make extra payments?",
+      "answer": "Contact your lender to ensure extra payments are applied to principal, not future payments. Specify that you want to reduce principal balance."
+    },
+    {
+      "question": "What is principal vs interest?",
+      "answer": "Principal is the original loan amount. Interest is the cost of borrowing. Early payments are mostly interest; later payments are mostly principal."
+    },
+    {
+      "question": "Does overpayment affect my credit score?",
+      "answer": "Making extra payments doesn't directly affect your credit score, but paying off loans early can improve your debt-to-income ratio and credit utilization."
+    },
+    {
+      "question": "Can I stop making extra payments?",
+      "answer": "Yes, extra payments are optional. You can stop anytime and return to making only the required minimum payment."
+    },
+    {
+      "question": "What is the best time to make extra payments?",
+      "answer": "The earlier you make extra payments, the more interest you save. Making extra payments in the first few years has the biggest impact."
+    },
+    {
+      "question": "How does bi-weekly payment help?",
+      "answer": "Bi-weekly payments (every two weeks) result in 26 half-payments per year, equal to 13 full monthly payments. This automatically creates an extra payment each year."
+    },
+    {
+      "question": "What is the difference between annuity and differentiated payments?",
+      "answer": "Annuity (fixed) payments remain constant throughout the loan term. Differentiated (declining) payments start higher and decrease over time as the principal is paid in equal parts while interest decreases. Differentiated payments typically save 5-15% in total interest compared to annuity payments."
+    },
+    {
+      "question": "How do extra payments work with differentiated payments?",
+      "answer": "With differentiated payments, extra payments have an even greater impact because you're reducing the principal balance faster when interest charges are highest. This compounds the interest savings compared to making extra payments on annuity loans."
+    }
+  ]
+}
+

@@ -12,6 +12,7 @@ import { getCalculatorBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { CalculatorNavigation } from '@/components/navigation/calculator-navigation'
 import { getCalculatorsByCategoryWithPopularity } from '@/lib/navigation/structure'
 import { RelatedCalculatorsWrapper } from '@/components/calculators/related-calculators-wrapper'
+import { RelatedArticlesBlock } from '@/components/calculators/related-articles-block'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'errors', 'navigation'] as const
@@ -172,6 +173,8 @@ export default async function CalculatorRoutePage({
 				<div className="mb-8">
 					<RelatedCalculatorsWrapper calculator={clientCalculator} locale={locale} />
 				</div>
+				{/* Related Articles - Server Component */}
+				<RelatedArticlesBlock calculatorId={calculator.id} locale={locale} />
 				<CalculatorNavigation
 					locale={locale}
 					category={category}

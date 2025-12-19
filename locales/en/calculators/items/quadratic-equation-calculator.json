@@ -1,0 +1,168 @@
+{
+  "title": "Quadratic Equation Calculator",
+  "shortDescription": "Solve quadratic equations of the form ax² + bx + c = 0. Calculate discriminant and find real roots using the quadratic formula.",
+  "longDescription": "Our Quadratic Equation Calculator helps you solve quadratic equations of the form ax² + bx + c = 0. Enter the coefficients a, b, and c, and the calculator will compute the discriminant and find the roots (solutions). The calculator handles all cases: two real roots, one repeated root, or no real roots (complex roots). Perfect for students, teachers, and anyone working with algebra and quadratic equations.",
+  "inputs": [
+    {
+      "label": "Coefficient a",
+      "unitLabel": "",
+      "placeholder": "Enter coefficient a",
+      "helpText": "The coefficient of x² (cannot be zero)"
+    },
+    {
+      "label": "Coefficient b",
+      "unitLabel": "",
+      "placeholder": "Enter coefficient b",
+      "helpText": "The coefficient of x"
+    },
+    {
+      "label": "Coefficient c",
+      "unitLabel": "",
+      "placeholder": "Enter coefficient c",
+      "helpText": "The constant term"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Discriminant",
+      "unitLabel": ""
+    },
+    {
+      "label": "Roots",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the coefficient a (the number multiplying x², cannot be zero)",
+    "Enter the coefficient b (the number multiplying x)",
+    "Enter the coefficient c (the constant term)",
+    "All coefficients can be positive, negative, or zero (except a)",
+    "Click 'Calculate' to solve the equation",
+    "The calculator will compute the discriminant D = b² - 4ac",
+    "Based on the discriminant:",
+    "  - If D > 0: two distinct real roots",
+    "  - If D = 0: one real root (repeated)",
+    "  - If D < 0: no real roots (complex roots exist)",
+    "Review the roots, formula, and explanation to understand the solution"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: x² - 5x + 6 = 0",
+      "description": "Solve the quadratic equation x² - 5x + 6 = 0",
+      "steps": [
+        "Enter coefficient a: 1",
+        "Enter coefficient b: -5",
+        "Enter coefficient c: 6",
+        "Click 'Calculate'",
+        "Discriminant: D = 1",
+        "Result: Two real roots: x₁ = 2, x₂ = 3",
+        "Formula: x₁ = (5 + √1) / 2 = 3, x₂ = (5 - √1) / 2 = 2"
+      ],
+      "resultDescription": "The equation x² - 5x + 6 = 0 has two real roots: x = 2 and x = 3"
+    },
+    {
+      "title": "Example 2: x² + 4x + 4 = 0",
+      "description": "Solve the quadratic equation x² + 4x + 4 = 0",
+      "steps": [
+        "Enter coefficient a: 1",
+        "Enter coefficient b: 4",
+        "Enter coefficient c: 4",
+        "Click 'Calculate'",
+        "Discriminant: D = 0",
+        "Result: One real root: x = -2",
+        "Formula: x = -4 / 2 = -2"
+      ],
+      "resultDescription": "The equation x² + 4x + 4 = 0 has one real root (repeated): x = -2"
+    },
+    {
+      "title": "Example 3: x² + x + 1 = 0",
+      "description": "Solve the quadratic equation x² + x + 1 = 0",
+      "steps": [
+        "Enter coefficient a: 1",
+        "Enter coefficient b: 1",
+        "Enter coefficient c: 1",
+        "Click 'Calculate'",
+        "Discriminant: D = -3",
+        "Result: No real roots",
+        "Formula: Complex roots exist but are not displayed as real numbers"
+      ],
+      "resultDescription": "The equation x² + x + 1 = 0 has no real roots (discriminant is negative, complex roots exist)"
+    },
+    {
+      "title": "Example 4: 2x² - 7x + 3 = 0",
+      "description": "Solve the quadratic equation 2x² - 7x + 3 = 0",
+      "steps": [
+        "Enter coefficient a: 2",
+        "Enter coefficient b: -7",
+        "Enter coefficient c: 3",
+        "Click 'Calculate'",
+        "Discriminant: D = 25",
+        "Result: Two real roots: x₁ = 0.5, x₂ = 3",
+        "Formula: x₁ = (7 + √25) / 4 = 3, x₂ = (7 - √25) / 4 = 0.5"
+      ],
+      "resultDescription": "The equation 2x² - 7x + 3 = 0 has two real roots: x = 0.5 and x = 3"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is the discriminant?",
+      "answer": "The discriminant (D) is the expression b² - 4ac in the quadratic formula. It determines the nature of the roots: if D > 0, there are two distinct real roots; if D = 0, there is one real root (repeated); if D < 0, there are no real roots (complex roots exist)."
+    },
+    {
+      "question": "What is the quadratic formula?",
+      "answer": "The quadratic formula is x = (-b ± √(b² - 4ac)) / 2a, which gives the solutions to any quadratic equation ax² + bx + c = 0. The ± symbol means there are two solutions: one with + and one with -."
+    },
+    {
+      "question": "What are real vs complex roots?",
+      "answer": "Real roots are numbers that can be represented on the number line (like 2, -3, 0.5). Complex roots involve the imaginary unit i (√-1) and cannot be represented as real numbers. When the discriminant is negative, the quadratic equation has complex roots, not real roots."
+    },
+    {
+      "question": "When are quadratic equations used?",
+      "answer": "Quadratic equations appear in many fields: physics (projectile motion, optimization), engineering (design, optimization), economics (profit maximization), geometry (area problems), and computer graphics (curve fitting). They're fundamental in algebra and calculus."
+    },
+    {
+      "question": "Why can't coefficient a be zero?",
+      "answer": "If a = 0, the equation becomes bx + c = 0, which is a linear equation, not a quadratic equation. The quadratic formula requires dividing by 2a, so a cannot be zero."
+    },
+    {
+      "question": "What does it mean when D = 0?",
+      "answer": "When the discriminant D = 0, the quadratic equation has exactly one real root (also called a repeated or double root). This happens when the parabola touches the x-axis at exactly one point. The root is x = -b / 2a."
+    },
+    {
+      "question": "Can coefficients be negative?",
+      "answer": "Yes, all coefficients (a, b, c) can be negative, positive, or zero (except a which must be non-zero). Negative coefficients are common in quadratic equations and are handled correctly by the calculator."
+    },
+    {
+      "question": "How accurate are the calculations?",
+      "answer": "The calculator uses standard mathematical formulas with high precision. Roots are rounded to 6 decimal places for display. The calculations are mathematically exact for the given inputs."
+    },
+    {
+      "question": "What if the equation has no real roots?",
+      "answer": "If the discriminant is negative (D < 0), the equation has no real roots. However, it does have two complex roots. The calculator will explain this and show the complex root values in the explanation."
+    },
+    {
+      "question": "How do I verify the roots?",
+      "answer": "To verify a root, substitute it back into the original equation. For example, if x = 2 is a root of x² - 5x + 6 = 0, then 2² - 5(2) + 6 = 4 - 10 + 6 = 0, confirming it's correct."
+    },
+    {
+      "question": "What is the relationship between the discriminant and the graph?",
+      "answer": "The discriminant tells you about the x-intercepts of the parabola y = ax² + bx + c: D > 0 means two x-intercepts, D = 0 means one x-intercept (touching), D < 0 means no x-intercepts (parabola doesn't cross x-axis)."
+    },
+    {
+      "question": "Can I solve quadratic equations with fractions?",
+      "answer": "Yes, you can enter fractional coefficients as decimals. For example, for (1/2)x² + (3/4)x - 1 = 0, enter a = 0.5, b = 0.75, c = -1. The calculator handles decimal inputs correctly."
+    }
+  ],
+  "seo": {
+    "keywords": ["quadratic equation calculator", "solve quadratic equation", "quadratic formula", "discriminant calculator", "quadratic roots", "ax² + bx + c = 0", "quadratic equation solver", "algebra calculator", "quadratic equation solutions"]
+  }
+}
+

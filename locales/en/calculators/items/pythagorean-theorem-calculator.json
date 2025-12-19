@@ -1,0 +1,164 @@
+{
+  "title": "Pythagorean Theorem Calculator",
+  "shortDescription": "Calculate the sides of a right triangle using the Pythagorean theorem. Find the hypotenuse or a missing leg with accurate formulas.",
+  "longDescription": "Our Pythagorean Theorem Calculator helps you quickly determine the sides of a right triangle using the famous formula a² + b² = c². You can find the hypotenuse (longest side) when you know both legs, or find a missing leg when you know the hypotenuse and one leg. Perfect for students, teachers, engineers, architects, and anyone working with right triangles and geometric calculations.",
+  "inputs": [
+    {
+      "label": "Mode",
+      "unitLabel": "",
+      "placeholder": "Select calculation mode",
+      "helpText": "Choose whether to find the hypotenuse or a missing leg"
+    },
+    {
+      "label": "Side a",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter side a",
+      "helpText": "The length of the first leg of the right triangle"
+    },
+    {
+      "label": "Side b",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter side b",
+      "helpText": "The length of the second leg of the right triangle"
+    },
+    {
+      "label": "Hypotenuse c",
+      "unitLabel": "cm, m, etc.",
+      "placeholder": "Enter hypotenuse c",
+      "helpText": "The length of the hypotenuse (longest side) of the right triangle"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Result",
+      "unitLabel": "units"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the calculation mode: 'Find Hypotenuse' or 'Find Missing Leg'",
+    "For 'Find Hypotenuse' mode:",
+    "Enter the length of side a (first leg)",
+    "Enter the length of side b (second leg)",
+    "For 'Find Missing Leg' mode:",
+    "Enter the length of the hypotenuse c",
+    "Enter the length of the known leg a",
+    "Click 'Calculate' to get the result",
+    "The result shows the calculated side length along with the formula and explanation"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Find hypotenuse (a=3, b=4)",
+      "description": "Calculate the hypotenuse of a right triangle with legs 3 and 4 units",
+      "steps": [
+        "Select 'Find Hypotenuse' from the mode dropdown",
+        "Enter side a: 3",
+        "Enter side b: 4",
+        "Click 'Calculate'",
+        "Result: Hypotenuse c = 5 units",
+        "Formula: c = √(a² + b²) = √(3² + 4²) = √(9 + 16) = √25 = 5"
+      ],
+      "resultDescription": "A right triangle with legs a=3 and b=4 has a hypotenuse c=5 (classic 3-4-5 triangle)"
+    },
+    {
+      "title": "Example 2: Find hypotenuse (a=5, b=12)",
+      "description": "Calculate the hypotenuse of a right triangle with legs 5 and 12 units",
+      "steps": [
+        "Select 'Find Hypotenuse' from the mode dropdown",
+        "Enter side a: 5",
+        "Enter side b: 12",
+        "Click 'Calculate'",
+        "Result: Hypotenuse c = 13 units",
+        "Formula: c = √(a² + b²) = √(5² + 12²) = √(25 + 144) = √169 = 13"
+      ],
+      "resultDescription": "A right triangle with legs a=5 and b=12 has a hypotenuse c=13 (classic 5-12-13 triangle)"
+    },
+    {
+      "title": "Example 3: Find missing leg (c=10, a=6)",
+      "description": "Calculate the missing leg of a right triangle with hypotenuse 10 and leg 6 units",
+      "steps": [
+        "Select 'Find Missing Leg' from the mode dropdown",
+        "Enter hypotenuse c: 10",
+        "Enter side a: 6",
+        "Click 'Calculate'",
+        "Result: Missing leg b = 8 units",
+        "Formula: b = √(c² − a²) = √(10² − 6²) = √(100 − 36) = √64 = 8"
+      ],
+      "resultDescription": "A right triangle with hypotenuse c=10 and leg a=6 has the missing leg b=8 (6-8-10 triangle)"
+    },
+    {
+      "title": "Example 4: Find missing leg (c=15, a=9)",
+      "description": "Calculate the missing leg of a right triangle with hypotenuse 15 and leg 9 units",
+      "steps": [
+        "Select 'Find Missing Leg' from the mode dropdown",
+        "Enter hypotenuse c: 15",
+        "Enter side a: 9",
+        "Click 'Calculate'",
+        "Result: Missing leg b = 12 units",
+        "Formula: b = √(c² − a²) = √(15² − 9²) = √(225 − 81) = √144 = 12"
+      ],
+      "resultDescription": "A right triangle with hypotenuse c=15 and leg a=9 has the missing leg b=12 (9-12-15 triangle)"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is the hypotenuse?",
+      "answer": "The hypotenuse is the longest side of a right triangle, opposite the right angle. In the Pythagorean theorem formula a² + b² = c², the hypotenuse is represented by c."
+    },
+    {
+      "question": "When does the Pythagorean theorem apply?",
+      "answer": "The Pythagorean theorem applies only to right triangles (triangles with one 90-degree angle). It states that the square of the hypotenuse equals the sum of squares of the two legs: a² + b² = c²."
+    },
+    {
+      "question": "What are real-life applications of the Pythagorean theorem?",
+      "answer": "The Pythagorean theorem is used in construction (ensuring square corners), navigation (calculating distances), engineering (designing structures), computer graphics (calculating distances), and many other fields where right triangles appear."
+    },
+    {
+      "question": "How do I find the hypotenuse?",
+      "answer": "To find the hypotenuse, you need to know both legs (a and b). Use the formula c = √(a² + b²). Enter both leg lengths in the calculator and select 'Find Hypotenuse' mode."
+    },
+    {
+      "question": "How do I find a missing leg?",
+      "answer": "To find a missing leg, you need to know the hypotenuse (c) and the other leg (a). Use the formula b = √(c² − a²). Enter the hypotenuse and known leg, then select 'Find Missing Leg' mode."
+    },
+    {
+      "question": "What units should I use?",
+      "answer": "You can use any unit of length (cm, m, inches, feet, etc.). The result will be in the same units as your input. For example, if you enter dimensions in meters, the result will be in meters."
+    },
+    {
+      "question": "How accurate are the calculations?",
+      "answer": "The calculator uses standard mathematical formulas with high precision. Results are rounded to 6 decimal places for display. The calculations are mathematically exact for the given inputs."
+    },
+    {
+      "question": "What if I enter negative numbers?",
+      "answer": "All side lengths must be positive numbers greater than zero. The calculator will validate inputs and show an error if invalid values are entered. Triangle sides cannot be negative or zero."
+    },
+    {
+      "question": "Why must the hypotenuse be greater than the leg?",
+      "answer": "In a right triangle, the hypotenuse is always the longest side (opposite the right angle). Therefore, when finding a missing leg, the hypotenuse c must be greater than the known leg a, otherwise the triangle cannot exist."
+    },
+    {
+      "question": "Can I use this for non-right triangles?",
+      "answer": "No, the Pythagorean theorem applies only to right triangles. For other triangles, you would need different formulas such as the Law of Cosines or Law of Sines."
+    },
+    {
+      "question": "What are Pythagorean triples?",
+      "answer": "Pythagorean triples are sets of three positive integers (a, b, c) that satisfy a² + b² = c². Common examples include (3, 4, 5), (5, 12, 13), (8, 15, 17), and (7, 24, 25)."
+    },
+    {
+      "question": "How do I verify my calculation?",
+      "answer": "You can verify by checking if a² + b² = c². For example, if you calculated c=5 from a=3 and b=4, verify: 3² + 4² = 9 + 16 = 25 = 5². The calculator shows the formula with substituted values for easy verification."
+    }
+  ],
+  "seo": {
+    "keywords": ["pythagorean theorem calculator", "right triangle calculator", "hypotenuse calculator", "pythagorean theorem", "find hypotenuse", "find missing leg", "a² + b² = c²", "right triangle", "geometry calculator", "triangle calculator"]
+  }
+}
+

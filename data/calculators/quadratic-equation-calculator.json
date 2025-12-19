@@ -1,0 +1,48 @@
+{
+  "id": "quadratic-equation-calculator",
+  "slug": "quadratic-equation-calculator",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculateQuadratic",
+  "tags": ["algebra", "quadratic", "equations", "math", "discriminant"],
+  "inputs": [
+    {
+      "name": "a",
+      "type": "number",
+      "min": -1000000000,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "b",
+      "type": "number",
+      "min": -1000000000,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "c",
+      "type": "number",
+      "min": -1000000000,
+      "max": 1000000000,
+      "step": "any"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "discriminant"
+    },
+    {
+      "name": "roots"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "formula"
+    }
+  ],
+  "defaults": {},
+  "isEnabled": true
+}
+

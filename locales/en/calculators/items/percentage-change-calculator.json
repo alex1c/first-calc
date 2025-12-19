@@ -1,0 +1,157 @@
+{
+  "title": "Percentage Change Calculator",
+  "shortDescription": "Calculate the percentage increase or decrease between two values. Supports positive and negative numbers with accurate formulas.",
+  "longDescription": "Our Percentage Change Calculator helps you quickly determine the percentage increase or decrease between an original value and a new value. Simply enter both values and the calculator will compute the percentage change, direction (increase/decrease), and absolute difference. Perfect for analyzing price changes, growth rates, performance metrics, and financial calculations.",
+  "inputs": [
+    {
+      "label": "Original Value",
+      "unitLabel": "",
+      "placeholder": "Enter original value",
+      "helpText": "The initial or starting value (cannot be zero)"
+    },
+    {
+      "label": "New Value",
+      "unitLabel": "",
+      "placeholder": "Enter new value",
+      "helpText": "The final or current value"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Percentage Change",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Direction",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Absolute Difference",
+      "unitLabel": "units"
+    }
+  ],
+  "howTo": [
+    "Enter the original value (the starting or initial value)",
+    "Enter the new value (the final or current value)",
+    "Both values can be positive or negative numbers",
+    "The original value cannot be zero (division by zero is undefined)",
+    "Click 'Calculate' to get the percentage change",
+    "The result shows the percentage change with a sign (+ for increase, - for decrease)",
+    "The direction label indicates whether it's an increase or decrease",
+    "The absolute difference shows the numerical change between the values",
+    "Review the formula to understand how the calculation was performed"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Increase from 50 to 75",
+      "description": "Calculate the percentage change from 50 to 75",
+      "steps": [
+        "Enter original value: 50",
+        "Enter new value: 75",
+        "Click 'Calculate'",
+        "Result: Percentage Change = +50%",
+        "Direction: Increase",
+        "Formula: ((75 − 50) / 50) × 100% = (25 / 50) × 100% = +50%"
+      ],
+      "resultDescription": "The value increased from 50 to 75, representing a 50% increase"
+    },
+    {
+      "title": "Example 2: Decrease from 200 to 150",
+      "description": "Calculate the percentage change from 200 to 150",
+      "steps": [
+        "Enter original value: 200",
+        "Enter new value: 150",
+        "Click 'Calculate'",
+        "Result: Percentage Change = -25%",
+        "Direction: Decrease",
+        "Formula: ((150 − 200) / 200) × 100% = (-50 / 200) × 100% = -25%"
+      ],
+      "resultDescription": "The value decreased from 200 to 150, representing a 25% decrease"
+    },
+    {
+      "title": "Example 3: Increase from -20 to -10",
+      "description": "Calculate the percentage change from -20 to -10 (negative values)",
+      "steps": [
+        "Enter original value: -20",
+        "Enter new value: -10",
+        "Click 'Calculate'",
+        "Result: Percentage Change = +50%",
+        "Direction: Increase",
+        "Formula: ((-10 − (-20)) / (-20)) × 100% = (10 / -20) × 100% = +50%"
+      ],
+      "resultDescription": "The value increased from -20 to -10, representing a 50% increase (even with negative values)"
+    },
+    {
+      "title": "Example 4: Price increase from $100 to $120",
+      "description": "Calculate the percentage change in price from $100 to $120",
+      "steps": [
+        "Enter original value: 100",
+        "Enter new value: 120",
+        "Click 'Calculate'",
+        "Result: Percentage Change = +20%",
+        "Direction: Increase",
+        "Absolute Difference: $20",
+        "Formula: ((120 − 100) / 100) × 100% = (20 / 100) × 100% = +20%"
+      ],
+      "resultDescription": "The price increased from $100 to $120, representing a 20% increase or $20 more"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is the difference between percent and percentage change?",
+      "answer": "Percent is a ratio expressed as a fraction of 100. Percentage change specifically measures how much a value has increased or decreased relative to its original value. For example, 50% is a percent, while +50% change means the value increased by 50% from its original."
+    },
+    {
+      "question": "How do I calculate percentage change?",
+      "answer": "Use the formula: ((new - original) / original) × 100%. Subtract the original value from the new value, divide by the original value, then multiply by 100 to get the percentage. The sign (+ or -) indicates increase or decrease."
+    },
+    {
+      "question": "Can I use negative values?",
+      "answer": "Yes, both original and new values can be negative. The calculator handles negative numbers correctly. For example, going from -20 to -10 is a 50% increase, as the value becomes less negative (closer to zero)."
+    },
+    {
+      "question": "What happens if the original value is zero?",
+      "answer": "The original value cannot be zero because division by zero is undefined. The calculator will show an error if you enter zero as the original value. You need a non-zero starting point to calculate percentage change."
+    },
+    {
+      "question": "How is rounding handled?",
+      "answer": "The calculator displays results rounded to 6 decimal places for precision. For most practical purposes, you may want to round to 1-2 decimal places. The formula shows the exact calculation steps."
+    },
+    {
+      "question": "What are common financial use cases?",
+      "answer": "Percentage change is commonly used for: stock price changes, inflation rates, salary increases, sales growth, population changes, interest rate changes, currency exchange rate fluctuations, and performance metrics in business."
+    },
+    {
+      "question": "What does a negative percentage change mean?",
+      "answer": "A negative percentage change (e.g., -25%) means the value decreased. The new value is smaller than the original value. For example, -25% means the value decreased by 25% from its original amount."
+    },
+    {
+      "question": "What does a positive percentage change mean?",
+      "answer": "A positive percentage change (e.g., +50%) means the value increased. The new value is larger than the original value. For example, +50% means the value increased by 50% from its original amount."
+    },
+    {
+      "question": "How do I interpret percentage change with negative numbers?",
+      "answer": "When working with negative numbers, a positive percentage change means the value became less negative (moved closer to zero or became positive). A negative percentage change means the value became more negative (moved further from zero)."
+    },
+    {
+      "question": "What is the absolute difference?",
+      "answer": "The absolute difference is the numerical change between the new and original values (new - original). It shows the actual amount of change, regardless of whether it's an increase or decrease. For example, if original is 100 and new is 120, the absolute difference is 20."
+    },
+    {
+      "question": "Can percentage change exceed 100%?",
+      "answer": "Yes, percentage change can exceed 100%. For example, if a value increases from 50 to 150, that's a 200% increase. The value more than doubled. There's no upper limit on percentage change."
+    },
+    {
+      "question": "What if both values are the same?",
+      "answer": "If the original and new values are the same, the percentage change is 0% and the direction is 'No Change'. The absolute difference is also zero."
+    }
+  ],
+  "seo": {
+    "keywords": ["percentage change calculator", "percent change", "percentage increase", "percentage decrease", "percent increase calculator", "percent decrease calculator", "percentage difference", "growth rate calculator", "change calculator", "percentage formula"]
+  }
+}
+

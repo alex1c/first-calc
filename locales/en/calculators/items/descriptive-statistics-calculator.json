@@ -1,0 +1,148 @@
+{
+  "title": "Descriptive Statistics Calculator",
+  "shortDescription": "Calculate key descriptive statistics including mean, median, mode, variance, and standard deviation from your dataset.",
+  "longDescription": "Our Descriptive Statistics Calculator helps you analyze numerical data by computing essential statistical measures. Enter your dataset as comma-separated values, and instantly get results for mean (average), median, mode, variance, standard deviation, range, minimum, maximum, and count. Perfect for students, researchers, data analysts, and anyone working with statistical analysis.",
+  "inputs": [
+    {
+      "label": "Data Set",
+      "unitLabel": "",
+      "placeholder": "e.g. 4, 7, 10, 10, 15",
+      "helpText": "Enter numbers separated by commas, spaces, or line breaks. At least 2 numbers required."
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Count",
+      "unitLabel": ""
+    },
+    {
+      "label": "Sum",
+      "unitLabel": ""
+    },
+    {
+      "label": "Mean",
+      "unitLabel": ""
+    },
+    {
+      "label": "Median",
+      "unitLabel": ""
+    },
+    {
+      "label": "Mode",
+      "unitLabel": ""
+    },
+    {
+      "label": "Minimum",
+      "unitLabel": ""
+    },
+    {
+      "label": "Maximum",
+      "unitLabel": ""
+    },
+    {
+      "label": "Range",
+      "unitLabel": ""
+    },
+    {
+      "label": "Variance",
+      "unitLabel": ""
+    },
+    {
+      "label": "Standard Deviation",
+      "unitLabel": ""
+    },
+    {
+      "label": "Sorted Data",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter your dataset in the text field",
+    "You can separate numbers by commas, spaces, or line breaks",
+    "Example formats: '4, 7, 10, 10, 15' or '4 7 10 10 15'",
+    "Make sure to include at least 2 numbers",
+    "All values must be numeric (decimals are allowed)",
+    "Click 'Calculate' to compute all statistics",
+    "Review the results including mean, median, mode, and standard deviation",
+    "The sorted dataset is also displayed for reference"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Simple dataset",
+      "description": "Calculate statistics for dataset: 2, 4, 6, 8",
+      "steps": [
+        "Enter: 2, 4, 6, 8",
+        "Click 'Calculate'",
+        "Results: Mean = 5, Median = 5, No mode, Standard Deviation ≈ 2.24"
+      ],
+      "resultDescription": "Mean = 5, Median = 5, Standard Deviation ≈ 2.24"
+    },
+    {
+      "title": "Example 2: Dataset with mode",
+      "description": "Calculate statistics for dataset: 1, 2, 2, 3, 4",
+      "steps": [
+        "Enter: 1, 2, 2, 3, 4",
+        "Click 'Calculate'",
+        "Results: Mean = 2.4, Median = 2, Mode = 2, Standard Deviation ≈ 1.02"
+      ],
+      "resultDescription": "Mean = 2.4, Median = 2, Mode = 2, Standard Deviation ≈ 1.02"
+    },
+    {
+      "title": "Example 3: Larger dataset",
+      "description": "Calculate statistics for dataset: 10, 15, 20, 25, 30, 35, 40",
+      "steps": [
+        "Enter: 10, 15, 20, 25, 30, 35, 40",
+        "Click 'Calculate'",
+        "Results: Mean = 25, Median = 25, No mode, Standard Deviation ≈ 10.80"
+      ],
+      "resultDescription": "Mean = 25, Median = 25, Standard Deviation ≈ 10.80"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is descriptive statistics?",
+      "answer": "Descriptive statistics summarize and describe the main features of a dataset. They include measures of central tendency (mean, median, mode) and measures of variability (variance, standard deviation, range)."
+    },
+    {
+      "question": "What is the difference between mean and median?",
+      "answer": "The mean is the average of all numbers (sum divided by count). The median is the middle value when numbers are sorted. Mean is sensitive to outliers, while median is more robust."
+    },
+    {
+      "question": "When is mode useful?",
+      "answer": "Mode is the most frequently occurring value in a dataset. It's useful for categorical data and identifying the most common value. A dataset can have no mode (all values unique) or multiple modes (ties)."
+    },
+    {
+      "question": "What is the difference between population and sample variance?",
+      "answer": "Population variance divides by n (number of values). Sample variance divides by n-1 (Bessel's correction). This calculator uses population variance. For sample variance, divide by n-1 instead of n."
+    },
+    {
+      "question": "Can I use negative numbers?",
+      "answer": "Yes, the calculator accepts negative numbers. All statistical measures (mean, median, variance, etc.) work correctly with negative values."
+    },
+    {
+      "question": "What happens if all numbers are the same?",
+      "answer": "If all numbers are identical, the mean, median, and mode will all equal that value. Variance and standard deviation will be 0, indicating no variability."
+    },
+    {
+      "question": "How is standard deviation calculated?",
+      "answer": "Standard deviation is the square root of variance. It measures how spread out the data is. A smaller standard deviation means data points are closer to the mean."
+    },
+    {
+      "question": "What if my dataset has no mode?",
+      "answer": "If no value appears more than once (or all values appear equally), the dataset has no mode. The calculator will display 'No mode' in this case."
+    },
+    {
+      "question": "Can I use decimal numbers?",
+      "answer": "Yes, the calculator fully supports decimal numbers. Enter them as you would normally (e.g., 3.5, 7.25, 10.8)."
+    },
+    {
+      "question": "What is the range?",
+      "answer": "Range is the difference between the maximum and minimum values in the dataset. It's the simplest measure of variability, showing the spread of the data."
+    },
+    {
+      "question": "How accurate are the calculations?",
+      "answer": "The calculator uses standard mathematical formulas and JavaScript's floating-point arithmetic. Results are accurate for most practical purposes, though very large or very small numbers may have precision limitations."
+    }
+  ]
+}
+

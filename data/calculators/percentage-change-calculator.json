@@ -1,0 +1,41 @@
+{
+  "id": "percentage-change-calculator",
+  "slug": "percentage-change-calculator",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculatePercentageChange",
+  "tags": ["percentage", "percentage-change", "increase", "decrease", "math", "finance"],
+  "inputs": [
+    {
+      "name": "original",
+      "type": "number",
+      "min": -1000000000,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "new",
+      "type": "number",
+      "min": -1000000000,
+      "max": 1000000000,
+      "step": "any"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "percentageChange"
+    },
+    {
+      "name": "direction"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "absoluteDifference"
+    }
+  ],
+  "defaults": {},
+  "isEnabled": true
+}
+

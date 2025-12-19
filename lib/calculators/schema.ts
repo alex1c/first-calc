@@ -77,9 +77,13 @@ export function validateCalculatorSchema(schema: unknown): {
 	// }
 
 	// Inputs validation
-	if (!Array.isArray(s.inputs) || s.inputs.length === 0) {
+	// Allow empty arrays for disabled calculators (isEnabled: false)
+	const isDisabled = s.isEnabled === false
+	if (!Array.isArray(s.inputs)) {
+		errors.push('inputs must be an array')
+	} else if (!isDisabled && s.inputs.length === 0) {
 		errors.push('inputs is required and must be a non-empty array')
-	} else {
+	} else if (s.inputs.length > 0) {
 		s.inputs.forEach((input, index) => {
 			if (!input.name || typeof input.name !== 'string') {
 				errors.push(`inputs[${index}].name is required`)
@@ -98,9 +102,12 @@ export function validateCalculatorSchema(schema: unknown): {
 	}
 
 	// Outputs validation
-	if (!Array.isArray(s.outputs) || s.outputs.length === 0) {
+	// Allow empty arrays for disabled calculators (isEnabled: false)
+	if (!Array.isArray(s.outputs)) {
+		errors.push('outputs must be an array')
+	} else if (!isDisabled && s.outputs.length === 0) {
 		errors.push('outputs is required and must be a non-empty array')
-	} else {
+	} else if (s.outputs.length > 0) {
 		s.outputs.forEach((output, index) => {
 			if (!output.name || typeof output.name !== 'string') {
 				errors.push(`outputs[${index}].name is required`)
@@ -113,14 +120,17 @@ export function validateCalculatorSchema(schema: unknown): {
 	}
 
 	// Formula validation (only required for engine='formula')
-	const engine = s.engine || 'formula'
-	if (engine === 'formula') {
-		if (!s.formula || typeof s.formula !== 'string') {
-			errors.push('formula is required and must be a string for engine="formula"')
-		}
-	} else if (engine === 'function') {
-		if (!s.calculationId || typeof s.calculationId !== 'string') {
-			errors.push('calculationId is required and must be a string for engine="function"')
+	// Skip validation for disabled calculators
+	if (!isDisabled) {
+		const engine = s.engine || 'formula'
+		if (engine === 'formula') {
+			if (!s.formula || typeof s.formula !== 'string') {
+				errors.push('formula is required and must be a string for engine="formula"')
+			}
+		} else if (engine === 'function') {
+			if (!s.calculationId || typeof s.calculationId !== 'string') {
+				errors.push('calculationId is required and must be a string for engine="function"')
+			}
 		}
 	}
 
@@ -221,6 +231,48 @@ export async function schemaToDefinition(
 		if (calculationId === 'calculatePerimeter') {
 			await import('@/lib/calculations/perimeter')
 		}
+		if (calculationId === 'calculatePythagorean') {
+			await import('@/lib/calculations/pythagorean')
+		}
+		if (calculationId === 'calculatePercentageChange') {
+			await import('@/lib/calculations/percentage-change')
+		}
+		if (calculationId === 'calculateQuadratic') {
+			await import('@/lib/calculations/quadratic')
+		}
+		if (calculationId === 'solveEquation') {
+			await import('@/lib/calculations/equation-solver')
+		}
+		if (calculationId === 'calculateDescriptiveStatistics') {
+			await import('@/lib/calculations/descriptive-statistics')
+		}
+		if (calculationId === 'calculateAverage') {
+			await import('@/lib/calculations/average')
+		}
+		if (calculationId === 'calculateStandardDeviation') {
+			await import('@/lib/calculations/standard-deviation')
+		}
+		if (calculationId === 'calculateMortgage') {
+			await import('@/lib/calculations/mortgage')
+		}
+		if (calculationId === 'calculateInvestment') {
+			await import('@/lib/calculations/investment')
+		}
+		if (calculationId === 'calculateROI') {
+			await import('@/lib/calculations/roi')
+		}
+		if (calculationId === 'calculateLoanOverpayment') {
+			await import('@/lib/calculations/loan-overpayment')
+		}
+		if (calculationId === 'calculateAutoLoan') {
+			await import('@/lib/calculations/auto-loan')
+		}
+		if (calculationId === 'calculatePersonalLoan') {
+			await import('@/lib/calculations/personal-loan')
+		}
+		if (calculationId === 'calculateSavings') {
+			await import('@/lib/calculations/savings')
+		}
 		// Add more imports as needed for other calculation functions
 	}
 
@@ -307,10 +359,19 @@ export async function schemaToDefinition(
 	const calculatorInputs: import('@/lib/calculators/types').CalculatorInput[] =
 		schema.inputs.map((input, index) => {
 			const contentInput = content?.inputs?.[index]
+			// Preserve input type: 'select', 'text', or 'number'
+			let inputType: 'select' | 'text' | 'number'
+			if (input.type === 'select') {
+				inputType = 'select'
+			} else if (input.type === 'text') {
+				inputType = 'text'
+			} else {
+				inputType = 'number'
+			}
 			return {
 				name: input.name,
 				label: contentInput?.label || input.name,
-				type: input.type === 'select' ? 'select' : 'number',
+				type: inputType,
 				unitLabel: contentInput?.unitLabel || input.unit,
 				placeholder: contentInput?.placeholder || `Enter ${input.name}`,
 				options: input.options,
@@ -321,7 +382,9 @@ export async function schemaToDefinition(
 				helpText: contentInput?.helpText,
 				visibleIf: input.visibleIf,
 				validation: {
-					required: true,
+					// Field is required only if it doesn't have a defaultValue
+					// Fields with defaultValue can be omitted (will use default)
+					required: input.defaultValue === undefined,
 					min: input.min,
 					max: input.max,
 				},

@@ -138,7 +138,23 @@ export function CalculatorPage({
 
 			// Convert string inputs to appropriate types
 			const processedInputs: Record<string, number | string> = {}
+			
+			// Always include select fields first (they control visibility and calculation type)
+			calculator.inputs
+				.filter((input) => input.type === 'select')
+				.forEach((input) => {
+					if (inputs[input.name] !== undefined && inputs[input.name] !== null && inputs[input.name] !== '') {
+						processedInputs[input.name] = inputs[input.name]
+					}
+				})
+			
+			// Then process other visible inputs
 			calculator.inputs.forEach((input) => {
+				// Skip select fields (already processed)
+				if (input.type === 'select') {
+					return
+				}
+				
 				let value = inputs[input.name]
 
 				// Skip empty values for number inputs (they will be validated separately)
@@ -305,7 +321,7 @@ export function CalculatorPage({
 
 				{/* FAQ */}
 				<div className="mb-12">
-					<FaqBlock calculator={calculator} />
+					<FaqBlock calculator={calculator} locale={locale} />
 				</div>
 
 			</div>

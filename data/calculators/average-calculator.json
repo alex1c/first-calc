@@ -1,0 +1,29 @@
+{
+  "id": "average-calculator",
+  "slug": "average-calculator",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculateAverage",
+  "tags": ["statistics", "average", "mean", "median", "mode"],
+  "inputs": [
+    {
+      "name": "dataset",
+      "type": "text",
+      "defaultValue": ""
+    }
+  ],
+  "outputs": [
+    {
+      "name": "mean"
+    },
+    {
+      "name": "median"
+    },
+    {
+      "name": "mode"
+    }
+  ],
+  "defaults": {},
+  "isEnabled": true
+}
+

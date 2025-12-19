@@ -7,6 +7,8 @@ import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { PageContainer } from '@/components/layout/page-container'
 import { getCalculatorCategoryBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { CalculatorCard } from '@/components/calculators/calculator-card'
+import { MathClustersBlock } from '@/components/calculators/math-clusters-block'
+import { FinanceClustersBlock } from '@/components/calculators/finance-clusters-block'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation', 'calculators/ui'] as const
@@ -56,9 +58,19 @@ export default async function CalculatorsCategoryPage({
 				{categoryDescription && (
 					<p className="text-lg text-gray-600 mb-4">{categoryDescription}</p>
 				)}
-				<p className="text-gray-600 mb-8">
-					{calculators.length} {t('common.label.results').toLowerCase()}
-				</p>
+				<div className="flex items-center justify-between mb-8">
+					<p className="text-gray-600">
+						{calculators.length} {t('common.label.results').toLowerCase()}
+					</p>
+					{category === 'math' && (
+						<Link
+							href={`/${locale}/learn`}
+							className="text-blue-600 hover:text-blue-800 font-medium"
+						>
+							Learn Math Concepts →
+						</Link>
+					)}
+				</div>
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 					{calculators.map((calc) => (
@@ -70,6 +82,12 @@ export default async function CalculatorsCategoryPage({
 						/>
 					))}
 				</div>
+				
+				{/* Math clusters block - only for math category */}
+				{category === 'math' && <MathClustersBlock locale={locale} />}
+				
+				{/* Finance clusters block - only for finance category */}
+				{category === 'finance' && <FinanceClustersBlock locale={locale} />}
 			</PageContainer>
 		</>
 	)

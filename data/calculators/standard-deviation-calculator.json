@@ -1,0 +1,40 @@
+{
+  "id": "standard-deviation-calculator",
+  "slug": "standard-deviation-calculator",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculateStandardDeviation",
+  "tags": ["statistics", "standard-deviation", "variance", "dispersion"],
+  "inputs": [
+    {
+      "name": "dataset",
+      "type": "text",
+      "defaultValue": ""
+    },
+    {
+      "name": "type",
+      "type": "select",
+      "options": [
+        { "value": "population", "label": "Population" },
+        { "value": "sample", "label": "Sample" }
+      ],
+      "defaultValue": "population"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "mean"
+    },
+    {
+      "name": "variance"
+    },
+    {
+      "name": "standardDeviation"
+    }
+  ],
+  "defaults": {
+    "type": "population"
+  },
+  "isEnabled": true
+}
+

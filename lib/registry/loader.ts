@@ -231,8 +231,11 @@ class LocalCalculatorLoader implements CalculatorLoader {
 							jsonCalculators.push(calc)
 						}
 					}
-				} catch {
-					// Skip files that can't be loaded
+				} catch (error) {
+					// Skip files that can't be loaded, but log in development
+					if (process.env.NODE_ENV === 'development') {
+						console.warn(`[Loader] Failed to load calculator from ${file}:`, error instanceof Error ? error.message : String(error))
+					}
 				}
 			}
 		} catch {

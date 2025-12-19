@@ -1,0 +1,125 @@
+{
+  "title": "Standard Deviation Calculator",
+  "shortDescription": "Calculate standard deviation, variance, and mean for your dataset. Choose between population and sample calculations.",
+  "longDescription": "Our Standard Deviation Calculator helps you measure the spread or dispersion of your data. Enter your dataset and choose whether you're working with a population or sample. The calculator computes the mean, variance, and standard deviation using the appropriate formula. Perfect for students learning statistics, researchers analyzing data variability, and anyone who needs to understand how spread out their data is.",
+  "inputs": [
+    {
+      "label": "Data Set",
+      "unitLabel": "",
+      "placeholder": "e.g. 2, 4, 4, 4, 5, 5, 7, 9",
+      "helpText": "Enter numbers separated by commas, spaces, or line breaks. At least 2 numbers required."
+    },
+    {
+      "label": "Type",
+      "unitLabel": "",
+      "placeholder": "Select type",
+      "helpText": "Choose 'Population' if you have all data points, or 'Sample' if you have a subset of a larger population."
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Mean",
+      "unitLabel": ""
+    },
+    {
+      "label": "Variance",
+      "unitLabel": ""
+    },
+    {
+      "label": "Standard Deviation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter your dataset in the text field",
+    "You can separate numbers by commas, spaces, or line breaks",
+    "Example formats: '2, 4, 4, 4, 5, 5, 7, 9' or '2 4 4 4 5 5 7 9'",
+    "Make sure to include at least 2 numbers",
+    "All values must be numeric (decimals are allowed)",
+    "Select 'Population' if you have all data points, or 'Sample' if you have a subset",
+    "Click 'Calculate' to compute mean, variance, and standard deviation",
+    "Review the results to understand the spread of your data"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Basic dataset",
+      "description": "Calculate standard deviation for dataset: 2, 4, 4, 4, 5, 5, 7, 9",
+      "steps": [
+        "Enter: 2, 4, 4, 4, 5, 5, 7, 9",
+        "Select 'Population'",
+        "Click 'Calculate'",
+        "Results: Mean = 5, Variance = 4, Standard Deviation = 2"
+      ],
+      "resultDescription": "Mean = 5, Variance = 4, Standard Deviation = 2"
+    },
+    {
+      "title": "Example 2: Sample calculation",
+      "description": "Calculate sample standard deviation for dataset: 10, 12, 14, 16, 18",
+      "steps": [
+        "Enter: 10, 12, 14, 16, 18",
+        "Select 'Sample'",
+        "Click 'Calculate'",
+        "Results: Mean = 14, Sample Variance = 10, Sample Standard Deviation ≈ 3.16"
+      ],
+      "resultDescription": "Mean = 14, Sample Variance = 10, Sample Standard Deviation ≈ 3.16"
+    },
+    {
+      "title": "Example 3: Dataset with decimals",
+      "description": "Calculate standard deviation for dataset: 1.5, 2.3, 3.1, 4.7, 5.2",
+      "steps": [
+        "Enter: 1.5, 2.3, 3.1, 4.7, 5.2",
+        "Select 'Population'",
+        "Click 'Calculate'",
+        "Results: Mean = 3.36, Variance ≈ 2.11, Standard Deviation ≈ 1.45"
+      ],
+      "resultDescription": "Mean = 3.36, Variance ≈ 2.11, Standard Deviation ≈ 1.45"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is the difference between population and sample standard deviation?",
+      "answer": "Population standard deviation divides by n (number of values) when calculating variance. Sample standard deviation divides by n-1 (Bessel's correction) to provide an unbiased estimate. Use population when you have all data points, and sample when you have a subset of a larger population."
+    },
+    {
+      "question": "What does standard deviation measure?",
+      "answer": "Standard deviation measures the spread or dispersion of data around the mean. A low standard deviation means data points are close to the mean, while a high standard deviation means data is more spread out."
+    },
+    {
+      "question": "How do I interpret standard deviation?",
+      "answer": "Small standard deviation indicates data points are clustered close to the mean. Large standard deviation indicates data is spread out. In a normal distribution, about 68% of values fall within one standard deviation of the mean, and 95% within two standard deviations."
+    },
+    {
+      "question": "When should I use population vs sample standard deviation?",
+      "answer": "Use population standard deviation when you have data for an entire population (e.g., all students in a class). Use sample standard deviation when you have a sample from a larger population (e.g., 50 people from a city of 1 million)."
+    },
+    {
+      "question": "What is variance?",
+      "answer": "Variance is the square of standard deviation. It measures the average squared deviation from the mean. Variance is in squared units, while standard deviation is in the same units as the original data, making it easier to interpret."
+    },
+    {
+      "question": "Can standard deviation be negative?",
+      "answer": "No, standard deviation cannot be negative. It's always a non-negative value because it's the square root of variance, which is always non-negative (sum of squared differences)."
+    },
+    {
+      "question": "What does a standard deviation of 0 mean?",
+      "answer": "A standard deviation of 0 means all values in the dataset are identical. There is no variability or spread in the data - every value equals the mean."
+    },
+    {
+      "question": "How is standard deviation related to mean?",
+      "answer": "Standard deviation measures how spread out data is around the mean. The mean is the center point, and standard deviation tells you how far typical values are from that center. They work together to describe the distribution of data."
+    },
+    {
+      "question": "Why is sample variance divided by n-1 instead of n?",
+      "answer": "Dividing by n-1 (Bessel's correction) makes sample variance an unbiased estimator of population variance. This correction accounts for the fact that we're estimating the population mean from the sample, which introduces some uncertainty."
+    },
+    {
+      "question": "Can I use this calculator for negative numbers?",
+      "answer": "Yes, the calculator accepts negative numbers. Standard deviation works correctly with negative values because it's based on squared differences, which are always positive."
+    },
+    {
+      "question": "What is a good standard deviation?",
+      "answer": "There's no universal 'good' standard deviation - it depends on context. Compare it to the mean: if SD is much smaller than the mean, data is relatively consistent. If SD is close to or larger than the mean, data is highly variable. Consider the scale and purpose of your data."
+    }
+  ]
+}
+

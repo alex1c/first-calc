@@ -1,0 +1,199 @@
+{
+	"title": "Auto Loan Calculator",
+	"shortDescription": "Calculate your monthly car loan payment, total interest, and see how down payment and loan term affect your payments.",
+	"longDescription": "Use this auto loan calculator to determine your monthly car payment, total interest paid, and how different loan terms and down payments affect your monthly payment. Perfect for planning your car purchase and comparing different financing options.",
+	"inputs": [
+		{
+			"label": "Car Price",
+			"unitLabel": "$",
+			"placeholder": "Enter car price",
+			"helpText": "Total cost of the vehicle"
+		},
+		{
+			"label": "Down Payment",
+			"unitLabel": "$",
+			"placeholder": "Enter down payment",
+			"helpText": "Initial payment amount (if any)"
+		},
+		{
+			"label": "Interest Rate",
+			"unitLabel": "%",
+			"placeholder": "Enter interest rate",
+			"helpText": "Annual interest rate (APR)"
+		},
+		{
+			"label": "Loan Term",
+			"unitLabel": "years",
+			"placeholder": "Enter loan term",
+			"helpText": "Loan term in years (typically 3-7 years for auto loans)"
+		},
+		{
+			"label": "Trade-in Value",
+			"unitLabel": "$",
+			"placeholder": "Enter trade-in value",
+			"helpText": "Value of your current vehicle (if applicable)"
+		},
+		{
+			"label": "Payment Type",
+			"unitLabel": "",
+			"placeholder": "Select payment type",
+			"helpText": "Annuity: fixed payment amount. Differentiated: declining payment amount (saves interest)"
+		},
+		{
+			"label": "Sales Tax",
+			"unitLabel": "%",
+			"placeholder": "Enter sales tax rate",
+			"helpText": "State/local sales tax rate (optional)"
+		},
+		{
+			"label": "Registration Fees",
+			"unitLabel": "$",
+			"placeholder": "Enter registration fees",
+			"helpText": "One-time vehicle registration fees (optional)"
+		},
+		{
+			"label": "Extended Warranty",
+			"unitLabel": "$",
+			"placeholder": "Enter warranty cost",
+			"helpText": "Cost of extended warranty (optional)"
+		},
+		{
+			"label": "Gap Insurance",
+			"unitLabel": "$",
+			"placeholder": "Enter gap insurance cost",
+			"helpText": "Cost of gap insurance (optional)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Loan Amount",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Monthly Payment",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Payment",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Interest",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Fees",
+			"unitLabel": "$"
+		}
+	],
+	"howTo": [
+		"Enter the car price (total cost of the vehicle)",
+		"Enter your down payment amount (if any)",
+		"Enter the trade-in value of your current vehicle (if applicable)",
+		"Enter the annual interest rate offered by the lender",
+		"Enter the loan term in years (typically 3-7 years for auto loans)",
+		"Click 'Calculate' to see your monthly payment and total costs",
+		"Adjust the down payment or loan term to see how it affects your monthly payment"
+	],
+	"examples": [
+		{
+			"title": "New Car Purchase",
+			"description": "Buying a $30,000 car with $5,000 down payment at 5.5% APR for 5 years",
+			"inputs": {
+				"carPrice": 30000,
+				"downPayment": 5000,
+				"interestRate": 5.5,
+				"loanTerm": 5,
+				"tradeInValue": 0
+			},
+			"result": "Monthly payment: $477.42, Total interest: $3,645.20"
+		},
+		{
+			"title": "With Trade-In",
+			"description": "$35,000 car with $3,000 down and $8,000 trade-in at 4.9% for 6 years",
+			"inputs": {
+				"carPrice": 35000,
+				"downPayment": 3000,
+				"interestRate": 4.9,
+				"loanTerm": 6,
+				"tradeInValue": 8000
+			},
+			"result": "Monthly payment: $384.15, Total interest: $4,658.80"
+		},
+		{
+			"title": "Short Term Loan",
+			"description": "$25,000 car with $10,000 down at 3.9% for 3 years",
+			"inputs": {
+				"carPrice": 25000,
+				"downPayment": 10000,
+				"interestRate": 3.9,
+				"loanTerm": 3,
+				"tradeInValue": 0
+			},
+			"result": "Monthly payment: $441.23, Total interest: $924.28"
+		}
+	],
+	"faq": [
+		{
+			"question": "What is an auto loan calculator?",
+			"answer": "An auto loan calculator helps you estimate your monthly car payment, total interest paid, and how different loan terms affect your payments. It's useful for budgeting and comparing financing options."
+		},
+		{
+			"question": "How is the monthly payment calculated?",
+			"answer": "The monthly payment is calculated using the standard loan formula, which takes into account the loan amount, interest rate, and loan term. The formula accounts for compound interest over the life of the loan."
+		},
+		{
+			"question": "What is a good interest rate for an auto loan?",
+			"answer": "Interest rates vary based on credit score, loan term, and lender. Generally, rates below 5% are considered good, while rates above 10% are high. Your credit score significantly impacts the rate you'll receive."
+		},
+		{
+			"question": "Should I make a larger down payment?",
+			"answer": "A larger down payment reduces your loan amount, which lowers your monthly payment and total interest paid. It can also help you qualify for better interest rates and avoid being 'upside down' on your loan."
+		},
+		{
+			"question": "What loan term should I choose?",
+			"answer": "Shorter loan terms (3-4 years) result in higher monthly payments but less total interest. Longer terms (6-7 years) have lower monthly payments but more total interest. Choose based on your budget and financial goals."
+		},
+		{
+			"question": "How does a trade-in affect my loan?",
+			"answer": "A trade-in reduces the amount you need to finance, which lowers your monthly payment and total interest. The trade-in value is subtracted from the car price along with your down payment."
+		},
+		{
+			"question": "Can I pay off my auto loan early?",
+			"answer": "Most auto loans allow early payoff, but check with your lender about prepayment penalties. Paying off early saves interest, but make sure it fits your overall financial plan."
+		},
+		{
+			"question": "What is the difference between APR and interest rate?",
+			"answer": "APR (Annual Percentage Rate) includes the interest rate plus any fees, giving you the true cost of borrowing. The interest rate is just the cost of borrowing the principal amount."
+		},
+		{
+			"question": "Should I finance through the dealer or a bank?",
+			"answer": "Compare rates from both sources. Dealers may offer promotional rates, but banks and credit unions often have competitive rates. Get pre-approved from a bank before visiting the dealer to have a baseline for comparison."
+		},
+		{
+			"question": "What happens if I can't make my car payment?",
+			"answer": "Contact your lender immediately to discuss options like payment deferral or loan modification. Missing payments can result in repossession, damage to your credit, and additional fees."
+		},
+		{
+			"question": "How does my credit score affect my auto loan?",
+			"answer": "Your credit score directly impacts the interest rate you'll receive. Higher scores typically get lower rates, while lower scores may result in higher rates or require a larger down payment."
+		},
+		{
+			"question": "What is gap insurance?",
+			"answer": "Gap insurance covers the difference between what you owe on your loan and the car's actual value if it's totaled or stolen. It's especially important if you have a small down payment or long loan term."
+		},
+		{
+			"question": "What is the difference between annuity and differentiated payments?",
+			"answer": "Annuity (fixed) payments remain constant throughout the loan term. Differentiated (declining) payments start higher and decrease over time as the principal is paid in equal parts while interest decreases. Differentiated payments typically save 5-15% in total interest."
+		},
+		{
+			"question": "Which payment type should I choose for an auto loan?",
+			"answer": "Annuity payments are easier to budget with fixed monthly amounts. Differentiated payments save interest but require higher initial payments. Choose based on your ability to handle higher early payments and your preference for predictable budgeting."
+		}
+	]
+}
+

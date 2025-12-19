@@ -1,0 +1,218 @@
+{
+  "title": "Investment Calculator",
+  "shortDescription": "Calculate the future value of your investments with compound interest and regular contributions. Plan your financial future.",
+  "longDescription": "Our investment calculator helps you project the future value of your investments based on your initial investment, monthly contributions, interest rate, and investment period. See how compound interest can grow your wealth over time. Perfect for retirement planning, savings goals, and long-term financial planning.",
+  "inputs": [
+    {
+      "label": "Initial Investment",
+      "unitLabel": "$",
+      "placeholder": "Enter initial investment",
+      "helpText": "Starting amount you invest (one-time deposit)"
+    },
+    {
+      "label": "Monthly Contribution",
+      "unitLabel": "$",
+      "placeholder": "Enter monthly contribution",
+      "helpText": "Amount you contribute each month (if any)"
+    },
+    {
+      "label": "Interest Rate",
+      "unitLabel": "%",
+      "placeholder": "Enter interest rate",
+      "helpText": "Expected annual return rate"
+    },
+    {
+      "label": "Investment Period",
+      "unitLabel": "years",
+      "placeholder": "Enter investment period",
+      "helpText": "Number of years you'll invest"
+    },
+    {
+      "label": "Compounding Frequency",
+      "unitLabel": "",
+      "placeholder": "Select frequency",
+      "helpText": "How often interest is compounded"
+    },
+    {
+      "label": "Interest Type",
+      "unitLabel": "",
+      "placeholder": "Select interest type",
+      "helpText": "Compound: interest on interest. Simple: interest only on principal"
+    },
+    {
+      "label": "Inflation Rate",
+      "unitLabel": "%/year",
+      "placeholder": "Enter inflation rate",
+      "helpText": "Expected annual inflation rate for real value calculation (optional)"
+    },
+    {
+      "label": "Tax Rate",
+      "unitLabel": "%",
+      "placeholder": "Enter tax rate",
+      "helpText": "Tax rate on investment gains (optional)"
+    },
+    {
+      "label": "Monthly Withdrawal",
+      "unitLabel": "$",
+      "placeholder": "Enter monthly withdrawal",
+      "helpText": "Regular monthly withdrawals from investment (optional)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Final Value",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Total Contributions",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Total Profit",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Profit Percentage",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Real Value (Inflation Adjusted)",
+      "unitLabel": "$"
+    },
+    {
+      "label": "After-Tax Value",
+      "unitLabel": "$"
+    }
+  ],
+  "howTo": [
+    "Enter your initial investment amount (one-time deposit)",
+    "Input your monthly contribution amount (if any)",
+    "Specify the expected annual interest rate or return",
+    "Enter the investment period in years",
+    "Select compounding frequency (monthly, quarterly, or annually)",
+    "Click 'Calculate' to see your investment growth projection",
+    "Review the final value to see how much your investment will be worth",
+    "Compare different scenarios by adjusting the interest rate or contribution amount"
+  ],
+  "examples": [
+    {
+      "title": "Long-term Investing",
+      "description": "$10,000 initial investment with $500/month at 7% for 20 years",
+      "inputs": {
+        "initialInvestment": 10000,
+        "monthlyContribution": 500,
+        "interestRate": 7,
+        "investmentPeriod": 20,
+        "compoundingFrequency": "monthly"
+      },
+      "result": "Final value: $283,456.30, Total contributions: $130,000, Total profit: $153,456.30"
+    },
+    {
+      "title": "Monthly Investing",
+      "description": "Starting from $0, investing $200/month at 6% for 30 years",
+      "inputs": {
+        "initialInvestment": 0,
+        "monthlyContribution": 200,
+        "interestRate": 6,
+        "investmentPeriod": 30,
+        "compoundingFrequency": "monthly"
+      },
+      "result": "Final value: $200,903.10, Total contributions: $72,000, Total profit: $128,903.10"
+    },
+    {
+      "title": "High-Yield Investment",
+      "description": "$5,000 initial with $300/month at 8% for 15 years",
+      "inputs": {
+        "initialInvestment": 5000,
+        "monthlyContribution": 300,
+        "interestRate": 8,
+        "investmentPeriod": 15,
+        "compoundingFrequency": "monthly"
+      },
+      "result": "Final value: $100,234.50, Total contributions: $59,000, Total profit: $41,234.50"
+    },
+    {
+      "title": "Conservative Approach",
+      "description": "$20,000 initial with $400/month at 4% for 25 years",
+      "inputs": {
+        "initialInvestment": 20000,
+        "monthlyContribution": 400,
+        "interestRate": 4,
+        "investmentPeriod": 25,
+        "compoundingFrequency": "monthly"
+      },
+      "result": "Final value: $234,567.80, Total contributions: $140,000, Total profit: $94,567.80"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is an investment calculator?",
+      "answer": "An investment calculator helps you project the future value of your investments based on your initial investment, regular contributions, interest rate, and time period."
+    },
+    {
+      "question": "How does compound interest work?",
+      "answer": "Compound interest means you earn interest on both your principal and previously earned interest. Over time, this creates exponential growth in your investment."
+    },
+    {
+      "question": "What is a good investment return rate?",
+      "answer": "Historical stock market returns average around 7-10% annually. Conservative investments may yield 3-5%, while riskier investments can yield higher returns."
+    },
+    {
+      "question": "Should I invest monthly or make a lump sum?",
+      "answer": "Both strategies work. Lump sum investing can benefit from more time in the market, while monthly investing (dollar-cost averaging) reduces timing risk."
+    },
+    {
+      "question": "What is dollar-cost averaging?",
+      "answer": "Dollar-cost averaging is investing a fixed amount regularly regardless of market conditions. This strategy helps reduce the impact of market volatility."
+    },
+    {
+      "question": "How does compounding frequency affect returns?",
+      "answer": "More frequent compounding (monthly vs annually) results in slightly higher returns due to interest being calculated and added more often."
+    },
+    {
+      "question": "What's the difference between investment and savings?",
+      "answer": "Savings typically refers to low-risk, low-return accounts. Investments involve higher risk but potential for higher returns over the long term."
+    },
+    {
+      "question": "How much should I invest monthly?",
+      "answer": "A common rule is to invest 15-20% of your income. Start with what you can afford and increase contributions over time as your income grows."
+    },
+    {
+      "question": "What is the 4% rule?",
+      "answer": "The 4% rule suggests you can safely withdraw 4% of your retirement savings annually without running out of money over 30 years."
+    },
+    {
+      "question": "Should I invest in stocks or bonds?",
+      "answer": "Stocks offer higher growth potential but more volatility. Bonds provide stability but lower returns. A balanced portfolio typically includes both."
+    },
+    {
+      "question": "What is a retirement calculator?",
+      "answer": "A retirement calculator helps you determine how much you need to save for retirement based on your desired retirement income and current savings."
+    },
+    {
+      "question": "How does inflation affect investments?",
+      "answer": "Inflation reduces purchasing power over time. Investments that outpace inflation (typically 2-3% annually) help preserve and grow your wealth."
+    },
+    {
+      "question": "What is risk tolerance?",
+      "answer": "Risk tolerance is your ability and willingness to accept investment losses. Younger investors typically have higher risk tolerance for long-term growth."
+    },
+    {
+      "question": "Should I invest in a 401(k) or IRA?",
+      "answer": "Both are retirement accounts with tax advantages. 401(k) is employer-sponsored, while IRA is individual. Contribute to both if possible."
+    },
+    {
+      "question": "What is the difference between simple and compound interest?",
+      "answer": "Simple interest is calculated only on the principal amount. Compound interest is calculated on both the principal and accumulated interest from previous periods, resulting in exponential growth. For investments, compound interest typically yields 20-50% more than simple interest over long periods."
+    },
+    {
+      "question": "Which interest type should I use for investments?",
+      "answer": "Compound interest is almost always better for investments because it grows your money faster through interest-on-interest. Most investment accounts use compound interest. Simple interest is rarely used for investments, typically only for short-term bonds or special financial products."
+    },
+    {
+      "question": "How much more do I earn with compound interest vs simple interest?",
+      "answer": "The difference depends on your interest rate, time period, and compounding frequency. Generally, compound interest can yield 20-50% more than simple interest over 10-20 years. The longer the time period and higher the rate, the greater the difference becomes."
+    }
+  ]
+}
+

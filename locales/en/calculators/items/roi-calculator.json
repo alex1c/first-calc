@@ -1,0 +1,166 @@
+{
+  "title": "ROI Calculator",
+  "shortDescription": "Calculate Return on Investment (ROI) percentage and net profit. Essential tool for evaluating business investments and marketing campaigns.",
+  "longDescription": "Our ROI calculator helps you determine the return on investment for any project, business investment, or marketing campaign. Simply enter your investment cost and return value to calculate ROI percentage and net profit. Perfect for evaluating business decisions, marketing ROI, stock investments, and more.",
+  "inputs": [
+    {
+      "label": "Investment Cost",
+      "unitLabel": "$",
+      "placeholder": "Enter investment cost",
+      "helpText": "Total amount invested or cost of the investment"
+    },
+    {
+      "label": "Return Value",
+      "unitLabel": "$",
+      "placeholder": "Enter return value",
+      "helpText": "Total value received or returned from the investment"
+    },
+    {
+      "label": "Time Period",
+      "unitLabel": "",
+      "placeholder": "Enter time period",
+      "helpText": "Investment period for annualized calculations"
+    },
+    {
+      "label": "Time Unit",
+      "unitLabel": "",
+      "placeholder": "Select time unit",
+      "helpText": "Years or months for the investment period"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "ROI",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Net Profit",
+      "unitLabel": "$"
+    },
+    {
+      "label": "ROI Percentage",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Annualized ROI",
+      "unitLabel": "%"
+    },
+    {
+      "label": "CAGR",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Payback Period",
+      "unitLabel": "years"
+    }
+  ],
+  "howTo": [
+    "Enter the total cost of your investment",
+    "Input the return value or final value you received",
+    "Click 'Calculate' to see your ROI percentage and net profit",
+    "Review the results to evaluate your investment performance",
+    "Compare different investments by calculating ROI for each",
+    "Use ROI to make informed business and investment decisions"
+  ],
+  "examples": [
+    {
+      "title": "Marketing Campaign",
+      "description": "Invested $10,000 in marketing, generated $25,000 in sales",
+      "inputs": {
+        "investmentCost": 10000,
+        "returnValue": 25000
+      },
+      "result": "ROI: 150%, Net Profit: $15,000"
+    },
+    {
+      "title": "Business Investment",
+      "description": "Invested $50,000 in equipment, generated $80,000 in revenue",
+      "inputs": {
+        "investmentCost": 50000,
+        "returnValue": 80000
+      },
+      "result": "ROI: 60%, Net Profit: $30,000"
+    },
+    {
+      "title": "Stock Investment",
+      "description": "Bought stocks for $5,000, sold for $7,500",
+      "inputs": {
+        "investmentCost": 5000,
+        "returnValue": 7500
+      },
+      "result": "ROI: 50%, Net Profit: $2,500"
+    },
+    {
+      "title": "Real Estate Investment",
+      "description": "Purchased property for $200,000, sold for $280,000 after improvements",
+      "inputs": {
+        "investmentCost": 200000,
+        "returnValue": 280000
+      },
+      "result": "ROI: 40%, Net Profit: $80,000"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is ROI?",
+      "answer": "ROI (Return on Investment) is a financial metric that measures the profitability of an investment. It's calculated as (Return - Cost) / Cost × 100%."
+    },
+    {
+      "question": "How do you calculate ROI?",
+      "answer": "ROI = ((Return Value - Investment Cost) / Investment Cost) × 100. This gives you the percentage return on your investment."
+    },
+    {
+      "question": "What is a good ROI?",
+      "answer": "A good ROI depends on the investment type. For stocks, 7-10% annually is considered good. For business investments, 15-20%+ is often expected. Marketing ROI of 3:1 or higher is typically good."
+    },
+    {
+      "question": "What's the difference between ROI and profit?",
+      "answer": "Profit is the absolute dollar amount (return - cost). ROI is the percentage return relative to the investment cost, making it easier to compare investments of different sizes."
+    },
+    {
+      "question": "Can ROI be negative?",
+      "answer": "Yes, if your return value is less than your investment cost, ROI will be negative, indicating a loss on the investment."
+    },
+    {
+      "question": "What is ROI used for?",
+      "answer": "ROI is used to evaluate the efficiency of investments, compare different investment opportunities, measure marketing campaign effectiveness, and make business decisions."
+    },
+    {
+      "question": "What is a good marketing ROI?",
+      "answer": "A marketing ROI of 3:1 (300%) or higher is generally considered good. This means for every $1 spent, you generate $3 or more in revenue."
+    },
+    {
+      "question": "How do you calculate ROI for multiple investments?",
+      "answer": "Calculate ROI for each investment separately, then compare the percentages. You can also calculate weighted average ROI for a portfolio."
+    },
+    {
+      "question": "What is ROI vs ROE?",
+      "answer": "ROI (Return on Investment) measures return relative to total investment. ROE (Return on Equity) measures return relative to shareholder equity."
+    },
+    {
+      "question": "Should I use ROI for long-term investments?",
+      "answer": "ROI is useful for any investment period. For long-term investments, consider annualized ROI to compare with other investments on an annual basis."
+    },
+    {
+      "question": "What is annualized ROI?",
+      "answer": "Annualized ROI adjusts ROI for the investment period, showing what the return would be on an annual basis. Formula: ((1 + ROI)^(1/years) - 1) × 100."
+    },
+    {
+      "question": "How does time affect ROI?",
+      "answer": "Time is crucial for ROI. A 50% ROI over 1 year is much better than 50% over 10 years. Always consider the time period when comparing ROIs."
+    },
+    {
+      "question": "What is ROI in real estate?",
+      "answer": "Real estate ROI includes rental income, appreciation, and tax benefits. It's calculated as (Annual Income + Appreciation - Costs) / Investment Cost × 100."
+    },
+    {
+      "question": "Can ROI be over 100%?",
+      "answer": "Yes, ROI can exceed 100% when your return is more than double your investment. For example, investing $10,000 and getting $30,000 back is 200% ROI."
+    },
+    {
+      "question": "What is a bad ROI?",
+      "answer": "A bad ROI depends on context. Generally, ROI below 0% means a loss. ROI below inflation rate (2-3%) means your investment isn't keeping up with purchasing power."
+    }
+  ]
+}
+

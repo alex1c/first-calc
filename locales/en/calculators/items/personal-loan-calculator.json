@@ -1,0 +1,174 @@
+{
+	"title": "Personal Loan Calculator",
+	"shortDescription": "Calculate your personal loan payment, total interest, and APR including origination fees. Compare different loan terms and rates.",
+	"longDescription": "Use this personal loan calculator to determine your monthly payment, total interest paid, and the true cost of borrowing including origination fees. Perfect for comparing different personal loan offers and understanding the impact of loan terms on your payments.",
+	"inputs": [
+		{
+			"label": "Loan Amount",
+			"unitLabel": "$",
+			"placeholder": "Enter loan amount",
+			"helpText": "Total amount you want to borrow"
+		},
+		{
+			"label": "Interest Rate",
+			"unitLabel": "%",
+			"placeholder": "Enter interest rate",
+			"helpText": "Annual interest rate (APR)"
+		},
+		{
+			"label": "Loan Term",
+			"unitLabel": "years",
+			"placeholder": "Enter loan term",
+			"helpText": "Loan duration in years (typically 1-7 years)"
+		},
+		{
+			"label": "Origination Fee",
+			"unitLabel": "%",
+			"placeholder": "Enter origination fee",
+			"helpText": "One-time fee percentage (typically 1-8%)"
+		},
+		{
+			"label": "Payment Type",
+			"unitLabel": "",
+			"placeholder": "Select payment type",
+			"helpText": "Annuity: fixed payment amount. Differentiated: declining payment amount (saves interest)"
+		},
+		{
+			"label": "Prepayment Penalty",
+			"unitLabel": "%",
+			"placeholder": "Enter prepayment penalty",
+			"helpText": "Penalty percentage for early loan payoff (optional)"
+		},
+		{
+			"label": "Late Payment Fee",
+			"unitLabel": "$",
+			"placeholder": "Enter late payment fee",
+			"helpText": "Fee charged for late payments (optional)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Monthly Payment",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Payment",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Interest",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Fees",
+			"unitLabel": "$"
+		},
+		{
+			"label": "APR",
+			"unitLabel": "%"
+		}
+	],
+	"howTo": [
+		"Enter the loan amount you want to borrow",
+		"Enter the annual interest rate offered by the lender",
+		"Enter the loan term in years (typically 1-7 years for personal loans)",
+		"Enter the origination fee percentage (if any)",
+		"Click 'Calculate' to see your monthly payment and total costs",
+		"Review the APR which includes both interest and fees",
+		"Compare different loan terms to find the best option for your budget"
+	],
+	"examples": [
+		{
+			"title": "Standard Personal Loan",
+			"description": "$10,000 loan at 12% APR for 3 years with 1% origination fee",
+			"inputs": {
+				"loanAmount": 10000,
+				"interestRate": 12,
+				"loanTerm": 3,
+				"originationFee": 1
+			},
+			"result": "Monthly payment: $332.14, Total interest: $1,957.04, APR: 13.52%"
+		},
+		{
+			"title": "Short Term Loan",
+			"description": "$5,000 loan at 8% APR for 2 years with no origination fee",
+			"inputs": {
+				"loanAmount": 5000,
+				"interestRate": 8,
+				"loanTerm": 2,
+				"originationFee": 0
+			},
+			"result": "Monthly payment: $226.14, Total interest: $427.36, APR: 8.00%"
+		},
+		{
+			"title": "Long Term Loan",
+			"description": "$15,000 loan at 15% APR for 5 years with 2% origination fee",
+			"inputs": {
+				"loanAmount": 15000,
+				"interestRate": 15,
+				"loanTerm": 5,
+				"originationFee": 2
+			},
+			"result": "Monthly payment: $356.70, Total interest: $6,402.00, APR: 18.68%"
+		}
+	],
+	"faq": [
+		{
+			"question": "What is a personal loan calculator?",
+			"answer": "A personal loan calculator helps you estimate your monthly payment, total interest, and the true cost of borrowing including fees. It's useful for comparing different loan offers and planning your budget."
+		},
+		{
+			"question": "What is an origination fee?",
+			"answer": "An origination fee is a one-time fee charged by lenders to process your loan. It's typically 1-8% of the loan amount and is deducted from the loan proceeds, reducing the amount you actually receive."
+		},
+		{
+			"question": "What is APR and why is it important?",
+			"answer": "APR (Annual Percentage Rate) includes both the interest rate and fees, giving you the true cost of borrowing. It's important because it allows you to compare loans with different fee structures on an equal basis."
+		},
+		{
+			"question": "What is a good interest rate for a personal loan?",
+			"answer": "Interest rates vary based on credit score, loan amount, and lender. Generally, rates below 10% are considered good, while rates above 20% are high. Your credit score significantly impacts the rate you'll receive."
+		},
+		{
+			"question": "Should I choose a shorter or longer loan term?",
+			"answer": "Shorter terms (1-3 years) have higher monthly payments but less total interest. Longer terms (5-7 years) have lower monthly payments but more total interest. Choose based on your budget and ability to pay."
+		},
+		{
+			"question": "Can I pay off my personal loan early?",
+			"answer": "Most personal loans allow early payoff, but check with your lender about prepayment penalties. Paying off early saves interest, but make sure it fits your overall financial plan."
+		},
+		{
+			"question": "What is the difference between secured and unsecured personal loans?",
+			"answer": "Secured loans require collateral (like a car or savings account) and typically have lower rates. Unsecured loans don't require collateral but have higher rates and stricter credit requirements."
+		},
+		{
+			"question": "How does my credit score affect my personal loan?",
+			"answer": "Your credit score directly impacts the interest rate and loan terms you'll receive. Higher scores typically get lower rates and better terms, while lower scores may result in higher rates or loan denial."
+		},
+		{
+			"question": "What can I use a personal loan for?",
+			"answer": "Personal loans can be used for debt consolidation, home improvements, medical expenses, major purchases, or other personal needs. Unlike auto or mortgage loans, they're not tied to a specific purchase."
+		},
+		{
+			"question": "Should I get a personal loan or use a credit card?",
+			"answer": "Personal loans typically have lower interest rates than credit cards and fixed repayment terms. They're better for larger expenses and debt consolidation. Credit cards are better for smaller, ongoing expenses."
+		},
+		{
+			"question": "What documents do I need to apply for a personal loan?",
+			"answer": "You'll typically need proof of income (pay stubs, tax returns), proof of identity, bank statements, and information about your debts and assets. Requirements vary by lender."
+		},
+		{
+			"question": "How long does it take to get approved for a personal loan?",
+			"answer": "Approval times vary by lender. Online lenders may approve within minutes to hours, while traditional banks may take several days. Funding typically occurs 1-7 business days after approval."
+		},
+		{
+			"question": "What is the difference between annuity and differentiated payments?",
+			"answer": "Annuity (fixed) payments remain constant throughout the loan term, making budgeting easier. Differentiated (declining) payments start higher and decrease over time as the principal is paid in equal parts while interest decreases. Differentiated payments typically save 5-15% in total interest compared to annuity payments."
+		},
+		{
+			"question": "Which payment type is better for personal loans?",
+			"answer": "Annuity payments are more common and easier to budget. Differentiated payments save interest but require higher initial payments. Choose annuity if you prefer predictable payments, or differentiated if you want to minimize total interest and can handle higher early payments."
+		}
+	]
+}
+

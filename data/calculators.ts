@@ -417,6 +417,10 @@ export const calculators: CalculatorDefinition[] = [
 				unitLabel: '$',
 				formatType: 'currency',
 			},
+			{
+				name: 'steps',
+				label: 'Calculation Steps',
+			},
 		],
 		calculate: calculateLoanPayment,
 		howToBullets: [
@@ -576,6 +580,10 @@ export const calculators: CalculatorDefinition[] = [
 				label: 'Total Interest Earned',
 				unitLabel: '$',
 				formatType: 'currency',
+			},
+			{
+				name: 'steps',
+				label: 'Calculation Steps',
 			},
 		],
 		calculate: calculateCompoundInterest,

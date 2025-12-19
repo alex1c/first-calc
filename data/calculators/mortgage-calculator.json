@@ -1,0 +1,139 @@
+{
+  "id": "mortgage-calculator",
+  "slug": "mortgage-calculator",
+  "category": "finance",
+  "engine": "function",
+  "calculationId": "calculateMortgage",
+  "tags": ["finance", "loans", "mortgage", "home-loan", "real-estate"],
+  "inputs": [
+    {
+      "name": "loanAmount",
+      "type": "number",
+      "min": 1000,
+      "max": 10000000,
+      "step": 100
+    },
+    {
+      "name": "interestRate",
+      "type": "number",
+      "min": 0,
+      "max": 30,
+      "step": 0.01
+    },
+    {
+      "name": "loanTerm",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1
+    },
+    {
+      "name": "downPayment",
+      "type": "number",
+      "min": 0,
+      "max": 10000000,
+      "step": 100,
+      "defaultValue": 0
+    },
+    {
+      "name": "paymentFrequency",
+      "type": "select",
+      "options": [
+        { "value": "monthly", "label": "Monthly" },
+        { "value": "biweekly", "label": "Bi-weekly" },
+        { "value": "weekly", "label": "Weekly" }
+      ],
+      "defaultValue": "monthly"
+    },
+    {
+      "name": "paymentType",
+      "type": "select",
+      "options": [
+        { "value": "annuity", "label": "Annuity (Fixed Payment)" },
+        { "value": "differentiated", "label": "Differentiated (Declining Payment)" }
+      ],
+      "defaultValue": "annuity"
+    },
+    {
+      "name": "propertyTax",
+      "type": "number",
+      "min": 0,
+      "max": 100000,
+      "step": 100,
+      "defaultValue": 0
+    },
+    {
+      "name": "homeInsurance",
+      "type": "number",
+      "min": 0,
+      "max": 50000,
+      "step": 100,
+      "defaultValue": 0
+    },
+    {
+      "name": "pmiRate",
+      "type": "number",
+      "min": 0,
+      "max": 2,
+      "step": 0.01,
+      "defaultValue": 0
+    },
+    {
+      "name": "pmiThreshold",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 20
+    },
+    {
+      "name": "hoaFees",
+      "type": "number",
+      "min": 0,
+      "max": 5000,
+      "step": 10,
+      "defaultValue": 0
+    }
+  ],
+  "outputs": [
+    {
+      "name": "monthlyPayment"
+    },
+    {
+      "name": "totalPayment"
+    },
+    {
+      "name": "totalInterest"
+    },
+    {
+      "name": "overpayment"
+    },
+    {
+      "name": "monthlyPITI"
+    },
+    {
+      "name": "totalMonthlyPayment"
+    },
+    {
+      "name": "pmiPayment"
+    },
+    {
+      "name": "pmiMonths"
+    },
+    {
+      "name": "totalCostOfOwnership"
+    },
+    {
+      "name": "steps"
+    }
+  ],
+  "defaults": {
+    "loanAmount": 300000,
+    "interestRate": 4.5,
+    "loanTerm": 30,
+    "downPayment": 60000,
+    "paymentFrequency": "monthly"
+  },
+  "isEnabled": true
+}
+

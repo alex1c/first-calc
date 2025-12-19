@@ -1,0 +1,246 @@
+{
+  "title": "Mortgage Calculator",
+  "shortDescription": "Calculate your monthly mortgage payment, total interest, and overpayment. Perfect for home buyers planning their budget.",
+  "longDescription": "Our mortgage calculator helps you determine your monthly payment, total interest over the life of the loan, and how much you'll pay in total. Enter your loan amount, interest rate, loan term, and down payment to get accurate results. Supports different payment frequencies including monthly, bi-weekly, and weekly payments.",
+  "inputs": [
+    {
+      "label": "Loan Amount",
+      "unitLabel": "$",
+      "placeholder": "Enter loan amount",
+      "helpText": "Total amount of the mortgage loan"
+    },
+    {
+      "label": "Interest Rate",
+      "unitLabel": "%",
+      "placeholder": "Enter interest rate",
+      "helpText": "Annual interest rate (APR)"
+    },
+    {
+      "label": "Loan Term",
+      "unitLabel": "years",
+      "placeholder": "Enter loan term",
+      "helpText": "Loan term in years (typically 15, 20, or 30)"
+    },
+    {
+      "label": "Down Payment",
+      "unitLabel": "$",
+      "placeholder": "Enter down payment",
+      "helpText": "Initial down payment amount (if any)"
+    },
+    {
+      "label": "Payment Frequency",
+      "unitLabel": "",
+      "placeholder": "Select frequency",
+      "helpText": "How often you make payments"
+    },
+    {
+      "label": "Payment Type",
+      "unitLabel": "",
+      "placeholder": "Select payment type",
+      "helpText": "Annuity: fixed payment amount. Differentiated: declining payment amount (saves interest)"
+    },
+    {
+      "label": "Property Tax",
+      "unitLabel": "$/year",
+      "placeholder": "Enter annual property tax",
+      "helpText": "Annual property tax amount (optional)"
+    },
+    {
+      "label": "Home Insurance",
+      "unitLabel": "$/year",
+      "placeholder": "Enter annual insurance",
+      "helpText": "Annual homeowners insurance premium (optional)"
+    },
+    {
+      "label": "PMI Rate",
+      "unitLabel": "%",
+      "placeholder": "Enter PMI rate",
+      "helpText": "Private Mortgage Insurance rate (typically 0.5-2% if down payment < 20%)"
+    },
+    {
+      "label": "PMI Threshold",
+      "unitLabel": "%",
+      "placeholder": "Enter equity threshold",
+      "helpText": "Equity percentage when PMI can be removed (typically 20%)"
+    },
+    {
+      "label": "HOA Fees",
+      "unitLabel": "$/month",
+      "placeholder": "Enter monthly HOA fees",
+      "helpText": "Monthly Homeowners Association fees (optional)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Monthly Payment",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Total Payment",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Total Interest",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Overpayment",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Monthly PITI",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Total Monthly Payment",
+      "unitLabel": "$"
+    },
+    {
+      "label": "PMI Payment",
+      "unitLabel": "$"
+    },
+    {
+      "label": "PMI Duration",
+      "unitLabel": "months"
+    },
+    {
+      "label": "Total Cost of Ownership",
+      "unitLabel": "$"
+    }
+  ],
+  "howTo": [
+    "Enter the total loan amount you're borrowing",
+    "Input the annual interest rate (APR) for your mortgage",
+    "Specify the loan term in years (typically 15, 20, or 30 years)",
+    "Enter your down payment amount (if any)",
+    "Select your payment frequency (monthly, bi-weekly, or weekly)",
+    "Click 'Calculate' to see your monthly payment and total costs",
+    "Review the total interest to understand the full cost of borrowing",
+    "Compare different scenarios by adjusting the loan amount, rate, or term"
+  ],
+  "examples": [
+    {
+      "title": "Typical Home Mortgage",
+      "description": "A $300,000 home with 20% down payment at 4.5% for 30 years",
+      "inputs": {
+        "loanAmount": 300000,
+        "interestRate": 4.5,
+        "loanTerm": 30,
+        "downPayment": 60000,
+        "paymentFrequency": "monthly"
+      },
+      "result": "Monthly payment: $1,216.04, Total interest: $197,775.40, Total payment: $437,775.40"
+    },
+    {
+      "title": "Large Down Payment",
+      "description": "A $400,000 home with 30% down payment at 3.8% for 15 years",
+      "inputs": {
+        "loanAmount": 400000,
+        "interestRate": 3.8,
+        "loanTerm": 15,
+        "downPayment": 120000,
+        "paymentFrequency": "monthly"
+      },
+      "result": "Monthly payment: $2,040.23, Total interest: $87,241.40, Total payment: $367,241.40"
+    },
+    {
+      "title": "First-Time Homebuyer",
+      "description": "$250,000 home with 10% down at 5.0% for 30 years",
+      "inputs": {
+        "loanAmount": 250000,
+        "interestRate": 5.0,
+        "loanTerm": 30,
+        "downPayment": 25000,
+        "paymentFrequency": "monthly"
+      },
+      "result": "Monthly payment: $1,342.05, Total interest: $233,139.46, Total payment: $483,139.46"
+    },
+    {
+      "title": "Bi-Weekly Payments",
+      "description": "$350,000 loan at 4.2% for 30 years with bi-weekly payments",
+      "inputs": {
+        "loanAmount": 350000,
+        "interestRate": 4.2,
+        "loanTerm": 30,
+        "downPayment": 70000,
+        "paymentFrequency": "biweekly"
+      },
+      "result": "Bi-weekly payment: $560.82, Total interest: $187,427.20, Pay off 4 years earlier"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is a mortgage calculator?",
+      "answer": "A mortgage calculator is a tool that helps you estimate your monthly mortgage payment, total interest, and total cost of a home loan based on the loan amount, interest rate, and loan term."
+    },
+    {
+      "question": "How is monthly mortgage payment calculated?",
+      "answer": "Monthly mortgage payment is calculated using the standard loan formula: M = P × [r(1+r)^n] / [(1+r)^n - 1], where P is principal, r is monthly interest rate, and n is number of payments."
+    },
+    {
+      "question": "What's the difference between mortgage and loan?",
+      "answer": "A mortgage is a specific type of loan used to purchase real estate, where the property serves as collateral. A loan is a broader term for any borrowed money."
+    },
+    {
+      "question": "What is a down payment?",
+      "answer": "A down payment is the initial payment you make when purchasing a home. It reduces the loan amount and can help you get better interest rates."
+    },
+    {
+      "question": "Should I choose a fixed or variable rate mortgage?",
+      "answer": "Fixed-rate mortgages have stable payments but may have higher initial rates. Variable-rate mortgages can start lower but payments can increase if rates rise."
+    },
+    {
+      "question": "How does down payment affect my mortgage?",
+      "answer": "A larger down payment reduces your loan amount, which lowers your monthly payment and total interest. It can also help you avoid private mortgage insurance (PMI)."
+    },
+    {
+      "question": "What is PMI (Private Mortgage Insurance)?",
+      "answer": "PMI is insurance that protects the lender if you default on your loan. It's typically required when your down payment is less than 20% of the home's value."
+    },
+    {
+      "question": "Can I pay off my mortgage early?",
+      "answer": "Yes, you can make extra payments to pay off your mortgage early. This reduces total interest and shortens the loan term. Use our Loan Overpayment Calculator to see savings."
+    },
+    {
+      "question": "What's a good interest rate for a mortgage?",
+      "answer": "Mortgage rates vary by market conditions, credit score, and loan type. As of 2024, rates typically range from 3% to 7% for conventional mortgages."
+    },
+    {
+      "question": "How does loan term affect my payment?",
+      "answer": "Shorter loan terms (15 years) have higher monthly payments but lower total interest. Longer terms (30 years) have lower monthly payments but higher total interest."
+    },
+    {
+      "question": "What is APR vs interest rate?",
+      "answer": "The interest rate is the cost of borrowing. APR (Annual Percentage Rate) includes the interest rate plus other fees and costs, giving you the true cost of the loan."
+    },
+    {
+      "question": "Should I refinance my mortgage?",
+      "answer": "Consider refinancing if current rates are significantly lower than your existing rate, or if you want to change your loan term. Calculate the break-even point to see if refinancing makes sense."
+    },
+    {
+      "question": "What are closing costs?",
+      "answer": "Closing costs are fees paid at the end of the home buying process, typically 2-5% of the loan amount. They include appraisal, title insurance, and other fees."
+    },
+    {
+      "question": "How does bi-weekly payment help?",
+      "answer": "Bi-weekly payments (every two weeks) result in 26 half-payments per year, which equals 13 full monthly payments. This can help you pay off your mortgage faster."
+    },
+    {
+      "question": "What is an escrow account?",
+      "answer": "An escrow account is set up by your lender to hold funds for property taxes and homeowners insurance. Part of your monthly payment goes into this account."
+    },
+    {
+      "question": "What is the difference between annuity and differentiated payments?",
+      "answer": "Annuity (fixed) payments remain constant throughout the loan term. The payment amount stays the same, but the ratio of principal to interest changes over time. Differentiated (declining) payments start higher and decrease over time. The principal is paid in equal parts, while interest decreases as the balance decreases. Differentiated payments typically result in less total interest paid."
+    },
+    {
+      "question": "Which payment type is better: annuity or differentiated?",
+      "answer": "Annuity payments are easier to budget since they're fixed. Differentiated payments save interest over the loan term but require higher initial payments. Choose annuity if you prefer predictable payments, or differentiated if you want to minimize total interest and can handle higher early payments."
+    },
+    {
+      "question": "How much interest can I save with differentiated payments?",
+      "answer": "Interest savings with differentiated payments depend on your loan amount, interest rate, and term. Generally, you can save 5-15% in total interest compared to annuity payments. The savings are greater for larger loans and longer terms."
+    }
+  ]
+}
+

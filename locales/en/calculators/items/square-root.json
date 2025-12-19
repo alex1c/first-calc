@@ -1,14 +1,128 @@
 {
+  "title": "Square Root Calculator",
+  "shortDescription": "Calculate the square root of any positive number instantly. Perfect for geometry, algebra, and everyday math problems.",
+  "longDescription": "The square root calculator helps you find the square root (√) of any positive number. The square root of a number x is a value that, when multiplied by itself, gives x. For example, the square root of 25 is 5, because 5 × 5 = 25. This calculator is useful for solving quadratic equations, calculating distances, working with geometric shapes, and many other mathematical applications.",
   "inputs": [
     {
-      "label": "number",
+      "label": "Number",
       "unitLabel": ""
     }
   ],
   "outputs": [
     {
-      "label": "result"
+      "label": "Square Root"
     }
-  ]
+  ],
+  "howTo": [
+    "Enter the number for which you want to find the square root",
+    "The number must be positive (greater than or equal to zero)",
+    "Click 'Calculate' to get the result",
+    "The calculator will display the square root value",
+    "For perfect squares (like 4, 9, 16, 25), you'll get a whole number",
+    "For other numbers, you'll get a decimal approximation",
+    "The result is rounded to 6 decimal places for clarity"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Example 1: Square root of 25",
+      "description": "Calculate the square root of 25",
+      "steps": [
+        "Enter number: 25",
+        "Click 'Calculate'",
+        "Result: √25 = 5",
+        "Formula: √25 = 5 (since 5 × 5 = 25)"
+      ],
+      "resultDescription": "The square root of 25 is 5, because 5 multiplied by itself equals 25"
+    },
+    {
+      "id": "example-2",
+      "title": "Example 2: Square root of 144",
+      "description": "Calculate the square root of 144",
+      "steps": [
+        "Enter number: 144",
+        "Click 'Calculate'",
+        "Result: √144 = 12",
+        "Formula: √144 = 12 (since 12 × 12 = 144)"
+      ],
+      "resultDescription": "The square root of 144 is 12, because 12 multiplied by itself equals 144"
+    },
+    {
+      "id": "example-3",
+      "title": "Example 3: Square root of 2",
+      "description": "Calculate the square root of 2 (irrational number)",
+      "steps": [
+        "Enter number: 2",
+        "Click 'Calculate'",
+        "Result: √2 ≈ 1.414214",
+        "Formula: √2 ≈ 1.414214 (irrational number, infinite decimal places)"
+      ],
+      "resultDescription": "The square root of 2 is approximately 1.414214. This is an irrational number, meaning it cannot be expressed as a simple fraction and has infinite decimal places"
+    },
+    {
+      "id": "example-4",
+      "title": "Example 4: Square root of 0.25",
+      "description": "Calculate the square root of a decimal number",
+      "steps": [
+        "Enter number: 0.25",
+        "Click 'Calculate'",
+        "Result: √0.25 = 0.5",
+        "Formula: √0.25 = 0.5 (since 0.5 × 0.5 = 0.25)"
+      ],
+      "resultDescription": "The square root of 0.25 is 0.5, because 0.5 multiplied by itself equals 0.25"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is a square root?",
+      "answer": "The square root of a number x is a value that, when multiplied by itself, equals x. For example, the square root of 16 is 4, because 4 × 4 = 16. The square root is denoted by the symbol √."
+    },
+    {
+      "question": "Can I calculate the square root of negative numbers?",
+      "answer": "No, the square root of a negative number is not a real number. In real numbers, you can only find the square root of zero or positive numbers. Negative numbers have complex square roots (involving imaginary numbers), which are not handled by this calculator."
+    },
+    {
+      "question": "What is a perfect square?",
+      "answer": "A perfect square is a number that is the square of an integer. Examples include 1 (1²), 4 (2²), 9 (3²), 16 (4²), 25 (5²), 36 (6²), 49 (7²), 64 (8²), 81 (9²), and 100 (10²). Perfect squares have whole number square roots."
+    },
+    {
+      "question": "What is an irrational number?",
+      "answer": "An irrational number is a number that cannot be expressed as a simple fraction (ratio of two integers). The square root of most numbers (except perfect squares) is irrational. For example, √2, √3, and √5 are irrational numbers with infinite, non-repeating decimal expansions."
+    },
+    {
+      "question": "How accurate are the calculations?",
+      "answer": "The calculator uses JavaScript's Math.sqrt() function, which provides high precision. Results are displayed with up to 6 decimal places. The underlying calculation uses floating-point arithmetic with standard precision."
+    },
+    {
+      "question": "What is the square root of zero?",
+      "answer": "The square root of zero is zero (√0 = 0), because 0 × 0 = 0. Zero is the only number whose square root equals itself."
+    },
+    {
+      "question": "How is square root used in real life?",
+      "answer": "Square roots are used in many practical applications: calculating distances (Pythagorean theorem), determining standard deviation in statistics, solving quadratic equations, working with areas and volumes in geometry, engineering calculations, and financial modeling."
+    },
+    {
+      "question": "What's the difference between square root and cube root?",
+      "answer": "The square root (√) finds a number that, when multiplied by itself once, gives the original number. The cube root (∛) finds a number that, when multiplied by itself twice (three times total), gives the original number. For example, √16 = 4, while ∛8 = 2."
+    },
+    {
+      "question": "Can I use this calculator for decimal numbers?",
+      "answer": "Yes, you can calculate the square root of any positive decimal number. For example, √0.25 = 0.5, √2.25 = 1.5, and √0.01 = 0.1. The calculator handles decimal inputs and provides decimal results."
+    },
+    {
+      "question": "What is the relationship between square root and squaring?",
+      "answer": "Square root and squaring are inverse operations. If you square a number (multiply it by itself) and then take the square root, you get back the original number. For example, if you square 7 (7² = 49) and then take √49, you get 7 again."
+    },
+    {
+      "question": "How do I calculate square root manually?",
+      "answer": "Manual methods include prime factorization (for perfect squares), long division method, or approximation techniques. However, for most practical purposes, using a calculator (like this one) is the fastest and most accurate method."
+    },
+    {
+      "question": "What is the square root symbol (√) called?",
+      "answer": "The square root symbol (√) is called a radical sign or radical symbol. The number under the radical sign is called the radicand. For example, in √25, 25 is the radicand."
+    }
+  ],
+  "seo": {
+    "keywords": ["square root calculator", "sqrt calculator", "radical calculator", "square root", "√", "perfect square", "irrational number", "math calculator", "algebra calculator", "geometry calculator"]
+  }
 }
-

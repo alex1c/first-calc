@@ -43,7 +43,7 @@ export interface CalculatorFaqItem {
 export interface CalculatorInput {
 	name: string
 	label: string
-	type: 'number' | 'select'
+	type: 'number' | 'select' | 'text'
 	unitLabel?: string
 	placeholder?: string
 	options?: Array<{ value: string; label: string }>

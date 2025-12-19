@@ -1,0 +1,116 @@
+{
+  "title": "Average Calculator (Mean, Median, Mode)",
+  "shortDescription": "Calculate mean (average), median, and mode for your dataset. Understand the differences and when to use each measure.",
+  "longDescription": "Our Average Calculator helps you compute the three main measures of central tendency: mean (average), median, and mode. Enter your dataset as comma-separated values, and instantly see all three measures. Perfect for students learning statistics, data analysts comparing datasets, and anyone who needs to understand the difference between these fundamental statistical concepts.",
+  "inputs": [
+    {
+      "label": "Data Set",
+      "unitLabel": "",
+      "placeholder": "e.g. 4, 7, 10, 10, 15",
+      "helpText": "Enter numbers separated by commas, spaces, or line breaks. At least 2 numbers required."
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Mean",
+      "unitLabel": ""
+    },
+    {
+      "label": "Median",
+      "unitLabel": ""
+    },
+    {
+      "label": "Mode",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter your dataset in the text field",
+    "You can separate numbers by commas, spaces, or line breaks",
+    "Example formats: '4, 7, 10, 10, 15' or '4 7 10 10 15'",
+    "Make sure to include at least 2 numbers",
+    "All values must be numeric (decimals are allowed)",
+    "Click 'Calculate' to compute mean, median, and mode",
+    "Review the results to understand the differences between these measures",
+    "Compare the values to see how outliers affect each measure"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Simple dataset",
+      "description": "Calculate mean, median, and mode for dataset: 2, 4, 6, 8, 10",
+      "steps": [
+        "Enter: 2, 4, 6, 8, 10",
+        "Click 'Calculate'",
+        "Results: Mean = 6, Median = 6, No mode"
+      ],
+      "resultDescription": "Mean = 6, Median = 6, No mode"
+    },
+    {
+      "title": "Example 2: Dataset with mode",
+      "description": "Calculate mean, median, and mode for dataset: 1, 2, 2, 3, 4, 5",
+      "steps": [
+        "Enter: 1, 2, 2, 3, 4, 5",
+        "Click 'Calculate'",
+        "Results: Mean = 2.83, Median = 2.5, Mode = 2"
+      ],
+      "resultDescription": "Mean = 2.83, Median = 2.5, Mode = 2"
+    },
+    {
+      "title": "Example 3: Dataset with outliers",
+      "description": "Calculate mean, median, and mode for dataset: 10, 12, 13, 14, 15, 100",
+      "steps": [
+        "Enter: 10, 12, 13, 14, 15, 100",
+        "Click 'Calculate'",
+        "Results: Mean = 27.33, Median = 13.5, No mode"
+      ],
+      "resultDescription": "Mean = 27.33 (affected by outlier), Median = 13.5 (robust to outliers)"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is the difference between mean, median, and mode?",
+      "answer": "Mean is the average (sum divided by count). Median is the middle value when sorted. Mode is the most frequent value. Mean is sensitive to outliers, median is robust, and mode shows the most common value."
+    },
+    {
+      "question": "When should I use mean?",
+      "answer": "Use mean when your data is normally distributed and has no extreme outliers. Mean is best for symmetric data and provides the most precise measure of central tendency for such datasets."
+    },
+    {
+      "question": "When should I use median?",
+      "answer": "Use median when your data has outliers or is skewed. Median is not affected by extreme values, making it ideal for income data, house prices, or any dataset with potential outliers."
+    },
+    {
+      "question": "When should I use mode?",
+      "answer": "Use mode for categorical data or to find the most common value. Mode is useful when you need to know what value appears most frequently, such as the most popular size, color, or category."
+    },
+    {
+      "question": "Why is mean different from median?",
+      "answer": "Mean includes all values in calculation, so outliers pull it away from the center. Median only considers the middle position, so it's unaffected by extreme values. This is why median is often used for skewed data."
+    },
+    {
+      "question": "Can a dataset have multiple modes?",
+      "answer": "Yes, a dataset can have multiple modes if two or more values appear with the same highest frequency. This is called a multimodal distribution. If all values are unique, there is no mode."
+    },
+    {
+      "question": "What if all three measures are the same?",
+      "answer": "If mean, median, and mode are all equal, your data is perfectly symmetric and normally distributed. This is rare in real-world data but indicates a very balanced dataset."
+    },
+    {
+      "question": "Which measure is most affected by outliers?",
+      "answer": "Mean is most affected by outliers because it includes every value in the calculation. A single extreme value can significantly shift the mean, while median and mode remain relatively stable."
+    },
+    {
+      "question": "Can I use negative numbers?",
+      "answer": "Yes, the calculator accepts negative numbers. All three measures (mean, median, mode) work correctly with negative values. Mean and median can be negative, while mode will be the most frequent value regardless of sign."
+    },
+    {
+      "question": "What is the relationship between mean, median, and mode in skewed data?",
+      "answer": "In right-skewed data (tail to the right), mean > median > mode. In left-skewed data (tail to the left), mean < median < mode. In symmetric data, all three are approximately equal."
+    },
+    {
+      "question": "Should I report mean or median in my analysis?",
+      "answer": "Report both when possible. Mean provides precision for symmetric data, while median shows robustness to outliers. The choice depends on your data distribution and research question. For skewed data, median is often preferred."
+    }
+  ]
+}
+

@@ -1,0 +1,202 @@
+{
+	"title": "Savings Calculator",
+	"shortDescription": "Calculate how much your savings will grow with compound interest. Plan for retirement, emergencies, or major purchases.",
+	"longDescription": "Use this savings calculator to see how your savings will grow over time with compound interest. Enter your initial savings, monthly contributions, interest rate, and time period to see your future savings balance and total interest earned.",
+	"inputs": [
+		{
+			"label": "Initial Savings",
+			"unitLabel": "$",
+			"placeholder": "Enter initial savings",
+			"helpText": "Current balance in your savings account"
+		},
+		{
+			"label": "Monthly Contribution",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly contribution",
+			"helpText": "Amount you plan to save each month"
+		},
+		{
+			"label": "Interest Rate",
+			"unitLabel": "%",
+			"placeholder": "Enter interest rate",
+			"helpText": "Annual interest rate (APY)"
+		},
+		{
+			"label": "Years",
+			"unitLabel": "years",
+			"placeholder": "Enter number of years",
+			"helpText": "Number of years you plan to save"
+		},
+		{
+			"label": "Compounding Frequency",
+			"unitLabel": "",
+			"placeholder": "Select frequency",
+			"helpText": "How often interest is compounded"
+		},
+		{
+			"label": "Interest Type",
+			"unitLabel": "",
+			"placeholder": "Select interest type",
+			"helpText": "Compound: interest on interest. Simple: interest only on principal"
+		},
+		{
+			"label": "Inflation Rate",
+			"unitLabel": "%/year",
+			"placeholder": "Enter inflation rate",
+			"helpText": "Expected annual inflation rate for real value calculation (optional)"
+		},
+		{
+			"label": "Tax Rate",
+			"unitLabel": "%",
+			"placeholder": "Enter tax rate",
+			"helpText": "Tax rate on interest earned (optional)"
+		},
+		{
+			"label": "Monthly Withdrawal",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly withdrawal",
+			"helpText": "Regular monthly withdrawals from savings (optional)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Final Value",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Contributions",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Interest Earned",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Growth Percentage",
+			"unitLabel": "%"
+		},
+		{
+			"label": "Real Value (Inflation Adjusted)",
+			"unitLabel": "$"
+		},
+		{
+			"label": "After-Tax Value",
+			"unitLabel": "$"
+		}
+	],
+	"howTo": [
+		"Enter your initial savings amount (current balance)",
+		"Enter how much you plan to save each month",
+		"Enter the annual interest rate (APY) your savings account offers",
+		"Enter the number of years you plan to save",
+		"Select how often interest is compounded (monthly, quarterly, or annually)",
+		"Click 'Calculate' to see your future savings balance",
+		"Review the total interest earned and growth percentage",
+		"Adjust the monthly contribution or time period to see different scenarios"
+	],
+	"examples": [
+		{
+			"title": "Emergency Fund",
+			"description": "Building a $10,000 emergency fund with $200/month at 2.5% interest over 4 years",
+			"inputs": {
+				"initialSavings": 2000,
+				"monthlyContribution": 200,
+				"interestRate": 2.5,
+				"years": 4,
+				"compoundingFrequency": "monthly"
+			},
+			"result": "Final value: $11,641.20, Total interest: $641.20"
+		},
+		{
+			"title": "Retirement Savings",
+			"description": "Starting with $5,000 and saving $500/month at 7% interest for 20 years",
+			"inputs": {
+				"initialSavings": 5000,
+				"monthlyContribution": 500,
+				"interestRate": 7,
+				"years": 20,
+				"compoundingFrequency": "monthly"
+			},
+			"result": "Final value: $283,456.30, Total interest: $118,456.30"
+		},
+		{
+			"title": "High-Yield Savings",
+			"description": "$10,000 initial with $300/month at 4.5% interest for 10 years",
+			"inputs": {
+				"initialSavings": 10000,
+				"monthlyContribution": 300,
+				"interestRate": 4.5,
+				"years": 10,
+				"compoundingFrequency": "monthly"
+			},
+			"result": "Final value: $58,234.50, Total interest: $14,234.50"
+		}
+	],
+	"faq": [
+		{
+			"question": "What is a savings calculator?",
+			"answer": "A savings calculator helps you project how much your savings will grow over time with compound interest. It shows your future balance, total contributions, and interest earned."
+		},
+		{
+			"question": "How does compound interest work?",
+			"answer": "Compound interest means you earn interest on both your principal and previously earned interest. The more frequently interest compounds, the faster your savings grow."
+		},
+		{
+			"question": "What is a good interest rate for savings?",
+			"answer": "Interest rates vary by account type. High-yield savings accounts typically offer 2-5% APY, while traditional savings accounts may offer 0.01-0.5%. Compare rates from different banks."
+		},
+		{
+			"question": "Should I save monthly or make lump sum contributions?",
+			"answer": "Regular monthly contributions help build savings consistently and take advantage of dollar-cost averaging. However, any savings is better than none - start with what you can afford."
+		},
+		{
+			"question": "What is the difference between APR and APY?",
+			"answer": "APR (Annual Percentage Rate) is the simple interest rate. APY (Annual Percentage Yield) includes compound interest, giving you the actual return on your savings. APY is typically higher than APR."
+		},
+		{
+			"question": "How often should interest compound?",
+			"answer": "More frequent compounding (daily or monthly) results in higher returns than annual compounding. However, the difference is usually small. Focus on finding the highest APY rather than compounding frequency."
+		},
+		{
+			"question": "Should I use a savings account or invest my money?",
+			"answer": "Savings accounts are best for emergency funds and short-term goals (1-3 years) due to safety and liquidity. Investments are better for long-term goals (5+ years) as they offer higher potential returns."
+		},
+		{
+			"question": "How much should I save each month?",
+			"answer": "Financial experts recommend saving 20% of your income, but start with what you can afford. Even $50-100 per month can grow significantly over time with compound interest."
+		},
+		{
+			"question": "What is an emergency fund and how much should I save?",
+			"answer": "An emergency fund is money set aside for unexpected expenses. Experts recommend 3-6 months of living expenses. Start with a goal of $1,000, then build up to your full emergency fund."
+		},
+		{
+			"question": "Are savings accounts FDIC insured?",
+			"answer": "Yes, savings accounts at FDIC-insured banks are protected up to $250,000 per depositor, per bank. This means your money is safe even if the bank fails."
+		},
+		{
+			"question": "What is the difference between a savings account and a money market account?",
+			"answer": "Money market accounts typically offer higher interest rates and may include check-writing privileges, but often have higher minimum balance requirements. Savings accounts are simpler with lower minimums."
+		},
+		{
+			"question": "Can I withdraw money from my savings account anytime?",
+			"answer": "Yes, but federal regulations limit certain types of withdrawals to 6 per month. Check with your bank about their specific withdrawal policies and any fees."
+		},
+		{
+			"question": "How do I maximize my savings growth?",
+			"answer": "Maximize growth by: finding the highest APY, making regular contributions, avoiding withdrawals, and letting compound interest work over time. Consider automatic transfers to build savings consistently."
+		},
+		{
+			"question": "What is the difference between simple and compound interest?",
+			"answer": "Simple interest is calculated only on the principal amount. Compound interest is calculated on both the principal and accumulated interest from previous periods, resulting in exponential growth over time. Compound interest typically yields significantly higher returns than simple interest."
+		},
+		{
+			"question": "Which is better: simple or compound interest?",
+			"answer": "Compound interest is almost always better for savings and investments because it grows your money faster. Simple interest is typically used for short-term loans or bonds. For long-term savings, compound interest can make a substantial difference in your final balance."
+		},
+		{
+			"question": "How much more do I earn with compound interest vs simple interest?",
+			"answer": "The difference depends on your interest rate, time period, and compounding frequency. Generally, compound interest can yield 20-50% more than simple interest over 10-20 years. The longer the time period and higher the rate, the greater the difference."
+		}
+	]
+}
+

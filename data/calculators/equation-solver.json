@@ -1,0 +1,92 @@
+{
+  "id": "equation-solver",
+  "slug": "equation-solver",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "solveEquation",
+  "tags": ["algebra", "equations", "linear-equation", "quadratic-equation", "solver", "discriminant"],
+  "inputs": [
+    {
+      "name": "inputMode",
+      "type": "select",
+      "options": [
+        { "value": "equation", "label": "Enter equation" },
+        { "value": "coefficients", "label": "Enter coefficients" }
+      ],
+      "defaultValue": "equation"
+    },
+    {
+      "name": "equationType",
+      "type": "select",
+      "options": [
+        { "value": "linear", "label": "Linear (ax + b = 0)" },
+        { "value": "quadratic", "label": "Quadratic (ax² + bx + c = 0)" }
+      ],
+      "defaultValue": "linear"
+    },
+    {
+      "name": "equationText",
+      "type": "text",
+      "visibleIf": {
+        "field": "inputMode",
+        "value": "equation"
+      }
+    },
+    {
+      "name": "a",
+      "type": "number",
+      "min": -1000000000,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "inputMode",
+        "value": "coefficients"
+      }
+    },
+    {
+      "name": "b",
+      "type": "number",
+      "min": -1000000000,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "inputMode",
+        "value": "coefficients"
+      }
+    },
+    {
+      "name": "c",
+      "type": "number",
+      "min": -1000000000,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "inputMode",
+        "value": "coefficients"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "equationType"
+    },
+    {
+      "name": "normalizedForm"
+    },
+    {
+      "name": "steps"
+    },
+    {
+      "name": "result"
+    },
+    {
+      "name": "discriminant"
+    },
+    {
+      "name": "roots"
+    }
+  ],
+  "defaults": {},
+  "isEnabled": true
+}
+

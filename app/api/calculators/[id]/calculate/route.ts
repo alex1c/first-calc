@@ -116,11 +116,21 @@ export async function POST(
 			const formattedResults: Record<string, string> = {}
 			calculator.outputs.forEach((output) => {
 				const value = results[output.name]
-				formattedResults[output.name] = formatOutputValue(
-					value,
-					output.formatType,
-					output.unitLabel,
-				)
+				// Skip formatting for arrays (like roots, mode, sortedData) - they will be formatted in the UI component
+				// Arrays are passed as-is in results, not in formattedResults
+				if (Array.isArray(value)) {
+					// Don't format arrays, they will be handled in the UI component
+					formattedResults[output.name] = ''
+				} else if (output.name === 'mode' && typeof value === 'string') {
+					// Mode can be "No mode" string
+					formattedResults[output.name] = value
+				} else {
+					formattedResults[output.name] = formatOutputValue(
+						value,
+						output.formatType,
+						output.unitLabel,
+					)
+				}
 			})
 
 			return NextResponse.json({

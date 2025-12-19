@@ -1,0 +1,67 @@
+{
+  "id": "roi-calculator",
+  "slug": "roi-calculator",
+  "category": "finance",
+  "engine": "function",
+  "calculationId": "calculateROI",
+  "tags": ["finance", "investments", "business", "roi", "profit"],
+  "inputs": [
+    {
+      "name": "investmentCost",
+      "type": "number",
+      "min": 0,
+      "max": 10000000,
+      "step": 1000
+    },
+    {
+      "name": "returnValue",
+      "type": "number",
+      "min": 0,
+      "max": 10000000,
+      "step": 1000
+    },
+    {
+      "name": "timePeriod",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "defaultValue": 1
+    },
+    {
+      "name": "timeUnit",
+      "type": "select",
+      "options": [
+        { "value": "years", "label": "Years" },
+        { "value": "months", "label": "Months" }
+      ],
+      "defaultValue": "years"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "roi"
+    },
+    {
+      "name": "netProfit"
+    },
+    {
+      "name": "roiPercentage"
+    },
+    {
+      "name": "annualizedROI"
+    },
+    {
+      "name": "cagr"
+    },
+    {
+      "name": "paybackPeriod"
+    }
+  ],
+  "defaults": {
+    "investmentCost": 10000,
+    "returnValue": 15000
+  },
+  "isEnabled": true
+}
+

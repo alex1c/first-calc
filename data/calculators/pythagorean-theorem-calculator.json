@@ -1,0 +1,79 @@
+{
+  "id": "pythagorean-theorem-calculator",
+  "slug": "pythagorean-theorem-calculator",
+  "category": "math",
+  "engine": "function",
+  "calculationId": "calculatePythagorean",
+  "tags": ["geometry", "triangle", "pythagorean", "right-triangle", "hypotenuse", "math"],
+  "inputs": [
+    {
+      "name": "mode",
+      "type": "select",
+      "options": [
+        { "value": "hypotenuse", "label": "Find Hypotenuse" },
+        { "value": "leg", "label": "Find Missing Leg" }
+      ],
+      "defaultValue": "hypotenuse"
+    },
+    {
+      "name": "a",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "hypotenuse"
+      }
+    },
+    {
+      "name": "b",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "hypotenuse"
+      }
+    },
+    {
+      "name": "c",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "leg"
+      }
+    },
+    {
+      "name": "a",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "leg"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "mode": "hypotenuse"
+  },
+  "isEnabled": true
+}
+

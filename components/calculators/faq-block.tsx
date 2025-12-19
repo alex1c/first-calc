@@ -2,15 +2,18 @@
 
 import { useState } from 'react'
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
+import { LinkableText } from './linkable-text'
+import type { Locale } from '@/lib/i18n'
 
 interface FaqBlockProps {
 	calculator: CalculatorDefinitionClient
+	locale: Locale
 }
 
 /**
  * FAQ block component (accordion style)
  */
-export function FaqBlock({ calculator }: FaqBlockProps) {
+export function FaqBlock({ calculator, locale }: FaqBlockProps) {
 	const [openIndex, setOpenIndex] = useState<number | null>(null)
 
 	if (!calculator.faq || calculator.faq.length === 0) {
@@ -90,7 +93,9 @@ export function FaqBlock({ calculator }: FaqBlockProps) {
 							{isOpen && (
 								<div className="px-5 pb-4 pt-0">
 									<div className="pt-4 border-t border-gray-200">
-										<p className="text-gray-700 leading-relaxed">{item.answer}</p>
+										<div className="text-gray-700 leading-relaxed">
+											<LinkableText text={item.answer} locale={locale} />
+										</div>
 									</div>
 								</div>
 							)}

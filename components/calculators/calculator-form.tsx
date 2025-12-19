@@ -21,7 +21,30 @@ export function CalculatorForm({
 	const [inputs, setInputs] = useState<Record<string, number | string>>(() => {
 		const initial: Record<string, number | string> = {}
 		calculator.inputs.forEach((input) => {
-			initial[input.name] = input.defaultValue ?? ''
+			// Set default value if available
+			if (input.defaultValue !== undefined) {
+				initial[input.name] = input.defaultValue
+			} else {
+				// For text inputs, initialize as empty string
+				if (input.type === 'text') {
+					initial[input.name] = ''
+				} else {
+					initial[input.name] = ''
+				}
+			}
+		})
+		// Initialize conditional fields based on their visibility
+		calculator.inputs.forEach((input) => {
+			if (input.visibleIf) {
+				const { field, value } = input.visibleIf
+				const fieldValue = initial[field]
+				if (String(fieldValue) === String(value)) {
+					// Field should be visible, initialize if not already set
+					if (initial[input.name] === undefined) {
+						initial[input.name] = input.defaultValue ?? (input.type === 'text' ? '' : '')
+					}
+				}
+			}
 		})
 		return initial
 	})
@@ -35,6 +58,14 @@ export function CalculatorForm({
 					// Clear all shape-specific inputs
 					calculator.inputs.forEach((input) => {
 						if (input.visibleIf && input.visibleIf.field === 'shape') {
+							delete updated[input.name]
+						}
+					})
+				}
+				// If inputMode changes, clear mode-specific inputs
+				if (name === 'inputMode') {
+					calculator.inputs.forEach((input) => {
+						if (input.visibleIf && input.visibleIf.field === 'inputMode') {
 							delete updated[input.name]
 						}
 					})
@@ -81,21 +112,22 @@ export function CalculatorForm({
 					</label>
 
 					{input.type === 'number' && (
-						<input
-							type="number"
-							id={input.name}
-							name={input.name}
-							value={inputs[input.name] ?? ''}
-							onChange={(e) => {
-								const value = e.target.value
-								// Allow empty string for clearing, or valid number
-								if (value === '' || !isNaN(parseFloat(value))) {
-									handleInputChange(
-										input.name,
-										value === '' ? '' : parseFloat(value),
-									)
-								}
-							}}
+						<>
+							<input
+								type="number"
+								id={input.name}
+								name={input.name}
+								value={inputs[input.name] ?? ''}
+								onChange={(e) => {
+									const value = e.target.value
+									// Allow empty string for clearing, or valid number
+									if (value === '' || !isNaN(parseFloat(value))) {
+										handleInputChange(
+											input.name,
+											value === '' ? '' : parseFloat(value),
+										)
+									}
+								}}
 							onBlur={(e) => {
 								// Prevent negative values where not allowed
 								const numValue = parseFloat(e.target.value)
@@ -113,6 +145,46 @@ export function CalculatorForm({
 									: 'border-gray-300 bg-white'
 							}`}
 						/>
+						</>
+					)}
+
+					{input.type === 'text' && (
+						<>
+							{input.name === 'dataset' ? (
+								<textarea
+									id={input.name}
+									name={input.name}
+									value={String(inputs[input.name] ?? '')}
+									onChange={(e) => {
+										handleInputChange(input.name, e.target.value)
+									}}
+									placeholder={input.placeholder}
+									rows={4}
+									className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-y ${
+										errors[input.name]
+											? 'border-red-500 bg-red-50'
+											: 'border-gray-300 bg-white'
+									}`}
+								/>
+							) : (
+								<input
+									type="text"
+									id={input.name}
+									name={input.name}
+									value={String(inputs[input.name] ?? '')}
+									onChange={(e) => {
+										handleInputChange(input.name, e.target.value)
+									}}
+									onKeyDown={() => {}}
+									placeholder={input.placeholder}
+									className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
+										errors[input.name]
+											? 'border-red-500 bg-red-50'
+											: 'border-gray-300 bg-white'
+									}`}
+								/>
+							)}
+						</>
 					)}
 
 					{input.type === 'select' && input.options && (

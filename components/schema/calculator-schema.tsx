@@ -20,7 +20,10 @@ export function CalculatorSchema({
 		business: 'FinanceApplication',
 	}
 
-	const schema = {
+	// Enhanced schema for finance calculators
+	const isFinanceCalculator = calculator.category === 'finance'
+	
+	const baseSchema = {
 		'@context': 'https://schema.org',
 		'@type': 'SoftwareApplication',
 		name: calculator.title,
@@ -28,7 +31,18 @@ export function CalculatorSchema({
 		operatingSystem: 'Web',
 		url: canonicalUrl,
 		description: calculator.shortDescription,
+		...(isFinanceCalculator && {
+			applicationSubCategory: 'FinancialCalculator',
+			featureList: calculator.inputs?.map((input) => input.label || input.name) || [],
+			offers: {
+				'@type': 'Offer',
+				price: '0',
+				priceCurrency: 'USD',
+			},
+		}),
 	}
+
+	const schema = baseSchema
 
 	return (
 		<script
