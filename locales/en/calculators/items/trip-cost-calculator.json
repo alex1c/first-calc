@@ -1,0 +1,350 @@
+{
+	"title": "Trip Cost Calculator – Estimate Road Trip Fuel and Total Cost",
+	"shortDescription": "Estimate road trip cost including fuel, tolls, parking, and optional accommodation. Split costs per person.",
+	"longDescription": "Plan your road trip budget with our comprehensive trip cost calculator. Estimate total trip expenses including fuel costs based on distance and fuel consumption, tolls, parking fees, meals, and optional accommodation costs. Perfect for planning road trips, comparing different routes, and splitting costs between passengers. Get a complete breakdown of all expenses to make informed travel decisions.",
+	"inputs": [
+		{
+			"label": "Trip Distance",
+			"unitLabel": "",
+			"placeholder": "Enter trip distance",
+			"helpText": "Total distance of your trip (one way)"
+		},
+		{
+			"label": "Distance Unit",
+			"unitLabel": "",
+			"placeholder": "Select distance unit",
+			"helpText": "Choose kilometers or miles"
+		},
+		{
+			"label": "Trip Type",
+			"unitLabel": "",
+			"placeholder": "Select trip type",
+			"helpText": "Choose one-way or round trip (round trip doubles the distance)"
+		},
+		{
+			"label": "Fuel Consumption",
+			"unitLabel": "",
+			"placeholder": "Enter fuel consumption",
+			"helpText": "Your vehicle's fuel consumption (e.g., 8 L/100km or 30 MPG)"
+		},
+		{
+			"label": "Consumption Unit",
+			"unitLabel": "",
+			"placeholder": "Select consumption unit",
+			"helpText": "Choose L/100km, MPG US, or MPG UK"
+		},
+		{
+			"label": "Fuel Price Per Unit",
+			"unitLabel": "",
+			"placeholder": "Enter fuel price",
+			"helpText": "Current fuel price per liter (L/100km) or per gallon (MPG)"
+		},
+		{
+			"label": "Tolls",
+			"unitLabel": "$",
+			"placeholder": "Enter toll costs",
+			"helpText": "Total toll costs for the trip (optional)"
+		},
+		{
+			"label": "Parking",
+			"unitLabel": "$",
+			"placeholder": "Enter parking costs",
+			"helpText": "Total parking fees for the trip (optional)"
+		},
+		{
+			"label": "Meals",
+			"unitLabel": "$",
+			"placeholder": "Enter meal costs",
+			"helpText": "Estimated meal costs for the trip (optional)"
+		},
+		{
+			"label": "Accommodation Per Night",
+			"unitLabel": "$",
+			"placeholder": "Enter accommodation cost",
+			"helpText": "Cost per night for accommodation (optional)"
+		},
+		{
+			"label": "Number of Nights",
+			"unitLabel": "nights",
+			"placeholder": "Enter number of nights",
+			"helpText": "Number of nights of accommodation (optional)"
+		},
+		{
+			"label": "Split Cost",
+			"unitLabel": "",
+			"placeholder": "Select cost splitting",
+			"helpText": "Choose to calculate total cost or split between passengers"
+		},
+		{
+			"label": "Number of Passengers",
+			"unitLabel": "people",
+			"placeholder": "Enter number of passengers",
+			"helpText": "Number of people to split the cost between"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Fuel Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Fuel Used",
+			"unitLabel": "liters or gallons"
+		},
+		{
+			"label": "Tolls Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Parking Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Meals Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Accommodation Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Trip Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Cost Per Person",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Cost Per Distance",
+			"unitLabel": "$ per km or mile"
+		}
+	],
+	"howTo": [
+		"Enter the distance of your trip (one way)",
+		"Select distance unit (km or miles)",
+		"Choose whether it's a one-way or round trip",
+		"Enter your vehicle's fuel consumption rate",
+		"Select fuel consumption unit (L/100km, MPG US, or MPG UK)",
+		"Enter current fuel price per liter (L/100km) or per gallon (MPG)",
+		"Enter optional costs: tolls, parking, meals",
+		"If staying overnight, enter accommodation cost per night and number of nights",
+		"Optionally enable cost splitting and enter number of passengers",
+		"Click 'Calculate' to see your total trip cost breakdown",
+		"Review fuel cost, additional expenses, and cost per person if splitting",
+		"Use the insights to understand cost breakdown and plan your budget"
+	],
+	"examples": [
+		{
+			"title": "Example 1: 250 km Day Trip, No Tolls",
+			"description": "A day trip of 250 km one way with a car that uses 8 L/100km",
+			"inputs": {
+				"tripDistance": 250,
+				"distanceUnit": "km",
+				"roundTrip": "false",
+				"fuelConsumption": 8,
+				"consumptionUnit": "L/100km",
+				"fuelPricePerUnit": 1.50,
+				"tolls": 0,
+				"parking": 20,
+				"meals": 50,
+				"accommodationPerNight": 0,
+				"nights": 0,
+				"splitCost": "false"
+			},
+			"steps": [
+				"Trip distance: 250 km (one way)",
+				"Fuel consumption: 8 L/100km",
+				"Fuel calculation: (250 km ÷ 100) × 8 L/100km = 20 liters",
+				"Fuel cost: 20 liters × $1.50/liter = $30.00",
+				"Additional costs: Tolls $0 + Parking $20 + Meals $50 = $70",
+				"Accommodation: $0 (day trip, no overnight stay)",
+				"Total trip cost: $30 (fuel) + $70 (other) = $100.00",
+				"Cost per km: $100 ÷ 250 km = $0.40/km"
+			]
+		},
+		{
+			"title": "Example 2: 1200 km Road Trip with Tolls",
+			"description": "A 1200 km road trip with tolls and parking",
+			"inputs": {
+				"tripDistance": 1200,
+				"distanceUnit": "km",
+				"roundTrip": "false",
+				"fuelConsumption": 7.5,
+				"consumptionUnit": "L/100km",
+				"fuelPricePerUnit": 1.60,
+				"tolls": 45,
+				"parking": 30,
+				"meals": 150,
+				"accommodationPerNight": 0,
+				"nights": 0,
+				"splitCost": "false"
+			},
+			"steps": [
+				"Trip distance: 1,200 km (one way, long road trip)",
+				"Fuel consumption: 7.5 L/100km (fuel-efficient vehicle)",
+				"Fuel calculation: (1,200 km ÷ 100) × 7.5 L/100km = 90 liters",
+				"Fuel cost: 90 liters × $1.60/liter = $144.00",
+				"Tolls: $45.00",
+				"Parking: $30.00",
+				"Meals: $150.00",
+				"Accommodation: $0 (driving straight through)",
+				"Total trip cost: $144 (fuel) + $45 (tolls) + $30 (parking) + $150 (meals) = $369.00",
+				"Cost per km: $369 ÷ 1,200 km = $0.31/km"
+			]
+		},
+		{
+			"title": "Example 3: Round Trip + Split Between 4 People",
+			"description": "500 km round trip split between 4 passengers",
+			"inputs": {
+				"tripDistance": 500,
+				"distanceUnit": "km",
+				"roundTrip": "true",
+				"fuelConsumption": 9,
+				"consumptionUnit": "L/100km",
+				"fuelPricePerUnit": 1.55,
+				"tolls": 25,
+				"parking": 15,
+				"meals": 200,
+				"accommodationPerNight": 0,
+				"nights": 0,
+				"splitCost": "true",
+				"passengersCount": 4
+			},
+			"steps": [
+				"Trip distance: 500 km × 2 (round trip) = 1,000 km total",
+				"Fuel consumption: 9 L/100km",
+				"Fuel calculation: (1,000 km ÷ 100) × 9 L/100km = 90 liters",
+				"Fuel cost: 90 liters × $1.55/liter = $139.50",
+				"Additional costs: Tolls $25 + Parking $15 + Meals $200 = $240",
+				"Total trip cost: $139.50 (fuel) + $240 (other) = $379.50",
+				"Cost splitting: $379.50 ÷ 4 passengers = $94.88 per person",
+				"Cost per km: $379.50 ÷ 1,000 km = $0.38/km"
+			]
+		},
+		{
+			"title": "Example 4: Add 3 Nights Accommodation",
+			"description": "800 km trip with 3 nights of accommodation at $80 per night",
+			"inputs": {
+				"tripDistance": 800,
+				"distanceUnit": "km",
+				"roundTrip": "false",
+				"fuelConsumption": 8.5,
+				"consumptionUnit": "L/100km",
+				"fuelPricePerUnit": 1.50,
+				"tolls": 30,
+				"parking": 40,
+				"meals": 300,
+				"accommodationPerNight": 80,
+				"nights": 3,
+				"splitCost": "false"
+			},
+			"steps": [
+				"Trip distance: 800 km (one way)",
+				"Fuel consumption: 8.5 L/100km",
+				"Fuel calculation: (800 km ÷ 100) × 8.5 L/100km = 68 liters",
+				"Fuel cost: 68 liters × $1.50/liter = $102.00",
+				"Tolls: $30.00",
+				"Parking: $40.00",
+				"Meals: $300.00 (3 days of meals)",
+				"Accommodation: $80/night × 3 nights = $240.00",
+				"Total trip cost: $102 (fuel) + $30 (tolls) + $40 (parking) + $300 (meals) + $240 (accommodation) = $712.00",
+				"Cost per km: $712 ÷ 800 km = $0.89/km (higher due to accommodation)"
+			]
+		},
+		{
+			"title": "Example 5: Long Distance Round Trip with Multiple Stops",
+			"description": "1,500 km round trip with tolls, parking, meals, and 2 nights accommodation",
+			"inputs": {
+				"tripDistance": 1500,
+				"distanceUnit": "km",
+				"roundTrip": "true",
+				"fuelConsumption": 8,
+				"consumptionUnit": "L/100km",
+				"fuelPricePerUnit": 1.65,
+				"tolls": 75,
+				"parking": 60,
+				"meals": 400,
+				"accommodationPerNight": 100,
+				"nights": 2,
+				"splitCost": "false"
+			},
+			"steps": [
+				"Trip distance: 1,500 km × 2 (round trip) = 3,000 km total",
+				"Fuel consumption: 8 L/100km",
+				"Fuel calculation: (3,000 km ÷ 100) × 8 L/100km = 240 liters",
+				"Fuel cost: 240 liters × $1.65/liter = $396.00",
+				"Tolls: $75.00 (both directions)",
+				"Parking: $60.00",
+				"Meals: $400.00 (multiple days)",
+				"Accommodation: $100/night × 2 nights = $200.00",
+				"Total trip cost: $396 (fuel) + $75 (tolls) + $60 (parking) + $400 (meals) + $200 (accommodation) = $1,131.00",
+				"Cost per km: $1,131 ÷ 3,000 km = $0.377/km"
+			]
+		}
+	],
+	"faq": [
+		{
+			"question": "How do I estimate road trip cost?",
+			"answer": "To estimate road trip cost, calculate fuel costs based on distance and fuel consumption, then add tolls, parking, meals, and accommodation if applicable. Use this calculator by entering your trip distance, vehicle fuel consumption, fuel price, and any additional expenses. The calculator provides a complete breakdown of all costs."
+		},
+		{
+			"question": "How to calculate fuel for a trip?",
+			"answer": "Fuel cost is calculated by: (1) determining distance (accounting for round trip if applicable), (2) calculating fuel used based on your vehicle's consumption rate, then (3) multiplying by fuel price. For L/100km: fuel used = (distance ÷ 100) × consumption. For MPG: fuel used = distance ÷ MPG (in gallons)."
+		},
+		{
+			"question": "What if fuel price changes?",
+			"answer": "Fuel prices fluctuate, so use current local prices for the most accurate estimate. If prices change significantly, simply update the fuel price in the calculator and recalculate. Consider adding a 10-15% buffer to your fuel cost estimate to account for price variations during your trip."
+		},
+		{
+			"question": "Should I include depreciation in trip cost?",
+			"answer": "This calculator focuses on direct trip expenses (fuel, tolls, parking, meals, accommodation). Depreciation is a long-term ownership cost, not a direct trip expense. For a complete picture of vehicle ownership costs including depreciation, use our Car Cost of Ownership Calculator."
+		},
+		{
+			"question": "How to split trip costs?",
+			"answer": "Enable the 'Split Cost' option and enter the number of passengers. The calculator divides the total trip cost equally among all passengers. This is useful for road trips with friends or family where you want to share expenses fairly."
+		},
+		{
+			"question": "What expenses should I include?",
+			"answer": "Include all direct trip expenses: fuel, tolls, parking fees, meals during the trip, and accommodation if staying overnight. You can also include other expenses like snacks, attractions, or emergency funds. The calculator is flexible - include what matters for your budgeting needs."
+		},
+		{
+			"question": "How accurate is this calculator?",
+			"answer": "The calculator provides estimates based on the information you provide. Actual costs will vary based on driving conditions, fuel price fluctuations, traffic, weather, and unexpected expenses. Use it as a planning tool and add a 10-15% buffer for unexpected costs."
+		},
+		{
+			"question": "Does this include return trip costs?",
+			"answer": "If you select 'Round Trip', the calculator doubles the distance for fuel calculations. However, you need to manually account for return trip tolls, parking, and meals if they differ from the outbound trip. For accommodation, enter the total number of nights including return trip."
+		},
+		{
+			"question": "How do I estimate toll costs?",
+			"answer": "Use online toll calculators, GPS apps, or check toll authority websites for your route. Some navigation apps show estimated toll costs. Add up all tolls for your entire route (both directions if round trip) and enter the total."
+		},
+		{
+			"question": "What if I don't know my exact fuel consumption?",
+			"answer": "Use your vehicle's official fuel economy rating from the owner's manual or manufacturer specifications. Remember that real-world consumption is often 10-20% higher than official ratings. You can also calculate it yourself by tracking fuel used over a known distance."
+		},
+		{
+			"question": "Can I use this for multiple stops?",
+			"answer": "Yes, but you'll need to calculate each segment separately or enter the total distance for the entire trip. For complex multi-stop trips, calculate each leg separately and add the results together for a more accurate estimate."
+		},
+		{
+			"question": "How does round trip affect costs?",
+			"answer": "Round trip doubles the distance, which doubles fuel costs. Tolls, parking, and meals may also be doubled if you pay them both ways. Accommodation costs depend on how many nights you stay, not the trip type."
+		},
+		{
+			"question": "What's the difference between this and the Fuel Cost Calculator?",
+			"answer": "The Fuel Cost Calculator focuses only on fuel expenses. This Trip Cost Calculator includes fuel plus all other trip expenses like tolls, parking, meals, and accommodation, giving you a complete trip budget."
+		},
+		{
+			"question": "How do I account for different fuel prices along the route?",
+			"answer": "Use an average fuel price for your route, or calculate segments separately if prices vary significantly. Some regions have much higher fuel prices - research prices along your route and use a weighted average if needed."
+		},
+		{
+			"question": "Should I include vehicle maintenance in trip cost?",
+			"answer": "This calculator focuses on direct trip expenses. Vehicle maintenance is a long-term ownership cost. However, if you're doing maintenance specifically for the trip (like an oil change), you could include it as an optional expense."
+		}
+	]
+}
+
+

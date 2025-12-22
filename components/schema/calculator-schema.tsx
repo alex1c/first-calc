@@ -18,10 +18,12 @@ export function CalculatorSchema({
 		everyday: 'EducationalApplication',
 		engineering: 'EducationalApplication',
 		business: 'FinanceApplication',
+		auto: 'FinanceApplication', // Auto calculators are financial tools
 	}
 
-	// Enhanced schema for finance calculators
+	// Enhanced schema for finance and auto calculators
 	const isFinanceCalculator = calculator.category === 'finance'
+	const isAutoCalculator = calculator.category === 'auto'
 	
 	const baseSchema = {
 		'@context': 'https://schema.org',
@@ -33,6 +35,15 @@ export function CalculatorSchema({
 		description: calculator.shortDescription,
 		...(isFinanceCalculator && {
 			applicationSubCategory: 'FinancialCalculator',
+			featureList: calculator.inputs?.map((input) => input.label || input.name) || [],
+			offers: {
+				'@type': 'Offer',
+				price: '0',
+				priceCurrency: 'USD',
+			},
+		}),
+		...(isAutoCalculator && {
+			applicationSubCategory: 'AutoCalculator',
 			featureList: calculator.inputs?.map((input) => input.label || input.name) || [],
 			offers: {
 				'@type': 'Offer',

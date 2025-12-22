@@ -1,0 +1,305 @@
+{
+	"title": "Car Affordability Calculator – How Much Car Can You Afford?",
+	"shortDescription": "Estimate how much car you can afford based on your monthly budget or income. Includes loan terms, APR, and fixed costs.",
+	"longDescription": "Determine how much car you can afford with our comprehensive affordability calculator. Calculate your maximum affordable car price based on your monthly budget or using income-based rules. The calculator accounts for loan terms, interest rates, down payment, trade-in value, and fixed costs like insurance and parking. Get personalized recommendations and understand how different factors affect what you can afford. Perfect for planning your car purchase and staying within your budget.",
+	"inputs": [
+		{
+			"label": "Calculation Mode",
+			"unitLabel": "",
+			"placeholder": "Select calculation mode",
+			"helpText": "Choose to calculate based on monthly budget or income rule"
+		},
+		{
+			"label": "Max Monthly Car Budget",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly budget",
+			"helpText": "Maximum amount you can spend per month on car (payment + fixed costs)"
+		},
+		{
+			"label": "Monthly Net Income",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly net income",
+			"helpText": "Your monthly take-home pay (after taxes)"
+		},
+		{
+			"label": "Income Rule",
+			"unitLabel": "",
+			"placeholder": "Select income rule",
+			"helpText": "Percentage of income to allocate to car expenses (conservative 10%, moderate 15%, aggressive 20%)"
+		},
+		{
+			"label": "Down Payment",
+			"unitLabel": "$",
+			"placeholder": "Enter down payment",
+			"helpText": "Amount you can put down upfront (optional)"
+		},
+		{
+			"label": "Loan APR",
+			"unitLabel": "%",
+			"placeholder": "Enter loan APR",
+			"helpText": "Annual percentage rate for the loan"
+		},
+		{
+			"label": "Loan Term",
+			"unitLabel": "months",
+			"placeholder": "Enter loan term",
+			"helpText": "Loan term in months (typically 36-84 months)"
+		},
+		{
+			"label": "Estimated Monthly Fixed Costs",
+			"unitLabel": "$",
+			"placeholder": "Enter fixed costs",
+			"helpText": "Monthly fixed costs (insurance, parking, registration, etc.)"
+		},
+		{
+			"label": "Trade-In Value",
+			"unitLabel": "$",
+			"placeholder": "Enter trade-in value",
+			"helpText": "Value of your current vehicle to trade in (optional)"
+		},
+		{
+			"label": "Sales Tax or Fees",
+			"unitLabel": "$",
+			"placeholder": "Enter sales tax or fees",
+			"helpText": "Sales tax and other fees (optional)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Max Affordable Car Price",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Max Affordable Loan Amount",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Allowed Monthly Payment",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Monthly Cost",
+			"unitLabel": "$"
+		}
+	],
+	"howTo": [
+		"Select calculation mode:",
+		"  - Based on Monthly Budget: Enter your maximum monthly car budget",
+		"  - Based on Income Rule: Enter your monthly net income and select a rule (10%, 15%, or 20%)",
+		"Enter your planned down payment amount (if any)",
+		"Enter the loan APR (annual percentage rate) you expect to receive",
+		"Enter the loan term in months (typically 36-84 months)",
+		"Enter your estimated monthly fixed costs (insurance, parking, registration, etc.)",
+		"Optionally enter trade-in value if you have a vehicle to trade in",
+		"Optionally enter sales tax and fees",
+		"Click 'Calculate' to see your maximum affordable car price",
+		"Review the allowed monthly payment and total monthly cost",
+		"Check insights for recommendations on down payment and loan terms",
+		"Use the recommended budget range to plan your purchase"
+	],
+	"examples": [
+		{
+			"title": "Example 1: $600 Budget, $150 Fixed Costs",
+			"description": "Monthly budget of $600 with $150 in fixed costs (insurance, parking, etc.). $5,000 down payment, 5.5% APR, 60-month loan.",
+			"inputs": {
+				"mode": "byMonthlyBudget",
+				"maxMonthlyCarBudget": 600,
+				"downPayment": 5000,
+				"loanAPR": 5.5,
+				"loanTermMonths": 60,
+				"estimatedMonthlyFixedCosts": 150,
+				"tradeInValue": 0,
+				"salesTaxOrFees": 0
+			},
+			"steps": [
+				"Monthly budget: $600",
+				"Fixed costs: $150/month (insurance, parking, registration)",
+				"Available for loan payment: $600 - $150 = $450/month",
+				"Down payment: $5,000",
+				"Loan APR: 5.5%",
+				"Loan term: 60 months",
+				"Calculation: With $450/month payment at 5.5% APR for 60 months, maximum loan amount ≈ $23,000",
+				"Max affordable car price: $23,000 (loan) + $5,000 (down payment) = $28,000",
+				"Monthly loan payment: ~$450",
+				"Total monthly cost: $450 (payment) + $150 (fixed) = $600 (within budget)"
+			]
+		},
+		{
+			"title": "Example 2: Net Income Rule (Moderate)",
+			"description": "$5,000 monthly net income using 15% rule. 15% of income = $750/month car budget. $3,000 down, 6.0% APR, 72-month loan.",
+			"inputs": {
+				"mode": "byIncomeRule",
+				"monthlyNetIncome": 5000,
+				"rulePreset": "moderate",
+				"downPayment": 3000,
+				"loanAPR": 6.0,
+				"loanTermMonths": 72,
+				"estimatedMonthlyFixedCosts": 200,
+				"tradeInValue": 0,
+				"salesTaxOrFees": 0
+			},
+			"steps": [
+				"Monthly net income: $5,000",
+				"Income rule: 15% (moderate recommendation)",
+				"Car budget calculation: $5,000 × 15% = $750/month",
+				"Fixed costs: $200/month",
+				"Available for loan payment: $750 - $200 = $550/month",
+				"Down payment: $3,000",
+				"Loan APR: 6.0%",
+				"Loan term: 72 months (6 years)",
+				"Calculation: With $550/month payment at 6.0% APR for 72 months, maximum loan amount ≈ $32,000",
+				"Max affordable car price: $32,000 (loan) + $3,000 (down payment) = $35,000",
+				"Monthly loan payment: ~$550",
+				"Total monthly cost: $550 (payment) + $200 (fixed) = $750 (15% of income)"
+			]
+		},
+		{
+			"title": "Example 3: Bigger Down Payment Impact",
+			"description": "Same $600/month budget but with $10,000 down payment instead of $5,000. Shows how larger down payment increases affordable price.",
+			"inputs": {
+				"mode": "byMonthlyBudget",
+				"maxMonthlyCarBudget": 600,
+				"downPayment": 10000,
+				"loanAPR": 5.5,
+				"loanTermMonths": 60,
+				"estimatedMonthlyFixedCosts": 150,
+				"tradeInValue": 0,
+				"salesTaxOrFees": 0
+			},
+			"steps": [
+				"Monthly budget: $600",
+				"Fixed costs: $150/month",
+				"Available for loan payment: $600 - $150 = $450/month",
+				"Down payment: $10,000 (larger than Example 1)",
+				"Loan APR: 5.5%",
+				"Loan term: 60 months",
+				"Calculation: With $450/month payment at 5.5% APR for 60 months, maximum loan amount ≈ $23,000",
+				"Max affordable car price: $23,000 (loan) + $10,000 (down payment) = $33,000",
+				"Comparison: With $5,000 down = $28,000 affordable. With $10,000 down = $33,000 affordable",
+				"Impact: Extra $5,000 down payment increases affordable price by $5,000",
+				"Monthly loan payment: ~$450 (same as Example 1)",
+				"Total monthly cost: $450 (payment) + $150 (fixed) = $600 (same budget, more car)"
+			]
+		},
+		{
+			"title": "Example 4: High APR Impact",
+			"description": "Same $600/month budget, $5,000 down, at 8% APR. Shows how higher interest rate reduces affordability.",
+			"inputs": {
+				"mode": "byMonthlyBudget",
+				"maxMonthlyCarBudget": 600,
+				"downPayment": 5000,
+				"loanAPR": 8.0,
+				"loanTermMonths": 60,
+				"estimatedMonthlyFixedCosts": 150,
+				"tradeInValue": 0,
+				"salesTaxOrFees": 0
+			},
+			"steps": [
+				"Monthly budget: $600",
+				"Fixed costs: $150/month",
+				"Available for loan payment: $600 - $150 = $450/month",
+				"Down payment: $5,000",
+				"Loan APR: 8.0% (higher than Example 1's 5.5%)",
+				"Loan term: 60 months",
+				"Calculation: With $450/month payment at 8.0% APR for 60 months, maximum loan amount ≈ $20,000",
+				"Max affordable car price: $20,000 (loan) + $5,000 (down payment) = $25,000",
+				"Comparison: At 5.5% APR = $28,000 affordable. At 8.0% APR = $25,000 affordable",
+				"Impact: Higher APR (8% vs 5.5%) reduces affordable price by $3,000",
+				"Monthly loan payment: ~$450 (same payment, but less car)",
+				"Total monthly cost: $450 (payment) + $150 (fixed) = $600"
+			]
+		},
+		{
+			"title": "Example 5: Income Rule Conservative (10%)",
+			"description": "$4,000 monthly net income using conservative 10% rule. $2,000 down, 4.5% APR, 48-month loan.",
+			"inputs": {
+				"mode": "byIncomeRule",
+				"monthlyNetIncome": 4000,
+				"rulePreset": "conservative",
+				"downPayment": 2000,
+				"loanAPR": 4.5,
+				"loanTermMonths": 48,
+				"estimatedMonthlyFixedCosts": 120,
+				"tradeInValue": 0,
+				"salesTaxOrFees": 0
+			},
+			"steps": [
+				"Monthly net income: $4,000",
+				"Income rule: 10% (conservative recommendation)",
+				"Car budget calculation: $4,000 × 10% = $400/month",
+				"Fixed costs: $120/month",
+				"Available for loan payment: $400 - $120 = $280/month",
+				"Down payment: $2,000",
+				"Loan APR: 4.5% (good credit)",
+				"Loan term: 48 months (4 years, shorter term)",
+				"Calculation: With $280/month payment at 4.5% APR for 48 months, maximum loan amount ≈ $12,000",
+				"Max affordable car price: $12,000 (loan) + $2,000 (down payment) = $14,000",
+				"Monthly loan payment: ~$280",
+				"Total monthly cost: $280 (payment) + $120 (fixed) = $400 (10% of income, conservative approach)"
+			]
+		}
+	],
+	"faq": [
+		{
+			"question": "How much car can I afford?",
+			"answer": "The amount you can afford depends on your monthly budget, income, down payment, loan terms, and fixed costs. As a general rule, your total car expenses (payment + insurance + maintenance) should not exceed 15-20% of your monthly net income. Use this calculator to get a personalized estimate based on your specific situation."
+		},
+		{
+			"question": "What percent of income should go to a car?",
+			"answer": "Financial experts typically recommend spending 10-20% of your monthly net income on car expenses (payment, insurance, maintenance, fuel). Conservative: 10%, Moderate: 15%, Aggressive: 20%. The calculator uses these rules when you select 'Based on Income Rule' mode."
+		},
+		{
+			"question": "Should I choose a longer loan term?",
+			"answer": "Longer loan terms (72-84 months) lower monthly payments and increase affordability, but you pay more total interest and risk being 'upside down' (owing more than the car is worth). Shorter terms (36-48 months) save interest but require higher payments. Choose based on your budget and financial goals."
+		},
+		{
+			"question": "How does down payment affect affordability?",
+			"answer": "A larger down payment reduces your loan amount, which increases the car price you can afford with the same monthly payment. It also reduces total interest paid and helps you avoid being upside down on your loan. Every dollar of down payment typically increases your affordable price by $1-1.20 depending on loan terms."
+		},
+		{
+			"question": "Does this include insurance and fuel?",
+			"answer": "The calculator includes insurance and other fixed costs in the 'Estimated Monthly Fixed Costs' field. Fuel costs are variable and depend on your driving, so they're not included in the calculation. Make sure to budget separately for fuel based on your expected mileage."
+		},
+		{
+			"question": "Why do lenders approve more than you should spend?",
+			"answer": "Lenders approve based on your ability to make payments, not your overall financial health. They don't consider your other expenses, savings goals, or emergency fund needs. It's wise to spend less than the maximum you're approved for to maintain financial flexibility and avoid overextending yourself."
+		},
+		{
+			"question": "What is the difference between the two calculation modes?",
+			"answer": "'Based on Monthly Budget' uses your specific monthly budget amount. 'Based on Income Rule' calculates your budget as a percentage of your net income (10%, 15%, or 20%). Both modes account for fixed costs and calculate the maximum car price you can afford."
+		},
+		{
+			"question": "How accurate is this calculator?",
+			"answer": "The calculator provides estimates based on standard loan formulas and the information you provide. Actual affordability depends on your credit score (which affects APR), lender requirements, and your complete financial picture. Use it as a planning tool and consult with lenders for actual approval amounts."
+		},
+		{
+			"question": "What if my fixed costs are higher than my budget?",
+			"answer": "If fixed costs exceed your available budget, you won't be able to afford a car payment with the current inputs. Consider: reducing fixed costs (shop for cheaper insurance), increasing your budget, or saving for a larger down payment to reduce monthly payments."
+		},
+		{
+			"question": "Should I include maintenance in fixed costs?",
+			"answer": "You can include average monthly maintenance costs in fixed costs, but it's optional. Maintenance is somewhat variable - newer cars have lower maintenance, while older cars have higher. Including it gives you a more conservative (safer) affordability estimate."
+		},
+		{
+			"question": "How does trade-in value affect affordability?",
+			"answer": "Trade-in value acts like additional down payment - it reduces the amount you need to finance, which increases the car price you can afford. For example, a $5,000 trade-in increases your affordable price by approximately $5,000-6,000 depending on loan terms."
+		},
+		{
+			"question": "What if I have bad credit?",
+			"answer": "Bad credit results in higher APR, which reduces your affordable price for the same monthly payment. You may need a larger down payment or need to consider less expensive vehicles. Work on improving your credit score before buying to get better rates and increase affordability."
+		},
+		{
+			"question": "Is it better to save for a larger down payment or buy now?",
+			"answer": "A larger down payment increases affordability and reduces total interest, but waiting means you're without a car or continuing to pay for your current one. Consider: your current transportation needs, the cost of waiting (current car repairs, rental costs), and your savings timeline. There's no one-size-fits-all answer."
+		},
+		{
+			"question": "What about leasing instead of buying?",
+			"answer": "Leasing typically has lower monthly payments than buying, which could increase your 'affordability' in terms of monthly cost. However, you don't build equity and must return the car. Use our Lease vs Buy Calculator to compare total costs and see which option fits your situation better."
+		},
+		{
+			"question": "How do I know if I'm spending too much?",
+			"answer": "Warning signs you're spending too much: car payment exceeds 20% of net income, you're struggling to make payments, you're sacrificing savings or other goals, or you're using credit cards to cover car expenses. If you're uncomfortable with the monthly payment, consider a less expensive car or saving for a larger down payment."
+		}
+	]
+}
+

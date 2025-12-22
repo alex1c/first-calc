@@ -1,0 +1,316 @@
+{
+	"title": "Monthly Car Expenses Calculator – How Much Does Your Car Cost Per Month?",
+	"shortDescription": "Calculate your total monthly car expenses including insurance, fuel, maintenance, loan payments, and all other costs.",
+	"longDescription": "Track and budget your monthly car expenses with our comprehensive calculator. This tool helps you understand exactly how much you spend each month on your vehicle, including fixed costs like insurance and loan payments, and variable costs like fuel and maintenance. Perfect for budgeting, financial planning, and identifying opportunities to reduce your monthly car expenses. See your total monthly cost, daily cost, and cost per mile to make informed decisions about your vehicle.",
+	"inputs": [
+		{
+			"label": "Monthly Insurance",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly insurance cost",
+			"helpText": "Your monthly car insurance premium"
+		},
+		{
+			"label": "Monthly Parking",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly parking cost",
+			"helpText": "Monthly parking fees (if applicable)"
+		},
+		{
+			"label": "Monthly Loan Payment",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly loan payment",
+			"helpText": "Monthly car loan payment (if you have a loan, otherwise leave as 0)"
+		},
+		{
+			"label": "Monthly Registration",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly registration cost",
+			"helpText": "Monthly portion of annual registration fees (annual fee ÷ 12)"
+		},
+		{
+			"label": "Fuel Cost Method",
+			"unitLabel": "",
+			"placeholder": "Select fuel cost method",
+			"helpText": "Choose to enter monthly fuel cost directly or calculate from fuel price and mileage"
+		},
+		{
+			"label": "Monthly Fuel Cost",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly fuel cost",
+			"helpText": "Total amount spent on fuel per month"
+		},
+		{
+			"label": "Fuel Price Per Unit",
+			"unitLabel": "$",
+			"placeholder": "Enter fuel price per gallon/liter",
+			"helpText": "Current fuel price per gallon (US) or liter"
+		},
+		{
+			"label": "Fuel Consumption",
+			"unitLabel": "units per 100 miles",
+			"placeholder": "Enter fuel consumption",
+			"helpText": "Fuel consumption (e.g., 25 MPG = 4 gallons per 100 miles)"
+		},
+		{
+			"label": "Monthly Mileage",
+			"unitLabel": "miles",
+			"placeholder": "Enter monthly mileage",
+			"helpText": "Average miles driven per month"
+		},
+		{
+			"label": "Monthly Maintenance",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly maintenance cost",
+			"helpText": "Average monthly maintenance costs (oil changes, tire rotations, etc.)"
+		},
+		{
+			"label": "Monthly Repairs",
+			"unitLabel": "$",
+			"placeholder": "Enter monthly repair cost",
+			"helpText": "Average monthly repair costs (optional, can be 0)"
+		},
+		{
+			"label": "Other Monthly Costs",
+			"unitLabel": "$",
+			"placeholder": "Enter other monthly costs",
+			"helpText": "Any other monthly car-related expenses (tolls, car washes, etc.)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Total Fixed Costs",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Variable Costs",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Monthly Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Cost Per Day",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Cost Per Mile",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Fuel Cost",
+			"unitLabel": "$"
+		}
+	],
+	"howTo": [
+		"Enter your monthly car insurance premium",
+		"Enter monthly parking costs (if applicable)",
+		"Enter your monthly car loan payment (if you have a loan, otherwise enter 0)",
+		"Enter monthly registration cost (divide annual registration by 12)",
+		"Choose how to enter fuel costs:",
+		"  - Option 1: Enter your total monthly fuel cost directly",
+		"  - Option 2: Calculate from fuel price, consumption, and monthly mileage",
+		"Enter your average monthly maintenance costs",
+		"Enter average monthly repair costs (optional, can be 0)",
+		"Enter any other monthly car-related expenses",
+		"Click 'Calculate' to see your total monthly car expenses",
+		"Review the breakdown to see fixed vs variable costs",
+		"Check cost per day and cost per mile for budgeting insights"
+	],
+	"examples": [
+		{
+			"title": "Example 1: City Commuter",
+			"description": "A commuter driving 1,000 miles per month in the city with no car loan",
+			"inputs": {
+				"insuranceMonthly": 120,
+				"parkingMonthly": 150,
+				"loanPaymentMonthly": 0,
+				"registrationMonthly": 20,
+				"useFuelCalculation": "true",
+				"fuelPrice": 3.50,
+				"fuelConsumption": 28,
+				"mileage": 1000,
+				"maintenanceMonthly": 50,
+				"repairsMonthly": 0,
+				"otherMonthly": 0
+			},
+			"steps": [
+				"Fixed costs: Insurance $120 + Parking $150 + Loan $0 + Registration $20 = $290/month",
+				"Monthly mileage: 1,000 miles",
+				"Fuel calculation: (1,000 miles ÷ 100) × 28 MPG = 35.71 gallons needed",
+				"Fuel cost: 35.71 gallons × $3.50/gallon = $125.00/month",
+				"Variable costs: Fuel $125 + Maintenance $50 + Repairs $0 + Other $0 = $175/month",
+				"Total monthly cost: $290 (fixed) + $175 (variable) = $465.00/month",
+				"Cost per day: $465 ÷ 30 days = $15.50/day",
+				"Cost per mile: $465 ÷ 1,000 miles = $0.465/mile"
+			]
+		},
+		{
+			"title": "Example 2: Car with Loan",
+			"description": "A newer car with a monthly loan payment and higher insurance",
+			"inputs": {
+				"insuranceMonthly": 180,
+				"parkingMonthly": 0,
+				"loanPaymentMonthly": 450,
+				"registrationMonthly": 25,
+				"useFuelCalculation": "false",
+				"fuelMonthly": 250,
+				"maintenanceMonthly": 80,
+				"repairsMonthly": 0,
+				"otherMonthly": 30
+			},
+			"steps": [
+				"Fixed costs: Insurance $180 + Parking $0 + Loan $450 + Registration $25 = $655/month",
+				"Variable costs: Fuel $250 + Maintenance $80 + Repairs $0 + Other $30 = $360/month",
+				"Total monthly cost: $655 (fixed) + $360 (variable) = $1,015.00/month",
+				"Cost per day: $1,015 ÷ 30 days = $33.83/day",
+				"Note: Loan payment is the largest fixed cost at $450/month",
+				"Comparison: Without loan, monthly cost would be $565 (44% reduction)"
+			]
+		},
+		{
+			"title": "Example 3: Older Car, Higher Repairs",
+			"description": "An older vehicle with no loan but higher maintenance and repair costs",
+			"inputs": {
+				"insuranceMonthly": 90,
+				"parkingMonthly": 50,
+				"loanPaymentMonthly": 0,
+				"registrationMonthly": 15,
+				"useFuelCalculation": "true",
+				"fuelPrice": 3.75,
+				"fuelConsumption": 22,
+				"mileage": 1200,
+				"maintenanceMonthly": 100,
+				"repairsMonthly": 75,
+				"otherMonthly": 0
+			},
+			"steps": [
+				"Fixed costs: Insurance $90 + Parking $50 + Loan $0 + Registration $15 = $155/month",
+				"Monthly mileage: 1,200 miles",
+				"Fuel calculation: (1,200 miles ÷ 100) × 22 MPG = 54.55 gallons needed",
+				"Fuel cost: 54.55 gallons × $3.75/gallon = $204.55/month",
+				"Variable costs: Fuel $204.55 + Maintenance $100 + Repairs $75 + Other $0 = $379.55/month",
+				"Total monthly cost: $155 (fixed) + $379.55 (variable) = $534.55/month",
+				"Cost per day: $534.55 ÷ 30 days = $17.82/day",
+				"Cost per mile: $534.55 ÷ 1,200 miles = $0.446/mile",
+				"Note: Older cars have higher maintenance and repair costs, but no loan payment"
+			]
+		},
+		{
+			"title": "Example 4: High Mileage Driver",
+			"description": "Someone who drives 2,000 miles per month for work",
+			"inputs": {
+				"insuranceMonthly": 150,
+				"parkingMonthly": 0,
+				"loanPaymentMonthly": 300,
+				"registrationMonthly": 20,
+				"useFuelCalculation": "true",
+				"fuelPrice": 3.60,
+				"fuelConsumption": 30,
+				"mileage": 2000,
+				"maintenanceMonthly": 120,
+				"repairsMonthly": 0,
+				"otherMonthly": 50
+			},
+			"steps": [
+				"Fixed costs: Insurance $150 + Parking $0 + Loan $300 + Registration $20 = $470/month",
+				"Monthly mileage: 2,000 miles (high mileage driver)",
+				"Fuel calculation: (2,000 miles ÷ 100) × 30 MPG = 66.67 gallons needed",
+				"Fuel cost: 66.67 gallons × $3.60/gallon = $240.00/month",
+				"Variable costs: Fuel $240 + Maintenance $120 + Repairs $0 + Other $50 = $410/month",
+				"Total monthly cost: $470 (fixed) + $410 (variable) = $880.00/month",
+				"Cost per day: $880 ÷ 30 days = $29.33/day",
+				"Cost per mile: $880 ÷ 2,000 miles = $0.44/mile",
+				"Note: High mileage increases fuel and maintenance costs significantly"
+			]
+		},
+		{
+			"title": "Example 5: Minimal Expenses, Paid Off Car",
+			"description": "A paid-off car with minimal monthly expenses",
+			"inputs": {
+				"insuranceMonthly": 80,
+				"parkingMonthly": 0,
+				"loanPaymentMonthly": 0,
+				"registrationMonthly": 12,
+				"useFuelCalculation": "true",
+				"fuelPrice": 3.50,
+				"fuelConsumption": 32,
+				"mileage": 800,
+				"maintenanceMonthly": 40,
+				"repairsMonthly": 20,
+				"otherMonthly": 0
+			},
+			"steps": [
+				"Fixed costs: Insurance $80 + Parking $0 + Loan $0 + Registration $12 = $92/month",
+				"Monthly mileage: 800 miles (low mileage driver)",
+				"Fuel calculation: (800 miles ÷ 100) × 32 MPG = 25.00 gallons needed",
+				"Fuel cost: 25.00 gallons × $3.50/gallon = $87.50/month",
+				"Variable costs: Fuel $87.50 + Maintenance $40 + Repairs $20 + Other $0 = $147.50/month",
+				"Total monthly cost: $92 (fixed) + $147.50 (variable) = $239.50/month",
+				"Cost per day: $239.50 ÷ 30 days = $7.98/day",
+				"Cost per mile: $239.50 ÷ 800 miles = $0.299/mile",
+				"Note: Paid-off cars have much lower monthly costs, especially without loan payments"
+			]
+		}
+	],
+	"faq": [
+		{
+			"question": "What counts as car expenses?",
+			"answer": "Car expenses include all costs associated with owning and operating your vehicle: insurance, fuel, maintenance, repairs, loan payments, registration fees, parking, tolls, car washes, and any other vehicle-related costs. This calculator helps you track all of these monthly expenses."
+		},
+		{
+			"question": "What's the difference between fuel and maintenance costs?",
+			"answer": "Fuel costs are the money you spend on gasoline or diesel to power your car. Maintenance costs are regular services to keep your car running properly, such as oil changes, tire rotations, brake pad replacements, and scheduled service visits. Repairs are separate and cover unexpected issues like engine problems or transmission failures."
+		},
+		{
+			"question": "Does this calculator include depreciation?",
+			"answer": "No, this calculator focuses on monthly cash expenses you actually pay. Depreciation is a non-cash expense that represents the loss in your car's value over time. For a complete picture including depreciation, use our Car Cost of Ownership Calculator."
+		},
+		{
+			"question": "How can I reduce my monthly car costs?",
+			"answer": "Several strategies can help: shop around for better insurance rates, drive less to reduce fuel costs, maintain your car well to avoid major repairs, consider refinancing your loan for a lower payment, use public transportation when possible, and eliminate unnecessary expenses like premium car washes or expensive parking."
+		},
+		{
+			"question": "Should I include my car loan payment?",
+			"answer": "Yes, if you have a car loan, include your monthly payment in the loan payment field. This is a fixed monthly expense that's part of your total car ownership cost. If you own your car outright, enter 0 for the loan payment."
+		},
+		{
+			"question": "How do I calculate monthly registration cost?",
+			"answer": "Divide your annual vehicle registration fee by 12. For example, if your annual registration is $240, your monthly cost is $20. Some states have different fee structures, so check your registration documents for the exact annual amount."
+		},
+		{
+			"question": "Which fuel cost method should I use?",
+			"answer": "If you know your exact monthly fuel spending, use 'Enter Monthly Fuel Cost'. If you want to calculate it from your driving habits, use 'Calculate from Price & Mileage'. The calculation method is useful for budgeting or comparing different vehicles."
+		},
+		{
+			"question": "What if I don't drive every month?",
+			"answer": "Enter your average monthly expenses. If you drive seasonally or have months with no driving, you can calculate an average by adding up your annual expenses and dividing by 12. This gives you a more accurate picture of your typical monthly costs."
+		},
+		{
+			"question": "How accurate is this calculator?",
+			"answer": "The calculator is as accurate as the information you provide. Actual costs will vary based on your driving habits, vehicle condition, location, and unexpected expenses. Use it as a budgeting tool and update the values regularly as your expenses change."
+		},
+		{
+			"question": "What's the difference between fixed and variable costs?",
+			"answer": "Fixed costs (insurance, loan, parking, registration) stay the same each month regardless of how much you drive. Variable costs (fuel, maintenance, repairs) change based on your driving habits and vehicle condition. Understanding this helps with budgeting."
+		},
+		{
+			"question": "Should I include car washes and detailing?",
+			"answer": "Yes, include these in 'Other Monthly Costs' if they're regular expenses. However, if they're occasional or optional, you might exclude them to see your essential monthly costs. The calculator is flexible - include what matters for your budgeting needs."
+		},
+		{
+			"question": "How does this differ from the Cost of Ownership Calculator?",
+			"answer": "This calculator focuses on monthly cash expenses you pay each month. The Cost of Ownership Calculator looks at total costs over several years, including depreciation. Use this calculator for monthly budgeting and the Cost of Ownership Calculator for long-term planning."
+		},
+		{
+			"question": "What if my repair costs vary greatly each month?",
+			"answer": "Enter an average monthly repair cost. You can calculate this by adding up your annual repair expenses and dividing by 12. This smooths out the variability and gives you a better picture of your typical monthly costs."
+		},
+		{
+			"question": "Can I use this for multiple vehicles?",
+			"answer": "Yes! Run the calculator separately for each vehicle and add the results together to see your total monthly car expenses across all vehicles. This is helpful for households with multiple cars."
+		}
+	]
+}
+
+

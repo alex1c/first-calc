@@ -1,0 +1,251 @@
+{
+	"title": "Fuel Consumption Calculator – MPG & L/100km Converter",
+	"shortDescription": "Calculate fuel consumption from distance and fuel used. Convert between MPG (US/UK) and L/100km instantly.",
+	"longDescription": "Calculate your vehicle's fuel consumption and convert between different measurement units. Enter the distance you traveled and the fuel you used to calculate consumption in L/100km, MPG (US), and MPG (UK). Or use the converter to instantly convert between these units. Perfect for understanding your vehicle's efficiency, comparing different cars, and converting fuel economy ratings between metric and imperial systems.",
+	"inputs": [
+		{
+			"label": "Mode",
+			"unitLabel": "",
+			"placeholder": "Select mode",
+			"helpText": "Choose to calculate consumption from distance and fuel, or convert between units"
+		},
+		{
+			"label": "Distance",
+			"unitLabel": "",
+			"placeholder": "Enter distance",
+			"helpText": "Distance traveled (in km or miles)"
+		},
+		{
+			"label": "Distance Unit",
+			"unitLabel": "",
+			"placeholder": "Select distance unit",
+			"helpText": "Choose kilometers or miles"
+		},
+		{
+			"label": "Fuel Used",
+			"unitLabel": "",
+			"placeholder": "Enter fuel used",
+			"helpText": "Amount of fuel consumed (in liters, US gallons, or UK gallons)"
+		},
+		{
+			"label": "Fuel Unit",
+			"unitLabel": "",
+			"placeholder": "Select fuel unit",
+			"helpText": "Choose liters, US gallons, or UK gallons"
+		},
+		{
+			"label": "Value",
+			"unitLabel": "",
+			"placeholder": "Enter value to convert",
+			"helpText": "Fuel consumption value to convert"
+		},
+		{
+			"label": "From Unit",
+			"unitLabel": "",
+			"placeholder": "Select source unit",
+			"helpText": "Current unit of the value (L/100km, MPG US, or MPG UK)"
+		},
+		{
+			"label": "To Unit",
+			"unitLabel": "",
+			"placeholder": "Select target unit",
+			"helpText": "Unit to convert to (L/100km, MPG US, or MPG UK)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "L/100km",
+			"unitLabel": "L/100km"
+		},
+		{
+			"label": "MPG (US)",
+			"unitLabel": "MPG"
+		},
+		{
+			"label": "MPG (UK)",
+			"unitLabel": "MPG"
+		},
+		{
+			"label": "Converted Value",
+			"unitLabel": ""
+		}
+	],
+	"howTo": [
+		"Select calculation mode:",
+		"  - Calculate Consumption: Enter distance and fuel used to calculate consumption",
+		"  - Convert Units: Convert between L/100km, MPG US, and MPG UK",
+		"For Calculate Mode:",
+		"  - Enter the distance you traveled",
+		"  - Select distance unit (km or miles)",
+		"  - Enter the amount of fuel you used",
+		"  - Select fuel unit (liters, US gallons, or UK gallons)",
+		"  - Click 'Calculate' to see consumption in all units",
+		"For Convert Mode:",
+		"  - Enter the fuel consumption value",
+		"  - Select the source unit (L/100km, MPG US, or MPG UK)",
+		"  - Select the target unit to convert to",
+		"  - Click 'Calculate' to see the converted value",
+		"Review the results and insights for fuel efficiency tips"
+	],
+	"examples": [
+		{
+			"title": "Example 1: Calculate from Distance and Fuel",
+			"description": "Traveled 500 km using 35 liters of fuel",
+			"inputs": {
+				"mode": "calculate",
+				"distance": 500,
+				"distanceUnit": "km",
+				"fuelUsed": 35,
+				"fuelUnit": "liters"
+			},
+			"steps": [
+				"Distance traveled: 500 km",
+				"Fuel used: 35 liters",
+				"L/100km calculation: (35 liters ÷ 500 km) × 100 = 7.00 L/100km",
+				"MPG (US) calculation: Convert 500 km to miles = 310.69 miles, then 310.69 miles ÷ (35 liters ÷ 3.785 L/gal) = 33.60 MPG",
+				"MPG (UK) calculation: 310.69 miles ÷ (35 liters ÷ 4.546 L/gal) = 40.35 MPG",
+				"Result: 7.00 L/100km = 33.60 MPG (US) = 40.35 MPG (UK)",
+				"Interpretation: This vehicle has good fuel efficiency"
+			]
+		},
+		{
+			"title": "Example 2: Calculate from Miles and US Gallons",
+			"description": "Traveled 300 miles using 10 US gallons",
+			"inputs": {
+				"mode": "calculate",
+				"distance": 300,
+				"distanceUnit": "miles",
+				"fuelUsed": 10,
+				"fuelUnit": "gallons us"
+			},
+			"steps": [
+				"Distance traveled: 300 miles",
+				"Fuel used: 10 US gallons",
+				"MPG (US) calculation: 300 miles ÷ 10 gallons = 30.00 MPG (US)",
+				"Convert to liters: 10 US gallons × 3.785 L/gal = 37.85 liters",
+				"Convert to km: 300 miles × 1.609 km/mile = 482.7 km",
+				"L/100km calculation: (37.85 liters ÷ 482.7 km) × 100 = 7.84 L/100km",
+				"MPG (UK) calculation: 300 miles ÷ (10 US gal × 0.8327 UK gal/US gal) = 36.02 MPG (UK)",
+				"Result: 30.00 MPG (US) = 7.84 L/100km = 36.02 MPG (UK)"
+			]
+		},
+		{
+			"title": "Example 3: Convert L/100km to MPG",
+			"description": "Convert 8.5 L/100km to MPG (US)",
+			"inputs": {
+				"mode": "convert",
+				"value": 8.5,
+				"fromUnit": "L/100km",
+				"toUnit": "MPG US"
+			},
+			"steps": [
+				"Source value: 8.5 L/100km",
+				"Conversion formula: MPG (US) = 235.214 ÷ L/100km",
+				"Calculation: 235.214 ÷ 8.5 = 27.67 MPG (US)",
+				"MPG (UK) calculation: MPG (UK) = 282.481 ÷ L/100km = 282.481 ÷ 8.5 = 33.23 MPG (UK)",
+				"Result: 8.5 L/100km = 27.67 MPG (US) = 33.23 MPG (UK)",
+				"Interpretation: Moderate fuel efficiency"
+			]
+		},
+		{
+			"title": "Example 4: Convert High Efficiency Car",
+			"description": "Convert 5.5 L/100km (very efficient) to MPG",
+			"inputs": {
+				"mode": "convert",
+				"value": 5.5,
+				"fromUnit": "L/100km",
+				"toUnit": "MPG US"
+			},
+			"steps": [
+				"Source value: 5.5 L/100km (excellent fuel efficiency)",
+				"Conversion formula: MPG (US) = 235.214 ÷ L/100km",
+				"Calculation: 235.214 ÷ 5.5 = 42.77 MPG (US)",
+				"MPG (UK) calculation: 282.481 ÷ 5.5 = 51.36 MPG (UK)",
+				"Result: 5.5 L/100km = 42.77 MPG (US) = 51.36 MPG (UK)",
+				"Interpretation: Excellent fuel efficiency - hybrid or very efficient vehicle"
+			]
+		},
+		{
+			"title": "Example 5: Convert MPG to L/100km",
+			"description": "Convert 35 MPG (US) to L/100km",
+			"inputs": {
+				"mode": "convert",
+				"value": 35,
+				"fromUnit": "MPG US",
+				"toUnit": "L/100km"
+			},
+			"steps": [
+				"Source value: 35 MPG (US)",
+				"Conversion formula: L/100km = 235.214 ÷ MPG (US)",
+				"Calculation: 235.214 ÷ 35 = 6.72 L/100km",
+				"MPG (UK) calculation: 35 MPG (US) × 1.20095 = 42.03 MPG (UK)",
+				"Result: 35 MPG (US) = 6.72 L/100km = 42.03 MPG (UK)",
+				"Interpretation: Good fuel efficiency - typical for modern mid-size sedans"
+			]
+		}
+	],
+	"faq": [
+		{
+			"question": "How do I calculate fuel consumption?",
+			"answer": "To calculate fuel consumption, divide the fuel used by the distance traveled, then multiply by 100 for L/100km. For example, if you used 40 liters to travel 500 km: (40 ÷ 500) × 100 = 8 L/100km. For MPG, divide distance (in miles) by fuel used (in gallons)."
+		},
+		{
+			"question": "What is better: MPG or L/100km?",
+			"answer": "Neither is inherently 'better' - they're just different ways to measure the same thing. L/100km is metric (lower is better), MPG is imperial (higher is better). L/100km is more intuitive for fuel cost calculations, while MPG is traditional in the US and UK. Both are equally valid."
+		},
+		{
+			"question": "What's the difference between US and UK MPG?",
+			"answer": "US and UK gallons are different sizes. 1 US gallon = 3.785 liters, while 1 UK gallon = 4.546 liters. This means UK MPG values are always higher than US MPG for the same vehicle. For example, 30 MPG (US) = 36 MPG (UK). Always specify which gallon system you're using."
+		},
+		{
+			"question": "Why do my results vary between city and highway driving?",
+			"answer": "City driving involves frequent stops, idling, and acceleration, which increases fuel consumption. Highway driving at steady speeds is more efficient. Most vehicles have separate city and highway fuel economy ratings. Your actual consumption will vary based on driving conditions, traffic, and driving style."
+		},
+		{
+			"question": "How can I improve my fuel efficiency?",
+			"answer": "Several strategies can improve fuel efficiency: maintain proper tire pressure, drive at steady speeds, avoid aggressive acceleration and braking, remove excess weight from your vehicle, use cruise control on highways, plan efficient routes, keep your vehicle well-maintained, and avoid unnecessary idling."
+		},
+		{
+			"question": "What is a good fuel consumption rate?",
+			"answer": "Good fuel consumption depends on vehicle type. For cars: under 7 L/100km (over 33 MPG US) is excellent, 7-10 L/100km (28-33 MPG US) is good, 10-12 L/100km (20-28 MPG US) is average. SUVs and trucks typically have higher consumption (12-15+ L/100km). Compare your vehicle to similar models in its class."
+		},
+		{
+			"question": "How do I measure fuel consumption accurately?",
+			"answer": "Fill your tank completely, reset your trip odometer, drive normally for a full tank, then refill and note how much fuel you used. Divide fuel used by distance traveled. For L/100km: (fuel liters ÷ distance km) × 100. For MPG: distance miles ÷ fuel gallons. Repeat over several tanks for a more accurate average."
+		},
+		{
+			"question": "Can I use this calculator for electric vehicles?",
+			"answer": "This calculator is designed for gasoline/diesel vehicles using fuel consumption. For electric vehicles, you'd measure energy consumption in kWh per 100 km or miles per kWh instead. The calculation principles are similar but use different units."
+		},
+		{
+			"question": "Why is my actual consumption different from the manufacturer's rating?",
+			"answer": "Manufacturer ratings are tested under controlled laboratory conditions. Real-world consumption is typically 10-20% higher due to driving conditions, traffic, weather, vehicle load, driving style, and vehicle age. Your actual consumption is what matters for budgeting and planning."
+		},
+		{
+			"question": "How do I convert between L/100km and MPG?",
+			"answer": "To convert L/100km to MPG (US): MPG = 235.214 ÷ L/100km. To convert MPG (US) to L/100km: L/100km = 235.214 ÷ MPG. For UK MPG, use 282.481 instead of 235.214. Our calculator handles all conversions automatically."
+		},
+		{
+			"question": "Does fuel type affect consumption?",
+			"answer": "Fuel type (regular, premium, diesel) can affect consumption slightly, but the difference is usually small (1-3%). More important factors are driving habits, vehicle condition, and driving conditions. Use the fuel type recommended by your vehicle manufacturer."
+		},
+		{
+			"question": "What affects fuel consumption the most?",
+			"answer": "The biggest factors affecting fuel consumption are: driving speed (optimal around 50-60 mph/80-100 km/h), acceleration patterns (smooth is better), vehicle weight, tire pressure, aerodynamics, and driving conditions (city vs highway). Aggressive driving can increase consumption by 20-40%."
+		},
+		{
+			"question": "How accurate is this calculator?",
+			"answer": "The calculator uses precise conversion constants and formulas. The accuracy of your results depends on the accuracy of your input measurements. For best results, measure fuel consumption over multiple tanks and average the results. The calculator itself is mathematically precise."
+		},
+		{
+			"question": "Can I use this to compare different vehicles?",
+			"answer": "Yes! Use the converter mode to convert different vehicles' fuel economy ratings to the same unit for easy comparison. For example, convert a car rated at 8.5 L/100km and another at 32 MPG (US) to the same unit to see which is more efficient."
+		},
+		{
+			"question": "What's the relationship between fuel consumption and fuel cost?",
+			"answer": "Lower fuel consumption (lower L/100km or higher MPG) means you use less fuel, which directly reduces fuel costs. For example, improving from 10 L/100km to 8 L/100km saves 20% on fuel costs. Use our Fuel Cost Calculator to see the actual cost savings."
+		}
+	]
+}
+
+

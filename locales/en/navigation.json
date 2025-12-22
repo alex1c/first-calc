@@ -17,6 +17,7 @@
 	"categories": {
 		"math": "Mathematics",
 		"finance": "Finance",
+		"auto": "Auto",
 		"geometry": "Geometry",
 		"everyday": "Everyday",
 		"engineering": "Engineering",
@@ -25,6 +26,7 @@
 	"categoryDescriptions": {
 		"math": "Mathematical calculators for algebra, calculus, and number operations",
 		"finance": "Financial calculators for loans, investments, and money management",
+		"auto": "Car calculators for ownership costs, fuel expenses, loans, and maintenance",
 		"geometry": "Geometric calculators for area, volume, and shape calculations",
 		"everyday": "Everyday calculators for common calculations and conversions",
 		"engineering": "Engineering calculators for technical and scientific calculations",

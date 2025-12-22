@@ -68,40 +68,113 @@
   ],
   "examples": [
     {
-      "title": "Short vs Long Term",
+      "title": "Mortgage with Extra Monthly Payments",
       "description": "$200,000 mortgage at 5.5%: standard 30-year vs with $100/month extra",
       "inputs": {
         "loanAmount": 200000,
-        "interestRate": 5.5,
+        "annualInterestRate": 5.5,
         "loanTerm": 30,
-        "extraPayment": 100,
-        "paymentFrequency": "monthly"
+        "extraMonthlyPayment": 100,
+        "paymentFrequency": "monthly",
+        "loanType": "annuity"
       },
-      "result": "Monthly payment: $1,135.58, Interest saved: $30,000+, Time saved: ~5 years"
+      "steps": [
+        "Loan amount: $200,000",
+        "Interest rate: 5.5% APR",
+        "Loan term: 30 years",
+        "Monthly interest rate: 5.5% ÷ 12 = 0.4583% = 0.004583",
+        "Number of payments: 30 years × 12 = 360 payments",
+        "Standard monthly payment: M = P × [r(1+r)^n] / [(1+r)^n - 1]",
+        "M = $200,000 × [0.004583 × (1.004583)^360] / [(1.004583)^360 - 1]",
+        "Standard payment: $1,135.58",
+        "Total standard payment: $1,135.58 × 360 = $408,808.80",
+        "Total standard interest: $408,808.80 - $200,000 = $208,808.80",
+        "With extra $100/month: Payment = $1,135.58 + $100 = $1,235.58",
+        "Extra payments reduce principal faster, shortening loan term",
+        "Estimated interest saved: ~$30,000+",
+        "Estimated time saved: ~5 years (loan paid off in ~25 years instead of 30)",
+        "Note: Even small extra payments ($100/month) save significant interest on long-term loans"
+      ]
     },
     {
-      "title": "Extra Payments",
+      "title": "Extra Monthly Payments",
       "description": "$150,000 loan at 6% for 20 years with $200/month extra payments",
       "inputs": {
         "loanAmount": 150000,
-        "interestRate": 6,
+        "annualInterestRate": 6,
         "loanTerm": 20,
-        "extraPayment": 200,
-        "paymentFrequency": "monthly"
+        "extraMonthlyPayment": 200,
+        "paymentFrequency": "monthly",
+        "loanType": "annuity"
       },
-      "result": "Monthly payment: $1,074.65, Interest saved: $25,000+, Time saved: ~4 years"
+      "steps": [
+        "Loan amount: $150,000",
+        "Interest rate: 6% APR",
+        "Loan term: 20 years",
+        "Monthly interest rate: 6% ÷ 12 = 0.5% = 0.005",
+        "Number of payments: 20 years × 12 = 240 payments",
+        "Standard monthly payment: $1,074.65",
+        "Total standard payment: $1,074.65 × 240 = $257,916.00",
+        "Total standard interest: $257,916.00 - $150,000 = $107,916.00",
+        "With extra $200/month: Payment = $1,074.65 + $200 = $1,274.65",
+        "Extra payments accelerate principal reduction",
+        "Estimated interest saved: ~$25,000+",
+        "Estimated time saved: ~4 years (loan paid off in ~16 years instead of 20)",
+        "Note: Larger extra payments ($200/month) provide more significant savings"
+      ]
     },
     {
-      "title": "One-time Payment",
+      "title": "One-time Extra Payment",
       "description": "$300,000 mortgage at 4.5% with $10,000 one-time extra payment",
       "inputs": {
         "loanAmount": 300000,
-        "interestRate": 4.5,
+        "annualInterestRate": 4.5,
         "loanTerm": 30,
-        "extraPayment": 10000,
-        "paymentFrequency": "one-time"
+        "extraMonthlyPayment": 0,
+        "paymentFrequency": "monthly",
+        "loanType": "annuity"
       },
-      "result": "Monthly payment: $1,520.06, Interest saved: $15,000+, Time saved: ~1.5 years"
+      "steps": [
+        "Loan amount: $300,000",
+        "Interest rate: 4.5% APR",
+        "Loan term: 30 years",
+        "Standard monthly payment: $1,520.06",
+        "Total standard payment: $1,520.06 × 360 = $547,221.60",
+        "Total standard interest: $547,221.60 - $300,000 = $247,221.60",
+        "One-time extra payment: $10,000 (applied to principal)",
+        "New principal balance: $300,000 - $10,000 = $290,000",
+        "With reduced principal, less interest accrues over remaining term",
+        "Estimated interest saved: ~$15,000+",
+        "Estimated time saved: ~1.5 years",
+        "Note: One-time payments have immediate impact but monthly extra payments provide ongoing savings"
+      ]
+    },
+    {
+      "title": "Auto Loan with Extra Payments",
+      "description": "$25,000 auto loan at 5% for 5 years with $50/month extra",
+      "inputs": {
+        "loanAmount": 25000,
+        "annualInterestRate": 5,
+        "loanTerm": 5,
+        "extraMonthlyPayment": 50,
+        "paymentFrequency": "monthly",
+        "loanType": "annuity"
+      },
+      "steps": [
+        "Loan amount: $25,000",
+        "Interest rate: 5% APR",
+        "Loan term: 5 years",
+        "Monthly interest rate: 5% ÷ 12 = 0.4167% = 0.004167",
+        "Number of payments: 5 years × 12 = 60 payments",
+        "Standard monthly payment: $471.78",
+        "Total standard payment: $471.78 × 60 = $28,306.80",
+        "Total standard interest: $28,306.80 - $25,000 = $3,306.80",
+        "With extra $50/month: Payment = $471.78 + $50 = $521.78",
+        "Extra payments reduce loan term and total interest",
+        "Estimated interest saved: ~$600+",
+        "Estimated time saved: ~6 months",
+        "Note: Even on shorter-term loans, extra payments save interest"
+      ]
     }
   ],
   "faq": [

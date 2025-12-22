@@ -32,3 +32,5 @@ export async function getRelatedArticlesForCalculator(
 	return relatedArticles
 }
 
+
+

@@ -17,6 +17,7 @@
 	"categories": {
 		"math": "Matematik",
 		"finance": "Finans",
+		"auto": "Otomobil",
 		"geometry": "Geometri",
 		"everyday": "Günlük",
 		"engineering": "Mühendislik",
@@ -25,6 +26,7 @@
 	"categoryDescriptions": {
 		"math": "Cebir, hesap ve sayı işlemleri için matematik hesaplayıcıları",
 		"finance": "Krediler, yatırımlar ve para yönetimi için finansal hesaplayıcılar",
+		"auto": "Sahiplik maliyetleri, yakıt giderleri, krediler ve bakım için otomobil hesaplayıcıları",
 		"geometry": "Alan, hacim ve şekil hesaplamaları için geometrik hesaplayıcılar",
 		"everyday": "Günlük hesaplamalar ve dönüşümler için günlük hesaplayıcılar",
 		"engineering": "Teknik ve bilimsel hesaplamalar için mühendislik hesaplayıcıları",

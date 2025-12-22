@@ -131,3 +131,5 @@ export function calculateAverage(
 import { registerCalculation } from './registry'
 registerCalculation('calculateAverage', calculateAverage)
 
+
+

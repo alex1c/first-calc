@@ -1,177 +1,142 @@
 /**
- * Calculate personal loan payment and details
- * Inputs: loanAmount, interestRate, loanTerm, originationFee
- * Outputs: monthlyPayment, totalPayment, totalInterest, totalFees, apr, steps
+ * Calculate personal loan payment with comprehensive breakdown
+ * Inputs: loanAmount, annualInterestRate, loanTerm, paymentFrequency, originationFee, feeType, extraMonthlyPayment
+ * Outputs: monthlyPayment, totalPayment, totalInterest, overpayment, effectiveAPR, formulaExplanation
  */
 
-import type { CalculationFunction } from '@/lib/calculations/registry'
-import { registerCalculation } from '@/lib/calculations/registry'
+import type { CalculatorFunction } from '@/lib/calculators/types'
 
 /**
- * Step interface for personal loan calculation
+ * Map payment frequency string to payments per year
  */
-interface CalculationStep {
-	title: string
-	math: string
-	explanation: string
+function getPaymentsPerYear(frequency: string | number): number {
+	if (typeof frequency === 'number') {
+		return frequency
+	}
+	const frequencyMap: Record<string, number> = {
+		'monthly': 12,
+		'bi-weekly': 26,
+	}
+	return frequencyMap[frequency.toLowerCase()] || 12
 }
 
-export const calculatePersonalLoan: CalculationFunction = (inputs) => {
-	const loanAmount = Number(inputs.loanAmount) || 0
-	const interestRate = Number(inputs.interestRate) || 0
-	const loanTerm = Number(inputs.loanTerm) || 1
-	const originationFeePercent = Number(inputs.originationFee) || 0
-	const paymentType = String(inputs.paymentType || 'annuity').toLowerCase()
-	const prepaymentPenalty = Number(inputs.prepaymentPenalty || 0)
-	const latePaymentFee = Number(inputs.latePaymentFee || 0)
+/**
+ * Calculate personal loan payment with comprehensive breakdown
+ */
+export const calculatePersonalLoan: CalculatorFunction = (inputs) => {
+	const loanAmount = Number(inputs.loanAmount || 0)
+	const annualInterestRate = Number(inputs.annualInterestRate || inputs.interestRate || 0)
+	const loanTerm = Math.floor(Number(inputs.loanTerm || inputs.years || 0)) // Must be integer >= 1
+	const paymentFrequencyStr = inputs.paymentFrequency || 'monthly'
+	const originationFee = Number(inputs.originationFee || 0)
+	const feeType = String(inputs.feeType || 'percentage').toLowerCase()
+	const extraMonthlyPayment = Number(inputs.extraMonthlyPayment || inputs.extraPayment || 0)
+
+	// Calculate fee amount
+	let feeAmount = 0
+	if (feeType === 'percentage') {
+		feeAmount = (loanAmount * originationFee) / 100
+	} else {
+		feeAmount = originationFee
+	}
 
 	// Validation
-	if (loanAmount <= 0 || interestRate < 0 || loanTerm <= 0 || originationFeePercent < 0) {
+	if (
+		isNaN(loanAmount) ||
+		isNaN(annualInterestRate) ||
+		isNaN(loanTerm) ||
+		isNaN(feeAmount) ||
+		isNaN(extraMonthlyPayment) ||
+		loanAmount <= 0 ||
+		annualInterestRate <= 0 ||
+		loanTerm < 1 ||
+		loanTerm > 10 ||
+		feeAmount < 0 ||
+		feeAmount >= loanAmount ||
+		extraMonthlyPayment < 0
+	) {
 		return {
 			monthlyPayment: null,
 			totalPayment: null,
 			totalInterest: null,
-			totalFees: null,
-			apr: null,
-			steps: null,
+			overpayment: null,
+			effectiveAPR: null,
+			formulaExplanation: null,
 		}
 	}
 
-	const steps: CalculationStep[] = []
+	const netLoanAmount = loanAmount - feeAmount
+	const paymentsPerYear = getPaymentsPerYear(paymentFrequencyStr)
+	const periodicRate = annualInterestRate / 100 / paymentsPerYear
+	const numberOfPayments = loanTerm * paymentsPerYear
 
-	// Step 1: Input values
-	steps.push({
-		title: 'Step 1: Input Values',
-		math: `Loan Amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\nAnnual Interest Rate = ${interestRate}%\nLoan Term = ${loanTerm} years\nOrigination Fee = ${originationFeePercent}%${prepaymentPenalty > 0 ? `\nPrepayment Penalty = ${prepaymentPenalty}%` : ''}${latePaymentFee > 0 ? `\nLate Payment Fee = $${latePaymentFee.toFixed(2)}` : ''}`,
-		explanation: 'These are the values you entered for the personal loan calculation.',
-	})
-
-	// Calculate origination fee
-	const originationFee = (loanAmount * originationFeePercent) / 100
-	const netLoanAmount = loanAmount - originationFee
-
-	steps.push({
-		title: 'Step 2: Calculate Origination Fee',
-		math: `Origination Fee = Loan Amount × Origination Fee % / 100\nOrigination Fee = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${originationFeePercent}% / 100\nOrigination Fee = $${originationFee.toFixed(2)}`,
-		explanation: 'The origination fee is a one-time fee deducted from the loan amount.',
-	})
-
-	if (netLoanAmount <= 0) {
-		steps.push({
-			title: 'Error: Invalid Net Loan Amount',
-			math: `Net Loan Amount = Loan Amount - Origination Fee\nNet Loan Amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${originationFee.toFixed(2)} = $${netLoanAmount.toFixed(2)}`,
-			explanation: 'The origination fee cannot exceed the loan amount. Please adjust your inputs.',
-		})
-		return {
-			monthlyPayment: null,
-			totalPayment: null,
-			totalInterest: null,
-			totalFees: originationFee,
-			apr: null,
-			steps,
-		}
-	}
-
-	steps.push({
-		title: 'Step 3: Calculate Net Loan Amount',
-		math: `Net Loan Amount (Principal) = Loan Amount - Origination Fee\nNet Loan Amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${originationFee.toFixed(2)}\nNet Loan Amount = $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-		explanation: 'This is the actual amount you receive after the origination fee is deducted.',
-	})
-
-	// Convert annual rate to monthly rate
-	const monthlyRate = interestRate / 100 / 12
-
-	steps.push({
-		title: 'Step 4: Convert Annual Rate to Monthly Rate',
-		math: `Monthly Rate (r) = Annual Rate / 100 / 12\nr = ${interestRate}% / 100 / 12 = ${(interestRate / 100).toFixed(6)} / 12 = ${monthlyRate.toFixed(6)}`,
-		explanation: 'Convert the annual interest rate to a monthly rate for the payment calculation.',
-	})
-
-	// Number of monthly payments
-	const numberOfPayments = loanTerm * 12
-
-	steps.push({
-		title: 'Step 5: Calculate Total Number of Payments',
-		math: `Number of Payments (n) = Loan Term × 12\nn = ${loanTerm} × 12 = ${numberOfPayments}`,
-		explanation: 'Calculate the total number of monthly payments over the loan term.',
-	})
-
-	// Calculate monthly payment using standard loan formula
+	// Calculate monthly payment
 	let monthlyPayment: number
-
-	if (monthlyRate === 0) {
-		// If interest rate is 0, payment is simply net loan amount divided by months
+	if (periodicRate === 0) {
 		monthlyPayment = netLoanAmount / numberOfPayments
-		steps.push({
-			title: 'Step 6: Calculate Monthly Payment (Zero Interest)',
-			math: `Monthly Payment = Net Loan Amount / Number of Payments\nMonthly Payment = $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / ${numberOfPayments} = $${monthlyPayment.toFixed(2)}`,
-			explanation: 'Since the interest rate is 0%, the monthly payment is simply the net loan amount divided by the number of payments.',
-		})
 	} else {
-		const rateFactor = Math.pow(1 + monthlyRate, numberOfPayments)
-		steps.push({
-			title: 'Step 6: Calculate Rate Factor (1 + r)^n',
-			math: `Rate Factor = (1 + Monthly Rate)^Number of Payments\nRate Factor = (1 + ${monthlyRate.toFixed(6)})^${numberOfPayments} = ${rateFactor.toFixed(6)}`,
-			explanation: 'Calculate the rate factor used in the loan payment formula.',
-		})
-
-		monthlyPayment = (netLoanAmount * monthlyRate * rateFactor) / (rateFactor - 1)
-		steps.push({
-			title: 'Step 7: Calculate Monthly Payment (M)',
-			math: `Monthly Payment (M) = (P × r × (1 + r)^n) / ((1 + r)^n - 1)\nM = ($${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${monthlyRate.toFixed(6)} × ${rateFactor.toFixed(6)}) / (${rateFactor.toFixed(6)} - 1)\nM = $${monthlyPayment.toFixed(2)}`,
-			explanation: 'Calculate the monthly payment using the standard loan payment formula.',
-		})
+		const rateFactor = Math.pow(1 + periodicRate, numberOfPayments)
+		monthlyPayment = (netLoanAmount * periodicRate * rateFactor) / (rateFactor - 1)
 	}
 
-	// Round to 2 decimal places
 	monthlyPayment = Math.round(monthlyPayment * 100) / 100
 
-	// Calculate total payment and interest
-	const totalPayment = monthlyPayment * numberOfPayments
-	const totalInterest = totalPayment - netLoanAmount
+	// Calculate with extra payments if provided
+	let totalPayment = monthlyPayment * numberOfPayments
+	let totalInterest = totalPayment - netLoanAmount
+	let effectiveAPR = annualInterestRate
 
-	steps.push({
-		title: 'Step 8: Calculate Total Payment',
-		math: `Total Payment = Monthly Payment × Number of Payments\nTotal Payment = $${monthlyPayment.toFixed(2)} × ${numberOfPayments} = $${totalPayment.toFixed(2)}`,
-		explanation: 'Calculate the total amount you will pay over the entire loan term.',
-	})
+	if (extraMonthlyPayment > 0) {
+		// Simulate loan payments with extra payments
+		let remainingBalance = netLoanAmount
+		let monthsPaid = 0
+		let totalInterestPaid = 0
+		const paymentWithExtra = monthlyPayment + extraMonthlyPayment
 
-	steps.push({
-		title: 'Step 9: Calculate Total Interest',
-		math: `Total Interest = Total Payment - Net Loan Amount\nTotal Interest = $${totalPayment.toFixed(2)} - $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\nTotal Interest = $${totalInterest.toFixed(2)}`,
-		explanation: 'Calculate the total amount of interest you will pay on the loan.',
-	})
+		const maxMonths = numberOfPayments * 2
 
-	// Calculate APR (approximate, includes origination fee)
-	// APR = ((Total Interest + Fees) / Loan Amount) / (Loan Term in years) * 100
-	const totalCost = totalInterest + originationFee
-	const apr = (totalCost / loanAmount) / loanTerm * 100
+		while (remainingBalance > 0.01 && monthsPaid < maxMonths) {
+			const periodInterest = remainingBalance * periodicRate
+			totalInterestPaid += periodInterest
+			const principalPayment = paymentWithExtra - periodInterest
+			remainingBalance = remainingBalance - principalPayment
+			monthsPaid++
 
-	steps.push({
-		title: 'Step 10: Calculate APR (Annual Percentage Rate)',
-		math: `Total Cost = Total Interest + Origination Fee\nTotal Cost = $${totalInterest.toFixed(2)} + $${originationFee.toFixed(2)} = $${totalCost.toFixed(2)}\n\nAPR = (Total Cost / Loan Amount) / Loan Term × 100%\nAPR = ($${totalCost.toFixed(2)} / $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}) / ${loanTerm} × 100%\nAPR = ${apr.toFixed(2)}%`,
-		explanation: 'APR includes both interest and fees, giving you the true annual cost of borrowing.',
-	})
+			if (remainingBalance < 0) {
+				remainingBalance = 0
+			}
+		}
 
-	// Add information about penalties if applicable
-	if (prepaymentPenalty > 0 || latePaymentFee > 0) {
-		steps.push({
-			title: 'Step 11: Additional Fees Information',
-			math: `${prepaymentPenalty > 0 ? `Prepayment Penalty: ${prepaymentPenalty}% of remaining balance if paid early\n` : ''}${latePaymentFee > 0 ? `Late Payment Fee: $${latePaymentFee.toFixed(2)} per late payment\n` : ''}${prepaymentPenalty > 0 && latePaymentFee > 0 ? '\nNote: These fees are not included in the base calculation but may apply in certain scenarios.' : ''}`,
-			explanation: 'Additional fees that may apply: prepayment penalties for early payoff and late payment fees for missed payments.',
-		})
+		totalInterest = Math.round(totalInterestPaid * 100) / 100
+		totalPayment = netLoanAmount + totalInterest
 	}
+
+	// Calculate effective APR (includes fees)
+	// Effective APR accounts for the fee reducing the net loan amount
+	if (feeAmount > 0) {
+		// Approximate effective APR: (Total Cost / Net Loan Amount) / Years * 100
+		const totalCost = totalInterest + feeAmount
+		effectiveAPR = ((totalCost / netLoanAmount) / loanTerm) * 100
+	}
+
+	const overpayment = totalInterest + feeAmount
+
+	// Build formula explanation
+	const frequencyLabel = paymentFrequencyStr === 'bi-weekly' ? 'Bi-weekly' : 'Monthly'
+	const feeLabel = feeType === 'percentage' 
+		? `${originationFee}% ($${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})`
+		: `$${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+	
+	let formulaExplanation = ''
+	
+	formulaExplanation = `Personal Loan Payment Calculation:\n\n1. Calculate Origination Fee:\n   ${feeType === 'percentage' ? `Fee = Loan Amount × ${originationFee}%\n   Fee = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${originationFee}%\n   Fee = $${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}Net Loan Amount = Loan Amount - Fee\n   Net Loan Amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Net Loan Amount = $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Calculate Monthly Payment (Principal + Interest):\n   M = L × [r(1+r)^n] / [(1+r)^n - 1]\n\n   Where:\n   - M = ${frequencyLabel.toLowerCase()} payment\n   - L = Net loan amount = $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Periodic interest rate = Annual rate / Payments per year = ${annualInterestRate}% / ${paymentsPerYear} = ${(periodicRate * 100).toFixed(6)}%\n   - n = Number of payments = ${loanTerm} years × ${paymentsPerYear} = ${numberOfPayments}\n\n   Substituting:\n   (1 + r)^n = (1 + ${periodicRate.toFixed(6)})^${numberOfPayments} = ${Math.pow(1 + periodicRate, numberOfPayments).toFixed(6)}\n\n   M = $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [${(periodicRate * 100).toFixed(6)}% × ${Math.pow(1 + periodicRate, numberOfPayments).toFixed(6)}] / [${Math.pow(1 + periodicRate, numberOfPayments).toFixed(6)} - 1]\n   M = $${monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Calculate Total Costs:\n   Total Payment: $${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Interest: $${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Origination Fee: $${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Overpayment: $${overpayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n${feeAmount > 0 ? `4. Effective APR (includes fees):\n   Effective APR = ((Total Interest + Fee) / Net Loan Amount) / Years × 100\n   Effective APR = (($${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}) / $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}) / ${loanTerm} × 100\n   Effective APR = ${effectiveAPR.toFixed(2)}%\n\n   The effective APR is higher than the nominal APR (${annualInterestRate}%) because the origination fee reduces the net loan amount you receive, effectively increasing your borrowing cost.\n\n` : ''}${extraMonthlyPayment > 0 ? `5. Impact of Extra Payments:\n   Payment with Extra = Regular Payment + Extra Payment\n   Payment with Extra = $${monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${extraMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Payment with Extra = $${(monthlyPayment + extraMonthlyPayment).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   By making extra payments, you reduce the loan term and total interest paid.\n\n` : ''}Personal loans are unsecured loans, meaning they don't require collateral. This makes them riskier for lenders, resulting in higher interest rates than secured loans (like mortgages or auto loans). The origination fee is deducted upfront, reducing the amount you actually receive. ${feeAmount > 0 ? `The effective APR accounts for this fee and shows the true annual cost of borrowing. ` : ''}Shorter loan terms result in higher monthly payments but significantly less total interest paid.`
 
 	return {
-		monthlyPayment,
+		monthlyPayment: Math.round(monthlyPayment * 100) / 100,
 		totalPayment: Math.round(totalPayment * 100) / 100,
 		totalInterest: Math.round(totalInterest * 100) / 100,
-		totalFees: Math.round(originationFee * 100) / 100,
-		apr: Math.round(apr * 100) / 100,
-		steps,
+		overpayment: Math.round(overpayment * 100) / 100,
+		effectiveAPR: feeAmount > 0 ? Math.round(effectiveAPR * 10000) / 100 : null,
+		formulaExplanation,
 	}
 }
-
-// Register the calculation function
-registerCalculation('calculatePersonalLoan', calculatePersonalLoan)
-

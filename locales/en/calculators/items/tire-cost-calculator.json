@@ -1,0 +1,256 @@
+{
+	"title": "Tire Cost Calculator – Cost per Year and per Mile",
+	"shortDescription": "Calculate tire costs over time. See annual tire expenses and cost per mile based on lifespan and mileage.",
+	"longDescription": "Calculate how much your tires really cost over time. Estimate annual tire expenses, cost per mile, and how often you'll need to replace them based on tire price, lifespan, and your driving habits. Compare budget vs premium tires, understand seasonal tire costs, and plan your tire budget effectively. Perfect for understanding the true cost of tire ownership and making informed purchasing decisions.",
+	"inputs": [
+		{
+			"label": "Tire Price Per Unit",
+			"unitLabel": "$",
+			"placeholder": "Enter tire price",
+			"helpText": "Price per tire"
+		},
+		{
+			"label": "Number of Tires",
+			"unitLabel": "tires",
+			"placeholder": "Enter number of tires",
+			"helpText": "Number of tires in a set (typically 4, or 5 if including spare)"
+		},
+		{
+			"label": "Tire Lifespan",
+			"unitLabel": "miles",
+			"placeholder": "Enter tire lifespan",
+			"helpText": "Expected tire lifespan in miles (check tire warranty/rating)"
+		},
+		{
+			"label": "Annual Mileage",
+			"unitLabel": "miles",
+			"placeholder": "Enter annual mileage",
+			"helpText": "Average miles driven per year"
+		},
+		{
+			"label": "Tire Type",
+			"unitLabel": "",
+			"placeholder": "Select tire type",
+			"helpText": "Single set (all-season) or seasonal tires (summer + winter sets)"
+		},
+		{
+			"label": "Mounting and Balancing Cost",
+			"unitLabel": "$",
+			"placeholder": "Enter mounting/balancing cost",
+			"helpText": "Cost for mounting and balancing per set (optional)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Total Tire Set Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Years Per Set",
+			"unitLabel": "years"
+		},
+		{
+			"label": "Annual Tire Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Cost Per Mile",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Tire Set Cost (Tires Only)",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Seasonal Total Cost",
+			"unitLabel": "$"
+		}
+	],
+	"howTo": [
+		"Enter the price per tire",
+		"Enter the number of tires in a set (typically 4)",
+		"Enter the expected tire lifespan in miles (check tire warranty or rating)",
+		"Enter your annual mileage",
+		"Select whether you use seasonal tires (summer + winter) or a single all-season set",
+		"Optionally enter mounting and balancing costs per set",
+		"Click 'Calculate' to see your tire costs",
+		"Review annual cost, cost per mile, and how often you'll replace tires"
+	],
+	"examples": [
+		{
+			"title": "Example 1: Budget Tires",
+			"description": "Budget tires at $60 each with 40,000 mile lifespan",
+			"inputs": {
+				"tirePricePerUnit": 60,
+				"tiresCount": 4,
+				"tireLifespanMilesKm": 40000,
+				"annualMileage": 12000,
+				"seasonalTiresToggle": "false",
+				"mountingAndBalancingCost": 60
+			},
+			"steps": [
+				"Tire price: $60 per tire",
+				"Number of tires: 4",
+				"Tire set cost (tires only): $60 × 4 = $240",
+				"Mounting and balancing: $60",
+				"Total tire set cost: $240 + $60 = $300",
+				"Tire lifespan: 40,000 miles",
+				"Annual mileage: 12,000 miles",
+				"Years per set: 40,000 miles ÷ 12,000 miles/year = 3.33 years",
+				"Annual tire cost: $300 ÷ 3.33 years = $90.09/year",
+				"Cost per mile: $90.09 ÷ 12,000 miles = $0.0075/mile",
+				"Note: Budget tires have shorter lifespan but lower upfront cost"
+			]
+		},
+		{
+			"title": "Example 2: Premium Tires",
+			"description": "Premium tires at $180 each with 60,000 mile lifespan",
+			"inputs": {
+				"tirePricePerUnit": 180,
+				"tiresCount": 4,
+				"tireLifespanMilesKm": 60000,
+				"annualMileage": 12000,
+				"seasonalTiresToggle": "false",
+				"mountingAndBalancingCost": 100
+			},
+			"steps": [
+				"Tire price: $180 per tire",
+				"Number of tires: 4",
+				"Tire set cost (tires only): $180 × 4 = $720",
+				"Mounting and balancing: $100",
+				"Total tire set cost: $720 + $100 = $820",
+				"Tire lifespan: 60,000 miles",
+				"Annual mileage: 12,000 miles",
+				"Years per set: 60,000 miles ÷ 12,000 miles/year = 5.0 years",
+				"Annual tire cost: $820 ÷ 5.0 years = $164.00/year",
+				"Cost per mile: $164.00 ÷ 12,000 miles = $0.0137/mile",
+				"Comparison: Premium tires cost $820 vs $300 for budget, but last 5 years vs 3.3 years",
+				"Cost per mile: Premium $0.0137 vs Budget $0.0075 (premium higher, but better performance and safety)"
+			]
+		},
+		{
+			"title": "Example 3: Seasonal Tires",
+			"description": "Separate summer and winter tire sets",
+			"inputs": {
+				"tirePricePerUnit": 120,
+				"tiresCount": 4,
+				"tireLifespanMilesKm": 50000,
+				"annualMileage": 12000,
+				"seasonalTiresToggle": "true",
+				"mountingAndBalancingCost": 80
+			},
+			"steps": [
+				"Tire price: $120 per tire",
+				"Number of tires: 4 per set",
+				"Single set cost: ($120 × 4) + $80 mounting = $560",
+				"Seasonal tires: Need 2 sets (summer + winter)",
+				"Total investment: $560 × 2 = $1,120",
+				"Tire lifespan: 50,000 miles per set",
+				"Annual mileage: 12,000 miles",
+				"Years per set: 50,000 miles ÷ 12,000 miles/year = 4.17 years",
+				"Annual tire cost: $1,120 ÷ 4.17 years = $268.59/year",
+				"Cost per mile: $268.59 ÷ 12,000 miles = $0.0224/mile",
+				"Note: Each set may last longer since used only part of the year (seasonal use)"
+			]
+		},
+		{
+			"title": "Example 4: High Mileage Driver",
+			"description": "Driving 25,000 miles per year",
+			"inputs": {
+				"tirePricePerUnit": 120,
+				"tiresCount": 4,
+				"tireLifespanMilesKm": 50000,
+				"annualMileage": 25000,
+				"seasonalTiresToggle": "false",
+				"mountingAndBalancingCost": 80
+			},
+			"steps": [
+				"Tire price: $120 per tire",
+				"Number of tires: 4",
+				"Tire set cost: ($120 × 4) + $80 mounting = $560",
+				"Tire lifespan: 50,000 miles",
+				"Annual mileage: 25,000 miles (high mileage driver)",
+				"Years per set: 50,000 miles ÷ 25,000 miles/year = 2.0 years",
+				"Annual tire cost: $560 ÷ 2.0 years = $280.00/year",
+				"Cost per mile: $280.00 ÷ 25,000 miles = $0.0112/mile",
+				"Comparison: At 12,000 miles/year, same tires would last 4.17 years with $134/year cost",
+				"Impact: High mileage means more frequent tire replacements, increasing annual cost"
+			]
+		},
+		{
+			"title": "Example 5: Mid-Range Tires, Average Use",
+			"description": "Mid-range tires at $100 each with 50,000 mile lifespan, 15,000 miles/year",
+			"inputs": {
+				"tirePricePerUnit": 100,
+				"tiresCount": 4,
+				"tireLifespanMilesKm": 50000,
+				"annualMileage": 15000,
+				"seasonalTiresToggle": "false",
+				"mountingAndBalancingCost": 80
+			},
+			"steps": [
+				"Tire price: $100 per tire",
+				"Number of tires: 4",
+				"Tire set cost: ($100 × 4) + $80 mounting = $480",
+				"Tire lifespan: 50,000 miles",
+				"Annual mileage: 15,000 miles",
+				"Years per set: 50,000 miles ÷ 15,000 miles/year = 3.33 years",
+				"Annual tire cost: $480 ÷ 3.33 years = $144.14/year",
+				"Cost per mile: $144.14 ÷ 15,000 miles = $0.0096/mile",
+				"Note: Mid-range tires offer good balance between cost and lifespan"
+			]
+		}
+	],
+	"faq": [
+		{
+			"question": "How long do tires last?",
+			"answer": "Tire lifespan varies by type, quality, driving habits, and conditions. Typical all-season tires: 40,000-60,000 miles. Premium tires: 60,000-80,000+ miles. Budget tires: 30,000-40,000 miles. High-performance tires: 20,000-40,000 miles (shorter due to softer compound). Check your tire's warranty or UTQG rating for expected lifespan."
+		},
+		{
+			"question": "Are premium tires worth it?",
+			"answer": "Premium tires often have longer lifespan, better performance (grip, handling, braking), better fuel economy, and better warranty. While they cost more upfront, they may have similar or lower cost per mile due to longer lifespan. They also provide better safety and driving experience. Consider your driving needs and budget."
+		},
+		{
+			"question": "What is cost per mile and why does it matter?",
+			"answer": "Cost per mile shows how much tires add to every mile you drive. It helps compare different tire options on an equal basis. For example, a $60 tire that lasts 30,000 miles costs $0.008 per mile, while a $120 tire that lasts 60,000 miles also costs $0.008 per mile - same cost per mile despite double the price. This helps you make informed decisions."
+		},
+		{
+			"question": "Does driving style matter?",
+			"answer": "Yes! Aggressive driving (hard acceleration, braking, cornering) wears tires faster. Smooth driving extends tire life. Other factors: proper inflation (underinflation wears tires faster), alignment (misalignment causes uneven wear), road conditions (rough roads wear tires faster), and climate (extreme heat or cold affects tire life)."
+		},
+		{
+			"question": "Should I get seasonal tires?",
+			"answer": "Seasonal tires (separate summer and winter sets) provide better performance in their respective seasons. Winter tires offer superior traction in snow/ice. Summer tires offer better handling in warm weather. However, you need two sets, which doubles upfront cost. All-season tires are a compromise that work year-round but aren't optimal in extreme conditions."
+		},
+		{
+			"question": "How often should I replace tires?",
+			"answer": "Replace tires when tread depth reaches 2/32\" (legal minimum in most states) or when you see signs of wear, damage, or aging. Even with good tread, replace tires that are 6-10 years old (check sidewall date code). Tires degrade over time even if not driven. Check tread depth regularly with a penny test."
+		},
+		{
+			"question": "What affects tire lifespan?",
+			"answer": "Factors affecting tire life: driving habits (aggressive vs smooth), tire maintenance (inflation, rotation, alignment), road conditions, climate, tire quality, vehicle weight, and load. Proper maintenance (regular rotation, correct inflation, alignment) can significantly extend tire life."
+		},
+		{
+			"question": "How much does mounting and balancing cost?",
+			"answer": "Mounting and balancing typically costs $15-25 per tire ($60-100 per set of 4). Some shops include it with tire purchase, others charge separately. It's usually done when installing new tires. Some shops offer free rotation and balancing for the life of the tires if purchased there."
+		},
+		{
+			"question": "Do I need to replace all four tires at once?",
+			"answer": "Ideally, yes - replace all four tires at once for even wear and consistent performance. However, if only one or two tires are worn, you can replace them in pairs (front or rear). Never replace just one tire unless it matches the others exactly. Mismatched tires can affect handling and safety."
+		},
+		{
+			"question": "What's the difference between tire types?",
+			"answer": "All-season: year-round use, compromise performance. Summer: best warm-weather performance, not for cold/snow. Winter: best snow/ice traction, not for warm weather. Performance: high-speed rated, shorter lifespan. Touring: comfort-focused, longer lifespan. Each type has different cost and lifespan characteristics."
+		},
+		{
+			"question": "How accurate is this calculator?",
+			"answer": "The calculator provides estimates based on tire price, expected lifespan, and your mileage. Actual tire life varies based on driving habits, maintenance, road conditions, and tire quality. Use it as a planning tool and adjust based on your actual experience. Check tire warranties and reviews for more accurate lifespan estimates."
+		},
+		{
+			"question": "Can I reduce tire costs?",
+			"answer": "Ways to reduce costs: maintain proper inflation (extends life), rotate tires regularly (even wear), drive smoothly (less wear), choose tires with longer warranties, shop around for best prices, consider tire rebates, and maintain proper alignment. However, don't sacrifice safety for cost - quality tires are important for safety."
+		}
+	]
+}
+
+

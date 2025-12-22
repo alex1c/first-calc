@@ -1,0 +1,260 @@
+{
+	"title": "Fuel Cost Calculator – Calculate Gas Cost for Any Trip",
+	"shortDescription": "Calculate fuel costs for any trip, monthly driving, or yearly expenses. Supports both MPG and L/100km fuel consumption units.",
+	"longDescription": "Calculate exactly how much you'll spend on fuel for any driving scenario. Whether you're planning a road trip, budgeting monthly fuel expenses, or calculating annual fuel costs, this calculator provides accurate estimates. Supports both metric (L/100km) and imperial (MPG) fuel consumption units, round trip calculations, and multiple currencies. Perfect for trip planning, budgeting, and comparing fuel costs between different vehicles or routes.",
+	"inputs": [
+		{
+			"label": "Period Type",
+			"unitLabel": "",
+			"placeholder": "Select period type",
+			"helpText": "Choose whether to calculate for a single trip, monthly, or yearly fuel costs"
+		},
+		{
+			"label": "Distance",
+			"unitLabel": "km or miles",
+			"placeholder": "Enter distance",
+			"helpText": "Distance to travel (in km for L/100km, or miles for MPG)"
+		},
+		{
+			"label": "Consumption Unit",
+			"unitLabel": "",
+			"placeholder": "Select consumption unit",
+			"helpText": "Choose between L/100km (metric) or MPG (imperial) fuel consumption measurement"
+		},
+		{
+			"label": "Fuel Consumption",
+			"unitLabel": "",
+			"placeholder": "Enter fuel consumption",
+			"helpText": "Your vehicle's fuel consumption (e.g., 8 L/100km or 30 MPG)"
+		},
+		{
+			"label": "Fuel Price Per Unit",
+			"unitLabel": "",
+			"placeholder": "Enter fuel price",
+			"helpText": "Current fuel price per liter (for L/100km) or per gallon (for MPG)"
+		},
+		{
+			"label": "Trip Type",
+			"unitLabel": "",
+			"placeholder": "Select trip type",
+			"helpText": "Choose one-way or round trip (round trip doubles the distance)"
+		},
+		{
+			"label": "Currency",
+			"unitLabel": "",
+			"placeholder": "Select currency",
+			"helpText": "Currency symbol for cost display"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Fuel Used",
+			"unitLabel": "liters or gallons"
+		},
+		{
+			"label": "Fuel Cost",
+			"unitLabel": ""
+		},
+		{
+			"label": "Cost Per Distance",
+			"unitLabel": "per km or mile"
+		},
+		{
+			"label": "Total Fuel Cost",
+			"unitLabel": ""
+		}
+	],
+	"howTo": [
+		"Select whether you want to calculate for a single trip, monthly, or yearly period",
+		"Enter the distance you'll travel (in km for L/100km, or miles for MPG)",
+		"Choose your fuel consumption unit: L/100km (metric) or MPG (imperial)",
+		"Enter your vehicle's fuel consumption rate",
+		"Enter the current fuel price per liter (L/100km) or per gallon (MPG)",
+		"Select whether it's a one-way or round trip",
+		"Choose your currency symbol",
+		"Click 'Calculate' to see your fuel cost",
+		"Review the fuel used, total cost, and cost per distance",
+		"Check insights for fuel efficiency tips and potential savings"
+	],
+	"examples": [
+		{
+			"title": "Example 1: Daily Commute",
+			"description": "Daily commute of 30 km each way (60 km round trip) with a car that uses 8 L/100km",
+			"inputs": {
+				"periodType": "trip",
+				"distance": 30,
+				"consumptionUnit": "L/100km",
+				"fuelConsumption": 8,
+				"fuelPricePerUnit": 1.50,
+				"roundTrip": "true",
+				"currency": "$"
+			},
+			"steps": [
+				"Distance: 30 km × 2 (round trip) = 60 km total",
+				"Fuel consumption: 8 L/100km",
+				"Fuel calculation: (60 km ÷ 100) × 8 L/100km = 4.8 liters",
+				"Fuel price: $1.50 per liter",
+				"Fuel cost: 4.8 liters × $1.50/liter = $7.20",
+				"Cost per km: $7.20 ÷ 60 km = $0.12/km",
+				"Daily commute cost: $7.20 per day",
+				"Monthly cost (20 work days): $7.20 × 20 = $144/month"
+			]
+		},
+		{
+			"title": "Example 2: Long Road Trip",
+			"description": "500-mile road trip with a vehicle that gets 25 MPG",
+			"inputs": {
+				"periodType": "trip",
+				"distance": 500,
+				"consumptionUnit": "MPG",
+				"fuelConsumption": 25,
+				"fuelPricePerUnit": 3.50,
+				"roundTrip": "false",
+				"currency": "$"
+			},
+			"steps": [
+				"Distance: 500 miles (one way)",
+				"Fuel consumption: 25 MPG",
+				"Fuel calculation: 500 miles ÷ 25 MPG = 20 gallons",
+				"Fuel price: $3.50 per gallon",
+				"Fuel cost: 20 gallons × $3.50/gallon = $70.00",
+				"Cost per mile: $70.00 ÷ 500 miles = $0.14/mile",
+				"Fuel used: 20 gallons (approximately 75.7 liters)",
+				"Note: For round trip, multiply distance by 2 and recalculate"
+			]
+		},
+		{
+			"title": "Example 3: City Driving (Higher Consumption)",
+			"description": "100 km city drive with higher consumption (10 L/100km)",
+			"inputs": {
+				"periodType": "trip",
+				"distance": 100,
+				"consumptionUnit": "L/100km",
+				"fuelConsumption": 10,
+				"fuelPricePerUnit": 1.60,
+				"roundTrip": "false",
+				"currency": "$"
+			},
+			"steps": [
+				"Distance: 100 km",
+				"Fuel consumption: 10 L/100km (city driving, higher consumption)",
+				"Fuel calculation: (100 km ÷ 100) × 10 L/100km = 10 liters",
+				"Fuel price: $1.60 per liter",
+				"Fuel cost: 10 liters × $1.60/liter = $16.00",
+				"Cost per km: $16.00 ÷ 100 km = $0.16/km",
+				"Comparison: Highway driving at 7 L/100km would use 7 liters and cost $11.20",
+				"Savings: City costs $4.80 more than highway for same distance"
+			]
+		},
+		{
+			"title": "Example 4: Monthly Fuel Cost",
+			"description": "Monthly driving of 1,500 km with fuel at $2.00 per liter",
+			"inputs": {
+				"periodType": "monthly",
+				"distance": 1500,
+				"consumptionUnit": "L/100km",
+				"fuelConsumption": 9,
+				"fuelPricePerUnit": 2.00,
+				"roundTrip": "false",
+				"currency": "$"
+			},
+			"steps": [
+				"Monthly distance: 1,500 km",
+				"Fuel consumption: 9 L/100km",
+				"Fuel calculation: (1,500 km ÷ 100) × 9 L/100km = 135 liters",
+				"Fuel price: $2.00 per liter (high fuel price)",
+				"Monthly fuel cost: 135 liters × $2.00/liter = $270.00",
+				"Cost per km: $270.00 ÷ 1,500 km = $0.18/km",
+				"Annual fuel cost: $270 × 12 = $3,240/year",
+				"Note: High fuel prices significantly impact monthly fuel expenses"
+			]
+		},
+		{
+			"title": "Example 5: Yearly Fuel Cost",
+			"description": "Annual driving of 15,000 miles with a vehicle getting 28 MPG at $3.60/gallon",
+			"inputs": {
+				"periodType": "yearly",
+				"distance": 15000,
+				"consumptionUnit": "MPG",
+				"fuelConsumption": 28,
+				"fuelPricePerUnit": 3.60,
+				"roundTrip": "false",
+				"currency": "$"
+			},
+			"steps": [
+				"Annual distance: 15,000 miles",
+				"Fuel consumption: 28 MPG",
+				"Fuel calculation: 15,000 miles ÷ 28 MPG = 535.71 gallons",
+				"Fuel price: $3.60 per gallon",
+				"Annual fuel cost: 535.71 gallons × $3.60/gallon = $1,928.56",
+				"Monthly fuel cost: $1,928.56 ÷ 12 = $160.71/month",
+				"Cost per mile: $1,928.56 ÷ 15,000 miles = $0.129/mile",
+				"Note: Fuel-efficient vehicles (higher MPG) significantly reduce annual fuel costs"
+			]
+		}
+	],
+	"faq": [
+		{
+			"question": "How do I calculate fuel cost?",
+			"answer": "Fuel cost is calculated by: (1) determining how much fuel you'll use based on distance and fuel consumption, then (2) multiplying fuel used by the fuel price. For L/100km: fuel used = (distance ÷ 100) × consumption. For MPG: fuel used = distance ÷ MPG (in gallons)."
+		},
+		{
+			"question": "What is L/100km vs MPG?",
+			"answer": "L/100km (liters per 100 kilometers) is the metric measurement where lower numbers mean better fuel efficiency. MPG (miles per gallon) is the imperial measurement where higher numbers mean better efficiency. For example, 8 L/100km is approximately 29 MPG. The calculator supports both units."
+		},
+		{
+			"question": "How do I convert between L/100km and MPG?",
+			"answer": "To convert L/100km to MPG: MPG = 235.214 ÷ L/100km. To convert MPG to L/100km: L/100km = 235.214 ÷ MPG. For example, 8 L/100km = 29.4 MPG, and 30 MPG = 7.84 L/100km."
+		},
+		{
+			"question": "How accurate is this calculator?",
+			"answer": "The calculator provides estimates based on the fuel consumption rate you enter. Actual fuel consumption varies based on driving conditions, speed, vehicle load, weather, and driving habits. Use it as a planning tool and expect some variation in real-world results."
+		},
+		{
+			"question": "How can I save fuel?",
+			"answer": "Several strategies can reduce fuel consumption: maintain steady speeds, avoid aggressive acceleration and braking, keep tires properly inflated, remove excess weight, use cruise control on highways, plan efficient routes, combine errands, and maintain your vehicle regularly. Even small improvements in fuel efficiency can save significant money over time."
+		},
+		{
+			"question": "What's the difference between one-way and round trip?",
+			"answer": "One-way calculates fuel cost for a single direction. Round trip doubles the distance, calculating fuel for both going and returning. Use round trip when you need to return to your starting point."
+		},
+		{
+			"question": "How do I find my vehicle's fuel consumption?",
+			"answer": "Check your vehicle's specifications, owner's manual, or EPA ratings (for US vehicles). You can also calculate it yourself: fill your tank, reset the odometer, drive normally, then refill and divide fuel used by distance traveled. For L/100km: (fuel liters ÷ distance km) × 100. For MPG: distance miles ÷ fuel gallons."
+		},
+		{
+			"question": "Why does city driving use more fuel than highway?",
+			"answer": "City driving involves frequent stops, idling, acceleration, and lower speeds, all of which increase fuel consumption. Highway driving at steady speeds is more efficient. Many vehicles have separate city and highway fuel economy ratings - use the appropriate one for your trip type."
+		},
+		{
+			"question": "Does this include other trip costs?",
+			"answer": "No, this calculator only calculates fuel costs. For total trip costs including tolls, parking, maintenance, and other expenses, use our Trip Cost Calculator or Monthly Car Expenses Calculator."
+		},
+		{
+			"question": "What if I don't know my exact fuel consumption?",
+			"answer": "Use your vehicle's official fuel economy rating as a starting point. You can find this in your owner's manual, on the vehicle's window sticker, or in online specifications. Remember that real-world consumption is often 10-20% higher than official ratings due to driving conditions."
+		},
+		{
+			"question": "How do fuel prices affect my costs?",
+			"answer": "Fuel prices directly impact your costs - a 10% increase in fuel price means a 10% increase in fuel costs. The calculator shows cost per distance, which helps you understand the impact. During high fuel price periods, fuel-efficient vehicles and driving habits become even more valuable."
+		},
+		{
+			"question": "Can I use this for electric vehicles?",
+			"answer": "This calculator is designed for gasoline/diesel vehicles. For electric vehicles, you'd need to calculate electricity costs instead. However, you can adapt it by using kWh consumption rates and electricity prices per kWh, though the units would need adjustment."
+		},
+		{
+			"question": "What's a good fuel consumption rate?",
+			"answer": "Good fuel efficiency depends on vehicle type. For cars: under 7 L/100km (over 33 MPG) is excellent, 7-10 L/100km (28-33 MPG) is good, 10-12 L/100km (20-28 MPG) is average. SUVs and trucks typically have higher consumption. Compare your vehicle to similar models in its class."
+		},
+		{
+			"question": "How does the monthly/yearly calculation work?",
+			"answer": "For monthly calculation, the calculator multiplies your trip cost by 30 days. For yearly, it multiplies by 365 days. This assumes you make the same trip daily. Adjust the distance if your actual monthly/yearly driving differs from daily trips."
+		},
+		{
+			"question": "Why is my actual fuel cost different from the calculation?",
+			"answer": "Real-world fuel consumption varies due to many factors: driving style, traffic conditions, weather, vehicle condition, tire pressure, load, route elevation changes, and fuel quality. The calculator provides estimates - actual costs may be 10-20% higher or lower depending on these factors."
+		}
+	]
+}
+
+

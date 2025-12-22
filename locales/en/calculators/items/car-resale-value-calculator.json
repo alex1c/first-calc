@@ -1,0 +1,311 @@
+{
+	"title": "Car Resale Value Calculator – Estimate What Your Car Will Be Worth",
+	"shortDescription": "Estimate your car's resale value in future years using depreciation, condition, and mileage assumptions.",
+	"longDescription": "Estimate how much your car will be worth when you sell it. This calculator helps you understand the resale value of your vehicle based on depreciation rates, condition, and mileage. Perfect for planning when to sell, understanding value loss over time, and making informed decisions about car ownership. Get transparent estimates with clear assumptions so you know what to expect when selling your car.",
+	"inputs": [
+		{
+			"label": "Current Car Value",
+			"unitLabel": "$",
+			"placeholder": "Enter current car value",
+			"helpText": "Current value or purchase price of your car"
+		},
+		{
+			"label": "Purchase Price",
+			"unitLabel": "$",
+			"placeholder": "Enter purchase price",
+			"helpText": "Alternative: enter purchase price if you prefer"
+		},
+		{
+			"label": "Years Until Sale",
+			"unitLabel": "years",
+			"placeholder": "Enter years until sale",
+			"helpText": "How many years until you plan to sell (1-15 years)"
+		},
+		{
+			"label": "Condition",
+			"unitLabel": "",
+			"placeholder": "Select condition",
+			"helpText": "Expected condition of your car when selling"
+		},
+		{
+			"label": "Purchase Type",
+			"unitLabel": "",
+			"placeholder": "Select purchase type",
+			"helpText": "Whether the car was new or used when you bought it"
+		},
+		{
+			"label": "Baseline Depreciation Rate",
+			"unitLabel": "%",
+			"placeholder": "Enter depreciation rate",
+			"helpText": "Annual depreciation rate (defaults: 18% for new, 12% for used)"
+		},
+		{
+			"label": "Annual Mileage",
+			"unitLabel": "miles",
+			"placeholder": "Enter annual mileage",
+			"helpText": "Average miles driven per year (optional, for mileage impact)"
+		},
+		{
+			"label": "Apply Mileage Impact",
+			"unitLabel": "",
+			"placeholder": "Select mileage impact",
+			"helpText": "Enable to reduce resale value based on high mileage"
+		},
+		{
+			"label": "Mileage Baseline Per Year",
+			"unitLabel": "miles",
+			"placeholder": "Enter baseline mileage",
+			"helpText": "Normal/average annual mileage (default: 12,000 miles)"
+		},
+		{
+			"label": "Mileage Penalty Per Extra Unit",
+			"unitLabel": "% per 1000 miles",
+			"placeholder": "Enter mileage penalty",
+			"helpText": "Value reduction percentage per 1000 miles over baseline (default: 1%)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Estimated Resale Value",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Value Loss",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Value Loss Percentage",
+			"unitLabel": "%"
+		},
+		{
+			"label": "Average Loss Per Year",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Year-by-Year Table",
+			"unitLabel": ""
+		}
+	],
+	"howTo": [
+		"Enter your car's current value (or purchase price if you prefer)",
+		"Enter how many years until you plan to sell the car",
+		"Select the expected condition of your car when selling (excellent, good, fair, or poor)",
+		"Select whether the car was new or used when you bought it",
+		"Optionally enter a custom depreciation rate (or use defaults: 18% for new, 12% for used)",
+		"Optionally enter your annual mileage",
+		"If you want to account for mileage impact, enable it and enter baseline mileage and penalty rate",
+		"Click 'Calculate' to see your estimated resale value",
+		"Review the total value loss and loss per year",
+		"Check the year-by-year table to see how value changes over time",
+		"Read the insights to understand assumptions and factors affecting resale value"
+	],
+	"examples": [
+		{
+			"title": "Example 1: Used Car $18,000, 3 Years, Good Condition",
+			"description": "A used car worth $18,000 today. Estimate resale value after 3 years with 12% annual depreciation (default for used cars). Good condition (no adjustment).",
+			"inputs": {
+				"currentCarValue": 18000,
+				"yearsUntilSale": 3,
+				"condition": "good",
+				"purchaseType": "used",
+				"baselineDepreciationRate": 0,
+				"annualMileage": 0,
+				"mileageImpactToggle": "false"
+			},
+			"steps": [
+				"Current car value: $18,000",
+				"Years until sale: 3 years",
+				"Purchase type: Used (default depreciation: 12% per year)",
+				"Condition: Good (no adjustment factor)",
+				"Depreciation calculation: Value after 3 years = $18,000 × (1 - 0.12)³",
+				"Step 1: $18,000 × 0.88 = $15,840 (after year 1)",
+				"Step 2: $15,840 × 0.88 = $13,939 (after year 2)",
+				"Step 3: $13,939 × 0.88 = $12,258 (after year 3)",
+				"Condition adjustment: Good = 1.0 (no change)",
+				"Estimated resale value: $12,258",
+				"Total value loss: $18,000 - $12,258 = $5,742",
+				"Value loss percentage: ($5,742 ÷ $18,000) × 100 = 31.9%",
+				"Average loss per year: $5,742 ÷ 3 = $1,914/year"
+			]
+		},
+		{
+			"title": "Example 2: New Car $35,000, 5 Years, High Depreciation",
+			"description": "A new $35,000 car. Estimate resale value after 5 years with 18% annual depreciation (typical for new cars). Good condition.",
+			"inputs": {
+				"currentCarValue": 35000,
+				"yearsUntilSale": 5,
+				"condition": "good",
+				"purchaseType": "new",
+				"baselineDepreciationRate": 18,
+				"annualMileage": 0,
+				"mileageImpactToggle": "false"
+			},
+			"steps": [
+				"Current car value: $35,000 (new car)",
+				"Years until sale: 5 years",
+				"Purchase type: New (depreciation: 18% per year)",
+				"Condition: Good (no adjustment factor)",
+				"Depreciation calculation: Value after 5 years = $35,000 × (1 - 0.18)⁵",
+				"Step 1: $35,000 × 0.82 = $28,700 (after year 1, lost $6,300)",
+				"Step 2: $28,700 × 0.82 = $23,534 (after year 2)",
+				"Step 3: $23,534 × 0.82 = $19,298 (after year 3)",
+				"Step 4: $19,298 × 0.82 = $15,824 (after year 4)",
+				"Step 5: $15,824 × 0.82 = $12,976 (after year 5)",
+				"Condition adjustment: Good = 1.0 (no change)",
+				"Estimated resale value: $12,976",
+				"Total value loss: $35,000 - $12,976 = $22,024",
+				"Value loss percentage: ($22,024 ÷ $35,000) × 100 = 62.9%",
+				"Average loss per year: $22,024 ÷ 5 = $4,405/year (much higher than used car)"
+			]
+		},
+		{
+			"title": "Example 3: High Mileage Impact",
+			"description": "Car worth $25,000 driven 20,000 miles/year vs 12,000 baseline. After 4 years: 80,000 total miles vs 48,000 baseline = 32,000 excess miles.",
+			"inputs": {
+				"currentCarValue": 25000,
+				"yearsUntilSale": 4,
+				"condition": "good",
+				"purchaseType": "used",
+				"baselineDepreciationRate": 12,
+				"annualMileage": 20000,
+				"mileageImpactToggle": "true",
+				"mileageBaselinePerYear": 12000,
+				"mileagePenaltyPerExtraUnit": 0.01
+			},
+			"steps": [
+				"Current car value: $25,000",
+				"Years until sale: 4 years",
+				"Annual mileage: 20,000 miles (high mileage driver)",
+				"Baseline mileage: 12,000 miles/year",
+				"Base depreciation: $25,000 × (1 - 0.12)⁴ = $25,000 × 0.88⁴ = $15,000",
+				"Excess mileage calculation: (20,000 - 12,000) × 4 years = 32,000 excess miles",
+				"Mileage penalty blocks: 32,000 miles ÷ 1,000 = 32 blocks",
+				"Mileage penalty: 32 blocks × 1% per block = 32% reduction",
+				"Adjusted value after mileage penalty: $15,000 × (1 - 0.32) = $10,200",
+				"Condition adjustment: Good = 1.0 (no change)",
+				"Estimated resale value: $10,200",
+				"Total value loss: $25,000 - $10,200 = $14,800",
+				"Value loss percentage: ($14,800 ÷ $25,000) × 100 = 59.2%",
+				"Impact: High mileage reduces resale value by $4,800 compared to normal mileage"
+			]
+		},
+		{
+			"title": "Example 4: Condition Impact - Excellent",
+			"description": "Same $20,000 car after 3 years in excellent condition. Shows how condition affects resale value.",
+			"inputs": {
+				"currentCarValue": 20000,
+				"yearsUntilSale": 3,
+				"condition": "excellent",
+				"purchaseType": "used",
+				"baselineDepreciationRate": 12,
+				"annualMileage": 0,
+				"mileageImpactToggle": "false"
+			},
+			"steps": [
+				"Current car value: $20,000",
+				"Years until sale: 3 years",
+				"Base depreciation: $20,000 × (1 - 0.12)³ = $20,000 × 0.88³ = $13,629",
+				"Condition: Excellent (+5% adjustment)",
+				"Condition adjustment: $13,629 × 1.05 = $14,310",
+				"Estimated resale value: $14,310",
+				"Comparison: Good condition = $13,629, Fair = $12,675, Poor = $11,585",
+				"Condition impact: Excellent condition adds $681 vs Good, $1,635 vs Fair, $2,725 vs Poor",
+				"Total value loss: $20,000 - $14,310 = $5,690",
+				"Value loss percentage: ($5,690 ÷ $20,000) × 100 = 28.5%",
+				"Average loss per year: $5,690 ÷ 3 = $1,897/year"
+			]
+		},
+		{
+			"title": "Example 5: Low Mileage Used Car",
+			"description": "A $22,000 used car driven only 8,000 miles/year for 4 years. Low mileage helps preserve value.",
+			"inputs": {
+				"currentCarValue": 22000,
+				"yearsUntilSale": 4,
+				"condition": "good",
+				"purchaseType": "used",
+				"baselineDepreciationRate": 12,
+				"annualMileage": 8000,
+				"mileageImpactToggle": "true",
+				"mileageBaselinePerYear": 12000,
+				"mileagePenaltyPerExtraUnit": 0.01
+			},
+			"steps": [
+				"Current car value: $22,000",
+				"Years until sale: 4 years",
+				"Annual mileage: 8,000 miles (low mileage, below baseline)",
+				"Baseline mileage: 12,000 miles/year",
+				"Base depreciation: $22,000 × (1 - 0.12)⁴ = $22,000 × 0.88⁴ = $13,200",
+				"Mileage impact: 8,000 < 12,000 (below baseline, no penalty applied)",
+				"Condition adjustment: Good = 1.0 (no change)",
+				"Estimated resale value: $13,200",
+				"Total value loss: $22,000 - $13,200 = $8,800",
+				"Value loss percentage: ($8,800 ÷ $22,000) × 100 = 40.0%",
+				"Average loss per year: $8,800 ÷ 4 = $2,200/year",
+				"Benefit: Low mileage preserves value compared to high-mileage vehicles"
+			]
+		}
+	],
+	"faq": [
+		{
+			"question": "How do I estimate resale value?",
+			"answer": "Resale value depends on: vehicle age, mileage, condition, maintenance history, brand reputation, model popularity, and market demand. This calculator uses depreciation rates, condition adjustments, and optional mileage impact to provide estimates. For more accuracy, research actual resale values for your specific make, model, and year."
+		},
+		{
+			"question": "What affects resale value most?",
+			"answer": "The biggest factors are: vehicle age and mileage (most important), condition (accidents, wear, maintenance), brand and model reputation, market demand, and economic conditions. Well-maintained, low-mileage vehicles from reliable brands hold value best. High mileage, poor condition, and accident history significantly reduce value."
+		},
+		{
+			"question": "How does mileage affect resale price?",
+			"answer": "Mileage is one of the most important factors. Average is about 12,000 miles per year. Vehicles with much higher mileage (20,000+ miles/year) lose value faster. High-mileage cars are worth significantly less because they have more wear and shorter remaining lifespan. The calculator can account for mileage impact on resale value."
+		},
+		{
+			"question": "What's the difference between new and used car depreciation?",
+			"answer": "New cars depreciate much faster, especially in the first year (often 20-30% loss). Used cars have already lost most of their initial value, so they depreciate slower (typically 10-15% annually). This is why buying used can be better value - most depreciation has already occurred."
+		},
+		{
+			"question": "Is this accurate without market data?",
+			"answer": "This calculator provides estimates based on general depreciation patterns. Actual resale value depends on many factors: specific make/model, local market conditions, current demand, vehicle history, and economic factors. Use it as a planning tool and research actual resale values (Kelley Blue Book, Edmunds, local listings) for more accuracy."
+		},
+		{
+			"question": "How does condition affect resale value?",
+			"answer": "Condition significantly impacts resale value. Excellent condition (like new, no issues) can add 5% to value. Good condition (normal wear) is baseline. Fair condition (some issues, wear) reduces value by ~7%. Poor condition (significant problems, damage) reduces value by ~15% or more. Well-maintained cars sell for more."
+		},
+		{
+			"question": "What is a typical depreciation rate?",
+			"answer": "Typical annual depreciation: New cars: 15-25% in first year, then 10-20% annually. Used cars: 10-15% annually. Luxury and high-performance cars often depreciate faster. Economy cars and popular models may hold value better. Research your specific vehicle for more accurate rates."
+		},
+		{
+			"question": "When is the best time to sell my car?",
+			"answer": "There's no perfect time, but consider: cars lose value fastest in first 2-3 years, so selling early minimizes total loss but maximizes annual loss. Keeping longer spreads depreciation over more years. Balance depreciation rate, maintenance costs, and your needs. The year-by-year table helps visualize this."
+		},
+		{
+			"question": "How can I maximize my resale value?",
+			"answer": "To maximize resale value: keep mileage low, maintain the vehicle well (regular service, records), keep it clean, avoid accidents, address issues promptly, choose vehicles with better resale value (popular models, reliable brands), and sell when market conditions are favorable. However, depreciation will still occur."
+		},
+		{
+			"question": "Should I use current value or purchase price?",
+			"answer": "Use current value if you want to estimate future resale from today's value. Use purchase price if you want to see total value loss from when you bought it. Both approaches are valid - choose based on what you want to know. The calculator accepts either input."
+		},
+		{
+			"question": "How does brand affect resale value?",
+			"answer": "Brand reputation significantly affects resale value. Reliable brands (Toyota, Honda, Lexus) typically hold value better than less reliable brands. Luxury brands often depreciate faster due to high initial cost and expensive maintenance. Popular models hold value better than niche vehicles. Research your specific brand and model."
+		},
+		{
+			"question": "What if I have an accident on my record?",
+			"answer": "Accidents significantly reduce resale value, especially if not properly repaired or if there's a salvage title. A single accident can reduce value by 10-20% or more. Multiple accidents or major damage can reduce value by 30%+. The calculator's condition adjustment can approximate this, but actual impact depends on severity and repair quality."
+		},
+		{
+			"question": "How do I adjust the depreciation rate?",
+			"answer": "You can enter a custom depreciation rate based on your research. Check Kelley Blue Book, Edmunds, or similar sources for your specific make/model/year to find typical depreciation rates. Luxury cars, sports cars, and less popular models often have higher rates. Popular, reliable models have lower rates."
+		},
+		{
+			"question": "What's the difference between this and the Depreciation Calculator?",
+			"answer": "This calculator focuses on resale value estimation from a seller's perspective - 'what can I sell it for?' The Depreciation Calculator provides detailed depreciation analysis with multiple models and year-by-year breakdowns. Both are useful, but this one is simpler and more seller-focused."
+		},
+		{
+			"question": "How accurate are the mileage penalties?",
+			"answer": "The mileage penalty is a simplified model. Actual impact varies by vehicle type, brand, and market. High-mileage luxury cars lose more value than high-mileage economy cars. The calculator uses a general rule (typically 1% per 1000 miles over baseline), but actual impact may vary. Use it as a guideline."
+		}
+	]
+}
+

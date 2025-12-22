@@ -1,213 +1,138 @@
 /**
- * Loan overpayment calculation functions
- * Calculates interest savings from making extra payments on a loan
+ * Calculate loan overpayment and interest savings from extra payments
+ * Inputs: loanAmount, annualInterestRate, loanTerm, paymentFrequency, extraMonthlyPayment, loanType
+ * Outputs: overpayment, totalInterest, totalPayment, regularPayment, interestSaved, loanDurationReduced, formulaExplanation
  */
 
-import type { CalculationFunction } from './registry'
+import type { CalculatorFunction } from '@/lib/calculators/types'
 
 /**
- * Step interface for loan overpayment calculation
+ * Map payment frequency string to payments per year
  */
-interface CalculationStep {
-	title: string
-	math: string
-	explanation: string
+function getPaymentsPerYear(frequency: string | number): number {
+	if (typeof frequency === 'number') {
+		return frequency
+	}
+	const frequencyMap: Record<string, number> = {
+		'monthly': 12,
+		'bi-weekly': 26,
+	}
+	return frequencyMap[frequency.toLowerCase()] || 12
 }
 
 /**
- * Calculate loan overpayment savings
- * 
- * Compares standard loan payment with extra payments to show:
- * - Interest saved
- * - Time saved (reduced loan term)
- * 
- * @param inputs - Input values including loan amount, interest rate, term, extra payment amount and frequency
- * @returns Calculated overpayment metrics with step-by-step explanation
+ * Calculate loan overpayment with extra payment support
  */
-export function calculateLoanOverpayment(
-	inputs: Record<string, number | string>,
-): Record<string, number | string> {
-	const loanAmount = Number(inputs.loanAmount || inputs.principal || 0)
-	const interestRate = Number(inputs.interestRate || inputs.annualRate || 0)
-	const loanTerm = Number(inputs.loanTerm || inputs.years || 0)
-	const extraPayment = Number(inputs.extraPayment || 0)
-	const paymentFrequency = String(inputs.paymentFrequency || 'monthly').toLowerCase()
+export const calculateLoanOverpayment: CalculatorFunction = (inputs) => {
+	const loanAmount = Number(inputs.loanAmount || 0)
+	const annualInterestRate = Number(inputs.annualInterestRate || inputs.interestRate || 0)
+	const loanTerm = Math.floor(Number(inputs.loanTerm || inputs.years || 0)) // Must be integer >= 1
+	const paymentFrequencyStr = inputs.paymentFrequency || 'monthly'
+	const extraMonthlyPayment = Number(inputs.extraMonthlyPayment || inputs.extraPayment || 0)
+	const loanType = (inputs.loanType || 'annuity').toLowerCase()
 
-	// Validation (extraPayment can be 0 or undefined)
+	// Validation
 	if (
 		isNaN(loanAmount) ||
-		isNaN(interestRate) ||
+		isNaN(annualInterestRate) ||
 		isNaN(loanTerm) ||
+		isNaN(extraMonthlyPayment) ||
 		loanAmount <= 0 ||
-		interestRate < 0 ||
-		loanTerm <= 0 ||
-		(isNaN(extraPayment) && extraPayment !== 0) ||
-		extraPayment < 0
+		annualInterestRate <= 0 ||
+		loanTerm < 1 ||
+		loanTerm > 50 ||
+		extraMonthlyPayment < 0
 	) {
 		return {
-			monthlyPayment: null,
+			overpayment: null,
 			totalInterest: null,
-			totalInterestWithExtra: null,
+			totalPayment: null,
+			regularPayment: null,
 			interestSaved: null,
-			timeSaved: null,
-			steps: null,
+			loanDurationReduced: null,
+			formulaExplanation: null,
 		}
 	}
 
-	// Ensure extraPayment is 0 if not provided or invalid
-	const validExtraPayment = isNaN(extraPayment) ? 0 : Math.max(0, extraPayment)
-	const steps: CalculationStep[] = []
+	const paymentsPerYear = getPaymentsPerYear(paymentFrequencyStr)
+	const periodicRate = annualInterestRate / 100 / paymentsPerYear
+	const numberOfPayments = loanTerm * paymentsPerYear
 
-	// Step 1: Input values
-	steps.push({
-		title: 'Step 1: Input Values',
-		math: `Loan Amount (P) = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\nAnnual Interest Rate = ${interestRate}%\nLoan Term = ${loanTerm} years\nExtra Payment = $${validExtraPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\nPayment Frequency = ${paymentFrequency}`,
-		explanation: 'These are the values you entered for the loan overpayment calculation.',
-	})
-
-	// Calculate standard monthly payment
-	const monthlyRate = interestRate / 100 / 12
-	const numberOfPayments = loanTerm * 12
-
-	steps.push({
-		title: 'Step 2: Convert Annual Rate to Monthly Rate',
-		math: `Monthly Rate (r) = Annual Rate / 100 / 12\nr = ${interestRate}% / 100 / 12 = ${(interestRate / 100).toFixed(6)} / 12 = ${monthlyRate.toFixed(6)}`,
-		explanation: 'Convert the annual interest rate to a monthly rate for the payment calculation.',
-	})
-
-	steps.push({
-		title: 'Step 3: Calculate Total Number of Payments',
-		math: `Number of Payments (n) = Loan Term × 12\nn = ${loanTerm} × 12 = ${numberOfPayments}`,
-		explanation: 'Calculate the total number of monthly payments over the loan term.',
-	})
-
-	let monthlyPayment: number
-	if (monthlyRate === 0) {
-		monthlyPayment = loanAmount / numberOfPayments
-		steps.push({
-			title: 'Step 4: Calculate Standard Monthly Payment (Zero Interest)',
-			math: `Monthly Payment = Loan Amount / Number of Payments\nMonthly Payment = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / ${numberOfPayments} = $${monthlyPayment.toFixed(2)}`,
-			explanation: 'Since the interest rate is 0%, the monthly payment is simply the loan amount divided by the number of payments.',
-		})
+	// Calculate regular payment
+	let regularPayment: number
+	if (loanType === 'interest-only') {
+		regularPayment = loanAmount * periodicRate
 	} else {
-		const rateFactor = Math.pow(1 + monthlyRate, numberOfPayments)
-		steps.push({
-			title: 'Step 4: Calculate Rate Factor (1 + r)^n',
-			math: `Rate Factor = (1 + Monthly Rate)^Number of Payments\nRate Factor = (1 + ${monthlyRate.toFixed(6)})^${numberOfPayments} = ${rateFactor.toFixed(6)}`,
-			explanation: 'Calculate the rate factor used in the loan payment formula.',
-		})
-
-		monthlyPayment = (loanAmount * monthlyRate * rateFactor) / (rateFactor - 1)
-		steps.push({
-			title: 'Step 5: Calculate Standard Monthly Payment',
-			math: `Monthly Payment (M) = (P × r × (1 + r)^n) / ((1 + r)^n - 1)\nM = ($${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${monthlyRate.toFixed(6)} × ${rateFactor.toFixed(6)}) / (${rateFactor.toFixed(6)} - 1)\nM = $${monthlyPayment.toFixed(2)}`,
-			explanation: 'Calculate the standard monthly payment using the loan payment formula.',
-		})
+		if (periodicRate === 0) {
+			regularPayment = loanAmount / numberOfPayments
+		} else {
+			const rateFactor = Math.pow(1 + periodicRate, numberOfPayments)
+			regularPayment = (loanAmount * periodicRate * rateFactor) / (rateFactor - 1)
+		}
 	}
 
-	// Calculate total interest for standard loan
-	const totalPayment = monthlyPayment * numberOfPayments
+	regularPayment = Math.round(regularPayment * 100) / 100
+
+	// Calculate standard loan totals
+	const totalPayment = regularPayment * numberOfPayments
 	const totalInterest = totalPayment - loanAmount
+	const overpayment = totalInterest // Overpayment is the total interest paid
 
-	steps.push({
-		title: 'Step 6: Calculate Total Interest (Standard Loan)',
-		math: `Total Payment = Monthly Payment × Number of Payments\nTotal Payment = $${monthlyPayment.toFixed(2)} × ${numberOfPayments} = $${totalPayment.toFixed(2)}\n\nTotal Interest = Total Payment - Loan Amount\nTotal Interest = $${totalPayment.toFixed(2)} - $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} = $${totalInterest.toFixed(2)}`,
-		explanation: 'Calculate the total interest paid over the life of the loan without extra payments.',
-	})
+	// Calculate with extra payments if provided
+	let interestSaved = 0
+	let loanDurationReduced = 0
+	let totalPaymentWithExtra = totalPayment
+	let totalInterestWithExtra = totalInterest
 
-	// Calculate with extra payments
-	let remainingBalance = loanAmount
-	let totalInterestWithExtra = 0
-	let monthsWithExtra = 0
-	const paymentWithExtra = monthlyPayment + (paymentFrequency === 'monthly' ? validExtraPayment : 0)
-
-	// Step 7: Calculate with extra payments
-	if (validExtraPayment > 0) {
-		steps.push({
-			title: `Step 7: Calculate Loan with Extra Payments (${paymentFrequency === 'monthly' ? 'Monthly' : 'One-time'})`,
-			math: `Payment with Extra = Standard Monthly Payment + Extra Payment\nPayment with Extra = $${monthlyPayment.toFixed(2)} + $${validExtraPayment.toFixed(2)} = $${paymentWithExtra.toFixed(2)}${paymentFrequency === 'one-time' ? '\n\nOne-time extra payment of $' + validExtraPayment.toFixed(2) + ' applied at month 1' : ''}`,
-			explanation: `Calculate the payment amount including extra payments. ${paymentFrequency === 'monthly' ? 'Extra payment is added to each monthly payment.' : 'One-time extra payment is applied at the beginning.'}`,
-		})
-
+	if (extraMonthlyPayment > 0 && loanType === 'annuity') {
 		// Simulate loan payments with extra payments
-		while (remainingBalance > 0.01 && monthsWithExtra < numberOfPayments * 2) {
-			// Interest for this month
-			const monthlyInterest = remainingBalance * monthlyRate
-			totalInterestWithExtra += monthlyInterest
+		let remainingBalance = loanAmount
+		let monthsPaid = 0
+		let totalInterestPaid = 0
+		const paymentWithExtra = regularPayment + extraMonthlyPayment
 
-			// Principal payment
-			const principalPayment = paymentWithExtra - monthlyInterest
+		// Safety limit to prevent infinite loops
+		const maxMonths = numberOfPayments * 2
 
-			// Apply one-time extra payment if specified
-			if (paymentFrequency === 'one-time' && monthsWithExtra === 0 && validExtraPayment > 0) {
-				remainingBalance -= validExtraPayment
-			}
+		while (remainingBalance > 0.01 && monthsPaid < maxMonths) {
+			// Calculate interest for this period
+			const periodInterest = remainingBalance * periodicRate
+			totalInterestPaid += periodInterest
+
+			// Calculate principal payment
+			const principalPayment = paymentWithExtra - periodInterest
 
 			// Reduce balance
 			remainingBalance = remainingBalance - principalPayment
 
-			monthsWithExtra++
+			monthsPaid++
 
-			// Safety check to prevent infinite loop
+			// Safety check
 			if (remainingBalance < 0) {
 				remainingBalance = 0
 			}
 		}
 
-		steps.push({
-			title: 'Step 8: Calculate Total Interest with Extra Payments',
-			math: `Total Interest (With Extra) = $${totalInterestWithExtra.toFixed(2)}\nNew Loan Term = ${monthsWithExtra} months (${(monthsWithExtra / 12).toFixed(1)} years)`,
-			explanation: 'Calculate the total interest paid when making extra payments. The loan is paid off faster, reducing total interest.',
-		})
+		totalInterestWithExtra = Math.round(totalInterestPaid * 100) / 100
+		totalPaymentWithExtra = loanAmount + totalInterestWithExtra
+		interestSaved = totalInterest - totalInterestWithExtra
+		loanDurationReduced = numberOfPayments - monthsPaid
+	}
 
-		// Calculate savings
-		const interestSaved = totalInterest - totalInterestWithExtra
-		const timeSaved = numberOfPayments - monthsWithExtra
+	// Build formula explanation
+	const frequencyLabel = paymentFrequencyStr === 'bi-weekly' ? 'Bi-weekly' : 'Monthly'
+	
+	let formulaExplanation = ''
+	
+	formulaExplanation = `Loan Overpayment Calculation:\n\n1. Calculate Regular Payment:\n   P = L × [r(1+r)^n] / [(1+r)^n - 1]\n\n   Where:\n   - P = ${frequencyLabel.toLowerCase()} payment\n   - L = Loan amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Periodic interest rate = Annual rate / Payments per year = ${annualInterestRate}% / ${paymentsPerYear} = ${(periodicRate * 100).toFixed(6)}%\n   - n = Number of payments = ${loanTerm} years × ${paymentsPerYear} = ${numberOfPayments}\n\n   Substituting:\n   (1 + r)^n = (1 + ${periodicRate.toFixed(6)})^${numberOfPayments} = ${Math.pow(1 + periodicRate, numberOfPayments).toFixed(6)}\n\n   P = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [${(periodicRate * 100).toFixed(6)}% × ${Math.pow(1 + periodicRate, numberOfPayments).toFixed(6)}] / [${Math.pow(1 + periodicRate, numberOfPayments).toFixed(6)} - 1]\n   P = $${regularPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Calculate Total Payment and Overpayment:\n   Total Payment = Regular Payment × Number of Payments\n   Total Payment = $${regularPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${numberOfPayments}\n   Total Payment = $${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   Overpayment = Total Payment - Loan Amount\n   Overpayment = $${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Overpayment = $${overpayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n${extraMonthlyPayment > 0 ? `3. Calculate Impact of Extra Payments:\n   Payment with Extra = Regular Payment + Extra Payment\n   Payment with Extra = $${regularPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${extraMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Payment with Extra = $${(regularPayment + extraMonthlyPayment).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   By making extra payments, the loan is paid off in ${Math.round((numberOfPayments - loanDurationReduced) / paymentsPerYear * 10) / 10} years instead of ${loanTerm} years.\n\n   Interest Saved = Total Interest (Standard) - Total Interest (With Extra)\n   Interest Saved = $${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${totalInterestWithExtra.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Interest Saved = $${interestSaved.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n` : ''}Overpayment represents the total interest you pay over the life of the loan - the extra cost beyond the principal amount. Longer loan terms result in significantly higher overpayment because interest accumulates over more periods. ${extraMonthlyPayment > 0 ? `Making extra payments of $${extraMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per month reduces your overpayment by $${interestSaved.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} and shortens your loan term by ${Math.round(loanDurationReduced / paymentsPerYear * 10) / 10} years.` : 'Making extra payments can significantly reduce overpayment by paying down principal faster and reducing the time interest accumulates.'}`
 
-		steps.push({
-			title: 'Step 9: Calculate Interest Saved',
-			math: `Interest Saved = Total Interest (Standard) - Total Interest (With Extra)\nInterest Saved = $${totalInterest.toFixed(2)} - $${totalInterestWithExtra.toFixed(2)} = $${interestSaved.toFixed(2)}`,
-			explanation: 'Calculate how much interest you save by making extra payments.',
-		})
-
-		steps.push({
-			title: 'Step 10: Calculate Time Saved',
-			math: `Time Saved = Original Term - New Term\nTime Saved = ${numberOfPayments} months - ${monthsWithExtra} months = ${timeSaved} months (${(timeSaved / 12).toFixed(1)} years)`,
-			explanation: 'Calculate how much time you save by making extra payments.',
-		})
-
-		return {
-			monthlyPayment: Math.round(monthlyPayment * 100) / 100,
-			totalInterest: Math.round(totalInterest * 100) / 100,
-			totalInterestWithExtra: Math.round(totalInterestWithExtra * 100) / 100,
-			interestSaved: Math.round(interestSaved * 100) / 100,
-			timeSaved: Math.max(0, Math.round(timeSaved)),
-			newTerm: Math.max(0, Math.round(monthsWithExtra / 12 * 10) / 10),
-			steps,
-		}
-	} else {
-		// No extra payments
-		steps.push({
-			title: 'Step 7: No Extra Payments',
-			math: `Extra Payment = $0\nNo extra payments were made.`,
-			explanation: 'No extra payments were specified. The calculation shows standard loan terms only.',
-		})
-
-		return {
-			monthlyPayment: Math.round(monthlyPayment * 100) / 100,
-			totalInterest: Math.round(totalInterest * 100) / 100,
-			totalInterestWithExtra: Math.round(totalInterest * 100) / 100,
-			interestSaved: 0,
-			timeSaved: 0,
-			newTerm: loanTerm,
-			steps,
-		}
+	return {
+		overpayment: Math.round(overpayment * 100) / 100,
+		totalInterest: Math.round(totalInterest * 100) / 100,
+		totalPayment: Math.round(totalPayment * 100) / 100,
+		regularPayment,
+		interestSaved: extraMonthlyPayment > 0 ? Math.round(interestSaved * 100) / 100 : null,
+		loanDurationReduced: extraMonthlyPayment > 0 ? Math.round(loanDurationReduced / paymentsPerYear * 10) / 10 : null, // In years
+		formulaExplanation,
 	}
 }
-
-// Register the calculation function
-import { registerCalculation } from './registry'
-
-// Auto-register on module load
-registerCalculation('calculateLoanOverpayment', calculateLoanOverpayment)
-

@@ -1,0 +1,160 @@
+{
+	"id": "lease-vs-buy-calculator",
+	"slug": "lease-vs-buy-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateLeaseVsBuy",
+	"tags": ["auto", "lease", "buy", "financing", "car-ownership", "comparison"],
+	"inputs": [
+		{
+			"name": "comparisonYears",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 3
+		},
+		{
+			"name": "annualMileage",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 12000
+		},
+		{
+			"name": "purchasePrice",
+			"type": "number",
+			"step": 1
+		},
+		{
+			"name": "downPayment",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "loanAPR",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "loanTermMonths",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "resaleValueAfterYears",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "salesTaxOrFees",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "leaseMonthlyPayment",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "leaseTermMonths",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "dueAtSigning",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "residualValue",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "leaseFees",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "mileageLimitPerYear",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "excessMileageFeePerMileKm",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "insuranceDifferenceMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "maintenanceDifferenceMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		}
+	],
+	"outputs": [
+		{
+			"name": "totalCostBuy"
+		},
+		{
+			"name": "totalCostLease"
+		},
+		{
+			"name": "difference"
+		},
+		{
+			"name": "recommendationText"
+		},
+		{
+			"name": "breakdown"
+		},
+		{
+			"name": "insights"
+		},
+		{
+			"name": "monthlyLoanPayment"
+		},
+		{
+			"name": "mileagePenalty"
+		}
+	],
+	"defaults": {
+		"comparisonYears": 3,
+		"annualMileage": 12000,
+		"purchasePrice": 30000,
+		"downPayment": 5000,
+		"loanAPR": 5.5,
+		"loanTermMonths": 60,
+		"resaleValueAfterYears": 15000,
+		"salesTaxOrFees": 0,
+		"leaseMonthlyPayment": 400,
+		"leaseTermMonths": 36,
+		"dueAtSigning": 2000,
+		"residualValue": 0,
+		"leaseFees": 0,
+		"mileageLimitPerYear": 12000,
+		"excessMileageFeePerMileKm": 0.25,
+		"insuranceDifferenceMonthly": 0,
+		"maintenanceDifferenceMonthly": 0
+	},
+	"relatedIds": ["car-cost-of-ownership-calculator", "car-depreciation-calculator", "monthly-car-expenses-calculator", "auto-loan-calculator"],
+	"isEnabled": true
+}
+
+

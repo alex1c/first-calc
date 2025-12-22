@@ -273,6 +273,39 @@ export async function schemaToDefinition(
 		if (calculationId === 'calculateSavings') {
 			await import('@/lib/calculations/savings')
 		}
+		if (calculationId === 'calculateCarCostOfOwnership') {
+			await import('@/lib/calculations/car-cost-of-ownership')
+		}
+		if (calculationId === 'calculateMonthlyCarExpenses') {
+			await import('@/lib/calculations/monthly-car-expenses')
+		}
+		if (calculationId === 'calculateFuelCost') {
+			await import('@/lib/calculations/fuel-cost')
+		}
+		if (calculationId === 'calculateFuelConsumption') {
+			await import('@/lib/calculations/fuel-consumption')
+		}
+		if (calculationId === 'calculateTripCost') {
+			await import('@/lib/calculations/trip-cost')
+		}
+		if (calculationId === 'calculateCarDepreciation') {
+			await import('@/lib/calculations/car-depreciation')
+		}
+		if (calculationId === 'calculateLeaseVsBuy') {
+			await import('@/lib/calculations/lease-vs-buy')
+		}
+		if (calculationId === 'calculateCarAffordability') {
+			await import('@/lib/calculations/car-affordability')
+		}
+		if (calculationId === 'calculateCarResaleValue') {
+			await import('@/lib/calculations/car-resale-value')
+		}
+		if (calculationId === 'calculateCarMaintenanceCost') {
+			await import('@/lib/calculations/car-maintenance-cost')
+		}
+		if (calculationId === 'calculateTireCost') {
+			await import('@/lib/calculations/tire-cost')
+		}
 		// Add more imports as needed for other calculation functions
 	}
 
@@ -410,7 +443,10 @@ export async function schemaToDefinition(
 			title: example.title || `Example ${index + 1}`,
 			inputDescription: example.description || 'Calculation example',
 			steps: example.steps || [],
-			resultDescription: example.resultDescription || '',
+			resultDescription: (example as any).result || example.resultDescription || '',
+			// Preserve original example data for special handling (e.g., inputs, result)
+			...(example as any).inputs && { inputs: (example as any).inputs },
+			...(example as any).result && { result: (example as any).result },
 		}))
 
 	// Convert FAQ from content

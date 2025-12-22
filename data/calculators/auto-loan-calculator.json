@@ -115,6 +115,7 @@
 		"loanTerm": 5,
 		"tradeInValue": 0
 	},
+	"relatedIds": ["car-affordability-calculator", "lease-vs-buy-calculator", "car-cost-of-ownership-calculator"],
 	"isEnabled": true
 }
 

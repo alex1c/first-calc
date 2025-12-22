@@ -1,0 +1,134 @@
+{
+	"id": "car-cost-of-ownership-calculator",
+	"slug": "car-cost-of-ownership-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateCarCostOfOwnership",
+	"tags": ["auto", "car-ownership", "car-cost", "vehicle-expenses", "depreciation", "insurance"],
+	"inputs": [
+		{
+			"name": "purchasePrice",
+			"type": "number",
+			"step": 1
+		},
+		{
+			"name": "ownershipPeriodYears",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 5
+		},
+		{
+			"name": "annualMileage",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 12000
+		},
+		{
+			"name": "insuranceAnnual",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "registrationAnnual",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "parkingMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "fuelCostPerUnit",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "fuelConsumption",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "maintenanceAnnual",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "repairsAnnual",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "expectedAnnualDepreciation",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "resaleValueEstimate",
+			"type": "number",
+			"step": 1
+		}
+	],
+	"outputs": [
+		{
+			"name": "totalFuelCost"
+		},
+		{
+			"name": "totalMaintenanceCost"
+		},
+		{
+			"name": "totalFixedCosts"
+		},
+		{
+			"name": "depreciationCost"
+		},
+		{
+			"name": "totalOwnershipCost"
+		},
+		{
+			"name": "monthlyCost"
+		},
+		{
+			"name": "annualCost"
+		},
+		{
+			"name": "costPerMile"
+		},
+		{
+			"name": "breakdown"
+		},
+		{
+			"name": "biggestCostDriver"
+		},
+		{
+			"name": "insights"
+		},
+		{
+			"name": "resaleValue"
+		}
+	],
+	"defaults": {
+		"purchasePrice": 30000,
+		"ownershipPeriodYears": 5,
+		"annualMileage": 12000,
+		"insuranceAnnual": 1500,
+		"registrationAnnual": 200,
+		"parkingMonthly": 100,
+		"fuelCostPerUnit": 3.50,
+		"fuelConsumption": 25,
+		"maintenanceAnnual": 800,
+		"repairsAnnual": 500,
+		"expectedAnnualDepreciation": 15
+	},
+	"relatedIds": ["monthly-car-expenses-calculator", "car-depreciation-calculator", "lease-vs-buy-calculator", "auto-loan-calculator"],
+	"isEnabled": true
+}
+

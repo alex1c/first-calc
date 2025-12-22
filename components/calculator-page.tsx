@@ -51,24 +51,27 @@ export function CalculatorPage({
 				}
 			}
 
-			// Type-specific validation
+			// Type-specific validation - SIMPLIFIED
 			if (inputDef.type === 'number') {
 				const numValue = Number(value)
+				
+				// Only check if value is a valid number
 				if (isNaN(numValue) || !Number.isFinite(numValue)) {
 					return validation.message || `${inputDef.label} must be a valid number`
 				}
 
-				// Check min (but allow 0 if min is 0)
+				// Only prevent negative if explicitly required (min >= 0 in validation)
+				// This allows negative values for calculations that need them (e.g., percentage change)
+				if (validation.min !== undefined && validation.min >= 0 && numValue < 0) {
+					return validation.message || `${inputDef.label} cannot be negative`
+				}
+
+				// Only check min/max if explicitly set in validation
 				if (validation.min !== undefined && numValue < validation.min) {
-					// Special case: if min is 0 and value is 0, it's valid
-					if (validation.min === 0 && numValue === 0) {
-						// Valid
-					} else {
-						return (
-							validation.message ||
-							`${inputDef.label} must be at least ${validation.min}`
-						)
-					}
+					return (
+						validation.message ||
+						`${inputDef.label} must be at least ${validation.min}`
+					)
 				}
 
 				if (validation.max !== undefined && numValue > validation.max) {
@@ -78,13 +81,9 @@ export function CalculatorPage({
 					)
 				}
 
-				// Prevent negative values where not allowed
-				if (numValue < 0 && inputDef.validation?.min !== undefined && inputDef.validation.min >= 0) {
-					return validation.message || `${inputDef.label} cannot be negative`
-				}
-
-				// Additional check: value must be greater than 0 (not equal to 0) for area calculations
-				if (numValue <= 0) {
+				// Only require > 0 if explicitly required AND zero would break the calculation
+				// Most fields should allow 0 as a valid input
+				if (validation.required && validation.min !== undefined && validation.min > 0 && numValue <= 0) {
 					return validation.message || `${inputDef.label} must be greater than 0`
 				}
 			}
@@ -268,9 +267,10 @@ export function CalculatorPage({
 
 				{/* Calculator + Results Tool Container */}
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 md:p-8 mb-12">
-					<div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-						{/* Calculator Form - Left side on desktop */}
-						<div className="flex-1">
+					{/* Vertical layout for ALL calculators - results below form */}
+					<div className="flex flex-col gap-8">
+						{/* Calculator Form - Top */}
+						<div className="w-full">
 							<h2 className="text-2xl font-semibold text-gray-900 mb-6">
 								Calculator
 							</h2>
@@ -302,10 +302,12 @@ export function CalculatorPage({
 							/>
 						</div>
 
-						{/* Results - Right side on desktop */}
-						<div className="flex-1 lg:border-l lg:border-gray-200 lg:pl-8">
-							<CalculatorResults calculator={calculator} outputs={outputs} />
-						</div>
+						{/* Results - Bottom */}
+						{Object.keys(outputs).length > 0 && (
+							<div className="w-full border-t border-gray-200 pt-8">
+								<CalculatorResults calculator={calculator} outputs={outputs} />
+							</div>
+						)}
 					</div>
 				</div>
 

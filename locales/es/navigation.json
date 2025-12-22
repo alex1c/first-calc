@@ -17,6 +17,7 @@
 	"categories": {
 		"math": "Matemáticas",
 		"finance": "Finanzas",
+		"auto": "Automóviles",
 		"geometry": "Geometría",
 		"everyday": "Cotidiano",
 		"engineering": "Ingeniería",
@@ -25,6 +26,7 @@
 	"categoryDescriptions": {
 		"math": "Calculadoras matemáticas para álgebra, cálculo y operaciones con números",
 		"finance": "Calculadoras financieras para préstamos, inversiones y gestión de dinero",
+		"auto": "Calculadoras de automóviles para costos de propiedad, gastos de combustible, préstamos y mantenimiento",
 		"geometry": "Calculadoras geométricas para área, volumen y cálculos de formas",
 		"everyday": "Calculadoras cotidianas para cálculos comunes y conversiones",
 		"engineering": "Calculadoras de ingeniería para cálculos técnicos y científicos",

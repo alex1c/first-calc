@@ -34,3 +34,5 @@ This document lists 20 calculator slugs for Russian translation batch.
 - Content will be generated using autogen or manually translated
 - After batch completion, run `npm run i18n:validate`
 
+
+

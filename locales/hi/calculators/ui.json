@@ -19,6 +19,7 @@
 	"categories": {
 		"math": "गणित",
 		"finance": "वित्त",
+		"auto": "ऑटो",
 		"geometry": "ज्यामिति",
 		"everyday": "रोजमर्रा",
 		"engineering": "इंजीनियरिंग",
@@ -30,6 +31,8 @@
 		"results": "{count} कैलकुलेटर मिले"
 	}
 }
+
+
 
 
 

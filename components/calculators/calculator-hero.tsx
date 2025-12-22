@@ -40,11 +40,214 @@ export function CalculatorHero({ calculator }: CalculatorHeroProps) {
 		// Check if this is a finance calculator
 		const isFinance = calculator.category === 'finance'
 		
+		// Check if this is an auto calculator
+		const isAuto = calculator.category === 'auto'
+		
 		// Check if this is volume calculator
 		const isVolume = calculator.id === 'volume-of-shapes' || calculator.slug === 'volume-of-shapes'
 		
 		// Check if this is pythagorean calculator
 		const isPythagorean = calculator.id === 'pythagorean-theorem-calculator' || calculator.slug === 'pythagorean-theorem-calculator'
+		
+		if (isAuto) {
+			// Auto calculator icons: Car, Fuel Pump, Speedometer, Wrench
+			return (
+				<div className="flex flex-col items-center hidden md:flex">
+					<div className="flex items-center justify-center space-x-3 md:space-x-6 mb-3">
+						{/* Car */}
+						<div className="flex flex-col items-center">
+							<svg
+								width="60"
+								height="60"
+								viewBox="0 0 60 60"
+								className="text-blue-600 md:w-20 md:h-20"
+							>
+								{/* Car body */}
+								<rect
+									x="8"
+									y="25"
+									width="44"
+									height="20"
+									rx="3"
+									ry="3"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+								{/* Windows */}
+								<rect
+									x="15"
+									y="30"
+									width="12"
+									height="8"
+									fill="currentColor"
+									opacity="0.2"
+								/>
+								<rect
+									x="33"
+									y="30"
+									width="12"
+									height="8"
+									fill="currentColor"
+									opacity="0.2"
+								/>
+								{/* Wheels */}
+								<circle
+									cx="18"
+									cy="45"
+									r="6"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+								<circle
+									cx="42"
+									cy="45"
+									r="6"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+								{/* Roof */}
+								<polygon
+									points="12,25 30,15 48,25"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+							</svg>
+						</div>
+						{/* Fuel Pump */}
+						<div className="flex flex-col items-center">
+							<svg
+								width="60"
+								height="60"
+								viewBox="0 0 60 60"
+								className="text-blue-600 md:w-20 md:h-20"
+							>
+								{/* Pump base */}
+								<rect
+									x="20"
+									y="35"
+									width="20"
+									height="15"
+									rx="2"
+									ry="2"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+								{/* Pump nozzle */}
+								<rect
+									x="25"
+									y="20"
+									width="10"
+									height="15"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+								{/* Hose */}
+								<path
+									d="M 30 20 Q 15 10 10 5"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+								/>
+								{/* Display */}
+								<rect
+									x="23"
+									y="38"
+									width="14"
+									height="8"
+									fill="currentColor"
+									opacity="0.2"
+								/>
+							</svg>
+						</div>
+						{/* Speedometer */}
+						<div className="flex flex-col items-center">
+							<svg
+								width="60"
+								height="60"
+								viewBox="0 0 60 60"
+								className="text-blue-600 md:w-20 md:h-20"
+							>
+								{/* Gauge circle */}
+								<circle
+									cx="30"
+									cy="30"
+									r="22"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+								{/* Gauge arc */}
+								<path
+									d="M 10 30 A 20 20 0 0 1 50 30"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+								/>
+								{/* Needle */}
+								<line
+									x1="30"
+									y1="30"
+									x2="40"
+									y2="20"
+									stroke="currentColor"
+									strokeWidth="2.5"
+									strokeLinecap="round"
+								/>
+								{/* Center dot */}
+								<circle
+									cx="30"
+									cy="30"
+									r="2"
+									fill="currentColor"
+								/>
+							</svg>
+						</div>
+						{/* Wrench/Tools */}
+						<div className="flex flex-col items-center">
+							<svg
+								width="60"
+								height="60"
+								viewBox="0 0 60 60"
+								className="text-blue-600 md:w-20 md:h-20"
+							>
+								{/* Wrench */}
+								<path
+									d="M 35 15 L 40 10 L 45 15 L 42 18 L 48 24 L 45 27 L 38 20 L 35 23 Z"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								/>
+								{/* Handle */}
+								<rect
+									x="25"
+									y="20"
+									width="12"
+									height="4"
+									rx="2"
+									ry="2"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+							</svg>
+						</div>
+					</div>
+					<p className="text-sm text-gray-600 font-medium">
+						Car • Fuel • Speed • Maintenance
+					</p>
+				</div>
+			)
+		}
 		
 		if (isFinance) {
 			// Finance calculator icons: Money, Chart, Card, Bank

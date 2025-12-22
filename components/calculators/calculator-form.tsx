@@ -136,8 +136,8 @@ export function CalculatorForm({
 								}
 							}}
 							placeholder={input.placeholder}
-							min={input.min ?? 0}
-							max={input.max}
+							min={input.min !== undefined ? input.min : undefined}
+							max={input.max !== undefined ? input.max : undefined}
 							step={input.step === 'any' ? 'any' : (input.step ?? 1)}
 							className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
 								errors[input.name]

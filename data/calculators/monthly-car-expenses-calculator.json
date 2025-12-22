@@ -1,0 +1,144 @@
+{
+	"id": "monthly-car-expenses-calculator",
+	"slug": "monthly-car-expenses-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateMonthlyCarExpenses",
+	"tags": ["auto", "car-expenses", "monthly-cost", "vehicle-budget", "car-maintenance"],
+	"inputs": [
+		{
+			"name": "insuranceMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "parkingMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "loanPaymentMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "registrationMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "useFuelCalculation",
+			"type": "select",
+			"options": [
+				{ "value": "false", "label": "Enter Monthly Fuel Cost" },
+				{ "value": "true", "label": "Calculate from Price & Mileage" }
+			],
+			"defaultValue": "false"
+		},
+		{
+			"name": "fuelMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0,
+			"visibleIf": {
+				"field": "useFuelCalculation",
+				"value": "false"
+			}
+		},
+		{
+			"name": "fuelPrice",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0,
+			"visibleIf": {
+				"field": "useFuelCalculation",
+				"value": "true"
+			}
+		},
+		{
+			"name": "fuelConsumption",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0,
+			"visibleIf": {
+				"field": "useFuelCalculation",
+				"value": "true"
+			}
+		},
+		{
+			"name": "mileage",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0,
+			"visibleIf": {
+				"field": "useFuelCalculation",
+				"value": "true"
+			}
+		},
+		{
+			"name": "maintenanceMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "repairsMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "otherMonthly",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		}
+	],
+	"outputs": [
+		{
+			"name": "totalFixedCosts"
+		},
+		{
+			"name": "totalVariableCosts"
+		},
+		{
+			"name": "totalMonthlyCost"
+		},
+		{
+			"name": "costPerDay"
+		},
+		{
+			"name": "costPerMile"
+		},
+		{
+			"name": "breakdown"
+		},
+		{
+			"name": "biggestExpense"
+		},
+		{
+			"name": "insights"
+		},
+		{
+			"name": "fuelCost"
+		}
+	],
+	"defaults": {
+		"insuranceMonthly": 125,
+		"parkingMonthly": 100,
+		"loanPaymentMonthly": 0,
+		"registrationMonthly": 17,
+		"useFuelCalculation": "false",
+		"fuelMonthly": 200,
+		"maintenanceMonthly": 67,
+		"repairsMonthly": 0,
+		"otherMonthly": 0
+	},
+	"relatedIds": ["car-cost-of-ownership-calculator", "car-depreciation-calculator", "lease-vs-buy-calculator", "auto-loan-calculator"],
+	"isEnabled": true
+}
+

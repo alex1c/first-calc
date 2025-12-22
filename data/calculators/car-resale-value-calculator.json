@@ -1,0 +1,116 @@
+{
+	"id": "car-resale-value-calculator",
+	"slug": "car-resale-value-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateCarResaleValue",
+	"tags": ["auto", "resale-value", "car-value", "depreciation", "used-car", "selling"],
+	"inputs": [
+		{
+			"name": "currentCarValue",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "purchasePrice",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "yearsUntilSale",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 3
+		},
+		{
+			"name": "condition",
+			"type": "select",
+			"options": [
+				{ "value": "excellent", "label": "Excellent" },
+				{ "value": "good", "label": "Good" },
+				{ "value": "fair", "label": "Fair" },
+				{ "value": "poor", "label": "Poor" }
+			],
+			"defaultValue": "good"
+		},
+		{
+			"name": "purchaseType",
+			"type": "select",
+			"options": [
+				{ "value": "new", "label": "New Car" },
+				{ "value": "used", "label": "Used Car" }
+			],
+			"defaultValue": "used"
+		},
+		{
+			"name": "baselineDepreciationRate",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "annualMileage",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "mileageImpactToggle",
+			"type": "select",
+			"options": [
+				{ "value": "false", "label": "No Mileage Impact" },
+				{ "value": "true", "label": "Apply Mileage Impact" }
+			],
+			"defaultValue": "false"
+		},
+		{
+			"name": "mileageBaselinePerYear",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 12000
+		},
+		{
+			"name": "mileagePenaltyPerExtraUnit",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0.01
+		}
+	],
+	"outputs": [
+		{
+			"name": "estimatedResaleValue"
+		},
+		{
+			"name": "valueLossAmount"
+		},
+		{
+			"name": "valueLossPercent"
+		},
+		{
+			"name": "yearByYearTable"
+		},
+		{
+			"name": "insights"
+		},
+		{
+			"name": "averageLossPerYear"
+		}
+	],
+	"defaults": {
+		"currentCarValue": 20000,
+		"yearsUntilSale": 3,
+		"condition": "good",
+		"purchaseType": "used",
+		"baselineDepreciationRate": 0,
+		"annualMileage": 0,
+		"mileageImpactToggle": "false",
+		"mileageBaselinePerYear": 12000,
+		"mileagePenaltyPerExtraUnit": 0.01
+	},
+	"relatedIds": ["car-affordability-calculator", "auto-loan-calculator", "car-cost-of-ownership-calculator"],
+	"isEnabled": true
+}
+
+

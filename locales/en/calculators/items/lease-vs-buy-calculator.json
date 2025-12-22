@@ -1,0 +1,318 @@
+{
+	"title": "Lease vs Buy Calculator – Compare Total Cost of Leasing or Buying a Car",
+	"shortDescription": "Compare leasing vs buying a car. Estimate total cost, monthly payments, resale value impact, and mileage fees.",
+	"longDescription": "Make an informed decision between leasing and buying a car with our comprehensive comparison calculator. Compare total costs over the same period, including down payments, monthly payments, interest, resale value, mileage penalties, and fees. See which option is more cost-effective for your situation and understand the financial implications of each choice. Perfect for planning your next vehicle acquisition and understanding the true cost difference between leasing and buying.",
+	"inputs": [
+		{
+			"label": "Comparison Period",
+			"unitLabel": "years",
+			"placeholder": "Enter comparison period",
+			"helpText": "Number of years to compare costs (1-7 years)"
+		},
+		{
+			"label": "Annual Mileage",
+			"unitLabel": "miles",
+			"placeholder": "Enter annual mileage",
+			"helpText": "Average miles driven per year"
+		},
+		{
+			"label": "Purchase Price",
+			"unitLabel": "$",
+			"placeholder": "Enter purchase price",
+			"helpText": "Price of the car if buying"
+		},
+		{
+			"label": "Down Payment",
+			"unitLabel": "$",
+			"placeholder": "Enter down payment",
+			"helpText": "Down payment amount (if buying)"
+		},
+		{
+			"label": "Loan APR",
+			"unitLabel": "%",
+			"placeholder": "Enter loan APR",
+			"helpText": "Annual percentage rate for the loan"
+		},
+		{
+			"label": "Loan Term",
+			"unitLabel": "months",
+			"placeholder": "Enter loan term",
+			"helpText": "Loan term in months"
+		},
+		{
+			"label": "Resale Value After Period",
+			"unitLabel": "$",
+			"placeholder": "Enter resale value",
+			"helpText": "Estimated resale value after the comparison period"
+		},
+		{
+			"label": "Sales Tax or Fees",
+			"unitLabel": "$",
+			"placeholder": "Enter sales tax or fees",
+			"helpText": "Sales tax and other fees (optional)"
+		},
+		{
+			"label": "Lease Monthly Payment",
+			"unitLabel": "$",
+			"placeholder": "Enter lease payment",
+			"helpText": "Monthly lease payment amount"
+		},
+		{
+			"label": "Lease Term",
+			"unitLabel": "months",
+			"placeholder": "Enter lease term",
+			"helpText": "Lease term in months"
+		},
+		{
+			"label": "Due at Signing",
+			"unitLabel": "$",
+			"placeholder": "Enter due at signing",
+			"helpText": "Amount due at lease signing"
+		},
+		{
+			"label": "Residual Value",
+			"unitLabel": "$",
+			"placeholder": "Enter residual value",
+			"helpText": "Residual value at end of lease (optional, for reference)"
+		},
+		{
+			"label": "Lease Fees",
+			"unitLabel": "$",
+			"placeholder": "Enter lease fees",
+			"helpText": "Additional lease fees (optional)"
+		},
+		{
+			"label": "Mileage Limit Per Year",
+			"unitLabel": "miles",
+			"placeholder": "Enter mileage limit",
+			"helpText": "Annual mileage limit for lease (optional)"
+		},
+		{
+			"label": "Excess Mileage Fee",
+			"unitLabel": "$ per mile/km",
+			"placeholder": "Enter excess mileage fee",
+			"helpText": "Fee per mile/km over the limit (optional)"
+		},
+		{
+			"label": "Insurance Difference (Monthly)",
+			"unitLabel": "$",
+			"placeholder": "Enter insurance difference",
+			"helpText": "Monthly insurance cost difference (lease vs buy, optional)"
+		},
+		{
+			"label": "Maintenance Difference (Monthly)",
+			"unitLabel": "$",
+			"placeholder": "Enter maintenance difference",
+			"helpText": "Monthly maintenance cost difference (lease vs buy, optional)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Total Cost to Buy",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Cost to Lease",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Difference",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Recommendation",
+			"unitLabel": ""
+		},
+		{
+			"label": "Monthly Loan Payment",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Mileage Penalty",
+			"unitLabel": "$"
+		}
+	],
+	"howTo": [
+		"Enter the comparison period in years (how long you want to compare)",
+		"Enter your expected annual mileage",
+		"For BUY scenario:",
+		"  - Enter the purchase price of the car",
+		"  - Enter your down payment amount",
+		"  - Enter the loan APR (annual percentage rate)",
+		"  - Enter the loan term in months",
+		"  - Enter estimated resale value after the comparison period",
+		"  - Enter sales tax and fees (optional)",
+		"For LEASE scenario:",
+		"  - Enter the monthly lease payment",
+		"  - Enter the lease term in months",
+		"  - Enter amount due at signing",
+		"  - Enter residual value (optional, for reference)",
+		"  - Enter lease fees (optional)",
+		"  - Enter mileage limit per year and excess mileage fee (optional)",
+		"Enter insurance and maintenance cost differences if applicable (optional)",
+		"Click 'Calculate' to see the comparison",
+		"Review the total costs, difference, and recommendation",
+		"Check the breakdown to understand cost components"
+	],
+	"examples": [
+		{
+			"title": "Example 1: Moderate Mileage, Low APR → Buy Wins",
+			"description": "Buying a $30,000 car with $5,000 down at 4.5% APR vs leasing at $350/month. Comparison over 3 years with 12,000 miles/year.",
+			"inputs": {
+				"comparisonYears": 3,
+				"annualMileage": 12000,
+				"purchasePrice": 30000,
+				"downPayment": 5000,
+				"loanAPR": 4.5,
+				"loanTermMonths": 60,
+				"resaleValueAfterYears": 18000,
+				"salesTaxOrFees": 0,
+				"leaseMonthlyPayment": 350,
+				"leaseTermMonths": 36,
+				"dueAtSigning": 2000,
+				"residualValue": 0,
+				"leaseFees": 0,
+				"mileageLimitPerYear": 12000,
+				"excessMileageFeePerMileKm": 0.25,
+				"insuranceDifferenceMonthly": 0,
+				"maintenanceDifferenceMonthly": 0
+			},
+			"result": "BUYING CALCULATION:\n1. Purchase price: $30,000\n2. Down payment: $5,000\n3. Loan amount: $30,000 - $5,000 = $25,000\n4. Loan APR: 4.5% for 60 months\n5. Monthly loan payment: $466.08 (calculated using amortization formula)\n6. Total payments over 3 years (36 months): $466.08 × 36 = $16,778.88\n7. Total paid: $5,000 (down) + $16,778.88 (payments) = $21,778.88\n8. Resale value after 3 years: $18,000\n9. Net cost to buy: $21,778.88 - $18,000 = $3,778.88\n\nLEASING CALCULATION:\n1. Due at signing: $2,000\n2. Monthly lease payment: $350\n3. Lease term: 36 months\n4. Total lease payments: $350 × 36 = $12,600\n5. Total cost to lease: $2,000 + $12,600 = $14,600\n6. After 3 years: You own nothing (car is returned)\n\nRESULT: Buying costs $3,778.88 net vs leasing costs $14,600. Buying is $10,821.12 cheaper over 3 years because you retain the $18,000 car value at the end."
+		},
+		{
+			"title": "Example 2: High Depreciation / Short-Term → Lease Wins",
+			"description": "Luxury car ($50,000) with high depreciation, 2-year comparison. Car loses $20,000 in value over 2 years.",
+			"inputs": {
+				"comparisonYears": 2,
+				"annualMileage": 10000,
+				"purchasePrice": 50000,
+				"downPayment": 10000,
+				"loanAPR": 6.0,
+				"loanTermMonths": 60,
+				"resaleValueAfterYears": 30000,
+				"salesTaxOrFees": 0,
+				"leaseMonthlyPayment": 600,
+				"leaseTermMonths": 24,
+				"dueAtSigning": 3000,
+				"residualValue": 0,
+				"leaseFees": 0,
+				"mileageLimitPerYear": 10000,
+				"excessMileageFeePerMileKm": 0.30,
+				"insuranceDifferenceMonthly": 0,
+				"maintenanceDifferenceMonthly": 0
+			},
+			"result": "BUYING CALCULATION:\n1. Purchase price: $50,000\n2. Down payment: $10,000\n3. Loan amount: $50,000 - $10,000 = $40,000\n4. Loan APR: 6.0% for 60 months\n5. Monthly loan payment: $773.31 (calculated using amortization formula)\n6. Total payments over 2 years (24 months): $773.31 × 24 = $18,559.44\n7. Total paid: $10,000 (down) + $18,559.44 (payments) = $28,559.44\n8. Resale value after 2 years: $30,000\n9. Net cost to buy: $28,559.44 - $30,000 = -$1,440.56 (you actually gain $1,440.56)\n\nLEASING CALCULATION:\n1. Due at signing: $3,000\n2. Monthly lease payment: $600\n3. Lease term: 24 months\n4. Total lease payments: $600 × 24 = $14,400\n5. Total cost to lease: $3,000 + $14,400 = $17,400\n6. After 2 years: You own nothing (car is returned)\n\nRESULT: Buying shows a net gain of $1,440.56 vs leasing costs $17,400. However, this calculation assumes you can sell the car for $30,000 after 2 years. In reality, luxury cars often depreciate faster, and selling a used luxury car can be challenging. For short-term ownership (2 years), leasing may be more practical despite the higher cost."
+		},
+		{
+			"title": "Example 3: High Mileage Penalty → Buy Wins",
+			"description": "High mileage driver (20,000 miles/year) with lease limit of 12,000 miles. Excess mileage fee: $0.25 per mile.",
+			"inputs": {
+				"comparisonYears": 3,
+				"annualMileage": 20000,
+				"purchasePrice": 25000,
+				"downPayment": 3000,
+				"loanAPR": 5.0,
+				"loanTermMonths": 60,
+				"resaleValueAfterYears": 12000,
+				"salesTaxOrFees": 0,
+				"leaseMonthlyPayment": 300,
+				"leaseTermMonths": 36,
+				"dueAtSigning": 1500,
+				"residualValue": 0,
+				"leaseFees": 0,
+				"mileageLimitPerYear": 12000,
+				"excessMileageFeePerMileKm": 0.25,
+				"insuranceDifferenceMonthly": 0,
+				"maintenanceDifferenceMonthly": 0
+			},
+			"result": "BUYING CALCULATION:\n1. Purchase price: $25,000\n2. Down payment: $3,000\n3. Loan amount: $25,000 - $3,000 = $22,000\n4. Loan APR: 5.0% for 60 months\n5. Monthly loan payment: $415.17 (calculated using amortization formula)\n6. Total payments over 3 years (36 months): $415.17 × 36 = $14,946.12\n7. Total paid: $3,000 (down) + $14,946.12 (payments) = $17,946.12\n8. Resale value after 3 years: $12,000\n9. Net cost to buy: $17,946.12 - $12,000 = $5,946.12\n\nLEASING CALCULATION:\n1. Due at signing: $1,500\n2. Monthly lease payment: $300\n3. Lease term: 36 months\n4. Total lease payments: $300 × 36 = $10,800\n5. Annual mileage: 20,000 miles/year\n6. Lease mileage limit: 12,000 miles/year\n7. Excess mileage per year: 20,000 - 12,000 = 8,000 miles\n8. Excess mileage over 3 years: 8,000 × 3 = 24,000 miles\n9. Mileage penalty: 24,000 miles × $0.25/mile = $6,000\n10. Total cost to lease: $1,500 (signing) + $10,800 (payments) + $6,000 (penalty) = $18,300\n11. After 3 years: You own nothing (car is returned)\n\nRESULT: Buying costs $5,946.12 net vs leasing costs $18,300. Buying is $12,353.88 cheaper over 3 years. The $6,000 mileage penalty makes leasing very expensive for high-mileage drivers."
+		},
+		{
+			"title": "Example 4: Higher Down Payment Impact",
+			"description": "$35,000 car with $10,000 down payment vs $450/month lease. Comparison over 3 years with 15,000 miles/year.",
+			"inputs": {
+				"comparisonYears": 3,
+				"annualMileage": 15000,
+				"purchasePrice": 35000,
+				"downPayment": 10000,
+				"loanAPR": 5.5,
+				"loanTermMonths": 60,
+				"resaleValueAfterYears": 20000,
+				"salesTaxOrFees": 0,
+				"leaseMonthlyPayment": 450,
+				"leaseTermMonths": 36,
+				"dueAtSigning": 2500,
+				"residualValue": 0,
+				"leaseFees": 0,
+				"mileageLimitPerYear": 12000,
+				"excessMileageFeePerMileKm": 0.25,
+				"insuranceDifferenceMonthly": 0,
+				"maintenanceDifferenceMonthly": 0
+			},
+			"result": "BUYING CALCULATION:\n1. Purchase price: $35,000\n2. Down payment: $10,000 (28.6% of purchase price)\n3. Loan amount: $35,000 - $10,000 = $25,000\n4. Loan APR: 5.5% for 60 months\n5. Monthly loan payment: $477.83 (calculated using amortization formula)\n6. Total payments over 3 years (36 months): $477.83 × 36 = $17,201.88\n7. Total interest paid in 3 years: $17,201.88 - ($25,000 × 36/60) = $17,201.88 - $15,000 = $2,201.88\n8. Total paid: $10,000 (down) + $17,201.88 (payments) = $27,201.88\n9. Resale value after 3 years: $20,000\n10. Net cost to buy: $27,201.88 - $20,000 = $7,201.88\n\nLEASING CALCULATION:\n1. Due at signing: $2,500\n2. Monthly lease payment: $450\n3. Lease term: 36 months\n4. Total lease payments: $450 × 36 = $16,200\n5. Annual mileage: 15,000 miles/year\n6. Lease mileage limit: 12,000 miles/year\n7. Excess mileage per year: 15,000 - 12,000 = 3,000 miles\n8. Excess mileage over 3 years: 3,000 × 3 = 9,000 miles\n9. Mileage penalty: 9,000 miles × $0.25/mile = $2,250\n10. Total cost to lease: $2,500 (signing) + $16,200 (payments) + $2,250 (penalty) = $20,950\n11. After 3 years: You own nothing (car is returned)\n\nRESULT: Buying costs $7,201.88 net vs leasing costs $20,950. Buying is $13,748.12 cheaper over 3 years. The large $10,000 down payment significantly reduces the loan amount and total interest paid, making buying more cost-effective. Additionally, you retain the $20,000 car value at the end."
+		}
+	],
+	"faq": [
+		{
+			"question": "Is leasing cheaper than buying?",
+			"answer": "It depends on your situation. Leasing typically has lower monthly payments and upfront costs, but you don't build equity and must return the car. Buying costs more upfront but you own the car and can benefit from resale value. Use this calculator to compare total costs over the same period for your specific situation."
+		},
+		{
+			"question": "What is residual value?",
+			"answer": "Residual value is the estimated value of the car at the end of the lease term. It's set by the leasing company and affects your monthly payment - higher residual value means lower monthly payments. For buying, residual value refers to the resale value when you sell the car."
+		},
+		{
+			"question": "How do mileage limits affect leasing?",
+			"answer": "Most leases have annual mileage limits (typically 10,000-15,000 miles). If you exceed the limit, you pay a fee per mile (usually $0.15-$0.30 per mile). High-mileage drivers can face significant penalties, making buying more cost-effective. Always consider your actual driving habits when leasing."
+		},
+		{
+			"question": "Does leasing build equity?",
+			"answer": "No, leasing does not build equity. You're essentially renting the car. When the lease ends, you return the car and have nothing to show for your payments. Buying builds equity as you pay down the loan and the car retains some value."
+		},
+		{
+			"question": "What about maintenance costs?",
+			"answer": "Leased cars are typically under warranty during the lease term, so maintenance costs may be lower. However, you're usually required to maintain the car according to manufacturer standards. When buying, you're responsible for all maintenance, especially after the warranty expires. The calculator allows you to account for maintenance cost differences."
+		},
+		{
+			"question": "When does leasing make sense?",
+			"answer": "Leasing makes sense if: you want lower monthly payments, prefer driving new cars every few years, drive within mileage limits, want warranty coverage, don't want to deal with selling a car, or can deduct lease payments for business use. It's less ideal for high-mileage drivers or those who want to build equity."
+		},
+		{
+			"question": "When does buying make sense?",
+			"answer": "Buying makes sense if: you drive many miles, want to build equity, plan to keep the car long-term, want to customize the car, prefer not having mileage restrictions, or want to avoid lease-end fees. Buying is generally better for long-term ownership."
+		},
+		{
+			"question": "What happens at the end of a lease?",
+			"answer": "At lease end, you typically have three options: return the car and walk away (may pay for excess wear/tear), buy the car at the residual value, or lease a new car. You don't own anything unless you buy it, and you may face charges for excess wear, mileage, or damage."
+		},
+		{
+			"question": "How does down payment affect the comparison?",
+			"answer": "A larger down payment reduces your loan amount and total interest paid when buying, making it more cost-effective. For leasing, a larger down payment (capitalized cost reduction) lowers monthly payments but you lose that money if the car is stolen or totaled. The calculator accounts for down payment impact on total costs."
+		},
+		{
+			"question": "What is included in 'due at signing'?",
+			"answer": "'Due at signing' typically includes: first month's payment, security deposit, acquisition fee, taxes, registration, and any capitalized cost reduction (down payment). This is the total amount you pay upfront when starting a lease."
+		},
+		{
+			"question": "Can I negotiate a lease?",
+			"answer": "Yes, you can negotiate: the capitalized cost (purchase price), money factor (interest rate), residual value, mileage limit, and fees. Research the car's value and current lease deals before negotiating. A lower capitalized cost and higher residual value reduce monthly payments."
+		},
+		{
+			"question": "What if I want to end a lease early?",
+			"answer": "Ending a lease early usually results in significant penalties. You're responsible for remaining payments, early termination fees, and the difference between the car's value and what you owe. Some leases allow transfers to another person, which can be a better option than early termination."
+		},
+		{
+			"question": "How accurate is this calculator?",
+			"answer": "The calculator provides estimates based on the information you provide. Actual costs will vary based on market conditions, negotiation, vehicle condition, and unexpected expenses. Use it as a planning tool and consult with dealers for actual quotes. The comparison helps you understand cost differences, but real-world results may vary."
+		},
+		{
+			"question": "Should I include insurance differences?",
+			"answer": "Insurance costs can differ between leasing and buying. Leased cars often require full coverage and gap insurance, which may cost more. Some leases include insurance, while buying allows more flexibility. Include insurance differences if you know them, as they affect total cost of ownership."
+		},
+		{
+			"question": "What about tax benefits?",
+			"answer": "If you use the vehicle for business, you may be able to deduct lease payments or depreciation. Tax benefits vary by country and situation. Consult a tax professional for advice on your specific circumstances. This calculator focuses on direct costs, not tax implications."
+		}
+	]
+}
+

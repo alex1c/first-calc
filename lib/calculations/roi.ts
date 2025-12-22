@@ -1,83 +1,74 @@
 /**
- * ROI (Return on Investment) calculation functions
- * Calculates return on investment percentage and net profit
+ * Calculate ROI (Return on Investment) with comprehensive breakdown
+ * Inputs: investmentCost, returnValue, timePeriod, additionalCosts, revenueType
+ * Outputs: roiPercentage, netProfit, totalInvestment, profitMargin, formulaExplanation
  */
 
-import type { CalculationFunction } from './registry'
+import type { CalculatorFunction } from '@/lib/calculators/types'
 
 /**
- * Calculate ROI (Return on Investment)
- * 
- * Formula: ROI = ((Return Value - Investment Cost) / Investment Cost) × 100
- * 
- * @param inputs - Input values including investment cost and return value
- * @returns Calculated ROI metrics
+ * Calculate ROI with comprehensive breakdown
  */
-export function calculateROI(
-	inputs: Record<string, number | string>,
-): Record<string, number | string> {
+export const calculateROI: CalculatorFunction = (inputs) => {
 	const investmentCost = Number(inputs.investmentCost || inputs.initialInvestment || inputs.cost || 0)
 	const returnValue = Number(inputs.returnValue || inputs.finalValue || inputs.return || 0)
-	const timePeriod = Number(inputs.timePeriod || 1)
-	const timeUnit = String(inputs.timeUnit || 'years').toLowerCase()
+	const timePeriod = Number(inputs.timePeriod || 0) // Optional
+	const additionalCosts = Number(inputs.additionalCosts || 0) // Optional
+	const revenueType = String(inputs.revenueType || 'one-time').toLowerCase()
 
 	// Validation
 	if (
 		isNaN(investmentCost) ||
 		isNaN(returnValue) ||
+		isNaN(additionalCosts) ||
 		investmentCost <= 0 ||
-		returnValue < 0
+		returnValue < 0 ||
+		additionalCosts < 0
 	) {
-		throw new Error('Invalid input values. Investment cost must be positive, and return value must be non-negative.')
+		return {
+			roiPercentage: null,
+			netProfit: null,
+			totalInvestment: null,
+			profitMargin: null,
+			formulaExplanation: null,
+		}
 	}
 
-	// Calculate net profit
-	const netProfit = returnValue - investmentCost
+	const totalInvestment = investmentCost + additionalCosts
+	const netProfit = returnValue - totalInvestment
 
 	// Calculate ROI percentage
-	const roi = (netProfit / investmentCost) * 100
+	const roiPercentage = (netProfit / totalInvestment) * 100
 
-	// Calculate annualized ROI and CAGR
-	let annualizedROI = roi
-	let cagr = 0
-	const years = timeUnit === 'years' ? timePeriod : timePeriod / 12
+	// Calculate profit margin (profit as percentage of return)
+	const profitMargin = returnValue > 0 ? (netProfit / returnValue) * 100 : 0
+
+	// Build interpretation
+	let interpretation = ''
+	if (roiPercentage < 0) {
+		interpretation = `A ROI of ${roiPercentage.toFixed(2)}% means that for every $1 invested, you lost $${Math.abs(roiPercentage / 100).toFixed(2)}. This investment resulted in a loss of $${Math.abs(netProfit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}.`
+	} else if (roiPercentage === 0) {
+		interpretation = `A ROI of 0% means you broke even - you recovered exactly what you invested with no profit or loss.`
+	} else if (roiPercentage < 10) {
+		interpretation = `A ROI of ${roiPercentage.toFixed(2)}% means that for every $1 invested, you earned $${(roiPercentage / 100).toFixed(2)} in profit. This is a relatively low return, which may not justify the investment risk.`
+	} else if (roiPercentage < 25) {
+		interpretation = `A ROI of ${roiPercentage.toFixed(2)}% means that for every $1 invested, you earned $${(roiPercentage / 100).toFixed(2)} in profit. This is a moderate return that may be acceptable depending on the investment type and risk level.`
+	} else if (roiPercentage < 50) {
+		interpretation = `A ROI of ${roiPercentage.toFixed(2)}% means that for every $1 invested, you earned $${(roiPercentage / 100).toFixed(2)} in profit. This is a good return that indicates a profitable investment.`
+	} else {
+		interpretation = `A ROI of ${roiPercentage.toFixed(2)}% means that for every $1 invested, you earned $${(roiPercentage / 100).toFixed(2)} in profit. This is an excellent return that indicates a highly profitable investment.`
+	}
+
+	// Build formula explanation
+	let formulaExplanation = ''
 	
-	if (years > 0 && returnValue > 0 && investmentCost > 0) {
-		// Annualized ROI: (ROI / Time Period) × 100
-		annualizedROI = (roi / years)
-		
-		// CAGR: ((Return Value / Investment Cost)^(1/Years) - 1) × 100
-		const growthFactor = returnValue / investmentCost
-		if (growthFactor > 0) {
-			cagr = (Math.pow(growthFactor, 1 / years) - 1) * 100
-		}
-	}
-
-	// Calculate payback period (simplified - assumes constant return)
-	// Payback period = Investment Cost / Annual Return
-	let paybackPeriod = 0
-	if (returnValue > investmentCost && years > 0) {
-		const annualReturn = (returnValue - investmentCost) / years
-		if (annualReturn > 0) {
-			paybackPeriod = investmentCost / annualReturn
-		}
-	}
+	formulaExplanation = `ROI Calculation:\n\n1. Calculate Total Investment:\n   Total Investment = Investment Cost + Additional Costs\n   Total Investment = $${investmentCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}${additionalCosts > 0 ? ` + $${additionalCosts.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}\n   Total Investment = $${totalInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Calculate Net Profit:\n   Net Profit = Return Value - Total Investment\n   Net Profit = $${returnValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${totalInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Net Profit = $${netProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Calculate ROI Percentage:\n   ROI = (Net Profit / Total Investment) × 100\n   ROI = ($${netProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / $${totalInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}) × 100\n   ROI = ${roiPercentage.toFixed(2)}%\n\n${profitMargin !== null && returnValue > 0 ? `4. Calculate Profit Margin:\n   Profit Margin = (Net Profit / Return Value) × 100\n   Profit Margin = ($${netProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / $${returnValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}) × 100\n   Profit Margin = ${profitMargin.toFixed(2)}%\n\n` : ''}Interpretation:\n${interpretation}\n\nROI measures the efficiency and profitability of an investment. A positive ROI indicates profit, while a negative ROI indicates loss. The higher the ROI, the more profitable the investment relative to the amount invested.`
 
 	return {
-		roi: Math.round(roi * 100) / 100,
+		roiPercentage: Math.round(roiPercentage * 10000) / 100, // Round to 2 decimal places
 		netProfit: Math.round(netProfit * 100) / 100,
-		roiPercentage: Math.round(roi * 100) / 100,
-		annualizedROI: Math.round(annualizedROI * 100) / 100,
-		cagr: Math.round(cagr * 100) / 100,
-		paybackPeriod: Math.round(paybackPeriod * 100) / 100,
-		investmentCost: Math.round(investmentCost * 100) / 100,
-		returnValue: Math.round(returnValue * 100) / 100,
+		totalInvestment: Math.round(totalInvestment * 100) / 100,
+		profitMargin: returnValue > 0 ? Math.round(profitMargin * 10000) / 100 : null,
+		formulaExplanation,
 	}
 }
-
-// Register the calculation function
-import { registerCalculation } from './registry'
-
-// Auto-register on module load
-registerCalculation('calculateROI', calculateROI)
-

@@ -1,0 +1,305 @@
+{
+	"title": "Car Maintenance Cost Calculator – Estimate Annual & Monthly Costs",
+	"shortDescription": "Estimate how much car maintenance costs per year and per month. Budget for routine service and repairs.",
+	"longDescription": "Plan your car maintenance budget with our comprehensive calculator. Estimate annual and monthly maintenance costs including routine services like oil changes, tire service, brake maintenance, scheduled service, and unexpected repairs. Understand how vehicle age and mileage affect maintenance costs. Get a clear breakdown of routine vs unexpected expenses to help you budget effectively and avoid financial surprises.",
+	"inputs": [
+		{
+			"label": "Annual Mileage",
+			"unitLabel": "miles",
+			"placeholder": "Enter annual mileage",
+			"helpText": "Average miles driven per year"
+		},
+		{
+			"label": "Vehicle Age",
+			"unitLabel": "years",
+			"placeholder": "Enter vehicle age",
+			"helpText": "How old is your vehicle (affects unexpected repair costs)"
+		},
+		{
+			"label": "Vehicle Preset",
+			"unitLabel": "",
+			"placeholder": "Select vehicle type (optional)",
+			"helpText": "Select a preset to prefill typical costs, or choose Custom to enter your own values"
+		},
+		{
+			"label": "Oil Change Cost",
+			"unitLabel": "$",
+			"placeholder": "Enter oil change cost",
+			"helpText": "Cost per oil change"
+		},
+		{
+			"label": "Oil Changes Per Year",
+			"unitLabel": "times",
+			"placeholder": "Enter oil changes per year",
+			"helpText": "Number of oil changes per year (typically 2-4 depending on mileage)"
+		},
+		{
+			"label": "Tire Service Annual",
+			"unitLabel": "$",
+			"placeholder": "Enter annual tire service cost",
+			"helpText": "Annual cost for tire rotation, balancing, and replacements"
+		},
+		{
+			"label": "Brake Service Annual",
+			"unitLabel": "$",
+			"placeholder": "Enter annual brake service cost",
+			"helpText": "Annual cost for brake pad replacement and brake service"
+		},
+		{
+			"label": "Scheduled Service Annual",
+			"unitLabel": "$",
+			"placeholder": "Enter annual scheduled service cost",
+			"helpText": "Annual cost for scheduled maintenance (inspections, fluid changes, filters, etc.)"
+		},
+		{
+			"label": "Unexpected Repairs Annual",
+			"unitLabel": "$",
+			"placeholder": "Enter annual unexpected repairs",
+			"helpText": "Estimated annual cost for unexpected repairs (adjusted for vehicle age)"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Total Annual Maintenance Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Monthly Maintenance Cost",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Cost Per Mile",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Routine Maintenance Annual",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Unexpected Repairs Annual",
+			"unitLabel": "$"
+		}
+	],
+	"howTo": [
+		"Enter your annual mileage",
+		"Enter your vehicle's age in years",
+		"Optionally select a vehicle preset (Economy, Mid-Range, or Premium) to prefill typical costs",
+		"Enter cost per oil change",
+		"Enter number of oil changes per year (typically 2-4)",
+		"Enter annual tire service costs (rotation, balancing, replacements)",
+		"Enter annual brake service costs",
+		"Enter annual scheduled service costs (inspections, fluid changes, filters)",
+		"Enter estimated annual unexpected repair costs (will be adjusted for vehicle age)",
+		"Click 'Calculate' to see your total maintenance costs",
+		"Review annual, monthly, and per-mile costs",
+		"Check the breakdown to see routine vs unexpected costs"
+	],
+	"examples": [
+		{
+			"title": "Example 1: New Economy Car",
+			"description": "A new economy car with low maintenance costs",
+			"inputs": {
+				"annualMileage": 12000,
+				"vehicleAgeYears": 0,
+				"vehiclePreset": "economyCar",
+				"oilChangeCost": 40,
+				"oilChangesPerYear": 2,
+				"tireServiceAnnual": 200,
+				"brakeServiceAnnual": 150,
+				"scheduledServiceAnnual": 300,
+				"unexpectedRepairsAnnual": 400
+			},
+			"steps": [
+				"Annual mileage: 12,000 miles",
+				"Vehicle age: 0 years (new car, no age multiplier)",
+				"Oil changes: $40 × 2 times/year = $80",
+				"Tire service: $200/year",
+				"Brake service: $150/year",
+				"Scheduled service: $300/year",
+				"Routine maintenance total: $80 + $200 + $150 + $300 = $730",
+				"Unexpected repairs: $400/year (age multiplier: 1.0x for new car = $400)",
+				"Total annual maintenance: $730 (routine) + $400 (unexpected) = $1,130",
+				"Monthly cost: $1,130 ÷ 12 = $94.17",
+				"Cost per mile: $1,130 ÷ 12,000 miles = $0.094"
+			]
+		},
+		{
+			"title": "Example 2: 5-Year-Old Mid-Range Car",
+			"description": "A 5-year-old mid-range car with moderate maintenance",
+			"inputs": {
+				"annualMileage": 15000,
+				"vehicleAgeYears": 5,
+				"vehiclePreset": "midRangeCar",
+				"oilChangeCost": 60,
+				"oilChangesPerYear": 3,
+				"tireServiceAnnual": 300,
+				"brakeServiceAnnual": 250,
+				"scheduledServiceAnnual": 500,
+				"unexpectedRepairsAnnual": 600
+			},
+			"steps": [
+				"Annual mileage: 15,000 miles",
+				"Vehicle age: 5 years (age multiplier: ~1.3x for unexpected repairs)",
+				"Oil changes: $60 × 3 times/year = $180",
+				"Tire service: $300/year",
+				"Brake service: $250/year",
+				"Scheduled service: $500/year",
+				"Routine maintenance total: $180 + $300 + $250 + $500 = $1,230",
+				"Unexpected repairs base: $600/year",
+				"Age adjustment: $600 × 1.3 (5-year multiplier) = $780/year",
+				"Total annual maintenance: $1,230 (routine) + $780 (unexpected) = $2,010",
+				"Monthly cost: $2,010 ÷ 12 = $167.50",
+				"Cost per mile: $2,010 ÷ 15,000 miles = $0.134"
+			]
+		},
+		{
+			"title": "Example 3: High Mileage Driver",
+			"description": "Driving 25,000 miles per year requires more frequent maintenance",
+			"inputs": {
+				"annualMileage": 25000,
+				"vehicleAgeYears": 3,
+				"vehiclePreset": "midRangeCar",
+				"oilChangeCost": 60,
+				"oilChangesPerYear": 4,
+				"tireServiceAnnual": 500,
+				"brakeServiceAnnual": 400,
+				"scheduledServiceAnnual": 600,
+				"unexpectedRepairsAnnual": 600
+			},
+			"steps": [
+				"Annual mileage: 25,000 miles (high mileage driver)",
+				"Vehicle age: 3 years (minimal age impact)",
+				"Oil changes: $60 × 4 times/year = $240 (more frequent due to high mileage)",
+				"Tire service: $500/year (higher due to more tire wear)",
+				"Brake service: $400/year (more frequent brake pad replacements)",
+				"Scheduled service: $600/year (more frequent service intervals)",
+				"Routine maintenance total: $240 + $500 + $400 + $600 = $1,740",
+				"Unexpected repairs: $600/year (age multiplier: ~1.1x = $660)",
+				"Total annual maintenance: $1,740 (routine) + $660 (unexpected) = $2,400",
+				"Monthly cost: $2,400 ÷ 12 = $200.00",
+				"Cost per mile: $2,400 ÷ 25,000 miles = $0.096 (lower per mile due to spreading costs over more miles)"
+			]
+		},
+		{
+			"title": "Example 4: Older Car with Higher Repairs",
+			"description": "A 10-year-old car with increased unexpected repair costs",
+			"inputs": {
+				"annualMileage": 10000,
+				"vehicleAgeYears": 10,
+				"vehiclePreset": "economyCar",
+				"oilChangeCost": 40,
+				"oilChangesPerYear": 2,
+				"tireServiceAnnual": 200,
+				"brakeServiceAnnual": 150,
+				"scheduledServiceAnnual": 300,
+				"unexpectedRepairsAnnual": 400
+			},
+			"steps": [
+				"Annual mileage: 10,000 miles (low mileage)",
+				"Vehicle age: 10 years (significant age multiplier: ~2.0x)",
+				"Oil changes: $40 × 2 times/year = $80",
+				"Tire service: $200/year",
+				"Brake service: $150/year",
+				"Scheduled service: $300/year",
+				"Routine maintenance total: $80 + $200 + $150 + $300 = $730",
+				"Unexpected repairs base: $400/year",
+				"Age adjustment: $400 × 2.0 (10-year multiplier) = $800/year (doubled due to age)",
+				"Total annual maintenance: $730 (routine) + $800 (unexpected) = $1,530",
+				"Monthly cost: $1,530 ÷ 12 = $127.50",
+				"Cost per mile: $1,530 ÷ 10,000 miles = $0.153 (higher per mile due to low mileage and high repair costs)"
+			]
+		},
+		{
+			"title": "Example 5: Premium Car, Moderate Use",
+			"description": "A 2-year-old premium car with higher service costs",
+			"inputs": {
+				"annualMileage": 12000,
+				"vehicleAgeYears": 2,
+				"vehiclePreset": "premiumCar",
+				"oilChangeCost": 120,
+				"oilChangesPerYear": 2,
+				"tireServiceAnnual": 600,
+				"brakeServiceAnnual": 500,
+				"scheduledServiceAnnual": 1000,
+				"unexpectedRepairsAnnual": 800
+			},
+			"steps": [
+				"Annual mileage: 12,000 miles",
+				"Vehicle age: 2 years (minimal age impact)",
+				"Oil changes: $120 × 2 times/year = $240 (premium oil and service)",
+				"Tire service: $600/year (premium tires cost more)",
+				"Brake service: $500/year (premium brake components)",
+				"Scheduled service: $1,000/year (more comprehensive service)",
+				"Routine maintenance total: $240 + $600 + $500 + $1,000 = $2,340",
+				"Unexpected repairs: $800/year (age multiplier: ~1.05x = $840)",
+				"Total annual maintenance: $2,340 (routine) + $840 (unexpected) = $3,180",
+				"Monthly cost: $3,180 ÷ 12 = $265.00",
+				"Cost per mile: $3,180 ÷ 12,000 miles = $0.265 (premium cars cost more to maintain)"
+			]
+		}
+	],
+	"faq": [
+		{
+			"question": "How much does car maintenance cost?",
+			"answer": "Maintenance costs vary widely by vehicle type, age, and mileage. Economy cars: $500-1,500/year. Mid-range cars: $1,000-2,500/year. Premium/luxury cars: $2,000-5,000+/year. Older vehicles and high-mileage drivers typically have higher costs. This calculator helps you estimate based on your specific situation."
+		},
+		{
+			"question": "How does age affect maintenance costs?",
+			"answer": "Older vehicles require more maintenance and repairs. New cars (0-3 years) have minimal unexpected repairs, often covered by warranty. Cars 4-5 years old see slightly increased issues. Cars 6-8 years old have moderate increases. Cars 9+ years old can have 2x or more unexpected repair costs. The calculator applies age multipliers to account for this."
+		},
+		{
+			"question": "Is maintenance cheaper than repairs?",
+			"answer": "Yes! Regular maintenance (oil changes, scheduled service) is much cheaper than major repairs. Preventive maintenance helps avoid costly breakdowns. For example, a $50 oil change is far cheaper than a $3,000 engine replacement. Budgeting for routine maintenance helps prevent unexpected large repair bills."
+		},
+		{
+			"question": "Should I budget monthly for maintenance?",
+			"answer": "Yes, budgeting monthly for maintenance is wise. Set aside money each month (even if you don't need service that month) so you have funds available when maintenance is due. This prevents financial stress and ensures you can maintain your vehicle properly. The calculator shows your monthly maintenance cost."
+		},
+		{
+			"question": "Does this include tires?",
+			"answer": "Yes, tire costs are included in the 'Tire Service Annual' field. This covers tire rotation, balancing, alignment, and tire replacements. Tire costs vary based on vehicle type and driving habits. Premium vehicles often have more expensive tires."
+		},
+		{
+			"question": "How often should I change my oil?",
+			"answer": "Oil change frequency depends on your vehicle and oil type. Traditional recommendation: every 3,000-5,000 miles. Modern synthetic oils: every 5,000-10,000 miles. Check your owner's manual for manufacturer recommendations. High-mileage or severe driving conditions may require more frequent changes."
+		},
+		{
+			"question": "What's included in scheduled service?",
+			"answer": "Scheduled service typically includes: inspections, fluid changes (coolant, transmission, brake fluid), filter replacements (air, cabin, fuel), belt and hose inspections, battery checks, and other manufacturer-recommended maintenance. Follow your owner's manual schedule for your specific vehicle."
+		},
+		{
+			"question": "How do I estimate unexpected repairs?",
+			"answer": "Unexpected repairs are hard to predict but essential to budget for. Use historical data: if your car typically needs $600/year in unexpected repairs, budget that. Older cars need more. The calculator applies age multipliers to help estimate. It's better to overestimate than be caught unprepared."
+		},
+		{
+			"question": "Does maintenance cost more for luxury cars?",
+			"answer": "Yes, luxury and premium cars typically have higher maintenance costs. Parts are more expensive, service requires specialized knowledge, and scheduled maintenance is often more frequent. Premium cars may cost 2-3x more to maintain than economy cars. Use the Premium Car preset to see typical costs."
+		},
+		{
+			"question": "How does mileage affect maintenance?",
+			"answer": "Higher mileage increases maintenance frequency and costs. More miles mean: more frequent oil changes, more tire wear, more brake pad replacements, more scheduled services, and higher likelihood of unexpected repairs. The calculator accounts for this in your annual costs."
+		},
+		{
+			"question": "Should I skip maintenance to save money?",
+			"answer": "No! Skipping maintenance is a false economy. Regular maintenance prevents costly breakdowns and extends vehicle life. A $100 service can prevent a $2,000 repair. Well-maintained cars also have better resale value. Budget for maintenance - it's an essential cost of car ownership."
+		},
+		{
+			"question": "What's the difference between routine and unexpected maintenance?",
+			"answer": "Routine maintenance is planned, predictable service: oil changes, tire rotation, scheduled inspections. Unexpected repairs are unplanned issues: engine problems, transmission issues, electrical problems, etc. Both are important to budget for, but unexpected repairs are harder to predict."
+		},
+		{
+			"question": "How accurate is this calculator?",
+			"answer": "The calculator provides estimates based on typical maintenance costs and patterns. Actual costs vary by: specific vehicle make/model, local labor rates, your driving habits, maintenance history, and luck. Use it as a planning tool and adjust based on your actual experience. It's better to overestimate than underestimate."
+		},
+		{
+			"question": "Can I reduce maintenance costs?",
+			"answer": "Some ways to reduce costs: do basic maintenance yourself (oil changes, air filters), shop around for service, use quality parts (cheap parts fail faster), follow maintenance schedules (prevents major issues), and choose reliable vehicles with lower maintenance requirements. However, some maintenance is unavoidable."
+		},
+		{
+			"question": "What if I drive very little?",
+			"answer": "Low mileage reduces some maintenance (fewer oil changes, less tire wear), but don't skip time-based maintenance. Fluids degrade over time, not just mileage. Follow both mileage and time intervals in your owner's manual. The calculator accounts for this in your estimates."
+		}
+	]
+}
+
+

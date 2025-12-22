@@ -103,9 +103,27 @@
         "monthlyContribution": 500,
         "interestRate": 7,
         "investmentPeriod": 20,
-        "compoundingFrequency": "monthly"
+        "compoundingFrequency": "monthly",
+        "interestType": "compound"
       },
-      "result": "Final value: $283,456.30, Total contributions: $130,000, Total profit: $153,456.30"
+      "steps": [
+        "Initial investment: $10,000",
+        "Monthly contribution: $500",
+        "Interest rate: 7% APR",
+        "Investment period: 20 years",
+        "Compounding: Monthly (12 times per year)",
+        "Monthly interest rate: 7% ÷ 12 = 0.5833% = 0.005833",
+        "Number of months: 20 years × 12 = 240 months",
+        "Future value of initial investment: FV = P × (1 + r)^n",
+        "FV initial = $10,000 × (1.005833)^240 = $10,000 × 4.0387 = $40,387",
+        "Future value of monthly contributions: FV = PMT × [((1+r)^n - 1) / r]",
+        "FV contributions = $500 × [((1.005833)^240 - 1) / 0.005833]",
+        "FV contributions = $500 × [(4.0387 - 1) / 0.005833] = $500 × 520.95 = $260,475",
+        "Total final value: $40,387 + $260,475 = $300,862",
+        "Total contributions: $10,000 + ($500 × 240) = $130,000",
+        "Total profit: $300,862 - $130,000 = $170,862",
+        "Profit percentage: ($170,862 ÷ $130,000) × 100 = 131.4%"
+      ]
     },
     {
       "title": "Monthly Investing",
@@ -115,9 +133,26 @@
         "monthlyContribution": 200,
         "interestRate": 6,
         "investmentPeriod": 30,
-        "compoundingFrequency": "monthly"
+        "compoundingFrequency": "monthly",
+        "interestType": "compound"
       },
-      "result": "Final value: $200,903.10, Total contributions: $72,000, Total profit: $128,903.10"
+      "steps": [
+        "Initial investment: $0",
+        "Monthly contribution: $200",
+        "Interest rate: 6% APR",
+        "Investment period: 30 years",
+        "Compounding: Monthly",
+        "Monthly interest rate: 6% ÷ 12 = 0.5% = 0.005",
+        "Number of months: 30 years × 12 = 360 months",
+        "Future value of monthly contributions: FV = PMT × [((1+r)^n - 1) / r]",
+        "(1+r)^n = (1.005)^360 = 6.0226",
+        "FV = $200 × [(6.0226 - 1) / 0.005] = $200 × 1,004.52 = $200,904",
+        "Total final value: $200,904",
+        "Total contributions: $200 × 360 = $72,000",
+        "Total profit: $200,904 - $72,000 = $128,904",
+        "Profit percentage: ($128,904 ÷ $72,000) × 100 = 178.8%",
+        "Note: Consistent monthly investing over 30 years shows the power of compound interest"
+      ]
     },
     {
       "title": "High-Yield Investment",
@@ -127,9 +162,26 @@
         "monthlyContribution": 300,
         "interestRate": 8,
         "investmentPeriod": 15,
-        "compoundingFrequency": "monthly"
+        "compoundingFrequency": "monthly",
+        "interestType": "compound"
       },
-      "result": "Final value: $100,234.50, Total contributions: $59,000, Total profit: $41,234.50"
+      "steps": [
+        "Initial investment: $5,000",
+        "Monthly contribution: $300",
+        "Interest rate: 8% APR (higher return)",
+        "Investment period: 15 years",
+        "Compounding: Monthly",
+        "Monthly interest rate: 8% ÷ 12 = 0.6667% = 0.006667",
+        "Number of months: 15 years × 12 = 180 months",
+        "Future value of initial: $5,000 × (1.006667)^180 = $5,000 × 3.3066 = $16,533",
+        "Future value of contributions: $300 × [((1.006667)^180 - 1) / 0.006667]",
+        "FV contributions = $300 × [(3.3066 - 1) / 0.006667] = $300 × 345.99 = $103,797",
+        "Total final value: $16,533 + $103,797 = $120,330",
+        "Total contributions: $5,000 + ($300 × 180) = $59,000",
+        "Total profit: $120,330 - $59,000 = $61,330",
+        "Profit percentage: ($61,330 ÷ $59,000) × 100 = 104.0%",
+        "Note: Higher interest rate (8%) significantly increases returns compared to lower rates"
+      ]
     },
     {
       "title": "Conservative Approach",
@@ -139,9 +191,52 @@
         "monthlyContribution": 400,
         "interestRate": 4,
         "investmentPeriod": 25,
-        "compoundingFrequency": "monthly"
+        "compoundingFrequency": "monthly",
+        "interestType": "compound"
       },
-      "result": "Final value: $234,567.80, Total contributions: $140,000, Total profit: $94,567.80"
+      "steps": [
+        "Initial investment: $20,000",
+        "Monthly contribution: $400",
+        "Interest rate: 4% APR (conservative rate)",
+        "Investment period: 25 years",
+        "Compounding: Monthly",
+        "Monthly interest rate: 4% ÷ 12 = 0.3333% = 0.003333",
+        "Number of months: 25 years × 12 = 300 months",
+        "Future value of initial: $20,000 × (1.003333)^300 = $20,000 × 2.7138 = $54,276",
+        "Future value of contributions: $400 × [((1.003333)^300 - 1) / 0.003333]",
+        "FV contributions = $400 × [(2.7138 - 1) / 0.003333] = $400 × 514.14 = $205,656",
+        "Total final value: $54,276 + $205,656 = $259,932",
+        "Total contributions: $20,000 + ($400 × 300) = $140,000",
+        "Total profit: $259,932 - $140,000 = $119,932",
+        "Profit percentage: ($119,932 ÷ $140,000) × 100 = 85.7%",
+        "Note: Lower risk (4% rate) but still significant growth over 25 years"
+      ]
+    },
+    {
+      "title": "Retirement Planning",
+      "description": "$50,000 initial with $1,000/month at 7% for 20 years",
+      "inputs": {
+        "initialInvestment": 50000,
+        "monthlyContribution": 1000,
+        "interestRate": 7,
+        "investmentPeriod": 20,
+        "compoundingFrequency": "monthly",
+        "interestType": "compound"
+      },
+      "steps": [
+        "Initial investment: $50,000",
+        "Monthly contribution: $1,000",
+        "Interest rate: 7% APR (typical stock market return)",
+        "Investment period: 20 years",
+        "Monthly interest rate: 7% ÷ 12 = 0.5833%",
+        "Number of months: 240",
+        "Future value of initial: $50,000 × (1.005833)^240 = $201,935",
+        "Future value of contributions: $1,000 × [((1.005833)^240 - 1) / 0.005833] = $520,950",
+        "Total final value: $201,935 + $520,950 = $722,885",
+        "Total contributions: $50,000 + ($1,000 × 240) = $290,000",
+        "Total profit: $722,885 - $290,000 = $432,885",
+        "Note: Consistent high contributions ($1,000/month) build substantial retirement savings"
+      ]
     }
   ],
   "faq": [

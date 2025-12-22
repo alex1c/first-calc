@@ -68,36 +68,102 @@
       "description": "Invested $10,000 in marketing, generated $25,000 in sales",
       "inputs": {
         "investmentCost": 10000,
-        "returnValue": 25000
+        "returnValue": 25000,
+        "timePeriod": 0,
+        "timeUnit": "years"
       },
-      "result": "ROI: 150%, Net Profit: $15,000"
+      "steps": [
+        "Investment cost: $10,000",
+        "Return value: $25,000",
+        "Net profit calculation: Return - Cost = $25,000 - $10,000 = $15,000",
+        "ROI calculation: (Net Profit ÷ Investment Cost) × 100",
+        "ROI = ($15,000 ÷ $10,000) × 100 = 150%",
+        "ROI interpretation: 150% means for every $1 invested, you earned $1.50 in profit",
+        "Total return: $2.50 for every $1 invested (150% profit + 100% principal)",
+        "Profit margin: ($15,000 ÷ $25,000) × 100 = 60%",
+        "Note: Marketing ROI of 150% (2.5:1) is considered excellent"
+      ]
     },
     {
       "title": "Business Investment",
       "description": "Invested $50,000 in equipment, generated $80,000 in revenue",
       "inputs": {
         "investmentCost": 50000,
-        "returnValue": 80000
+        "returnValue": 80000,
+        "timePeriod": 0,
+        "timeUnit": "years"
       },
-      "result": "ROI: 60%, Net Profit: $30,000"
+      "steps": [
+        "Investment cost: $50,000",
+        "Return value: $80,000",
+        "Net profit: $80,000 - $50,000 = $30,000",
+        "ROI calculation: ($30,000 ÷ $50,000) × 100 = 60%",
+        "ROI interpretation: 60% return means for every $1 invested, you earned $0.60 in profit",
+        "Total return: $1.60 for every $1 invested",
+        "Profit margin: ($30,000 ÷ $80,000) × 100 = 37.5%",
+        "Note: 60% ROI is a good return for a business equipment investment"
+      ]
     },
     {
       "title": "Stock Investment",
       "description": "Bought stocks for $5,000, sold for $7,500",
       "inputs": {
         "investmentCost": 5000,
-        "returnValue": 7500
+        "returnValue": 7500,
+        "timePeriod": 0,
+        "timeUnit": "years"
       },
-      "result": "ROI: 50%, Net Profit: $2,500"
+      "steps": [
+        "Investment cost: $5,000 (stock purchase price)",
+        "Return value: $7,500 (sale price)",
+        "Net profit: $7,500 - $5,000 = $2,500",
+        "ROI calculation: ($2,500 ÷ $5,000) × 100 = 50%",
+        "ROI interpretation: 50% return means for every $1 invested, you earned $0.50 in profit",
+        "Total return: $1.50 for every $1 invested",
+        "Profit margin: ($2,500 ÷ $7,500) × 100 = 33.3%",
+        "Note: 50% ROI is an excellent return for stock investments"
+      ]
     },
     {
       "title": "Real Estate Investment",
       "description": "Purchased property for $200,000, sold for $280,000 after improvements",
       "inputs": {
         "investmentCost": 200000,
-        "returnValue": 280000
+        "returnValue": 280000,
+        "timePeriod": 0,
+        "timeUnit": "years"
       },
-      "result": "ROI: 40%, Net Profit: $80,000"
+      "steps": [
+        "Investment cost: $200,000 (purchase price + improvements)",
+        "Return value: $280,000 (sale price)",
+        "Net profit: $280,000 - $200,000 = $80,000",
+        "ROI calculation: ($80,000 ÷ $200,000) × 100 = 40%",
+        "ROI interpretation: 40% return means for every $1 invested, you earned $0.40 in profit",
+        "Total return: $1.40 for every $1 invested",
+        "Profit margin: ($80,000 ÷ $280,000) × 100 = 28.6%",
+        "Note: 40% ROI is a solid return for real estate investment"
+      ]
+    },
+    {
+      "title": "Investment with Additional Costs",
+      "description": "$15,000 investment with $2,000 additional costs, returned $22,000",
+      "inputs": {
+        "investmentCost": 15000,
+        "returnValue": 22000,
+        "additionalCosts": 2000,
+        "timePeriod": 0,
+        "timeUnit": "years"
+      },
+      "steps": [
+        "Initial investment: $15,000",
+        "Additional costs: $2,000",
+        "Total investment: $15,000 + $2,000 = $17,000",
+        "Return value: $22,000",
+        "Net profit: $22,000 - $17,000 = $5,000",
+        "ROI calculation: ($5,000 ÷ $17,000) × 100 = 29.4%",
+        "ROI interpretation: 29.4% return after accounting for all costs",
+        "Note: Always include all costs (fees, taxes, etc.) for accurate ROI calculation"
+      ]
     }
   ],
   "faq": [

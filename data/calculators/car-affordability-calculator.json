@@ -1,0 +1,123 @@
+{
+	"id": "car-affordability-calculator",
+	"slug": "car-affordability-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateCarAffordability",
+	"tags": ["auto", "affordability", "car-budget", "car-loan", "monthly-payment", "income"],
+	"inputs": [
+		{
+			"name": "mode",
+			"type": "select",
+			"options": [
+				{ "value": "byMonthlyBudget", "label": "Based on Monthly Budget" },
+				{ "value": "byIncomeRule", "label": "Based on Income Rule" }
+			],
+			"defaultValue": "byMonthlyBudget"
+		},
+		{
+			"name": "maxMonthlyCarBudget",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0,
+			"visibleIf": {
+				"field": "mode",
+				"value": "byMonthlyBudget"
+			}
+		},
+		{
+			"name": "monthlyNetIncome",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0,
+			"visibleIf": {
+				"field": "mode",
+				"value": "byIncomeRule"
+			}
+		},
+		{
+			"name": "rulePreset",
+			"type": "select",
+			"options": [
+				{ "value": "conservative", "label": "Conservative (10% of income)" },
+				{ "value": "moderate", "label": "Moderate (15% of income)" },
+				{ "value": "aggressive", "label": "Aggressive (20% of income)" }
+			],
+			"defaultValue": "moderate",
+			"visibleIf": {
+				"field": "mode",
+				"value": "byIncomeRule"
+			}
+		},
+		{
+			"name": "downPayment",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "loanAPR",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 5.5
+		},
+		{
+			"name": "loanTermMonths",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 60
+		},
+		{
+			"name": "estimatedMonthlyFixedCosts",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "tradeInValue",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "salesTaxOrFees",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		}
+	],
+	"outputs": [
+		{
+			"name": "maxAffordableCarPrice"
+		},
+		{
+			"name": "maxAffordableLoanAmount"
+		},
+		{
+			"name": "allowedMonthlyPayment"
+		},
+		{
+			"name": "recommendedBudgetRange"
+		},
+		{
+			"name": "insights"
+		},
+		{
+			"name": "totalMonthlyCost"
+		}
+	],
+	"defaults": {
+		"mode": "byMonthlyBudget",
+		"maxMonthlyCarBudget": 600,
+		"downPayment": 5000,
+		"loanAPR": 5.5,
+		"loanTermMonths": 60,
+		"estimatedMonthlyFixedCosts": 150,
+		"tradeInValue": 0,
+		"salesTaxOrFees": 0
+	},
+	"relatedIds": ["auto-loan-calculator", "car-resale-value-calculator", "car-cost-of-ownership-calculator"],
+	"isEnabled": true
+}
+
+

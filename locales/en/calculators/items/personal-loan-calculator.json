@@ -83,33 +83,113 @@
 			"description": "$10,000 loan at 12% APR for 3 years with 1% origination fee",
 			"inputs": {
 				"loanAmount": 10000,
-				"interestRate": 12,
+				"annualInterestRate": 12,
 				"loanTerm": 3,
-				"originationFee": 1
+				"originationFee": 1,
+				"feeType": "percentage",
+				"paymentFrequency": "monthly"
 			},
-			"result": "Monthly payment: $332.14, Total interest: $1,957.04, APR: 13.52%"
+			"steps": [
+				"Loan amount: $10,000",
+				"Interest rate: 12% APR",
+				"Loan term: 3 years",
+				"Origination fee: 1% of $10,000 = $100",
+				"Monthly interest rate: 12% ÷ 12 = 1.0% = 0.01",
+				"Number of payments: 3 years × 12 months = 36 payments",
+				"Monthly payment formula: M = P × [r(1+r)^n] / [(1+r)^n - 1]",
+				"Where P = $10,000, r = 0.01, n = 36",
+				"(1+r)^n = (1.01)^36 = 1.4308",
+				"M = $10,000 × [0.01 × 1.4308] / [1.4308 - 1]",
+				"M = $10,000 × 0.014308 / 0.4308 = $332.14",
+				"Monthly payment: $332.14",
+				"Total payment: $332.14 × 36 = $11,957.04",
+				"Total interest: $11,957.04 - $10,000 = $1,957.04",
+				"Total cost (interest + fees): $1,957.04 + $100 = $2,057.04",
+				"Effective APR (including fees): ~13.52%"
+			]
 		},
 		{
 			"title": "Short Term Loan",
 			"description": "$5,000 loan at 8% APR for 2 years with no origination fee",
 			"inputs": {
 				"loanAmount": 5000,
-				"interestRate": 8,
+				"annualInterestRate": 8,
 				"loanTerm": 2,
-				"originationFee": 0
+				"originationFee": 0,
+				"feeType": "percentage",
+				"paymentFrequency": "monthly"
 			},
-			"result": "Monthly payment: $226.14, Total interest: $427.36, APR: 8.00%"
+			"steps": [
+				"Loan amount: $5,000",
+				"Interest rate: 8% APR",
+				"Loan term: 2 years",
+				"Origination fee: $0 (no fee)",
+				"Monthly interest rate: 8% ÷ 12 = 0.6667% = 0.006667",
+				"Number of payments: 2 years × 12 months = 24 payments",
+				"Monthly payment formula: M = P × [r(1+r)^n] / [(1+r)^n - 1]",
+				"(1+r)^n = (1.006667)^24 = 1.1726",
+				"M = $5,000 × [0.006667 × 1.1726] / [1.1726 - 1]",
+				"M = $5,000 × 0.007817 / 0.1726 = $226.14",
+				"Monthly payment: $226.14",
+				"Total payment: $226.14 × 24 = $5,427.36",
+				"Total interest: $5,427.36 - $5,000 = $427.36",
+				"APR: 8.00% (no fees, so APR equals interest rate)"
+			]
 		},
 		{
 			"title": "Long Term Loan",
 			"description": "$15,000 loan at 15% APR for 5 years with 2% origination fee",
 			"inputs": {
 				"loanAmount": 15000,
-				"interestRate": 15,
+				"annualInterestRate": 15,
 				"loanTerm": 5,
-				"originationFee": 2
+				"originationFee": 2,
+				"feeType": "percentage",
+				"paymentFrequency": "monthly"
 			},
-			"result": "Monthly payment: $356.70, Total interest: $6,402.00, APR: 18.68%"
+			"steps": [
+				"Loan amount: $15,000",
+				"Interest rate: 15% APR",
+				"Loan term: 5 years",
+				"Origination fee: 2% of $15,000 = $300",
+				"Monthly interest rate: 15% ÷ 12 = 1.25% = 0.0125",
+				"Number of payments: 5 years × 12 months = 60 payments",
+				"Monthly payment formula: M = P × [r(1+r)^n] / [(1+r)^n - 1]",
+				"(1+r)^n = (1.0125)^60 = 2.1072",
+				"M = $15,000 × [0.0125 × 2.1072] / [2.1072 - 1]",
+				"M = $15,000 × 0.026340 / 1.1072 = $356.70",
+				"Monthly payment: $356.70",
+				"Total payment: $356.70 × 60 = $21,402.00",
+				"Total interest: $21,402.00 - $15,000 = $6,402.00",
+				"Total cost (interest + fees): $6,402.00 + $300 = $6,702.00",
+				"Effective APR (including fees): ~18.68%",
+				"Note: Longer term and higher rate result in significantly more total interest"
+			]
+		},
+		{
+			"title": "Debt Consolidation Loan",
+			"description": "$20,000 loan at 10% APR for 4 years with 1.5% origination fee",
+			"inputs": {
+				"loanAmount": 20000,
+				"annualInterestRate": 10,
+				"loanTerm": 4,
+				"originationFee": 1.5,
+				"feeType": "percentage",
+				"paymentFrequency": "monthly"
+			},
+			"steps": [
+				"Loan amount: $20,000",
+				"Interest rate: 10% APR",
+				"Loan term: 4 years",
+				"Origination fee: 1.5% of $20,000 = $300",
+				"Monthly interest rate: 10% ÷ 12 = 0.8333% = 0.008333",
+				"Number of payments: 4 years × 12 months = 48 payments",
+				"Monthly payment: $507.25",
+				"Total payment: $507.25 × 48 = $24,348.00",
+				"Total interest: $24,348.00 - $20,000 = $4,348.00",
+				"Total cost: $4,348.00 + $300 = $4,648.00",
+				"Note: Debt consolidation loans can help simplify multiple payments into one"
+			]
 		}
 	],
 	"faq": [

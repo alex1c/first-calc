@@ -1,0 +1,97 @@
+{
+	"id": "fuel-cost-calculator",
+	"slug": "fuel-cost-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateFuelCost",
+	"tags": ["auto", "fuel-cost", "gas-cost", "petrol-cost", "driving-cost"],
+	"inputs": [
+		{
+			"name": "periodType",
+			"type": "select",
+			"options": [
+				{ "value": "trip", "label": "Single Trip" },
+				{ "value": "monthly", "label": "Monthly" },
+				{ "value": "yearly", "label": "Yearly" }
+			],
+			"defaultValue": "trip"
+		},
+		{
+			"name": "distance",
+			"type": "number",
+			"step": 1
+		},
+		{
+			"name": "consumptionUnit",
+			"type": "select",
+			"options": [
+				{ "value": "L/100km", "label": "Liters per 100 km (L/100km)" },
+				{ "value": "MPG", "label": "Miles per Gallon (MPG)" }
+			],
+			"defaultValue": "L/100km"
+		},
+		{
+			"name": "fuelConsumption",
+			"type": "number",
+			"step": 1
+		},
+		{
+			"name": "fuelPricePerUnit",
+			"type": "number",
+			"step": 1
+		},
+		{
+			"name": "roundTrip",
+			"type": "select",
+			"options": [
+				{ "value": "false", "label": "One Way" },
+				{ "value": "true", "label": "Round Trip" }
+			],
+			"defaultValue": "false"
+		},
+		{
+			"name": "currency",
+			"type": "select",
+			"options": [
+				{ "value": "$", "label": "Dollar ($)" },
+				{ "value": "€", "label": "Euro (€)" },
+				{ "value": "£", "label": "Pound (£)" },
+				{ "value": "¥", "label": "Yen (¥)" },
+				{ "value": "₹", "label": "Rupee (₹)" }
+			],
+			"defaultValue": "$"
+		}
+	],
+	"outputs": [
+		{
+			"name": "fuelUsed"
+		},
+		{
+			"name": "fuelCost"
+		},
+		{
+			"name": "costPerDistance"
+		},
+		{
+			"name": "totalFuelCost"
+		},
+		{
+			"name": "insights"
+		},
+		{
+			"name": "actualDistance"
+		}
+	],
+	"defaults": {
+		"periodType": "trip",
+		"distance": 100,
+		"consumptionUnit": "L/100km",
+		"fuelConsumption": 8,
+		"fuelPricePerUnit": 1.50,
+		"roundTrip": "false",
+		"currency": "$"
+	},
+	"relatedIds": ["fuel-consumption-calculator", "trip-cost-calculator", "car-cost-of-ownership-calculator", "auto-loan-calculator"],
+	"isEnabled": true
+}
+

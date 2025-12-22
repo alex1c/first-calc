@@ -19,6 +19,7 @@
 	"categories": {
 		"math": "Matematik",
 		"finance": "Finans",
+		"auto": "Otomobil",
 		"geometry": "Geometri",
 		"everyday": "Günlük",
 		"engineering": "Mühendislik",
@@ -30,6 +31,8 @@
 		"results": "{count} hesaplayıcı bulundu"
 	}
 }
+
+
 
 
 

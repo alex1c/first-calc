@@ -1,0 +1,128 @@
+{
+	"id": "fuel-consumption-calculator",
+	"slug": "fuel-consumption-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateFuelConsumption",
+	"tags": ["auto", "fuel-consumption", "mpg", "l-100km", "fuel-efficiency", "mileage"],
+	"inputs": [
+		{
+			"name": "mode",
+			"type": "select",
+			"options": [
+				{ "value": "calculate", "label": "Calculate Consumption" },
+				{ "value": "convert", "label": "Convert Units" }
+			],
+			"defaultValue": "calculate"
+		},
+		{
+			"name": "distance",
+			"type": "number",
+			"step": 1,
+			"visibleIf": {
+				"field": "mode",
+				"value": "calculate"
+			}
+		},
+		{
+			"name": "distanceUnit",
+			"type": "select",
+			"options": [
+				{ "value": "km", "label": "Kilometers (km)" },
+				{ "value": "miles", "label": "Miles" }
+			],
+			"defaultValue": "km",
+			"visibleIf": {
+				"field": "mode",
+				"value": "calculate"
+			}
+		},
+		{
+			"name": "fuelUsed",
+			"type": "number",
+			"step": 1,
+			"visibleIf": {
+				"field": "mode",
+				"value": "calculate"
+			}
+		},
+		{
+			"name": "fuelUnit",
+			"type": "select",
+			"options": [
+				{ "value": "liters", "label": "Liters (L)" },
+				{ "value": "gallons us", "label": "Gallons US" },
+				{ "value": "gallons uk", "label": "Gallons UK" }
+			],
+			"defaultValue": "liters",
+			"visibleIf": {
+				"field": "mode",
+				"value": "calculate"
+			}
+		},
+		{
+			"name": "value",
+			"type": "number",
+			"step": 1,
+			"visibleIf": {
+				"field": "mode",
+				"value": "convert"
+			}
+		},
+		{
+			"name": "fromUnit",
+			"type": "select",
+			"options": [
+				{ "value": "L/100km", "label": "Liters per 100 km (L/100km)" },
+				{ "value": "MPG US", "label": "Miles per Gallon US (MPG US)" },
+				{ "value": "MPG UK", "label": "Miles per Gallon UK (MPG UK)" }
+			],
+			"defaultValue": "L/100km",
+			"visibleIf": {
+				"field": "mode",
+				"value": "convert"
+			}
+		},
+		{
+			"name": "toUnit",
+			"type": "select",
+			"options": [
+				{ "value": "L/100km", "label": "Liters per 100 km (L/100km)" },
+				{ "value": "MPG US", "label": "Miles per Gallon US (MPG US)" },
+				{ "value": "MPG UK", "label": "Miles per Gallon UK (MPG UK)" }
+			],
+			"defaultValue": "MPG US",
+			"visibleIf": {
+				"field": "mode",
+				"value": "convert"
+			}
+		}
+	],
+	"outputs": [
+		{
+			"name": "l100km"
+		},
+		{
+			"name": "mpgUS"
+		},
+		{
+			"name": "mpgUK"
+		},
+		{
+			"name": "convertedValue"
+		},
+		{
+			"name": "insights"
+		}
+	],
+	"defaults": {
+		"mode": "calculate",
+		"distance": 500,
+		"distanceUnit": "km",
+		"fuelUsed": 35,
+		"fuelUnit": "liters"
+	},
+	"relatedIds": ["fuel-cost-calculator", "trip-cost-calculator", "car-cost-of-ownership-calculator", "auto-loan-calculator"],
+	"isEnabled": true
+}
+

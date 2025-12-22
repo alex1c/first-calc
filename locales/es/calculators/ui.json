@@ -19,6 +19,7 @@
 	"categories": {
 		"math": "Matemáticas",
 		"finance": "Finanzas",
+		"auto": "Automóviles",
 		"geometry": "Geometría",
 		"everyday": "Cotidiano",
 		"engineering": "Ingeniería",
@@ -30,6 +31,8 @@
 		"results": "Se encontraron {count} calculadoras"
 	}
 }
+
+
 
 
 

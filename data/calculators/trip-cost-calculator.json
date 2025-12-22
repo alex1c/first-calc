@@ -1,0 +1,152 @@
+{
+	"id": "trip-cost-calculator",
+	"slug": "trip-cost-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateTripCost",
+	"tags": ["auto", "trip-cost", "road-trip", "travel-cost", "fuel-cost", "tolls"],
+	"inputs": [
+		{
+			"name": "tripDistance",
+			"type": "number",
+			"step": 1
+		},
+		{
+			"name": "distanceUnit",
+			"type": "select",
+			"options": [
+				{ "value": "km", "label": "Kilometers (km)" },
+				{ "value": "miles", "label": "Miles" }
+			],
+			"defaultValue": "km"
+		},
+		{
+			"name": "roundTrip",
+			"type": "select",
+			"options": [
+				{ "value": "false", "label": "One Way" },
+				{ "value": "true", "label": "Round Trip" }
+			],
+			"defaultValue": "false"
+		},
+		{
+			"name": "fuelConsumption",
+			"type": "number",
+			"step": 1
+		},
+		{
+			"name": "consumptionUnit",
+			"type": "select",
+			"options": [
+				{ "value": "L/100km", "label": "Liters per 100 km (L/100km)" },
+				{ "value": "MPG US", "label": "Miles per Gallon US (MPG US)" },
+				{ "value": "MPG UK", "label": "Miles per Gallon UK (MPG UK)" }
+			],
+			"defaultValue": "L/100km"
+		},
+		{
+			"name": "fuelPricePerUnit",
+			"type": "number",
+			"step": 1
+		},
+		{
+			"name": "tolls",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "parking",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "meals",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "accommodationPerNight",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "nights",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "splitCost",
+			"type": "select",
+			"options": [
+				{ "value": "false", "label": "Total Cost" },
+				{ "value": "true", "label": "Split Cost" }
+			],
+			"defaultValue": "false"
+		},
+		{
+			"name": "passengersCount",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 1,
+			"visibleIf": {
+				"field": "splitCost",
+				"value": "true"
+			}
+		}
+	],
+	"outputs": [
+		{
+			"name": "fuelCost"
+		},
+		{
+			"name": "fuelUsed"
+		},
+		{
+			"name": "tollsCost"
+		},
+		{
+			"name": "parkingCost"
+		},
+		{
+			"name": "mealsCost"
+		},
+		{
+			"name": "accommodationCost"
+		},
+		{
+			"name": "totalTripCost"
+		},
+		{
+			"name": "costPerPerson"
+		},
+		{
+			"name": "costPerDistance"
+		},
+		{
+			"name": "insights"
+		}
+	],
+	"defaults": {
+		"tripDistance": 500,
+		"distanceUnit": "km",
+		"roundTrip": "false",
+		"fuelConsumption": 8,
+		"consumptionUnit": "L/100km",
+		"fuelPricePerUnit": 1.50,
+		"tolls": 0,
+		"parking": 0,
+		"meals": 0,
+		"accommodationPerNight": 0,
+		"nights": 0,
+		"splitCost": "false",
+		"passengersCount": 1
+	},
+	"relatedIds": ["fuel-cost-calculator", "fuel-consumption-calculator", "car-cost-of-ownership-calculator", "auto-loan-calculator"],
+	"isEnabled": true
+}
+

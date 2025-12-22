@@ -41,9 +41,77 @@ export async function generateMetadata({
 	const keywords = calculator.meta?.keywords || []
 	const keywordsString = keywords.join(', ')
 
+	// Custom SEO title for specific calculators
+	let seoTitle = `${calculator.title} - Calculator Portal`
+	if (calculator.id === 'compound-interest' && calculator.locale === 'en') {
+		seoTitle = 'Compound Interest Calculator – Investment Growth Over Time'
+	} else if (calculator.id === 'loan-payment' && calculator.locale === 'en') {
+		seoTitle = 'Loan Payment Calculator – Monthly Payment & Interest Cost'
+	} else if (calculator.id === 'auto-loan-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Auto Loan Calculator – Car Payment, Interest & Total Cost'
+	} else if (calculator.id === 'investment-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Investment Calculator – Estimate Investment Growth & Returns'
+	} else if (calculator.id === 'loan-overpayment-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Loan Overpayment Calculator – See How Much Interest You Pay'
+	} else if (calculator.id === 'mortgage-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Mortgage Calculator – Monthly Payment & Total Home Loan Cost'
+	} else if (calculator.id === 'personal-loan-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Personal Loan Calculator – Monthly Payment & Interest Cost'
+	} else if (calculator.id === 'roi-calculator' && calculator.locale === 'en') {
+		seoTitle = 'ROI Calculator – Calculate Return on Investment'
+	} else if (calculator.id === 'savings-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Savings Calculator – Plan Your Savings & Growth Over Time'
+	} else if (calculator.id === 'loan-comparison-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Loan Comparison Calculator – Compare Payments, APR & Total Cost'
+	} else if (calculator.id === 'mortgage-comparison-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Mortgage Comparison Calculator – Compare Payments, APR & Total Cost'
+	}
+
+	// Custom SEO description for specific calculators
+	let seoDescription = calculator.longDescription || calculator.shortDescription
+	if (calculator.id === 'compound-interest' && calculator.locale === 'en') {
+		seoDescription = 'Calculate compound interest on investments and savings. See how your money grows with interest compounding and regular contributions.'
+	} else if (calculator.id === 'loan-payment' && calculator.locale === 'en') {
+		seoDescription = 'Calculate loan payments, total interest, and overpayment. Estimate monthly payments for personal loans, auto loans, and mortgages.'
+	} else if (calculator.id === 'auto-loan-calculator' && calculator.locale === 'en') {
+		seoDescription = 'Calculate auto loan payments with down payment, trade-in, taxes, and fees. Estimate monthly car payments and total loan cost.'
+	} else if (calculator.id === 'investment-calculator' && calculator.locale === 'en') {
+		seoDescription = 'Calculate investment growth with regular contributions and compound returns. Estimate profit, total contributions, and long-term value.'
+	} else if (calculator.id === 'loan-overpayment-calculator' && calculator.locale === 'en') {
+		seoDescription = 'Calculate loan overpayment and total interest cost. Find out how much extra you pay on a loan and how to reduce interest expenses.'
+	} else if (calculator.id === 'mortgage-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Mortgage Calculator – Monthly Payment, Interest & Total Cost'
+		seoDescription = 'Calculate your mortgage payment, total interest, and full home cost. Includes taxes, insurance, and extra payment impact.'
+	} else if (calculator.id === 'personal-loan-calculator' && calculator.locale === 'en') {
+		seoDescription = 'Calculate personal loan payments, interest, fees, and total repayment cost. Estimate monthly payments and overpayment.'
+	} else if (calculator.id === 'roi-calculator' && calculator.locale === 'en') {
+		seoDescription = 'Calculate ROI to evaluate investment and business profitability. Measure net profit, return percentage, and performance.'
+	} else if (calculator.id === 'savings-calculator' && calculator.locale === 'en') {
+		seoDescription = 'Calculate savings growth with regular deposits and compound interest. Plan your savings goals and see how your money grows.'
+	} else if (calculator.id === 'loan-comparison-calculator' && calculator.locale === 'en') {
+		seoDescription = 'Compare loan offers side-by-side. See monthly payment, total interest, fees, and total cost to choose the best loan.'
+	} else if (calculator.id === 'mortgage-comparison-calculator' && calculator.locale === 'en') {
+		seoDescription = 'Compare mortgage offers side-by-side. See monthly payments, total interest, taxes, insurance, and total cost to choose the best mortgage.'
+	} else if (calculator.id === 'retirement-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Retirement Calculator – How Much Do You Need to Retire?'
+		seoDescription = 'Plan your retirement savings and income. Estimate how much you will have and how much you need to retire comfortably.'
+	} else if (calculator.id === 'investment-vs-savings-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Investment vs Savings Calculator – Compare Growth Over Time'
+		seoDescription = 'Compare saving and investing to see which grows your money faster. Calculate final balance, earnings, and inflation-adjusted value.'
+	} else if (calculator.id === 'take-home-pay-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Take-Home Pay Calculator – Net Income After Taxes'
+		seoDescription = 'Estimate your take-home pay after taxes and deductions. Calculate net income from gross salary using effective tax rates.'
+	} else if (calculator.id === 'emergency-fund-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Emergency Fund Calculator – How Much Should You Save?'
+		seoDescription = 'Calculate how much emergency savings you need and how long it will take to build a financial safety net.'
+	} else if (calculator.id === 'net-worth-calculator' && calculator.locale === 'en') {
+		seoTitle = 'Net Worth Calculator – Calculate Assets, Liabilities & Wealth'
+		seoDescription = 'Calculate your net worth by subtracting liabilities from assets. Understand your financial health and track progress.'
+	}
+
 	return {
-		title: `${calculator.title} - Calculator Portal`,
-		description: calculator.longDescription || calculator.shortDescription,
+		title: seoTitle,
+		description: seoDescription,
 		keywords: keywordsString,
 		alternates: {
 			languages: {

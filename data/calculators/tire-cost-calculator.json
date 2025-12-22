@@ -1,0 +1,84 @@
+{
+	"id": "tire-cost-calculator",
+	"slug": "tire-cost-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateTireCost",
+	"tags": ["auto", "tire-cost", "tires", "vehicle-maintenance", "running-costs"],
+	"inputs": [
+		{
+			"name": "tirePricePerUnit",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "tiresCount",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 4
+		},
+		{
+			"name": "tireLifespanMilesKm",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "annualMileage",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 12000
+		},
+		{
+			"name": "seasonalTiresToggle",
+			"type": "select",
+			"options": [
+				{ "value": "false", "label": "Single Set (All-Season)" },
+				{ "value": "true", "label": "Seasonal Tires (Summer + Winter)" }
+			],
+			"defaultValue": "false"
+		},
+		{
+			"name": "mountingAndBalancingCost",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		}
+	],
+	"outputs": [
+		{
+			"name": "totalTireSetCost"
+		},
+		{
+			"name": "yearsPerSet"
+		},
+		{
+			"name": "annualTireCost"
+		},
+		{
+			"name": "costPerMile"
+		},
+		{
+			"name": "insights"
+		},
+		{
+			"name": "tireSetCost"
+		},
+		{
+			"name": "seasonalTotalCost"
+		}
+	],
+	"defaults": {
+		"tirePricePerUnit": 120,
+		"tiresCount": 4,
+		"tireLifespanMilesKm": 50000,
+		"annualMileage": 12000,
+		"seasonalTiresToggle": "false",
+		"mountingAndBalancingCost": 80
+	},
+	"relatedIds": ["car-maintenance-cost-calculator", "car-cost-of-ownership-calculator", "auto-loan-calculator"],
+	"isEnabled": true
+}
+
+

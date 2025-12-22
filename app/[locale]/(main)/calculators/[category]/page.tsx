@@ -9,6 +9,7 @@ import { getCalculatorCategoryBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { CalculatorCard } from '@/components/calculators/calculator-card'
 import { MathClustersBlock } from '@/components/calculators/math-clusters-block'
 import { FinanceClustersBlock } from '@/components/calculators/finance-clusters-block'
+import { AutoClustersBlock } from '@/components/calculators/auto-clusters-block'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation', 'calculators/ui'] as const
@@ -52,11 +53,24 @@ export default async function CalculatorsCategoryPage({
 		<>
 			<BreadcrumbsBar items={breadcrumbs} />
 			<PageContainer>
-				<h1 className="text-4xl font-bold text-gray-900 mb-4">
-					{t(`navigation.categories.${category}`) || category} {t('navigation.breadcrumb.calculators')}
-				</h1>
-				{categoryDescription && (
-					<p className="text-lg text-gray-600 mb-4">{categoryDescription}</p>
+				{category === 'auto' ? (
+					<>
+						<h1 className="text-4xl font-bold text-gray-900 mb-4">
+							Car Calculators – Cost, Fuel, Buying & Ownership
+						</h1>
+						<p className="text-lg text-gray-600 mb-8">
+							Comprehensive calculators for all your car-related financial decisions. Calculate ownership costs, fuel expenses, loan payments, and more.
+						</p>
+					</>
+				) : (
+					<>
+						<h1 className="text-4xl font-bold text-gray-900 mb-4">
+							{t(`navigation.categories.${category}`) || category} {t('navigation.breadcrumb.calculators')}
+						</h1>
+						{categoryDescription && (
+							<p className="text-lg text-gray-600 mb-4">{categoryDescription}</p>
+						)}
+					</>
 				)}
 				<div className="flex items-center justify-between mb-8">
 					<p className="text-gray-600">
@@ -88,6 +102,9 @@ export default async function CalculatorsCategoryPage({
 				
 				{/* Finance clusters block - only for finance category */}
 				{category === 'finance' && <FinanceClustersBlock locale={locale} />}
+				
+				{/* Auto clusters block - only for auto category */}
+				{category === 'auto' && <AutoClustersBlock locale={locale} />}
 			</PageContainer>
 		</>
 	)

@@ -1,0 +1,112 @@
+{
+	"id": "car-depreciation-calculator",
+	"slug": "car-depreciation-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateCarDepreciation",
+	"tags": ["auto", "depreciation", "resale-value", "car-value", "used-car", "vehicle-value"],
+	"inputs": [
+		{
+			"name": "purchasePrice",
+			"type": "number",
+			"step": 1
+		},
+		{
+			"name": "purchaseType",
+			"type": "select",
+			"options": [
+				{ "value": "new", "label": "New Car" },
+				{ "value": "used", "label": "Used Car" }
+			],
+			"defaultValue": "new"
+		},
+		{
+			"name": "yearsOwned",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 5
+		},
+		{
+			"name": "depreciationModel",
+			"type": "select",
+			"options": [
+				{ "value": "simpleAnnualPercent", "label": "Simple Annual Percent" },
+				{ "value": "firstYearDropPlusAnnual", "label": "First Year Drop + Annual" },
+				{ "value": "fixedResaleValue", "label": "Fixed Resale Value" }
+			],
+			"defaultValue": "simpleAnnualPercent"
+		},
+		{
+			"name": "annualDepreciationRate",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 15
+		},
+		{
+			"name": "firstYearDropRate",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0,
+			"visibleIf": {
+				"field": "depreciationModel",
+				"value": "firstYearDropPlusAnnual"
+			}
+		},
+		{
+			"name": "mileagePerYear",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "mileageImpact",
+			"type": "select",
+			"options": [
+				{ "value": "false", "label": "No Mileage Impact" },
+				{ "value": "true", "label": "Apply Mileage Impact" }
+			],
+			"defaultValue": "false"
+		},
+		{
+			"name": "fixedResaleValue",
+			"type": "number",
+			"step": 1,
+			"visibleIf": {
+				"field": "depreciationModel",
+				"value": "fixedResaleValue"
+			}
+		}
+	],
+	"outputs": [
+		{
+			"name": "estimatedResaleValue"
+		},
+		{
+			"name": "totalDepreciationAmount"
+		},
+		{
+			"name": "depreciationPerYearAvg"
+		},
+		{
+			"name": "depreciationPercentTotal"
+		},
+		{
+			"name": "yearByYearTable"
+		},
+		{
+			"name": "insights"
+		}
+	],
+	"defaults": {
+		"purchasePrice": 30000,
+		"purchaseType": "new",
+		"yearsOwned": 5,
+		"depreciationModel": "simpleAnnualPercent",
+		"annualDepreciationRate": 15,
+		"mileagePerYear": 0,
+		"mileageImpact": "false"
+	},
+	"relatedIds": ["car-cost-of-ownership-calculator", "lease-vs-buy-calculator", "monthly-car-expenses-calculator", "auto-loan-calculator"],
+	"isEnabled": true
+}
+

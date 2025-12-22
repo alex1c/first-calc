@@ -1,299 +1,195 @@
 /**
- * Investment calculation functions
- * Calculates future value of investments with compound interest and regular contributions
+ * Calculate investment growth with compound returns and regular contributions
+ * Inputs: initialInvestment, periodicContribution, contributionFrequency, expectedAnnualReturn, investmentPeriod, compoundingFrequency, inflationRate
+ * Outputs: finalValue, totalContributions, totalReturn, returnPercentage, inflationAdjustedValue, yearlyBreakdown, formulaExplanation
  */
 
-import type { CalculationFunction } from './registry'
+import type { CalculatorFunction } from '@/lib/calculators/types'
 
 /**
- * Step interface for investment calculation
+ * Year-by-year breakdown interface
  */
-interface CalculationStep {
-	title: string
-	math: string
-	explanation: string
+interface YearBreakdown {
+	year: number
+	startingValue: number
+	contribution: number
+	returnEarned: number
+	endingValue: number
 }
 
 /**
- * Calculate investment growth with compound interest and regular contributions
- * 
- * Formula for compound interest with regular contributions:
- * FV = P(1 + r/n)^(nt) + PMT * [((1 + r/n)^(nt) - 1) / (r/n)]
- * Where:
- * - FV = future value
- * - P = initial investment
- * - PMT = monthly contribution
- * - r = annual interest rate
- * - n = compounding frequency per year
- * - t = investment period in years
- * 
- * @param inputs - Input values including initial investment, monthly contribution, interest rate, period, compounding frequency
- * @returns Calculated investment metrics with step-by-step explanation
+ * Map compounding frequency string to number
  */
-export function calculateInvestment(
-	inputs: Record<string, number | string>,
-): Record<string, number | string> {
-	const initialInvestment = Number(inputs.initialInvestment || inputs.principal || 0)
-	const monthlyContribution = Number(inputs.monthlyContribution || inputs.monthlyPayment || 0)
-	const interestRate = Number(inputs.interestRate || inputs.annualRate || 0)
-	const investmentPeriod = Number(inputs.investmentPeriod || inputs.years || 0)
-	const compoundingFrequency = String(inputs.compoundingFrequency || 'monthly').toLowerCase()
-	const interestType = String(inputs.interestType || 'compound').toLowerCase()
+function getCompoundingFrequency(frequency: string | number): number {
+	if (typeof frequency === 'number') {
+		return frequency
+	}
+	const frequencyMap: Record<string, number> = {
+		'annually': 1,
+		'quarterly': 4,
+		'monthly': 12,
+	}
+	return frequencyMap[frequency.toLowerCase()] || 12
+}
+
+/**
+ * Map contribution frequency string to contributions per year
+ */
+function getContributionsPerYear(frequency: string): number {
+	const frequencyMap: Record<string, number> = {
+		'monthly': 12,
+		'yearly': 1,
+	}
+	return frequencyMap[frequency.toLowerCase()] || 12
+}
+
+/**
+ * Calculate investment growth with comprehensive breakdown
+ */
+export const calculateInvestment: CalculatorFunction = (inputs) => {
+	const initialInvestment = Number(inputs.initialInvestment || 0)
+	const periodicContribution = Number(inputs.periodicContribution || inputs.monthlyContribution || 0)
+	const contributionFrequencyStr = inputs.contributionFrequency || inputs.monthlyContribution ? 'monthly' : 'yearly'
+	const expectedAnnualReturn = Number(inputs.expectedAnnualReturn || inputs.interestRate || 0)
+	const investmentPeriod = Math.floor(Number(inputs.investmentPeriod || inputs.years || 0)) // Must be integer >= 1
+	const compoundingFrequencyStr = inputs.compoundingFrequency || 'monthly'
 	const inflationRate = Number(inputs.inflationRate || 0)
-	const taxRate = Number(inputs.taxRate || 0)
-	const monthlyWithdrawal = Number(inputs.monthlyWithdrawal || 0)
 
 	// Validation
 	if (
 		isNaN(initialInvestment) ||
-		isNaN(monthlyContribution) ||
-		isNaN(interestRate) ||
+		isNaN(periodicContribution) ||
+		isNaN(expectedAnnualReturn) ||
 		isNaN(investmentPeriod) ||
+		isNaN(inflationRate) ||
 		initialInvestment < 0 ||
-		monthlyContribution < 0 ||
-		interestRate < 0 ||
-		investmentPeriod <= 0
+		periodicContribution < 0 ||
+		expectedAnnualReturn <= 0 ||
+		investmentPeriod < 1 ||
+		investmentPeriod > 50 ||
+		inflationRate < 0
 	) {
 		return {
 			finalValue: null,
 			totalContributions: null,
-			totalProfit: null,
-			profitPercentage: null,
-			steps: null,
+			totalReturn: null,
+			returnPercentage: null,
+			inflationAdjustedValue: null,
+			yearlyBreakdown: null,
+			formulaExplanation: null,
 		}
 	}
 
-	// Build step-by-step calculation
-	const steps: CalculationStep[] = []
+	const compoundingFrequency = getCompoundingFrequency(compoundingFrequencyStr)
+	const contributionsPerYear = getContributionsPerYear(contributionFrequencyStr)
+	const annualRate = expectedAnnualReturn / 100
+	const periodicRate = annualRate / compoundingFrequency
+	const totalPeriods = investmentPeriod * compoundingFrequency
+	const totalContributionsCount = investmentPeriod * contributionsPerYear
 
-	// Step 1: Input values
-	steps.push({
-		title: 'Step 1: Input Values',
-		math: `Initial Investment (P) = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\nMonthly Contribution (PMT) = $${monthlyContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\nAnnual Interest Rate = ${interestRate}%\nInvestment Period (t) = ${investmentPeriod} years\nInterest Type = ${interestType === 'compound' ? 'Compound Interest' : 'Simple Interest'}`,
-		explanation: 'These are the values you entered for the investment calculation.',
-	})
-
+	// Calculate future value of initial investment
 	let futureValueInitial = 0
-	let futureValueContributions = 0
-	let finalValue = 0
-
-	if (interestType === 'simple') {
-		// Simple interest calculation
-		const annualRate = interestRate / 100
-
-		// Future value of initial investment with simple interest: A = P(1 + rt)
-		if (initialInvestment > 0) {
-			futureValueInitial = initialInvestment * (1 + annualRate * investmentPeriod)
-			steps.push({
-				title: 'Step 2: Calculate Future Value of Initial Investment (Simple Interest)',
-				math: `FV_initial = Initial Investment × (1 + r × t)\nFV_initial = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × (1 + ${annualRate.toFixed(6)} × ${investmentPeriod})\nFV_initial = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-				explanation: 'Calculate how much the initial investment grows with simple interest. Simple interest is calculated only on the principal, not on accumulated interest.',
-			})
+	if (initialInvestment > 0) {
+		if (periodicRate === 0) {
+			futureValueInitial = initialInvestment
 		} else {
-			steps.push({
-				title: 'Step 2: Future Value of Initial Investment',
-				math: `FV_initial = $0 (no initial investment)`,
-				explanation: 'No initial investment was made.',
-			})
+			futureValueInitial = initialInvestment * Math.pow(1 + periodicRate, totalPeriods)
 		}
-
-		// Future value of monthly contributions with simple interest
-		// Each contribution earns simple interest for the remaining time
-		if (monthlyContribution > 0) {
-			const totalMonths = investmentPeriod * 12
-			for (let month = 1; month <= totalMonths; month++) {
-				const remainingYears = (totalMonths - month) / 12
-				const contributionValue = monthlyContribution * (1 + annualRate * remainingYears)
-				futureValueContributions += contributionValue
-			}
-
-			steps.push({
-				title: 'Step 3: Calculate Future Value of Monthly Contributions (Simple Interest)',
-				math: `Each monthly contribution earns simple interest for the remaining time.\nTotal Contributions = $${monthlyContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${totalMonths} = $${(monthlyContribution * totalMonths).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\nFV_contributions = Sum of all contributions with interest\nFV_contributions = $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-				explanation: 'Each monthly contribution earns simple interest for the time remaining until the end of the investment period.',
-			})
-		} else {
-			steps.push({
-				title: 'Step 3: Future Value of Contributions',
-				math: `FV_contributions = $0 (no monthly contributions)`,
-				explanation: 'No monthly contributions were made.',
-			})
-		}
-
-		finalValue = futureValueInitial + futureValueContributions
-		steps.push({
-			title: 'Step 4: Calculate Total Future Value (Simple Interest)',
-			math: `Final Value = FV_initial + FV_contributions\nFinal Value = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\nFinal Value = $${finalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-			explanation: 'Add the future value of initial investment and contributions to get the total final value with simple interest.',
-		})
-	} else {
-		// Compound interest calculation
-		// Determine compounding frequency per year
-		let compoundingPerYear = 12 // monthly
-		if (compoundingFrequency === 'quarterly') {
-			compoundingPerYear = 4
-		} else if (compoundingFrequency === 'annually') {
-			compoundingPerYear = 1
-		}
-
-		steps.push({
-			title: 'Step 2: Determine Compounding Frequency',
-			math: `Compounding Frequency = ${compoundingFrequency}\nPeriods Per Year = ${compoundingPerYear}${compoundingFrequency === 'monthly' ? ' (12 times per year)' : compoundingFrequency === 'quarterly' ? ' (4 times per year)' : ' (1 time per year)'}`,
-			explanation: `Based on your compounding frequency, interest will be calculated ${compoundingPerYear} times per year.`,
-		})
-
-		// Convert annual rate to periodic rate
-		const periodicRate = interestRate / 100 / compoundingPerYear
-
-		steps.push({
-			title: 'Step 3: Convert Annual Rate to Periodic Rate',
-			math: `Periodic Rate (r) = Annual Rate / 100 / Compounding Frequency\nr = ${interestRate}% / 100 / ${compoundingPerYear} = ${(interestRate / 100).toFixed(6)} / ${compoundingPerYear} = ${periodicRate.toFixed(6)}`,
-			explanation: `Divide the annual interest rate by 100 to convert to decimal, then divide by ${compoundingPerYear} (compounding frequency) to get the rate per compounding period.`,
-		})
-
-		// Number of compounding periods
-		const numberOfPeriods = investmentPeriod * compoundingPerYear
-
-		steps.push({
-			title: 'Step 4: Calculate Total Number of Compounding Periods',
-			math: `Number of Periods (n) = Investment Period × Compounding Frequency\nn = ${investmentPeriod} × ${compoundingPerYear} = ${numberOfPeriods}`,
-			explanation: 'Multiply the investment period in years by the compounding frequency to get the total number of compounding periods.',
-		})
-
-		// Calculate future value of initial investment with compound interest
-		if (initialInvestment > 0) {
-			if (periodicRate === 0) {
-				futureValueInitial = initialInvestment
-				steps.push({
-					title: 'Step 5: Future Value of Initial Investment (Zero Interest)',
-					math: `FV_initial = P = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-					explanation: 'Since the interest rate is 0%, the initial investment remains unchanged.',
-				})
-			} else {
-				futureValueInitial = initialInvestment * Math.pow(1 + periodicRate, numberOfPeriods)
-				const rateFactorInitial = Math.pow(1 + periodicRate, numberOfPeriods)
-				steps.push({
-					title: 'Step 5: Future Value of Initial Investment',
-					math: `FV_initial = P × (1 + r)^n\nFV_initial = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × (1 + ${periodicRate.toFixed(6)})^${numberOfPeriods}\nFV_initial = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${rateFactorInitial.toFixed(6)}\nFV_initial = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-					explanation: 'Calculate how much the initial investment grows with compound interest over the investment period.',
-				})
-			}
-		} else {
-			steps.push({
-				title: 'Step 5: Future Value of Initial Investment',
-				math: `FV_initial = $0 (no initial investment)`,
-				explanation: 'No initial investment was made.',
-			})
-		}
-
-		// Calculate future value of monthly contributions
-		// Convert monthly contribution to periodic contribution based on compounding frequency
-		const periodicContribution = monthlyContribution * (12 / compoundingPerYear)
-		
-		if (monthlyContribution > 0) {
-			if (periodicRate === 0) {
-				futureValueContributions = periodicContribution * numberOfPeriods
-				steps.push({
-					title: 'Step 6: Future Value of Contributions (Zero Interest)',
-					math: `Periodic Contribution = Monthly Contribution × (12 / Compounding Frequency)\nPeriodic Contribution = $${monthlyContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × (12 / ${compoundingPerYear}) = $${periodicContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\nFV_contributions = Periodic Contribution × Number of Periods\nFV_contributions = $${periodicContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${numberOfPeriods}\nFV_contributions = $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-					explanation: 'Since the interest rate is 0%, the future value of contributions is simply the sum of all contributions.',
-				})
-			} else {
-				// Future value of annuity: FV = PMT * [((1 + r)^n - 1) / r]
-				const rateFactor = Math.pow(1 + periodicRate, numberOfPeriods)
-				futureValueContributions = periodicContribution * ((rateFactor - 1) / periodicRate)
-				steps.push({
-					title: 'Step 6: Future Value of Contributions',
-					math: `Periodic Contribution = Monthly Contribution × (12 / Compounding Frequency)\nPeriodic Contribution = $${monthlyContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × (12 / ${compoundingPerYear}) = $${periodicContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\nRate Factor = (1 + r)^n = (1 + ${periodicRate.toFixed(6)})^${numberOfPeriods} = ${rateFactor.toFixed(6)}\n\nFV_contributions = Periodic Contribution × [(1 + r)^n - 1] / r\nFV_contributions = $${periodicContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [${rateFactor.toFixed(6)} - 1] / ${periodicRate.toFixed(6)}\nFV_contributions = $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
-					explanation: 'Calculate the future value of all regular contributions using the future value of annuity formula.',
-				})
-			}
-		} else {
-			steps.push({
-				title: 'Step 6: Future Value of Contributions',
-				math: `FV_contributions = $0 (no monthly contributions)`,
-				explanation: 'No monthly contributions were made.',
-			})
-		}
-
-		// Total future value
-		finalValue = futureValueInitial + futureValueContributions
-		steps.push({
-			title: 'Step 7: Calculate Total Future Value',
-			math: `Final Value = FV_initial + FV_contributions\nFinal Value = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\nFinal Value = $${Math.round(finalValue * 100) / 100}`,
-			explanation: 'Add the future value of the initial investment and the future value of contributions to get the total final value.',
-		})
 	}
 
-	// Calculate total contributions
-	const totalContributions = initialInvestment + (monthlyContribution * 12 * investmentPeriod)
+	// Calculate future value of periodic contributions
+	let futureValueContributions = 0
+	if (periodicContribution > 0) {
+		// Convert periodic contribution to match compounding frequency
+		// If contributions are monthly but compounding is quarterly, adjust
+		const contributionPerPeriod = periodicContribution * (contributionsPerYear / compoundingFrequency)
+		
+		if (periodicRate === 0) {
+			futureValueContributions = contributionPerPeriod * totalPeriods
+		} else {
+			// Future value of annuity: FV = PMT * [((1 + r)^n - 1) / r]
+			const rateFactor = Math.pow(1 + periodicRate, totalPeriods)
+			futureValueContributions = contributionPerPeriod * ((rateFactor - 1) / periodicRate)
+		}
+	}
 
-	// Calculate total profit
-	const totalProfit = finalValue - totalContributions
+	// Total final value
+	const finalValue = futureValueInitial + futureValueContributions
+	const roundedFinalValue = Math.round(finalValue * 100) / 100
 
-	// Calculate profit percentage
-	const profitPercentage = totalContributions > 0 
-		? (totalProfit / totalContributions) * 100 
+	// Calculate totals
+	const totalContributions = initialInvestment + (periodicContribution * totalContributionsCount)
+	const totalReturn = roundedFinalValue - totalContributions
+	const returnPercentage = totalContributions > 0 
+		? (totalReturn / totalContributions) * 100 
 		: 0
 
-	// Add remaining steps
-	const stepNumber = interestType === 'simple' ? 5 : 8
-	steps.push({
-		title: `Step ${stepNumber}: Calculate Total Contributions`,
-		math: `Total Contributions = Initial Investment + (Monthly Contribution × 12 × Years)\nTotal Contributions = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + ($${monthlyContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × 12 × ${investmentPeriod})\nTotal Contributions = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${(monthlyContribution * 12 * investmentPeriod).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\nTotal Contributions = $${Math.round(totalContributions * 100) / 100}`,
-		explanation: 'Calculate the total amount you contributed (initial investment plus all monthly contributions).',
-	})
-
-	steps.push({
-		title: `Step ${stepNumber + 1}: Calculate Total Profit`,
-		math: `Total Profit = Final Value - Total Contributions\nTotal Profit = $${Math.round(finalValue * 100) / 100} - $${Math.round(totalContributions * 100) / 100}\nTotal Profit = $${Math.round(totalProfit * 100) / 100}`,
-		explanation: `Subtract your total contributions from the final value to find how much profit you earned from ${interestType === 'simple' ? 'simple' : 'compound'} interest.`,
-	})
-
-	steps.push({
-		title: `Step ${stepNumber + 2}: Calculate Profit Percentage`,
-		math: `Profit Percentage = (Total Profit / Total Contributions) × 100%\nProfit Percentage = ($${Math.round(totalProfit * 100) / 100} / $${Math.round(totalContributions * 100) / 100}) × 100%\nProfit Percentage = ${Math.round(profitPercentage * 100) / 100}%`,
-		explanation: 'Calculate the percentage return on your total contributions.',
-	})
-
-	// Calculate real value (adjusted for inflation)
-	let realValue = finalValue
-	if (inflationRate > 0 && investmentPeriod > 0) {
+	// Calculate inflation-adjusted value
+	let inflationAdjustedValue = roundedFinalValue
+	if (inflationRate > 0) {
 		const inflationFactor = Math.pow(1 + inflationRate / 100, investmentPeriod)
-		realValue = finalValue / inflationFactor
-		steps.push({
-			title: `Step ${stepNumber + 3}: Calculate Real Value (Inflation Adjusted)`,
-			math: `Inflation Factor = (1 + Inflation Rate)^Years\nInflation Factor = (1 + ${inflationRate / 100})^${investmentPeriod} = ${inflationFactor.toFixed(6)}\n\nReal Value = Final Value / Inflation Factor\nReal Value = $${finalValue.toFixed(2)} / ${inflationFactor.toFixed(6)} = $${realValue.toFixed(2)}`,
-			explanation: 'Adjust the final value for inflation to see the purchasing power in today\'s dollars.',
-		})
+		inflationAdjustedValue = roundedFinalValue / inflationFactor
 	}
 
-	// Calculate after-tax value
-	let afterTaxValue = finalValue
-	if (taxRate > 0 && totalProfit > 0) {
-		const taxAmount = (totalProfit * taxRate) / 100
-		afterTaxValue = finalValue - taxAmount
-		steps.push({
-			title: `Step ${stepNumber + (inflationRate > 0 ? 4 : 3)}: Calculate After-Tax Value`,
-			math: `Tax Amount = Total Profit × Tax Rate\nTax Amount = $${totalProfit.toFixed(2)} × ${taxRate}% = $${taxAmount.toFixed(2)}\n\nAfter-Tax Value = Final Value - Tax Amount\nAfter-Tax Value = $${finalValue.toFixed(2)} - $${taxAmount.toFixed(2)} = $${afterTaxValue.toFixed(2)}`,
-			explanation: 'Calculate the value after taxes are paid on the investment gains.',
+	// Generate year-by-year breakdown
+	// For simplicity and accuracy, we'll use monthly compounding for the breakdown
+	// when contributions are monthly, as this is the most common scenario
+	const yearlyBreakdown: YearBreakdown[] = []
+	let currentValue = initialInvestment
+	const monthlyRate = annualRate / 12
+
+	for (let year = 1; year <= investmentPeriod; year++) {
+		const startingValue = currentValue
+		const yearContributions = periodicContribution * contributionsPerYear
+		
+		// Calculate growth for this year
+		let yearValue = startingValue
+		
+		if (contributionsPerYear === 12) {
+			// Monthly contributions: add contribution each month and compound monthly
+			for (let month = 1; month <= 12; month++) {
+				yearValue += periodicContribution
+				yearValue = yearValue * (1 + monthlyRate)
+			}
+		} else {
+			// Yearly contributions: add contribution at start of year, compound monthly for the year
+			yearValue += periodicContribution
+			// Compound monthly for the entire year
+			for (let month = 1; month <= 12; month++) {
+				yearValue = yearValue * (1 + monthlyRate)
+			}
+		}
+		
+		const endingValue = Math.round(yearValue * 100) / 100
+		const returnEarned = endingValue - startingValue - yearContributions
+		
+		yearlyBreakdown.push({
+			year,
+			startingValue: Math.round(startingValue * 100) / 100,
+			contribution: yearContributions,
+			returnEarned: Math.round(returnEarned * 100) / 100,
+			endingValue,
 		})
+		
+		currentValue = endingValue
 	}
+
+	// Build formula explanation
+	const contributionLabel = contributionFrequencyStr === 'yearly' ? 'yearly' : 'monthly'
+	const compoundingLabel = compoundingFrequencyStr === 'annually' ? 'annually' : 
+		compoundingFrequencyStr === 'quarterly' ? 'quarterly' : 'monthly'
+	
+	let formulaExplanation = ''
+	
+	formulaExplanation = `Investment Growth Calculation:\n\n1. Future Value of Initial Investment:\n   FV₁ = P × (1 + r/n)^(nt)\n\n   Where:\n   - P = Initial investment = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Annual return rate = ${expectedAnnualReturn}% = ${annualRate}\n   - n = Compounding frequency = ${compoundingFrequency} times per year (${compoundingLabel})\n   - t = Investment period = ${investmentPeriod} years\n\n   Substituting:\n   FV₁ = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × (1 + ${periodicRate.toFixed(6)})^(${totalPeriods})\n   FV₁ = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${Math.pow(1 + periodicRate, totalPeriods).toFixed(6)}\n   FV₁ = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Future Value of ${contributionLabel.charAt(0).toUpperCase() + contributionLabel.slice(1)} Contributions:\n   FV₂ = PMT × [((1 + r/n)^(nt) - 1) / (r/n)]\n\n   Where:\n   - PMT = ${contributionLabel} contribution = $${periodicContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r, n, t = Same as above\n\n   Substituting:\n   FV₂ = $${periodicContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [((1 + ${periodicRate.toFixed(6)})^(${totalPeriods}) - 1) / (${periodicRate.toFixed(6)})]\n   FV₂ = $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Total Final Value:\n   FV = FV₁ + FV₂\n   FV = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   FV = $${roundedFinalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n4. Investment Returns:\n   Total Contributions: $${totalContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Return (Profit): $${totalReturn.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Return Percentage: ${returnPercentage.toFixed(2)}%\n\n${inflationRate > 0 ? `5. Inflation Adjustment:\n   Inflation Factor = (1 + ${inflationRate}%)^${investmentPeriod} = ${Math.pow(1 + inflationRate / 100, investmentPeriod).toFixed(6)}\n   Real Value (Today's Dollars) = $${roundedFinalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / ${Math.pow(1 + inflationRate / 100, investmentPeriod).toFixed(6)}\n   Real Value = $${inflationAdjustedValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n` : ''}Your investment grows through compound returns - each period's returns earn returns in future periods. The difference between your total contributions and final value represents your profit. ${inflationRate > 0 ? 'The inflation-adjusted value shows your purchasing power in today\'s dollars, accounting for the eroding effect of inflation over time. ' : ''}Regular contributions combined with compound returns create exponential growth over long investment periods.`
 
 	return {
-		finalValue: Math.round(finalValue * 100) / 100,
+		finalValue: roundedFinalValue,
 		totalContributions: Math.round(totalContributions * 100) / 100,
-		totalProfit: Math.round(totalProfit * 100) / 100,
-		profitPercentage: Math.round(profitPercentage * 100) / 100,
-		realValue: Math.round(realValue * 100) / 100,
-		afterTaxValue: Math.round(afterTaxValue * 100) / 100,
-		steps,
+		totalReturn: Math.round(totalReturn * 100) / 100,
+		returnPercentage: Math.round(returnPercentage * 10000) / 100, // Round to 2 decimal places
+		inflationAdjustedValue: inflationRate > 0 ? Math.round(inflationAdjustedValue * 100) / 100 : null,
+		yearlyBreakdown,
+		formulaExplanation,
 	}
 }
-
-// Register the calculation function
-import { registerCalculation } from './registry'
-
-// Auto-register on module load
-registerCalculation('calculateInvestment', calculateInvestment)
-

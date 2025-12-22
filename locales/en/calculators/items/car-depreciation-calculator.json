@@ -1,0 +1,302 @@
+{
+	"title": "Car Depreciation Calculator – Estimate Resale Value Over Time",
+	"shortDescription": "Estimate your car's resale value and depreciation over time. See yearly value breakdown and total loss in value.",
+	"longDescription": "Calculate how much your car will depreciate and what it will be worth when you sell it. This calculator estimates resale value based on different depreciation models, including simple annual percentage, first-year drop plus annual rate, or fixed resale value. See year-by-year value breakdown to understand how your car loses value over time. Perfect for planning car purchases, understanding ownership costs, and making informed decisions about when to sell.",
+	"inputs": [
+		{
+			"label": "Purchase Price",
+			"unitLabel": "$",
+			"placeholder": "Enter purchase price",
+			"helpText": "The price you paid or will pay for the car"
+		},
+		{
+			"label": "Purchase Type",
+			"unitLabel": "",
+			"placeholder": "Select purchase type",
+			"helpText": "Choose whether the car is new or used"
+		},
+		{
+			"label": "Years Owned",
+			"unitLabel": "years",
+			"placeholder": "Enter years owned",
+			"helpText": "How many years you plan to own the car (1-15 years)"
+		},
+		{
+			"label": "Depreciation Model",
+			"unitLabel": "",
+			"placeholder": "Select depreciation model",
+			"helpText": "Choose calculation method: simple annual percent, first year drop + annual, or fixed resale value"
+		},
+		{
+			"label": "Annual Depreciation Rate",
+			"unitLabel": "%",
+			"placeholder": "Enter annual depreciation rate",
+			"helpText": "Expected annual depreciation percentage (typically 10-20% for cars)"
+		},
+		{
+			"label": "First Year Drop Rate",
+			"unitLabel": "%",
+			"placeholder": "Enter first year drop rate",
+			"helpText": "Percentage value lost in first year (default: 20% for new, 10% for used)"
+		},
+		{
+			"label": "Mileage Per Year",
+			"unitLabel": "miles",
+			"placeholder": "Enter annual mileage",
+			"helpText": "Average miles driven per year (optional, for mileage impact calculation)"
+		},
+		{
+			"label": "Apply Mileage Impact",
+			"unitLabel": "",
+			"placeholder": "Select mileage impact",
+			"helpText": "Enable to reduce resale value based on high mileage"
+		},
+		{
+			"label": "Fixed Resale Value",
+			"unitLabel": "$",
+			"placeholder": "Enter resale value",
+			"helpText": "Override calculation with a specific estimated resale value"
+		}
+	],
+	"outputs": [
+		{
+			"label": "Estimated Resale Value",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Depreciation Amount",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Average Depreciation Per Year",
+			"unitLabel": "$"
+		},
+		{
+			"label": "Total Depreciation Percentage",
+			"unitLabel": "%"
+		},
+		{
+			"label": "Year-by-Year Table",
+			"unitLabel": ""
+		}
+	],
+	"howTo": [
+		"Enter the purchase price of the car",
+		"Select whether the car is new or used",
+		"Enter how many years you plan to own the car",
+		"Choose a depreciation model:",
+		"  - Simple Annual Percent: Applies the same rate each year",
+		"  - First Year Drop + Annual: Larger drop in year 1, then annual rate",
+		"  - Fixed Resale Value: Enter a specific resale value estimate",
+		"Enter the annual depreciation rate (typically 10-20% for cars)",
+		"If using first year drop model, enter first year drop rate (defaults provided)",
+		"Optionally enter annual mileage and enable mileage impact",
+		"Click 'Calculate' to see estimated resale value and depreciation",
+		"Review the year-by-year breakdown to see how value changes over time"
+	],
+	"examples": [
+		{
+			"title": "Example 1: New Car $30,000, 5 Years, 15% Annual + First Year 20%",
+			"description": "A new $30,000 car with first year drop model. Year 1: 20% drop, then 15% annually.",
+			"inputs": {
+				"purchasePrice": 30000,
+				"purchaseType": "new",
+				"yearsOwned": 5,
+				"depreciationModel": "firstYearDropPlusAnnual",
+				"annualDepreciationRate": 15,
+				"firstYearDropRate": 20,
+				"mileagePerYear": 0,
+				"mileageImpact": "false"
+			},
+			"steps": [
+				"Purchase price: $30,000 (new car)",
+				"Depreciation model: First Year Drop + Annual",
+				"First year drop: 20%",
+				"Annual depreciation rate: 15%",
+				"Year 1: $30,000 × (1 - 0.20) = $30,000 × 0.80 = $24,000 (lost $6,000)",
+				"Year 2: $24,000 × (1 - 0.15) = $24,000 × 0.85 = $20,400 (lost $3,600)",
+				"Year 3: $20,400 × (1 - 0.15) = $20,400 × 0.85 = $17,340 (lost $3,060)",
+				"Year 4: $17,340 × (1 - 0.15) = $17,340 × 0.85 = $14,739 (lost $2,601)",
+				"Year 5: $14,739 × (1 - 0.15) = $14,739 × 0.85 = $12,528 (lost $2,211)",
+				"Estimated resale value after 5 years: $12,528",
+				"Total depreciation: $30,000 - $12,528 = $17,472",
+				"Depreciation percentage: ($17,472 ÷ $30,000) × 100 = 58.2%",
+				"Average depreciation per year: $17,472 ÷ 5 = $3,494/year"
+			]
+		},
+		{
+			"title": "Example 2: Used Car $15,000, 3 Years, 10% Annual",
+			"description": "A used car with simple annual depreciation of 10% per year",
+			"inputs": {
+				"purchasePrice": 15000,
+				"purchaseType": "used",
+				"yearsOwned": 3,
+				"depreciationModel": "simpleAnnualPercent",
+				"annualDepreciationRate": 10,
+				"mileagePerYear": 0,
+				"mileageImpact": "false"
+			},
+			"steps": [
+				"Purchase price: $15,000 (used car)",
+				"Depreciation model: Simple Annual Percent",
+				"Annual depreciation rate: 10%",
+				"Year 1: $15,000 × (1 - 0.10) = $15,000 × 0.90 = $13,500 (lost $1,500)",
+				"Year 2: $13,500 × (1 - 0.10) = $13,500 × 0.90 = $12,150 (lost $1,350)",
+				"Year 3: $12,150 × (1 - 0.10) = $12,150 × 0.90 = $10,935 (lost $1,215)",
+				"Estimated resale value after 3 years: $10,935",
+				"Total depreciation: $15,000 - $10,935 = $4,065",
+				"Depreciation percentage: ($4,065 ÷ $15,000) × 100 = 27.1%",
+				"Average depreciation per year: $4,065 ÷ 3 = $1,355/year",
+				"Note: Used cars depreciate slower than new cars since most initial value loss has already occurred"
+			]
+		},
+		{
+			"title": "Example 3: 5 Years Ownership",
+			"description": "A $25,000 new car owned for 5 years with 15% annual depreciation",
+			"inputs": {
+				"purchasePrice": 25000,
+				"purchaseType": "new",
+				"yearsOwned": 5,
+				"depreciationModel": "simpleAnnualPercent",
+				"annualDepreciationRate": 15,
+				"mileagePerYear": 0,
+				"mileageImpact": "false"
+			},
+			"steps": [
+				"Purchase price: $25,000 (new car)",
+				"Depreciation model: Simple Annual Percent",
+				"Annual depreciation rate: 15%",
+				"Year 1: $25,000 × 0.85 = $21,250",
+				"Year 2: $21,250 × 0.85 = $18,063",
+				"Year 3: $18,063 × 0.85 = $15,353",
+				"Year 4: $15,353 × 0.85 = $13,050",
+				"Year 5: $13,050 × 0.85 = $11,093",
+				"Estimated resale value after 5 years: $11,093",
+				"Total depreciation: $25,000 - $11,093 = $13,907",
+				"Depreciation percentage: ($13,907 ÷ $25,000) × 100 = 55.6%",
+				"Average depreciation per year: $13,907 ÷ 5 = $2,781/year"
+			]
+		},
+		{
+			"title": "Example 4: Luxury Car, High Depreciation",
+			"description": "A $35,000 new luxury car with first year drop model over 5 years",
+			"inputs": {
+				"purchasePrice": 35000,
+				"purchaseType": "new",
+				"yearsOwned": 5,
+				"depreciationModel": "firstYearDropPlusAnnual",
+				"annualDepreciationRate": 15,
+				"firstYearDropRate": 20,
+				"mileagePerYear": 0,
+				"mileageImpact": "false"
+			},
+			"steps": [
+				"Purchase price: $35,000 (new luxury car)",
+				"Depreciation model: First Year Drop + Annual",
+				"First year drop: 20%",
+				"Annual depreciation rate: 15%",
+				"Year 1: $35,000 × 0.80 = $28,000 (lost $7,000 in first year)",
+				"Year 2: $28,000 × 0.85 = $23,800",
+				"Year 3: $23,800 × 0.85 = $20,230",
+				"Year 4: $20,230 × 0.85 = $17,196",
+				"Year 5: $17,196 × 0.85 = $14,617",
+				"Estimated resale value after 5 years: $14,617",
+				"Total depreciation: $35,000 - $14,617 = $20,383",
+				"Depreciation percentage: ($20,383 ÷ $35,000) × 100 = 58.2%",
+				"Average depreciation per year: $20,383 ÷ 5 = $4,077/year",
+				"Note: Depreciation is often the largest ownership cost, especially for new luxury cars"
+			]
+		},
+		{
+			"title": "Example 5: Fixed Resale Value Model",
+			"description": "A $22,000 car with a specific estimated resale value of $8,000 after 4 years",
+			"inputs": {
+				"purchasePrice": 22000,
+				"purchaseType": "used",
+				"yearsOwned": 4,
+				"depreciationModel": "fixedResaleValue",
+				"fixedResaleValue": 8000,
+				"mileagePerYear": 0,
+				"mileageImpact": "false"
+			},
+			"steps": [
+				"Purchase price: $22,000",
+				"Depreciation model: Fixed Resale Value",
+				"Estimated resale value: $8,000 (after 4 years)",
+				"Total depreciation: $22,000 - $8,000 = $14,000",
+				"Depreciation percentage: ($14,000 ÷ $22,000) × 100 = 63.6%",
+				"Average depreciation per year: $14,000 ÷ 4 = $3,500/year",
+				"Year-by-year breakdown (linear interpolation):",
+				"  Year 0: $22,000",
+				"  Year 1: $18,500",
+				"  Year 2: $15,000",
+				"  Year 3: $11,500",
+				"  Year 4: $8,000",
+				"Note: Fixed resale value model uses linear depreciation for display purposes"
+			]
+		}
+	],
+	"faq": [
+		{
+			"question": "How does car depreciation work?",
+			"answer": "Car depreciation is the loss in value over time. New cars lose value fastest in the first year (often 20-30%), then continue depreciating annually (typically 10-20% per year). Depreciation is a non-cash expense but represents real money lost when you sell or trade in your car."
+		},
+		{
+			"question": "What's the difference between new and used car depreciation?",
+			"answer": "New cars depreciate much faster, especially in the first year (often 20-30% loss). Used cars have already lost most of their initial value, so they depreciate slower (typically 10-15% annually). This is why used cars can be better value - most depreciation has already occurred."
+		},
+		{
+			"question": "What affects resale value?",
+			"answer": "Many factors affect resale value: vehicle age, mileage, condition, maintenance history, accident history, brand reputation, model popularity, market demand, and economic conditions. High mileage, poor condition, and accident history significantly reduce resale value."
+		},
+		{
+			"question": "Is depreciation linear?",
+			"answer": "No, depreciation is not linear. Cars lose value fastest in the first few years, then the rate slows. The first year typically sees the largest drop (20-30% for new cars), then annual depreciation of 10-20%. This is why the 'first year drop + annual' model is often more accurate than simple annual percent."
+		},
+		{
+			"question": "How accurate is this estimation?",
+			"answer": "The calculator provides estimates based on general depreciation patterns. Actual resale value depends on many factors: vehicle condition, mileage, maintenance, market demand, brand, model, and economic conditions. Use it as a planning tool and expect variation. Research actual resale values for your specific vehicle for more accuracy."
+		},
+		{
+			"question": "Should I buy used to avoid depreciation?",
+			"answer": "Buying used can help avoid the steep first-year depreciation that new cars experience. However, used cars may have higher maintenance costs and shorter remaining lifespan. Consider total cost of ownership, not just depreciation. The calculator helps you compare scenarios."
+		},
+		{
+			"question": "What is a typical depreciation rate?",
+			"answer": "Typical annual depreciation rates: New cars: 15-25% in first year, then 10-20% annually. Used cars: 10-15% annually. Luxury and high-performance cars often depreciate faster. Economy cars and popular models may hold value better. Research your specific vehicle for more accurate rates."
+		},
+		{
+			"question": "How does mileage affect depreciation?",
+			"answer": "High mileage significantly reduces resale value. Average is about 12,000 miles per year. Vehicles with much higher mileage (20,000+ miles/year) lose value faster. The calculator can account for mileage impact - high mileage reduces estimated resale value."
+		},
+		{
+			"question": "When is the best time to sell my car?",
+			"answer": "There's no perfect time, but consider: cars lose value fastest in first 2-3 years, so keeping longer spreads depreciation over more years. However, older cars have higher maintenance costs. Balance depreciation rate, maintenance costs, and your needs. The year-by-year table helps visualize this."
+		},
+		{
+			"question": "Can I reduce depreciation?",
+			"answer": "You can't stop depreciation, but you can minimize it: keep mileage low, maintain the vehicle well, keep detailed service records, avoid accidents, keep it clean, and choose vehicles with better resale value (popular models, reliable brands). However, depreciation will still occur."
+		},
+		{
+			"question": "What's the difference between the depreciation models?",
+			"answer": "Simple Annual Percent applies the same rate each year. First Year Drop + Annual applies a larger drop in year 1 (typical for new cars), then annual rate. Fixed Resale Value lets you override with a specific estimate. Choose based on your needs - first year drop is most accurate for new cars."
+		},
+		{
+			"question": "Why is depreciation important?",
+			"answer": "Depreciation is often the largest cost of car ownership, even larger than fuel for many vehicles. Understanding depreciation helps you make informed decisions about car purchases, when to sell, and total cost of ownership. It's a hidden cost that many people overlook."
+		},
+		{
+			"question": "How do I use the year-by-year table?",
+			"answer": "The year-by-year table shows how your car's value changes each year. Use it to see when depreciation slows, plan when to sell, and understand the impact of ownership duration. It helps visualize that depreciation is fastest in early years."
+		},
+		{
+			"question": "Does this include other ownership costs?",
+			"answer": "No, this calculator focuses only on depreciation (loss in value). For total ownership costs including fuel, insurance, maintenance, and depreciation, use our Car Cost of Ownership Calculator."
+		},
+		{
+			"question": "What if I have a specific resale value in mind?",
+			"answer": "Use the 'Fixed Resale Value' model to override the calculation with your own estimate. This is useful if you have a trade-in offer, dealer quote, or research-based estimate. The calculator will show total depreciation based on your resale value."
+		}
+	]
+}
+

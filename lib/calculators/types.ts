@@ -27,6 +27,9 @@ export interface CalculatorExample {
 	inputDescription: string
 	steps: string[]
 	resultDescription: string
+	// Optional fields for special handling (e.g., lease-vs-buy calculator)
+	inputs?: Record<string, string | number | boolean>
+	result?: string
 }
 
 /**

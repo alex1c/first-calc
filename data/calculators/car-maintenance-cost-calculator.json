@@ -1,0 +1,106 @@
+{
+	"id": "car-maintenance-cost-calculator",
+	"slug": "car-maintenance-cost-calculator",
+	"category": "auto",
+	"engine": "function",
+	"calculationId": "calculateCarMaintenanceCost",
+	"tags": ["auto", "maintenance-cost", "car-service", "repairs", "vehicle-maintenance"],
+	"inputs": [
+		{
+			"name": "annualMileage",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 12000
+		},
+		{
+			"name": "vehicleAgeYears",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "vehiclePreset",
+			"type": "select",
+			"options": [
+				{ "value": "", "label": "Custom (Enter Values)" },
+				{ "value": "economyCar", "label": "Economy Car" },
+				{ "value": "midRangeCar", "label": "Mid-Range Car" },
+				{ "value": "premiumCar", "label": "Premium Car" }
+			],
+			"defaultValue": ""
+		},
+		{
+			"name": "oilChangeCost",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "oilChangesPerYear",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "tireServiceAnnual",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "brakeServiceAnnual",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "scheduledServiceAnnual",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		},
+		{
+			"name": "unexpectedRepairsAnnual",
+			"type": "number",
+			"step": 1,
+			"defaultValue": 0
+		}
+	],
+	"outputs": [
+		{
+			"name": "totalAnnualMaintenanceCost"
+		},
+		{
+			"name": "monthlyMaintenanceCost"
+		},
+		{
+			"name": "costPerMile"
+		},
+		{
+			"name": "breakdown"
+		},
+		{
+			"name": "insights"
+		},
+		{
+			"name": "routineMaintenanceAnnual"
+		},
+		{
+			"name": "unexpectedRepairsAnnual"
+		}
+	],
+	"defaults": {
+		"annualMileage": 12000,
+		"vehicleAgeYears": 0,
+		"vehiclePreset": "",
+		"oilChangeCost": 0,
+		"oilChangesPerYear": 0,
+		"tireServiceAnnual": 0,
+		"brakeServiceAnnual": 0,
+		"scheduledServiceAnnual": 0,
+		"unexpectedRepairsAnnual": 0
+	},
+	"relatedIds": ["tire-cost-calculator", "car-cost-of-ownership-calculator", "auto-loan-calculator"],
+	"isEnabled": true
+}
+

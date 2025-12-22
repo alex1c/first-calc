@@ -3,27 +3,32 @@
  * Groups calculators by financial topics for better navigation and SEO
  */
 
-export type FinanceCluster = 'loans' | 'investments' | 'savings' | 'business' | 'taxes' | 'retirement'
+export type FinanceCluster = 'loans' | 'investments' | 'savings' | 'business' | 'taxes' | 'retirement' | 'long-term-planning'
 
 export const financeClusters: Record<FinanceCluster, string[]> = {
 	loans: [
 		'loan-payment',
+		'loan-comparison-calculator',
+		'loan-overpayment-calculator',
 		'mortgage-calculator',
+		'mortgage-comparison-calculator',
 		'auto-loan-calculator',
 		'personal-loan-calculator',
-		'loan-interest-calculator',
-		'loan-overpayment-calculator',
-		'loan-comparison-calculator',
 	],
 	investments: [
 		'investment-calculator',
 		'compound-interest-calculator',
-		'future-value-calculator',
-		'present-value-calculator',
+		'roi-calculator',
+		'investment-vs-savings-calculator',
 	],
 	savings: [
 		'savings-calculator',
-		'compound-interest-calculator',
+		'emergency-fund-calculator',
+		'take-home-pay-calculator',
+	],
+	'long-term-planning': [
+		'retirement-calculator',
+		'net-worth-calculator',
 	],
 	business: [
 		'roi-calculator',
@@ -31,6 +36,7 @@ export const financeClusters: Record<FinanceCluster, string[]> = {
 		'break-even-point-calculator',
 	],
 	taxes: [
+		'take-home-pay-calculator',
 		'tax-calculator',
 		'income-tax-calculator',
 		'vat-calculator',
@@ -66,4 +72,5 @@ export function getCalculatorsInCluster(cluster: FinanceCluster): string[] {
 export function getAllClusters(): FinanceCluster[] {
 	return Object.keys(financeClusters) as FinanceCluster[]
 }
+
 
