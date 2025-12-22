@@ -11,7 +11,8 @@
       "type": "number",
       "min": 0,
       "max": 1000000000,
-      "step": 0.1
+      "step": 0.1,
+      "defaultValue": 20
     },
     {
       "name": "layerThickness",
@@ -26,7 +27,8 @@
       "type": "number",
       "min": 0.5,
       "max": 3,
-      "step": 0.1
+      "step": 0.1,
+      "defaultValue": 1.5
     },
     {
       "name": "numberOfLayers",

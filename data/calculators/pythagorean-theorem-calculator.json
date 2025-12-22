@@ -21,6 +21,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 3,
       "visibleIf": {
         "field": "mode",
         "value": "hypotenuse"
@@ -32,6 +33,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 4,
       "visibleIf": {
         "field": "mode",
         "value": "hypotenuse"
@@ -43,6 +45,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 5,
       "visibleIf": {
         "field": "mode",
         "value": "leg"
@@ -54,6 +57,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 3,
       "visibleIf": {
         "field": "mode",
         "value": "leg"

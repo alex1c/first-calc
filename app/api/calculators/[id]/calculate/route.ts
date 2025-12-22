@@ -52,14 +52,15 @@ export async function POST(
 				return
 			}
 
-			// Only validate as number if input type is 'number'
+			// Only validate as number if input type is 'number' and value is provided
 			if (input.type === 'number' && value !== undefined && value !== '') {
 				const numValue = Number(value)
-				if (isNaN(numValue)) {
-					errors[input.name] = `${input.label} must be a number`
+				if (isNaN(numValue) || !Number.isFinite(numValue)) {
+					errors[input.name] = `${input.label} must be a valid number`
 					return
 				}
 
+				// Only check min/max if explicitly set in validation
 				if (input.validation?.min !== undefined && numValue < input.validation.min) {
 					errors[input.name] = `${input.label} must be at least ${input.validation.min}`
 					return
@@ -82,11 +83,26 @@ export async function POST(
 			.filter(shouldShowInput)
 			.forEach((input) => {
 				let value = inputs[input.name]
-				if (input.type === 'number') {
-					value = value === '' ? 0 : Number(value)
+				if (input.type === 'number' && value !== undefined && value !== '') {
+					// Only convert if value is provided (don't convert empty to 0)
+					const numValue = Number(value)
+					if (isNaN(numValue) || !Number.isFinite(numValue)) {
+						// This should have been caught in validation, but double-check
+						errors[input.name] = `${input.label} must be a valid number`
+						return
+					}
+					value = numValue
 				}
-				processedInputs[input.name] = value
+				// Only add to processedInputs if value is defined
+				if (value !== undefined && value !== '') {
+					processedInputs[input.name] = value
+				}
 			})
+		
+		// Check for errors after processing
+		if (Object.keys(errors).length > 0) {
+			return NextResponse.json({ errors, error: 'Validation failed' }, { status: 400 })
+		}
 
 		// Always include shape/select fields (they control visibility)
 		calculator.inputs

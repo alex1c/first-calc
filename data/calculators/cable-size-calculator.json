@@ -30,7 +30,8 @@
       "type": "number",
       "min": 0,
       "max": 1000000,
-      "step": 0.1
+      "step": 0.1,
+      "defaultValue": 3
     },
     {
       "name": "material",

@@ -18,7 +18,8 @@
     {
       "name": "height",
       "type": "number",
-      "step": 1
+      "step": 1,
+      "defaultValue": 175
     },
     {
       "name": "heightUnit",

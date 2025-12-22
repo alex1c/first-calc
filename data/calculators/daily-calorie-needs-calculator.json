@@ -18,12 +18,14 @@
     {
       "name": "age",
       "type": "number",
-      "step": 1
+      "step": 1,
+      "defaultValue": 30
     },
     {
       "name": "height",
       "type": "number",
-      "step": 1
+      "step": 1,
+      "defaultValue": 175
     },
     {
       "name": "heightUnit",
@@ -57,7 +59,8 @@
     {
       "name": "weight",
       "type": "number",
-      "step": 1
+      "step": 1,
+      "defaultValue": 70
     },
     {
       "name": "weightUnit",

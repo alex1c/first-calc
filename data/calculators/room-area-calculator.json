@@ -20,6 +20,7 @@
       "name": "length",
       "type": "number",
       "step": 1,
+      "defaultValue": 5,
       "visibleIf": {
         "field": "shape",
         "value": "rectangle"
@@ -29,6 +30,7 @@
       "name": "width",
       "type": "number",
       "step": 1,
+      "defaultValue": 4,
       "visibleIf": {
         "field": "shape",
         "value": "rectangle"
@@ -38,6 +40,7 @@
       "name": "side",
       "type": "number",
       "step": 1,
+      "defaultValue": 4,
       "visibleIf": {
         "field": "shape",
         "value": "square"
@@ -47,6 +50,7 @@
       "name": "radius",
       "type": "number",
       "step": 1,
+      "defaultValue": 3,
       "visibleIf": {
         "field": "shape",
         "value": "circle"

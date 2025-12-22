@@ -9,7 +9,8 @@
     {
       "name": "weight",
       "type": "number",
-      "step": 1
+      "step": 1,
+      "defaultValue": 70
     },
     {
       "name": "weightUnit",
@@ -23,7 +24,8 @@
     {
       "name": "height",
       "type": "number",
-      "step": 1
+      "step": 1,
+      "defaultValue": 175
     },
     {
       "name": "heightUnit",
@@ -68,7 +70,8 @@
     {
       "name": "age",
       "type": "number",
-      "step": 1
+      "step": 1,
+      "defaultValue": 30
     }
   ],
   "outputs": [

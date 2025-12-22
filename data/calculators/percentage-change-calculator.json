@@ -11,14 +11,16 @@
       "type": "number",
       "min": -1000000000,
       "max": 1000000000,
-      "step": "any"
+      "step": "any",
+      "defaultValue": 100
     },
     {
       "name": "new",
       "type": "number",
       "min": -1000000000,
       "max": 1000000000,
-      "step": "any"
+      "step": "any",
+      "defaultValue": 110
     }
   ],
   "outputs": [

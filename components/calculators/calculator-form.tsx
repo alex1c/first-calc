@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
+import { getSensibleDefault } from '@/lib/calculators/defaults'
 
 interface CalculatorFormProps {
 	calculator: CalculatorDefinitionClient
@@ -21,13 +22,25 @@ export function CalculatorForm({
 	const [inputs, setInputs] = useState<Record<string, number | string>>(() => {
 		const initial: Record<string, number | string> = {}
 		calculator.inputs.forEach((input) => {
-			// Set default value if available
-			if (input.defaultValue !== undefined) {
-				initial[input.name] = input.defaultValue
+			// Set default value: use schema defaultValue OR sensible default OR empty
+			let defaultValue = input.defaultValue
+			if (defaultValue === undefined) {
+				defaultValue = getSensibleDefault(input, calculator.id)
+			}
+			// For date inputs, if no default in schema, getSensibleDefault will provide today's date
+			if (defaultValue !== undefined) {
+				initial[input.name] = defaultValue
 			} else {
-				// For text inputs, initialize as empty string
-				if (input.type === 'text') {
+				// For select inputs without default: use first option value (not empty)
+				if (input.type === 'select' && input.options && input.options.length > 0) {
+					initial[input.name] = input.options[0].value
+				} else if (input.type === 'text') {
 					initial[input.name] = ''
+				} else if (input.type === 'date') {
+					// Date inputs should have a default from getSensibleDefault (today or reasonable date)
+					// If somehow undefined, use today as fallback
+					const dateDefault = getSensibleDefault(input, calculator.id)
+					initial[input.name] = dateDefault || new Date().toISOString().split('T')[0]
 				} else {
 					initial[input.name] = ''
 				}
@@ -41,7 +54,8 @@ export function CalculatorForm({
 				if (String(fieldValue) === String(value)) {
 					// Field should be visible, initialize if not already set
 					if (initial[input.name] === undefined) {
-						initial[input.name] = input.defaultValue ?? (input.type === 'text' ? '' : '')
+						const defaultValue = input.defaultValue ?? getSensibleDefault(input, calculator.id)
+						initial[input.name] = defaultValue ?? (input.type === 'text' ? '' : '')
 					}
 				}
 			}
@@ -118,26 +132,19 @@ export function CalculatorForm({
 								id={input.name}
 								name={input.name}
 								value={inputs[input.name] ?? ''}
-								onChange={(e) => {
-									const value = e.target.value
-									// Allow empty string for clearing, or valid number
-									if (value === '' || !isNaN(parseFloat(value))) {
-										handleInputChange(
-											input.name,
-											value === '' ? '' : parseFloat(value),
-										)
-									}
-								}}
-							onBlur={(e) => {
-								// Prevent negative values where not allowed
-								const numValue = parseFloat(e.target.value)
-								if (!isNaN(numValue) && numValue < 0 && input.validation?.min !== undefined && input.validation.min >= 0) {
-									handleInputChange(input.name, 0)
+							onChange={(e) => {
+								const value = e.target.value
+								// Allow empty string for clearing, or valid number
+								if (value === '' || !isNaN(parseFloat(value))) {
+									handleInputChange(
+										input.name,
+										value === '' ? '' : parseFloat(value),
+									)
 								}
 							}}
 							placeholder={input.placeholder}
-							min={input.min !== undefined ? input.min : undefined}
-							max={input.max !== undefined ? input.max : undefined}
+							min={input.validation?.min !== undefined ? input.validation.min : (input.min !== undefined ? input.min : undefined)}
+							max={input.validation?.max !== undefined ? input.validation.max : (input.max !== undefined ? input.max : undefined)}
 							step={input.step === 'any' ? 'any' : (input.step ?? 1)}
 							className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
 								errors[input.name]
@@ -216,7 +223,10 @@ export function CalculatorForm({
 									: 'border-gray-300'
 							}`}
 						>
-							<option value="">Select...</option>
+							{/* Only show placeholder if no default value and field is not required */}
+							{(!input.defaultValue && !input.validation?.required && !inputs[input.name]) && (
+								<option value="">Select...</option>
+							)}
 							{input.options.map((option) => (
 								<option key={option.value} value={option.value}>
 									{option.label}

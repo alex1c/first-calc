@@ -19,7 +19,8 @@
 		{
 			"name": "distance",
 			"type": "number",
-			"step": 1
+			"step": 1,
+			"defaultValue": 100
 		},
 		{
 			"name": "consumptionUnit",
@@ -33,12 +34,14 @@
 		{
 			"name": "fuelConsumption",
 			"type": "number",
-			"step": 1
+			"step": 1,
+			"defaultValue": 8
 		},
 		{
 			"name": "fuelPricePerUnit",
 			"type": "number",
-			"step": 1
+			"step": 1,
+			"defaultValue": 1.5
 		},
 		{
 			"name": "roundTrip",

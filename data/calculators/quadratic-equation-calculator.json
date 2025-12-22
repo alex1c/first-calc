@@ -11,21 +11,24 @@
       "type": "number",
       "min": -1000000000,
       "max": 1000000000,
-      "step": "any"
+      "step": "any",
+      "defaultValue": 1
     },
     {
       "name": "b",
       "type": "number",
       "min": -1000000000,
       "max": 1000000000,
-      "step": "any"
+      "step": "any",
+      "defaultValue": -5
     },
     {
       "name": "c",
       "type": "number",
       "min": -1000000000,
       "max": 1000000000,
-      "step": "any"
+      "step": "any",
+      "defaultValue": 6
     }
   ],
   "outputs": [

@@ -11,21 +11,24 @@
       "type": "number",
       "min": 0,
       "max": 1000000000,
-      "step": "any"
+      "step": "any",
+      "defaultValue": 10
     },
     {
       "name": "slabWidth",
       "type": "number",
       "min": 0,
       "max": 1000000000,
-      "step": "any"
+      "step": "any",
+      "defaultValue": 8
     },
     {
       "name": "slabThickness",
       "type": "number",
       "min": 0,
       "max": 1000000000,
-      "step": "any"
+      "step": "any",
+      "defaultValue": 0.15
     },
     {
       "name": "includeThickenedEdge",

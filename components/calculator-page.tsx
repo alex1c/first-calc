@@ -53,6 +53,11 @@ export function CalculatorPage({
 
 			// Type-specific validation - SIMPLIFIED
 			if (inputDef.type === 'number') {
+				// Skip validation if empty and not required
+				if ((value === '' || value === null || value === undefined) && !validation.required) {
+					return null
+				}
+				
 				const numValue = Number(value)
 				
 				// Only check if value is a valid number

@@ -9,7 +9,8 @@
 		{
 			"name": "purchasePrice",
 			"type": "number",
-			"step": 1
+			"step": 1,
+			"defaultValue": 30000
 		},
 		{
 			"name": "purchaseType",

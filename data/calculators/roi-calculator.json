@@ -11,14 +11,16 @@
       "type": "number",
       "min": 0,
       "max": 10000000,
-      "step": 1000
+      "step": 1000,
+      "defaultValue": 10000
     },
     {
       "name": "returnValue",
       "type": "number",
       "min": 0,
       "max": 10000000,
-      "step": 1000
+      "step": 1000,
+      "defaultValue": 12000
     },
     {
       "name": "timePeriod",

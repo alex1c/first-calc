@@ -19,6 +19,7 @@
 			"name": "distance",
 			"type": "number",
 			"step": 1,
+			"defaultValue": 100,
 			"visibleIf": {
 				"field": "mode",
 				"value": "calculate"
@@ -41,6 +42,7 @@
 			"name": "fuelUsed",
 			"type": "number",
 			"step": 1,
+			"defaultValue": 8,
 			"visibleIf": {
 				"field": "mode",
 				"value": "calculate"

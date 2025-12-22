@@ -23,6 +23,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 5,
       "visibleIf": {
         "field": "shape",
         "value": "circle"
@@ -34,6 +35,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 5,
       "visibleIf": {
         "field": "shape",
         "value": "square"
@@ -45,6 +47,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 10,
       "visibleIf": {
         "field": "shape",
         "value": "rectangle"
@@ -56,6 +59,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 5,
       "visibleIf": {
         "field": "shape",
         "value": "rectangle"
@@ -67,6 +71,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 3,
       "visibleIf": {
         "field": "shape",
         "value": "triangle"
@@ -78,6 +83,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 4,
       "visibleIf": {
         "field": "shape",
         "value": "triangle"
@@ -89,6 +95,7 @@
       "min": 0,
       "max": 1000000000,
       "step": "any",
+      "defaultValue": 5,
       "visibleIf": {
         "field": "shape",
         "value": "triangle"
