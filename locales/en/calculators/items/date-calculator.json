@@ -1,0 +1,166 @@
+{
+  "title": "Date Calculator – Add or Subtract Days from a Date",
+  "shortDescription": "Calculate a future or past date by adding or subtracting days from any date.",
+  "longDescription": "Our Date Calculator helps you calculate future or past dates by adding or subtracting days from any starting date. Simply enter a start date, choose whether to add or subtract days, enter the number of days, and get the resulting date with its weekday. Perfect for planning events, calculating deadlines, or finding dates in the past or future.",
+  "inputs": [
+    {
+      "label": "Start Date",
+      "unitLabel": "",
+      "placeholder": "Select date",
+      "helpText": "Enter the starting date"
+    },
+    {
+      "label": "Operation",
+      "unitLabel": "",
+      "placeholder": "Select operation",
+      "helpText": "Choose to add or subtract days"
+    },
+    {
+      "label": "Number of Days",
+      "unitLabel": "days",
+      "placeholder": "Enter number",
+      "helpText": "Enter the number of days to add or subtract (must be 0 or greater)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Result Date",
+      "unitLabel": ""
+    },
+    {
+      "label": "Weekday",
+      "unitLabel": ""
+    },
+    {
+      "label": "ISO Date",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter a start date using the date picker",
+    "Select the operation: Add Days or Subtract Days",
+    "Enter the number of days to add or subtract (must be 0 or greater)",
+    "Click the Calculate button",
+    "View the resulting date",
+    "See the weekday of the result date",
+    "Check the ISO date format (YYYY-MM-DD) for reference"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Add 30 Days",
+      "inputDescription": "Calculate a date 30 days in the future.",
+      "steps": [
+        "Start Date: January 1, 2024",
+        "Operation: Add Days",
+        "Number of Days: 30",
+        "Calculation: January 1, 2024 + 30 days = January 31, 2024"
+      ],
+      "resultDescription": "Adding 30 days to January 1, 2024 results in January 31, 2024. This is useful for calculating monthly deadlines or future dates."
+    },
+    {
+      "id": "example-2",
+      "title": "Subtract 15 Days",
+      "inputDescription": "Calculate a date 15 days in the past.",
+      "steps": [
+        "Start Date: March 15, 2024",
+        "Operation: Subtract Days",
+        "Number of Days: 15",
+        "Calculation: March 15, 2024 - 15 days = February 29, 2024 (leap year)"
+      ],
+      "resultDescription": "Subtracting 15 days from March 15, 2024 results in February 29, 2024 (a leap year). This demonstrates how the calculator handles month boundaries and leap years correctly."
+    },
+    {
+      "id": "example-3",
+      "title": "Cross-Year Example",
+      "inputDescription": "Calculate a date that crosses into the next year.",
+      "steps": [
+        "Start Date: December 20, 2024",
+        "Operation: Add Days",
+        "Number of Days: 20",
+        "Calculation: December 20, 2024 + 20 days = January 9, 2025"
+      ],
+      "resultDescription": "Adding 20 days to December 20, 2024 results in January 9, 2025. The calculator correctly handles year transitions, accounting for the number of days in December (31 days)."
+    },
+    {
+      "id": "example-4",
+      "title": "Deadline Calculation",
+      "inputDescription": "Calculate a deadline date for a project.",
+      "steps": [
+        "Start Date: Today (e.g., March 1, 2024)",
+        "Operation: Add Days",
+        "Number of Days: 45",
+        "Calculation: March 1, 2024 + 45 days = April 15, 2024"
+      ],
+      "resultDescription": "Adding 45 days to March 1, 2024 results in April 15, 2024. This is useful for calculating project deadlines, payment due dates, or event planning. The calculator shows the weekday (Monday) to help with scheduling."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How does the date calculator work?",
+      "answer": "The calculator takes a start date, adds or subtracts a specified number of days, and returns the resulting date. It automatically handles month boundaries, year transitions, and leap years. The result includes the date, weekday, and ISO format."
+    },
+    {
+      "question": "Are weekends counted when adding or subtracting days?",
+      "answer": "Yes, weekends are counted. The calculator counts all calendar days, including weekends and holidays. If you need to calculate business days only (excluding weekends), you would need a specialized business days calculator."
+    },
+    {
+      "question": "How does the calculator handle leap years?",
+      "answer": "The calculator automatically accounts for leap years. February 29 is included in leap years, and the calculation correctly handles dates around leap year boundaries. For example, adding 1 day to February 28, 2024 (a leap year) results in February 29, 2024, not March 1."
+    },
+    {
+      "question": "Can I subtract days to get a past date?",
+      "answer": "Yes, you can subtract days to calculate past dates. Simply select \"Subtract Days\" as the operation and enter the number of days to subtract. The calculator will show the resulting date in the past."
+    },
+    {
+      "question": "What date format does the calculator use?",
+      "answer": "The calculator accepts dates in standard date picker format (YYYY-MM-DD). Results are displayed in a readable format (e.g., \"January 15, 2024\") and also in ISO format (YYYY-MM-DD) for reference. The weekday is shown in English."
+    },
+    {
+      "question": "What is the maximum number of days I can add or subtract?",
+      "answer": "There's no practical limit on the number of days you can add or subtract. The calculator can handle any positive integer. However, very large numbers (thousands of years) may result in dates far in the future or past."
+    },
+    {
+      "question": "Does the calculator account for daylight saving time?",
+      "answer": "The calculator works with calendar dates only and does not account for time zones or daylight saving time. It calculates dates based on the calendar day, not specific times of day."
+    },
+    {
+      "question": "Can I calculate business days instead of calendar days?",
+      "answer": "This calculator counts all calendar days, including weekends. For business days calculations (excluding weekends and holidays), you would need a specialized business days calculator that accounts for weekends and optionally holidays."
+    },
+    {
+      "question": "How accurate is the date calculation?",
+      "answer": "The calculation is 100% accurate for calendar days. It correctly handles month boundaries (including months with different numbers of days), year transitions, and leap years. The result is based on standard calendar rules."
+    },
+    {
+      "question": "What happens if I enter 0 days?",
+      "answer": "If you enter 0 days, the result date will be the same as the start date. This can be useful for verifying the start date or formatting it in different ways."
+    },
+    {
+      "question": "Can I use this to calculate age?",
+      "answer": "While you can subtract days to find a past date, for calculating exact age (years, months, days), the Age Calculator is more appropriate as it provides detailed age breakdowns and handles edge cases like leap year birthdays."
+    },
+    {
+      "question": "How do I calculate the number of days between two dates?",
+      "answer": "To calculate the number of days between two dates, use the Days Between Dates Calculator instead. That calculator is designed specifically for finding the difference between two dates."
+    },
+    {
+      "question": "Does the calculator work with historical dates?",
+      "answer": "Yes, the calculator works with any valid date, including historical dates. You can subtract days from any date to find dates in the past, or add days to historical dates to find future dates relative to that point in time."
+    },
+    {
+      "question": "What is ISO date format?",
+      "answer": "ISO date format (ISO 8601) is an international standard for date representation: YYYY-MM-DD (e.g., 2024-03-15). It's widely used in computing and makes dates unambiguous and easy to sort. The calculator displays results in both readable format and ISO format."
+    },
+    {
+      "question": "Can I calculate dates in different time zones?",
+      "answer": "The calculator works with calendar dates only and does not account for time zones. Dates are calculated based on the calendar day in the local time zone. For time zone-specific calculations, you would need additional time zone information."
+    }
+  ],
+  "seo": {
+    "title": "Date Calculator – Add or Subtract Days from a Date",
+    "description": "Calculate a future or past date by adding or subtracting days from any date.",
+    "keywords": ["date calculator", "add days to date", "subtract days from date", "future date calculator", "past date calculator", "date math"]
+  }
+}
+

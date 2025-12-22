@@ -1,0 +1,69 @@
+{
+  "id": "numbers-to-words-calculator",
+  "slug": "numbers-to-words",
+  "category": "everyday",
+  "engine": "function",
+  "calculationId": "calculateNumbersToWords",
+  "tags": ["numbers-to-words", "number-spelling", "number-to-text"],
+  "inputs": [
+    {
+      "name": "number",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "currencyMode",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No (standard)" },
+        { "value": "true", "label": "Yes (currency format)" }
+      ],
+      "defaultValue": "false",
+      "optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "words"
+    },
+    {
+      "name": "currencyWords"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "millions"
+    },
+    {
+      "name": "thousands"
+    },
+    {
+      "name": "hundreds"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "originalNumber"
+    }
+  ],
+  "defaults": {
+    "number": 1234567
+  },
+  "relatedIds": ["roman-numerals-converter", "random-number-generator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Numbers to Words Converter – Write Numbers in Words",
+    "description": "Convert numbers into words instantly. Supports large numbers and decimals.",
+    "schema": {
+      "applicationSubCategory": "EverydayCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

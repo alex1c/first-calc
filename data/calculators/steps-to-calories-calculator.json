@@ -1,0 +1,146 @@
+{
+  "id": "steps-to-calories-calculator",
+  "slug": "steps-to-calories-calculator",
+  "category": "health",
+  "engine": "function",
+  "calculationId": "calculateStepsToCalories",
+  "tags": ["health", "steps", "calories", "walking", "pedometer"],
+  "inputs": [
+    {
+      "name": "stepsCount",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "weight",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "weightUnit",
+      "type": "select",
+      "options": [
+        { "value": "kg", "label": "Kilograms (kg)" },
+        { "value": "lb", "label": "Pounds (lb)" }
+      ],
+      "defaultValue": "kg"
+    },
+    {
+      "name": "strideLength",
+      "type": "number",
+      "step": 1,
+      "optional": true
+    },
+    {
+      "name": "strideUnit",
+      "type": "select",
+      "options": [
+        { "value": "cm", "label": "Centimeters (cm)" },
+        { "value": "m", "label": "Meters (m)" }
+      ],
+      "defaultValue": "cm",
+      "optional": true
+    },
+    {
+      "name": "walkingSpeed",
+      "type": "select",
+      "options": [
+        { "value": "slow", "label": "Slow/Leisurely" },
+        { "value": "moderate", "label": "Moderate/Normal" },
+        { "value": "fast", "label": "Fast/Brisk" }
+      ],
+      "defaultValue": "moderate",
+      "optional": true
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "step": 1,
+      "optional": true
+    },
+    {
+      "name": "heightUnit",
+      "type": "select",
+      "options": [
+        { "value": "cm", "label": "Centimeters (cm)" },
+        { "value": "ft+in", "label": "Feet and Inches (ft+in)" }
+      ],
+      "defaultValue": "cm",
+      "optional": true
+    },
+    {
+      "name": "heightFeet",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 5,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      },
+      "optional": true
+    },
+    {
+      "name": "heightInches",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      },
+      "optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "caloriesBurned"
+    },
+    {
+      "name": "estimatedDistance"
+    },
+    {
+      "name": "distanceUnit"
+    },
+    {
+      "name": "distanceKm"
+    },
+    {
+      "name": "distanceMiles"
+    },
+    {
+      "name": "caloriesPer1000Steps"
+    },
+    {
+      "name": "strideLengthUsed"
+    },
+    {
+      "name": "metValue"
+    },
+    {
+      "name": "insights"
+    }
+  ],
+  "defaults": {
+    "stepsCount": 10000,
+    "weight": 70,
+    "weightUnit": "kg",
+    "walkingSpeed": "moderate",
+    "height": 175,
+    "heightUnit": "cm"
+  },
+  "relatedIds": ["calories-burned-calculator", "heart-rate-zones-calculator", "daily-calorie-needs-calculator", "bmi-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Steps to Calories Calculator – Convert Walking Steps to Calories",
+    "description": "Convert steps walked into calories burned. Estimate walking calories based on steps, weight, and stride length.",
+    "schema": {
+      "applicationSubCategory": "HealthCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

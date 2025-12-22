@@ -1,0 +1,171 @@
+{
+  "id": "body-fat-percentage-calculator",
+  "slug": "body-fat-percentage-calculator",
+  "category": "health",
+  "engine": "function",
+  "calculationId": "calculateBodyFatPercentage",
+  "tags": ["health", "body-fat", "body-composition", "fat-percentage"],
+  "inputs": [
+    {
+      "name": "sex",
+      "type": "select",
+      "options": [
+        { "value": "male", "label": "Male" },
+        { "value": "female", "label": "Female" }
+      ],
+      "defaultValue": "male"
+    },
+    {
+      "name": "age",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "heightUnit",
+      "type": "select",
+      "options": [
+        { "value": "cm", "label": "Centimeters (cm)" },
+        { "value": "ft+in", "label": "Feet and Inches (ft+in)" }
+      ],
+      "defaultValue": "cm"
+    },
+    {
+      "name": "heightFeet",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 5,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      }
+    },
+    {
+      "name": "heightInches",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      }
+    },
+    {
+      "name": "weight",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "weightUnit",
+      "type": "select",
+      "options": [
+        { "value": "kg", "label": "Kilograms (kg)" },
+        { "value": "lb", "label": "Pounds (lb)" }
+      ],
+      "defaultValue": "kg"
+    },
+    {
+      "name": "waistCircumference",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "waistUnit",
+      "type": "select",
+      "options": [
+        { "value": "cm", "label": "Centimeters (cm)" },
+        { "value": "in", "label": "Inches (in)" }
+      ],
+      "defaultValue": "cm"
+    },
+    {
+      "name": "neckCircumference",
+      "type": "number",
+      "step": 1,
+      "optional": true
+    },
+    {
+      "name": "neckUnit",
+      "type": "select",
+      "options": [
+        { "value": "cm", "label": "Centimeters (cm)" },
+        { "value": "in", "label": "Inches (in)" }
+      ],
+      "defaultValue": "cm",
+      "optional": true
+    },
+    {
+      "name": "hipCircumference",
+      "type": "number",
+      "step": 1,
+      "optional": true,
+      "visibleIf": {
+        "field": "sex",
+        "value": "female"
+      }
+    },
+    {
+      "name": "hipUnit",
+      "type": "select",
+      "options": [
+        { "value": "cm", "label": "Centimeters (cm)" },
+        { "value": "in", "label": "Inches (in)" }
+      ],
+      "defaultValue": "cm",
+      "optional": true,
+      "visibleIf": {
+        "field": "sex",
+        "value": "female"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "bodyFatPercentage"
+    },
+    {
+      "name": "category"
+    },
+    {
+      "name": "categoryDescription"
+    },
+    {
+      "name": "color"
+    },
+    {
+      "name": "insights"
+    }
+  ],
+  "defaults": {
+    "sex": "male",
+    "age": 30,
+    "height": 175,
+    "heightUnit": "cm",
+    "weight": 70,
+    "weightUnit": "kg",
+    "waistCircumference": 85,
+    "waistUnit": "cm",
+    "neckCircumference": 38,
+    "neckUnit": "cm",
+    "hipCircumference": 95,
+    "hipUnit": "cm"
+  },
+  "relatedIds": ["bmi-calculator", "ideal-weight-calculator", "daily-calorie-needs-calculator", "bmr-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Body Fat Percentage Calculator – Estimate Body Composition",
+    "description": "Estimate your body fat percentage using formula-based methods. Understand body composition beyond BMI.",
+    "schema": {
+      "applicationSubCategory": "HealthCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}

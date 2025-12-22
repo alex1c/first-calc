@@ -1,0 +1,86 @@
+{
+  "id": "date-calculator",
+  "slug": "date-calculator",
+  "category": "everyday",
+  "engine": "function",
+  "calculationId": "calculateDateCalculator",
+  "tags": ["date-calculator", "add-days", "subtract-days", "future-date"],
+  "inputs": [
+    {
+      "name": "startDate",
+      "type": "date"
+    },
+    {
+      "name": "operation",
+      "type": "select",
+      "options": [
+        { "value": "add", "label": "Add Days" },
+        { "value": "subtract", "label": "Subtract Days" }
+      ],
+      "defaultValue": "add"
+    },
+    {
+      "name": "numberOfDays",
+      "type": "number",
+      "step": 1
+    }
+  ],
+  "outputs": [
+    {
+      "name": "resultDate"
+    },
+    {
+      "name": "resultDateFormatted"
+    },
+    {
+      "name": "weekday"
+    },
+    {
+      "name": "isoDate"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "daysAdded"
+    },
+    {
+      "name": "daysSubtracted"
+    },
+    {
+      "name": "startDate"
+    },
+    {
+      "name": "startDateFormatted"
+    },
+    {
+      "name": "numberOfDays"
+    },
+    {
+      "name": "operation"
+    },
+    {
+      "name": "daysDifference"
+    }
+  ],
+  "defaults": {
+    "startDate": "",
+    "operation": "add",
+    "numberOfDays": 30
+  },
+  "relatedIds": ["days-between-dates-calculator", "age-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Date Calculator – Add or Subtract Days from a Date",
+    "description": "Calculate a future or past date by adding or subtracting days from any date.",
+    "schema": {
+      "applicationSubCategory": "EverydayCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

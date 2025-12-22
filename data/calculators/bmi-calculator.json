@@ -1,0 +1,100 @@
+{
+  "id": "bmi-calculator",
+  "slug": "bmi-calculator",
+  "category": "health",
+  "engine": "function",
+  "calculationId": "calculateBMI",
+  "tags": ["health", "bmi", "body-mass-index", "weight", "height"],
+  "inputs": [
+    {
+      "name": "weight",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "weightUnit",
+      "type": "select",
+      "options": [
+        { "value": "kg", "label": "Kilograms (kg)" },
+        { "value": "lb", "label": "Pounds (lb)" }
+      ],
+      "defaultValue": "kg"
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "heightUnit",
+      "type": "select",
+      "options": [
+        { "value": "cm", "label": "Centimeters (cm)" },
+        { "value": "ft+in", "label": "Feet and Inches (ft+in)" }
+      ],
+      "defaultValue": "cm"
+    },
+    {
+      "name": "heightFeet",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 5,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      }
+    },
+    {
+      "name": "heightInches",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      }
+    },
+    {
+      "name": "gender",
+      "type": "select",
+      "options": [
+        { "value": "male", "label": "Male" },
+        { "value": "female", "label": "Female" },
+        { "value": "other", "label": "Other" },
+        { "value": "prefer-not-to-say", "label": "Prefer not to say" }
+      ],
+      "defaultValue": "prefer-not-to-say"
+    },
+    {
+      "name": "age",
+      "type": "number",
+      "step": 1
+    }
+  ],
+  "outputs": [
+    {
+      "name": "bmi"
+    },
+    {
+      "name": "category"
+    },
+    {
+      "name": "categoryDescription"
+    },
+    {
+      "name": "healthyWeightRange"
+    },
+    {
+      "name": "insights"
+    }
+  ],
+  "defaults": {
+    "weight": 70,
+    "weightUnit": "kg",
+    "height": 175,
+    "heightUnit": "cm"
+  },
+  "relatedIds": ["bmr-calculator", "daily-calorie-needs-calculator", "body-fat-percentage-calculator", "ideal-weight-calculator"],
+  "isEnabled": true
+}
+

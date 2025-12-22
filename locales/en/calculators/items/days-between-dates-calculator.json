@@ -1,0 +1,174 @@
+{
+  "title": "Days Between Dates Calculator – Date Difference in Days",
+  "shortDescription": "Calculate the number of days between two dates. Find date differences in days and weeks.",
+  "longDescription": "Our Days Between Dates Calculator helps you determine the exact number of days between any two dates. Simply enter a start date and end date, and optionally choose whether to include the end date in the count. The calculator will show you the total days, as well as a breakdown in weeks and remaining days. This is perfect for calculating vacation lengths, project durations, time until events, or any period between two dates.",
+  "inputs": [
+    {
+      "label": "Start Date",
+      "unitLabel": "",
+      "placeholder": "YYYY-MM-DD",
+      "helpText": "Enter the starting date"
+    },
+    {
+      "label": "End Date",
+      "unitLabel": "",
+      "placeholder": "YYYY-MM-DD",
+      "helpText": "Enter the ending date"
+    },
+    {
+      "label": "Include End Date",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Choose whether to include the end date in the count (inclusive) or exclude it (exclusive)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Total Days",
+      "unitLabel": "days"
+    },
+    {
+      "label": "Weeks",
+      "unitLabel": "weeks"
+    },
+    {
+      "label": "Remaining Days",
+      "unitLabel": "days"
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the start date in the Start Date field (format: YYYY-MM-DD)",
+    "Enter the end date in the End Date field (format: YYYY-MM-DD)",
+    "Optionally, choose whether to include the end date in the count",
+    "Click the Calculate button",
+    "View the total number of days between the dates",
+    "See the breakdown in weeks and remaining days",
+    "The calculator automatically handles leap years and varying month lengths"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Two Dates in Same Month",
+      "inputDescription": "Calculate days between two dates in the same month.",
+      "steps": [
+        "Start Date: 2024-03-01",
+        "End Date: 2024-03-15",
+        "Include End Date: No (exclusive)",
+        "The calculator subtracts March 1 from March 15",
+        "Result: 14 days (exclusive of end date)"
+      ],
+      "resultDescription": "There are 14 days between March 1 and March 15 (exclusive), which equals 2 weeks. If you include the end date, there are 15 days total."
+    },
+    {
+      "id": "example-2",
+      "title": "Dates Across Years",
+      "inputDescription": "Calculate days between dates that span multiple years.",
+      "steps": [
+        "Start Date: 2023-12-25",
+        "End Date: 2024-01-05",
+        "Include End Date: No (exclusive)",
+        "The calculator handles the year transition correctly",
+        "It counts days from December 25, 2023 to January 5, 2024"
+      ],
+      "resultDescription": "There are 11 days between December 25, 2023 and January 5, 2024 (exclusive), which equals 1 week and 4 days. This demonstrates how the calculator correctly handles year boundaries."
+    },
+    {
+      "id": "example-3",
+      "title": "Including End Date",
+      "inputDescription": "Calculate days with the end date included in the count.",
+      "steps": [
+        "Start Date: 2024-06-01",
+        "End Date: 2024-06-10",
+        "Include End Date: Yes (inclusive)",
+        "The calculator adds 1 day to the exclusive count",
+        "Result: 10 days (inclusive of end date)"
+      ],
+      "resultDescription": "There are 9 days between June 1 and June 10 (exclusive), but 10 days if you include the end date. This is useful when counting vacation days, rental periods, or any duration where both start and end dates are part of the period."
+    },
+    {
+      "id": "example-4",
+      "title": "Vacation Length Example",
+      "inputDescription": "Calculate the length of a vacation period.",
+      "steps": [
+        "Start Date: 2024-07-15",
+        "End Date: 2024-07-28",
+        "Include End Date: Yes (inclusive)",
+        "The calculator counts all days from the start to the end of vacation",
+        "Result shows total vacation days"
+      ],
+      "resultDescription": "If your vacation runs from July 15 to July 28 (inclusive), you have 14 vacation days total, which equals 2 weeks. This helps you plan your time off and understand the exact duration of your vacation period."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How are days counted?",
+      "answer": "Days are counted by calculating the difference between the start date and end date. By default, the end date is excluded (exclusive counting). For example, between March 1 and March 3, there are 2 days (March 1 and March 2). If you choose to include the end date (inclusive counting), the same period would be 3 days (March 1, March 2, and March 3)."
+    },
+    {
+      "question": "Should I include the end date or not?",
+      "answer": "It depends on what you're calculating. For vacation days, rental periods, or any duration where both dates are part of the period, use inclusive counting (include end date). For calculating time elapsed or days until an event, exclusive counting (don't include end date) is typically used. The calculator shows both options so you can choose what makes sense for your situation."
+    },
+    {
+      "question": "How do leap years affect the calculation?",
+      "answer": "Leap years are automatically handled by the calculator. February 29 in a leap year is counted as a full day. The calculator uses the actual calendar dates, so leap years don't cause any issues with the calculation."
+    },
+    {
+      "question": "Does this calculate business days or calendar days?",
+      "answer": "This calculator counts calendar days, which includes weekends and holidays. If you need to calculate business days (excluding weekends and holidays), you would need a specialized business days calculator."
+    },
+    {
+      "question": "How many weeks are between the dates?",
+      "answer": "The calculator shows both the total days and a breakdown in weeks and remaining days. For example, 15 days equals 2 weeks and 1 day. This helps you understand the duration in both days and weeks."
+    },
+    {
+      "question": "Can I calculate days between dates in the past?",
+      "answer": "Yes! The calculator works with any valid dates, whether they're in the past, present, or future. You can calculate the number of days between any two dates on the calendar."
+    },
+    {
+      "question": "What if the start date is after the end date?",
+      "answer": "The calculator requires the start date to be before or equal to the end date. If you enter dates in the wrong order, you'll receive an error message asking you to correct the dates."
+    },
+    {
+      "question": "How accurate is the calculation?",
+      "answer": "The calculation is very accurate, accounting for leap years, varying month lengths, and day boundaries. It uses the exact number of days between the two dates to ensure precision."
+    },
+    {
+      "question": "Does the calculator account for time zones?",
+      "answer": "The calculator uses dates only (not times), so time zones don't affect the calculation. It calculates days based on calendar dates, which is the standard way to measure date differences."
+    },
+    {
+      "question": "What format should I use for dates?",
+      "answer": "Use the YYYY-MM-DD format (e.g., 2024-03-15 for March 15, 2024). The date picker will help you select the correct date format automatically."
+    },
+    {
+      "question": "Can I calculate the same day?",
+      "answer": "Yes! If you enter the same date for both start and end, the result will be 0 days (exclusive) or 1 day (inclusive). This represents a single day period."
+    },
+    {
+      "question": "How do I calculate days until a future event?",
+      "answer": "Enter today's date as the start date and the event date as the end date. Use exclusive counting (don't include end date) to see how many days remain until the event. For example, if today is March 1 and the event is March 10, you have 9 days remaining."
+    },
+    {
+      "question": "What's the difference between exclusive and inclusive counting?",
+      "answer": "Exclusive counting excludes the end date from the total. Inclusive counting includes the end date. For example, between March 1 and March 5: exclusive = 4 days (March 1-4), inclusive = 5 days (March 1-5). Choose based on whether the end date is part of the period you're measuring."
+    },
+    {
+      "question": "Can I use this for calculating rental periods?",
+      "answer": "Yes! For rental periods, you typically want to include both the start and end dates, so use inclusive counting. This ensures you count all days you're paying for, including both the first and last day of the rental period."
+    },
+    {
+      "question": "How does the calculator handle month boundaries?",
+      "answer": "The calculator correctly handles transitions between months and years. It counts the actual calendar days, so moving from the end of one month to the beginning of the next is handled automatically. For example, from January 31 to February 5 correctly accounts for the different month lengths."
+    }
+  ],
+  "seo": {
+    "title": "Days Between Dates Calculator – Date Difference in Days",
+    "description": "Calculate the number of days between two dates. Find date differences in days and weeks.",
+    "keywords": ["days between dates", "date difference", "date calculator", "days calculator", "calculate days", "time between dates", "duration calculator"]
+  }
+}
+

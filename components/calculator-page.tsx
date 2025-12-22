@@ -88,6 +88,17 @@ export function CalculatorPage({
 				}
 			}
 
+			// Date validation
+			if (inputDef.type === 'date') {
+				if (typeof value === 'string' && value.trim() !== '') {
+					const dateValue = new Date(value)
+					if (isNaN(dateValue.getTime())) {
+						return validation.message || `${inputDef.label} must be a valid date`
+					}
+					// Date validation is handled in the calculation function for age calculator
+				}
+			}
+
 			// Custom validation
 			if (validation.custom) {
 				const result = validation.custom(value)
@@ -325,6 +336,37 @@ export function CalculatorPage({
 				<div className="mb-12">
 					<FaqBlock calculator={calculator} locale={locale} />
 				</div>
+
+				{/* Disclaimer for health calculators */}
+				{calculator.category === 'health' && (
+					<div className="mb-12 bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+						<div className="flex">
+							<div className="flex-shrink-0">
+								<svg
+									className="h-5 w-5 text-yellow-400"
+									viewBox="0 0 20 20"
+									fill="currentColor"
+								>
+									<path
+										fillRule="evenodd"
+										d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+										clipRule="evenodd"
+									/>
+								</svg>
+							</div>
+							<div className="ml-3">
+								<h3 className="text-sm font-medium text-yellow-800 mb-2">
+									Medical Disclaimer
+								</h3>
+								<div className="text-sm text-yellow-700">
+									<p>
+										This calculator is for informational and educational purposes only. It is not intended to replace professional medical advice, diagnosis, or treatment. Individual results may vary based on genetics, body composition, medical conditions, medications, and other factors. Always consult with a healthcare provider or registered dietitian before making significant changes to your diet, exercise routine, or health-related decisions.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				)}
 
 			</div>
 		</div>

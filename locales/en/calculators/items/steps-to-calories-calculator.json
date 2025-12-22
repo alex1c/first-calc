@@ -1,0 +1,279 @@
+{
+  "title": "Steps to Calories Calculator – Convert Walking Steps to Calories",
+  "shortDescription": "Convert steps walked into calories burned. Estimate walking calories based on steps, weight, and stride length.",
+  "longDescription": "Our Steps to Calories Calculator helps you estimate how many calories you burn from walking based on the number of steps you take. Simply enter your steps, weight, and optionally your stride length or height, and the calculator will estimate the distance walked and calories burned. This is useful for tracking daily activity, understanding the calorie cost of walking, and setting step goals for weight management. The calculator uses MET (Metabolic Equivalent of Task) values for walking to provide reasonable estimates.",
+  "inputs": [
+    {
+      "label": "Steps Count",
+      "unitLabel": "steps",
+      "placeholder": "Enter number of steps",
+      "helpText": "Total number of steps walked"
+    },
+    {
+      "label": "Weight",
+      "unitLabel": "",
+      "placeholder": "Enter weight",
+      "helpText": "Your body weight"
+    },
+    {
+      "label": "Weight Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose kilograms (kg) or pounds (lb)"
+    },
+    {
+      "label": "Stride Length",
+      "unitLabel": "",
+      "placeholder": "Enter stride length (optional)",
+      "helpText": "Optional: Your average stride length. If not provided, will be estimated from height or use default."
+    },
+    {
+      "label": "Stride Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or meters (m)"
+    },
+    {
+      "label": "Walking Speed",
+      "unitLabel": "",
+      "placeholder": "Select speed (optional)",
+      "helpText": "Optional: Slow/leisurely, moderate/normal, or fast/brisk pace"
+    },
+    {
+      "label": "Height",
+      "unitLabel": "",
+      "placeholder": "Enter height (optional)",
+      "helpText": "Optional: Your height (used to estimate stride length if stride length not provided)"
+    },
+    {
+      "label": "Height Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or feet and inches (ft+in)"
+    },
+    {
+      "label": "Feet",
+      "unitLabel": "ft",
+      "placeholder": "Enter feet",
+      "helpText": "Height in feet (only shown when using ft+in)"
+    },
+    {
+      "label": "Inches",
+      "unitLabel": "in",
+      "placeholder": "Enter inches",
+      "helpText": "Additional height in inches (only shown when using ft+in)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Calories Burned",
+      "unitLabel": "kcal"
+    },
+    {
+      "label": "Estimated Distance",
+      "unitLabel": ""
+    },
+    {
+      "label": "Distance Unit",
+      "unitLabel": ""
+    },
+    {
+      "label": "Distance (km)",
+      "unitLabel": "km"
+    },
+    {
+      "label": "Distance (miles)",
+      "unitLabel": "miles"
+    },
+    {
+      "label": "Calories Per 1,000 Steps",
+      "unitLabel": "kcal/1000 steps"
+    },
+    {
+      "label": "Stride Length Used",
+      "unitLabel": "m"
+    },
+    {
+      "label": "MET Value",
+      "unitLabel": ""
+    },
+    {
+      "label": "Insights",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the number of steps you walked",
+    "Enter your body weight",
+    "Select your weight unit (kilograms or pounds)",
+    "Optionally enter your stride length for more accuracy",
+    "Optionally enter your height (used to estimate stride length if not provided)",
+    "Optionally select your walking speed (slow, moderate, or fast)",
+    "Click 'Calculate' to see estimated calories burned",
+    "Review the results: calories burned, estimated distance, and calories per 1,000 steps",
+    "Use these estimates to track your daily activity and calorie expenditure"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: 5,000 Steps",
+      "description": "A 70 kg person walking 5,000 steps at moderate pace",
+      "inputs": {
+        "stepsCount": 5000,
+        "weight": 70,
+        "weightUnit": "kg",
+        "walkingSpeed": "moderate",
+        "height": 175,
+        "heightUnit": "cm"
+      },
+      "steps": [
+        "Steps: 5,000",
+        "Weight: 70 kg",
+        "Height: 175 cm (used to estimate stride length)",
+        "Estimated stride length: 175 × 0.414 = 72.45 cm = 0.7245 m",
+        "Distance: 5,000 × 0.7245 = 3,622.5 m = 3.6 km (2.25 miles)",
+        "Walking speed: Moderate (MET 3.5)",
+        "Estimated time: 3.6 km ÷ 3.5 mph = ~1.03 hours",
+        "Calories = MET × weight(kg) × duration(hours)",
+        "Calories = 3.5 × 70 × 1.03 = 252.35 ≈ 252 kcal",
+        "Calories per 1,000 steps: 252 ÷ 5 = 50.4 kcal"
+      ],
+      "result": "Walking 5,000 steps burns approximately 252 calories for a 70 kg person. This covers about 3.6 km (2.25 miles) of distance. The calorie burn rate is about 50 calories per 1,000 steps. This demonstrates that even moderate walking contributes significantly to daily calorie expenditure."
+    },
+    {
+      "title": "Example 2: 10,000 Steps",
+      "description": "A 75 kg person walking 10,000 steps (the popular daily goal)",
+      "inputs": {
+        "stepsCount": 10000,
+        "weight": 75,
+        "weightUnit": "kg",
+        "walkingSpeed": "moderate",
+        "height": 180,
+        "heightUnit": "cm"
+      },
+      "steps": [
+        "Steps: 10,000",
+        "Weight: 75 kg",
+        "Height: 180 cm",
+        "Estimated stride length: 180 × 0.414 = 74.52 cm = 0.745 m",
+        "Distance: 10,000 × 0.745 = 7,450 m = 7.45 km (4.63 miles)",
+        "Walking speed: Moderate (MET 3.5)",
+        "Estimated time: 7.45 km ÷ 3.5 mph = ~2.13 hours",
+        "Calories = 3.5 × 75 × 2.13 = 559.125 ≈ 559 kcal",
+        "Calories per 1,000 steps: 559 ÷ 10 = 55.9 kcal"
+      ],
+      "result": "Walking 10,000 steps burns approximately 559 calories for a 75 kg person. This covers about 7.45 km (4.63 miles) of distance—a substantial amount of daily activity. The 10,000 steps goal is popular because it represents a meaningful amount of physical activity that contributes significantly to daily calorie expenditure and overall health."
+    },
+    {
+      "title": "Example 3: Same Steps, Different Weights",
+      "description": "Comparing calorie burn for different weights walking the same steps",
+      "inputs": {
+        "stepsCount": 8000,
+        "weight": 60,
+        "weightUnit": "kg",
+        "walkingSpeed": "moderate"
+      },
+      "steps": [
+        "Same steps: 8,000, same speed: Moderate",
+        "Person A: 60 kg",
+        "  Distance: ~5.8 km (estimated)",
+        "  Calories: ~290 kcal",
+        "Person B: 80 kg",
+        "  Distance: ~5.8 km (same)",
+        "  Calories: ~387 kcal",
+        "Difference: 387 - 290 = 97 calories (33% more)",
+        "Calories per 1,000 steps: Person A = 36.3, Person B = 48.4"
+      ],
+      "result": "This comparison shows how weight affects calorie burn. For the same 8,000 steps, a 60 kg person burns ~290 calories while an 80 kg person burns ~387 calories—a difference of 97 calories (33% more). Heavier people burn more calories because they have more body mass to move. However, both people cover the same distance and get similar health benefits from the activity."
+    },
+    {
+      "title": "Example 4: With Custom Stride Length",
+      "description": "A person with a known stride length for more accurate calculation",
+      "inputs": {
+        "stepsCount": 12000,
+        "weight": 68,
+        "weightUnit": "kg",
+        "strideLength": 75,
+        "strideUnit": "cm",
+        "walkingSpeed": "fast"
+      },
+      "steps": [
+        "Steps: 12,000",
+        "Weight: 68 kg",
+        "Stride length: 75 cm = 0.75 m (provided)",
+        "Distance: 12,000 × 0.75 = 9,000 m = 9.0 km (5.59 miles)",
+        "Walking speed: Fast (MET 4.5)",
+        "Estimated time: 9.0 km ÷ 4.5 mph = ~1.25 hours",
+        "Calories = 4.5 × 68 × 1.25 = 382.5 ≈ 383 kcal",
+        "Calories per 1,000 steps: 383 ÷ 12 = 31.9 kcal",
+        "Note: Fast walking burns more calories per hour but fewer per step due to covering more distance"
+      ],
+      "result": "Walking 12,000 steps at a fast pace with a 75 cm stride length burns approximately 383 calories and covers 9.0 km (5.59 miles). The fast pace (MET 4.5) increases calorie burn per hour, but because you cover more distance per step, calories per 1,000 steps may be similar or slightly different compared to slower paces. Providing your actual stride length improves accuracy."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How many calories do I burn per step?",
+      "answer": "Calories per step vary based on weight, stride length, and walking speed. On average, most people burn approximately 30-50 calories per 1,000 steps. This translates to about 0.03-0.05 calories per step. Heavier people and those with longer strides tend to burn more calories per step. For example, a 70 kg person might burn ~50 calories per 1,000 steps, while an 80 kg person might burn ~60 calories per 1,000 steps."
+    },
+    {
+      "question": "Is 10,000 steps a day good?",
+      "answer": "Yes, 10,000 steps per day is a good goal for most people. It represents approximately 5-8 km (3-5 miles) of walking and burns 300-500 calories depending on weight and pace. Research suggests 10,000 steps is associated with health benefits including improved cardiovascular health, better weight management, and reduced risk of chronic diseases. However, any amount of walking is beneficial—even 5,000-7,000 steps provides health benefits."
+    },
+    {
+      "question": "Do steps count as exercise?",
+      "answer": "Yes, steps count as physical activity and contribute to your daily exercise. However, the intensity matters: Casual walking (slow pace, <3 MET) is light activity. Brisk walking (moderate-fast pace, 3-4.5 MET) is moderate-intensity exercise. Very fast walking (>4.5 MET) can be vigorous exercise. For health benefits, aim for at least 150 minutes of moderate-intensity activity per week, which can include brisk walking. Steps throughout the day contribute to overall activity levels."
+    },
+    {
+      "question": "Does walking speed affect calories burned?",
+      "answer": "Yes, walking speed significantly affects calories burned. Faster walking has higher MET values: Slow (2.5 mph) = MET 3.0, Moderate (3.5 mph) = MET 3.5, Fast (4.5 mph) = MET 4.5. Faster walking burns more calories per hour, but you also cover more distance. The relationship between speed and calories per step is complex—faster walking may burn slightly more calories per step due to increased intensity, but the main benefit is burning more calories in less time."
+    },
+    {
+      "question": "Are pedometers and fitness trackers accurate?",
+      "answer": "Pedometers and fitness trackers are reasonably accurate for step counting (typically within 5-10% of actual steps), but calorie estimates can vary more (10-20% difference). Accuracy depends on: Device quality and placement, walking pattern and terrain, and individual stride length. Most devices estimate stride length, which can introduce error. For best accuracy, calibrate your device with known distances or provide your actual stride length. Despite limitations, they're useful for tracking trends and daily activity."
+    },
+    {
+      "question": "How do I measure my stride length?",
+      "answer": "To measure your stride length: Walk 10-20 steps at your normal pace, measure the total distance covered, divide by the number of steps. For example, if you walk 20 steps and cover 15 meters, your stride length is 15 ÷ 20 = 0.75 meters (75 cm). You can also estimate: Stride length ≈ 0.414 × height (cm). Average stride lengths: Women ~62-67 cm, Men ~70-75 cm. Measure on flat, even ground for accuracy."
+    },
+    {
+      "question": "Why do my results differ from my fitness tracker?",
+      "answer": "Results may differ because: Fitness trackers use proprietary algorithms and may account for additional factors (heart rate, movement patterns), this calculator uses standardized MET values and estimates, stride length estimation can vary, walking speed interpretation may differ, and individual factors (fitness level, efficiency) affect actual calorie burn. Both are estimates—actual calorie burn can only be measured precisely in laboratory settings. Use both as general guidelines."
+    },
+    {
+      "question": "Can I use this for running steps?",
+      "answer": "This calculator is designed for walking steps. Running has different MET values (8-12 vs 3-4.5 for walking) and typically involves longer strides. If you're running, use the Calories Burned Calculator with 'running' as the activity for more accurate estimates. However, if you're using a pedometer that counts running steps, you can still use this calculator as a rough estimate, understanding that running burns significantly more calories per step than walking."
+    },
+    {
+      "question": "How many steps should I walk per day?",
+      "answer": "Step goals depend on your fitness level and goals: Sedentary: Aim for 5,000-7,000 steps. Active: 7,000-10,000 steps. Very active: 10,000-15,000+ steps. The popular 10,000 steps goal is good for most people, but any increase from your current level is beneficial. Research suggests health benefits start at 4,000-5,000 steps and increase up to 10,000 steps. Beyond 10,000 steps, benefits continue but at a slower rate. Set realistic goals based on your current activity level."
+    },
+    {
+      "question": "Does terrain affect calories burned?",
+      "answer": "Yes, terrain significantly affects calories burned. Walking uphill burns more calories (MET can increase to 6-8 for steep hills), walking downhill burns slightly fewer calories, walking on sand or uneven terrain burns more calories, and walking on flat, smooth surfaces burns fewer calories. This calculator uses flat terrain MET values. For hilly terrain, actual calorie burn may be 20-50% higher. Consider using a heart rate monitor for more accurate estimates on varied terrain."
+    },
+    {
+      "question": "What if I don't know my stride length?",
+      "answer": "If you don't know your stride length, the calculator can estimate it from your height using the formula: Stride length ≈ 0.414 × height (cm). Alternatively, you can measure it by walking a known distance and counting steps. If you don't provide height either, the calculator uses a default average stride length (0.7 meters). For best accuracy, measure your actual stride length, but the height-based estimate is usually within 10-15% of actual."
+    },
+    {
+      "question": "Do steps throughout the day add up?",
+      "answer": "Yes, steps throughout the day add up and contribute to total calorie burn. Whether you walk 10,000 steps in one session or accumulate them throughout the day, the total calorie burn is similar. However, continuous walking may have slightly different metabolic effects than accumulated steps. The key is total daily steps and activity. Many people find it easier to accumulate steps throughout the day (taking stairs, parking farther, walking breaks) rather than doing it all at once."
+    },
+    {
+      "question": "Can I lose weight by walking 10,000 steps?",
+      "answer": "Walking 10,000 steps can contribute to weight loss, but it depends on your total calorie balance. 10,000 steps typically burns 300-500 calories depending on weight and pace. To lose weight, you need a calorie deficit (burning more than you consume). Walking 10,000 steps daily creates a deficit of ~2,100-3,500 calories per week, which could lead to 0.3-0.5 kg (0.6-1 lb) of weight loss per week if diet remains constant. Combine walking with a balanced diet for best results."
+    },
+    {
+      "question": "What's the difference between steps and distance?",
+      "answer": "Steps are a count of footfalls, while distance is the actual ground covered. The relationship depends on stride length: Distance = Steps × Stride Length. For example, 10,000 steps with a 70 cm stride = 7 km. Steps are easier to track (pedometers count them automatically), while distance shows actual ground covered. Both are useful metrics: Steps for daily activity tracking, distance for understanding how far you've traveled. This calculator shows both."
+    },
+    {
+      "question": "Are all steps equal?",
+      "answer": "No, not all steps are equal. Steps vary by: Intensity (brisk walking vs casual strolling), terrain (hills vs flat), speed (fast vs slow), and purpose (exercise walk vs daily activities). However, for general tracking, counting all steps is useful because it captures total daily movement. For more precise calorie tracking, consider the intensity and use heart rate or perceived exertion. But for most people, total daily steps is a good indicator of overall activity level."
+    }
+  ],
+  "seo": {
+    "keywords": ["steps to calories calculator", "steps calculator", "calories from steps", "walking calories calculator", "steps to calories", "calories per step", "10000 steps calories", "pedometer calories", "steps to km", "walking steps calculator"]
+  }
+}
+

@@ -1,0 +1,342 @@
+{
+  "title": "Daily Calorie Needs Calculator (TDEE) – Calories to Maintain or Lose Weight",
+  "shortDescription": "Calculate your daily calorie needs (TDEE) based on age, height, weight, and activity level. Get calorie targets for weight maintenance, loss, or gain.",
+  "longDescription": "Our Daily Calorie Needs Calculator (TDEE Calculator) helps you determine your Total Daily Energy Expenditure — the number of calories you burn per day including all activities. Simply enter your age, height, weight, sex, and activity level, and the calculator will compute your BMR (Basal Metabolic Rate), multiply it by your activity level to get your TDEE, and provide calorie targets for weight maintenance, loss, or gain. Understanding your TDEE is essential for effective weight management, whether your goal is to lose weight, gain weight, or maintain your current weight.",
+  "inputs": [
+    {
+      "label": "Sex",
+      "unitLabel": "",
+      "placeholder": "Select sex",
+      "helpText": "Biological sex affects BMR calculation due to differences in body composition"
+    },
+    {
+      "label": "Age",
+      "unitLabel": "years",
+      "placeholder": "Enter age",
+      "helpText": "Your age in years"
+    },
+    {
+      "label": "Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Your height in centimeters (if using cm) or total inches (if using ft+in)"
+    },
+    {
+      "label": "Height Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or feet and inches (ft+in)"
+    },
+    {
+      "label": "Feet",
+      "unitLabel": "ft",
+      "placeholder": "Enter feet",
+      "helpText": "Height in feet (only shown when using ft+in)"
+    },
+    {
+      "label": "Inches",
+      "unitLabel": "in",
+      "placeholder": "Enter inches",
+      "helpText": "Additional height in inches (only shown when using ft+in)"
+    },
+    {
+      "label": "Weight",
+      "unitLabel": "",
+      "placeholder": "Enter weight",
+      "helpText": "Your body weight"
+    },
+    {
+      "label": "Weight Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose kilograms (kg) or pounds (lb)"
+    },
+    {
+      "label": "Activity Level",
+      "unitLabel": "",
+      "placeholder": "Select activity level",
+      "helpText": "Your daily activity level determines how much your BMR is multiplied to get your TDEE"
+    },
+    {
+      "label": "Goal",
+      "unitLabel": "",
+      "placeholder": "Select goal",
+      "helpText": "Optional: Choose a weight goal to get adjusted calorie targets"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "BMR",
+      "unitLabel": "kcal/day"
+    },
+    {
+      "label": "TDEE",
+      "unitLabel": "kcal/day"
+    },
+    {
+      "label": "Goal Calories",
+      "unitLabel": "kcal/day"
+    },
+    {
+      "label": "Goal Description",
+      "unitLabel": ""
+    },
+    {
+      "label": "Activity Description",
+      "unitLabel": ""
+    },
+    {
+      "label": "Activity Multiplier",
+      "unitLabel": ""
+    },
+    {
+      "label": "Goal Delta",
+      "unitLabel": "kcal/day"
+    },
+    {
+      "label": "Insights",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select your biological sex (male or female)",
+    "Enter your age in years",
+    "Enter your height",
+    "Select your height unit (centimeters or feet+inches)",
+    "If using feet+inches, enter both feet and inches separately",
+    "Enter your weight",
+    "Select your weight unit (kilograms or pounds)",
+    "Select your activity level based on your daily exercise and movement",
+    "Optionally select a weight goal (maintain, lose, or gain)",
+    "Click 'Calculate' to see your TDEE and calorie targets",
+    "Review the results to understand your daily calorie needs",
+    "Adjust your activity level or goal if needed to see different scenarios"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Sedentary Office Worker",
+      "description": "A 35-year-old male office worker who exercises rarely",
+      "inputs": {
+        "sex": "male",
+        "age": 35,
+        "height": 180,
+        "heightUnit": "cm",
+        "weight": 85,
+        "weightUnit": "kg",
+        "activityLevel": "sedentary",
+        "goal": "maintain"
+      },
+      "steps": [
+        "Sex: Male",
+        "Age: 35 years",
+        "Height: 180 cm",
+        "Weight: 85 kg",
+        "Activity Level: Sedentary (1.2x multiplier)",
+        "Goal: Maintain weight",
+        "Calculate BMR using Mifflin-St Jeor:",
+        "BMR = (10 × 85) + (6.25 × 180) - (5 × 35) + 5",
+        "BMR = 850 + 1,125 - 175 + 5 = 1,805 kcal/day",
+        "Calculate TDEE: TDEE = BMR × Activity Multiplier",
+        "TDEE = 1,805 × 1.2 = 2,166 kcal/day",
+        "To maintain weight: 2,166 calories per day"
+      ],
+      "result": "This sedentary office worker needs 2,166 calories per day to maintain his current weight. His BMR is 1,805 calories, which is multiplied by 1.2 (sedentary activity level) to account for minimal daily movement and desk work. This is a relatively low TDEE due to the sedentary lifestyle."
+    },
+    {
+      "title": "Example 2: Lightly Active Person",
+      "description": "A 28-year-old female who exercises 2-3 times per week",
+      "inputs": {
+        "sex": "female",
+        "age": 28,
+        "height": 165,
+        "heightUnit": "cm",
+        "weight": 65,
+        "weightUnit": "kg",
+        "activityLevel": "light",
+        "goal": "maintain"
+      },
+      "steps": [
+        "Sex: Female",
+        "Age: 28 years",
+        "Height: 165 cm",
+        "Weight: 65 kg",
+        "Activity Level: Lightly Active (1.375x multiplier)",
+        "Goal: Maintain weight",
+        "Calculate BMR using Mifflin-St Jeor:",
+        "BMR = (10 × 65) + (6.25 × 165) - (5 × 28) - 161",
+        "BMR = 650 + 1,031.25 - 140 - 161 = 1,380.25 kcal/day",
+        "Calculate TDEE: TDEE = BMR × Activity Multiplier",
+        "TDEE = 1,380 × 1.375 = 1,897.5 ≈ 1,898 kcal/day",
+        "To maintain weight: 1,898 calories per day"
+      ],
+      "result": "This lightly active person needs 1,898 calories per day to maintain her current weight. Her BMR is 1,380 calories, which is multiplied by 1.375 to account for light exercise 1-3 times per week. This moderate activity level increases her calorie needs by about 518 calories compared to a sedentary lifestyle."
+    },
+    {
+      "title": "Example 3: Moderately Active Person",
+      "description": "A 32-year-old male who exercises 4-5 times per week",
+      "inputs": {
+        "sex": "male",
+        "age": 32,
+        "height": 175,
+        "heightUnit": "cm",
+        "weight": 75,
+        "weightUnit": "kg",
+        "activityLevel": "moderate",
+        "goal": "maintain"
+      },
+      "steps": [
+        "Sex: Male",
+        "Age: 32 years",
+        "Height: 175 cm",
+        "Weight: 75 kg",
+        "Activity Level: Moderately Active (1.55x multiplier)",
+        "Goal: Maintain weight",
+        "Calculate BMR using Mifflin-St Jeor:",
+        "BMR = (10 × 75) + (6.25 × 175) - (5 × 32) + 5",
+        "BMR = 750 + 1,093.75 - 160 + 5 = 1,688.75 ≈ 1,689 kcal/day",
+        "Calculate TDEE: TDEE = BMR × Activity Multiplier",
+        "TDEE = 1,689 × 1.55 = 2,617.95 ≈ 2,618 kcal/day",
+        "To maintain weight: 2,618 calories per day"
+      ],
+      "result": "This moderately active person needs 2,618 calories per day to maintain his current weight. His BMR is 1,689 calories, which is multiplied by 1.55 to account for moderate exercise 3-5 times per week. This is a common activity level for people who exercise regularly but not intensely."
+    },
+    {
+      "title": "Example 4: Weight Loss Goal (Same Person)",
+      "description": "Same person from Example 3, but with a goal to lose 0.5 kg per week",
+      "inputs": {
+        "sex": "male",
+        "age": 32,
+        "height": 175,
+        "heightUnit": "cm",
+        "weight": 75,
+        "weightUnit": "kg",
+        "activityLevel": "moderate",
+        "goal": "lose_0_5kg_week"
+      },
+      "steps": [
+        "Same person: Male, 32 years, 175 cm, 75 kg, Moderately Active",
+        "BMR: 1,689 kcal/day (from previous calculation)",
+        "TDEE: 2,618 kcal/day (maintenance calories)",
+        "Goal: Lose 0.5 kg per week",
+        "Calorie deficit needed: -500 kcal/day",
+        "Goal Calories = TDEE + Goal Delta",
+        "Goal Calories = 2,618 + (-500) = 2,118 kcal/day",
+        "This creates a 500-calorie daily deficit",
+        "Weekly deficit: 500 × 7 = 3,500 calories",
+        "1 kg of fat ≈ 7,700 calories",
+        "Expected weight loss: 3,500 ÷ 7,700 ≈ 0.45 kg/week (close to 0.5 kg/week)"
+      ],
+      "result": "To lose 0.5 kg per week, this person should aim for 2,118 calories per day instead of the maintenance 2,618 calories. This creates a 500-calorie daily deficit, which is a moderate and sustainable approach to weight loss. More aggressive deficits (greater than 500-750 calories) may lead to muscle loss and metabolic slowdown."
+    },
+    {
+      "title": "Example 5: Imperial Units (Pounds and Feet+Inches)",
+      "description": "A person using imperial units: Female, 25 years, 5 feet 6 inches, 140 pounds, Very Active",
+      "inputs": {
+        "sex": "female",
+        "age": 25,
+        "height": 66,
+        "heightUnit": "ft+in",
+        "heightFeet": 5,
+        "heightInches": 6,
+        "weight": 140,
+        "weightUnit": "lb",
+        "activityLevel": "very active",
+        "goal": "maintain"
+      },
+      "steps": [
+        "Sex: Female",
+        "Age: 25 years",
+        "Height: 5 ft 6 in = 66 inches",
+        "Convert to cm: 66 × 2.54 = 167.64 cm",
+        "Weight: 140 lb",
+        "Convert to kg: 140 × 0.453592 = 63.5 kg",
+        "Activity Level: Very Active (1.725x multiplier)",
+        "Calculate BMR using Mifflin-St Jeor:",
+        "BMR = (10 × 63.5) + (6.25 × 167.64) - (5 × 25) - 161",
+        "BMR = 635 + 1,047.75 - 125 - 161 = 1,396.75 ≈ 1,397 kcal/day",
+        "Calculate TDEE: TDEE = BMR × Activity Multiplier",
+        "TDEE = 1,397 × 1.725 = 2,409.825 ≈ 2,410 kcal/day",
+        "To maintain weight: 2,410 calories per day"
+      ],
+      "result": "This example demonstrates how the calculator automatically handles unit conversions. The person's TDEE is 2,410 calories per day. This shows that the calculator works seamlessly with both metric and imperial units, converting everything internally to metric for accurate calculations. Very active individuals have significantly higher calorie needs due to their high activity level."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is TDEE?",
+      "answer": "TDEE (Total Daily Energy Expenditure) is the total number of calories your body burns per day, including your BMR (Basal Metabolic Rate) plus calories burned from all activities, exercise, and daily movement. TDEE = BMR × Activity Level Multiplier. It represents the calories you need to consume to maintain your current weight."
+    },
+    {
+      "question": "What's the difference between BMR and TDEE?",
+      "answer": "BMR (Basal Metabolic Rate) is the calories your body burns at complete rest — just for basic life functions like breathing and circulation. TDEE (Total Daily Energy Expenditure) is your BMR multiplied by an activity factor that accounts for all your daily movement and exercise. TDEE is always higher than BMR because it includes activity. For example, if your BMR is 1,500 calories and you're moderately active (1.55x), your TDEE would be 1,500 × 1.55 = 2,325 calories."
+    },
+    {
+      "question": "Which activity level should I choose?",
+      "answer": "Choose the activity level that best matches your typical week: Sedentary (1.2x) = little to no exercise, desk job; Lightly Active (1.375x) = light exercise 1-3 days/week; Moderately Active (1.55x) = moderate exercise 3-5 days/week; Very Active (1.725x) = hard exercise 6-7 days/week; Athlete (1.9x) = very hard exercise, physical job, or training twice/day. Be honest — overestimating activity leads to overeating."
+    },
+    {
+      "question": "How many calories should I eat to lose weight?",
+      "answer": "To lose weight, you need to consume fewer calories than your TDEE. A safe and sustainable deficit is typically 250-500 calories per day, which can lead to 0.25-0.5 kg (0.5-1 lb) of weight loss per week. For example, if your TDEE is 2,000 calories, eating 1,500-1,750 calories per day would create a moderate deficit. Avoid deficits greater than 500-750 calories per day, as they may lead to muscle loss and metabolic slowdown."
+    },
+    {
+      "question": "What is a safe calorie deficit?",
+      "answer": "A safe calorie deficit is typically 250-500 calories per day, which results in 0.25-0.5 kg (0.5-1 lb) of weight loss per week. This moderate deficit allows for sustainable weight loss while preserving muscle mass and energy levels. Deficits greater than 500-750 calories per day may be too aggressive and can lead to muscle loss, metabolic slowdown, nutritional deficiencies, and difficulty maintaining the diet long-term."
+    },
+    {
+      "question": "How many calories should I eat to gain weight?",
+      "answer": "To gain weight (especially muscle), you need to consume more calories than your TDEE. A moderate surplus is typically 250-500 calories per day, which can lead to 0.25-0.5 kg (0.5-1 lb) of weight gain per week. For muscle gain, combine the calorie surplus with resistance training. For example, if your TDEE is 2,000 calories, eating 2,250-2,500 calories per day would create a moderate surplus."
+    },
+    {
+      "question": "Why do my results differ from other calorie calculators or apps?",
+      "answer": "Different calculators may use different formulas (Mifflin-St Jeor vs Harris-Benedict), different activity level definitions, or different assumptions about calorie deficits. This calculator uses the Mifflin-St Jeor formula, which is considered the most accurate for modern populations. Small differences (100-200 calories) are normal and expected. Use the results as a starting point and adjust based on your actual results over 2-3 weeks."
+    },
+    {
+      "question": "Does my metabolism change over time?",
+      "answer": "Yes, metabolism can change due to several factors: Age (metabolism generally decreases with age), muscle mass (more muscle = higher metabolism), weight loss (metabolism may slow down as you lose weight, known as metabolic adaptation), medical conditions, medications, and lifestyle changes. It's a good idea to recalculate your TDEE every few months or when your weight or activity level changes significantly."
+    },
+    {
+      "question": "Can I eat below my BMR to lose weight faster?",
+      "answer": "Eating below your BMR for extended periods is not recommended. BMR represents the minimum calories needed for basic bodily functions. Consistently eating below BMR can slow your metabolism, cause muscle loss, lead to nutritional deficiencies, reduce energy levels, and make it difficult to maintain the diet long-term. Instead, eat below your TDEE (which is higher than BMR) to create a safe calorie deficit."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "This calculator provides reasonable estimates for most people, typically within 10-15% of actual TDEE. However, individual variations exist due to genetics, body composition (muscle vs fat), medical conditions, medications, and other factors. Use the results as a starting point and adjust based on your actual results. If you're not seeing expected results after 2-3 weeks, adjust your calorie intake by 100-200 calories and monitor again."
+    },
+    {
+      "question": "Should I track calories every day?",
+      "answer": "Daily tracking can be helpful, especially when starting, but it's not necessary forever. Many people find success with flexible tracking (tracking most days but not obsessing), focusing on portion sizes and food quality, or using meal planning. The key is finding a sustainable approach that helps you meet your calorie goals without causing stress or disordered eating patterns."
+    },
+    {
+      "question": "What if I'm not losing weight even with a calorie deficit?",
+      "answer": "If you're not losing weight despite a calorie deficit, consider: 1) You may be underestimating calorie intake (track more accurately), 2) You may be overestimating activity level, 3) Water retention can mask fat loss (weigh yourself at the same time daily), 4) Metabolic adaptation may have occurred, 5) Medical conditions or medications may affect metabolism. Give it 2-3 weeks, then adjust. If issues persist, consult a healthcare provider or registered dietitian."
+    },
+    {
+      "question": "Do I need to recalculate if I lose weight?",
+      "answer": "Yes, you should recalculate your TDEE as you lose weight. As your weight decreases, your BMR decreases (smaller body = fewer calories needed), which means your TDEE also decreases. For example, if you lose 10 kg, your maintenance calories will be lower. Recalculate every 5-10 kg of weight change, or every few months, to ensure you're still eating the right amount for your current body size."
+    },
+    {
+      "question": "Can I use this calculator if I'm pregnant or breastfeeding?",
+      "answer": "This calculator is not designed for pregnancy or breastfeeding, as calorie needs during these periods are significantly different and require specialized guidance. Pregnant and breastfeeding women have increased calorie needs that vary by trimester, pre-pregnancy weight, and individual factors. Consult with a healthcare provider or registered dietitian for personalized calorie recommendations during pregnancy and breastfeeding."
+    },
+    {
+      "question": "What about cheat days or refeed days?",
+      "answer": "Occasional higher-calorie days (cheat days or refeed days) can be part of a sustainable diet plan, especially for long-term weight management. A single high-calorie day won't derail progress if you're consistent the rest of the week. Some people find that planned refeed days (eating at or slightly above maintenance) can help with adherence and may provide metabolic benefits. However, frequent cheat days can slow progress, so moderation is key."
+    },
+    {
+      "question": "How do I know if my activity level is correct?",
+      "answer": "Monitor your results over 2-3 weeks. If you're maintaining weight while eating at your calculated TDEE, your activity level is likely correct. If you're gaining weight, you may have overestimated your activity level. If you're losing weight (and that's not your goal), you may have underestimated it. Adjust your activity level selection and recalculate. Remember that activity level includes both exercise and daily movement (walking, standing, etc.)."
+    },
+    {
+      "question": "What's the difference between losing 0.25 kg/week and 0.5 kg/week?",
+      "answer": "Losing 0.25 kg/week requires a 250-calorie daily deficit, while losing 0.5 kg/week requires a 500-calorie daily deficit. The 0.25 kg/week option is more gradual and may be easier to maintain long-term, with less risk of muscle loss. The 0.5 kg/week option is faster but requires a larger deficit, which may be more challenging to sustain. Choose based on your timeline, preferences, and ability to maintain the deficit. Many people find 0.25-0.5 kg/week to be a good balance."
+    },
+    {
+      "question": "Should I eat the same calories every day?",
+      "answer": "Not necessarily. Some people prefer consistent daily calories, while others use calorie cycling (eating more on active days, less on rest days). Both approaches can work. The key is that your weekly average matches your goal. For example, if your target is 2,000 calories/day, you could eat 1,800 on Monday, 2,200 on Tuesday, 2,000 on Wednesday, etc., as long as the weekly average is 14,000 calories (2,000 × 7). Find what works best for your lifestyle and preferences."
+    }
+  ],
+  "seo": {
+    "keywords": ["tdee calculator", "daily calorie needs", "calorie calculator", "total daily energy expenditure", "calories to maintain weight", "calories to lose weight", "calorie deficit", "calorie surplus", "bmr calculator", "metabolism calculator", "weight loss calories", "weight gain calories", "maintenance calories", "calorie target"]
+  }
+}
+

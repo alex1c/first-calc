@@ -21,6 +21,7 @@ export type CategoryId =
 	| 'converter'
 	| 'fun'
 	| 'it'
+	| 'everyday'
 
 /**
  * Category configuration interface
@@ -102,6 +103,12 @@ export const categories: CategoryConfig[] = [
 		order: 11,
 		iconKey: '💻',
 		calcCount: 3,
+	},
+	{
+		id: 'everyday',
+		order: 12,
+		iconKey: '📅',
+		calcCount: 9,
 	},
 ]
 

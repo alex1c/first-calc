@@ -1,0 +1,230 @@
+{
+  "title": "Calories Burned Calculator – Estimate Calories Burned by Exercise",
+  "shortDescription": "Estimate how many calories you burn during walking, running, cycling, and other activities based on weight and duration.",
+  "longDescription": "Our Calories Burned Calculator helps you estimate how many calories you burn during various physical activities using MET (Metabolic Equivalent of Task) values. Simply enter your weight, select an activity, specify the duration, and optionally choose the intensity level. The calculator will estimate your calorie expenditure based on standardized MET values. Understanding calories burned can help you plan your workouts, track progress, and balance calorie intake with expenditure for weight management goals.",
+  "inputs": [
+    {
+      "label": "Weight",
+      "unitLabel": "",
+      "placeholder": "Enter weight",
+      "helpText": "Your body weight"
+    },
+    {
+      "label": "Weight Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose kilograms (kg) or pounds (lb)"
+    },
+    {
+      "label": "Activity",
+      "unitLabel": "",
+      "placeholder": "Select activity",
+      "helpText": "Choose the type of physical activity"
+    },
+    {
+      "label": "Duration",
+      "unitLabel": "minutes",
+      "placeholder": "Enter duration",
+      "helpText": "How long you performed the activity"
+    },
+    {
+      "label": "Intensity",
+      "unitLabel": "",
+      "placeholder": "Select intensity",
+      "helpText": "Optional: Low, moderate, or high intensity level"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Calories Burned",
+      "unitLabel": "kcal"
+    },
+    {
+      "label": "Calories Per Minute",
+      "unitLabel": "kcal/min"
+    },
+    {
+      "label": "MET Value",
+      "unitLabel": ""
+    },
+    {
+      "label": "MET Description",
+      "unitLabel": ""
+    },
+    {
+      "label": "Insights",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter your body weight",
+    "Select your weight unit (kilograms or pounds)",
+    "Select the type of activity (walking, running, cycling, etc.)",
+    "Enter the duration of the activity in minutes",
+    "Optionally select the intensity level (low, moderate, or high)",
+    "Click 'Calculate' to see estimated calories burned",
+    "Review the results: total calories burned and calories per minute",
+    "Check the MET value used for the calculation",
+    "Understand that these are estimates and actual values may vary",
+    "Use these estimates to plan workouts and track progress"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: 30 Minutes Walking",
+      "description": "A 70 kg person walking for 30 minutes at moderate pace",
+      "inputs": {
+        "weight": 70,
+        "weightUnit": "kg",
+        "activity": "walking",
+        "durationMinutes": 30,
+        "intensity": "moderate"
+      },
+      "steps": [
+        "Weight: 70 kg",
+        "Activity: Walking",
+        "Duration: 30 minutes = 0.5 hours",
+        "Intensity: Moderate",
+        "MET value for moderate walking: 3.5",
+        "Formula: Calories = MET × weight(kg) × duration(hours)",
+        "Calories = 3.5 × 70 × 0.5",
+        "Calories = 122.5 ≈ 123 kcal",
+        "Calories per minute: 123 ÷ 30 = 4.1 kcal/min"
+      ],
+      "result": "A 70 kg person walking at moderate pace for 30 minutes burns approximately 123 calories. This is a low-to-moderate intensity activity suitable for daily exercise and general fitness. Walking is accessible, low-impact, and can be easily incorporated into daily routines."
+    },
+    {
+      "title": "Example 2: 45 Minutes Running",
+      "description": "A 75 kg person running for 45 minutes at moderate pace",
+      "inputs": {
+        "weight": 75,
+        "weightUnit": "kg",
+        "activity": "running",
+        "durationMinutes": 45,
+        "intensity": "moderate"
+      },
+      "steps": [
+        "Weight: 75 kg",
+        "Activity: Running",
+        "Duration: 45 minutes = 0.75 hours",
+        "Intensity: Moderate",
+        "MET value for moderate running: 10.0",
+        "Formula: Calories = MET × weight(kg) × duration(hours)",
+        "Calories = 10.0 × 75 × 0.75",
+        "Calories = 562.5 ≈ 563 kcal",
+        "Calories per minute: 563 ÷ 45 = 12.5 kcal/min"
+      ],
+      "result": "A 75 kg person running at moderate pace for 45 minutes burns approximately 563 calories. Running is a high-intensity cardiovascular activity that burns significantly more calories than walking due to its higher MET value (10.0 vs 3.5). This makes running efficient for calorie burning and cardiovascular fitness."
+    },
+    {
+      "title": "Example 3: Cycling Moderate Intensity",
+      "description": "A 65 kg person cycling for 60 minutes at moderate pace",
+      "inputs": {
+        "weight": 65,
+        "weightUnit": "kg",
+        "activity": "cycling",
+        "durationMinutes": 60,
+        "intensity": "moderate"
+      },
+      "steps": [
+        "Weight: 65 kg",
+        "Activity: Cycling",
+        "Duration: 60 minutes = 1.0 hour",
+        "Intensity: Moderate",
+        "MET value for moderate cycling: 8.0",
+        "Formula: Calories = MET × weight(kg) × duration(hours)",
+        "Calories = 8.0 × 65 × 1.0",
+        "Calories = 520 kcal",
+        "Calories per minute: 520 ÷ 60 = 8.7 kcal/min"
+      ],
+      "result": "A 65 kg person cycling at moderate pace for 60 minutes burns approximately 520 calories. Cycling is an excellent low-impact cardiovascular exercise that burns calories efficiently while being easier on the joints than running. The moderate intensity provides a good balance between calorie burn and sustainability."
+    },
+    {
+      "title": "Example 4: Compare Two Activities Same Duration",
+      "description": "Comparing walking vs running for the same person and duration",
+      "inputs": {
+        "weight": 70,
+        "weightUnit": "kg",
+        "activity": "walking",
+        "durationMinutes": 30,
+        "intensity": "moderate"
+      },
+      "steps": [
+        "Same person: 70 kg, 30 minutes",
+        "Walking (moderate, MET 3.5):",
+        "  Calories = 3.5 × 70 × 0.5 = 123 kcal",
+        "Running (moderate, MET 10.0):",
+        "  Calories = 10.0 × 70 × 0.5 = 350 kcal",
+        "Difference: 350 - 123 = 227 calories",
+        "Running burns 2.85x more calories than walking",
+        "Calories per minute: Walking 4.1, Running 11.7"
+      ],
+      "result": "This comparison shows how activity type significantly affects calorie burn. For the same person and duration, running burns 350 calories compared to walking's 123 calories—a difference of 227 calories (2.85x more). Running has a much higher MET value (10.0 vs 3.5), making it more efficient for calorie burning. However, walking is more accessible and sustainable for many people, and consistency matters more than intensity for long-term success."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How are calories burned calculated?",
+      "answer": "Calories burned are calculated using the MET (Metabolic Equivalent of Task) formula: Calories = MET × weight(kg) × duration(hours). MET values are standardized measures of energy expenditure that represent how many times your resting metabolic rate an activity requires. For example, a MET of 3.5 means the activity requires 3.5 times the energy of sitting at rest. This formula provides reasonable estimates for most people."
+    },
+    {
+      "question": "What is MET?",
+      "answer": "MET stands for Metabolic Equivalent of Task. It's a standardized measure of energy expenditure that compares the intensity of physical activities to resting metabolism. 1 MET = the energy expended while sitting quietly at rest. A MET of 3.5 means the activity requires 3.5 times the energy of resting. MET values are used in exercise science and health research to standardize activity intensity across different people and activities."
+    },
+    {
+      "question": "Does weight affect calories burned?",
+      "answer": "Yes, weight significantly affects calories burned. Heavier people burn more calories doing the same activity for the same duration because they have more body mass to move and more metabolic tissue. The formula multiplies MET by weight, so a 100 kg person burns twice as many calories as a 50 kg person doing the same activity. This is why weight is a key input in calorie burn calculations."
+    },
+    {
+      "question": "Are fitness trackers accurate?",
+      "answer": "Fitness trackers provide estimates that are generally reasonable but not perfectly accurate. Most trackers use heart rate, movement sensors, and algorithms to estimate calories burned. Accuracy varies by device, activity type, and individual factors. Research suggests fitness trackers are typically within 10-20% of actual calorie burn for most activities. This calculator uses standardized MET values, which may be more or less accurate than your tracker depending on the situation."
+    },
+    {
+      "question": "How does intensity change calorie burn?",
+      "answer": "Higher intensity activities have higher MET values, which means they burn more calories per minute. For example, walking at a slow pace might have a MET of 3.0, while running might have a MET of 10.0—more than three times the calorie burn rate. Increasing intensity is one way to burn more calories in the same amount of time. However, higher intensity may not be sustainable for as long, so total calorie burn depends on both intensity and duration."
+    },
+    {
+      "question": "Why do my results differ from my fitness tracker?",
+      "answer": "Results may differ because: Fitness trackers use heart rate and movement sensors for personalized estimates, while this calculator uses standardized MET values. Individual factors (fitness level, efficiency, terrain) affect actual calorie burn. Trackers may overestimate or underestimate depending on the activity and device. Both methods are estimates—actual calorie burn can only be measured precisely in laboratory settings. Use both as general guidelines."
+    },
+    {
+      "question": "Can I burn more calories by exercising longer?",
+      "answer": "Yes, exercising longer increases total calories burned because the formula multiplies by duration. For example, 30 minutes of walking burns about 123 calories, while 60 minutes burns about 246 calories (double the duration = double the calories). However, there are practical limits: fatigue, time constraints, and the need for recovery. Balance duration with intensity and sustainability for long-term success."
+    },
+    {
+      "question": "Which activities burn the most calories?",
+      "answer": "Activities with the highest MET values burn the most calories per minute. Generally: Running (8-12 MET) burns the most per minute. Cycling (6-10 MET) and swimming (6-9 MET) are also high. Walking (3-4.5 MET) is lower but more sustainable. Strength training (3-6 MET) varies by intensity. However, the best activity is one you enjoy and can do consistently—consistency matters more than maximum calorie burn."
+    },
+    {
+      "question": "Does fitness level affect calories burned?",
+      "answer": "Yes, fitness level can affect calories burned, but MET values are standardized averages. More fit individuals may be more efficient at activities (using less energy), potentially burning slightly fewer calories. Less fit individuals may burn slightly more due to inefficiency. However, these differences are usually small (5-15%), and MET values provide reasonable estimates for most people regardless of fitness level."
+    },
+    {
+      "question": "Should I trust these estimates for weight loss?",
+      "answer": "These estimates are reasonable starting points for weight loss planning, but remember: They're estimates, not exact measurements. Individual variation exists. For weight loss, focus on creating a calorie deficit (eating fewer calories than you burn). Use these estimates to understand relative calorie burn between activities, but don't rely on them as exact numbers. Track your actual results and adjust accordingly."
+    },
+    {
+      "question": "Do I burn calories after exercise (afterburn effect)?",
+      "answer": "Yes, you may experience EPOC (Excess Post-Exercise Oxygen Consumption), also called the 'afterburn effect.' After intense exercise, your body continues to burn calories at an elevated rate for a period (typically 15 minutes to several hours, depending on intensity). This calculator shows calories burned during the activity only, not the afterburn effect. High-intensity activities tend to have more significant afterburn effects."
+    },
+    {
+      "question": "How accurate are MET values?",
+      "answer": "MET values are research-based averages from studies measuring energy expenditure. They're reasonably accurate for most people but represent averages, not individual values. Actual calorie burn can vary by ±10-20% based on individual factors like fitness level, body composition, efficiency, terrain, and environmental conditions. MET values are standardized tools used in exercise science and provide good estimates for general use."
+    },
+    {
+      "question": "Can I use this for weight training?",
+      "answer": "Yes, this calculator includes strength training as an activity option. However, strength training calorie burn is harder to estimate accurately because it depends heavily on rest periods, exercise selection, and intensity. The MET values for strength training (3-6) are lower than cardio activities, but strength training has other benefits like muscle building and increased metabolism. For accurate strength training calorie estimates, consider using a heart rate monitor."
+    },
+    {
+      "question": "What about activities not listed?",
+      "answer": "If your activity isn't listed, you can use the 'Other Activity' option and select an intensity level. This uses generic MET values (3.0 for low, 5.0 for moderate, 7.0 for high). For more accurate estimates, you can look up specific MET values for your activity online (the Compendium of Physical Activities is a comprehensive resource) and use those values as a reference."
+    },
+    {
+      "question": "Does age affect calories burned?",
+      "answer": "Age can affect metabolism and calorie burn, but MET values are age-neutral averages. Older adults may have slightly lower resting metabolism, which could affect total calorie burn slightly. However, the MET formula (MET × weight × duration) provides reasonable estimates regardless of age. The main factor is weight—heavier people burn more calories regardless of age."
+    }
+  ],
+  "seo": {
+    "keywords": ["calories burned calculator", "calories burned", "exercise calories", "calories burned walking", "calories burned running", "calories burned cycling", "met calculator", "calorie burn calculator", "activity calories", "fitness calculator", "exercise calorie calculator"]
+  }
+}
+

@@ -1,0 +1,116 @@
+{
+  "id": "room-area-calculator",
+  "slug": "room-area-calculator",
+  "category": "everyday",
+  "engine": "function",
+  "calculationId": "calculateRoomArea",
+  "tags": ["room-area", "area-calculator", "square-meters", "room-size"],
+  "inputs": [
+    {
+      "name": "shape",
+      "type": "select",
+      "options": [
+        { "value": "rectangle", "label": "Rectangle" },
+        { "value": "square", "label": "Square" },
+        { "value": "circle", "label": "Circle" }
+      ],
+      "defaultValue": "rectangle"
+    },
+    {
+      "name": "length",
+      "type": "number",
+      "step": 1,
+      "visibleIf": {
+        "field": "shape",
+        "value": "rectangle"
+      }
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "step": 1,
+      "visibleIf": {
+        "field": "shape",
+        "value": "rectangle"
+      }
+    },
+    {
+      "name": "side",
+      "type": "number",
+      "step": 1,
+      "visibleIf": {
+        "field": "shape",
+        "value": "square"
+      }
+    },
+    {
+      "name": "radius",
+      "type": "number",
+      "step": 1,
+      "visibleIf": {
+        "field": "shape",
+        "value": "circle"
+      }
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "area"
+    },
+    {
+      "name": "areaFormatted"
+    },
+    {
+      "name": "areaInAlternativeUnit"
+    },
+    {
+      "name": "areaInAlternativeUnitFormatted"
+    },
+    {
+      "name": "alternativeUnit"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "shape"
+    },
+    {
+      "name": "unit"
+    },
+    {
+      "name": "unitSymbol"
+    }
+  ],
+  "defaults": {
+    "shape": "rectangle",
+    "unit": "meters"
+  },
+  "relatedIds": ["paint-calculator", "cooking-measurement-converter"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Room Area Calculator – Calculate Room Size in Square Meters or Feet",
+    "description": "Calculate the area of a room easily. Supports rectangular, square, and circular rooms.",
+    "schema": {
+      "applicationSubCategory": "EverydayCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

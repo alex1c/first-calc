@@ -1,0 +1,87 @@
+{
+  "id": "water-intake-calculator",
+  "slug": "water-intake-calculator",
+  "category": "health",
+  "engine": "function",
+  "calculationId": "calculateWaterIntake",
+  "tags": ["health", "water-intake", "hydration", "daily-water"],
+  "inputs": [
+    {
+      "name": "weight",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "weightUnit",
+      "type": "select",
+      "options": [
+        { "value": "kg", "label": "Kilograms (kg)" },
+        { "value": "lb", "label": "Pounds (lb)" }
+      ],
+      "defaultValue": "kg"
+    },
+    {
+      "name": "activityLevel",
+      "type": "select",
+      "options": [
+        { "value": "low", "label": "Low (sedentary, minimal exercise)" },
+        { "value": "moderate", "label": "Moderate (regular exercise 3-5 days/week)" },
+        { "value": "high", "label": "High (intense exercise 6-7 days/week)" }
+      ],
+      "defaultValue": "moderate"
+    },
+    {
+      "name": "climate",
+      "type": "select",
+      "options": [
+        { "value": "cool", "label": "Cool" },
+        { "value": "moderate", "label": "Moderate" },
+        { "value": "hot", "label": "Hot" }
+      ],
+      "defaultValue": "moderate",
+      "optional": true
+    },
+    {
+      "name": "exerciseMinutesPerDay",
+      "type": "number",
+      "step": 1,
+      "optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "dailyWaterIntakeLiters"
+    },
+    {
+      "name": "dailyWaterIntakeCups"
+    },
+    {
+      "name": "dailyWaterIntakeOunces"
+    },
+    {
+      "name": "insights"
+    }
+  ],
+  "defaults": {
+    "weight": 70,
+    "weightUnit": "kg",
+    "activityLevel": "moderate",
+    "climate": "moderate",
+    "exerciseMinutesPerDay": 0
+  },
+  "relatedIds": ["daily-calorie-needs-calculator", "macronutrient-calculator", "calories-burned-calculator", "bmi-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Water Intake Calculator – How Much Water Should You Drink Daily?",
+    "description": "Estimate your daily water intake based on weight, activity level, and climate. Stay properly hydrated.",
+    "schema": {
+      "applicationSubCategory": "HealthCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

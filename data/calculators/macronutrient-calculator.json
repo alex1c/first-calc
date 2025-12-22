@@ -1,0 +1,110 @@
+{
+  "id": "macronutrient-calculator",
+  "slug": "macronutrient-calculator",
+  "category": "health",
+  "engine": "function",
+  "calculationId": "calculateMacronutrient",
+  "tags": ["health", "macros", "macronutrients", "protein", "carbs", "fat"],
+  "inputs": [
+    {
+      "name": "dailyCalories",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "macroPreset",
+      "type": "select",
+      "options": [
+        { "value": "balanced", "label": "Balanced (30% protein, 40% carbs, 30% fat)" },
+        { "value": "low-carb", "label": "Low-Carb (35% protein, 20% carbs, 45% fat)" },
+        { "value": "high-protein", "label": "High-Protein (40% protein, 30% carbs, 30% fat)" },
+        { "value": "custom", "label": "Custom (set your own percentages)" }
+      ],
+      "defaultValue": "balanced"
+    },
+    {
+      "name": "proteinPercent",
+      "type": "number",
+      "step": 1,
+      "visibleIf": {
+        "field": "macroPreset",
+        "value": "custom"
+      }
+    },
+    {
+      "name": "carbsPercent",
+      "type": "number",
+      "step": 1,
+      "visibleIf": {
+        "field": "macroPreset",
+        "value": "custom"
+      }
+    },
+    {
+      "name": "fatPercent",
+      "type": "number",
+      "step": 1,
+      "visibleIf": {
+        "field": "macroPreset",
+        "value": "custom"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "proteinGrams"
+    },
+    {
+      "name": "carbsGrams"
+    },
+    {
+      "name": "fatGrams"
+    },
+    {
+      "name": "proteinCalories"
+    },
+    {
+      "name": "carbsCalories"
+    },
+    {
+      "name": "fatCalories"
+    },
+    {
+      "name": "proteinPercent"
+    },
+    {
+      "name": "carbsPercent"
+    },
+    {
+      "name": "fatPercent"
+    },
+    {
+      "name": "presetDescription"
+    },
+    {
+      "name": "insights"
+    }
+  ],
+  "defaults": {
+    "dailyCalories": 2000,
+    "macroPreset": "balanced",
+    "proteinPercent": 30,
+    "carbsPercent": 40,
+    "fatPercent": 30
+  },
+  "relatedIds": ["daily-calorie-needs-calculator", "water-intake-calculator", "calories-burned-calculator", "bmr-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Macronutrient Calculator – Protein, Carbs & Fat Breakdown",
+    "description": "Calculate daily macronutrient targets based on calories. Get protein, carb, and fat grams for balanced or custom diets.",
+    "schema": {
+      "applicationSubCategory": "HealthCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

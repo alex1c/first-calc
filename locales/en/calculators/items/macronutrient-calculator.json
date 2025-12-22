@@ -1,0 +1,261 @@
+{
+  "title": "Macronutrient Calculator – Protein, Carbs & Fat Breakdown",
+  "shortDescription": "Calculate daily macronutrient targets based on calories. Get protein, carb, and fat grams for balanced or custom diets.",
+  "longDescription": "Our Macronutrient Calculator helps you break down your daily calorie needs into macronutrients: protein, carbohydrates, and fat. Simply enter your daily calorie target and choose a macro distribution preset (balanced, low-carb, high-protein) or create a custom split. The calculator will show you exactly how many grams of each macronutrient you should aim for per day, along with the calorie contribution and percentage breakdown. Understanding macronutrients is essential for effective nutrition planning, whether your goal is weight loss, muscle gain, or maintaining a healthy lifestyle.",
+  "inputs": [
+    {
+      "label": "Daily Calories",
+      "unitLabel": "kcal/day",
+      "placeholder": "Enter daily calories",
+      "helpText": "Your total daily calorie target (from TDEE calculator or your goal)"
+    },
+    {
+      "label": "Macro Distribution",
+      "unitLabel": "",
+      "placeholder": "Select preset",
+      "helpText": "Choose a preset macro split or create a custom distribution"
+    },
+    {
+      "label": "Protein Percentage",
+      "unitLabel": "%",
+      "placeholder": "Enter protein %",
+      "helpText": "Percentage of calories from protein (only shown for custom preset)"
+    },
+    {
+      "label": "Carbohydrates Percentage",
+      "unitLabel": "%",
+      "placeholder": "Enter carbs %",
+      "helpText": "Percentage of calories from carbohydrates (only shown for custom preset)"
+    },
+    {
+      "label": "Fat Percentage",
+      "unitLabel": "%",
+      "placeholder": "Enter fat %",
+      "helpText": "Percentage of calories from fat (only shown for custom preset). Must sum to 100% with protein and carbs."
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Protein Grams",
+      "unitLabel": "g/day"
+    },
+    {
+      "label": "Carbohydrates Grams",
+      "unitLabel": "g/day"
+    },
+    {
+      "label": "Fat Grams",
+      "unitLabel": "g/day"
+    },
+    {
+      "label": "Protein Calories",
+      "unitLabel": "kcal"
+    },
+    {
+      "label": "Carbohydrates Calories",
+      "unitLabel": "kcal"
+    },
+    {
+      "label": "Fat Calories",
+      "unitLabel": "kcal"
+    },
+    {
+      "label": "Protein Percent",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Carbohydrates Percent",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Fat Percent",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Preset Description",
+      "unitLabel": ""
+    },
+    {
+      "label": "Insights",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter your daily calorie target (from TDEE calculator or your goal)",
+    "Select a macro distribution preset:",
+    "  - Balanced: 30% protein, 40% carbs, 30% fat (general health)",
+    "  - Low-Carb: 35% protein, 20% carbs, 45% fat (keto-friendly)",
+    "  - High-Protein: 40% protein, 30% carbs, 30% fat (muscle building)",
+    "  - Custom: Set your own percentages (must sum to 100%)",
+    "If using custom, enter protein, carbs, and fat percentages",
+    "Ensure custom percentages sum to exactly 100%",
+    "Click 'Calculate' to see your daily macro targets",
+    "Review the grams per day for each macronutrient",
+    "Check the calorie contribution and percentage breakdown",
+    "Use these targets to plan your meals throughout the day"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: 2,000 kcal Balanced",
+      "description": "A person aiming for 2,000 calories per day with a balanced macro split",
+      "inputs": {
+        "dailyCalories": 2000,
+        "macroPreset": "balanced"
+      },
+      "steps": [
+        "Daily Calories: 2,000 kcal",
+        "Preset: Balanced (30% protein, 40% carbs, 30% fat)",
+        "Calculate protein:",
+        "  Protein calories = 2,000 × 0.30 = 600 kcal",
+        "  Protein grams = 600 ÷ 4 = 150 g",
+        "Calculate carbohydrates:",
+        "  Carbs calories = 2,000 × 0.40 = 800 kcal",
+        "  Carbs grams = 800 ÷ 4 = 200 g",
+        "Calculate fat:",
+        "  Fat calories = 2,000 × 0.30 = 600 kcal",
+        "  Fat grams = 600 ÷ 9 = 66.7 g",
+        "Daily targets: 150 g protein, 200 g carbs, 66.7 g fat"
+      ],
+      "result": "With a balanced macro split on 2,000 calories, you should aim for 150 g protein, 200 g carbohydrates, and 66.7 g fat per day. This provides a well-rounded distribution suitable for general health and moderate activity levels. Protein supports muscle maintenance, carbs provide energy, and fat supports hormone production and satiety."
+    },
+    {
+      "title": "Example 2: 1,800 kcal High-Protein",
+      "description": "A person on a weight loss plan with 1,800 calories and high-protein macro split",
+      "inputs": {
+        "dailyCalories": 1800,
+        "macroPreset": "high-protein"
+      },
+      "steps": [
+        "Daily Calories: 1,800 kcal",
+        "Preset: High-Protein (40% protein, 30% carbs, 30% fat)",
+        "Calculate protein:",
+        "  Protein calories = 1,800 × 0.40 = 720 kcal",
+        "  Protein grams = 720 ÷ 4 = 180 g",
+        "Calculate carbohydrates:",
+        "  Carbs calories = 1,800 × 0.30 = 540 kcal",
+        "  Carbs grams = 540 ÷ 4 = 135 g",
+        "Calculate fat:",
+        "  Fat calories = 1,800 × 0.30 = 540 kcal",
+        "  Fat grams = 540 ÷ 9 = 60 g",
+        "Daily targets: 180 g protein, 135 g carbs, 60 g fat"
+      ],
+      "result": "With a high-protein split on 1,800 calories, you should aim for 180 g protein, 135 g carbohydrates, and 60 g fat per day. This higher protein intake (40%) helps preserve muscle mass during weight loss, increases satiety, and supports recovery. The moderate carb intake (30%) provides energy while the balanced fat intake (30%) supports hormone production."
+    },
+    {
+      "title": "Example 3: 2,500 kcal Low-Carb",
+      "description": "An active person with 2,500 calories following a low-carb approach",
+      "inputs": {
+        "dailyCalories": 2500,
+        "macroPreset": "low-carb"
+      },
+      "steps": [
+        "Daily Calories: 2,500 kcal",
+        "Preset: Low-Carb (35% protein, 20% carbs, 45% fat)",
+        "Calculate protein:",
+        "  Protein calories = 2,500 × 0.35 = 875 kcal",
+        "  Protein grams = 875 ÷ 4 = 218.75 g",
+        "Calculate carbohydrates:",
+        "  Carbs calories = 2,500 × 0.20 = 500 kcal",
+        "  Carbs grams = 500 ÷ 4 = 125 g",
+        "Calculate fat:",
+        "  Fat calories = 2,500 × 0.45 = 1,125 kcal",
+        "  Fat grams = 1,125 ÷ 9 = 125 g",
+        "Daily targets: 218.8 g protein, 125 g carbs, 125 g fat"
+      ],
+      "result": "With a low-carb split on 2,500 calories, you should aim for 218.8 g protein, 125 g carbohydrates, and 125 g fat per day. This distribution (20% carbs) is suitable for ketogenic or low-carb diets. The high fat intake (45%) provides energy in the absence of carbs, while the high protein intake (35%) helps maintain muscle mass. Note: Very low-carb diets may not be suitable for everyone, especially highly active individuals."
+    },
+    {
+      "title": "Example 4: Custom Macro Split",
+      "description": "A person creating a custom macro distribution: 2,200 calories, 35% protein, 35% carbs, 30% fat",
+      "inputs": {
+        "dailyCalories": 2200,
+        "macroPreset": "custom",
+        "proteinPercent": 35,
+        "carbsPercent": 35,
+        "fatPercent": 30
+      },
+      "steps": [
+        "Daily Calories: 2,200 kcal",
+        "Preset: Custom",
+        "Verify percentages sum to 100%: 35% + 35% + 30% = 100% ✓",
+        "Calculate protein:",
+        "  Protein calories = 2,200 × 0.35 = 770 kcal",
+        "  Protein grams = 770 ÷ 4 = 192.5 g",
+        "Calculate carbohydrates:",
+        "  Carbs calories = 2,200 × 0.35 = 770 kcal",
+        "  Carbs grams = 770 ÷ 4 = 192.5 g",
+        "Calculate fat:",
+        "  Fat calories = 2,200 × 0.30 = 660 kcal",
+        "  Fat grams = 660 ÷ 9 = 73.3 g",
+        "Daily targets: 192.5 g protein, 192.5 g carbs, 73.3 g fat"
+      ],
+      "result": "With a custom macro split (35% protein, 35% carbs, 30% fat) on 2,200 calories, you should aim for 192.5 g protein, 192.5 g carbohydrates, and 73.3 g fat per day. This custom distribution balances protein and carbs equally while maintaining moderate fat intake. Custom splits allow you to tailor macros to your specific goals, preferences, or dietary restrictions."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What are macronutrients?",
+      "answer": "Macronutrients (macros) are the three main nutrients your body needs in large amounts: protein, carbohydrates, and fat. Protein provides 4 calories per gram and is essential for muscle repair and growth. Carbohydrates provide 4 calories per gram and are your body's primary energy source. Fat provides 9 calories per gram (more than twice the energy density) and is essential for hormone production and vitamin absorption."
+    },
+    {
+      "question": "How much protein do I need?",
+      "answer": "Protein needs vary by activity level and goals. General recommendations: Sedentary adults: 0.8 g per kg body weight (0.36 g per lb). Active individuals: 1.2-1.7 g per kg (0.54-0.77 g per lb). Athletes/bodybuilders: 1.6-2.2 g per kg (0.73-1.0 g per lb). For weight loss, higher protein (25-35% of calories) helps preserve muscle mass and increase satiety. Most people benefit from 20-30% of calories from protein."
+    },
+    {
+      "question": "Is a low-carb diet safe?",
+      "answer": "Low-carb diets (typically <130g carbs/day or <20% of calories) can be safe for most people when done properly, but they're not suitable for everyone. Benefits may include improved blood sugar control and weight loss. Potential concerns include reduced energy for high-intensity exercise, nutrient deficiencies if not planned carefully, and difficulty maintaining long-term. Consult a healthcare provider before starting a very low-carb diet, especially if you have medical conditions."
+    },
+    {
+      "question": "What macros are best for weight loss?",
+      "answer": "For weight loss, the most important factor is a calorie deficit. However, macro distribution matters: Higher protein (25-35% of calories) helps preserve muscle mass and increase satiety. Moderate carbs (30-40%) provide energy for exercise and daily activities. Moderate fat (25-35%) supports hormone production and satiety. The exact split depends on your preferences, activity level, and what's sustainable for you. Focus on finding a balance you can maintain long-term."
+    },
+    {
+      "question": "Should my macros change with activity level?",
+      "answer": "Yes, macros should adjust with activity level. Highly active individuals may benefit from: Higher carbs (40-50%) to fuel intense workouts and recovery. Moderate protein (20-30%) to support muscle repair. Moderate fat (20-30%) for energy and hormone production. Sedentary individuals may do well with: Lower carbs (30-40%). Higher protein (25-35%) for satiety. Moderate fat (25-35%). Adjust based on your energy levels, performance, and recovery."
+    },
+    {
+      "question": "Why does fat have more calories per gram?",
+      "answer": "Fat provides 9 calories per gram compared to 4 calories per gram for protein and carbs because fat molecules are more energy-dense. Fat contains more carbon-hydrogen bonds, which store more energy. This is why high-fat foods are calorie-dense. However, fat is essential for health: it supports hormone production, vitamin absorption (A, D, E, K), brain function, and provides satiety. Don't eliminate fat from your diet."
+    },
+    {
+      "question": "Can I eat more protein to build muscle?",
+      "answer": "Yes, but there's a limit. Research suggests optimal protein intake for muscle building is around 1.6-2.2 g per kg body weight (0.73-1.0 g per lb), which typically translates to 25-35% of calories for most people. Eating more protein than this doesn't necessarily build more muscle—excess protein is either used for energy or stored as fat. Focus on consistent training, adequate calories, and proper protein distribution throughout the day rather than excessive protein intake."
+    },
+    {
+      "question": "What if my percentages don't sum to 100%?",
+      "answer": "For custom macro splits, the percentages must sum to exactly 100%. If they don't, the calculator will show an error. This is because all calories must come from one of the three macronutrients. For example, if you set 30% protein, 40% carbs, and 25% fat, that's only 95%—you're missing 5% of your calories. Adjust the percentages until they sum to 100%."
+    },
+    {
+      "question": "Do I need to hit my macros exactly every day?",
+      "answer": "No, you don't need to hit your macros exactly every day. Aim to hit your targets on average over the week. Some days you might be slightly over or under on certain macros, and that's fine. The key is consistency over time. For example, if your protein target is 150g, hitting 140g one day and 160g the next averages to 150g. Focus on weekly averages rather than daily perfection."
+    },
+    {
+      "question": "What about micronutrients?",
+      "answer": "While macronutrients (protein, carbs, fat) provide calories and energy, micronutrients (vitamins and minerals) are equally important for health. Micronutrients don't provide calories but are essential for metabolism, immune function, bone health, and many other processes. A balanced diet with variety (fruits, vegetables, whole grains, lean proteins, healthy fats) ensures adequate micronutrient intake. Consider tracking micronutrients if you have specific deficiencies or dietary restrictions."
+    },
+    {
+      "question": "Can I do a very high-protein diet?",
+      "answer": "Very high-protein diets (40%+ of calories) can be effective for weight loss and muscle building, but they're not necessary for most people. Potential concerns include: Reduced room for carbs and fats (which have important roles), possible kidney strain in individuals with existing kidney issues, and difficulty maintaining long-term. Most people do well with 25-35% protein. Consult a healthcare provider before starting a very high-protein diet."
+    },
+    {
+      "question": "What's the difference between total carbs and net carbs?",
+      "answer": "Total carbs include all carbohydrates in food. Net carbs = total carbs - fiber - sugar alcohols. Some people (especially on low-carb/keto diets) track net carbs because fiber and sugar alcohols have minimal impact on blood sugar. However, this calculator uses total carbs. If you're tracking net carbs, you'll need to adjust your targets accordingly. Most people can track total carbs for general health."
+    },
+    {
+      "question": "How do I track my macros?",
+      "answer": "Track macros using: Food tracking apps (MyFitnessPal, Cronometer, Lose It!) that have extensive food databases, food labels (check grams of protein, carbs, fat), kitchen scale for accurate portions, and meal planning to hit targets consistently. Start by tracking for a few days to understand your current intake, then adjust gradually. Don't obsess—aim for consistency, not perfection."
+    },
+    {
+      "question": "Are there minimum requirements for each macro?",
+      "answer": "Yes, there are minimum requirements: Protein: At least 0.8 g per kg body weight (0.36 g per lb) for basic health, but more is better for active individuals. Fat: At least 20-30% of calories for hormone production and vitamin absorption. Very low fat (<15%) can cause health issues. Carbs: No strict minimum, but very low carbs (<50g/day) may not be suitable for everyone, especially active individuals. Most people benefit from at least 100-150g carbs per day."
+    },
+    {
+      "question": "Can macros help with specific health conditions?",
+      "answer": "Yes, macro adjustments can help with certain conditions: Diabetes: Lower carbs, higher protein and fat may improve blood sugar control. PCOS: Lower carbs, higher protein may help with insulin resistance. High cholesterol: Focus on healthy fats, limit saturated/trans fats. However, always consult with a healthcare provider or registered dietitian before making significant dietary changes, especially if you have medical conditions. This calculator is for general guidance only."
+    }
+  ],
+  "seo": {
+    "keywords": ["macronutrient calculator", "macro calculator", "protein calculator", "macros calculator", "protein carbs fat calculator", "macro split calculator", "daily macros", "macronutrient breakdown", "protein intake calculator", "carb calculator", "fat calculator", "macro distribution"]
+  }
+}
+

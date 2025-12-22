@@ -1,0 +1,242 @@
+{
+  "title": "Water Intake Calculator – How Much Water Should You Drink Daily?",
+  "shortDescription": "Estimate your daily water intake based on weight, activity level, and climate. Stay properly hydrated.",
+  "longDescription": "Our Water Intake Calculator helps you estimate your recommended daily water intake based on your body weight, activity level, climate conditions, and exercise routine. Proper hydration is essential for overall health, supporting bodily functions like temperature regulation, nutrient transport, and waste removal. Simply enter your weight, activity level, and optional factors like climate and exercise, and the calculator will provide personalized water intake recommendations in liters, cups, and ounces.",
+  "inputs": [
+    {
+      "label": "Weight",
+      "unitLabel": "",
+      "placeholder": "Enter weight",
+      "helpText": "Your body weight"
+    },
+    {
+      "label": "Weight Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose kilograms (kg) or pounds (lb)"
+    },
+    {
+      "label": "Activity Level",
+      "unitLabel": "",
+      "placeholder": "Select activity level",
+      "helpText": "Your daily activity level affects water needs due to sweating and metabolic demands"
+    },
+    {
+      "label": "Climate",
+      "unitLabel": "",
+      "placeholder": "Select climate",
+      "helpText": "Optional: Hot climates increase water needs due to increased sweating"
+    },
+    {
+      "label": "Exercise Minutes Per Day",
+      "unitLabel": "minutes",
+      "placeholder": "Enter exercise time",
+      "helpText": "Optional: Additional water needed for exercise (approximately 500 ml per hour)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Daily Water Intake (Liters)",
+      "unitLabel": "L"
+    },
+    {
+      "label": "Daily Water Intake (Cups)",
+      "unitLabel": "cups"
+    },
+    {
+      "label": "Daily Water Intake (Ounces)",
+      "unitLabel": "oz"
+    },
+    {
+      "label": "Insights",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter your body weight",
+    "Select your weight unit (kilograms or pounds)",
+    "Select your activity level:",
+    "  - Low: Sedentary, minimal exercise",
+    "  - Moderate: Regular exercise 3-5 days/week",
+    "  - High: Intense exercise 6-7 days/week",
+    "Optionally select your climate (cool, moderate, or hot)",
+    "Optionally enter your daily exercise minutes for additional water needs",
+    "Click 'Calculate' to see your recommended daily water intake",
+    "Review the results in liters, cups, and ounces",
+    "Use these targets to stay properly hydrated throughout the day"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Average Adult, Low Activity",
+      "description": "A 70 kg (154 lb) person with low activity level",
+      "inputs": {
+        "weight": 70,
+        "weightUnit": "kg",
+        "activityLevel": "low",
+        "climate": "moderate",
+        "exerciseMinutesPerDay": 0
+      },
+      "steps": [
+        "Weight: 70 kg",
+        "Activity Level: Low",
+        "Climate: Moderate",
+        "Exercise: 0 minutes",
+        "Base calculation: 30-35 ml per kg body weight",
+        "Using average 32.5 ml per kg: 70 × 32.5 = 2,275 ml",
+        "Activity adjustment: Low activity = no adjustment (1.0x)",
+        "Climate adjustment: Moderate = no adjustment (1.0x)",
+        "Exercise adjustment: 0 minutes = no additional water",
+        "Total: 2,275 ml = 2.3 liters",
+        "Convert to cups: 2.3 × 4.23 = 9.7 cups",
+        "Convert to ounces: 2.3 × 33.8 = 77.7 oz"
+      ],
+      "result": "For a 70 kg person with low activity in moderate climate, the recommended daily water intake is approximately 2.3 liters (9.7 cups or 78 oz). This is a baseline recommendation that can be adjusted based on individual needs, thirst signals, and other factors."
+    },
+    {
+      "title": "Example 2: Active Person",
+      "description": "A 75 kg (165 lb) person with high activity level",
+      "inputs": {
+        "weight": 75,
+        "weightUnit": "kg",
+        "activityLevel": "high",
+        "climate": "moderate",
+        "exerciseMinutesPerDay": 60
+      },
+      "steps": [
+        "Weight: 75 kg",
+        "Activity Level: High",
+        "Climate: Moderate",
+        "Exercise: 60 minutes",
+        "Base calculation: 75 × 32.5 = 2,437.5 ml",
+        "Activity adjustment: High activity = +20% (1.2x)",
+        "Adjusted: 2,437.5 × 1.2 = 2,925 ml",
+        "Climate adjustment: Moderate = no adjustment (1.0x)",
+        "Exercise adjustment: 60 minutes = 1 hour × 500 ml = 500 ml",
+        "Total: 2,925 + 500 = 3,425 ml = 3.4 liters",
+        "Convert to cups: 3.4 × 4.23 = 14.4 cups",
+        "Convert to ounces: 3.4 × 33.8 = 114.9 oz"
+      ],
+      "result": "For a 75 kg person with high activity level and 60 minutes of daily exercise, the recommended daily water intake is approximately 3.4 liters (14.4 cups or 115 oz). The high activity level and exercise significantly increase water needs due to increased sweating and metabolic demands."
+    },
+    {
+      "title": "Example 3: Hot Climate Adjustment",
+      "description": "A 65 kg (143 lb) person in hot climate with moderate activity",
+      "inputs": {
+        "weight": 65,
+        "weightUnit": "kg",
+        "activityLevel": "moderate",
+        "climate": "hot",
+        "exerciseMinutesPerDay": 30
+      },
+      "steps": [
+        "Weight: 65 kg",
+        "Activity Level: Moderate",
+        "Climate: Hot",
+        "Exercise: 30 minutes",
+        "Base calculation: 65 × 32.5 = 2,112.5 ml",
+        "Activity adjustment: Moderate activity = +15% (1.15x)",
+        "Adjusted: 2,112.5 × 1.15 = 2,429.4 ml",
+        "Climate adjustment: Hot = +12.5% (1.125x)",
+        "Adjusted: 2,429.4 × 1.125 = 2,733.1 ml",
+        "Exercise adjustment: 30 minutes = 0.5 hour × 500 ml = 250 ml",
+        "Total: 2,733.1 + 250 = 2,983.1 ml = 3.0 liters",
+        "Convert to cups: 3.0 × 4.23 = 12.7 cups",
+        "Convert to ounces: 3.0 × 33.8 = 101.4 oz"
+      ],
+      "result": "For a 65 kg person with moderate activity in hot climate and 30 minutes of exercise, the recommended daily water intake is approximately 3.0 liters (12.7 cups or 101 oz). The hot climate significantly increases water needs due to increased sweating and fluid loss through perspiration."
+    },
+    {
+      "title": "Example 4: Imperial Units (Pounds and Ounces)",
+      "description": "A person using imperial units: 160 pounds, moderate activity",
+      "inputs": {
+        "weight": 160,
+        "weightUnit": "lb",
+        "activityLevel": "moderate",
+        "climate": "moderate",
+        "exerciseMinutesPerDay": 45
+      },
+      "steps": [
+        "Weight: 160 lb",
+        "Convert to kg: 160 × 0.453592 = 72.6 kg",
+        "Activity Level: Moderate",
+        "Climate: Moderate",
+        "Exercise: 45 minutes",
+        "Base calculation: 72.6 × 32.5 = 2,359.5 ml",
+        "Activity adjustment: Moderate = +15% (1.15x)",
+        "Adjusted: 2,359.5 × 1.15 = 2,713.4 ml",
+        "Climate adjustment: Moderate = no adjustment (1.0x)",
+        "Exercise adjustment: 45 minutes = 0.75 hour × 500 ml = 375 ml",
+        "Total: 2,713.4 + 375 = 3,088.4 ml = 3.1 liters",
+        "Convert to cups: 3.1 × 4.23 = 13.1 cups",
+        "Convert to ounces: 3.1 × 33.8 = 104.8 oz"
+      ],
+      "result": "This example demonstrates how the calculator automatically handles imperial units. For a 160 lb person with moderate activity and 45 minutes of exercise, the recommended daily water intake is approximately 3.1 liters (13.1 cups or 105 oz). The calculator converts everything internally to ensure accurate calculations regardless of the unit system used."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How much water should I drink per day?",
+      "answer": "Daily water needs vary by individual, but general guidelines suggest: Men: 3.7 liters (15.5 cups) per day. Women: 2.7 liters (11.5 cups) per day. However, needs increase with activity level, hot climate, exercise, body size, and other factors. This calculator provides personalized estimates based on your specific inputs. Remember that about 20% of daily water intake comes from food."
+    },
+    {
+      "question": "Does coffee count toward my daily water intake?",
+      "answer": "Yes, coffee and other caffeinated beverages do count toward your daily water intake, though they have a mild diuretic effect. The diuretic effect is usually offset by the water content, so moderate coffee consumption (2-3 cups) contributes to hydration. However, very high caffeine intake may have a net dehydrating effect. Water, herbal tea, and other non-caffeinated beverages are the best choices for hydration."
+    },
+    {
+      "question": "Can I drink too much water?",
+      "answer": "Yes, it's possible to drink too much water, though it's rare. Drinking excessive amounts of water in a short time (several liters in an hour) can lead to water intoxication (hyponatremia), where sodium levels in the blood become dangerously low. Symptoms include nausea, headache, confusion, and in severe cases, seizures or coma. For most people, drinking water throughout the day based on thirst is safe. Athletes doing long endurance events should be especially careful."
+    },
+    {
+      "question": "What's the relationship between water intake and body weight?",
+      "answer": "Water needs are generally proportional to body weight. Larger people need more water because they have more body mass to hydrate and typically produce more metabolic waste. The general rule is 30-35 ml of water per kg of body weight as a baseline. However, activity level, climate, and other factors also significantly affect water needs."
+    },
+    {
+      "question": "What are the signs of dehydration?",
+      "answer": "Signs of dehydration include: Thirst (though by the time you feel thirsty, you may already be mildly dehydrated), dark yellow urine, dry mouth and lips, fatigue or dizziness, headache, reduced urine output, and in severe cases, rapid heartbeat, confusion, or fainting. If you experience severe dehydration symptoms, seek medical attention immediately."
+    },
+    {
+      "question": "Should I drink water even if I'm not thirsty?",
+      "answer": "For most healthy adults, thirst is a reliable indicator of hydration needs. However, in certain situations, you may need to drink water proactively: During intense exercise, in hot weather, when you're sick (fever, vomiting, diarrhea), when you're older (thirst signals may be less reliable), and during pregnancy or breastfeeding. Listen to your body, but don't ignore thirst signals."
+    },
+    {
+      "question": "Does exercise increase water needs?",
+      "answer": "Yes, exercise significantly increases water needs due to sweating and increased metabolic demands. General guidelines suggest: Light exercise (30-60 min): +400-600 ml. Moderate exercise (1-2 hours): +600-1,200 ml. Intense exercise (2+ hours): +1,200+ ml. This calculator adds approximately 500 ml per hour of exercise. For intense or long-duration exercise, you may need more. Drink water before, during, and after exercise."
+    },
+    {
+      "question": "How does climate affect water needs?",
+      "answer": "Hot and humid climates increase water needs due to increased sweating and fluid loss. In hot weather, you may need 10-15% more water than in moderate climates. High altitude can also increase water needs. Cold climates may slightly reduce water needs, but you still need adequate hydration. Adjust your water intake based on your environment and how you feel."
+    },
+    {
+      "question": "What about water from food?",
+      "answer": "About 20% of daily water intake typically comes from food, especially fruits and vegetables (which can be 80-95% water). Foods like watermelon, cucumbers, oranges, and soups contribute significantly to hydration. This calculator's recommendations include water from all sources. If you eat a lot of water-rich foods, you may need slightly less from beverages, but it's still important to drink water regularly."
+    },
+    {
+      "question": "Is it better to drink water all at once or throughout the day?",
+      "answer": "It's better to drink water throughout the day rather than all at once. Your body can only process so much water at a time (about 800-1,000 ml per hour). Drinking water consistently throughout the day helps maintain hydration, supports bodily functions, and prevents dehydration. Try to drink a glass of water with meals, between meals, and during/after exercise."
+    },
+    {
+      "question": "Does age affect water needs?",
+      "answer": "Yes, age can affect water needs. Older adults may have reduced thirst signals and may be at higher risk for dehydration. Children have different water needs based on age and size. Pregnant and breastfeeding women have increased water needs. However, this calculator provides general adult recommendations. Consult a healthcare provider for age-specific or condition-specific hydration guidance."
+    },
+    {
+      "question": "What if I have kidney problems or other medical conditions?",
+      "answer": "If you have kidney problems, heart conditions, or other medical conditions that affect fluid balance, consult your healthcare provider for personalized water intake recommendations. Some conditions may require fluid restriction, while others may require increased intake. This calculator provides general guidelines for healthy adults and should not replace medical advice."
+    },
+    {
+      "question": "Can I use sports drinks instead of water?",
+      "answer": "For most daily hydration needs, water is sufficient. Sports drinks can be beneficial during intense exercise lasting more than 60-90 minutes, as they provide electrolytes (sodium, potassium) and carbohydrates that water doesn't. However, for regular daily hydration and light-to-moderate exercise, water is usually the best choice. Sports drinks often contain added sugars and calories that aren't necessary for most people."
+    },
+    {
+      "question": "How do I know if I'm drinking enough water?",
+      "answer": "Signs you're drinking enough water include: Light yellow or clear urine (dark yellow indicates dehydration), regular urination (every 2-4 hours), feeling energetic and alert, moist mouth and lips, and no excessive thirst. If you're consistently meeting your calculated water intake and feeling well, you're likely adequately hydrated. Adjust based on your activity level, climate, and how you feel."
+    },
+    {
+      "question": "What about the '8 glasses a day' rule?",
+      "answer": "The '8 glasses a day' (about 2 liters) is a simple guideline that works for many people, but it's not personalized. Water needs vary significantly based on body size, activity level, climate, and other factors. This calculator provides personalized estimates based on your specific inputs, which may be more or less than 8 glasses depending on your circumstances."
+    }
+  ],
+  "seo": {
+    "keywords": ["water intake calculator", "daily water intake", "how much water to drink", "water calculator", "hydration calculator", "daily water needs", "water intake per day", "hydration needs", "water consumption", "drink water calculator"]
+  }
+}
+

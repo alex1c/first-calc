@@ -1,0 +1,91 @@
+{
+  "id": "heart-rate-zones-calculator",
+  "slug": "heart-rate-zones-calculator",
+  "category": "health",
+  "engine": "function",
+  "calculationId": "calculateHeartRateZones",
+  "tags": ["health", "heart-rate", "training-zones", "cardio", "fitness"],
+  "inputs": [
+    {
+      "name": "age",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "restingHeartRate",
+      "type": "number",
+      "step": 1,
+      "optional": true
+    },
+    {
+      "name": "method",
+      "type": "select",
+      "options": [
+        { "value": "simple", "label": "Max HR Method (220 - age)" },
+        { "value": "karvonen", "label": "Karvonen Method (requires resting HR)" }
+      ],
+      "defaultValue": "simple"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "maxHeartRate"
+    },
+    {
+      "name": "zone1Min"
+    },
+    {
+      "name": "zone1Max"
+    },
+    {
+      "name": "zone2Min"
+    },
+    {
+      "name": "zone2Max"
+    },
+    {
+      "name": "zone3Min"
+    },
+    {
+      "name": "zone3Max"
+    },
+    {
+      "name": "zone4Min"
+    },
+    {
+      "name": "zone4Max"
+    },
+    {
+      "name": "zone5Min"
+    },
+    {
+      "name": "zone5Max"
+    },
+    {
+      "name": "methodUsed"
+    },
+    {
+      "name": "insights"
+    }
+  ],
+  "defaults": {
+    "age": 30,
+    "restingHeartRate": 60,
+    "method": "simple"
+  },
+  "relatedIds": ["calories-burned-calculator", "steps-to-calories-calculator", "daily-calorie-needs-calculator", "bmr-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Heart Rate Zones Calculator – Training Zones by Age",
+    "description": "Calculate heart rate training zones based on your age. Find optimal heart rate ranges for fat burning, cardio, and endurance.",
+    "schema": {
+      "applicationSubCategory": "HealthCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

@@ -1,0 +1,83 @@
+{
+  "id": "random-number-generator",
+  "slug": "random-number-generator",
+  "category": "everyday",
+  "engine": "function",
+  "calculationId": "calculateRandomNumber",
+  "tags": ["random-number", "rng", "number-generator", "randomizer"],
+  "inputs": [
+    {
+      "name": "minValue",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "maxValue",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "quantity",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 1,
+      "optional": true
+    },
+    {
+      "name": "allowDuplicates",
+      "type": "checkbox",
+      "defaultValue": false,
+      "optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "numbers"
+    },
+    {
+      "name": "numbersFormatted"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "minValue"
+    },
+    {
+      "name": "maxValue"
+    },
+    {
+      "name": "quantity"
+    },
+    {
+      "name": "allowDuplicates"
+    },
+    {
+      "name": "range"
+    },
+    {
+      "name": "rangeSize"
+    }
+  ],
+  "defaults": {
+    "minValue": 1,
+    "maxValue": 100,
+    "quantity": 1,
+    "allowDuplicates": false
+  },
+  "relatedIds": ["roman-numerals-converter", "numbers-to-words-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Random Number Generator – Generate Random Numbers Online",
+    "description": "Generate random numbers within any range. Supports multiple numbers and custom ranges.",
+    "schema": {
+      "applicationSubCategory": "EverydayCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

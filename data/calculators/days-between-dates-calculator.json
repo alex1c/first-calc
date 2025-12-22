@@ -1,0 +1,82 @@
+{
+  "id": "days-between-dates-calculator",
+  "slug": "days-between-dates-calculator",
+  "category": "everyday",
+  "engine": "function",
+  "calculationId": "calculateDaysBetweenDates",
+  "tags": ["days-between-dates", "date-difference", "duration", "time-calculator"],
+  "inputs": [
+    {
+      "name": "startDate",
+      "type": "date"
+    },
+    {
+      "name": "endDate",
+      "type": "date"
+    },
+    {
+      "name": "includeEndDate",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No (exclusive)" },
+        { "value": "true", "label": "Yes (inclusive)" }
+      ],
+      "defaultValue": "false",
+      "optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "totalDays"
+    },
+    {
+      "name": "weeks"
+    },
+    {
+      "name": "remainingDays"
+    },
+    {
+      "name": "totalDaysInclusive"
+    },
+    {
+      "name": "weeksInclusive"
+    },
+    {
+      "name": "remainingDaysInclusive"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "breakdownInclusive"
+    },
+    {
+      "name": "startDateFormatted"
+    },
+    {
+      "name": "endDateFormatted"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "includeEndDate"
+    }
+  ],
+  "defaults": {},
+  "relatedIds": ["age-calculator", "date-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Days Between Dates Calculator – Date Difference in Days",
+    "description": "Calculate the number of days between two dates. Find date differences in days and weeks.",
+    "schema": {
+      "applicationSubCategory": "EverydayCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

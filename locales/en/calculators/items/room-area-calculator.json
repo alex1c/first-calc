@@ -1,0 +1,193 @@
+{
+  "title": "Room Area Calculator – Calculate Room Size in Square Meters or Feet",
+  "shortDescription": "Calculate the area of a room easily. Supports rectangular, square, and circular rooms.",
+  "longDescription": "Our Room Area Calculator helps you calculate the area of any room quickly and easily. Simply select the room shape (rectangle, square, or circle), enter the dimensions, and get the area in square meters or square feet. Perfect for planning paint jobs, flooring, furniture placement, or estimating material needs. Supports both metric (meters) and imperial (feet) units.",
+  "inputs": [
+    {
+      "label": "Shape",
+      "unitLabel": "",
+      "placeholder": "Select shape",
+      "helpText": "Select the shape of your room"
+    },
+    {
+      "label": "Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the room (for rectangle) or side length (for square)"
+    },
+    {
+      "label": "Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the room (for rectangle only)"
+    },
+    {
+      "label": "Side",
+      "unitLabel": "",
+      "placeholder": "Enter side length",
+      "helpText": "Enter the side length for square rooms"
+    },
+    {
+      "label": "Radius",
+      "unitLabel": "",
+      "placeholder": "Enter radius",
+      "helpText": "Enter the radius for circular rooms"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for measurements"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Area in Alternative Unit",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the shape of your room: Rectangle, Square, or Circle",
+    "Enter the required dimensions:",
+    "  - Rectangle: Enter length and width",
+    "  - Square: Enter side length",
+    "  - Circle: Enter radius",
+    "Select the unit of measurement: Meters or Feet",
+    "Click the Calculate button",
+    "View the room area in square meters or square feet",
+    "See the conversion to the alternative unit",
+    "Check the formula used for calculation"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Bedroom (Rectangle)",
+      "inputDescription": "Calculate the area of a rectangular bedroom.",
+      "steps": [
+        "Shape: Rectangle",
+        "Length: 4.5 meters",
+        "Width: 3.5 meters",
+        "Unit: Meters",
+        "Formula: Area = Length × Width = 4.5 × 3.5",
+        "Calculation: 15.75 m²"
+      ],
+      "resultDescription": "A rectangular bedroom measuring 4.5 m × 3.5 m has an area of 15.75 m² (approximately 169.5 ft²). This area is useful for calculating paint coverage, flooring needs, or furniture placement."
+    },
+    {
+      "id": "example-2",
+      "title": "Small Square Room",
+      "inputDescription": "Calculate the area of a small square room.",
+      "steps": [
+        "Shape: Square",
+        "Side: 3 meters",
+        "Unit: Meters",
+        "Formula: Area = Side² = 3²",
+        "Calculation: 9 m²"
+      ],
+      "resultDescription": "A square room with sides of 3 m has an area of 9 m² (approximately 96.9 ft²). Square rooms are common for small offices, walk-in closets, or storage spaces."
+    },
+    {
+      "id": "example-3",
+      "title": "Living Room in Feet",
+      "inputDescription": "Calculate the area of a living room using feet.",
+      "steps": [
+        "Shape: Rectangle",
+        "Length: 20 feet",
+        "Width: 15 feet",
+        "Unit: Feet",
+        "Formula: Area = Length × Width = 20 × 15",
+        "Calculation: 300 ft²"
+      ],
+      "resultDescription": "A rectangular living room measuring 20 ft × 15 ft has an area of 300 ft² (approximately 27.9 m²). This is a medium-sized living room suitable for furniture and entertainment areas."
+    },
+    {
+      "id": "example-4",
+      "title": "Circular Room Example",
+      "inputDescription": "Calculate the area of a circular room (e.g., a round dining area).",
+      "steps": [
+        "Shape: Circle",
+        "Radius: 2.5 meters",
+        "Unit: Meters",
+        "Formula: Area = π × r² = π × 2.5²",
+        "Calculation: 19.63 m²"
+      ],
+      "resultDescription": "A circular room with a radius of 2.5 m has an area of approximately 19.63 m² (approximately 211.3 ft²). Circular rooms are less common but can be found in unique architectural designs or round dining areas."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How do I measure a room?",
+      "answer": "To measure a room, use a tape measure or laser measure. For rectangular rooms, measure the length and width at the longest points. Measure from wall to wall at floor level for the most accurate results. For square rooms, measure one side (all sides should be equal). For circular rooms, measure from the center to the edge (radius) or measure the diameter and divide by 2."
+    },
+    {
+      "question": "What if the walls are uneven or the room isn't perfectly rectangular?",
+      "answer": "For rooms with irregular shapes, measure at the longest points to get the maximum dimensions. The calculator assumes regular shapes (rectangle, square, circle). For very irregular rooms, you may need to break the room into smaller regular shapes, calculate each area separately, and add them together."
+    },
+    {
+      "question": "What's the difference between area and perimeter?",
+      "answer": "Area measures the floor space (length × width for rectangles, side² for squares, π × r² for circles) and is expressed in square units (m² or ft²). Perimeter measures the distance around the room (2 × length + 2 × width for rectangles) and is expressed in linear units (m or ft). Area is used for flooring and paint coverage, while perimeter is used for baseboards and trim."
+    },
+    {
+      "question": "Should I use meters or feet?",
+      "answer": "Use the unit system you're most comfortable with or that matches your materials. Meters are standard in most countries (metric system), while feet are common in the United States (imperial system). The calculator converts between both, so you can use either. Most building materials list coverage in both units."
+    },
+    {
+      "question": "Does this include the walls?",
+      "answer": "No, the calculator measures floor area only (the space you can walk on). It does not include wall area. For paint calculations, you would need to calculate wall area separately using room height and perimeter. This calculator focuses on floor area for flooring, carpet, and general room size estimation."
+    },
+    {
+      "question": "How accurate is the calculation?",
+      "answer": "The calculation is mathematically precise based on the dimensions you provide. The accuracy depends on how accurately you measure the room. For best results, measure at floor level, use a quality tape measure, and measure multiple times to ensure consistency. Round to the nearest 0.1 m or 0.5 ft for practical use."
+    },
+    {
+      "question": "Can I use this for outdoor areas?",
+      "answer": "Yes, you can use this calculator for any rectangular, square, or circular area, whether indoor or outdoor. It works for patios, decks, gardens, or any flat surface. Just make sure to measure accurately and select the appropriate shape."
+    },
+    {
+      "question": "What if my room has alcoves or recesses?",
+      "answer": "For rooms with alcoves or recesses, you have two options: 1) Measure the main rectangular area and add the area of alcoves separately, or 2) Measure the overall length and width at the longest points to get the maximum area. The second method is simpler but may overestimate slightly."
+    },
+    {
+      "question": "How do I convert between square meters and square feet?",
+      "answer": "1 square meter equals approximately 10.764 square feet. The calculator automatically shows the area in both units. To convert manually: square meters × 10.764 = square feet, or square feet ÷ 10.764 = square meters."
+    },
+    {
+      "question": "What's a typical bedroom size?",
+      "answer": "Typical bedroom sizes vary by region and building standards. In the US, a small bedroom might be 10×10 ft (100 ft² or 9.3 m²), a medium bedroom 12×12 ft (144 ft² or 13.4 m²), and a large bedroom 14×16 ft (224 ft² or 20.8 m²). Master bedrooms are often larger, 16×20 ft (320 ft² or 29.7 m²) or more."
+    },
+    {
+      "question": "Can I calculate multiple rooms at once?",
+      "answer": "The calculator calculates one room at a time. To find the total area of multiple rooms, calculate each room separately and add the results together. This is useful for estimating total flooring or paint needs for an entire floor or house."
+    },
+    {
+      "question": "What if my room is L-shaped or has multiple sections?",
+      "answer": "For L-shaped or complex rooms, break the room into smaller rectangular sections. Calculate the area of each section separately, then add them together. For example, an L-shaped room can be divided into two rectangles, each calculated separately."
+    },
+    {
+      "question": "How much paint do I need based on room area?",
+      "answer": "Paint coverage depends on wall area, not floor area. To calculate paint needs, you'll need room height and perimeter. However, floor area can help estimate the room size. Generally, a gallon of paint covers 350-400 square feet of wall area. Use a paint calculator for accurate estimates based on wall dimensions."
+    },
+    {
+      "question": "What's the difference between square meters and square feet?",
+      "answer": "Square meters (m²) are metric units, while square feet (ft²) are imperial units. 1 square meter = 10.764 square feet. The calculator shows both units automatically, so you can use whichever is more convenient for your project."
+    },
+    {
+      "question": "Can I use this for commercial spaces?",
+      "answer": "Yes, the calculator works for any space regardless of use. It's commonly used for residential rooms, but it's equally useful for commercial spaces, offices, retail areas, or any rectangular, square, or circular area. Just measure accurately and select the appropriate shape."
+    }
+  ],
+  "seo": {
+    "title": "Room Area Calculator – Calculate Room Size in Square Meters or Feet",
+    "description": "Calculate the area of a room easily. Supports rectangular, square, and circular rooms.",
+    "keywords": ["room area calculator", "room size calculator", "square meters calculator", "room area", "floor area calculator"]
+  }
+}
+

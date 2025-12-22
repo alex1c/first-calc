@@ -1,0 +1,270 @@
+{
+  "title": "BMR Calculator – Basal Metabolic Rate (Calories at Rest)",
+  "shortDescription": "Calculate your BMR using the Mifflin-St Jeor formula. Estimate calories your body burns at rest based on age, height, weight, and sex.",
+  "longDescription": "Our BMR Calculator helps you determine your Basal Metabolic Rate (BMR) — the number of calories your body burns at complete rest to maintain basic life functions like breathing, circulation, and cell production. BMR represents approximately 60-70% of your total daily energy expenditure. Use the widely-accepted Mifflin-St Jeor formula (recommended) or the Harris-Benedict formula to calculate your BMR. Understanding your BMR is the first step in determining your total daily calorie needs for weight management, muscle gain, or weight loss goals.",
+  "inputs": [
+    {
+      "label": "Sex",
+      "unitLabel": "",
+      "placeholder": "Select sex",
+      "helpText": "Biological sex affects BMR calculation due to differences in body composition"
+    },
+    {
+      "label": "Age",
+      "unitLabel": "years",
+      "placeholder": "Enter age",
+      "helpText": "Your age in years (metabolism generally decreases with age)"
+    },
+    {
+      "label": "Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Your height in centimeters (if using cm) or total inches (if using ft+in)"
+    },
+    {
+      "label": "Height Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or feet and inches (ft+in)"
+    },
+    {
+      "label": "Feet",
+      "unitLabel": "ft",
+      "placeholder": "Enter feet",
+      "helpText": "Height in feet (only shown when using ft+in)"
+    },
+    {
+      "label": "Inches",
+      "unitLabel": "in",
+      "placeholder": "Enter inches",
+      "helpText": "Additional height in inches (only shown when using ft+in)"
+    },
+    {
+      "label": "Weight",
+      "unitLabel": "",
+      "placeholder": "Enter weight",
+      "helpText": "Your body weight"
+    },
+    {
+      "label": "Weight Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose kilograms (kg) or pounds (lb)"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": "",
+      "placeholder": "Select formula",
+      "helpText": "Mifflin-St Jeor (recommended, more accurate) or Harris-Benedict (revised, older formula)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "BMR",
+      "unitLabel": "kcal/day"
+    },
+    {
+      "label": "BMR per Hour",
+      "unitLabel": "kcal/hour"
+    },
+    {
+      "label": "Formula Used",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    },
+    {
+      "label": "Insights",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select your biological sex (male or female)",
+    "Enter your age in years",
+    "Enter your height",
+    "Select your height unit (centimeters or feet+inches)",
+    "If using feet+inches, enter both feet and inches separately",
+    "Enter your weight",
+    "Select your weight unit (kilograms or pounds)",
+    "Choose your preferred formula (Mifflin-St Jeor is recommended)",
+    "Click 'Calculate' to see your BMR",
+    "Review the results to understand your baseline calorie needs"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Male, 30 years, 180 cm, 80 kg (Mifflin-St Jeor)",
+      "description": "A 30-year-old male who is 180 cm tall and weighs 80 kg",
+      "inputs": {
+        "sex": "male",
+        "age": 30,
+        "height": 180,
+        "heightUnit": "cm",
+        "weight": 80,
+        "weightUnit": "kg",
+        "formula": "mifflin"
+      },
+      "steps": [
+        "Sex: Male",
+        "Age: 30 years",
+        "Height: 180 cm",
+        "Weight: 80 kg",
+        "Formula: Mifflin-St Jeor",
+        "Male formula: BMR = 10W + 6.25H - 5A + 5",
+        "Where W = weight (kg), H = height (cm), A = age (years)",
+        "BMR = (10 × 80) + (6.25 × 180) - (5 × 30) + 5",
+        "BMR = 800 + 1,125 - 150 + 5",
+        "BMR = 1,780 kcal/day",
+        "BMR per hour: 1,780 ÷ 24 = 74.2 kcal/hour"
+      ],
+      "result": "This person's BMR is 1,780 calories per day. This means their body burns 1,780 calories daily just to maintain basic life functions at complete rest. To maintain their current weight, they would need to consume more calories than this, as daily activities and exercise increase total calorie needs. For weight loss, they would need to consume fewer calories than their total daily energy expenditure (TDEE)."
+    },
+    {
+      "title": "Example 2: Female, 28 years, 165 cm, 60 kg (Mifflin-St Jeor)",
+      "description": "A 28-year-old female who is 165 cm tall and weighs 60 kg",
+      "inputs": {
+        "sex": "female",
+        "age": 28,
+        "height": 165,
+        "heightUnit": "cm",
+        "weight": 60,
+        "weightUnit": "kg",
+        "formula": "mifflin"
+      },
+      "steps": [
+        "Sex: Female",
+        "Age: 28 years",
+        "Height: 165 cm",
+        "Weight: 60 kg",
+        "Formula: Mifflin-St Jeor",
+        "Female formula: BMR = 10W + 6.25H - 5A - 161",
+        "Where W = weight (kg), H = height (cm), A = age (years)",
+        "BMR = (10 × 60) + (6.25 × 165) - (5 × 28) - 161",
+        "BMR = 600 + 1,031.25 - 140 - 161",
+        "BMR = 1,330.25 kcal/day",
+        "BMR per hour: 1,330 ÷ 24 = 55.4 kcal/hour"
+      ],
+      "result": "This person's BMR is 1,330 calories per day. Women typically have lower BMR than men of similar size due to differences in body composition (men generally have more muscle mass). This baseline represents the minimum calories needed for basic bodily functions. Actual daily calorie needs will be higher when accounting for physical activity."
+    },
+    {
+      "title": "Example 3: Formula Comparison (Same Person)",
+      "description": "Comparing Mifflin-St Jeor vs Harris-Benedict for the same person (Male, 35y, 175cm, 75kg)",
+      "inputs": {
+        "sex": "male",
+        "age": 35,
+        "height": 175,
+        "heightUnit": "cm",
+        "weight": 75,
+        "weightUnit": "kg",
+        "formula": "mifflin"
+      },
+      "steps": [
+        "Same person: Male, 35 years, 175 cm, 75 kg",
+        "Mifflin-St Jeor formula:",
+        "BMR = (10 × 75) + (6.25 × 175) - (5 × 35) + 5",
+        "BMR = 750 + 1,093.75 - 175 + 5 = 1,673.75 ≈ 1,674 kcal/day",
+        "Harris-Benedict formula:",
+        "BMR = 88.362 + (13.397 × 75) + (4.799 × 175) - (5.677 × 35)",
+        "BMR = 88.362 + 1,004.775 + 839.825 - 198.695 = 1,733.267 ≈ 1,733 kcal/day",
+        "Difference: 1,733 - 1,674 = 59 calories (about 3.5% higher)"
+      ],
+      "result": "For this person, Mifflin-St Jeor gives 1,674 kcal/day while Harris-Benedict gives 1,733 kcal/day — a difference of 59 calories. Mifflin-St Jeor is generally considered more accurate for modern populations, while Harris-Benedict may slightly overestimate BMR. The difference is usually small (2-5%), but can be significant for precise calorie planning."
+    },
+    {
+      "title": "Example 4: Imperial Units (Pounds and Feet+Inches)",
+      "description": "A person using imperial units: Male, 25 years, 6 feet 0 inches, 180 pounds",
+      "inputs": {
+        "sex": "male",
+        "age": 25,
+        "height": 72,
+        "heightUnit": "ft+in",
+        "heightFeet": 6,
+        "heightInches": 0,
+        "weight": 180,
+        "weightUnit": "lb",
+        "formula": "mifflin"
+      },
+      "steps": [
+        "Sex: Male",
+        "Age: 25 years",
+        "Height: 6 ft 0 in = 72 inches",
+        "Convert to cm: 72 × 2.54 = 182.88 cm",
+        "Weight: 180 lb",
+        "Convert to kg: 180 × 0.453592 = 81.65 kg",
+        "Formula: Mifflin-St Jeor",
+        "BMR = (10 × 81.65) + (6.25 × 182.88) - (5 × 25) + 5",
+        "BMR = 816.5 + 1,143 - 125 + 5",
+        "BMR = 1,839.5 ≈ 1,840 kcal/day",
+        "BMR per hour: 1,840 ÷ 24 = 76.7 kcal/hour"
+      ],
+      "result": "This example demonstrates how the calculator automatically handles unit conversions. The person's BMR is 1,840 calories per day. This shows that the calculator works seamlessly with both metric and imperial units, converting everything internally to metric for accurate calculations."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is BMR?",
+      "answer": "BMR (Basal Metabolic Rate) is the number of calories your body burns at complete rest to maintain basic life functions like breathing, circulation, cell production, and brain function. It represents the minimum energy your body needs to function and accounts for approximately 60-70% of your total daily energy expenditure."
+    },
+    {
+      "question": "What's the difference between BMR and TDEE?",
+      "answer": "BMR is the calories burned at complete rest. TDEE (Total Daily Energy Expenditure) is your total calories burned per day, including BMR plus calories burned from physical activity, exercise, and daily movement. TDEE = BMR × Activity Factor. To maintain weight, you need to consume calories equal to your TDEE."
+    },
+    {
+      "question": "Which formula is more accurate: Mifflin-St Jeor or Harris-Benedict?",
+      "answer": "Mifflin-St Jeor is generally considered more accurate for modern populations. It was developed in 1990 and is based on more recent data. Harris-Benedict (revised) is an older formula from 1984 that may slightly overestimate BMR for some individuals. However, both formulas provide reasonable estimates, and the difference is usually small (2-5%)."
+    },
+    {
+      "question": "Does muscle mass affect BMR?",
+      "answer": "Yes, muscle tissue burns more calories at rest than fat tissue. People with more muscle mass typically have higher BMR. However, standard BMR formulas don't directly account for body composition — they use weight, height, age, and sex. For more accurate results, body composition analysis (body fat percentage) would be needed."
+    },
+    {
+      "question": "Does age affect BMR?",
+      "answer": "Yes, BMR generally decreases with age. This is partly due to loss of muscle mass (sarcopenia) and changes in hormone levels. The BMR formulas account for age, with older individuals typically having lower BMR than younger individuals of the same size and sex."
+    },
+    {
+      "question": "Is BMR the same as metabolism?",
+      "answer": "BMR is a component of metabolism, but not the same thing. Metabolism includes all chemical processes in your body. BMR specifically refers to the calories burned at rest. Your total metabolism includes BMR plus calories burned from activity, digestion (thermic effect of food), and other processes."
+    },
+    {
+      "question": "How accurate are BMR calculators?",
+      "answer": "BMR calculators using established formulas (Mifflin-St Jeor, Harris-Benedict) provide reasonable estimates for most people, typically within 10-15% of actual BMR. However, individual variations exist due to genetics, body composition, medical conditions, and other factors. For the most accurate measurement, indirect calorimetry (metabolic testing) is needed."
+    },
+    {
+      "question": "Why do men typically have higher BMR than women?",
+      "answer": "Men generally have higher BMR because they typically have more muscle mass, larger body size, and different hormone levels (higher testosterone). Muscle tissue is metabolically active and burns more calories at rest than fat tissue. However, individual variations exist based on body composition."
+    },
+    {
+      "question": "Can I use BMR to lose weight?",
+      "answer": "BMR tells you your baseline calorie needs, but to lose weight, you need to create a calorie deficit. First, calculate your TDEE (BMR × activity factor), then consume fewer calories than your TDEE. A safe deficit is typically 500-750 calories per day, which can lead to 1-1.5 pounds of weight loss per week."
+    },
+    {
+      "question": "How often should I recalculate my BMR?",
+      "answer": "Recalculate your BMR when your weight changes significantly (5+ pounds), as you age, or if your body composition changes substantially (e.g., significant muscle gain or loss). For most people, recalculating every few months or when starting a new fitness program is sufficient."
+    },
+    {
+      "question": "What is BMR per hour?",
+      "answer": "BMR per hour is simply your daily BMR divided by 24. It shows how many calories you burn per hour at rest. This can be helpful for understanding your metabolism throughout the day, though actual hourly calorie burn varies based on activity level."
+    },
+    {
+      "question": "Does sleep affect BMR?",
+      "answer": "BMR is measured at rest, which includes sleep. During sleep, your BMR is actually slightly lower than when you're awake but still. However, the BMR calculation represents an average over 24 hours, so it accounts for both sleep and wakeful rest periods."
+    },
+    {
+      "question": "Can medical conditions affect BMR?",
+      "answer": "Yes, certain medical conditions can affect BMR. Thyroid disorders (hyperthyroidism increases BMR, hypothyroidism decreases it), hormonal imbalances, and other conditions can significantly impact metabolic rate. If you suspect a medical issue affecting your metabolism, consult a healthcare provider."
+    },
+    {
+      "question": "Should I eat below my BMR to lose weight?",
+      "answer": "No, you should not consistently eat below your BMR. BMR is the minimum calories needed for basic bodily functions. Eating below BMR for extended periods can slow metabolism, cause muscle loss, and lead to nutritional deficiencies. Instead, eat below your TDEE (which is higher than BMR) to create a safe calorie deficit."
+    },
+    {
+      "question": "How do I calculate my total daily calorie needs (TDEE)?",
+      "answer": "TDEE = BMR × Activity Factor. Activity factors: Sedentary (1.2), Lightly active (1.375), Moderately active (1.55), Very active (1.725), Extremely active (1.9). For example, if your BMR is 1,500 and you're moderately active: TDEE = 1,500 × 1.55 = 2,325 calories/day. Use our Daily Calorie Needs (TDEE) Calculator for an accurate calculation."
+    }
+  ],
+  "seo": {
+    "keywords": ["bmr calculator", "basal metabolic rate", "bmr", "metabolism calculator", "calories at rest", "resting metabolic rate", "bmr formula", "mifflin st jeor", "harris benedict", "calorie calculator", "metabolic rate", "bmr test", "calculate bmr", "daily calorie needs"]
+  }
+}
+

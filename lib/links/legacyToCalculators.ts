@@ -16,8 +16,8 @@ export function getCalculatorsForLegacyTool(
 	legacyTool: string,
 ): string[] {
 	const mappings: Record<string, string[]> = {
-		'chislo-propisyu': ['percentage-of-a-number'],
-		'numbers-to-words': ['percentage-of-a-number'],
+		'chislo-propisyu': ['numbers-to-words-calculator'],
+		'numbers-to-words': ['numbers-to-words-calculator'],
 		'percentage-of-a-number': ['percentage-of-a-number', 'add-percentage', 'subtract-percentage'],
 		'add-subtract-percentage': ['add-percentage', 'subtract-percentage'],
 		'roman-numerals-converter': [],
@@ -36,6 +36,7 @@ export function getLegacyToolsForCalculator(
 	calculatorId: string,
 ): string[] {
 	const mappings: Record<string, string[]> = {
+		'numbers-to-words-calculator': ['chislo-propisyu', 'numbers-to-words'],
 		'percentage-of-a-number': ['percentage-of-a-number', 'add-subtract-percentage'],
 		'add-percentage': ['add-subtract-percentage'],
 		'subtract-percentage': ['add-subtract-percentage'],

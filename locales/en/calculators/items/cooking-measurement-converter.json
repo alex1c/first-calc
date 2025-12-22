@@ -1,0 +1,177 @@
+{
+  "title": "Cooking Measurement Converter – Cups, Grams, Tablespoons & More",
+  "shortDescription": "Convert cooking measurements like cups, grams, tablespoons, and teaspoons. Supports common ingredients.",
+  "longDescription": "Our Cooking Measurement Converter helps you convert between common kitchen measurements. Convert cups to grams, tablespoons to teaspoons, milliliters to ounces, and more. The calculator accounts for ingredient density when converting between volume and weight, making it accurate for different ingredients like flour, sugar, butter, and water. Perfect for following recipes, scaling ingredients, or converting between US and metric measurements.",
+  "inputs": [
+    {
+      "label": "Value",
+      "unitLabel": "",
+      "placeholder": "Enter value",
+      "helpText": "Enter the amount to convert"
+    },
+    {
+      "label": "From Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select the unit you're converting from"
+    },
+    {
+      "label": "To Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select the unit you're converting to (optional, will auto-detect compatible units)"
+    },
+    {
+      "label": "Ingredient",
+      "unitLabel": "",
+      "placeholder": "Select ingredient",
+      "helpText": "Select ingredient for volume-to-weight conversions (affects density)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Result",
+      "unitLabel": ""
+    },
+    {
+      "label": "Conversion Type",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the value you want to convert",
+    "Select the 'From Unit' (the unit you're starting with)",
+    "Optionally select the 'To Unit' (the unit you want to convert to)",
+    "If converting between volume and weight, select the ingredient (affects density)",
+    "Click the Calculate button",
+    "View the converted result",
+    "Check the explanation for conversion details",
+    "Note any ingredient-specific information if applicable"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Cups to Grams (Water)",
+      "inputDescription": "Convert 2 cups of water to grams.",
+      "steps": [
+        "Value: 2",
+        "From Unit: Cups",
+        "To Unit: Grams",
+        "Ingredient: Water",
+        "Calculation: 2 cups = 473.18 ml, water density = 1.0 g/ml, so 473.18 g"
+      ],
+      "resultDescription": "2 cups of water equals approximately 473.18 grams. Water has a density of 1.0 g/ml, making this conversion straightforward. This is useful for recipes that specify weight instead of volume."
+    },
+    {
+      "id": "example-2",
+      "title": "Tablespoons to Teaspoons",
+      "inputDescription": "Convert 3 tablespoons to teaspoons.",
+      "steps": [
+        "Value: 3",
+        "From Unit: Tablespoons",
+        "To Unit: Teaspoons",
+        "Ingredient: Water (not needed for volume-to-volume)",
+        "Calculation: 1 tbsp = 3 tsp, so 3 tbsp = 9 tsp"
+      ],
+      "resultDescription": "3 tablespoons equals 9 teaspoons. This is a simple volume-to-volume conversion where 1 tablespoon = 3 teaspoons. Useful when you need smaller measurements or don't have a tablespoon available."
+    },
+    {
+      "id": "example-3",
+      "title": "Sugar Conversion",
+      "inputDescription": "Convert 1 cup of sugar to grams.",
+      "steps": [
+        "Value: 1",
+        "From Unit: Cups",
+        "To Unit: Grams",
+        "Ingredient: Sugar",
+        "Calculation: 1 cup = 236.59 ml, sugar density = 0.85 g/ml, so 201.1 g"
+      ],
+      "resultDescription": "1 cup of granulated sugar equals approximately 201.1 grams. Sugar has a lower density than water (0.85 g/ml vs 1.0 g/ml), so 1 cup of sugar weighs less than 1 cup of water. This is important for accurate baking measurements."
+    },
+    {
+      "id": "example-4",
+      "title": "Baking Scenario",
+      "inputDescription": "Convert 250 grams of flour to cups for a recipe.",
+      "steps": [
+        "Value: 250",
+        "From Unit: Grams",
+        "To Unit: Cups",
+        "Ingredient: Flour",
+        "Calculation: Flour density = 0.57 g/ml, so 250 g = 438.6 ml = 1.85 cups"
+      ],
+      "resultDescription": "250 grams of flour equals approximately 1.85 cups. Flour has a lower density than water (0.57 g/ml), so the same weight takes up more volume. This conversion is essential when following recipes that use different measurement systems."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Why does the ingredient matter for conversions?",
+      "answer": "When converting between volume (cups, tablespoons) and weight (grams, ounces), the ingredient's density matters. Different ingredients have different densities. For example, 1 cup of flour weighs less than 1 cup of water because flour is less dense. The calculator uses ingredient-specific densities to provide accurate conversions."
+    },
+    {
+      "question": "What's the difference between cups and grams?",
+      "answer": "Cups measure volume (how much space something takes up), while grams measure weight (how heavy something is). For liquids like water, 1 cup ≈ 236.6 ml ≈ 236.6 grams. For dry ingredients like flour, 1 cup weighs less because flour is less dense than water. The exact weight depends on the ingredient's density."
+    },
+    {
+      "question": "Are these conversions accurate for baking?",
+      "answer": "The conversions are accurate for general cooking and baking, but keep in mind that factors like how ingredients are packed (sifted vs. packed flour), humidity, and brand variations can affect measurements. For precise baking, using a kitchen scale is recommended. The calculator provides good approximations for most recipes."
+    },
+    {
+      "question": "What's the difference between US and metric measurements?",
+      "answer": "US measurements use cups, tablespoons, teaspoons, and fluid ounces, while metric uses milliliters, liters, grams, and kilograms. The calculator converts between both systems. US cup = 236.588 ml, 1 tablespoon = 14.7868 ml, 1 teaspoon = 4.92892 ml. These are standard US measurements."
+    },
+    {
+      "question": "How do I convert tablespoons to teaspoons?",
+      "answer": "1 tablespoon equals 3 teaspoons. So to convert tablespoons to teaspoons, multiply by 3. For example, 2 tablespoons = 6 teaspoons. This is a simple volume-to-volume conversion that doesn't depend on ingredient density."
+    },
+    {
+      "question": "Can I convert between weight and volume?",
+      "answer": "Yes, but you need to specify the ingredient because different ingredients have different densities. For example, 1 cup of water weighs 236.6 grams, but 1 cup of flour weighs only about 135 grams because flour is less dense. The calculator uses ingredient-specific densities for accurate conversions."
+    },
+    {
+      "question": "What ingredients are supported?",
+      "answer": "The calculator supports common ingredients including water, flour, sugar, brown sugar, butter, milk, oil, and honey. Each ingredient has a specific density value used for volume-to-weight conversions. If your ingredient isn't listed, water (density 1.0 g/ml) is used as the default."
+    },
+    {
+      "question": "How accurate are the conversions?",
+      "answer": "The conversions are accurate for standard measurements. Volume-to-volume and weight-to-weight conversions are precise. Volume-to-weight conversions depend on ingredient density, which can vary slightly based on factors like how ingredients are packed, temperature, and brand. The calculator uses standard density values that work well for most recipes."
+    },
+    {
+      "question": "Can I convert ounces to grams?",
+      "answer": "Yes, 1 ounce equals approximately 28.35 grams. This is a weight-to-weight conversion that doesn't depend on ingredient density. The calculator handles this conversion automatically when you select ounces as the 'From Unit' and grams as the 'To Unit'."
+    },
+    {
+      "question": "What if I'm converting a liquid ingredient?",
+      "answer": "For liquid ingredients like water, milk, or oil, volume-to-weight conversions are straightforward because liquids have consistent densities. Water has a density of 1.0 g/ml, so 1 milliliter of water weighs 1 gram. Milk and oil have slightly different densities, which the calculator accounts for."
+    },
+    {
+      "question": "How do I convert cups to milliliters?",
+      "answer": "1 US cup equals 236.588 milliliters. This is a volume-to-volume conversion that doesn't depend on ingredient density. Simply select 'Cups' as the 'From Unit' and 'Milliliters' as the 'To Unit', and enter your value."
+    },
+    {
+      "question": "Why does flour weigh less than water?",
+      "answer": "Flour has a lower density than water (approximately 0.57 g/ml vs 1.0 g/ml). This means that for the same volume, flour weighs less than water. This is because flour contains air pockets and has a different molecular structure. The calculator accounts for this difference when converting between volume and weight."
+    },
+    {
+      "question": "Can I use this for scaling recipes?",
+      "answer": "Yes, the calculator is useful for scaling recipes. Convert all ingredients to the same unit (e.g., grams) to make it easier to scale up or down. For example, if a recipe calls for 2 cups of flour and you want to double it, convert to grams first (2 cups ≈ 270g), then double to 540g, then convert back to cups if needed."
+    },
+    {
+      "question": "What's the difference between fluid ounces and regular ounces?",
+      "answer": "Fluid ounces measure volume, while regular ounces measure weight. The calculator handles both: milliliters and cups are volume units, while grams and ounces (weight) are weight units. When converting between volume and weight, the ingredient density is used to determine the conversion factor."
+    },
+    {
+      "question": "Are the measurements US standard or metric?",
+      "answer": "The calculator uses US standard measurements for volume (1 cup = 236.588 ml) and metric for weight (grams). You can convert between US and metric units. The calculator handles both systems and converts between them accurately."
+    }
+  ],
+  "seo": {
+    "title": "Cooking Measurement Converter – Cups, Grams, Tablespoons & More",
+    "description": "Convert cooking measurements like cups, grams, tablespoons, and teaspoons. Supports common ingredients.",
+    "keywords": ["cooking converter", "kitchen measurements", "cups to grams", "tablespoons to teaspoons", "cooking conversion", "recipe converter"]
+  }
+}
+

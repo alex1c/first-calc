@@ -1,9 +1,117 @@
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 import { formatOutputValue } from '@/lib/calculators/format'
+import Link from 'next/link'
 
 interface CalculatorResultsProps {
 	calculator: CalculatorDefinitionClient
 	outputs: Record<string, number | string | null>
+}
+
+/**
+ * Get explanatory text for calculator results
+ * Provides context about what the result means and how to use it
+ */
+function getResultExplanation(
+	calculator: CalculatorDefinitionClient,
+	outputName: string,
+	value: number | string | null,
+): string | null {
+	if (value === null || value === undefined) {
+		return null
+	}
+
+	// Finance calculators
+	if (calculator.category === 'finance') {
+		if (outputName === 'monthlyPayment' || outputName === 'payment') {
+			return 'This is your monthly payment amount. Use this to budget your monthly expenses and ensure you can afford the loan. Consider that this amount will be due every month for the duration of the loan term.'
+		}
+		if (outputName === 'totalInterest') {
+			return 'This is the total amount of interest you will pay over the life of the loan. This represents the cost of borrowing money. You can reduce this by making a larger down payment, choosing a shorter term, or making extra payments.'
+		}
+		if (outputName === 'totalPayment') {
+			return 'This is the total amount you will pay over the life of the loan, including both principal and interest. This helps you understand the true cost of the loan beyond just the monthly payment.'
+		}
+		if (outputName === 'roiPercentage' || outputName === 'roi') {
+			return 'This is your return on investment as a percentage. A positive ROI means you made money, while a negative ROI means you lost money. Compare this to your target ROI to evaluate if the investment was worthwhile.'
+		}
+		if (outputName === 'finalBalance' || outputName === 'futureValue') {
+			return 'This is the total amount you will have at the end of the investment period. This includes your initial investment, contributions, and all earned interest or returns.'
+		}
+	}
+
+	// Auto calculators
+	if (calculator.category === 'auto') {
+		if (outputName === 'monthlyPayment') {
+			return 'This is your monthly car payment. Use this to determine if the car fits your budget. Remember to also budget for insurance, fuel, maintenance, and registration costs.'
+		}
+		if (outputName === 'totalCost' || outputName === 'totalCostOfOwnership') {
+			return 'This is the total cost of owning the vehicle, including purchase price, financing costs, and operating expenses. Use this to compare different vehicles and make an informed decision.'
+		}
+		if (outputName === 'depreciation' || outputName === 'resaleValue') {
+			return 'This shows how much value your car will lose over time or what it will be worth when you sell it. Understanding depreciation helps you make better decisions about when to buy or sell.'
+		}
+		if (outputName === 'fuelCost' || outputName === 'tripCost') {
+			return 'This is the cost of fuel for your trip or monthly driving. Use this to budget for transportation costs and compare the efficiency of different vehicles.'
+		}
+	}
+
+	// Math calculators
+	if (calculator.category === 'math') {
+		if (outputName === 'percentageChange') {
+			return 'This shows the percentage increase or decrease between two values. A positive percentage means an increase, while a negative percentage means a decrease. Use this to track changes over time.'
+		}
+		if (outputName === 'result' || outputName === 'answer') {
+			return 'This is the calculated result. Use this value in your calculations or to verify your work. Check the formula and steps above to understand how this result was obtained.'
+		}
+		if (outputName === 'roots' || outputName === 'solution') {
+			return 'These are the solutions to the equation. Substitute these values back into the original equation to verify they are correct.'
+		}
+		if (outputName === 'area' || outputName === 'volume' || outputName === 'perimeter') {
+			return 'This is the calculated geometric measurement. Use this value for planning, construction, or other applications that require this measurement.'
+		}
+	}
+
+	// Health calculators
+	if (calculator.category === 'health') {
+		if (outputName === 'bmi') {
+			return 'This is your Body Mass Index (BMI), a screening tool that estimates body fat based on height and weight. BMI categories are: Underweight (<18.5), Normal (18.5-24.9), Overweight (25-29.9), and Obese (≥30). Note that BMI doesn\'t directly measure body fat and may not be accurate for athletes or individuals with high muscle mass.'
+		}
+		if (outputName === 'bmr') {
+			return 'This is your Basal Metabolic Rate (BMR) — the number of calories your body burns at complete rest. BMR represents your baseline metabolism and accounts for 60-70% of your total daily energy expenditure. To maintain weight, you need to consume calories equal to your TDEE (BMR × activity factor), not just your BMR.'
+		}
+		if (outputName === 'tdee') {
+			return 'This is your Total Daily Energy Expenditure (TDEE) — the total calories you burn per day including all activities. TDEE = BMR × Activity Level. To maintain weight, consume calories equal to your TDEE. To lose weight, consume fewer calories than your TDEE (create a deficit). To gain weight, consume more calories than your TDEE (create a surplus).'
+		}
+		if (outputName === 'idealRangeKg') {
+			return 'This is your suggested ideal weight range calculated using multiple formulas (Devine, Robinson, and Miller). The range accounts for variations between formulas and provides a more realistic target than a single number. Remember that ideal weight formulas are estimates based on height and sex only and don\'t account for body composition, bone structure, or individual variations.'
+		}
+		if (outputName === 'bodyFatPercentage') {
+			return 'This is your estimated body fat percentage — the proportion of your total body weight that consists of fat tissue. Unlike BMI, which only considers height and weight, body fat percentage directly estimates fat mass. This provides more insight into body composition, especially useful for athletes and fitness enthusiasts.'
+		}
+		if (outputName === 'proteinGrams') {
+			return 'These are your daily macronutrient targets in grams. Protein provides 4 calories per gram and is essential for muscle repair and growth. Carbohydrates provide 4 calories per gram and are your primary energy source. Fat provides 9 calories per gram and is essential for hormone production and vitamin absorption. Aim to hit these targets on average over the week rather than exactly every day.'
+		}
+		if (outputName === 'dailyWaterIntakeLiters') {
+			return 'This is your recommended daily water intake based on your body weight, activity level, climate, and exercise routine. Proper hydration is essential for temperature regulation, nutrient transport, waste removal, and overall health. Remember that about 20% of daily water intake comes from food, and individual needs can vary.'
+		}
+		if (outputName === 'caloriesBurned') {
+			return 'This is your estimated calories burned during the activity, calculated using the MET (Metabolic Equivalent of Task) formula. MET values are standardized measures of energy expenditure. Actual calories burned can vary based on individual factors like fitness level, body composition, and efficiency of movement.'
+		}
+		if (outputName === 'maxHeartRate') {
+			return 'This is your estimated maximum heart rate, calculated as 220 - age. Heart rate training zones are calculated as percentages of this maximum. Zone 1 (50-60%) is for recovery, Zone 2 (60-70%) is the fat-burning zone, Zone 3 (70-80%) improves cardiovascular fitness, Zone 4 (80-90%) is the anaerobic threshold, and Zone 5 (90-100%) is maximum effort. These are estimates and can vary by ±10-15 bpm.'
+		}
+		if (outputName === 'caloriesBurned' && calculator.id === 'steps-to-calories-calculator') {
+			return 'This is your estimated calories burned from walking, calculated based on steps, weight, stride length, and walking speed. The calculation uses MET values for walking to estimate energy expenditure. Actual calories burned can vary based on terrain, fitness level, and individual factors.'
+		}
+		if (outputName === 'bodyFatPercentage') {
+			return 'This is your estimated body fat percentage — the proportion of your total body weight that consists of fat tissue. This is calculated using the U.S. Navy Method, a formula-based estimation. Body fat percentage provides insight into body composition beyond what BMI can tell you, as it accounts for the ratio of fat to lean mass. Remember that this is an estimation and actual body fat may vary based on hydration, measurement technique, and other factors.'
+		}
+		if (outputName === 'bodyFatPercentage') {
+			return 'This is your estimated body fat percentage using the U.S. Navy Method, a formula-based estimation approach. Body fat percentage indicates the proportion of your total weight that is fat tissue. This provides insight into body composition beyond what BMI alone can tell you, as it distinguishes between fat mass and lean mass (muscle, bone, organs).'
+		}
+	}
+
+	return null
 }
 
 /**
@@ -2529,6 +2637,221 @@ export function CalculatorResults({
 	const formulaValue = formulaOutput ? outputs[formulaOutput.name] : null
 	const explanationValue = explanationOutput ? outputs[explanationOutput.name] : null
 
+	// Special handling for BMI calculator
+	const categoryValue = calculator.id === 'bmi-calculator' ? outputs.category : null
+	const categoryDescriptionValue = calculator.id === 'bmi-calculator' ? outputs.categoryDescription : null
+	const healthyWeightRangeValue = calculator.id === 'bmi-calculator' ? outputs.healthyWeightRange : null
+
+	// Special handling for BMR calculator
+	const bmrValue = calculator.id === 'bmr-calculator' ? outputs.bmr : null
+	const bmrPerHourValue = calculator.id === 'bmr-calculator' ? outputs.bmrPerHour : null
+	const formulaUsedValue = calculator.id === 'bmr-calculator' ? outputs.formulaUsed : null
+	const bmrExplanationValue = calculator.id === 'bmr-calculator' ? outputs.explanation : null
+
+	// Special handling for TDEE calculator
+	const tdeeBMRValue = calculator.id === 'daily-calorie-needs-calculator' ? outputs.bmr : null
+	const tdeeValue = calculator.id === 'daily-calorie-needs-calculator' ? outputs.tdee : null
+	const goalCaloriesValue = calculator.id === 'daily-calorie-needs-calculator' ? outputs.goalCalories : null
+	const goalDescriptionValue = calculator.id === 'daily-calorie-needs-calculator' ? outputs.goalDescription : null
+	const activityDescriptionValue = calculator.id === 'daily-calorie-needs-calculator' ? outputs.activityDescription : null
+	const activityMultiplierValue = calculator.id === 'daily-calorie-needs-calculator' ? outputs.activityMultiplier : null
+	const goalDeltaValue = calculator.id === 'daily-calorie-needs-calculator' ? outputs.goalDelta : null
+	const tdeeInsightsValue = calculator.id === 'daily-calorie-needs-calculator' ? outputs.insights : null
+
+	// Special handling for Ideal Weight calculator
+	const idealRangeKgValue = calculator.id === 'ideal-weight-calculator' ? outputs.idealRangeKg : null
+	const idealRangeLbValue = calculator.id === 'ideal-weight-calculator' ? outputs.idealRangeLb : null
+	const devineWeightValue = calculator.id === 'ideal-weight-calculator' ? outputs.devineWeight : null
+	const devineWeightLbValue = calculator.id === 'ideal-weight-calculator' ? outputs.devineWeightLb : null
+	const robinsonWeightValue = calculator.id === 'ideal-weight-calculator' ? outputs.robinsonWeight : null
+	const robinsonWeightLbValue = calculator.id === 'ideal-weight-calculator' ? outputs.robinsonWeightLb : null
+	const millerWeightValue = calculator.id === 'ideal-weight-calculator' ? outputs.millerWeight : null
+	const millerWeightLbValue = calculator.id === 'ideal-weight-calculator' ? outputs.millerWeightLb : null
+	const idealWeightInsightsValue = calculator.id === 'ideal-weight-calculator' ? outputs.insights : null
+
+	// Special handling for Body Fat Percentage calculator
+	const bodyFatValue = calculator.id === 'body-fat-percentage-calculator' ? outputs.bodyFatPercentage : null
+	const bodyFatCategoryValue = calculator.id === 'body-fat-percentage-calculator' ? outputs.category : null
+	const bodyFatCategoryDescValue = calculator.id === 'body-fat-percentage-calculator' ? outputs.categoryDescription : null
+	const bodyFatColorValue = calculator.id === 'body-fat-percentage-calculator' ? outputs.color : null
+	const bodyFatHasNeckValue = calculator.id === 'body-fat-percentage-calculator' ? outputs.hasNeckMeasurement : null
+	const bodyFatInsightsValue = calculator.id === 'body-fat-percentage-calculator' ? outputs.insights : null
+
+	// Special handling for Macronutrient calculator
+	const proteinGramsValue = calculator.id === 'macronutrient-calculator' ? outputs.proteinGrams : null
+	const carbsGramsValue = calculator.id === 'macronutrient-calculator' ? outputs.carbsGrams : null
+	const fatGramsValue = calculator.id === 'macronutrient-calculator' ? outputs.fatGrams : null
+	const proteinCaloriesValue = calculator.id === 'macronutrient-calculator' ? outputs.proteinCalories : null
+	const carbsCaloriesValue = calculator.id === 'macronutrient-calculator' ? outputs.carbsCalories : null
+	const fatCaloriesValue = calculator.id === 'macronutrient-calculator' ? outputs.fatCalories : null
+	const proteinPercentValue = calculator.id === 'macronutrient-calculator' ? outputs.proteinPercent : null
+	const carbsPercentValue = calculator.id === 'macronutrient-calculator' ? outputs.carbsPercent : null
+	const fatPercentValue = calculator.id === 'macronutrient-calculator' ? outputs.fatPercent : null
+	const macroPresetDescriptionValue = calculator.id === 'macronutrient-calculator' ? outputs.presetDescription : null
+	const macroInsightsValue = calculator.id === 'macronutrient-calculator' ? outputs.insights : null
+
+	// Special handling for Water Intake calculator
+	const waterIntakeLitersValue = calculator.id === 'water-intake-calculator' ? outputs.dailyWaterIntakeLiters : null
+	const waterIntakeCupsValue = calculator.id === 'water-intake-calculator' ? outputs.dailyWaterIntakeCups : null
+	const waterIntakeOuncesValue = calculator.id === 'water-intake-calculator' ? outputs.dailyWaterIntakeOunces : null
+	const waterIntakeInsightsValue = calculator.id === 'water-intake-calculator' ? outputs.insights : null
+
+	// Special handling for Calories Burned calculator
+	const caloriesBurnedValue = calculator.id === 'calories-burned-calculator' ? outputs.caloriesBurned : null
+	const caloriesPerMinuteValue = calculator.id === 'calories-burned-calculator' ? outputs.caloriesPerMinute : null
+	const metValueValue = calculator.id === 'calories-burned-calculator' ? outputs.metValue : null
+	const metDescriptionValue = calculator.id === 'calories-burned-calculator' ? outputs.metDescription : null
+	const caloriesBurnedInsightsValue = calculator.id === 'calories-burned-calculator' ? outputs.insights : null
+
+	// Special handling for Heart Rate Zones calculator
+	const maxHRValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.maxHeartRate : null
+	const zone1MinValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone1Min : null
+	const zone1MaxValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone1Max : null
+	const zone2MinValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone2Min : null
+	const zone2MaxValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone2Max : null
+	const zone3MinValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone3Min : null
+	const zone3MaxValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone3Max : null
+	const zone4MinValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone4Min : null
+	const zone4MaxValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone4Max : null
+	const zone5MinValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone5Min : null
+	const zone5MaxValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.zone5Max : null
+	const hrMethodUsedValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.methodUsed : null
+	const hrZonesInsightsValue = calculator.id === 'heart-rate-zones-calculator' ? outputs.insights : null
+
+	// Special handling for Steps to Calories calculator
+	const stepsCaloriesBurnedValue = calculator.id === 'steps-to-calories-calculator' ? outputs.caloriesBurned : null
+	const stepsDistanceValue = calculator.id === 'steps-to-calories-calculator' ? outputs.estimatedDistance : null
+	const stepsDistanceUnitValue = calculator.id === 'steps-to-calories-calculator' ? outputs.distanceUnit : null
+	const stepsDistanceKmValue = calculator.id === 'steps-to-calories-calculator' ? outputs.distanceKm : null
+	const stepsDistanceMilesValue = calculator.id === 'steps-to-calories-calculator' ? outputs.distanceMiles : null
+	const stepsCaloriesPer1000Value = calculator.id === 'steps-to-calories-calculator' ? outputs.caloriesPer1000Steps : null
+	const stepsStrideLengthValue = calculator.id === 'steps-to-calories-calculator' ? outputs.strideLengthUsed : null
+	const stepsMetValueValue = calculator.id === 'steps-to-calories-calculator' ? outputs.metValue : null
+	const stepsToCaloriesInsightsValue = calculator.id === 'steps-to-calories-calculator' ? outputs.insights : null
+
+	// Special handling for Age calculator
+	const ageYearsValue = calculator.id === 'age-calculator' ? outputs.years : null
+	const ageMonthsValue = calculator.id === 'age-calculator' ? outputs.months : null
+	const ageDaysValue = calculator.id === 'age-calculator' ? outputs.days : null
+	const ageStringValue = calculator.id === 'age-calculator' ? outputs.ageString : null
+	const totalDaysValue = calculator.id === 'age-calculator' ? outputs.totalDays : null
+	const totalWeeksValue = calculator.id === 'age-calculator' ? outputs.totalWeeks : null
+	const referenceDateUsedValue = calculator.id === 'age-calculator' ? outputs.referenceDateUsed : null
+	const ageExplanationValue = calculator.id === 'age-calculator' ? outputs.explanation : null
+
+	// Special handling for Days Between Dates calculator
+	const daysTotalDaysValue = calculator.id === 'days-between-dates-calculator' ? outputs.totalDays : null
+	const daysWeeksValue = calculator.id === 'days-between-dates-calculator' ? outputs.weeks : null
+	const daysRemainingDaysValue = calculator.id === 'days-between-dates-calculator' ? outputs.remainingDays : null
+	const daysTotalDaysInclusiveValue = calculator.id === 'days-between-dates-calculator' ? outputs.totalDaysInclusive : null
+	const daysWeeksInclusiveValue = calculator.id === 'days-between-dates-calculator' ? outputs.weeksInclusive : null
+	const daysRemainingDaysInclusiveValue = calculator.id === 'days-between-dates-calculator' ? outputs.remainingDaysInclusive : null
+	const daysBreakdownValue = calculator.id === 'days-between-dates-calculator' ? outputs.breakdown : null
+	const daysBreakdownInclusiveValue = calculator.id === 'days-between-dates-calculator' ? outputs.breakdownInclusive : null
+	const daysStartDateFormattedValue = calculator.id === 'days-between-dates-calculator' ? outputs.startDateFormatted : null
+	const daysEndDateFormattedValue = calculator.id === 'days-between-dates-calculator' ? outputs.endDateFormatted : null
+	const daysExplanationValue = calculator.id === 'days-between-dates-calculator' ? outputs.explanation : null
+	const daysIncludeEndDateValue = calculator.id === 'days-between-dates-calculator' ? outputs.includeEndDate : null
+
+	// Special handling for Numbers to Words calculator
+	const numbersToWordsWordsValue = calculator.id === 'numbers-to-words-calculator' ? outputs.words : null
+	const numbersToWordsCurrencyValue = calculator.id === 'numbers-to-words-calculator' ? outputs.currencyWords : null
+	const numbersToWordsBreakdownValue = calculator.id === 'numbers-to-words-calculator' ? outputs.breakdown : null
+	const numbersToWordsMillionsValue = calculator.id === 'numbers-to-words-calculator' ? outputs.millions : null
+	const numbersToWordsThousandsValue = calculator.id === 'numbers-to-words-calculator' ? outputs.thousands : null
+	const numbersToWordsHundredsValue = calculator.id === 'numbers-to-words-calculator' ? outputs.hundreds : null
+	const numbersToWordsExplanationValue = calculator.id === 'numbers-to-words-calculator' ? outputs.explanation : null
+	const numbersToWordsOriginalValue = calculator.id === 'numbers-to-words-calculator' ? outputs.originalNumber : null
+
+	// Special handling for Roman Numerals calculator
+	const romanResultValue = calculator.id === 'roman-numerals-converter' ? outputs.result : null
+	const romanBreakdownValue = calculator.id === 'roman-numerals-converter' ? outputs.breakdown : null
+	const romanExplanationValue = calculator.id === 'roman-numerals-converter' ? outputs.explanation : null
+	const romanSymbolsUsedValue = calculator.id === 'roman-numerals-converter' ? outputs.symbolsUsed : null
+	const romanOriginalValue = calculator.id === 'roman-numerals-converter' ? outputs.originalValue : null
+	const romanModeValue = calculator.id === 'roman-numerals-converter' ? outputs.mode : null
+
+	// Special handling for Date Calculator
+	const dateResultDateValue = calculator.id === 'date-calculator' ? outputs.resultDate : null
+	const dateResultDateFormattedValue = calculator.id === 'date-calculator' ? outputs.resultDateFormatted : null
+	const dateWeekdayValue = calculator.id === 'date-calculator' ? outputs.weekday : null
+	const dateIsoDateValue = calculator.id === 'date-calculator' ? outputs.isoDate : null
+	const dateExplanationValue = calculator.id === 'date-calculator' ? outputs.explanation : null
+	const dateDaysAddedValue = calculator.id === 'date-calculator' ? outputs.daysAdded : null
+	const dateDaysSubtractedValue = calculator.id === 'date-calculator' ? outputs.daysSubtracted : null
+	const dateStartDateValue = calculator.id === 'date-calculator' ? outputs.startDate : null
+	const dateStartDateFormattedValue = calculator.id === 'date-calculator' ? outputs.startDateFormatted : null
+	const dateNumberOfDaysValue = calculator.id === 'date-calculator' ? outputs.numberOfDays : null
+	const dateOperationValue = calculator.id === 'date-calculator' ? outputs.operation : null
+	const dateDaysDifferenceValue = calculator.id === 'date-calculator' ? outputs.daysDifference : null
+
+	// Special handling for Cooking Measurement Converter
+	const cookingResultValue = calculator.id === 'cooking-measurement-converter' ? outputs.result : null
+	const cookingResultFormattedValue = calculator.id === 'cooking-measurement-converter' ? outputs.resultFormatted : null
+	const cookingExplanationValue = calculator.id === 'cooking-measurement-converter' ? outputs.explanation : null
+	const cookingConversionTypeValue = calculator.id === 'cooking-measurement-converter' ? outputs.conversionType : null
+	const cookingIngredientNoteValue = calculator.id === 'cooking-measurement-converter' ? outputs.ingredientNote : null
+	const cookingFromUnitValue = calculator.id === 'cooking-measurement-converter' ? outputs.fromUnit : null
+	const cookingToUnitValue = calculator.id === 'cooking-measurement-converter' ? outputs.toUnit : null
+	const cookingIngredientValue = calculator.id === 'cooking-measurement-converter' ? outputs.ingredient : null
+	const cookingOriginalValue = calculator.id === 'cooking-measurement-converter' ? outputs.originalValue : null
+
+	// Special handling for Room Area calculator
+	const roomAreaValue = calculator.id === 'room-area-calculator' ? outputs.area : null
+	const roomAreaFormattedValue = calculator.id === 'room-area-calculator' ? outputs.areaFormatted : null
+	const roomAreaAlternativeValue = calculator.id === 'room-area-calculator' ? outputs.areaInAlternativeUnitFormatted : null
+	const roomAlternativeUnitValue = calculator.id === 'room-area-calculator' ? outputs.alternativeUnit : null
+	const roomExplanationValue = calculator.id === 'room-area-calculator' ? outputs.explanation : null
+	const roomFormulaValue = calculator.id === 'room-area-calculator' ? outputs.formula : null
+	const roomShapeValue = calculator.id === 'room-area-calculator' ? outputs.shape : null
+	const roomUnitSymbolValue = calculator.id === 'room-area-calculator' ? outputs.unitSymbol : null
+
+	// Special handling for Paint calculator
+	const paintRequiredValue = calculator.id === 'paint-calculator' ? outputs.paintRequired : null
+	const paintRequiredFormattedValue = calculator.id === 'paint-calculator' ? outputs.paintRequiredFormatted : null
+	const paintRequiredAlternativeValue = calculator.id === 'paint-calculator' ? outputs.paintRequiredAlternativeFormatted : null
+	const paintAlternativeUnitValue = calculator.id === 'paint-calculator' ? outputs.alternativeUnit : null
+	const paintExplanationValue = calculator.id === 'paint-calculator' ? outputs.explanation : null
+	const paintCansEstimateValue = calculator.id === 'paint-calculator' ? outputs.cansEstimate : null
+	const paintRoomAreaValue = calculator.id === 'paint-calculator' ? outputs.roomArea : null
+	const paintNumberOfCoatsValue = calculator.id === 'paint-calculator' ? outputs.numberOfCoats : null
+	const paintCoverageValue = calculator.id === 'paint-calculator' ? outputs.paintCoverage : null
+	const paintCoverageUnitValue = calculator.id === 'paint-calculator' ? outputs.coverageUnit : null
+	const paintUnitValue = calculator.id === 'paint-calculator' ? outputs.paintUnit : null
+	const paintAreaUnitValue = calculator.id === 'paint-calculator' ? outputs.areaUnit : null
+
+	// Special handling for Random Number Generator
+	const randomNumbersValue = calculator.id === 'random-number-generator' ? outputs.numbers : null
+	const randomNumbersFormattedValue = calculator.id === 'random-number-generator' ? outputs.numbersFormatted : null
+	const randomExplanationValue = calculator.id === 'random-number-generator' ? outputs.explanation : null
+	const randomMinValue = calculator.id === 'random-number-generator' ? outputs.minValue : null
+	const randomMaxValue = calculator.id === 'random-number-generator' ? outputs.maxValue : null
+	const randomQuantityValue = calculator.id === 'random-number-generator' ? outputs.quantity : null
+	const randomAllowDuplicatesValue = calculator.id === 'random-number-generator' ? outputs.allowDuplicates : null
+	const randomRangeValue = calculator.id === 'random-number-generator' ? outputs.range : null
+	const randomRangeSizeValue = calculator.id === 'random-number-generator' ? outputs.rangeSize : null
+
+	// Get BMI category color
+	const getBMICategoryColor = (category: string | null): string => {
+		if (!category) return 'text-blue-600'
+		const cat = String(category).toLowerCase()
+		if (cat === 'underweight') return 'text-blue-600'
+		if (cat === 'normal') return 'text-green-600'
+		if (cat === 'overweight') return 'text-yellow-600'
+		if (cat === 'obese') return 'text-red-600'
+		return 'text-blue-600'
+	}
+
+	const getBMICategoryBadgeColor = (category: string | null): string => {
+		if (!category) return 'bg-gray-100 text-gray-800'
+		const cat = String(category).toLowerCase()
+		if (cat === 'underweight') return 'bg-blue-100 text-blue-800'
+		if (cat === 'normal') return 'bg-green-100 text-green-800'
+		if (cat === 'overweight') return 'bg-yellow-100 text-yellow-800'
+		if (cat === 'obese') return 'bg-red-100 text-red-800'
+		return 'bg-gray-100 text-gray-800'
+	}
+
 	return (
 		<div className="h-full">
 			{/* Main Result */}
@@ -2537,8 +2860,1330 @@ export function CalculatorResults({
 					<label className="block text-sm font-medium text-gray-500 uppercase tracking-wide mb-2">
 						{mainOutput.label || 'Result'}
 					</label>
-					{/* Special formatting for ROI calculator - color-coded */}
-					{calculator.id === 'roi-calculator' && mainOutput.name === 'roiPercentage' ? (
+					{/* Special formatting for BMI calculator */}
+					{calculator.id === 'bmi-calculator' && mainOutput.name === 'bmi' ? (
+						<div>
+							<div className={`text-5xl md:text-6xl font-bold mb-3 ${getBMICategoryColor(categoryValue)}`}>
+								{formattedMainValue}
+							</div>
+							{/* BMI Category Badge */}
+							{categoryValue && (
+								<div className="mt-3 mb-4">
+									<span className={`inline-flex items-center px-4 py-2 rounded-full text-base font-semibold ${getBMICategoryBadgeColor(categoryValue)}`}>
+										{categoryValue}
+									</span>
+								</div>
+							)}
+							{/* BMI Visual Scale */}
+							<div className="mt-4 mb-4">
+								<div className="bg-gray-100 rounded-full h-4 relative overflow-hidden">
+									<div className="absolute inset-0 flex">
+										<div className="bg-blue-500" style={{ width: '18.5%' }}></div>
+										<div className="bg-green-500" style={{ width: '6.4%' }}></div>
+										<div className="bg-yellow-500" style={{ width: '5%' }}></div>
+										<div className="bg-red-500" style={{ width: '70.1%' }}></div>
+									</div>
+									{/* BMI indicator */}
+									{mainValue && typeof mainValue === 'number' && (
+										<div 
+											className="absolute top-0 h-full w-0.5 bg-gray-900 z-10"
+											style={{ left: `${Math.min(Math.max((mainValue / 50) * 100, 0), 100)}%` }}
+										></div>
+									)}
+								</div>
+								<div className="flex justify-between text-xs text-gray-600 mt-2">
+									<span>Underweight<br/>&lt;18.5</span>
+									<span>Normal<br/>18.5-24.9</span>
+									<span>Overweight<br/>25-29.9</span>
+									<span>Obese<br/>≥30</span>
+								</div>
+							</div>
+							{/* Category Description */}
+							{categoryDescriptionValue && typeof categoryDescriptionValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{categoryDescriptionValue}</p>
+								</div>
+							)}
+							{/* Healthy Weight Range */}
+							{healthyWeightRangeValue && typeof healthyWeightRangeValue === 'string' && (
+								<div className="mt-4">
+									<p className="text-sm font-medium text-gray-700 mb-1">Healthy Weight Range for Your Height:</p>
+									<p className="text-lg font-semibold text-gray-900">{healthyWeightRangeValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'bmr-calculator' && mainOutput.name === 'bmr' ? (
+						<div>
+							<div className="text-5xl md:text-6xl font-bold text-green-600 mb-3">
+								{formattedMainValue}
+							</div>
+							{/* BMR per hour */}
+							{bmrPerHourValue && typeof bmrPerHourValue === 'number' && (
+								<div className="mt-2 mb-4">
+									<p className="text-lg text-gray-600">
+										Approximately <span className="font-semibold text-gray-900">{bmrPerHourValue}</span> calories per hour
+									</p>
+								</div>
+							)}
+							{/* Formula used */}
+							{formulaUsedValue && typeof formulaUsedValue === 'string' && (
+								<div className="mt-3 mb-4">
+									<span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+										Formula: {formulaUsedValue}
+									</span>
+								</div>
+							)}
+							{/* What this means box */}
+							<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+								<h4 className="text-base font-semibold text-blue-900 mb-2">What This Means</h4>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									Your BMR of {formattedMainValue} is your baseline metabolism — the calories your body burns at complete rest. This represents approximately 60-70% of your total daily energy expenditure.
+								</p>
+								<p className="text-sm text-blue-800 leading-relaxed">
+									<strong>Important:</strong> Your actual daily calorie needs are higher than your BMR because you move, exercise, and perform daily activities. To calculate your total daily energy expenditure (TDEE), you need to multiply your BMR by an activity factor. Use our <Link href="/calculators/health/daily-calorie-needs-calculator" className="underline font-medium hover:text-blue-900">Daily Calorie Needs (TDEE) Calculator</Link> to find your TDEE.
+								</p>
+							</div>
+							{/* Explanation */}
+							{bmrExplanationValue && typeof bmrExplanationValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{bmrExplanationValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'daily-calorie-needs-calculator' && mainOutput.name === 'tdee' ? (
+						<div>
+							<div className="text-5xl md:text-6xl font-bold text-blue-600 mb-3">
+								{formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">Maintenance Calories (TDEE)</p>
+							
+							{/* BMR */}
+							{tdeeBMRValue && typeof tdeeBMRValue === 'number' && (
+								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-600 mb-1">Basal Metabolic Rate (BMR)</p>
+									<p className="text-2xl font-semibold text-gray-900">{tdeeBMRValue.toLocaleString()} <span className="text-base font-normal text-gray-600">kcal/day</span></p>
+									<p className="text-xs text-gray-500 mt-1">Calories burned at complete rest</p>
+								</div>
+							)}
+							
+							{/* Activity Level */}
+							{activityDescriptionValue && typeof activityDescriptionValue === 'string' && activityMultiplierValue && typeof activityMultiplierValue === 'number' && (
+								<div className="mt-3 mb-4">
+									<p className="text-sm text-gray-600 mb-1">Activity Level</p>
+									<p className="text-base font-medium text-gray-900">{activityDescriptionValue} ({activityMultiplierValue}x multiplier)</p>
+								</div>
+							)}
+							
+							{/* Goal Calories */}
+							{goalCaloriesValue && typeof goalCaloriesValue === 'number' && goalDescriptionValue && typeof goalDescriptionValue === 'string' && goalDeltaValue !== null && goalDeltaValue !== undefined && (
+								<div className="mt-4 mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<p className="text-sm font-medium text-blue-900 mb-2">Goal: {goalDescriptionValue}</p>
+									<p className="text-2xl font-semibold text-blue-700">{goalCaloriesValue.toLocaleString()} <span className="text-base font-normal text-blue-600">kcal/day</span></p>
+									{goalDeltaValue !== 0 && (
+										<p className="text-xs text-blue-700 mt-1">
+											{goalDeltaValue > 0 ? '+' : ''}{goalDeltaValue} calories from maintenance
+										</p>
+									)}
+								</div>
+							)}
+							
+							{/* Calorie Targets Table */}
+							{tdeeValue && typeof tdeeValue === 'number' && (
+								<div className="mt-6 mb-4">
+									<h4 className="text-sm font-semibold text-gray-900 mb-3">Calorie Targets</h4>
+									<div className="overflow-x-auto">
+										<table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
+											<thead className="bg-gray-50">
+												<tr>
+													<th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase">Goal</th>
+													<th className="px-4 py-2 text-right text-xs font-medium text-gray-700 uppercase">Calories/Day</th>
+													<th className="px-4 py-2 text-right text-xs font-medium text-gray-700 uppercase">Weekly Change</th>
+												</tr>
+											</thead>
+											<tbody className="bg-white divide-y divide-gray-200">
+												<tr>
+													<td className="px-4 py-2 text-sm text-gray-900">Maintain Weight</td>
+													<td className="px-4 py-2 text-sm font-semibold text-right text-gray-900">{tdeeValue.toLocaleString()}</td>
+													<td className="px-4 py-2 text-sm text-right text-gray-600">0 kg/week</td>
+												</tr>
+												<tr className="bg-blue-50">
+													<td className="px-4 py-2 text-sm text-gray-900">Mild Loss</td>
+													<td className="px-4 py-2 text-sm font-semibold text-right text-blue-700">{(tdeeValue - 250).toLocaleString()}</td>
+													<td className="px-4 py-2 text-sm text-right text-blue-700">-0.25 kg/week</td>
+												</tr>
+												<tr>
+													<td className="px-4 py-2 text-sm text-gray-900">Moderate Loss</td>
+													<td className="px-4 py-2 text-sm font-semibold text-right text-gray-900">{(tdeeValue - 500).toLocaleString()}</td>
+													<td className="px-4 py-2 text-sm text-right text-gray-600">-0.5 kg/week</td>
+												</tr>
+												<tr className="bg-green-50">
+													<td className="px-4 py-2 text-sm text-gray-900">Mild Gain</td>
+													<td className="px-4 py-2 text-sm font-semibold text-right text-green-700">{(tdeeValue + 250).toLocaleString()}</td>
+													<td className="px-4 py-2 text-sm text-right text-green-700">+0.25 kg/week</td>
+												</tr>
+												<tr>
+													<td className="px-4 py-2 text-sm text-gray-900">Moderate Gain</td>
+													<td className="px-4 py-2 text-sm font-semibold text-right text-gray-900">{(tdeeValue + 500).toLocaleString()}</td>
+													<td className="px-4 py-2 text-sm text-right text-gray-600">+0.5 kg/week</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							)}
+							
+							{/* What this means box */}
+							<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+								<h4 className="text-base font-semibold text-blue-900 mb-2">What This Means</h4>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									Your TDEE of {formattedMainValue} is your total daily energy expenditure — the calories you burn per day including all activities. This is calculated by multiplying your BMR by your activity level multiplier.
+								</p>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									<strong>To maintain your current weight:</strong> Consume approximately {formattedMainValue} calories per day.
+								</p>
+								<p className="text-sm text-blue-800 leading-relaxed">
+									<strong>Note:</strong> These are estimates. Individual calorie needs can vary based on genetics, body composition, medical conditions, and other factors. Adjust based on your results over 2-3 weeks and consult a healthcare provider for personalized advice.
+								</p>
+							</div>
+							
+							{/* Insights */}
+							{tdeeInsightsValue && typeof tdeeInsightsValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{tdeeInsightsValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'ideal-weight-calculator' && mainOutput.name === 'idealRangeKg' ? (
+						<div>
+							<div className="text-4xl md:text-5xl font-bold text-green-600 mb-3">
+								{idealRangeKgValue && typeof idealRangeKgValue === 'string' ? idealRangeKgValue : formattedMainValue}
+							</div>
+							{idealRangeLbValue && typeof idealRangeLbValue === 'string' && (
+								<p className="text-lg text-gray-600 mb-4">
+									{idealRangeLbValue}
+								</p>
+							)}
+							<p className="text-sm text-gray-500 mb-6">Suggested Ideal Weight Range</p>
+							
+							{/* Formulas Table */}
+							<div className="mt-6 mb-4">
+								<h4 className="text-sm font-semibold text-gray-900 mb-3">Results by Formula</h4>
+								<div className="overflow-x-auto">
+									<table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
+										<thead className="bg-gray-50">
+											<tr>
+												<th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase">Formula</th>
+												<th className="px-4 py-2 text-right text-xs font-medium text-gray-700 uppercase">Weight (kg)</th>
+												<th className="px-4 py-2 text-right text-xs font-medium text-gray-700 uppercase">Weight (lb)</th>
+											</tr>
+										</thead>
+										<tbody className="bg-white divide-y divide-gray-200">
+											<tr>
+												<td className="px-4 py-2 text-sm font-medium text-gray-900">Devine</td>
+												<td className="px-4 py-2 text-sm text-right text-gray-900">
+													{devineWeightValue && typeof devineWeightValue === 'number' ? devineWeightValue.toFixed(1) : '—'}
+												</td>
+												<td className="px-4 py-2 text-sm text-right text-gray-600">
+													{devineWeightLbValue && typeof devineWeightLbValue === 'number' ? devineWeightLbValue.toFixed(1) : '—'}
+												</td>
+											</tr>
+											<tr className="bg-gray-50">
+												<td className="px-4 py-2 text-sm font-medium text-gray-900">Robinson</td>
+												<td className="px-4 py-2 text-sm text-right text-gray-900">
+													{robinsonWeightValue && typeof robinsonWeightValue === 'number' ? robinsonWeightValue.toFixed(1) : '—'}
+												</td>
+												<td className="px-4 py-2 text-sm text-right text-gray-600">
+													{robinsonWeightLbValue && typeof robinsonWeightLbValue === 'number' ? robinsonWeightLbValue.toFixed(1) : '—'}
+												</td>
+											</tr>
+											<tr>
+												<td className="px-4 py-2 text-sm font-medium text-gray-900">Miller</td>
+												<td className="px-4 py-2 text-sm text-right text-gray-900">
+													{millerWeightValue && typeof millerWeightValue === 'number' ? millerWeightValue.toFixed(1) : '—'}
+												</td>
+												<td className="px-4 py-2 text-sm text-right text-gray-600">
+													{millerWeightLbValue && typeof millerWeightLbValue === 'number' ? millerWeightLbValue.toFixed(1) : '—'}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							
+							{/* What this means box */}
+							<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+								<h4 className="text-base font-semibold text-blue-900 mb-2">What This Means</h4>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									The ideal weight range shown above is calculated using three different formulas (Devine, Robinson, and Miller). These formulas give slightly different results because they were developed using different populations and methodologies.
+								</p>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									<strong>Important:</strong> Ideal weight formulas are estimates based on height and sex only. They don't account for body composition (muscle vs fat), bone structure, or individual variations. BMI and body fat percentage may provide more comprehensive information about your health.
+								</p>
+								<p className="text-sm text-blue-800 leading-relaxed">
+									Use ideal weight as a general guideline, but also consider your overall health, body composition, and how you feel. Consult with a healthcare provider for personalized advice.
+								</p>
+							</div>
+							
+							{/* Insights */}
+							{idealWeightInsightsValue && typeof idealWeightInsightsValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{idealWeightInsightsValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'body-fat-percentage-calculator' && mainOutput.name === 'bodyFatPercentage' ? (
+						<div>
+							<div className={`text-5xl md:text-6xl font-bold mb-3 ${
+								bodyFatColorValue === 'green' ? 'text-green-600' :
+								bodyFatColorValue === 'blue' ? 'text-blue-600' :
+								bodyFatColorValue === 'yellow' ? 'text-yellow-600' :
+								bodyFatColorValue === 'red' ? 'text-red-600' :
+								'text-gray-600'
+							}`}>
+								{formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">Body Fat Percentage</p>
+							
+							{/* Category Badge */}
+							{bodyFatCategoryValue && typeof bodyFatCategoryValue === 'string' && (
+								<div className="mt-3 mb-4">
+									<span className={`inline-flex items-center px-4 py-2 rounded-full text-base font-semibold ${
+										bodyFatColorValue === 'green' ? 'bg-green-100 text-green-800' :
+										bodyFatColorValue === 'blue' ? 'bg-blue-100 text-blue-800' :
+										bodyFatColorValue === 'yellow' ? 'bg-yellow-100 text-yellow-800' :
+										bodyFatColorValue === 'red' ? 'bg-red-100 text-red-800' :
+										'bg-gray-100 text-gray-800'
+									}`}>
+										{bodyFatCategoryValue}
+									</span>
+								</div>
+							)}
+							
+							{/* Category Description */}
+							{bodyFatCategoryDescValue && typeof bodyFatCategoryDescValue === 'string' && (
+								<div className="mt-4 mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{bodyFatCategoryDescValue}</p>
+								</div>
+							)}
+							
+							{/* Note about neck measurement */}
+							{bodyFatHasNeckValue === false && (
+								<div className="mt-4 mb-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+									<p className="text-sm text-yellow-800">
+										<strong>Note:</strong> This calculation used an estimated neck measurement. For improved accuracy, measure your neck circumference and include it in the calculation.
+									</p>
+								</div>
+							)}
+							
+							{/* Estimation limitations box */}
+							<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+								<h4 className="text-base font-semibold text-blue-900 mb-2">About This Estimate</h4>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									This body fat percentage is an estimation using the U.S. Navy Method, a formula-based approach. Actual body fat percentage can vary based on:
+								</p>
+								<ul className="text-sm text-blue-800 leading-relaxed list-disc list-inside mb-3 space-y-1">
+									<li>Hydration levels (water retention can affect measurements)</li>
+									<li>Measurement technique (accuracy of tape placement)</li>
+									<li>Body composition variations (muscle distribution, bone structure)</li>
+									<li>Individual differences not captured by formulas</li>
+								</ul>
+								<p className="text-sm text-blue-800 leading-relaxed">
+									For the most accurate measurement, consider professional methods like DEXA scan, BodPod, or hydrostatic weighing. This calculator provides a reasonable estimate for general use.
+								</p>
+							</div>
+							
+							{/* Insights */}
+							{bodyFatInsightsValue && typeof bodyFatInsightsValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{bodyFatInsightsValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'macronutrient-calculator' && mainOutput.name === 'proteinGrams' ? (
+						<div>
+							{/* Macro Breakdown Cards */}
+							<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+								{/* Protein */}
+								<div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<div className="flex items-center justify-between mb-2">
+										<h4 className="text-sm font-semibold text-blue-900">Protein</h4>
+										<span className="text-xs text-blue-700 font-medium">
+											{proteinPercentValue && typeof proteinPercentValue === 'number' ? `${proteinPercentValue}%` : '—'}
+										</span>
+									</div>
+									<div className="text-3xl font-bold text-blue-700 mb-1">
+										{proteinGramsValue && typeof proteinGramsValue === 'number' ? `${proteinGramsValue.toFixed(1)}` : '—'} <span className="text-lg font-normal text-blue-600">g</span>
+									</div>
+									<p className="text-xs text-blue-600">
+										{proteinCaloriesValue && typeof proteinCaloriesValue === 'number' ? `${proteinCaloriesValue.toFixed(0)} kcal` : '—'}
+									</p>
+									<p className="text-xs text-blue-700 mt-2">4 kcal/g • Muscle repair & growth</p>
+								</div>
+								
+								{/* Carbohydrates */}
+								<div className="p-4 bg-green-50 rounded-lg border border-green-200">
+									<div className="flex items-center justify-between mb-2">
+										<h4 className="text-sm font-semibold text-green-900">Carbs</h4>
+										<span className="text-xs text-green-700 font-medium">
+											{carbsPercentValue && typeof carbsPercentValue === 'number' ? `${carbsPercentValue}%` : '—'}
+										</span>
+									</div>
+									<div className="text-3xl font-bold text-green-700 mb-1">
+										{carbsGramsValue && typeof carbsGramsValue === 'number' ? `${carbsGramsValue.toFixed(1)}` : '—'} <span className="text-lg font-normal text-green-600">g</span>
+									</div>
+									<p className="text-xs text-green-600">
+										{carbsCaloriesValue && typeof carbsCaloriesValue === 'number' ? `${carbsCaloriesValue.toFixed(0)} kcal` : '—'}
+									</p>
+									<p className="text-xs text-green-700 mt-2">4 kcal/g • Primary energy source</p>
+								</div>
+								
+								{/* Fat */}
+								<div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+									<div className="flex items-center justify-between mb-2">
+										<h4 className="text-sm font-semibold text-yellow-900">Fat</h4>
+										<span className="text-xs text-yellow-700 font-medium">
+											{fatPercentValue && typeof fatPercentValue === 'number' ? `${fatPercentValue}%` : '—'}
+										</span>
+									</div>
+									<div className="text-3xl font-bold text-yellow-700 mb-1">
+										{fatGramsValue && typeof fatGramsValue === 'number' ? `${fatGramsValue.toFixed(1)}` : '—'} <span className="text-lg font-normal text-yellow-600">g</span>
+									</div>
+									<p className="text-xs text-yellow-600">
+										{fatCaloriesValue && typeof fatCaloriesValue === 'number' ? `${fatCaloriesValue.toFixed(0)} kcal` : '—'}
+									</p>
+									<p className="text-xs text-yellow-700 mt-2">9 kcal/g • Hormone production</p>
+								</div>
+							</div>
+							
+							{/* Preset Description */}
+							{macroPresetDescriptionValue && typeof macroPresetDescriptionValue === 'string' && (
+								<div className="mb-4">
+									<p className="text-sm text-gray-600">
+										<strong>Macro Split:</strong> {macroPresetDescriptionValue}
+									</p>
+								</div>
+							)}
+							
+							{/* What this means box */}
+							<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+								<h4 className="text-base font-semibold text-blue-900 mb-2">Understanding Your Macros</h4>
+								<div className="space-y-3 text-sm text-blue-800">
+									<p>
+										<strong>Protein ({proteinPercentValue && typeof proteinPercentValue === 'number' ? `${proteinPercentValue}%` : '—'}):</strong> Essential for muscle repair, immune function, and hormone production. Provides 4 calories per gram. Adequate protein helps preserve muscle mass during weight loss and supports recovery after exercise.
+									</p>
+									<p>
+										<strong>Carbohydrates ({carbsPercentValue && typeof carbsPercentValue === 'number' ? `${carbsPercentValue}%` : '—'}):</strong> Your body's primary energy source. Provides 4 calories per gram. Carbs fuel your brain, muscles, and daily activities. They're especially important for high-intensity exercise and athletic performance.
+									</p>
+									<p>
+										<strong>Fat ({fatPercentValue && typeof fatPercentValue === 'number' ? `${fatPercentValue}%` : '—'}):</strong> Provides 9 calories per gram (more than twice the energy density of protein and carbs). Essential for hormone production, vitamin absorption, and cell membrane function. Healthy fats support brain health and satiety.
+									</p>
+								</div>
+							</div>
+							
+							{/* Insights */}
+							{macroInsightsValue && typeof macroInsightsValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{macroInsightsValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'water-intake-calculator' && mainOutput.name === 'dailyWaterIntakeLiters' ? (
+						<div>
+							<div className="text-5xl md:text-6xl font-bold text-blue-600 mb-3">
+								{formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">Recommended Daily Water Intake</p>
+							
+							{/* Equivalent measurements */}
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 mb-4">
+								{waterIntakeCupsValue && typeof waterIntakeCupsValue === 'number' && (
+									<div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+										<p className="text-sm text-blue-700 mb-1">In Cups</p>
+										<p className="text-2xl font-semibold text-blue-900">{waterIntakeCupsValue.toFixed(1)} <span className="text-base font-normal text-blue-700">cups</span></p>
+									</div>
+								)}
+								{waterIntakeOuncesValue && typeof waterIntakeOuncesValue === 'number' && (
+									<div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+										<p className="text-sm text-blue-700 mb-1">In Ounces</p>
+										<p className="text-2xl font-semibold text-blue-900">{waterIntakeOuncesValue.toFixed(0)} <span className="text-base font-normal text-blue-700">oz</span></p>
+									</div>
+								)}
+							</div>
+							
+							{/* What this means box */}
+							<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+								<h4 className="text-base font-semibold text-blue-900 mb-2">Hydration Basics</h4>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									Your recommended daily water intake of {formattedMainValue} is based on your body weight, activity level, climate, and exercise routine. This amount helps maintain proper hydration, which is essential for:
+								</p>
+								<ul className="text-sm text-blue-800 leading-relaxed list-disc list-inside mb-3 space-y-1">
+									<li>Temperature regulation and cooling</li>
+									<li>Nutrient transport throughout your body</li>
+									<li>Waste removal and kidney function</li>
+									<li>Joint lubrication and cushioning</li>
+									<li>Digestive health and regularity</li>
+								</ul>
+								<p className="text-sm text-blue-800 leading-relaxed">
+									<strong>Note:</strong> This is a general guideline. Individual water needs can vary based on age, health conditions, medications, and other factors. About 20% of daily water intake typically comes from food. Listen to your body's thirst signals and adjust accordingly.
+								</p>
+							</div>
+							
+							{/* Insights */}
+							{waterIntakeInsightsValue && typeof waterIntakeInsightsValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{waterIntakeInsightsValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'calories-burned-calculator' && mainOutput.name === 'caloriesBurned' ? (
+						<div>
+							<div className="text-5xl md:text-6xl font-bold text-orange-600 mb-3">
+								{formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">Calories Burned</p>
+							
+							{/* Calories per minute and MET */}
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 mb-4">
+								{caloriesPerMinuteValue && typeof caloriesPerMinuteValue === 'number' && (
+									<div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+										<p className="text-sm text-orange-700 mb-1">Calories Per Minute</p>
+										<p className="text-2xl font-semibold text-orange-900">{caloriesPerMinuteValue.toFixed(1)} <span className="text-base font-normal text-orange-700">kcal/min</span></p>
+									</div>
+								)}
+								{metValueValue && typeof metValueValue === 'number' && (
+									<div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+										<p className="text-sm text-orange-700 mb-1">MET Value</p>
+										<p className="text-2xl font-semibold text-orange-900">{metValueValue.toFixed(1)} <span className="text-base font-normal text-orange-700">MET</span></p>
+										{metDescriptionValue && typeof metDescriptionValue === 'string' && (
+											<p className="text-xs text-orange-600 mt-1">{metDescriptionValue}</p>
+										)}
+									</div>
+								)}
+							</div>
+							
+							{/* What this means box */}
+							<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+								<h4 className="text-base font-semibold text-blue-900 mb-2">About This Estimate</h4>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									This calorie burn estimate uses the MET (Metabolic Equivalent of Task) formula: <strong>Calories = MET × weight(kg) × duration(hours)</strong>. MET values are standardized measures of energy expenditure used in exercise science.
+								</p>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									<strong>What is MET?</strong> MET stands for Metabolic Equivalent of Task. 1 MET = the energy expended while sitting at rest. A MET of 3.5 means the activity requires 3.5 times the energy of resting. Higher MET values indicate more intense activities that burn more calories.
+								</p>
+								<p className="text-sm text-blue-800 leading-relaxed">
+									<strong>Note:</strong> These are estimates based on average MET values. Actual calories burned can vary by ±10-20% based on individual factors such as fitness level, body composition, efficiency of movement, terrain, and environmental conditions. Fitness trackers and heart rate monitors may provide more personalized estimates.
+								</p>
+							</div>
+							
+							{/* Insights */}
+							{caloriesBurnedInsightsValue && typeof caloriesBurnedInsightsValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{caloriesBurnedInsightsValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'heart-rate-zones-calculator' && mainOutput.name === 'maxHeartRate' ? (
+						<div>
+							<div className="text-5xl md:text-6xl font-bold text-red-600 mb-3">
+								{formattedMainValue} <span className="text-2xl font-normal text-gray-600">bpm</span>
+							</div>
+							<p className="text-sm text-gray-500 mb-4">Maximum Heart Rate</p>
+							
+							{/* Method Used */}
+							{hrMethodUsedValue && typeof hrMethodUsedValue === 'string' && (
+								<div className="mb-4">
+									<p className="text-sm text-gray-600">
+										<strong>Method:</strong> {hrMethodUsedValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Heart Rate Zones Table */}
+							<div className="mt-6 mb-4">
+								<h4 className="text-sm font-semibold text-gray-900 mb-3">Training Zones</h4>
+								<div className="overflow-x-auto">
+									<table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
+										<thead className="bg-gray-50">
+											<tr>
+												<th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase">Zone</th>
+												<th className="px-4 py-2 text-right text-xs font-medium text-gray-700 uppercase">Heart Rate (bpm)</th>
+												<th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase">Purpose</th>
+											</tr>
+										</thead>
+										<tbody className="bg-white divide-y divide-gray-200">
+											<tr className="bg-blue-50">
+												<td className="px-4 py-3 text-sm font-medium text-blue-900">Zone 1</td>
+												<td className="px-4 py-3 text-sm font-semibold text-right text-blue-900">
+													{zone1MinValue && typeof zone1MinValue === 'number' && zone1MaxValue && typeof zone1MaxValue === 'number' 
+														? `${zone1MinValue}-${zone1MaxValue}` 
+														: '—'}
+												</td>
+												<td className="px-4 py-3 text-sm text-blue-800">Recovery (50-60%)</td>
+											</tr>
+											<tr className="bg-green-50">
+												<td className="px-4 py-3 text-sm font-medium text-green-900">Zone 2</td>
+												<td className="px-4 py-3 text-sm font-semibold text-right text-green-900">
+													{zone2MinValue && typeof zone2MinValue === 'number' && zone2MaxValue && typeof zone2MaxValue === 'number' 
+														? `${zone2MinValue}-${zone2MaxValue}` 
+														: '—'}
+												</td>
+												<td className="px-4 py-3 text-sm text-green-800">Fat Burning (60-70%)</td>
+											</tr>
+											<tr className="bg-yellow-50">
+												<td className="px-4 py-3 text-sm font-medium text-yellow-900">Zone 3</td>
+												<td className="px-4 py-3 text-sm font-semibold text-right text-yellow-900">
+													{zone3MinValue && typeof zone3MinValue === 'number' && zone3MaxValue && typeof zone3MaxValue === 'number' 
+														? `${zone3MinValue}-${zone3MaxValue}` 
+														: '—'}
+												</td>
+												<td className="px-4 py-3 text-sm text-yellow-800">Aerobic (70-80%)</td>
+											</tr>
+											<tr className="bg-orange-50">
+												<td className="px-4 py-3 text-sm font-medium text-orange-900">Zone 4</td>
+												<td className="px-4 py-3 text-sm font-semibold text-right text-orange-900">
+													{zone4MinValue && typeof zone4MinValue === 'number' && zone4MaxValue && typeof zone4MaxValue === 'number' 
+														? `${zone4MinValue}-${zone4MaxValue}` 
+														: '—'}
+												</td>
+												<td className="px-4 py-3 text-sm text-orange-800">Threshold (80-90%)</td>
+											</tr>
+											<tr className="bg-red-50">
+												<td className="px-4 py-3 text-sm font-medium text-red-900">Zone 5</td>
+												<td className="px-4 py-3 text-sm font-semibold text-right text-red-900">
+													{zone5MinValue && typeof zone5MinValue === 'number' && zone5MaxValue && typeof zone5MaxValue === 'number' 
+														? `${zone5MinValue}-${zone5MaxValue}` 
+														: '—'}
+												</td>
+												<td className="px-4 py-3 text-sm text-red-800">Peak (90-100%)</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							
+							{/* What this means box */}
+							<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+								<h4 className="text-base font-semibold text-blue-900 mb-2">Understanding Your Zones</h4>
+								<div className="space-y-2 text-sm text-blue-800">
+									<p>
+										<strong>Zone 1 (Recovery):</strong> Very light activity, ideal for warm-up, cool-down, and active recovery days. Easy to maintain for long periods.
+									</p>
+									<p>
+										<strong>Zone 2 (Fat Burning):</strong> Light to moderate intensity, sustainable for long durations. Good for building aerobic base and endurance. Most of your training should be here.
+									</p>
+									<p>
+										<strong>Zone 3 (Aerobic):</strong> Moderate to vigorous intensity. Improves cardiovascular fitness and aerobic capacity. Used for tempo runs and sustained efforts.
+									</p>
+									<p>
+										<strong>Zone 4 (Threshold):</strong> High intensity, improves lactate threshold and anaerobic capacity. Challenging but sustainable for shorter durations. Used in interval training.
+									</p>
+									<p>
+										<strong>Zone 5 (Peak):</strong> Very high intensity, near maximum heart rate. Used for short intervals and peak performance training. Not sustainable for long periods.
+									</p>
+								</div>
+							</div>
+							
+							{/* Note box */}
+							<div className="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+								<p className="text-sm text-yellow-800 leading-relaxed">
+									<strong>Note:</strong> These zones are estimates based on age. Individual maximum heart rates can vary by ±10-15 bpm. Use these zones as guidelines and adjust based on how you feel. For personalized training zones, consider professional fitness testing or consultation with a healthcare provider.
+								</p>
+							</div>
+							
+							{/* Insights */}
+							{hrZonesInsightsValue && typeof hrZonesInsightsValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{hrZonesInsightsValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'steps-to-calories-calculator' && mainOutput.name === 'caloriesBurned' ? (
+						<div>
+							<div className="text-5xl md:text-6xl font-bold text-green-600 mb-3">
+								{formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">Calories Burned from Walking</p>
+							
+							{/* Distance and Calories per 1,000 steps */}
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 mb-4">
+								{stepsDistanceValue && typeof stepsDistanceValue === 'number' && stepsDistanceUnitValue && (
+									<div className="p-4 bg-green-50 rounded-lg border border-green-200">
+										<p className="text-sm text-green-700 mb-1">Estimated Distance</p>
+										<p className="text-2xl font-semibold text-green-900">
+											{stepsDistanceValue.toFixed(stepsDistanceUnitValue === 'km' ? 2 : 0)} <span className="text-base font-normal text-green-700">{stepsDistanceUnitValue === 'km' ? 'km' : 'meters'}</span>
+										</p>
+										{stepsDistanceKmValue && typeof stepsDistanceKmValue === 'number' && stepsDistanceKmValue >= 1 && stepsDistanceMilesValue && typeof stepsDistanceMilesValue === 'number' && (
+											<p className="text-xs text-green-600 mt-1">({stepsDistanceMilesValue.toFixed(2)} miles)</p>
+										)}
+									</div>
+								)}
+								{stepsCaloriesPer1000Value && typeof stepsCaloriesPer1000Value === 'number' && (
+									<div className="p-4 bg-green-50 rounded-lg border border-green-200">
+										<p className="text-sm text-green-700 mb-1">Calories Per 1,000 Steps</p>
+										<p className="text-2xl font-semibold text-green-900">{stepsCaloriesPer1000Value.toFixed(1)} <span className="text-base font-normal text-green-700">kcal</span></p>
+									</div>
+								)}
+							</div>
+							
+							{/* Stride length and MET info */}
+							{(stepsStrideLengthValue || stepsMetValueValue) && (
+								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+									<div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+										{stepsStrideLengthValue && typeof stepsStrideLengthValue === 'number' && (
+											<div>
+												<span className="text-gray-600">Stride Length Used: </span>
+												<span className="font-medium text-gray-900">{stepsStrideLengthValue.toFixed(2)} m</span>
+											</div>
+										)}
+										{stepsMetValueValue && typeof stepsMetValueValue === 'number' && (
+											<div>
+												<span className="text-gray-600">MET Value: </span>
+												<span className="font-medium text-gray-900">{stepsMetValueValue.toFixed(1)}</span>
+											</div>
+										)}
+									</div>
+								</div>
+							)}
+							
+							{/* What this means box */}
+							<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+								<h4 className="text-base font-semibold text-blue-900 mb-2">About This Estimate</h4>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									This calorie burn estimate is calculated using MET (Metabolic Equivalent of Task) values for walking. The calculation considers your steps, weight, estimated distance (from stride length), and walking speed.
+								</p>
+								<p className="text-sm text-blue-800 leading-relaxed mb-3">
+									<strong>Why this is an estimate:</strong> Actual calories burned can vary based on individual factors such as fitness level, body composition, terrain (hills vs flat), walking surface, environmental conditions, and walking efficiency. Pedometers and fitness trackers may provide different estimates due to different algorithms and sensors.
+								</p>
+								<p className="text-sm text-blue-800 leading-relaxed">
+									<strong>For better accuracy:</strong> Measure your actual stride length, account for terrain (hills increase calorie burn), and consider using a heart rate monitor for more personalized estimates. Use these estimates as general guidelines for tracking daily activity.
+								</p>
+							</div>
+							
+							{/* Insights */}
+							{stepsToCaloriesInsightsValue && typeof stepsToCaloriesInsightsValue === 'string' && (
+								<div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700 leading-relaxed">{stepsToCaloriesInsightsValue}</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'age-calculator' && mainOutput.name === 'ageString' ? (
+						<div>
+							<div className="text-5xl md:text-6xl font-bold text-blue-600 mb-3">
+								{ageStringValue && typeof ageStringValue === 'string' ? ageStringValue : formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">Your Exact Age</p>
+							
+							{/* Age Breakdown */}
+							<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 mb-4">
+								{ageYearsValue !== null && ageYearsValue !== undefined && (
+									<div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+										<p className="text-sm text-blue-700 mb-1">Years</p>
+										<p className="text-3xl font-semibold text-blue-900">{ageYearsValue}</p>
+									</div>
+								)}
+								{ageMonthsValue !== null && ageMonthsValue !== undefined && (
+									<div className="p-4 bg-green-50 rounded-lg border border-green-200">
+										<p className="text-sm text-green-700 mb-1">Months</p>
+										<p className="text-3xl font-semibold text-green-900">{ageMonthsValue}</p>
+									</div>
+								)}
+								{ageDaysValue !== null && ageDaysValue !== undefined && (
+									<div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+										<p className="text-sm text-purple-700 mb-1">Days</p>
+										<p className="text-3xl font-semibold text-purple-900">{ageDaysValue}</p>
+									</div>
+								)}
+							</div>
+							
+							{/* Total Days and Weeks */}
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 mb-4">
+								{totalDaysValue !== null && totalDaysValue !== undefined && (
+									<div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+										<p className="text-sm text-gray-700 mb-1">Total Days Lived</p>
+										<p className="text-2xl font-semibold text-gray-900">{totalDaysValue.toLocaleString()}</p>
+									</div>
+								)}
+								{totalWeeksValue !== null && totalWeeksValue !== undefined && (
+									<div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+										<p className="text-sm text-gray-700 mb-1">Total Weeks Lived</p>
+										<p className="text-2xl font-semibold text-gray-900">{totalWeeksValue.toLocaleString()}</p>
+									</div>
+								)}
+							</div>
+							
+							{/* Reference Date Used */}
+							{referenceDateUsedValue && typeof referenceDateUsedValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+									<p className="text-sm text-blue-800">
+										<strong>Reference Date:</strong> {referenceDateUsedValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Explanation */}
+							{ageExplanationValue && typeof ageExplanationValue === 'string' && (
+								<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-2">Age Calculation</h4>
+									<p className="text-sm text-blue-800 leading-relaxed">
+										{ageExplanationValue}
+									</p>
+									<p className="text-sm text-blue-800 leading-relaxed mt-3">
+										The calculator accounts for leap years and varying month lengths to provide an accurate age calculation. Age is calculated by subtracting your birth date from the reference date, then adjusting for years, months, and days.
+									</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'days-between-dates-calculator' && mainOutput.name === 'totalDays' ? (
+						<div>
+							<div className="text-5xl md:text-6xl font-bold text-blue-600 mb-3">
+								{daysTotalDaysInclusiveValue !== null && daysTotalDaysInclusiveValue !== undefined && daysIncludeEndDateValue === 'Yes'
+									? daysTotalDaysInclusiveValue.toLocaleString()
+									: daysTotalDaysValue !== null && daysTotalDaysValue !== undefined
+									? daysTotalDaysValue.toLocaleString()
+									: formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">
+								{daysIncludeEndDateValue === 'Yes' ? 'Days (Inclusive)' : 'Days (Exclusive)'}
+							</p>
+							
+							{/* Date Range */}
+							{(daysStartDateFormattedValue || daysEndDateFormattedValue) && (
+								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+									<div className="text-sm text-gray-700">
+										<p className="mb-1">
+											<strong>From:</strong> {daysStartDateFormattedValue}
+										</p>
+										<p>
+											<strong>To:</strong> {daysEndDateFormattedValue}
+										</p>
+									</div>
+								</div>
+							)}
+							
+							{/* Weeks and Days Breakdown */}
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 mb-4">
+								{daysWeeksValue !== null && daysWeeksValue !== undefined && (
+									<div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+										<p className="text-sm text-blue-700 mb-1">Weeks</p>
+										<p className="text-3xl font-semibold text-blue-900">{daysWeeksValue}</p>
+										{daysRemainingDaysValue !== null && daysRemainingDaysValue !== undefined && daysRemainingDaysValue > 0 && (
+											<p className="text-xs text-blue-600 mt-1">+ {daysRemainingDaysValue} {daysRemainingDaysValue === 1 ? 'day' : 'days'}</p>
+										)}
+									</div>
+								)}
+								{daysBreakdownValue && typeof daysBreakdownValue === 'string' && (
+									<div className="p-4 bg-green-50 rounded-lg border border-green-200">
+										<p className="text-sm text-green-700 mb-1">Breakdown</p>
+										<p className="text-lg font-semibold text-green-900">{daysBreakdownValue}</p>
+									</div>
+								)}
+							</div>
+							
+							{/* Inclusive vs Exclusive Info */}
+							{daysIncludeEndDateValue && (
+								<div className="mt-4 mb-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+									<p className="text-sm text-yellow-800">
+										<strong>Counting Method:</strong> {daysIncludeEndDateValue === 'Yes' ? 'Inclusive (end date included)' : 'Exclusive (end date excluded)'}
+									</p>
+									{daysIncludeEndDateValue === 'Yes' && daysTotalDaysInclusiveValue !== null && daysTotalDaysInclusiveValue !== undefined && (
+										<p className="text-xs text-yellow-700 mt-1">
+											Total: {daysTotalDaysInclusiveValue} days ({daysBreakdownInclusiveValue || daysBreakdownValue})
+										</p>
+									)}
+								</div>
+							)}
+							
+							{/* Explanation */}
+							{daysExplanationValue && typeof daysExplanationValue === 'string' && (
+								<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-2">Date Difference Calculation</h4>
+									<p className="text-sm text-blue-800 leading-relaxed">
+										{daysExplanationValue}
+									</p>
+									<p className="text-sm text-blue-800 leading-relaxed mt-3">
+										<strong>Inclusive vs Exclusive:</strong> Exclusive counting excludes the end date from the total (e.g., March 1 to March 5 = 4 days). Inclusive counting includes the end date (e.g., March 1 to March 5 = 5 days). Choose based on whether the end date is part of the period you're measuring.
+									</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'numbers-to-words-calculator' && mainOutput.name === 'words' ? (
+						<div>
+							<div className="text-3xl md:text-4xl font-bold text-blue-600 mb-3 break-words">
+								{numbersToWordsCurrencyValue && typeof numbersToWordsCurrencyValue === 'string' && numbersToWordsCurrencyValue.trim() !== ''
+									? numbersToWordsCurrencyValue
+									: numbersToWordsWordsValue && typeof numbersToWordsWordsValue === 'string'
+									? numbersToWordsWordsValue
+									: formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">
+								{numbersToWordsCurrencyValue && typeof numbersToWordsCurrencyValue === 'string' && numbersToWordsCurrencyValue.trim() !== ''
+									? 'Number in Currency Words'
+									: 'Number in Words'}
+							</p>
+							
+							{/* Original Number */}
+							{numbersToWordsOriginalValue && typeof numbersToWordsOriginalValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700">
+										<strong>Original Number:</strong> {numbersToWordsOriginalValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Breakdown by Scale */}
+							{(numbersToWordsMillionsValue !== null || numbersToWordsThousandsValue !== null || numbersToWordsHundredsValue !== null) && (
+								<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 mb-4">
+									{numbersToWordsMillionsValue !== null && numbersToWordsMillionsValue !== undefined && numbersToWordsMillionsValue > 0 && (
+										<div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+											<p className="text-sm text-blue-700 mb-1">Millions</p>
+											<p className="text-2xl font-semibold text-blue-900">{numbersToWordsMillionsValue.toLocaleString()}</p>
+										</div>
+									)}
+									{numbersToWordsThousandsValue !== null && numbersToWordsThousandsValue !== undefined && numbersToWordsThousandsValue > 0 && (
+										<div className="p-4 bg-green-50 rounded-lg border border-green-200">
+											<p className="text-sm text-green-700 mb-1">Thousands</p>
+											<p className="text-2xl font-semibold text-green-900">{numbersToWordsThousandsValue.toLocaleString()}</p>
+										</div>
+									)}
+									{numbersToWordsHundredsValue !== null && numbersToWordsHundredsValue !== undefined && numbersToWordsHundredsValue > 0 && (
+										<div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+											<p className="text-sm text-purple-700 mb-1">Hundreds</p>
+											<p className="text-2xl font-semibold text-purple-900">{numbersToWordsHundredsValue.toLocaleString()}</p>
+										</div>
+									)}
+								</div>
+							)}
+							
+							{/* Breakdown Text */}
+							{numbersToWordsBreakdownValue && typeof numbersToWordsBreakdownValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700">
+										<strong>Breakdown:</strong> {numbersToWordsBreakdownValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Standard Format (if currency mode is on) */}
+							{numbersToWordsCurrencyValue && typeof numbersToWordsCurrencyValue === 'string' && numbersToWordsCurrencyValue.trim() !== '' && numbersToWordsWordsValue && typeof numbersToWordsWordsValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+									<p className="text-sm text-blue-800 mb-1">
+										<strong>Standard Format:</strong>
+									</p>
+									<p className="text-base font-medium text-blue-900">{numbersToWordsWordsValue}</p>
+								</div>
+							)}
+							
+							{/* Explanation */}
+							{numbersToWordsExplanationValue && typeof numbersToWordsExplanationValue === 'string' && (
+								<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-2">Number Conversion</h4>
+									<p className="text-sm text-blue-800 leading-relaxed">
+										{numbersToWordsExplanationValue}
+									</p>
+									<p className="text-sm text-blue-800 leading-relaxed mt-3">
+										<strong>How it works:</strong> Numbers are broken down by scale (millions, thousands, hundreds) and each part is converted to words. The parts are then combined with appropriate scale words. For currency mode, the number is formatted as dollars (integer part) and cents (decimal part × 100).
+									</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'roman-numerals-converter' && mainOutput.name === 'result' ? (
+						<div>
+							<div className="text-5xl md:text-6xl font-bold text-blue-600 mb-3 break-words">
+								{romanResultValue && typeof romanResultValue === 'string' ? romanResultValue : formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">
+								{romanModeValue === 'number-to-roman' ? 'Roman Numeral' : 'Decimal Number'}
+							</p>
+							
+							{/* Original Value */}
+							{romanOriginalValue && typeof romanOriginalValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+									<p className="text-sm text-gray-700">
+										<strong>Original Value:</strong> {romanOriginalValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Symbols Used */}
+							{romanSymbolsUsedValue && typeof romanSymbolsUsedValue === 'string' && romanSymbolsUsedValue.trim() !== '' && (
+								<div className="mt-4 mb-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+									<p className="text-sm text-purple-800">
+										<strong>Symbols Used:</strong> {romanSymbolsUsedValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Step-by-Step Breakdown */}
+							{romanBreakdownValue && typeof romanBreakdownValue === 'string' && (
+								<div className="mt-6 mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-3">Step-by-Step Breakdown</h4>
+									<div className="space-y-2">
+										{romanBreakdownValue.split(', ').map((step, index) => (
+											<div key={index} className="text-sm text-blue-800">
+												<span className="font-medium">Step {index + 1}:</span> {step.trim()}
+											</div>
+										))}
+									</div>
+								</div>
+							)}
+							
+							{/* Explanation */}
+							{romanExplanationValue && typeof romanExplanationValue === 'string' && (
+								<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-2">Conversion Explanation</h4>
+									<p className="text-sm text-blue-800 leading-relaxed">
+										{romanExplanationValue}
+									</p>
+									{romanModeValue === 'number-to-roman' && (
+										<p className="text-sm text-blue-800 leading-relaxed mt-3">
+											<strong>How it works:</strong> Numbers are broken down by place value (thousands, hundreds, tens, ones) and converted using Roman symbols. Subtractive notation is used for 4 (IV), 9 (IX), 40 (XL), 90 (XC), 400 (CD), and 900 (CM) to follow standard Roman numeral rules.
+										</p>
+									)}
+									{romanModeValue === 'roman-to-number' && (
+										<p className="text-sm text-blue-800 leading-relaxed mt-3">
+											<strong>How it works:</strong> Roman numerals are read from left to right. When a smaller value appears before a larger value, it's subtracted (e.g., IV = 4). Otherwise, values are added together. The calculator validates the input to ensure it follows proper Roman numeral rules.
+										</p>
+									)}
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'date-calculator' && mainOutput.name === 'resultDate' ? (
+						<div>
+							<div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
+								{dateResultDateFormattedValue && typeof dateResultDateFormattedValue === 'string'
+									? dateResultDateFormattedValue
+									: formattedMainValue}
+							</div>
+							{dateWeekdayValue && typeof dateWeekdayValue === 'string' && (
+								<p className="text-lg text-gray-600 mb-4 font-medium">
+									{dateWeekdayValue}
+								</p>
+							)}
+							
+							{/* Date Range Summary */}
+							{(dateStartDateFormattedValue || dateNumberOfDaysValue !== null) && (
+								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+									<div className="text-sm text-gray-700">
+										<p className="mb-1">
+											<strong>Start Date:</strong> {dateStartDateFormattedValue || 'N/A'}
+										</p>
+										{dateOperationValue === 'add' && dateDaysAddedValue !== null && dateDaysAddedValue !== undefined && (
+											<p className="mb-1">
+												<strong>Operation:</strong> Added {dateDaysAddedValue} {dateDaysAddedValue === 1 ? 'day' : 'days'}
+											</p>
+										)}
+										{dateOperationValue === 'subtract' && dateDaysSubtractedValue !== null && dateDaysSubtractedValue !== undefined && (
+											<p className="mb-1">
+												<strong>Operation:</strong> Subtracted {dateDaysSubtractedValue} {dateDaysSubtractedValue === 1 ? 'day' : 'days'}
+											</p>
+										)}
+										{dateResultDateFormattedValue && typeof dateResultDateFormattedValue === 'string' && (
+											<p>
+												<strong>Result Date:</strong> {dateResultDateFormattedValue}
+											</p>
+										)}
+									</div>
+								</div>
+							)}
+							
+							{/* ISO Date Format */}
+							{dateIsoDateValue && typeof dateIsoDateValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+									<p className="text-sm text-blue-800">
+										<strong>ISO Format:</strong> {dateIsoDateValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Days Difference Summary */}
+							{dateDaysDifferenceValue !== null && dateDaysDifferenceValue !== undefined && (
+								<div className="mt-4 mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
+									<p className="text-sm text-green-800">
+										<strong>Total Days Difference:</strong> {Math.abs(dateDaysDifferenceValue)} {Math.abs(dateDaysDifferenceValue) === 1 ? 'day' : 'days'}
+									</p>
+								</div>
+							)}
+							
+							{/* Explanation */}
+							{dateExplanationValue && typeof dateExplanationValue === 'string' && (
+								<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-2">Date Calculation</h4>
+									<p className="text-sm text-blue-800 leading-relaxed">
+										{dateExplanationValue}
+									</p>
+									<p className="text-sm text-blue-800 leading-relaxed mt-3">
+										<strong>How it works:</strong> The calculator adds or subtracts the specified number of calendar days from the start date. It automatically handles month boundaries, year transitions, and leap years. All calendar days are counted, including weekends.
+									</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'cooking-measurement-converter' && mainOutput.name === 'result' ? (
+						<div>
+							<div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">
+								{cookingResultFormattedValue && typeof cookingResultFormattedValue === 'string'
+									? cookingResultFormattedValue
+									: cookingResultValue !== null && cookingResultValue !== undefined
+									? cookingResultValue.toFixed(2)
+									: formattedMainValue}
+								{cookingToUnitValue && typeof cookingToUnitValue === 'string' && (
+									<span className="text-2xl md:text-3xl text-gray-600 ml-2 font-normal">
+										{cookingToUnitValue}
+									</span>
+								)}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">
+								{cookingOriginalValue !== null && cookingOriginalValue !== undefined && cookingFromUnitValue && typeof cookingFromUnitValue === 'string'
+									? `${cookingOriginalValue} ${cookingFromUnitValue} = ${cookingResultFormattedValue || cookingResultValue?.toFixed(2) || 'N/A'} ${cookingToUnitValue || ''}`
+									: 'Conversion Result'}
+							</p>
+							
+							{/* Conversion Type */}
+							{cookingConversionTypeValue && typeof cookingConversionTypeValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+									<p className="text-sm text-purple-800">
+										<strong>Conversion Type:</strong> {
+											cookingConversionTypeValue === 'volume-to-volume' ? 'Volume to Volume' :
+											cookingConversionTypeValue === 'weight-to-weight' ? 'Weight to Weight' :
+											cookingConversionTypeValue === 'volume-to-weight' ? 'Volume to Weight' :
+											cookingConversionTypeValue === 'weight-to-volume' ? 'Weight to Volume' :
+											cookingConversionTypeValue
+										}
+									</p>
+									{cookingIngredientValue && typeof cookingIngredientValue === 'string' && (cookingConversionTypeValue === 'volume-to-weight' || cookingConversionTypeValue === 'weight-to-volume') && (
+										<p className="text-xs text-purple-700 mt-1">
+											Ingredient: {cookingIngredientValue.charAt(0).toUpperCase() + cookingIngredientValue.slice(1)}
+										</p>
+									)}
+								</div>
+							)}
+							
+							{/* Ingredient Note */}
+							{cookingIngredientNoteValue && typeof cookingIngredientNoteValue === 'string' && cookingIngredientNoteValue.trim() !== '' && (
+								<div className="mt-4 mb-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+									<p className="text-sm text-yellow-800">
+										{cookingIngredientNoteValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Explanation */}
+							{cookingExplanationValue && typeof cookingExplanationValue === 'string' && (
+								<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-2">Conversion Details</h4>
+									<p className="text-sm text-blue-800 leading-relaxed">
+										{cookingExplanationValue}
+									</p>
+									<p className="text-sm text-blue-800 leading-relaxed mt-3">
+										<strong>How it works:</strong> {
+											cookingConversionTypeValue === 'volume-to-volume' || cookingConversionTypeValue === 'weight-to-weight'
+												? 'This is a direct unit conversion using standard conversion factors. Volume-to-volume and weight-to-weight conversions are precise and don\'t depend on ingredient properties.'
+												: 'This conversion uses ingredient density to convert between volume and weight. Different ingredients have different densities, so the same volume can have different weights depending on the ingredient.'
+										}
+									</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'room-area-calculator' && mainOutput.name === 'area' ? (
+						<div>
+							<div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">
+								{roomAreaFormattedValue && typeof roomAreaFormattedValue === 'string'
+									? roomAreaFormattedValue
+									: roomAreaValue !== null && roomAreaValue !== undefined
+									? roomAreaValue.toFixed(2)
+									: formattedMainValue}
+								{roomUnitSymbolValue && typeof roomUnitSymbolValue === 'string' && (
+									<span className="text-2xl md:text-3xl text-gray-600 ml-2 font-normal">
+										{roomUnitSymbolValue}
+									</span>
+								)}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">
+								Room Area
+							</p>
+							
+							{/* Alternative Unit Conversion */}
+							{roomAreaAlternativeValue && typeof roomAreaAlternativeValue === 'string' && roomAlternativeUnitValue && typeof roomAlternativeUnitValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
+									<p className="text-sm text-green-800">
+										<strong>Alternative Unit:</strong> {roomAreaAlternativeValue} {roomAlternativeUnitValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Shape and Formula */}
+							{roomFormulaValue && typeof roomFormulaValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+									<p className="text-sm text-purple-800 mb-1">
+										<strong>Shape:</strong> {roomShapeValue && typeof roomShapeValue === 'string' ? roomShapeValue.charAt(0).toUpperCase() + roomShapeValue.slice(1) : 'N/A'}
+									</p>
+									<p className="text-sm text-purple-800">
+										<strong>Formula:</strong> {roomFormulaValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Explanation */}
+							{roomExplanationValue && typeof roomExplanationValue === 'string' && (
+								<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-2">Area Calculation</h4>
+									<p className="text-sm text-blue-800 leading-relaxed">
+										{roomExplanationValue}
+									</p>
+									<p className="text-sm text-blue-800 leading-relaxed mt-3">
+										<strong>When this is useful:</strong> Room area is essential for planning flooring, carpet, paint coverage (combined with wall height), furniture placement, and estimating material needs. The area helps you determine how much material to purchase and plan your space effectively.
+									</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'paint-calculator' && mainOutput.name === 'paintRequired' ? (
+						<div>
+							<div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">
+								{paintRequiredFormattedValue && typeof paintRequiredFormattedValue === 'string'
+									? paintRequiredFormattedValue
+									: paintRequiredValue !== null && paintRequiredValue !== undefined
+									? paintRequiredValue.toFixed(1)
+									: formattedMainValue}
+								{paintUnitValue && typeof paintUnitValue === 'string' && (
+									<span className="text-2xl md:text-3xl text-gray-600 ml-2 font-normal">
+										{paintUnitValue}
+									</span>
+								)}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">
+								Paint Required
+							</p>
+							
+							{/* Alternative Unit Conversion */}
+							{paintRequiredAlternativeValue && typeof paintRequiredAlternativeValue === 'string' && paintAlternativeUnitValue && typeof paintAlternativeUnitValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
+									<p className="text-sm text-green-800">
+										<strong>Alternative Unit:</strong> {paintRequiredAlternativeValue} {paintAlternativeUnitValue}
+									</p>
+								</div>
+							)}
+							
+							{/* Cans Estimate */}
+							{paintCansEstimateValue && typeof paintCansEstimateValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+									<p className="text-sm text-purple-800">
+										<strong>Estimated Cans:</strong> {paintCansEstimateValue}
+									</p>
+									<p className="text-xs text-purple-700 mt-1">
+										Note: Add 10-15% extra for waste and touch-ups
+									</p>
+								</div>
+							)}
+							
+							{/* Calculation Details */}
+							{(paintRoomAreaValue !== null || paintNumberOfCoatsValue !== null || paintCoverageValue !== null) && (
+								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+									<div className="text-sm text-gray-700">
+										{paintRoomAreaValue !== null && paintAreaUnitValue && typeof paintAreaUnitValue === 'string' && (
+											<p className="mb-1">
+												<strong>Room Area:</strong> {paintRoomAreaValue.toFixed(1)} {paintAreaUnitValue}
+											</p>
+										)}
+										{paintNumberOfCoatsValue !== null && (
+											<p className="mb-1">
+												<strong>Number of Coats:</strong> {paintNumberOfCoatsValue}
+											</p>
+										)}
+										{paintCoverageValue !== null && paintCoverageUnitValue && typeof paintCoverageUnitValue === 'string' && (
+											<p>
+												<strong>Paint Coverage:</strong> {paintCoverageValue} {paintCoverageUnitValue}
+											</p>
+										)}
+									</div>
+								</div>
+							)}
+							
+							{/* Explanation */}
+							{paintExplanationValue && typeof paintExplanationValue === 'string' && (
+								<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-2">Paint Calculation</h4>
+									<p className="text-sm text-blue-800 leading-relaxed">
+										{paintExplanationValue}
+									</p>
+									<p className="text-sm text-blue-800 leading-relaxed mt-3">
+										<strong>Coverage assumptions:</strong> The calculator uses standard paint coverage rates (10 m²/liter or 400 ft²/gallon) unless you specify otherwise. Premium paints may have higher coverage, while economy paints may have lower coverage. Always check the paint can label for specific coverage rates.
+									</p>
+									<p className="text-sm text-blue-800 leading-relaxed mt-2">
+										<strong>Why coats matter:</strong> Each coat multiplies the paint needed. Two coats provide better coverage, durability, and color consistency than one coat. The number of coats depends on the color change, paint quality, and desired finish.
+									</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'random-number-generator' && mainOutput.name === 'numbers' ? (
+						<div>
+							<div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3 break-words">
+								{randomNumbersFormattedValue && typeof randomNumbersFormattedValue === 'string'
+									? randomNumbersFormattedValue
+									: randomNumbersValue && Array.isArray(randomNumbersValue) && randomNumbersValue.length > 0
+									? randomNumbersValue.join(', ')
+									: formattedMainValue}
+							</div>
+							<p className="text-sm text-gray-500 mb-4">
+								{randomQuantityValue !== null && randomQuantityValue !== undefined && randomQuantityValue > 1
+									? `Generated ${randomQuantityValue} Random Numbers`
+									: 'Generated Random Number'}
+							</p>
+							
+							{/* Range Information */}
+							{randomRangeValue && typeof randomRangeValue === 'string' && (
+								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+									<div className="text-sm text-gray-700">
+										<p className="mb-1">
+											<strong>Range:</strong> {randomRangeValue}
+										</p>
+										{randomMinValue !== null && randomMaxValue !== null && (
+											<p className="mb-1">
+												<strong>Minimum:</strong> {randomMinValue} | <strong>Maximum:</strong> {randomMaxValue}
+											</p>
+										)}
+										{randomQuantityValue !== null && randomQuantityValue !== undefined && (
+											<p className="mb-1">
+												<strong>Quantity:</strong> {randomQuantityValue}
+											</p>
+										)}
+										{randomAllowDuplicatesValue !== null && randomAllowDuplicatesValue !== undefined && (
+											<p>
+												<strong>Duplicates:</strong> {randomAllowDuplicatesValue ? 'Allowed' : 'Not Allowed'}
+											</p>
+										)}
+									</div>
+								</div>
+							)}
+							
+							{/* Individual Numbers (if multiple) */}
+							{randomNumbersValue && Array.isArray(randomNumbersValue) && randomNumbersValue.length > 1 && (
+								<div className="mt-4 mb-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+									<p className="text-sm text-purple-800 mb-2">
+										<strong>Individual Numbers:</strong>
+									</p>
+									<div className="flex flex-wrap gap-2">
+										{randomNumbersValue.map((num, index) => (
+											<span key={index} className="px-3 py-1 bg-purple-100 rounded text-sm font-medium text-purple-900">
+												{num}
+											</span>
+										))}
+									</div>
+								</div>
+							)}
+							
+							{/* Explanation */}
+							{randomExplanationValue && typeof randomExplanationValue === 'string' && (
+								<div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+									<h4 className="text-base font-semibold text-blue-900 mb-2">Random Number Generation</h4>
+									<p className="text-sm text-blue-800 leading-relaxed">
+										{randomExplanationValue}
+									</p>
+									<p className="text-sm text-blue-800 leading-relaxed mt-3">
+										<strong>Note:</strong> This generator uses pseudo-random number generation suitable for general use, games, and simulations. It is not cryptographically secure and should not be used for security-sensitive applications. Each number in the range has an equal probability of being selected.
+									</p>
+								</div>
+							)}
+						</div>
+					) : calculator.id === 'roi-calculator' && mainOutput.name === 'roiPercentage' ? (
 						<div className={`text-5xl md:text-6xl font-bold mb-2 ${
 							Number(mainValue) < 0 
 								? 'text-red-600' 
@@ -2586,6 +4231,15 @@ export function CalculatorResults({
 					{mainOutput.unitLabel && !directionValue && calculator.id !== 'equation-solver' && (
 						<p className="text-sm text-gray-500">{mainOutput.unitLabel}</p>
 					)}
+					{/* Result explanation */}
+					{(() => {
+						const explanation = getResultExplanation(calculator, mainOutput.name, mainValue)
+						return explanation ? (
+							<div className="mt-4 pt-4 border-t border-gray-200">
+								<p className="text-sm text-gray-600 leading-relaxed">{explanation}</p>
+							</div>
+						) : null
+					})()}
 				</div>
 			)}
 

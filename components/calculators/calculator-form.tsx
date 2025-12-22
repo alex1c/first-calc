@@ -187,6 +187,23 @@ export function CalculatorForm({
 						</>
 					)}
 
+					{input.type === 'date' && (
+						<input
+							type="date"
+							id={input.name}
+							name={input.name}
+							value={String(inputs[input.name] ?? '')}
+							onChange={(e) => handleInputChange(input.name, e.target.value)}
+							min={typeof input.min === 'string' ? input.min : undefined}
+							max={typeof input.max === 'string' ? input.max : undefined}
+							className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
+								errors[input.name]
+									? 'border-red-500 bg-red-50'
+									: 'border-gray-300 bg-white'
+							}`}
+						/>
+					)}
+
 					{input.type === 'select' && input.options && (
 						<select
 							id={input.name}

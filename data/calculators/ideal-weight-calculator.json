@@ -1,0 +1,132 @@
+{
+  "id": "ideal-weight-calculator",
+  "slug": "ideal-weight-calculator",
+  "category": "health",
+  "engine": "function",
+  "calculationId": "calculateIdealWeight",
+  "tags": ["health", "ideal-weight", "healthy-weight", "height-weight", "body-weight"],
+  "inputs": [
+    {
+      "name": "sex",
+      "type": "select",
+      "options": [
+        { "value": "male", "label": "Male" },
+        { "value": "female", "label": "Female" }
+      ],
+      "defaultValue": "male"
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "heightUnit",
+      "type": "select",
+      "options": [
+        { "value": "cm", "label": "Centimeters (cm)" },
+        { "value": "ft+in", "label": "Feet and Inches (ft+in)" }
+      ],
+      "defaultValue": "cm"
+    },
+    {
+      "name": "heightFeet",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 5,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      }
+    },
+    {
+      "name": "heightInches",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      }
+    },
+    {
+      "name": "frameSize",
+      "type": "select",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "defaultValue": "medium",
+      "optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "devineWeight"
+    },
+    {
+      "name": "devineWeightLb"
+    },
+    {
+      "name": "robinsonWeight"
+    },
+    {
+      "name": "robinsonWeightLb"
+    },
+    {
+      "name": "millerWeight"
+    },
+    {
+      "name": "millerWeightLb"
+    },
+    {
+      "name": "minWeight"
+    },
+    {
+      "name": "maxWeight"
+    },
+    {
+      "name": "minWeightLb"
+    },
+    {
+      "name": "maxWeightLb"
+    },
+    {
+      "name": "idealRangeKg"
+    },
+    {
+      "name": "idealRangeLb"
+    },
+    {
+      "name": "insights"
+    }
+  ],
+  "defaults": {
+    "sex": "male",
+    "height": 175,
+    "heightUnit": "cm",
+    "heightFeet": 5,
+    "heightInches": 10,
+    "frameSize": "medium"
+  },
+  "relatedIds": ["bmi-calculator", "body-fat-percentage-calculator", "daily-calorie-needs-calculator", "bmr-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Ideal Weight Calculator – Healthy Weight Range by Height",
+    "description": "Estimate an ideal weight range using Devine, Robinson, and Miller formulas. Compare results and understand healthy weight targets by height.",
+    "schema": {
+      "applicationSubCategory": "HealthCalculator",
+      "featureList": [
+        "Multiple ideal weight formulas",
+        "Range output (kg/lb)"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

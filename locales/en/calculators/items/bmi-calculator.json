@@ -1,0 +1,244 @@
+{
+  "title": "BMI Calculator – Body Mass Index & Healthy Weight Range",
+  "shortDescription": "Calculate your BMI and understand your body mass index category based on height and weight.",
+  "longDescription": "Our BMI Calculator helps you determine your Body Mass Index (BMI) and understand which weight category you fall into. Simply enter your weight and height, and the calculator will compute your BMI, categorize it (Underweight, Normal, Overweight, or Obese), and provide insights about your results. BMI is a screening tool that uses your height and weight to estimate body fat. While it's a useful indicator, it doesn't directly measure body fat and may not be accurate for athletes or individuals with high muscle mass.",
+  "inputs": [
+    {
+      "label": "Weight",
+      "unitLabel": "",
+      "placeholder": "Enter weight",
+      "helpText": "Your body weight"
+    },
+    {
+      "label": "Weight Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose kilograms (kg) or pounds (lb)"
+    },
+    {
+      "label": "Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Your height in centimeters (if using cm) or total inches (if using ft+in)"
+    },
+    {
+      "label": "Height Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or feet and inches (ft+in)"
+    },
+    {
+      "label": "Feet",
+      "unitLabel": "ft",
+      "placeholder": "Enter feet",
+      "helpText": "Height in feet (only shown when using ft+in)"
+    },
+    {
+      "label": "Inches",
+      "unitLabel": "in",
+      "placeholder": "Enter inches",
+      "helpText": "Additional height in inches (only shown when using ft+in)"
+    },
+    {
+      "label": "Gender",
+      "unitLabel": "",
+      "placeholder": "Select gender",
+      "helpText": "Optional: Used for informational purposes only (BMI calculation is the same for all genders)"
+    },
+    {
+      "label": "Age",
+      "unitLabel": "years",
+      "placeholder": "Enter age",
+      "helpText": "Optional: Used for informational purposes only"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "BMI",
+      "unitLabel": ""
+    },
+    {
+      "label": "Category",
+      "unitLabel": ""
+    },
+    {
+      "label": "Category Description",
+      "unitLabel": ""
+    },
+    {
+      "label": "Healthy Weight Range",
+      "unitLabel": ""
+    },
+    {
+      "label": "Insights",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter your weight in the weight field",
+    "Select your weight unit (kilograms or pounds)",
+    "Enter your height",
+    "Select your height unit (centimeters or feet+inches)",
+    "If using feet+inches, enter both feet and inches separately",
+    "Optionally enter your gender and age (these are for informational purposes only)",
+    "Click 'Calculate' to see your BMI and category",
+    "Review the category description and healthy weight range for your height",
+    "Read the insights to understand what your BMI means"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Normal Weight (Metric)",
+      "description": "A person weighing 70 kg with a height of 175 cm",
+      "inputs": {
+        "weight": 70,
+        "weightUnit": "kg",
+        "height": 175,
+        "heightUnit": "cm"
+      },
+      "steps": [
+        "Weight: 70 kg",
+        "Height: 175 cm = 1.75 meters",
+        "BMI formula: BMI = weight (kg) / height (m)²",
+        "BMI = 70 / (1.75)²",
+        "BMI = 70 / 3.0625",
+        "BMI = 22.9",
+        "Category: Normal (BMI 18.5-24.9)",
+        "This BMI falls within the healthy weight range"
+      ],
+      "result": "A BMI of 22.9 indicates a normal, healthy weight. This person is within the recommended weight range for their height. The healthy weight range for someone 175 cm tall is approximately 57-76 kg."
+    },
+    {
+      "title": "Example 2: Overweight (Metric)",
+      "description": "A person weighing 90 kg with a height of 180 cm",
+      "inputs": {
+        "weight": 90,
+        "weightUnit": "kg",
+        "height": 180,
+        "heightUnit": "cm"
+      },
+      "steps": [
+        "Weight: 90 kg",
+        "Height: 180 cm = 1.80 meters",
+        "BMI formula: BMI = weight (kg) / height (m)²",
+        "BMI = 90 / (1.80)²",
+        "BMI = 90 / 3.24",
+        "BMI = 27.8",
+        "Category: Overweight (BMI 25-29.9)",
+        "This BMI indicates the person may be overweight"
+      ],
+      "result": "A BMI of 27.8 falls into the overweight category. While this is above the normal range, it's important to remember that BMI is a screening tool and doesn't account for muscle mass. For someone 180 cm tall, a healthy weight range is approximately 60-81 kg. Consider consulting with a healthcare provider for personalized guidance."
+    },
+    {
+      "title": "Example 3: Imperial Units (Pounds and Feet+Inches)",
+      "description": "A person weighing 150 lb who is 5 feet 10 inches tall",
+      "inputs": {
+        "weight": 150,
+        "weightUnit": "lb",
+        "height": 70,
+        "heightUnit": "ft+in",
+        "heightFeet": 5,
+        "heightInches": 10
+      },
+      "steps": [
+        "Weight: 150 lb",
+        "Convert to kg: 150 lb × 0.453592 = 68.04 kg",
+        "Height: 5 ft 10 in",
+        "Convert to meters: (5 × 0.3048) + (10 × 0.0254) = 1.524 + 0.254 = 1.778 meters",
+        "BMI formula: BMI = weight (kg) / height (m)²",
+        "BMI = 68.04 / (1.778)²",
+        "BMI = 68.04 / 3.163",
+        "BMI = 21.5",
+        "Category: Normal (BMI 18.5-24.9)",
+        "This BMI indicates a healthy weight"
+      ],
+      "result": "A BMI of 21.5 falls within the normal, healthy weight range. This demonstrates how the calculator handles unit conversions automatically. For someone 5'10\" tall, a healthy weight range is approximately 129-174 pounds."
+    },
+    {
+      "title": "Example 4: Borderline Category",
+      "description": "A person with BMI at the border between Normal and Overweight (24.9)",
+      "inputs": {
+        "weight": 77,
+        "weightUnit": "kg",
+        "height": 176,
+        "heightUnit": "cm"
+      },
+      "steps": [
+        "Weight: 77 kg",
+        "Height: 176 cm = 1.76 meters",
+        "BMI formula: BMI = weight (kg) / height (m)²",
+        "BMI = 77 / (1.76)²",
+        "BMI = 77 / 3.0976",
+        "BMI = 24.8",
+        "Category: Normal (BMI 18.5-24.9)",
+        "This BMI is at the upper end of the normal range, close to overweight"
+      ],
+      "result": "A BMI of 24.8 is at the upper limit of the normal range (24.9). While still considered normal, this is close to the overweight category. It's important to maintain a balanced diet and regular physical activity. Remember that BMI categories are guidelines, and individual factors like muscle mass, bone density, and body composition should also be considered."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is BMI?",
+      "answer": "BMI (Body Mass Index) is a screening tool that uses your height and weight to estimate body fat. It's calculated by dividing your weight in kilograms by your height in meters squared (BMI = kg/m²). BMI provides a simple numeric measure that helps categorize weight status."
+    },
+    {
+      "question": "Is BMI accurate?",
+      "answer": "BMI is a useful screening tool but has limitations. It doesn't directly measure body fat and may not accurately reflect body composition for certain groups, such as athletes with high muscle mass, older adults, or individuals with different body types. BMI should be used as one indicator alongside other health assessments."
+    },
+    {
+      "question": "What is a healthy BMI range?",
+      "answer": "A healthy BMI typically falls between 18.5 and 24.9. Below 18.5 is considered underweight, 25-29.9 is overweight, and 30 or above is obese. However, these ranges are general guidelines and may vary based on individual factors."
+    },
+    {
+      "question": "Does BMI account for muscle mass?",
+      "answer": "No, BMI does not distinguish between muscle and fat. Athletes or individuals with high muscle mass may have a higher BMI that doesn't accurately reflect their body fat percentage. In such cases, other measurements like body fat percentage or waist circumference may be more appropriate."
+    },
+    {
+      "question": "Does age affect BMI?",
+      "answer": "The standard BMI categories (18.5-24.9 for normal) apply to adults of all ages. However, older adults may have different body composition, and BMI interpretation may need to be adjusted. For children and teens, BMI is interpreted differently using age and sex-specific percentile charts."
+    },
+    {
+      "question": "Does gender affect BMI calculation?",
+      "answer": "The BMI formula is the same for all genders. However, men and women may have different body fat distributions and muscle mass, which can affect how BMI is interpreted. The same BMI value may represent different body compositions in men versus women."
+    },
+    {
+      "question": "What's the difference between BMI and body fat percentage?",
+      "answer": "BMI is a ratio of weight to height and estimates body fat indirectly. Body fat percentage directly measures the proportion of your body that is fat. BMI is easier to calculate but less precise. Body fat percentage provides more detailed information but requires specialized equipment to measure accurately."
+    },
+    {
+      "question": "Can BMI be used for children?",
+      "answer": "BMI can be used for children, but it must be interpreted using age and sex-specific percentile charts, not the adult categories. A child's BMI is compared to other children of the same age and sex to determine if they're in a healthy range."
+    },
+    {
+      "question": "What should I do if my BMI is in the overweight or obese range?",
+      "answer": "If your BMI indicates you're overweight or obese, consider consulting with a healthcare provider to develop a safe and effective weight management plan. This may include dietary changes, increased physical activity, and other lifestyle modifications tailored to your individual needs."
+    },
+    {
+      "question": "What should I do if my BMI is underweight?",
+      "answer": "If your BMI is below 18.5, you may be underweight. Consider consulting with a healthcare provider to ensure you're getting adequate nutrition and to rule out any underlying health conditions. A healthcare provider can help you develop a safe plan to reach a healthy weight."
+    },
+    {
+      "question": "How often should I check my BMI?",
+      "answer": "BMI can be checked periodically, but it's not necessary to check it daily. Monthly or quarterly checks can help track trends over time. Remember that weight can fluctuate naturally, so focus on long-term trends rather than day-to-day changes."
+    },
+    {
+      "question": "Can I use BMI if I'm pregnant?",
+      "answer": "BMI is not typically used during pregnancy as weight gain is expected and necessary. Healthcare providers use different guidelines to monitor healthy weight gain during pregnancy based on pre-pregnancy BMI."
+    },
+    {
+      "question": "What are the limitations of BMI?",
+      "answer": "BMI doesn't account for muscle mass, bone density, overall body composition, or fat distribution. It may overestimate body fat in muscular individuals and underestimate it in older adults who have lost muscle mass. BMI should be used alongside other health indicators."
+    },
+    {
+      "question": "Is there a better alternative to BMI?",
+      "answer": "While BMI is widely used and convenient, other measurements can provide additional insights: waist circumference, waist-to-hip ratio, body fat percentage, and body composition analysis. The best approach is to use multiple indicators together with guidance from a healthcare provider."
+    },
+    {
+      "question": "How do I maintain a healthy BMI?",
+      "answer": "Maintaining a healthy BMI involves a balanced approach: eat a nutritious diet with appropriate portion sizes, engage in regular physical activity (at least 150 minutes of moderate exercise per week), get adequate sleep, manage stress, and maintain consistent healthy habits over time."
+    }
+  ],
+  "seo": {
+    "keywords": ["bmi calculator", "body mass index", "bmi", "bmi chart", "calculate bmi", "bmi formula", "healthy weight", "bmi categories", "bmi range", "body mass index calculator", "bmi test", "bmi scale", "ideal weight", "weight calculator"]
+  }
+}
+

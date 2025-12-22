@@ -49,55 +49,71 @@
     {
       "title": "Example 1: Increase from 50 to 75",
       "description": "Calculate the percentage change from 50 to 75",
+      "inputs": {
+        "original": 50,
+        "new": 75
+      },
       "steps": [
         "Enter original value: 50",
         "Enter new value: 75",
         "Click 'Calculate'",
-        "Result: Percentage Change = +50%",
-        "Direction: Increase",
-        "Formula: ((75 − 50) / 50) × 100% = (25 / 50) × 100% = +50%"
+        "Formula: ((new − original) / original) × 100%",
+        "Calculation: ((75 − 50) / 50) × 100% = (25 / 50) × 100% = +50%",
+        "The value increased by 25 units, which is 50% of the original value"
       ],
-      "resultDescription": "The value increased from 50 to 75, representing a 50% increase"
+      "result": "The value increased from 50 to 75, representing a 50% increase. This means the new value is 150% of the original (1.5 times larger). Use this to track growth, price increases, or performance improvements."
     },
     {
       "title": "Example 2: Decrease from 200 to 150",
       "description": "Calculate the percentage change from 200 to 150",
+      "inputs": {
+        "original": 200,
+        "new": 150
+      },
       "steps": [
         "Enter original value: 200",
         "Enter new value: 150",
         "Click 'Calculate'",
-        "Result: Percentage Change = -25%",
-        "Direction: Decrease",
-        "Formula: ((150 − 200) / 200) × 100% = (-50 / 200) × 100% = -25%"
+        "Formula: ((new − original) / original) × 100%",
+        "Calculation: ((150 − 200) / 200) × 100% = (-50 / 200) × 100% = -25%",
+        "The value decreased by 50 units, which is 25% of the original value"
       ],
-      "resultDescription": "The value decreased from 200 to 150, representing a 25% decrease"
+      "result": "The value decreased from 200 to 150, representing a 25% decrease. This means the new value is 75% of the original. Use this to track declines, discounts, or reductions in metrics."
     },
     {
       "title": "Example 3: Increase from -20 to -10",
       "description": "Calculate the percentage change from -20 to -10 (negative values)",
+      "inputs": {
+        "original": -20,
+        "new": -10
+      },
       "steps": [
         "Enter original value: -20",
         "Enter new value: -10",
         "Click 'Calculate'",
-        "Result: Percentage Change = +50%",
-        "Direction: Increase",
-        "Formula: ((-10 − (-20)) / (-20)) × 100% = (10 / -20) × 100% = +50%"
+        "Formula: ((new − original) / original) × 100%",
+        "Calculation: ((-10 − (-20)) / (-20)) × 100% = (10 / -20) × 100% = +50%",
+        "Even though both values are negative, the value moved closer to zero, representing an increase"
       ],
-      "resultDescription": "The value increased from -20 to -10, representing a 50% increase (even with negative values)"
+      "result": "The value increased from -20 to -10, representing a 50% increase. When working with negative numbers, a positive percentage change means the value became less negative (moved closer to zero or became positive). This is useful for tracking improvements in losses or deficits."
     },
     {
       "title": "Example 4: Price increase from $100 to $120",
       "description": "Calculate the percentage change in price from $100 to $120",
+      "inputs": {
+        "original": 100,
+        "new": 120
+      },
       "steps": [
         "Enter original value: 100",
         "Enter new value: 120",
         "Click 'Calculate'",
-        "Result: Percentage Change = +20%",
-        "Direction: Increase",
-        "Absolute Difference: $20",
-        "Formula: ((120 − 100) / 100) × 100% = (20 / 100) × 100% = +20%"
+        "Formula: ((new − original) / original) × 100%",
+        "Calculation: ((120 − 100) / 100) × 100% = (20 / 100) × 100% = +20%",
+        "Absolute difference: 120 − 100 = 20",
+        "The price increased by $20, which is 20% of the original price"
       ],
-      "resultDescription": "The price increased from $100 to $120, representing a 20% increase or $20 more"
+      "result": "The price increased from $100 to $120, representing a 20% increase or $20 more. This is a common use case for tracking price changes, inflation, or cost increases. The absolute difference shows the actual dollar amount change."
     }
   ],
   "faq": [

@@ -1,0 +1,127 @@
+{
+  "id": "bmr-calculator",
+  "slug": "bmr-calculator",
+  "category": "health",
+  "engine": "function",
+  "calculationId": "calculateBMR",
+  "tags": ["health", "bmr", "basal-metabolic-rate", "calories", "metabolism"],
+  "inputs": [
+    {
+      "name": "sex",
+      "type": "select",
+      "options": [
+        { "value": "male", "label": "Male" },
+        { "value": "female", "label": "Female" }
+      ],
+      "defaultValue": "male"
+    },
+    {
+      "name": "age",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "heightUnit",
+      "type": "select",
+      "options": [
+        { "value": "cm", "label": "Centimeters (cm)" },
+        { "value": "ft+in", "label": "Feet and Inches (ft+in)" }
+      ],
+      "defaultValue": "cm"
+    },
+    {
+      "name": "heightFeet",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 5,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      }
+    },
+    {
+      "name": "heightInches",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "heightUnit",
+        "value": "ft+in"
+      }
+    },
+    {
+      "name": "weight",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "weightUnit",
+      "type": "select",
+      "options": [
+        { "value": "kg", "label": "Kilograms (kg)" },
+        { "value": "lb", "label": "Pounds (lb)" }
+      ],
+      "defaultValue": "kg"
+    },
+    {
+      "name": "formula",
+      "type": "select",
+      "options": [
+        { "value": "mifflin", "label": "Mifflin-St Jeor (Recommended)" },
+        { "value": "harris", "label": "Harris-Benedict (Revised)" }
+      ],
+      "defaultValue": "mifflin"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "bmr"
+    },
+    {
+      "name": "bmrPerHour"
+    },
+    {
+      "name": "formulaUsed"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "insights"
+    }
+  ],
+  "defaults": {
+    "sex": "male",
+    "age": 30,
+    "height": 175,
+    "heightUnit": "cm",
+    "weight": 70,
+    "weightUnit": "kg",
+    "formula": "mifflin"
+  },
+  "relatedIds": ["daily-calorie-needs-calculator", "bmi-calculator", "macronutrient-calculator", "ideal-weight-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "BMR Calculator – Basal Metabolic Rate (Calories at Rest)",
+    "description": "Calculate your BMR using the Mifflin-St Jeor formula. Estimate calories your body burns at rest based on age, height, weight, and sex.",
+    "schema": {
+      "applicationSubCategory": "HealthCalculator",
+      "featureList": [
+        "BMR estimation",
+        "Metric/imperial support",
+        "Formula comparison option"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

@@ -1,0 +1,61 @@
+{
+  "id": "age-calculator",
+  "slug": "age-calculator",
+  "category": "everyday",
+  "engine": "function",
+  "calculationId": "calculateAge",
+  "tags": ["age", "birthday", "date-of-birth", "years-months-days"],
+  "inputs": [
+    {
+      "name": "dateOfBirth",
+      "type": "date"
+    },
+    {
+      "name": "referenceDate",
+      "type": "date",
+      "optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "years"
+    },
+    {
+      "name": "months"
+    },
+    {
+      "name": "days"
+    },
+    {
+      "name": "totalDays"
+    },
+    {
+      "name": "totalWeeks"
+    },
+    {
+      "name": "ageString"
+    },
+    {
+      "name": "referenceDateUsed"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {},
+  "relatedIds": ["days-between-dates-calculator", "date-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Age Calculator – Calculate Your Exact Age in Years, Months and Days",
+    "description": "Calculate your exact age based on your date of birth. Get age in years, months, days, and total days lived.",
+    "schema": {
+      "applicationSubCategory": "EverydayCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

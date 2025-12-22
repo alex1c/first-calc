@@ -1,0 +1,171 @@
+{
+  "title": "Age Calculator – Calculate Your Exact Age in Years, Months and Days",
+  "shortDescription": "Calculate your exact age based on your date of birth. Get age in years, months, days, and total days lived.",
+  "longDescription": "Our Age Calculator helps you determine your exact age based on your date of birth. Simply enter your birth date, and optionally a reference date (defaults to today), and the calculator will compute your age in years, months, and days. You'll also see the total number of days and weeks you've lived. This calculator is perfect for finding out your precise age, calculating someone else's age, or determining age on a specific past date.",
+  "inputs": [
+    {
+      "label": "Date of Birth",
+      "unitLabel": "",
+      "placeholder": "YYYY-MM-DD",
+      "helpText": "Enter your date of birth"
+    },
+    {
+      "label": "Reference Date (Optional)",
+      "unitLabel": "",
+      "placeholder": "YYYY-MM-DD",
+      "helpText": "Optional: Calculate age as of this date (defaults to today)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Age",
+      "unitLabel": ""
+    },
+    {
+      "label": "Years",
+      "unitLabel": "years"
+    },
+    {
+      "label": "Months",
+      "unitLabel": "months"
+    },
+    {
+      "label": "Days",
+      "unitLabel": "days"
+    },
+    {
+      "label": "Total Days",
+      "unitLabel": "days"
+    },
+    {
+      "label": "Total Weeks",
+      "unitLabel": "weeks"
+    }
+  ],
+  "howTo": [
+    "Enter your date of birth in the Date of Birth field (format: YYYY-MM-DD)",
+    "Optionally, enter a reference date to calculate your age as of that specific date (defaults to today if left empty)",
+    "Click the Calculate button",
+    "View your age displayed in years, months, and days",
+    "See additional information including total days lived and total weeks lived",
+    "The calculator automatically handles leap years and varying month lengths"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Standard Age Calculation",
+      "inputDescription": "Calculate age for someone born on May 15, 1990, as of today.",
+      "steps": [
+        "Date of Birth: 1990-05-15",
+        "Reference Date: (today, default)",
+        "The calculator subtracts the birth year (1990) from the current year",
+        "It then adjusts for months and days, accounting for whether the birthday has passed this year",
+        "Result: Age in years, months, and days"
+      ],
+      "resultDescription": "If today is March 20, 2024, the person is 33 years, 10 months, and 5 days old. They have lived approximately 12,360 days (about 1,766 weeks)."
+    },
+    {
+      "id": "example-2",
+      "title": "Leap Year Birthday",
+      "inputDescription": "Calculate age for someone born on February 29, 2000 (a leap year).",
+      "steps": [
+        "Date of Birth: 2000-02-29",
+        "Reference Date: (today, default)",
+        "The calculator handles leap year birthdays correctly",
+        "On non-leap years, February 29 is treated as March 1 for age calculation purposes",
+        "This ensures accurate age progression"
+      ],
+      "resultDescription": "If today is March 1, 2024, the person is 24 years and 1 day old. The calculator correctly handles the leap year birthday by treating February 29 as March 1 in non-leap years."
+    },
+    {
+      "id": "example-3",
+      "title": "Age on a Past Date",
+      "inputDescription": "Calculate how old someone was on a specific past date.",
+      "steps": [
+        "Date of Birth: 1985-07-10",
+        "Reference Date: 2020-01-15",
+        "The calculator uses the reference date instead of today",
+        "It calculates age as of January 15, 2020",
+        "Result shows age on that specific date"
+      ],
+      "resultDescription": "On January 15, 2020, the person was 34 years, 6 months, and 5 days old. They had lived approximately 12,610 days (about 1,801 weeks) up to that point."
+    },
+    {
+      "id": "example-4",
+      "title": "Child Age Calculation",
+      "inputDescription": "Calculate age for a young child born recently.",
+      "steps": [
+        "Date of Birth: 2023-11-20",
+        "Reference Date: (today, default)",
+        "The calculator works accurately for any age, including very young children",
+        "It shows months and days prominently when years are low",
+        "Result provides precise age breakdown"
+      ],
+      "resultDescription": "If today is March 20, 2024, the child is 0 years, 4 months, and 0 days old (exactly 4 months). They have lived 121 days (about 17 weeks). This demonstrates how the calculator handles ages less than one year."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How is age calculated?",
+      "answer": "Age is calculated by subtracting your birth date from the reference date (or today if no reference date is provided). The calculator determines the number of years, then adjusts for months and days, accounting for varying month lengths and leap years."
+    },
+    {
+      "question": "Why do months vary in length?",
+      "answer": "Months have different numbers of days (28-31), which affects age calculations. The calculator accounts for this by adjusting the day count when calculating months. For example, if you were born on January 31 and today is March 1, you've completed 1 month (February) even though February only has 28 or 29 days."
+    },
+    {
+      "question": "How are leap year birthdays handled?",
+      "answer": "If you were born on February 29 (a leap day), the calculator treats your birthday as March 1 in non-leap years. This is the standard convention for calculating age with leap year birthdays, ensuring consistent age progression."
+    },
+    {
+      "question": "What's the difference between age in days vs years?",
+      "answer": "Age in days shows the total number of days you've lived, which is a precise measure. Age in years, months, and days provides a more human-readable format. For example, someone might be 10,000 days old, which equals approximately 27 years, 4 months, and some days."
+    },
+    {
+      "question": "Can I calculate age on a past date?",
+      "answer": "Yes! Use the optional Reference Date field to calculate your age as of any past date. This is useful for historical records, determining age at a specific event, or calculating someone's age on a particular date in the past."
+    },
+    {
+      "question": "Can I calculate age for a future date?",
+      "answer": "No, the calculator only allows reference dates up to today. This prevents calculating future ages, which wouldn't be meaningful since age is based on time that has already passed."
+    },
+    {
+      "question": "What if my birth date is in the future?",
+      "answer": "The calculator requires your birth date to be before the reference date (or today). If you enter a future birth date, you'll receive an error message asking you to correct the date."
+    },
+    {
+      "question": "How accurate is the age calculation?",
+      "answer": "The age calculation is very accurate, accounting for leap years, varying month lengths, and day boundaries. It uses the exact number of days between dates to ensure precision."
+    },
+    {
+      "question": "Does the calculator account for time zones?",
+      "answer": "The calculator uses dates only (not times), so time zones don't affect the calculation. It calculates age based on calendar dates, which is the standard way age is measured."
+    },
+    {
+      "question": "What format should I use for dates?",
+      "answer": "Use the YYYY-MM-DD format (e.g., 1990-05-15 for May 15, 1990). The date picker will help you select the correct date format automatically."
+    },
+    {
+      "question": "Can I calculate age in different units?",
+      "answer": "The calculator shows age in years, months, and days, plus total days and total weeks. This provides a comprehensive view of your age in the most commonly used units."
+    },
+    {
+      "question": "Why does the calculator show '0 years' for babies?",
+      "answer": "For children under one year old, the calculator correctly shows 0 years and displays their age in months and days. This is the standard way to express very young ages."
+    },
+    {
+      "question": "How do I calculate someone else's age?",
+      "answer": "Simply enter their date of birth in the Date of Birth field, and optionally a reference date. The calculator will compute their age just as it would for your own age."
+    },
+    {
+      "question": "What's the maximum age the calculator can handle?",
+      "answer": "The calculator can handle any reasonable age. There's no practical upper limit, though dates must be valid calendar dates and the birth date must be before the reference date."
+    }
+  ],
+  "seo": {
+    "title": "Age Calculator – Calculate Your Exact Age in Years, Months and Days",
+    "description": "Calculate your exact age based on your date of birth. Get age in years, months, days, and total days lived.",
+    "keywords": ["age calculator", "birthday calculator", "date of birth", "age in days", "how old am i", "age in years months days"]
+  }
+}
+

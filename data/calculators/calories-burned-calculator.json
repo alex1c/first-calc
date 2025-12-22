@@ -1,0 +1,93 @@
+{
+  "id": "calories-burned-calculator",
+  "slug": "calories-burned-calculator",
+  "category": "health",
+  "engine": "function",
+  "calculationId": "calculateCaloriesBurned",
+  "tags": ["health", "calories-burned", "exercise", "fitness", "activity"],
+  "inputs": [
+    {
+      "name": "weight",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "weightUnit",
+      "type": "select",
+      "options": [
+        { "value": "kg", "label": "Kilograms (kg)" },
+        { "value": "lb", "label": "Pounds (lb)" }
+      ],
+      "defaultValue": "kg"
+    },
+    {
+      "name": "activity",
+      "type": "select",
+      "options": [
+        { "value": "walking", "label": "Walking" },
+        { "value": "running", "label": "Running" },
+        { "value": "cycling", "label": "Cycling" },
+        { "value": "swimming", "label": "Swimming" },
+        { "value": "strength training", "label": "Strength Training" },
+        { "value": "yoga", "label": "Yoga" },
+        { "value": "other", "label": "Other Activity" }
+      ],
+      "defaultValue": "walking"
+    },
+    {
+      "name": "durationMinutes",
+      "type": "number",
+      "step": 1
+    },
+    {
+      "name": "intensity",
+      "type": "select",
+      "options": [
+        { "value": "low", "label": "Low" },
+        { "value": "moderate", "label": "Moderate" },
+        { "value": "high", "label": "High" }
+      ],
+      "defaultValue": "moderate",
+      "optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "caloriesBurned"
+    },
+    {
+      "name": "caloriesPerMinute"
+    },
+    {
+      "name": "metValue"
+    },
+    {
+      "name": "metDescription"
+    },
+    {
+      "name": "insights"
+    }
+  ],
+  "defaults": {
+    "weight": 70,
+    "weightUnit": "kg",
+    "activity": "walking",
+    "durationMinutes": 30,
+    "intensity": "moderate"
+  },
+  "relatedIds": ["daily-calorie-needs-calculator", "heart-rate-zones-calculator", "steps-to-calories-calculator", "macronutrient-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Calories Burned Calculator – Estimate Calories Burned by Exercise",
+    "description": "Estimate how many calories you burn during walking, running, cycling, and other activities based on weight and duration.",
+    "schema": {
+      "applicationSubCategory": "HealthCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

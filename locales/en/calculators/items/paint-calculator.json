@@ -1,0 +1,177 @@
+{
+  "title": "Paint Calculator – How Much Paint Do You Need?",
+  "shortDescription": "Estimate how much paint you need based on room size, number of coats, and paint coverage.",
+  "longDescription": "Our Paint Calculator helps you estimate how much paint you need for your room. Simply enter the room area, number of coats, and paint coverage (or use defaults), and get an accurate estimate in liters or gallons. Perfect for planning paint purchases, budgeting, and avoiding waste. Supports both metric (m²/liters) and imperial (ft²/gallons) units.",
+  "inputs": [
+    {
+      "label": "Room Area",
+      "unitLabel": "",
+      "placeholder": "Enter area",
+      "helpText": "Enter the total wall area to be painted in square meters or square feet"
+    },
+    {
+      "label": "Number of Coats",
+      "unitLabel": "",
+      "placeholder": "Enter number",
+      "helpText": "Enter the number of coats you plan to apply (default: 2)"
+    },
+    {
+      "label": "Paint Coverage",
+      "unitLabel": "",
+      "placeholder": "Enter coverage",
+      "helpText": "Enter paint coverage (default: 10 m²/liter or 400 ft²/gallon). Check paint can label for specific coverage."
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters (m²) or feet (ft²) for area measurements"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Paint Required",
+      "unitLabel": ""
+    },
+    {
+      "label": "Cans Estimate",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the total wall area to be painted (use Room Area Calculator if needed)",
+    "Enter the number of coats you plan to apply (typically 2 for most paints)",
+    "Optionally enter paint coverage (default is 10 m²/liter or 400 ft²/gallon)",
+    "Select the unit system: Meters or Feet",
+    "Click the Calculate button",
+    "View the estimated paint required in liters or gallons",
+    "Check the cans estimate for common paint can sizes",
+    "Review the explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Small Bedroom",
+      "inputDescription": "Calculate paint needed for a small bedroom.",
+      "steps": [
+        "Room Area: 30 m² (walls only)",
+        "Number of Coats: 2",
+        "Paint Coverage: 10 m²/liter (default)",
+        "Unit: Meters",
+        "Calculation: (30 × 2) / 10 = 6 liters"
+      ],
+      "resultDescription": "For a small bedroom with 30 m² of wall area, applying 2 coats with standard coverage (10 m²/liter), you will need approximately 6 liters of paint. This is typically 2-3 cans of paint depending on can size."
+    },
+    {
+      "id": "example-2",
+      "title": "Living Room with 2 Coats",
+      "inputDescription": "Calculate paint needed for a living room.",
+      "steps": [
+        "Room Area: 50 m² (walls only)",
+        "Number of Coats: 2",
+        "Paint Coverage: 10 m²/liter (default)",
+        "Unit: Meters",
+        "Calculation: (50 × 2) / 10 = 10 liters"
+      ],
+      "resultDescription": "For a living room with 50 m² of wall area, applying 2 coats with standard coverage, you will need approximately 10 liters of paint. This is typically 2 × 5 liter cans or 4 × 2.5 liter cans."
+    },
+    {
+      "id": "example-3",
+      "title": "High-Coverage Paint",
+      "inputDescription": "Calculate paint needed using high-coverage paint.",
+      "steps": [
+        "Room Area: 40 m²",
+        "Number of Coats: 2",
+        "Paint Coverage: 12 m²/liter (premium paint)",
+        "Unit: Meters",
+        "Calculation: (40 × 2) / 12 = 6.67 liters"
+      ],
+      "resultDescription": "Using premium paint with higher coverage (12 m²/liter instead of 10 m²/liter), you need approximately 6.67 liters for 40 m² with 2 coats. Higher coverage paint is more expensive but requires less paint overall."
+    },
+    {
+      "id": "example-4",
+      "title": "Feet to Metric Example",
+      "inputDescription": "Calculate paint needed using imperial units.",
+      "steps": [
+        "Room Area: 300 ft² (walls only)",
+        "Number of Coats: 2",
+        "Paint Coverage: 400 ft²/gallon (default)",
+        "Unit: Feet",
+        "Calculation: (300 × 2) / 400 = 1.5 gallons"
+      ],
+      "resultDescription": "For a room with 300 ft² of wall area, applying 2 coats with standard coverage (400 ft²/gallon), you will need approximately 1.5 gallons of paint. This is typically 2 × 1 gallon cans or 1 × 5 gallon bucket (with leftover)."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How many coats of paint do I need?",
+      "answer": "Most interior walls require 2 coats for good coverage and durability. One coat may be sufficient for touch-ups or when painting over a similar color. Dark colors or dramatic color changes typically require 2-3 coats. The calculator defaults to 2 coats, which is standard for most painting projects."
+    },
+    {
+      "question": "Does paint brand matter for coverage?",
+      "answer": "Yes, different paint brands and quality levels have different coverage rates. Premium paints often have better coverage (more area per liter/gallon) and may require fewer coats. Economy paints may have lower coverage. Always check the paint can label for the specific coverage rate and adjust the calculator accordingly."
+    },
+    {
+      "question": "Should I include the ceiling in the room area?",
+      "answer": "No, this calculator is for wall area only. Ceilings are calculated separately as they typically use different paint (ceiling paint) and have different coverage rates. To calculate ceiling paint, measure the floor area (length × width) and use the same formula with ceiling paint coverage rates."
+    },
+    {
+      "question": "What about waste and touch-ups?",
+      "answer": "The calculator provides a base estimate. It's recommended to add 10-15% extra paint for waste, touch-ups, and cutting in around edges. Some professionals add 20% for safety. Always round up when purchasing paint to ensure you have enough for the entire project."
+    },
+    {
+      "question": "What's the difference between interior and exterior paint?",
+      "answer": "Interior paint is designed for indoor use and typically has better coverage and smoother finish. Exterior paint is formulated to withstand weather and UV exposure. Coverage rates may differ, and exterior paint often requires more coats. Use the paint coverage rate from the specific paint you're using."
+    },
+    {
+      "question": "How do I measure wall area?",
+      "answer": "Measure each wall separately: length × height. Add all wall areas together. Don't subtract windows and doors unless they're very large (subtract only if they're more than 2 m² or 20 ft² each). For standard rooms, you can also use: (2 × length × height) + (2 × width × height) for rectangular rooms."
+    },
+    {
+      "question": "What is paint coverage?",
+      "answer": "Paint coverage is the area that one unit of paint (liter or gallon) can cover in one coat. Standard coverage is approximately 10 m² per liter (400 ft² per gallon) for most interior paints. Premium paints may cover 12-15 m² per liter. Always check the paint can label for the specific coverage rate."
+    },
+    {
+      "question": "Can I use this for exterior painting?",
+      "answer": "Yes, but exterior paint often has different coverage rates and may require more coats. Use the coverage rate specified on your exterior paint can. Also, exterior surfaces may be more porous and require more paint. Consider adding 15-20% extra for exterior projects."
+    },
+    {
+      "question": "What if my room has many windows and doors?",
+      "answer": "For standard-sized windows and doors, you don't need to subtract them from the wall area as the extra paint accounts for cutting in and edges. Only subtract very large openings (more than 2 m² or 20 ft² each). The calculator's estimate includes a small buffer for this."
+    },
+    {
+      "question": "How accurate is the paint calculator?",
+      "answer": "The calculator provides accurate estimates based on the inputs you provide. Accuracy depends on: accurate wall area measurement, correct paint coverage rate from the paint can, and realistic number of coats. The estimate is typically within 10-15% of actual needs when measurements are accurate."
+    },
+    {
+      "question": "Should I buy extra paint?",
+      "answer": "Yes, it's always recommended to buy 10-15% more paint than calculated. This accounts for waste, touch-ups, color matching for future repairs, and ensures you have enough if you need an extra coat. It's better to have a little leftover than to run out mid-project."
+    },
+    {
+      "question": "What paint can sizes are common?",
+      "answer": "Common paint can sizes: Metric: 1 liter, 2.5 liters, 5 liters, 10 liters. Imperial: 1 quart, 1 gallon, 5 gallons. The calculator estimates cans based on these common sizes. Always check what sizes are available at your local store."
+    },
+    {
+      "question": "Does primer count as a coat?",
+      "answer": "No, primer is separate from paint coats. Primer is applied first (usually 1 coat) and then paint is applied (typically 2 coats). This calculator is for paint only. If you need to calculate primer, use the same formula but with primer coverage rates (which may differ from paint)."
+    },
+    {
+      "question": "What if I'm painting over a dark color?",
+      "answer": "Painting over dark colors typically requires more coats (3-4 instead of 2) or a primer coat first. Adjust the number of coats in the calculator accordingly. Some paints are specifically designed to cover dark colors in fewer coats - check the paint label."
+    },
+    {
+      "question": "Can I use this for textured walls?",
+      "answer": "Textured walls require more paint than smooth walls due to increased surface area. Add 20-30% to the calculated amount for heavily textured walls. Light texture may only require 10-15% extra. The calculator assumes smooth walls, so adjust accordingly for textured surfaces."
+    }
+  ],
+  "seo": {
+    "title": "Paint Calculator – How Much Paint Do You Need?",
+    "description": "Estimate how much paint you need based on room size, number of coats, and paint coverage.",
+    "keywords": ["paint calculator", "how much paint", "paint coverage", "paint estimate", "room paint calculator"]
+  }
+}
+

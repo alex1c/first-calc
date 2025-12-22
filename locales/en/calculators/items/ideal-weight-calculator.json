@@ -1,0 +1,270 @@
+{
+  "title": "Ideal Weight Calculator – Healthy Weight Range by Height",
+  "shortDescription": "Estimate an ideal weight range using Devine, Robinson, and Miller formulas. Compare results and understand healthy weight targets by height.",
+  "longDescription": "Our Ideal Weight Calculator helps you estimate a healthy weight range based on your height and sex using multiple established formulas (Devine, Robinson, and Miller). These formulas provide different estimates because they were developed using different populations and methodologies. By comparing all three, you get a more comprehensive range rather than a single number. Understanding your ideal weight range can be helpful for setting health and fitness goals, but remember that ideal weight formulas are estimates and don't account for body composition (muscle vs fat), bone structure, or individual variations. BMI and body fat percentage may provide more comprehensive information about your health.",
+  "inputs": [
+    {
+      "label": "Sex",
+      "unitLabel": "",
+      "placeholder": "Select sex",
+      "helpText": "Biological sex affects ideal weight calculation"
+    },
+    {
+      "label": "Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Your height in centimeters (if using cm) or total inches (if using ft+in)"
+    },
+    {
+      "label": "Height Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or feet and inches (ft+in)"
+    },
+    {
+      "label": "Feet",
+      "unitLabel": "ft",
+      "placeholder": "Enter feet",
+      "helpText": "Height in feet (only shown when using ft+in)"
+    },
+    {
+      "label": "Inches",
+      "unitLabel": "in",
+      "placeholder": "Enter inches",
+      "helpText": "Additional height in inches (only shown when using ft+in)"
+    },
+    {
+      "label": "Frame Size",
+      "unitLabel": "",
+      "placeholder": "Select frame size",
+      "helpText": "Optional: Your body frame size (small, medium, or large) - currently informational only"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Devine Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Devine Weight (lb)",
+      "unitLabel": "lb"
+    },
+    {
+      "label": "Robinson Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Robinson Weight (lb)",
+      "unitLabel": "lb"
+    },
+    {
+      "label": "Miller Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Miller Weight (lb)",
+      "unitLabel": "lb"
+    },
+    {
+      "label": "Min Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Max Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Min Weight (lb)",
+      "unitLabel": "lb"
+    },
+    {
+      "label": "Max Weight (lb)",
+      "unitLabel": "lb"
+    },
+    {
+      "label": "Ideal Range (kg)",
+      "unitLabel": ""
+    },
+    {
+      "label": "Ideal Range (lb)",
+      "unitLabel": ""
+    },
+    {
+      "label": "Insights",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select your biological sex (male or female)",
+    "Enter your height",
+    "Select your height unit (centimeters or feet+inches)",
+    "If using feet+inches, enter both feet and inches separately",
+    "Optionally select your frame size (small, medium, or large)",
+    "Click 'Calculate' to see your ideal weight range",
+    "Review the results from all three formulas (Devine, Robinson, Miller)",
+    "Compare the suggested range across all methods",
+    "Understand that these are estimates and may not account for body composition",
+    "Consider using BMI or body fat percentage for more comprehensive health information"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Male, 180 cm",
+      "description": "A male who is 180 cm tall",
+      "inputs": {
+        "sex": "male",
+        "height": 180,
+        "heightUnit": "cm",
+        "frameSize": "medium"
+      },
+      "steps": [
+        "Sex: Male",
+        "Height: 180 cm",
+        "Convert to inches: 180 × 0.393701 = 70.87 inches",
+        "Height over 5 ft: 70.87 - 60 = 10.87 inches",
+        "Devine formula (male): 50.0 + (2.3 × 10.87) = 50.0 + 25.0 = 75.0 kg",
+        "Robinson formula (male): 52 + (1.9 × 10.87) = 52 + 20.65 = 72.7 kg",
+        "Miller formula (male): 56.2 + (1.41 × 10.87) = 56.2 + 15.33 = 71.5 kg",
+        "Range: Min = 71.5 kg (Miller), Max = 75.0 kg (Devine)",
+        "Ideal weight range: 71.5 - 75.0 kg (157.6 - 165.3 lb)"
+      ],
+      "result": "For a 180 cm (5'11\") male, the ideal weight range is 71.5 - 75.0 kg (157.6 - 165.3 lb). The Devine formula gives the highest estimate (75.0 kg), while the Miller formula gives the lowest (71.5 kg). The Robinson formula falls in between (72.7 kg). This range accounts for variations between formulas and provides a more realistic target than a single number."
+    },
+    {
+      "title": "Example 2: Female, 165 cm",
+      "description": "A female who is 165 cm tall",
+      "inputs": {
+        "sex": "female",
+        "height": 165,
+        "heightUnit": "cm",
+        "frameSize": "medium"
+      },
+      "steps": [
+        "Sex: Female",
+        "Height: 165 cm",
+        "Convert to inches: 165 × 0.393701 = 64.96 inches",
+        "Height over 5 ft: 64.96 - 60 = 4.96 inches",
+        "Devine formula (female): 45.5 + (2.3 × 4.96) = 45.5 + 11.41 = 56.9 kg",
+        "Robinson formula (female): 49 + (1.7 × 4.96) = 49 + 8.43 = 57.4 kg",
+        "Miller formula (female): 53.1 + (1.36 × 4.96) = 53.1 + 6.75 = 59.9 kg",
+        "Range: Min = 56.9 kg (Devine), Max = 59.9 kg (Miller)",
+        "Ideal weight range: 56.9 - 59.9 kg (125.4 - 132.0 lb)"
+      ],
+      "result": "For a 165 cm (5'5\") female, the ideal weight range is 56.9 - 59.9 kg (125.4 - 132.0 lb). Interestingly, for this height, the Miller formula gives the highest estimate (59.9 kg), while the Devine formula gives the lowest (56.9 kg). The Robinson formula falls in between (57.4 kg). This demonstrates how different formulas can produce different results depending on height and sex."
+    },
+    {
+      "title": "Example 3: Imperial Units (5'10\")",
+      "description": "A person using imperial units: Male, 5 feet 10 inches",
+      "inputs": {
+        "sex": "male",
+        "height": 70,
+        "heightUnit": "ft+in",
+        "heightFeet": 5,
+        "heightInches": 10,
+        "frameSize": "medium"
+      },
+      "steps": [
+        "Sex: Male",
+        "Height: 5 ft 10 in = 70 inches total",
+        "Height over 5 ft: 70 - 60 = 10 inches",
+        "Devine formula (male): 50.0 + (2.3 × 10) = 50.0 + 23.0 = 73.0 kg",
+        "Robinson formula (male): 52 + (1.9 × 10) = 52 + 19.0 = 71.0 kg",
+        "Miller formula (male): 56.2 + (1.41 × 10) = 56.2 + 14.1 = 70.3 kg",
+        "Range: Min = 70.3 kg (Miller), Max = 73.0 kg (Devine)",
+        "Convert to pounds: 70.3 kg = 155.0 lb, 73.0 kg = 160.9 lb",
+        "Ideal weight range: 70.3 - 73.0 kg (155.0 - 160.9 lb)"
+      ],
+      "result": "This example demonstrates how the calculator automatically handles imperial units. For a 5'10\" male, the ideal weight range is 70.3 - 73.0 kg (155.0 - 160.9 lb). The calculator converts feet and inches to total inches internally, then applies the formulas. All three formulas are based on height in inches over 5 feet, so imperial units work seamlessly."
+    },
+    {
+      "title": "Example 4: Comparing Two Heights",
+      "description": "Understanding how ideal weight changes with height: Male, 170 cm vs 190 cm",
+      "inputs": {
+        "sex": "male",
+        "height": 170,
+        "heightUnit": "cm",
+        "frameSize": "medium"
+      },
+      "steps": [
+        "Compare two heights: 170 cm vs 190 cm (both male)",
+        "For 170 cm (66.93 inches, 6.93 inches over 5 ft):",
+        "Devine: 50.0 + (2.3 × 6.93) = 65.9 kg",
+        "Robinson: 52 + (1.9 × 6.93) = 65.2 kg",
+        "Miller: 56.2 + (1.41 × 6.93) = 66.0 kg",
+        "Range: 65.2 - 66.0 kg",
+        "For 190 cm (74.80 inches, 14.80 inches over 5 ft):",
+        "Devine: 50.0 + (2.3 × 14.80) = 84.0 kg",
+        "Robinson: 52 + (1.9 × 14.80) = 80.1 kg",
+        "Miller: 56.2 + (1.41 × 14.80) = 77.1 kg",
+        "Range: 77.1 - 84.0 kg",
+        "Difference: About 12-18 kg (26-40 lb) for 20 cm (8 inches) height difference"
+      ],
+      "result": "This comparison shows how ideal weight increases with height. A 170 cm (5'7\") male has an ideal weight range of 65.2 - 66.0 kg, while a 190 cm (6'3\") male has a range of 77.1 - 84.0 kg — a difference of about 12-18 kg (26-40 lb) for a 20 cm (8 inch) height difference. This demonstrates that taller individuals naturally have higher ideal weights, and the formulas account for this proportional relationship."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is ideal weight?",
+      "answer": "Ideal weight is an estimated healthy weight range based on your height and sex. It's calculated using formulas that were developed by studying populations to find weight ranges associated with good health outcomes. However, ideal weight is just an estimate and doesn't account for individual factors like body composition (muscle vs fat), bone structure, or medical conditions."
+    },
+    {
+      "question": "Which formula is the most accurate?",
+      "answer": "There's no single 'most accurate' formula because ideal weight depends on many individual factors. The Devine, Robinson, and Miller formulas were developed using different populations and methodologies, which is why they give slightly different results. By using all three formulas and presenting a range, this calculator provides a more comprehensive estimate than any single formula alone."
+    },
+    {
+      "question": "Why do the formulas give different results?",
+      "answer": "The formulas give different results because they were developed using different populations, time periods, and methodologies. Devine (1974) was based on medication dosing studies. Robinson (1983) was developed using more recent data. Miller (1983) used a different statistical approach. Each formula has its strengths, but none is perfect for everyone. That's why comparing all three gives a more realistic range."
+    },
+    {
+      "question": "Should I trust ideal weight calculators?",
+      "answer": "Ideal weight calculators provide useful estimates, but they have limitations. They only consider height and sex, not body composition (muscle vs fat), bone structure, medical conditions, or individual variations. Use ideal weight as a general guideline, but also consider BMI, body fat percentage, and how you feel. Consult with a healthcare provider for personalized advice."
+    },
+    {
+      "question": "What's the difference between ideal weight and BMI?",
+      "answer": "Ideal weight formulas estimate a specific weight range based on height and sex. BMI (Body Mass Index) is a ratio of weight to height squared and categorizes you into ranges (Underweight, Normal, Overweight, Obese). BMI is more widely used in medical settings and accounts for your actual weight, while ideal weight formulas only use height. Both have limitations and don't directly measure body fat. BMI may be more useful because it uses your actual weight."
+    },
+    {
+      "question": "Does muscle mass affect ideal weight?",
+      "answer": "Yes, muscle mass significantly affects ideal weight, but ideal weight formulas don't account for it. Muscle is denser and heavier than fat, so a very muscular person may weigh more than their 'ideal weight' but still be healthy. Conversely, someone at their 'ideal weight' but with low muscle mass and high body fat may not be as healthy. This is why body composition (muscle vs fat) matters more than weight alone."
+    },
+    {
+      "question": "What if I'm outside the ideal weight range?",
+      "answer": "Being outside the ideal weight range doesn't necessarily mean you're unhealthy. Many factors matter: body composition (muscle vs fat), overall health, medical conditions, and how you feel. If you're significantly outside the range, consider consulting with a healthcare provider to discuss whether weight changes would benefit your health. Remember that ideal weight is just an estimate based on height and sex."
+    },
+    {
+      "question": "Can ideal weight help me set weight loss goals?",
+      "answer": "Ideal weight can provide a general target range for weight loss goals, but it's not the only factor to consider. More important factors include: your current health status, body composition, medical advice, and sustainable lifestyle changes. If you're significantly above the ideal weight range, aim for gradual, sustainable weight loss (0.25-0.5 kg per week) rather than trying to reach the ideal weight quickly."
+    },
+    {
+      "question": "Do ideal weight formulas work for athletes?",
+      "answer": "Ideal weight formulas are less accurate for athletes because they don't account for muscle mass. Athletes often have higher muscle mass and lower body fat, so they may weigh more than their 'ideal weight' but still be very healthy. For athletes, body fat percentage, performance metrics, and overall health are more important than weight alone."
+    },
+    {
+      "question": "What about frame size?",
+      "answer": "Frame size (small, medium, large) refers to bone structure and can affect ideal weight. People with larger frames (wider bones) may naturally weigh more, while those with smaller frames may weigh less. However, most ideal weight formulas don't explicitly account for frame size, which is one of their limitations. The frame size option in this calculator is currently informational only."
+    },
+    {
+      "question": "How do I know my frame size?",
+      "answer": "Frame size is typically determined by measuring your wrist circumference relative to your height. However, this is a rough estimate and not always accurate. Some people use visual assessment (comparing wrist size to others), but this is subjective. Frame size is less important than body composition (muscle vs fat) for health."
+    },
+    {
+      "question": "Can ideal weight change with age?",
+      "answer": "Ideal weight formulas don't explicitly account for age, but weight needs may change with age due to: muscle loss (sarcopenia), metabolic changes, activity level changes, and health conditions. Older adults may benefit from maintaining muscle mass even if it means being slightly above 'ideal weight.' Focus on body composition and overall health rather than just weight."
+    },
+    {
+      "question": "What if I'm very tall or very short?",
+      "answer": "Ideal weight formulas work best for average heights. For very tall people (over 6'5\" or 195 cm) or very short people (under 5'0\" or 152 cm), the formulas may be less accurate because they were developed using average-height populations. If you're at the extremes of height, consider the formulas as rough estimates and focus more on BMI, body composition, and overall health."
+    },
+    {
+      "question": "Should I use ideal weight or BMI?",
+      "answer": "Both have value, but BMI is more widely used in medical settings because it accounts for your actual weight. Ideal weight formulas only use height and sex, so they don't reflect your current weight status. BMI tells you if you're underweight, normal, overweight, or obese based on your actual weight. For comprehensive health assessment, consider both ideal weight (as a target) and BMI (as a current status indicator), plus body fat percentage if available."
+    },
+    {
+      "question": "Can I use ideal weight during pregnancy?",
+      "answer": "Ideal weight formulas are not designed for pregnancy. During pregnancy, weight gain is expected and necessary for a healthy pregnancy. Ideal weight formulas don't account for the weight of the baby, placenta, amniotic fluid, and other pregnancy-related changes. Pregnant women should follow their healthcare provider's guidance for healthy weight gain during pregnancy, not ideal weight formulas."
+    }
+  ],
+  "seo": {
+    "keywords": ["ideal weight calculator", "healthy weight", "ideal weight", "ideal weight by height", "ideal weight range", "devine formula", "robinson formula", "miller formula", "healthy weight calculator", "ideal body weight", "weight by height", "ideal weight for height"]
+  }
+}
+

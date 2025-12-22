@@ -1,0 +1,177 @@
+{
+  "title": "Random Number Generator – Generate Random Numbers Online",
+  "shortDescription": "Generate random numbers within any range. Supports multiple numbers and custom ranges.",
+  "longDescription": "Our Random Number Generator helps you generate random numbers within any specified range. Simply enter a minimum and maximum value, choose how many numbers to generate, and optionally allow duplicates. Perfect for games, lotteries, simulations, classroom activities, or any situation where you need random numbers. The generator uses standard random number algorithms suitable for general use.",
+  "inputs": [
+    {
+      "label": "Minimum Value",
+      "unitLabel": "",
+      "placeholder": "Enter minimum",
+      "helpText": "Enter the minimum value (inclusive)"
+    },
+    {
+      "label": "Maximum Value",
+      "unitLabel": "",
+      "placeholder": "Enter maximum",
+      "helpText": "Enter the maximum value (inclusive)"
+    },
+    {
+      "label": "Quantity",
+      "unitLabel": "",
+      "placeholder": "Enter quantity",
+      "helpText": "Enter how many random numbers to generate (default: 1)"
+    },
+    {
+      "label": "Allow Duplicates",
+      "unitLabel": "",
+      "placeholder": "",
+      "helpText": "Check to allow duplicate numbers in the results"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Generated Numbers",
+      "unitLabel": ""
+    },
+    {
+      "label": "Range",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the minimum value for your range",
+    "Enter the maximum value for your range",
+    "Optionally enter the quantity of numbers to generate (default: 1)",
+    "Optionally check 'Allow Duplicates' if you want duplicate numbers in results",
+    "Click the Calculate button",
+    "View the generated random number(s)",
+    "Copy the numbers if needed",
+    "Click Calculate again to generate new random numbers"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Dice Roll (1–6)",
+      "inputDescription": "Simulate rolling a standard six-sided die.",
+      "steps": [
+        "Minimum Value: 1",
+        "Maximum Value: 6",
+        "Quantity: 1",
+        "Allow Duplicates: No (not needed for single number)",
+        "Result: A random number between 1 and 6"
+      ],
+      "resultDescription": "Generating a random number between 1 and 6 simulates rolling a standard die. Each number (1, 2, 3, 4, 5, 6) has an equal probability of being generated. This is useful for board games, decision-making, or simple probability demonstrations."
+    },
+    {
+      "id": "example-2",
+      "title": "Lottery-Style Range",
+      "inputDescription": "Generate lottery-style numbers (e.g., 1–49).",
+      "steps": [
+        "Minimum Value: 1",
+        "Maximum Value: 49",
+        "Quantity: 6",
+        "Allow Duplicates: No",
+        "Result: 6 unique random numbers between 1 and 49"
+      ],
+      "resultDescription": "Generating 6 unique random numbers between 1 and 49 simulates a lottery draw. With duplicates disabled, each number appears only once, matching typical lottery rules. This is useful for games, simulations, or educational purposes (not for actual lottery play)."
+    },
+    {
+      "id": "example-3",
+      "title": "Multiple Random Numbers",
+      "inputDescription": "Generate multiple random numbers with duplicates allowed.",
+      "steps": [
+        "Minimum Value: 1",
+        "Maximum Value: 10",
+        "Quantity: 5",
+        "Allow Duplicates: Yes",
+        "Result: 5 random numbers (may include duplicates)"
+      ],
+      "resultDescription": "Generating 5 random numbers between 1 and 10 with duplicates allowed can result in numbers like [3, 7, 3, 1, 9]. This is useful for simulations, sampling, or when duplicates are acceptable in your use case."
+    },
+    {
+      "id": "example-4",
+      "title": "Classroom Use Case",
+      "inputDescription": "Randomly select a student number for classroom activities.",
+      "steps": [
+        "Minimum Value: 1",
+        "Maximum Value: 30 (class size)",
+        "Quantity: 1",
+        "Allow Duplicates: No (not needed for single number)",
+        "Result: A random student number"
+      ],
+      "resultDescription": "Generating a random number between 1 and 30 can be used to randomly select a student in a class of 30. This ensures fair selection for activities, questions, or presentations. Each student has an equal chance of being selected."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How random is this generator?",
+      "answer": "The generator uses JavaScript's Math.random() function, which provides pseudo-random numbers suitable for general use, games, and simulations. It is not cryptographically secure and should not be used for security-sensitive applications. For most everyday uses (games, lotteries, simulations, classroom activities), it provides sufficient randomness."
+    },
+    {
+      "question": "Can I generate multiple random numbers at once?",
+      "answer": "Yes, you can generate multiple numbers by entering a quantity greater than 1. The generator will create the specified number of random numbers in your range. You can choose to allow or disallow duplicates depending on your needs."
+    },
+    {
+      "question": "What happens if I don't allow duplicates?",
+      "answer": "When duplicates are not allowed, each generated number will be unique. This is useful for lottery-style draws, sampling without replacement, or when you need distinct values. Note: You cannot generate more unique numbers than the size of your range (max - min + 1)."
+    },
+    {
+      "question": "Is this generator secure for passwords or encryption?",
+      "answer": "No, this generator is not cryptographically secure and should not be used for passwords, encryption keys, or any security-sensitive applications. It uses standard pseudo-random number generation suitable for general use only. For security applications, use cryptographically secure random number generators."
+    },
+    {
+      "question": "What are common use cases for this generator?",
+      "answer": "Common uses include: games and simulations, lottery-style number selection, classroom activities and random selection, decision-making tools, testing and sampling, random assignment in experiments, and simple probability demonstrations. It's perfect for any situation where you need unbiased random selection."
+    },
+    {
+      "question": "Can I use negative numbers?",
+      "answer": "Yes, you can use negative numbers for both minimum and maximum values. For example, you can generate random numbers between -10 and 10. The generator works with any integer range."
+    },
+    {
+      "question": "What's the maximum range I can use?",
+      "answer": "The generator can handle very large ranges, but practical limits depend on your browser and system. For most use cases, ranges up to millions or billions work fine. Extremely large ranges may have performance implications when generating many numbers without duplicates."
+    },
+    {
+      "question": "How do I generate numbers for a lottery?",
+      "answer": "Set your minimum and maximum values to match your lottery range (e.g., 1 to 49), set quantity to the number of numbers needed (e.g., 6), and make sure 'Allow Duplicates' is unchecked to ensure unique numbers. This simulates a lottery draw."
+    },
+    {
+      "question": "Can I copy the generated numbers?",
+      "answer": "Yes, the generated numbers are displayed in a copyable format. You can select and copy them directly from the results. The numbers are formatted as a comma-separated list for easy copying."
+    },
+    {
+      "question": "Are the numbers truly random?",
+      "answer": "The numbers are generated using pseudo-random algorithms, which means they appear random but are generated by a deterministic process. For most practical purposes (games, simulations, random selection), they are sufficiently random. True randomness requires physical processes or specialized hardware."
+    },
+    {
+      "question": "What if I want to generate the same numbers again?",
+      "answer": "Each time you click Calculate, new random numbers are generated. There's no way to regenerate the exact same sequence unless you use a seed value (not available in this generator). If you need to reproduce results, you would need a seeded random number generator."
+    },
+    {
+      "question": "Can I use this for statistical sampling?",
+      "answer": "Yes, this generator is suitable for simple statistical sampling, random assignment, and basic simulations. However, for rigorous statistical work or large-scale simulations, you may want to use specialized statistical software with more advanced random number generation methods."
+    },
+    {
+      "question": "What's the difference between allowing and not allowing duplicates?",
+      "answer": "When duplicates are allowed, the same number can appear multiple times in your results (e.g., [5, 3, 5, 7]). When duplicates are not allowed, each number appears only once (e.g., [5, 3, 7, 2]). Choose based on whether your use case requires unique values or allows repetition."
+    },
+    {
+      "question": "Can I generate decimal numbers?",
+      "answer": "Currently, the generator only produces integers (whole numbers). For decimal numbers, you would need to use a different tool or multiply the result by a decimal factor. The generator is designed for integer ranges to keep it simple and fast."
+    },
+    {
+      "question": "Is there a limit on how many numbers I can generate?",
+      "answer": "There's no strict limit, but generating very large quantities (thousands or more) may slow down the generator, especially when duplicates are not allowed. For most practical uses, generating up to a few hundred numbers works smoothly."
+    }
+  ],
+  "seo": {
+    "title": "Random Number Generator – Generate Random Numbers Online",
+    "description": "Generate random numbers within any range. Supports multiple numbers and custom ranges.",
+    "keywords": ["random number generator", "rng", "random number", "number generator", "randomizer", "random numbers"]
+  }
+}
+

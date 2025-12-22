@@ -1,0 +1,97 @@
+{
+  "id": "paint-calculator",
+  "slug": "paint-calculator",
+  "category": "everyday",
+  "engine": "function",
+  "calculationId": "calculatePaint",
+  "tags": ["paint-calculator", "wall-paint", "room-paint", "paint-coverage"],
+  "inputs": [
+    {
+      "name": "roomArea",
+      "type": "number",
+      "step": 0.1
+    },
+    {
+      "name": "numberOfCoats",
+      "type": "number",
+      "step": 1,
+      "defaultValue": 2
+    },
+    {
+      "name": "paintCoverage",
+      "type": "number",
+      "step": 0.1,
+      "optional": true
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m²)" },
+        { "value": "feet", "label": "Feet (ft²)" }
+      ],
+      "defaultValue": "meters"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "paintRequired"
+    },
+    {
+      "name": "paintRequiredFormatted"
+    },
+    {
+      "name": "paintRequiredAlternative"
+    },
+    {
+      "name": "paintRequiredAlternativeFormatted"
+    },
+    {
+      "name": "alternativeUnit"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "cansEstimate"
+    },
+    {
+      "name": "roomArea"
+    },
+    {
+      "name": "numberOfCoats"
+    },
+    {
+      "name": "paintCoverage"
+    },
+    {
+      "name": "coverageUnit"
+    },
+    {
+      "name": "paintUnit"
+    },
+    {
+      "name": "areaUnit"
+    }
+  ],
+  "defaults": {
+    "roomArea": 20,
+    "numberOfCoats": 2,
+    "unit": "meters"
+  },
+  "relatedIds": ["room-area-calculator", "cooking-measurement-converter"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Paint Calculator – How Much Paint Do You Need?",
+    "description": "Estimate how much paint you need based on room size, number of coats, and paint coverage.",
+    "schema": {
+      "applicationSubCategory": "EverydayCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

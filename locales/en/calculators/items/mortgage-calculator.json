@@ -121,147 +121,129 @@
   "examples": [
     {
       "title": "Typical Home Mortgage",
-      "description": "A $300,000 home with 20% down payment at 4.5% for 30 years",
+      "description": "A $300,000 loan with $60,000 down payment at 4.5% for 30 years",
       "inputs": {
-        "homePrice": 300000,
+        "loanAmount": 300000,
         "downPayment": 60000,
-        "downPaymentType": "amount",
-        "loanTermYears": 30,
-        "interestRateAPR": 4.5,
-        "paymentFrequency": "monthly"
+        "loanTerm": 30,
+        "interestRate": 4.5,
+        "paymentFrequency": "monthly",
+        "paymentType": "annuity"
       },
       "steps": [
-        "Home price: $300,000",
-        "Down payment: $60,000 (20%)",
-        "Loan amount: $300,000 - $60,000 = $240,000",
+        "Loan amount: $300,000",
+        "Down payment: $60,000",
+        "Net loan amount: $300,000 - $60,000 = $240,000",
         "Interest rate: 4.5% APR",
         "Loan term: 30 years",
+        "Payment frequency: Monthly",
         "Monthly interest rate: 4.5% ÷ 12 = 0.375% = 0.00375",
         "Number of payments: 30 years × 12 months = 360 payments",
-        "Monthly payment formula: M = P × [r(1+r)^n] / [(1+r)^n - 1]",
+        "Using the standard loan formula: M = P × [r(1+r)^n] / [(1+r)^n - 1]",
         "Where P = $240,000, r = 0.00375, n = 360",
-        "(1+r)^n = (1.00375)^360 = 3.8477",
-        "M = $240,000 × [0.00375 × 3.8477] / [3.8477 - 1]",
-        "M = $240,000 × 0.014429 / 2.8477 = $1,216.04",
-        "Monthly payment: $1,216.04",
-        "Total payment: $1,216.04 × 360 = $437,774.40",
-        "Total interest: $437,774.40 - $240,000 = $197,774.40"
-      ]
+        "This calculation shows your monthly payment and total interest over the loan term"
+      ],
+      "result": "This example demonstrates a typical 30-year mortgage scenario. The monthly payment represents your principal and interest, while total interest shows the cost of borrowing over the full term."
     },
     {
       "title": "Large Down Payment",
-      "description": "A $400,000 home with 30% down payment at 3.8% for 15 years",
+      "description": "A $400,000 loan with $120,000 down payment at 3.8% for 15 years",
       "inputs": {
-        "homePrice": 400000,
+        "loanAmount": 400000,
         "downPayment": 120000,
-        "downPaymentType": "amount",
-        "loanTermYears": 15,
-        "interestRateAPR": 3.8,
-        "paymentFrequency": "monthly"
+        "loanTerm": 15,
+        "interestRate": 3.8,
+        "paymentFrequency": "monthly",
+        "paymentType": "annuity"
       },
       "steps": [
-        "Home price: $400,000",
-        "Down payment: $120,000 (30%)",
-        "Loan amount: $400,000 - $120,000 = $280,000",
+        "Loan amount: $400,000",
+        "Down payment: $120,000",
+        "Net loan amount: $400,000 - $120,000 = $280,000",
         "Interest rate: 3.8% APR",
-        "Loan term: 15 years",
-        "Monthly interest rate: 3.8% ÷ 12 = 0.3167% = 0.003167",
-        "Number of payments: 15 years × 12 months = 180 payments",
-        "Monthly payment formula: M = P × [r(1+r)^n] / [(1+r)^n - 1]",
-        "(1+r)^n = (1.003167)^180 = 1.7444",
-        "M = $280,000 × [0.003167 × 1.7444] / [1.7444 - 1]",
-        "M = $280,000 × 0.005525 / 0.7444 = $2,079.23",
-        "Monthly payment: $2,079.23",
-        "Total payment: $2,079.23 × 180 = $374,261.40",
-        "Total interest: $374,261.40 - $280,000 = $94,261.40",
-        "Note: Shorter term (15 years) means higher monthly payment but much less total interest"
-      ]
+        "Loan term: 15 years (shorter term)",
+        "Payment frequency: Monthly",
+        "This shorter term results in higher monthly payments but significantly less total interest paid",
+        "The calculation shows how a larger down payment and shorter term can save thousands in interest"
+      ],
+      "result": "This example shows the impact of a larger down payment and shorter loan term. While monthly payments are higher, you'll pay much less in total interest over the life of the loan."
     },
     {
       "title": "First-Time Homebuyer",
-      "description": "$250,000 home with 10% down at 5.0% for 30 years",
+      "description": "$250,000 loan with $25,000 down payment at 5.0% for 30 years",
       "inputs": {
-        "homePrice": 250000,
+        "loanAmount": 250000,
         "downPayment": 25000,
-        "downPaymentType": "amount",
-        "loanTermYears": 30,
-        "interestRateAPR": 5.0,
-        "paymentFrequency": "monthly"
+        "loanTerm": 30,
+        "interestRate": 5.0,
+        "paymentFrequency": "monthly",
+        "paymentType": "annuity"
       },
       "steps": [
-        "Home price: $250,000",
+        "Loan amount: $250,000",
         "Down payment: $25,000 (10%)",
-        "Loan amount: $250,000 - $25,000 = $225,000",
+        "Net loan amount: $250,000 - $25,000 = $225,000",
         "Interest rate: 5.0% APR",
         "Loan term: 30 years",
-        "Monthly interest rate: 5.0% ÷ 12 = 0.4167% = 0.004167",
-        "Number of payments: 30 years × 12 months = 360 payments",
-        "Monthly payment formula: M = P × [r(1+r)^n] / [(1+r)^n - 1]",
-        "(1+r)^n = (1.004167)^360 = 4.4677",
-        "M = $225,000 × [0.004167 × 4.4677] / [4.4677 - 1]",
-        "M = $225,000 × 0.018615 / 3.4677 = $1,207.58",
-        "Monthly payment: $1,207.58",
-        "Total payment: $1,207.58 × 360 = $434,728.80",
-        "Total interest: $434,728.80 - $225,000 = $209,728.80",
-        "Note: Lower down payment (10%) means higher loan amount and more total interest"
-      ]
+        "Payment frequency: Monthly",
+        "This scenario is common for first-time buyers with smaller down payments",
+        "The calculation shows monthly payment and total interest over 30 years"
+      ],
+      "result": "This example represents a typical first-time homebuyer scenario with a 10% down payment. Note that a smaller down payment results in a larger loan amount and more total interest paid over time."
     },
     {
       "title": "Bi-Weekly Payments",
-      "description": "$350,000 loan at 4.2% for 30 years with bi-weekly payments",
+      "description": "$350,000 loan with $70,000 down at 4.2% for 30 years with bi-weekly payments",
       "inputs": {
-        "homePrice": 350000,
+        "loanAmount": 350000,
         "downPayment": 70000,
-        "downPaymentType": "amount",
-        "loanTermYears": 30,
-        "interestRateAPR": 4.2,
-        "paymentFrequency": "bi-weekly"
+        "loanTerm": 30,
+        "interestRate": 4.2,
+        "paymentFrequency": "biweekly",
+        "paymentType": "annuity"
       },
       "steps": [
-        "Home price: $350,000",
-        "Down payment: $70,000 (20%)",
-        "Loan amount: $350,000 - $70,000 = $280,000",
+        "Loan amount: $350,000",
+        "Down payment: $70,000",
+        "Net loan amount: $350,000 - $70,000 = $280,000",
         "Interest rate: 4.2% APR",
         "Loan term: 30 years",
         "Payment frequency: Bi-weekly (26 payments per year)",
-        "Bi-weekly interest rate: 4.2% ÷ 26 = 0.1615% = 0.001615",
-        "Number of payments: 30 years × 26 = 780 payments",
-        "Bi-weekly payment formula: M = P × [r(1+r)^n] / [(1+r)^n - 1]",
-        "(1+r)^n = (1.001615)^780 = 3.4552",
-        "M = $280,000 × [0.001615 × 3.4552] / [3.4552 - 1]",
-        "M = $280,000 × 0.005580 / 2.4552 = $636.58",
-        "Bi-weekly payment: $636.58",
-        "Total payment: $636.58 × 780 = $496,532.40",
-        "Total interest: $496,532.40 - $280,000 = $216,532.40",
-        "Note: Bi-weekly payments help pay off loan faster and reduce total interest"
-      ]
+        "Bi-weekly payments result in 13 full monthly payments per year instead of 12",
+        "This accelerated payment schedule helps pay off the loan faster and reduces total interest"
+      ],
+      "result": "Bi-weekly payments can help you pay off your mortgage faster. By making 26 half-payments per year (equivalent to 13 full monthly payments), you'll reduce the total interest paid and shorten the loan term."
     },
     {
       "title": "With Property Tax and Insurance",
       "description": "$300,000 home with property tax and insurance included",
       "inputs": {
-        "homePrice": 300000,
+        "loanAmount": 300000,
         "downPayment": 60000,
-        "downPaymentType": "amount",
-        "loanTermYears": 30,
-        "interestRateAPR": 4.5,
+        "loanTerm": 30,
+        "interestRate": 4.5,
         "paymentFrequency": "monthly",
+        "paymentType": "annuity",
         "propertyTax": 3600,
-        "homeInsurance": 1200
+        "homeInsurance": 1200,
+        "pmiRate": 0,
+        "pmiThreshold": 20,
+        "hoaFees": 0
       },
       "steps": [
-        "Home price: $300,000",
+        "Loan amount: $300,000",
         "Down payment: $60,000",
-        "Loan amount: $240,000",
+        "Net loan amount: $300,000 - $60,000 = $240,000",
         "Interest rate: 4.5% APR, Loan term: 30 years",
-        "Monthly mortgage payment: $1,216.04 (calculated as in Example 1)",
+        "Monthly mortgage payment (principal + interest): $1,216.04",
         "Annual property tax: $3,600",
         "Monthly property tax: $3,600 ÷ 12 = $300/month",
         "Annual home insurance: $1,200",
         "Monthly insurance: $1,200 ÷ 12 = $100/month",
         "Total monthly payment (PITI): $1,216.04 + $300 + $100 = $1,616.04",
         "Note: PITI includes Principal, Interest, Taxes, and Insurance"
-      ]
+      ],
+      "result": "This example shows the complete monthly housing cost including property tax and insurance. The PITI payment of $1,616.04 represents your total monthly obligation. Always budget for these additional costs when planning your home purchase, as they can add 20-30% to your base mortgage payment."
     }
   ],
   "faq": [

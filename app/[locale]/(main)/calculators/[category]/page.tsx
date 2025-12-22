@@ -10,6 +10,8 @@ import { CalculatorCard } from '@/components/calculators/calculator-card'
 import { MathClustersBlock } from '@/components/calculators/math-clusters-block'
 import { FinanceClustersBlock } from '@/components/calculators/finance-clusters-block'
 import { AutoClustersBlock } from '@/components/calculators/auto-clusters-block'
+import { HealthClustersBlock } from '@/components/calculators/health-clusters-block'
+import { EverydayClustersBlock } from '@/components/calculators/everyday-clusters-block'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation', 'calculators/ui'] as const
@@ -62,6 +64,52 @@ export default async function CalculatorsCategoryPage({
 							Comprehensive calculators for all your car-related financial decisions. Calculate ownership costs, fuel expenses, loan payments, and more.
 						</p>
 					</>
+				) : category === 'health' ? (
+					<>
+						<div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-xl p-6 md:p-8 lg:p-10 mb-8 border border-green-100">
+							<div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
+								<div className="flex-1">
+									<h1 className="text-4xl font-bold text-gray-900 mb-4">
+										Health Calculators – Body, Nutrition, Fitness & Lifestyle
+									</h1>
+									<p className="text-lg text-gray-600 leading-relaxed">
+										Calculate and understand your body metrics, nutrition needs, fitness goals, and lifestyle health. Track BMI, calories, macronutrients, heart rate zones, and more.
+									</p>
+								</div>
+								{/* Health icon illustration */}
+								<div className="flex-shrink-0 hidden md:block">
+									<div className="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-lg border-4 border-green-200">
+										<svg className="w-20 h-20 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+										</svg>
+									</div>
+								</div>
+							</div>
+						</div>
+					</>
+				) : category === 'everyday' ? (
+					<>
+						<div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl p-6 md:p-8 lg:p-10 mb-8 border border-blue-100">
+							<div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
+								<div className="flex-1">
+									<h1 className="text-4xl font-bold text-gray-900 mb-4">
+										Everyday Calculators – Time, Numbers & Home Tools
+									</h1>
+									<p className="text-lg text-gray-600 leading-relaxed">
+										Simple, useful calculators for everyday tasks. Calculate age and dates, convert numbers, measure rooms, estimate paint needs, and more.
+									</p>
+								</div>
+								{/* Everyday icon illustration */}
+								<div className="flex-shrink-0 hidden md:block">
+									<div className="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-lg border-4 border-blue-200">
+										<svg className="w-20 h-20 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+										</svg>
+									</div>
+								</div>
+							</div>
+						</div>
+					</>
 				) : (
 					<>
 						<h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -105,6 +153,12 @@ export default async function CalculatorsCategoryPage({
 				
 				{/* Auto clusters block - only for auto category */}
 				{category === 'auto' && <AutoClustersBlock locale={locale} />}
+				
+				{/* Health clusters block - only for health category */}
+				{category === 'health' && <HealthClustersBlock locale={locale} />}
+				
+				{/* Everyday clusters block - only for everyday category */}
+				{category === 'everyday' && <EverydayClustersBlock locale={locale} />}
 			</PageContainer>
 		</>
 	)

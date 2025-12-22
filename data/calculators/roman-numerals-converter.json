@@ -1,0 +1,62 @@
+{
+  "id": "roman-numerals-converter",
+  "slug": "roman-numerals-converter",
+  "category": "everyday",
+  "engine": "function",
+  "calculationId": "calculateRomanNumerals",
+  "tags": ["roman-numerals", "roman-numbers", "number-converter"],
+  "inputs": [
+    {
+      "name": "mode",
+      "type": "select",
+      "options": [
+        { "value": "number-to-roman", "label": "Number → Roman" },
+        { "value": "roman-to-number", "label": "Roman → Number" }
+      ],
+      "defaultValue": "number-to-roman"
+    },
+    {
+      "name": "value",
+      "type": "text"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "symbolsUsed"
+    },
+    {
+      "name": "originalValue"
+    },
+    {
+      "name": "mode"
+    }
+  ],
+  "defaults": {
+    "mode": "number-to-roman",
+    "value": "2024"
+  },
+  "relatedIds": ["numbers-to-words-calculator", "random-number-generator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Roman Numerals Converter – Convert Numbers to Roman Numerals",
+    "description": "Convert numbers to Roman numerals and Roman numerals to numbers instantly.",
+    "schema": {
+      "applicationSubCategory": "EverydayCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

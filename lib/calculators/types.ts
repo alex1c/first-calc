@@ -46,12 +46,12 @@ export interface CalculatorFaqItem {
 export interface CalculatorInput {
 	name: string
 	label: string
-	type: 'number' | 'select' | 'text'
+	type: 'number' | 'select' | 'text' | 'date'
 	unitLabel?: string
 	placeholder?: string
 	options?: Array<{ value: string; label: string }>
-	min?: number
-	max?: number
+	min?: number | string
+	max?: number | string
 	step?: number | 'any'
 	defaultValue?: number | string
 	helpText?: string
@@ -61,8 +61,8 @@ export interface CalculatorInput {
 	}
 	validation?: {
 		required?: boolean
-		min?: number
-		max?: number
+		min?: number | string
+		max?: number | string
 		message?: string
 		custom?: (value: any) => boolean | string
 	}

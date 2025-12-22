@@ -1,0 +1,161 @@
+{
+  "title": "Roman Numerals Converter – Convert Numbers to Roman Numerals",
+  "shortDescription": "Convert numbers to Roman numerals and Roman numerals to numbers instantly.",
+  "longDescription": "Our Roman Numerals Converter helps you convert between decimal numbers and Roman numerals. Simply choose the conversion direction (Number → Roman or Roman → Number), enter your value, and get instant results. The calculator supports numbers from 1 to 3999 and follows standard Roman numeral rules including subtractive notation (IV, IX, XL, etc.). Perfect for learning, historical documents, or modern uses like movie release years.",
+  "inputs": [
+    {
+      "label": "Conversion Mode",
+      "unitLabel": "",
+      "placeholder": "Select mode",
+      "helpText": "Choose whether to convert number to Roman or Roman to number"
+    },
+    {
+      "label": "Value",
+      "unitLabel": "",
+      "placeholder": "Enter number or Roman numeral",
+      "helpText": "Enter a number (1-3999) or a valid Roman numeral (I, V, X, L, C, D, M)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Result",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Symbols Used",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the conversion mode: Number → Roman or Roman → Number",
+    "Enter your value in the Value field",
+    "For Number → Roman: Enter a number between 1 and 3999",
+    "For Roman → Number: Enter a valid Roman numeral using I, V, X, L, C, D, M",
+    "Click the Calculate button",
+    "View the converted result",
+    "See the step-by-step breakdown showing how the conversion was performed",
+    "Check which Roman numeral symbols were used in the result"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Number to Roman: 2024",
+      "inputDescription": "Convert the year 2024 to Roman numerals.",
+      "steps": [
+        "Mode: Number → Roman",
+        "Value: 2024",
+        "Break down: 2000 = MM, 20 = XX, 4 = IV",
+        "Combine: MM + XX + IV = MMXXIV"
+      ],
+      "resultDescription": "The number 2024 is written as \"MMXXIV\" in Roman numerals. This demonstrates how large numbers are broken down into thousands (M), hundreds (C), tens (X), and ones (I), with subtractive notation used for 4 (IV)."
+    },
+    {
+      "id": "example-2",
+      "title": "Number to Roman: 99",
+      "inputDescription": "Convert 99 to Roman numerals, showing subtractive notation.",
+      "steps": [
+        "Mode: Number → Roman",
+        "Value: 99",
+        "Break down: 90 = XC (100 - 10), 9 = IX (10 - 1)",
+        "Combine: XC + IX = XCIX"
+      ],
+      "resultDescription": "The number 99 is written as \"XCIX\" in Roman numerals. This example shows subtractive notation: XC (90 = 100 - 10) and IX (9 = 10 - 1). Note that 99 is NOT written as IC (which would be invalid) but as XCIX."
+    },
+    {
+      "id": "example-3",
+      "title": "Roman to Number: XLII",
+      "inputDescription": "Convert the Roman numeral XLII to a decimal number.",
+      "steps": [
+        "Mode: Roman → Number",
+        "Value: XLII",
+        "Parse: XL = 40 (50 - 10), I = 1, I = 1",
+        "Add: 40 + 1 + 1 = 42"
+      ],
+      "resultDescription": "The Roman numeral \"XLII\" equals 42 in decimal numbers. XL uses subtractive notation (50 - 10 = 40), followed by two I's (1 each), totaling 42."
+    },
+    {
+      "id": "example-4",
+      "title": "Edge Case: Subtractive Notation",
+      "inputDescription": "Convert 1994 to Roman numerals, demonstrating multiple subtractive pairs.",
+      "steps": [
+        "Mode: Number → Roman",
+        "Value: 1994",
+        "Break down: 1000 = M, 900 = CM (1000 - 100), 90 = XC (100 - 10), 4 = IV (5 - 1)",
+        "Combine: M + CM + XC + IV = MCMXCIV"
+      ],
+      "resultDescription": "The number 1994 is written as \"MCMXCIV\" in Roman numerals. This example shows multiple subtractive notations: CM (900), XC (90), and IV (4). This is a common pattern for years in the 1900s."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What are Roman numerals?",
+      "answer": "Roman numerals are a numeral system that originated in ancient Rome. They use letters from the Latin alphabet to represent numbers: I (1), V (5), X (10), L (50), C (100), D (500), and M (1000). Numbers are formed by combining these symbols, with subtractive notation used for 4 (IV), 9 (IX), 40 (XL), 90 (XC), 400 (CD), and 900 (CM)."
+    },
+    {
+      "question": "What is the maximum number supported?",
+      "answer": "The calculator supports numbers from 1 to 3999. This is the standard range for classical Roman numerals. Numbers above 3999 require special notation (like using a bar over numerals) which is not commonly used."
+    },
+    {
+      "question": "Why is there no zero in Roman numerals?",
+      "answer": "The ancient Romans did not have a concept of zero. Roman numerals were developed before the concept of zero was introduced to Europe. The system starts at I (1) and has no symbol for zero."
+    },
+    {
+      "question": "How does subtractive notation work?",
+      "answer": "Subtractive notation allows smaller values to be placed before larger values to indicate subtraction. For example, IV means 4 (5 - 1), IX means 9 (10 - 1), XL means 40 (50 - 10), XC means 90 (100 - 10), CD means 400 (500 - 100), and CM means 900 (1000 - 100). Only these specific combinations are valid."
+    },
+    {
+      "question": "What are common mistakes when writing Roman numerals?",
+      "answer": "Common mistakes include: writing IIII instead of IV for 4, writing VV instead of X for 10, using invalid subtractive combinations (like IC for 99 instead of XCIX), repeating symbols too many times (like MMMM for 4000), and mixing lowercase and uppercase inconsistently."
+    },
+    {
+      "question": "Where are Roman numerals still used today?",
+      "answer": "Roman numerals are still used for: movie and TV production years (e.g., MMXXIV for 2024), book chapter numbers, clock faces, page numbers in prefaces, monarch names (e.g., King Henry VIII), and sporting events (e.g., Super Bowl LVIII)."
+    },
+    {
+      "question": "Can I convert numbers greater than 3999?",
+      "answer": "Classical Roman numerals only go up to 3999. Numbers above this require special notation (like a bar over numerals to multiply by 1000), which is not standard. This calculator focuses on the classical range of 1-3999."
+    },
+    {
+      "question": "How do I read large Roman numerals?",
+      "answer": "Read from left to right, adding values. When a smaller value appears before a larger value, subtract it instead. For example, MCMXCIV: M (1000) + CM (900) + XC (90) + IV (4) = 1994. Break it down step by step from left to right."
+    },
+    {
+      "question": "What's the difference between additive and subtractive notation?",
+      "answer": "Additive notation adds symbols together (e.g., III = 3, XX = 20). Subtractive notation places a smaller symbol before a larger one to subtract (e.g., IV = 4, IX = 9). Only specific subtractive pairs are valid: IV, IX, XL, XC, CD, CM."
+    },
+    {
+      "question": "Why is 99 written as XCIX and not IC?",
+      "answer": "IC is invalid because you cannot subtract I (1) from C (100) directly. The rule is that you can only subtract I from V or X, X from L or C, and C from D or M. So 99 must be written as XCIX: XC (90) + IX (9) = 99."
+    },
+    {
+      "question": "Are Roman numerals case-sensitive?",
+      "answer": "Traditionally, Roman numerals are written in uppercase (I, V, X, L, C, D, M). However, lowercase is sometimes used in modern contexts. This calculator accepts both and converts them to uppercase for consistency."
+    },
+    {
+      "question": "How accurate is the conversion?",
+      "answer": "The conversion is 100% accurate and follows standard Roman numeral rules. It correctly handles all valid combinations, subtractive notation, and validates input to ensure only proper Roman numerals are accepted."
+    },
+    {
+      "question": "Can I use this for learning Roman numerals?",
+      "answer": "Yes! The calculator shows step-by-step breakdowns that explain how each symbol contributes to the final number. This makes it an excellent learning tool for understanding Roman numeral rules and patterns."
+    },
+    {
+      "question": "What happens if I enter an invalid Roman numeral?",
+      "answer": "The calculator validates input and will show an error message if the Roman numeral is invalid. Common issues include invalid symbol combinations, too many repetitions, or incorrect subtractive notation. The calculator helps identify what's wrong."
+    },
+    {
+      "question": "Why can't I use more than three of the same symbol?",
+      "answer": "Roman numeral rules limit consecutive repetitions to three (e.g., III = 3, but IIII is invalid). For values requiring four of the same symbol, subtractive notation is used instead (e.g., IV for 4, not IIII). This rule applies to I, X, C, and M."
+    }
+  ],
+  "seo": {
+    "title": "Roman Numerals Converter – Convert Numbers to Roman Numerals",
+    "description": "Convert numbers to Roman numerals and Roman numerals to numbers instantly.",
+    "keywords": ["roman numerals", "roman numbers", "number to roman", "roman to number", "roman numeral converter", "convert roman numerals"]
+  }
+}
+

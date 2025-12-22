@@ -15,13 +15,14 @@ export interface CalculatorSchema {
 	calculationId?: string | null // Function ID for engine='function'
 	inputs: Array<{
 		name: string
-		type: 'number' | 'text' | 'select'
+		type: 'number' | 'text' | 'select' | 'date'
 		unit?: string
-		min?: number
-		max?: number
+		min?: number | string
+		max?: number | string
 		step?: number | 'any'
 		options?: Array<{ value: string; label: string }>
 		defaultValue?: number | string
+		optional?: boolean
 		visibleIf?: {
 			field: string
 			value: string | number
@@ -92,8 +93,8 @@ export function validateCalculatorSchema(schema: unknown): {
 			// if (!input.label || typeof input.label !== 'string') {
 			// 	errors.push(`inputs[${index}].label is required`)
 			// }
-			if (!['number', 'text', 'select'].includes(input.type)) {
-				errors.push(`inputs[${index}].type must be "number", "text", or "select"`)
+			if (!['number', 'text', 'select', 'date'].includes(input.type)) {
+				errors.push(`inputs[${index}].type must be "number", "text", "select", or "date"`)
 			}
 			if (input.type === 'select' && !input.options) {
 				errors.push(`inputs[${index}].options is required for select type`)
@@ -306,6 +307,69 @@ export async function schemaToDefinition(
 		if (calculationId === 'calculateTireCost') {
 			await import('@/lib/calculations/tire-cost')
 		}
+		if (calculationId === 'calculateBMI') {
+			await import('@/lib/calculations/bmi')
+		}
+		if (calculationId === 'calculateBMR') {
+			await import('@/lib/calculations/bmr')
+		}
+		if (calculationId === 'calculateDailyCalorieNeeds') {
+			await import('@/lib/calculations/daily-calorie-needs')
+		}
+		if (calculationId === 'calculateIdealWeight') {
+			await import('@/lib/calculations/ideal-weight')
+		}
+		if (calculationId === 'calculateBodyFatPercentage') {
+			await import('@/lib/calculations/body-fat-percentage')
+		}
+		if (calculationId === 'calculateBodyFatPercentage') {
+			await import('@/lib/calculations/body-fat-percentage')
+		}
+		if (calculationId === 'calculateBodyFatPercentage') {
+			await import('@/lib/calculations/body-fat-percentage')
+		}
+		if (calculationId === 'calculateMacronutrient') {
+			await import('@/lib/calculations/macronutrient')
+		}
+		if (calculationId === 'calculateWaterIntake') {
+			await import('@/lib/calculations/water-intake')
+		}
+		if (calculationId === 'calculateCaloriesBurned') {
+			await import('@/lib/calculations/calories-burned')
+		}
+		if (calculationId === 'calculateHeartRateZones') {
+			await import('@/lib/calculations/heart-rate-zones')
+		}
+		if (calculationId === 'calculateStepsToCalories') {
+			await import('@/lib/calculations/steps-to-calories')
+		}
+		if (calculationId === 'calculateAge') {
+			await import('@/lib/calculations/age')
+		}
+		if (calculationId === 'calculateDaysBetweenDates') {
+			await import('@/lib/calculations/days-between-dates')
+		}
+		if (calculationId === 'calculateNumbersToWords') {
+			await import('@/lib/calculations/numbers-to-words')
+		}
+		if (calculationId === 'calculateRomanNumerals') {
+			await import('@/lib/calculations/roman-numerals')
+		}
+		if (calculationId === 'calculateDateCalculator') {
+			await import('@/lib/calculations/date-calculator')
+		}
+		if (calculationId === 'calculateCookingMeasurement') {
+			await import('@/lib/calculations/cooking-measurement')
+		}
+		if (calculationId === 'calculateRoomArea') {
+			await import('@/lib/calculations/room-area')
+		}
+		if (calculationId === 'calculatePaint') {
+			await import('@/lib/calculations/paint')
+		}
+		if (calculationId === 'calculateRandomNumber') {
+			await import('@/lib/calculations/random-number')
+		}
 		// Add more imports as needed for other calculation functions
 	}
 
@@ -392,12 +456,14 @@ export async function schemaToDefinition(
 	const calculatorInputs: import('@/lib/calculators/types').CalculatorInput[] =
 		schema.inputs.map((input, index) => {
 			const contentInput = content?.inputs?.[index]
-			// Preserve input type: 'select', 'text', or 'number'
-			let inputType: 'select' | 'text' | 'number'
+			// Preserve input type: 'select', 'text', 'date', or 'number'
+			let inputType: 'select' | 'text' | 'number' | 'date'
 			if (input.type === 'select') {
 				inputType = 'select'
 			} else if (input.type === 'text') {
 				inputType = 'text'
+			} else if (input.type === 'date') {
+				inputType = 'date'
 			} else {
 				inputType = 'number'
 			}

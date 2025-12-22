@@ -1,0 +1,325 @@
+{
+  "title": "Body Fat Percentage Calculator – Estimate Body Composition",
+  "shortDescription": "Estimate your body fat percentage using formula-based methods. Understand body composition beyond BMI.",
+  "longDescription": "Our Body Fat Percentage Calculator helps you estimate your body fat percentage using the U.S. Navy Method, a widely-used formula-based estimation method. Simply enter your measurements (height, weight, waist, and optionally neck and hip), and the calculator will estimate your body fat percentage and categorize it. Understanding your body fat percentage provides insight into body composition beyond what BMI alone can tell you. This is especially useful for athletes, fitness enthusiasts, and anyone interested in tracking body composition changes over time.",
+  "inputs": [
+    {
+      "label": "Sex",
+      "unitLabel": "",
+      "placeholder": "Select sex",
+      "helpText": "Biological sex affects body fat calculation"
+    },
+    {
+      "label": "Age",
+      "unitLabel": "years",
+      "placeholder": "Enter age",
+      "helpText": "Your age in years"
+    },
+    {
+      "label": "Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Your height in centimeters (if using cm) or total inches (if using ft+in)"
+    },
+    {
+      "label": "Height Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or feet and inches (ft+in)"
+    },
+    {
+      "label": "Feet",
+      "unitLabel": "ft",
+      "placeholder": "Enter feet",
+      "helpText": "Height in feet (only shown when using ft+in)"
+    },
+    {
+      "label": "Inches",
+      "unitLabel": "in",
+      "placeholder": "Enter inches",
+      "helpText": "Additional height in inches (only shown when using ft+in)"
+    },
+    {
+      "label": "Weight",
+      "unitLabel": "",
+      "placeholder": "Enter weight",
+      "helpText": "Your body weight"
+    },
+    {
+      "label": "Weight Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose kilograms (kg) or pounds (lb)"
+    },
+    {
+      "label": "Waist Circumference",
+      "unitLabel": "",
+      "placeholder": "Enter waist measurement",
+      "helpText": "Measure around your waist at the narrowest point, usually just above the belly button"
+    },
+    {
+      "label": "Waist Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or inches (in)"
+    },
+    {
+      "label": "Neck Circumference",
+      "unitLabel": "",
+      "placeholder": "Enter neck measurement (optional)",
+      "helpText": "Optional but recommended: Measure around your neck just below the larynx (Adam's apple)"
+    },
+    {
+      "label": "Neck Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or inches (in)"
+    },
+    {
+      "label": "Hip Circumference",
+      "unitLabel": "",
+      "placeholder": "Enter hip measurement (required for females)",
+      "helpText": "Required for females: Measure around your hips at the widest point"
+    },
+    {
+      "label": "Hip Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Choose centimeters (cm) or inches (in)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Body Fat Percentage",
+      "unitLabel": "%"
+    },
+    {
+      "label": "Category",
+      "unitLabel": ""
+    },
+    {
+      "label": "Category Description",
+      "unitLabel": ""
+    },
+    {
+      "label": "Color",
+      "unitLabel": ""
+    },
+    {
+      "label": "Insights",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select your biological sex (male or female)",
+    "Enter your age in years",
+    "Enter your height",
+    "Select your height unit (centimeters or feet+inches)",
+    "If using feet+inches, enter both feet and inches separately",
+    "Enter your weight",
+    "Select your weight unit (kilograms or pounds)",
+    "Measure your waist circumference at the narrowest point (usually just above the belly button)",
+    "Enter your waist measurement and select the unit",
+    "Optionally measure your neck circumference (just below the larynx) for better accuracy",
+    "If female, measure your hip circumference at the widest point and enter it",
+    "Click 'Calculate' to see your estimated body fat percentage",
+    "Review the category and insights to understand your results"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Male, Average Build",
+      "description": "A 35-year-old male with average body composition",
+      "inputs": {
+        "sex": "male",
+        "age": 35,
+        "height": 180,
+        "heightUnit": "cm",
+        "weight": 80,
+        "weightUnit": "kg",
+        "waistCircumference": 90,
+        "waistUnit": "cm",
+        "neckCircumference": 40,
+        "neckUnit": "cm"
+      },
+      "steps": [
+        "Sex: Male",
+        "Age: 35 years",
+        "Height: 180 cm = 70.87 inches",
+        "Weight: 80 kg",
+        "Waist: 90 cm = 35.43 inches",
+        "Neck: 40 cm = 15.75 inches",
+        "U.S. Navy Method formula (male):",
+        "bodyFat = 86.010 × log10(waist - neck) - 70.041 × log10(height) + 36.76",
+        "bodyFat = 86.010 × log10(35.43 - 15.75) - 70.041 × log10(70.87) + 36.76",
+        "bodyFat = 86.010 × log10(19.68) - 70.041 × log10(70.87) + 36.76",
+        "bodyFat = 86.010 × 1.294 - 70.041 × 1.850 + 36.76",
+        "bodyFat = 111.3 - 129.6 + 36.76 = 18.5%",
+        "Category: Average (14-18% for men)"
+      ],
+      "result": "This person's estimated body fat percentage is 18.5%, which falls into the 'Average' category for men. This is within the healthy range and indicates a typical body composition for a non-athletic adult male. The calculation used the full U.S. Navy Method formula including neck measurement, which provides better accuracy."
+    },
+    {
+      "title": "Example 2: Female with Hip Measurement",
+      "description": "A 28-year-old female with all measurements including hip",
+      "inputs": {
+        "sex": "female",
+        "age": 28,
+        "height": 165,
+        "heightUnit": "cm",
+        "weight": 65,
+        "weightUnit": "kg",
+        "waistCircumference": 75,
+        "waistUnit": "cm",
+        "neckCircumference": 35,
+        "neckUnit": "cm",
+        "hipCircumference": 95,
+        "hipUnit": "cm"
+      },
+      "steps": [
+        "Sex: Female",
+        "Age: 28 years",
+        "Height: 165 cm = 64.96 inches",
+        "Weight: 65 kg",
+        "Waist: 75 cm = 29.53 inches",
+        "Neck: 35 cm = 13.78 inches",
+        "Hip: 95 cm = 37.40 inches",
+        "U.S. Navy Method formula (female):",
+        "bodyFat = 163.205 × log10(waist + hip - neck) - 97.684 × log10(height) - 78.387",
+        "bodyFat = 163.205 × log10(29.53 + 37.40 - 13.78) - 97.684 × log10(64.96) - 78.387",
+        "bodyFat = 163.205 × log10(53.15) - 97.684 × log10(64.96) - 78.387",
+        "bodyFat = 163.205 × 1.726 - 97.684 × 1.813 - 78.387",
+        "bodyFat = 281.6 - 177.2 - 78.387 = 26.0%",
+        "Category: Above Average (25-32% for women)"
+      ],
+      "result": "This person's estimated body fat percentage is 26.0%, which falls into the 'Above Average' category for women. This is slightly above the average range (20-25%) but still within a reasonable range. The calculation used all required measurements (waist, hip, and neck), providing the most accurate estimate possible with this method."
+    },
+    {
+      "title": "Example 3: Same Height/Weight, Different Waist",
+      "description": "Two males with same height and weight but different waist measurements",
+      "inputs": {
+        "sex": "male",
+        "age": 30,
+        "height": 175,
+        "heightUnit": "cm",
+        "weight": 75,
+        "weightUnit": "kg",
+        "waistCircumference": 85,
+        "waistUnit": "cm",
+        "neckCircumference": 38,
+        "neckUnit": "cm"
+      },
+      "steps": [
+        "Person A: Male, 30y, 175 cm, 75 kg",
+        "Waist: 85 cm (33.46 in), Neck: 38 cm (14.96 in)",
+        "Difference: 33.46 - 14.96 = 18.50 inches",
+        "bodyFat = 86.010 × log10(18.50) - 70.041 × log10(68.90) + 36.76",
+        "bodyFat = 86.010 × 1.267 - 70.041 × 1.838 + 36.76 = 15.2%",
+        "Person B: Same height/weight, but Waist: 95 cm (37.40 in)",
+        "Difference: 37.40 - 14.96 = 22.44 inches",
+        "bodyFat = 86.010 × log10(22.44) - 70.041 × log10(68.90) + 36.76",
+        "bodyFat = 86.010 × 1.351 - 70.041 × 1.838 + 36.76 = 20.8%",
+        "Difference: 20.8% - 15.2% = 5.6% body fat difference"
+      ],
+      "result": "This example demonstrates how waist circumference significantly affects body fat percentage estimates. Two people with the same height and weight can have very different body fat percentages based on their waist measurements. Person A (85 cm waist) has 15.2% body fat (Fitness category), while Person B (95 cm waist) has 20.8% body fat (Above Average category) — a difference of 5.6 percentage points. This shows why waist measurement is crucial for accurate body fat estimation."
+    },
+    {
+      "title": "Example 4: Imperial Units",
+      "description": "A person using imperial units: Male, 6 feet 0 inches, 180 pounds",
+      "inputs": {
+        "sex": "male",
+        "age": 32,
+        "height": 72,
+        "heightUnit": "ft+in",
+        "heightFeet": 6,
+        "heightInches": 0,
+        "weight": 180,
+        "weightUnit": "lb",
+        "waistCircumference": 36,
+        "waistUnit": "in",
+        "neckCircumference": 16,
+        "neckUnit": "in"
+      },
+      "steps": [
+        "Sex: Male",
+        "Age: 32 years",
+        "Height: 6 ft 0 in = 72 inches",
+        "Weight: 180 lb",
+        "Waist: 36 inches",
+        "Neck: 16 inches",
+        "U.S. Navy Method formula (male):",
+        "bodyFat = 86.010 × log10(waist - neck) - 70.041 × log10(height) + 36.76",
+        "bodyFat = 86.010 × log10(36 - 16) - 70.041 × log10(72) + 36.76",
+        "bodyFat = 86.010 × log10(20) - 70.041 × log10(72) + 36.76",
+        "bodyFat = 86.010 × 1.301 - 70.041 × 1.857 + 36.76",
+        "bodyFat = 111.9 - 130.0 + 36.76 = 18.7%",
+        "Category: Average (14-18% for men)"
+      ],
+      "result": "This example demonstrates how the calculator automatically handles imperial units. The person's estimated body fat percentage is 18.7%, which falls into the 'Average' category. The calculator converts all measurements internally to ensure accurate calculations regardless of the unit system used."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is body fat percentage?",
+      "answer": "Body fat percentage is the proportion of your total body weight that consists of fat tissue. Unlike BMI, which only considers height and weight, body fat percentage directly estimates fat mass. For example, if you weigh 70 kg and have 14 kg of fat, your body fat percentage is 20%. The remaining 80% includes muscle, bone, organs, and water."
+    },
+    {
+      "question": "What's the difference between body fat percentage and BMI?",
+      "answer": "BMI (Body Mass Index) is a ratio of weight to height squared and doesn't distinguish between fat and muscle. Body fat percentage directly estimates fat mass. Two people can have the same BMI but very different body fat percentages — for example, a muscular athlete might have a high BMI but low body fat, while someone with less muscle might have the same BMI but higher body fat. Body fat percentage provides more insight into body composition."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "This calculator uses the U.S. Navy Method, which is a formula-based estimation. It's reasonably accurate for most people (typically within 3-5% of actual body fat), but less accurate than professional methods like DEXA scan, hydrostatic weighing, or BodPod. Accuracy depends on correct measurement technique, hydration status, and individual body composition. For the most accurate results, ensure measurements are taken consistently (same time of day, same conditions)."
+    },
+    {
+      "question": "Does muscle mass affect the result?",
+      "answer": "Yes, muscle mass can affect body fat percentage estimates, especially with formula-based methods. The U.S. Navy Method uses circumference measurements, which can be influenced by muscle size. Very muscular individuals might get slightly higher estimates than their actual body fat percentage because muscle increases circumference measurements. However, the formula generally works well for most people."
+    },
+    {
+      "question": "How do I measure my waist correctly?",
+      "answer": "To measure your waist correctly: 1) Stand straight and relax, 2) Find the narrowest point of your waist (usually just above the belly button), 3) Wrap a flexible measuring tape around your waist, keeping it parallel to the floor, 4) Don't pull the tape too tight or too loose — it should be snug but not compressing your skin, 5) Take the measurement at the end of a normal exhale. Measure at the same time of day for consistency."
+    },
+    {
+      "question": "What are healthy body fat ranges?",
+      "answer": "Healthy body fat ranges vary by sex and age. For men: Athletic (6-13%), Fitness (14-17%), Average (18-24%), Above Average (25%+). For women: Athletic (14-20%), Fitness (21-24%), Average (25-31%), Above Average (32%+). These ranges are general guidelines. Individual optimal ranges can vary based on genetics, age, activity level, and health status."
+    },
+    {
+      "question": "Why is neck measurement optional?",
+      "answer": "Neck measurement is optional because the formula can work without it, but including it improves accuracy. The U.S. Navy Method uses the difference between waist and neck measurements (for men) or the sum of waist, hip, and neck (for women) to estimate body fat. Without neck measurement, the calculator uses a simplified version that may be less accurate. For best results, include neck measurement."
+    },
+    {
+      "question": "Do I need to measure hip circumference?",
+      "answer": "Hip measurement is required for females because the U.S. Navy Method formula for women uses both waist and hip measurements. For males, hip measurement is not used in the formula. If you're female, measure your hips at the widest point, keeping the tape parallel to the floor."
+    },
+    {
+      "question": "Can body fat percentage change throughout the day?",
+      "answer": "Yes, body fat percentage estimates can vary throughout the day due to hydration, food intake, and other factors. However, actual body fat percentage doesn't change significantly in a single day. The variation you see is usually due to measurement error, hydration changes, or formula limitations. For consistency, measure at the same time of day (morning is often best, before eating or drinking)."
+    },
+    {
+      "question": "Is this calculator suitable for athletes?",
+      "answer": "The U.S. Navy Method can work for athletes, but very muscular athletes might get slightly higher estimates than their actual body fat percentage because muscle increases circumference measurements. Professional methods like DEXA scan or BodPod are more accurate for athletes. However, this calculator can still provide useful estimates for tracking changes over time."
+    },
+    {
+      "question": "What if my measurements seem wrong?",
+      "answer": "If your body fat percentage seems unexpectedly high or low, consider: 1) Re-measure to ensure accuracy (measurements are the most common source of error), 2) Check that you're measuring at the correct locations, 3) Ensure the tape is level and not too tight/loose, 4) Remember that formula-based methods have limitations. If you're concerned, consider professional body composition testing (DEXA, BodPod, etc.) for more accurate results."
+    },
+    {
+      "question": "Can I use this during weight loss?",
+      "answer": "Yes, this calculator can be useful for tracking body composition changes during weight loss. Measure consistently (same time of day, same conditions) and track changes over weeks/months rather than daily. Remember that weight loss doesn't always mean fat loss — you might lose water weight or muscle. Body fat percentage helps you understand if you're losing fat specifically."
+    },
+    {
+      "question": "Does age affect body fat percentage?",
+      "answer": "Age can affect body fat percentage, but the U.S. Navy Method formula doesn't explicitly account for age in the calculation. However, age is included as an input for potential future formula improvements. Generally, body fat percentage tends to increase with age due to muscle loss (sarcopenia) and metabolic changes, but individual variation is significant."
+    },
+    {
+      "question": "What's better: body fat percentage or BMI?",
+      "answer": "Both have value, but they measure different things. BMI is simpler (only needs height and weight) and is widely used in medical settings. Body fat percentage provides more insight into body composition but requires measurements and is less accurate with formula-based methods. For comprehensive health assessment, consider both: BMI for general screening, and body fat percentage for understanding body composition. Professional body composition testing (DEXA, etc.) is most accurate."
+    },
+    {
+      "question": "Can I use this if I'm pregnant?",
+      "answer": "This calculator is not designed for pregnancy. During pregnancy, body composition changes significantly, and the formulas are not validated for pregnant women. Body fat percentage calculations during pregnancy would not be accurate or meaningful. Wait until after pregnancy and postpartum recovery before using body fat percentage calculators."
+    }
+  ],
+  "seo": {
+    "keywords": ["body fat percentage calculator", "body fat calculator", "body composition calculator", "fat percentage", "body fat percentage", "us navy method", "body fat estimate", "body fat measurement", "fat percentage calculator", "body composition"]
+  }
+}

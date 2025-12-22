@@ -1,0 +1,108 @@
+{
+  "id": "cooking-measurement-converter",
+  "slug": "cooking-measurement-converter",
+  "category": "everyday",
+  "engine": "function",
+  "calculationId": "calculateCookingMeasurement",
+  "tags": ["cooking-converter", "kitchen-measurements", "cups-grams", "tbsp-tsp"],
+  "inputs": [
+    {
+      "name": "value",
+      "type": "number",
+      "step": 0.1
+    },
+    {
+      "name": "fromUnit",
+      "type": "select",
+      "options": [
+        { "value": "cups", "label": "Cups" },
+        { "value": "tablespoons", "label": "Tablespoons (tbsp)" },
+        { "value": "teaspoons", "label": "Teaspoons (tsp)" },
+        { "value": "milliliters", "label": "Milliliters (ml)" },
+        { "value": "grams", "label": "Grams (g)" },
+        { "value": "ounces", "label": "Ounces (oz)" }
+      ],
+      "defaultValue": "cups"
+    },
+    {
+      "name": "toUnit",
+      "type": "select",
+      "options": [
+        { "value": "cups", "label": "Cups" },
+        { "value": "tablespoons", "label": "Tablespoons (tbsp)" },
+        { "value": "teaspoons", "label": "Teaspoons (tsp)" },
+        { "value": "milliliters", "label": "Milliliters (ml)" },
+        { "value": "grams", "label": "Grams (g)" },
+        { "value": "ounces", "label": "Ounces (oz)" }
+      ],
+      "defaultValue": "grams",
+      "optional": true
+    },
+    {
+      "name": "ingredient",
+      "type": "select",
+      "options": [
+        { "value": "water", "label": "Water" },
+        { "value": "flour", "label": "Flour" },
+        { "value": "sugar", "label": "Sugar" },
+        { "value": "brownSugar", "label": "Brown Sugar" },
+        { "value": "butter", "label": "Butter" },
+        { "value": "milk", "label": "Milk" },
+        { "value": "oil", "label": "Oil" },
+        { "value": "honey", "label": "Honey" }
+      ],
+      "defaultValue": "water",
+      "optional": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result"
+    },
+    {
+      "name": "resultFormatted"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "conversionType"
+    },
+    {
+      "name": "ingredientNote"
+    },
+    {
+      "name": "fromUnit"
+    },
+    {
+      "name": "toUnit"
+    },
+    {
+      "name": "ingredient"
+    },
+    {
+      "name": "originalValue"
+    }
+  ],
+  "defaults": {
+    "value": 1,
+    "fromUnit": "cups",
+    "toUnit": "grams",
+    "ingredient": "water"
+  },
+  "relatedIds": ["room-area-calculator", "paint-calculator"],
+  "isEnabled": true,
+  "seo": {
+    "title": "Cooking Measurement Converter – Cups, Grams, Tablespoons & More",
+    "description": "Convert cooking measurements like cups, grams, tablespoons, and teaspoons. Supports common ingredients.",
+    "schema": {
+      "applicationSubCategory": "EverydayCalculator",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  }
+}
+

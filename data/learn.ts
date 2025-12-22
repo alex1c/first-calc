@@ -91,6 +91,21 @@ Loan payments are calculated using the standard loan formula, which accounts for
 - The loan term
 - Compounding frequency
 
+### Example: Calculating a $300,000 Mortgage
+
+Let's say you're buying a home with a $300,000 mortgage at 4.5% APR for 30 years with a $60,000 down payment:
+
+- **Loan Amount**: $300,000 - $60,000 = $240,000
+- **Interest Rate**: 4.5% per year (0.375% per month)
+- **Loan Term**: 30 years (360 monthly payments)
+- **Monthly Payment**: Approximately $1,216
+
+Over 30 years, you'll pay:
+- **Total Payments**: $437,760
+- **Total Interest**: $197,760
+
+This example shows how interest significantly increases the total cost of borrowing. Use our [Mortgage Calculator](finance/mortgage-calculator) to calculate your own payments.
+
 ## Types of Loans
 
 - **Fixed-Rate Loans**: Interest rate stays the same
@@ -102,9 +117,10 @@ Loan payments are calculated using the standard loan formula, which accounts for
 
 1. Compare interest rates from multiple lenders
 2. Understand the total cost of the loan
-3. Consider the loan term carefully
+3. Consider the loan term carefully - shorter terms save interest
 4. Read all terms and conditions
-5. Use loan calculators to estimate payments
+5. Use our [Mortgage Calculator](finance/mortgage-calculator) or [Auto Loan Calculator](finance/auto-loan-calculator) to estimate payments
+6. Consider making extra payments to reduce total interest - see our [Loan Overpayment Calculator](finance/loan-overpayment-calculator)
 		`,
 		category: 'finance',
 		relatedCalculatorIds: ['loan-payment', 'compound-interest'],
@@ -159,9 +175,42 @@ Where:
 
 ## Real-World Examples
 
+### Example 1: Retirement Savings
+
+Let's say you invest $10,000 initially and contribute $500 per month at 7% annual return for 20 years:
+
+- **Initial Investment**: $10,000
+- **Monthly Contribution**: $500
+- **Annual Return**: 7%
+- **Time Period**: 20 years
+
+**Result**: After 20 years, you'll have approximately **$280,000**!
+
+- **Total Contributed**: $10,000 + ($500 × 240 months) = $130,000
+- **Total Earnings**: $280,000 - $130,000 = $150,000
+
+This demonstrates the power of compound interest - you earned more in interest ($150,000) than you contributed ($130,000). Use our [Investment Calculator](finance/investment-calculator) to see your own projections.
+
+### Example 2: Emergency Fund
+
+Building a $10,000 emergency fund with $200 per month at 2.5% interest:
+
+- **Monthly Deposit**: $200
+- **Interest Rate**: 2.5% per year
+- **Goal**: $10,000
+
+**Result**: You'll reach $10,000 in approximately **4 years**.
+
+The interest earned helps you reach your goal faster. Try our [Savings Calculator](finance/savings-calculator) to plan your emergency fund.
+
+### Common Applications
+
 - Savings accounts with monthly compounding
 - Investment accounts with daily compounding
 - Retirement accounts with long-term growth
+- Certificate of Deposits (CDs) with fixed terms
+
+Use our [Investment Calculator](finance/investment-calculator) to see how compound interest can grow your investments over time.
 		`,
 		category: 'finance',
 		relatedCalculatorIds: ['compound-interest', 'loan-payment'],
