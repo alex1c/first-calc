@@ -1,0 +1,219 @@
+{
+  "title": "Cable Size Calculator – Find the Right Wire Cross-Section",
+  "shortDescription": "Calculate recommended electrical cable size based on power, voltage, and phase. Simple cable cross-section estimation tool.",
+  "longDescription": "Our Cable Size Calculator helps you estimate the recommended electrical cable cross-section based on power load, voltage, and phase type. Enter the total power, select voltage and phase (single-phase or three-phase), choose material (copper or aluminum), and get accurate estimates of required current and cable size. Supports common voltages (110-120V, 220-230V, 380-400V) and both single-phase and three-phase systems. Includes simplified cable size lookup based on current capacity. Perfect for contractors, electricians, and DIY electrical planning. Get accurate estimates with clear breakdowns showing calculated current, recommended cable cross-section, and material considerations. ⚠️ Important: This is a simplified estimation tool - always consult local electrical codes and qualified electricians for actual cable sizing.",
+  "inputs": [
+    {
+      "label": "Voltage",
+      "unitLabel": "",
+      "placeholder": "Select voltage",
+      "helpText": "Select the system voltage: 220-230 V (Europe/Asia), 110-120 V (North America), or 380-400 V (three-phase)"
+    },
+    {
+      "label": "Phase",
+      "unitLabel": "",
+      "placeholder": "Select phase",
+      "helpText": "Select single-phase (most residential) or three-phase (commercial/industrial)"
+    },
+    {
+      "label": "Total Power",
+      "unitLabel": "kW",
+      "placeholder": "Enter power",
+      "helpText": "Enter the total electrical power load in kilowatts (kW)"
+    },
+    {
+      "label": "Material",
+      "unitLabel": "",
+      "placeholder": "Select material",
+      "helpText": "Select cable material: Copper (default, better conductivity) or Aluminum (lighter, less expensive)"
+    },
+    {
+      "label": "Installation Type",
+      "unitLabel": "",
+      "placeholder": "Select type",
+      "helpText": "Select installation type: Indoor, Outdoor, or Underground (informational, affects actual sizing)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Calculated Current",
+      "unitLabel": "A"
+    },
+    {
+      "label": "Recommended Cable Size",
+      "unitLabel": "mm²"
+    },
+    {
+      "label": "Maximum Current",
+      "unitLabel": "A"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the system voltage (220-230 V, 110-120 V, or 380-400 V)",
+    "Select the phase type: Single-phase or Three-phase",
+    "Enter the total power load in kilowatts (kW)",
+    "Select the cable material: Copper or Aluminum",
+    "Select the installation type: Indoor, Outdoor, or Underground",
+    "Click the Calculate button",
+    "View the calculated current in amperes (A)",
+    "See the recommended cable cross-section in mm²",
+    "Check the maximum current capacity of the recommended cable",
+    "Review the formula, breakdown, and explanation for calculation details",
+    "⚠️ Always consult local electrical codes and qualified electricians for actual cable sizing"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "3 kW Household Load, 230 V",
+      "inputDescription": "Calculate cable size for a typical household circuit.",
+      "steps": [
+        "Voltage: 220-230 V",
+        "Phase: Single-phase",
+        "Power: 3 kW",
+        "Material: Copper",
+        "Calculation:",
+        "  Current = (3 × 1000) / 230 = 13.04 A",
+        "  Recommended Cable: 2.5 mm² (max 25 A)"
+      ],
+      "resultDescription": "For a 3 kW load at 230 V single-phase, the calculated current is 13.04 A. The recommended cable is 2.5 mm² copper, which can handle up to 25 A. This is typical for standard household circuits. Always check local codes for actual requirements."
+    },
+    {
+      "id": "example-2",
+      "title": "7 kW Electric Stove",
+      "inputDescription": "Calculate cable size for an electric stove.",
+      "steps": [
+        "Voltage: 220-230 V",
+        "Phase: Single-phase",
+        "Power: 7 kW",
+        "Material: Copper",
+        "Calculation:",
+        "  Current = (7 × 1000) / 230 = 30.43 A",
+        "  Recommended Cable: 6 mm² (max 40 A)"
+      ],
+      "resultDescription": "For a 7 kW electric stove at 230 V single-phase, the calculated current is 30.43 A. The recommended cable is 6 mm² copper, which can handle up to 40 A. Electric stoves typically require dedicated circuits with appropriate cable sizing. Always consult local codes."
+    },
+    {
+      "id": "example-3",
+      "title": "Small Workshop, 3-Phase",
+      "inputDescription": "Calculate cable size for a three-phase workshop load.",
+      "steps": [
+        "Voltage: 380-400 V",
+        "Phase: Three-phase",
+        "Power: 15 kW",
+        "Material: Copper",
+        "Calculation:",
+        "  Current = (15 × 1000) / (√3 × 400) = 21.65 A",
+        "  Recommended Cable: 4 mm² (max 32 A)"
+      ],
+      "resultDescription": "For a 15 kW three-phase load at 400 V, the calculated current is 21.65 A (lower than single-phase due to √3 factor). The recommended cable is 4 mm² copper. Three-phase systems are more efficient for higher power loads. Always verify with electrical codes."
+    },
+    {
+      "id": "example-4",
+      "title": "Aluminum vs Copper Comparison",
+      "inputDescription": "Compare aluminum and copper cable sizes for the same load.",
+      "steps": [
+        "Load: 5 kW, 230 V, Single-phase",
+        "Current: (5 × 1000) / 230 = 21.74 A",
+        "Copper: 4 mm² (max 32 A)",
+        "Aluminum: 6 mm² (max 40 A, adjusted for lower conductivity)",
+        "Comparison: Aluminum requires larger cross-section"
+      ],
+      "resultDescription": "For the same 5 kW load, copper requires 4 mm² while aluminum requires 6 mm² (one size larger). Aluminum has lower conductivity than copper, so it requires larger cross-section for the same current. Aluminum is lighter and less expensive but requires proper sizing."
+    },
+    {
+      "id": "example-5",
+      "title": "Typical Home Circuit",
+      "inputDescription": "Calculate cable size for a typical home lighting circuit.",
+      "steps": [
+        "Voltage: 110-120 V (North America)",
+        "Phase: Single-phase",
+        "Power: 1.5 kW",
+        "Material: Copper",
+        "Calculation:",
+        "  Current = (1.5 × 1000) / 115 = 13.04 A",
+        "  Recommended Cable: 2.5 mm² (max 25 A)"
+      ],
+      "resultDescription": "For a 1.5 kW lighting circuit at 115 V single-phase, the calculated current is 13.04 A. The recommended cable is 2.5 mm² copper. Note: North American systems typically use AWG wire gauge instead of mm² - this calculator provides mm² for international use. Always check local codes."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Copper vs aluminum?",
+      "answer": "Copper and aluminum cables differ in: Conductivity: Copper has better conductivity (~60% better), so smaller cross-section for same current. Weight: Aluminum is lighter (~30% lighter). Cost: Aluminum is less expensive. Sizing: Aluminum typically requires one size larger than copper for the same current. Application: Copper is standard for most applications, aluminum is common for large installations. This calculator adjusts for aluminum by recommending larger sizes."
+    },
+    {
+      "question": "Why cable size matters?",
+      "answer": "Cable size is critical for: Safety: Undersized cables can overheat, causing fires. Efficiency: Proper sizing minimizes voltage drop and power loss. Code compliance: Electrical codes specify minimum cable sizes. Performance: Correct sizing ensures equipment operates properly. Cost: Oversized cables waste money, undersized cables are dangerous. Always use the correct cable size for your application - this calculator provides estimates, but actual sizing must comply with local codes."
+    },
+    {
+      "question": "What if cable is too small?",
+      "answer": "Using undersized cable can cause: Overheating: Cable may exceed safe temperature, causing insulation damage. Fire risk: Overheating can lead to electrical fires. Voltage drop: Excessive voltage drop affects equipment performance. Code violations: Undersized cables violate electrical codes. Equipment damage: Insufficient current capacity can damage equipment. Always use cables that meet or exceed calculated requirements. This calculator provides minimum recommendations - consider safety margins and local code requirements."
+    },
+    {
+      "question": "Single-phase vs three-phase?",
+      "answer": "Single-phase and three-phase systems differ in: Current calculation: Single-phase: I = P / V. Three-phase: I = P / (√3 × V) - lower current for same power. Applications: Single-phase for residential, three-phase for commercial/industrial. Efficiency: Three-phase is more efficient for higher power loads. Cable sizing: Three-phase typically requires smaller cables for the same power due to lower current. This calculator handles both - select the appropriate phase type for your system."
+    },
+    {
+      "question": "Is this calculator exact?",
+      "answer": "No, this calculator provides simplified estimates based on: Current calculation (mathematically correct), simplified cable size lookup tables (typical practice), and basic material adjustments. Actual cable sizing depends on: Installation method (affects current capacity), ambient temperature (higher temp = lower capacity), cable length (voltage drop considerations), local electrical codes (may specify different requirements), and safety factors. Always consult qualified electricians and local codes for actual cable sizing."
+    },
+    {
+      "question": "What about voltage drop?",
+      "answer": "Voltage drop is not calculated in this simplified tool. Voltage drop depends on: Cable length (longer = more drop), cable resistance (smaller cross-section = more drop), and current (higher = more drop). For long cable runs, voltage drop may require larger cable sizes than current capacity alone. This calculator focuses on current capacity - for long runs, consult voltage drop calculations or qualified electricians."
+    },
+    {
+      "question": "What about AWG wire gauge?",
+      "answer": "This calculator uses metric cross-section (mm²). North American systems often use AWG (American Wire Gauge). Common conversions: 14 AWG ≈ 2.1 mm², 12 AWG ≈ 3.3 mm², 10 AWG ≈ 5.3 mm², 8 AWG ≈ 8.4 mm², 6 AWG ≈ 13.3 mm². For AWG systems, use conversion tables or consult local codes. This calculator provides mm² for international use - convert to AWG if needed for your region."
+    },
+    {
+      "question": "What about circuit breakers?",
+      "answer": "Circuit breakers are sized to protect cables, not the other way around. Typical practice: Circuit breaker should be sized to cable capacity (e.g., 2.5 mm² cable → 25 A max → 20 A or 25 A breaker). This calculator provides cable size - select appropriate circuit breaker based on cable capacity and local codes. Circuit breakers protect against overcurrent, so they should match or be slightly below cable capacity."
+    },
+    {
+      "question": "Can I use this for DC systems?",
+      "answer": "This calculator is designed for AC systems (single-phase and three-phase). For DC systems: Current calculation is simpler: I = P / V (no phase factor), but cable sizing principles are similar. DC systems may have different considerations (polarity, different voltage drop calculations). Use this calculator as a starting point, but verify with DC-specific calculations and codes."
+    },
+    {
+      "question": "What about motor loads?",
+      "answer": "Motor loads require special considerations: Starting current: Motors draw 5-7× rated current during startup, requiring larger cables or special protection. Power factor: Motors may have power factor < 1, affecting current calculation. This calculator uses apparent power - for motors, actual current may be higher. Always consult motor specifications and local codes for motor circuit sizing."
+    },
+    {
+      "question": "How do I measure power?",
+      "answer": "Power can be measured or estimated: Direct measurement: Use power meter or clamp meter. Equipment rating: Check nameplate ratings (kW or kVA). Load estimation: Sum up all connected loads. This calculator needs total power in kW - convert from other units if needed (1 kW = 1000 W, 1 kVA ≈ 1 kW for resistive loads). For accurate sizing, use actual measured or calculated power, not estimated."
+    },
+    {
+      "question": "What about cable length?",
+      "answer": "Cable length affects: Voltage drop (longer = more drop, may require larger cable), installation method (affects current capacity), and cost (longer = more expensive). This calculator doesn't account for length-based voltage drop. For long runs (>50 m), voltage drop may require larger cables than current capacity alone. Consult voltage drop calculations or qualified electricians for long cable runs."
+    },
+    {
+      "question": "Is this code-compliant?",
+      "answer": "This calculator provides estimates based on simplified calculations and typical practice. Code compliance depends on: Local electrical codes (IEC, NEC, etc. - varies by region), installation method (affects current capacity tables), and specific code requirements. This calculator is NOT a code compliance tool - always consult local electrical codes, qualified electricians, and proper design standards for code-compliant cable sizing. This is an estimation tool for planning only."
+    },
+    {
+      "question": "What about temperature ratings?",
+      "answer": "Cable temperature ratings affect current capacity: Higher temperature rating = higher current capacity (for same cross-section), ambient temperature affects capacity (hotter = lower capacity), and installation method affects heat dissipation. This calculator uses typical temperature ratings - actual capacity may vary. For high-temperature applications or extreme conditions, consult cable specifications and qualified electricians."
+    },
+    {
+      "question": "Can I use this for underground cables?",
+      "answer": "Yes, but underground installation has special considerations: Different current capacity tables (underground may have different ratings), burial depth and soil conditions affect heat dissipation, and protection requirements (mechanical protection, moisture protection). This calculator provides basic estimates - select 'Underground' installation type for reference, but always consult underground cable specifications and local codes for actual sizing."
+    }
+  ],
+  "seo": {
+    "title": "Cable Size Calculator – Find the Right Wire Cross-Section",
+    "description": "Calculate recommended electrical cable size based on power, voltage, and phase. Simple cable cross-section estimation tool.",
+    "keywords": ["cable size calculator", "wire gauge", "electrical cable", "cable cross-section", "wire sizing", "electrical calculator"]
+  }
+}
+

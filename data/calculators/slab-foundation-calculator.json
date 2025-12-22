@@ -1,0 +1,167 @@
+{
+  "id": "slab-foundation-calculator",
+  "slug": "slab-foundation-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateSlabFoundation",
+  "tags": ["slab-foundation", "concrete-slab", "foundation-slab", "construction"],
+  "inputs": [
+    {
+      "name": "slabLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "slabWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "slabThickness",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "includeThickenedEdge",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "edgeWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "includeThickenedEdge",
+        "value": "true"
+      }
+    },
+    {
+      "name": "edgeDepth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "includeThickenedEdge",
+        "value": "true"
+      }
+    },
+    {
+      "name": "edgeRuns",
+      "type": "select",
+      "options": [
+        { "value": "perimeter", "label": "Perimeter Only" },
+        { "value": "custom", "label": "Custom Total Edge Length" }
+      ],
+      "defaultValue": "perimeter",
+      "visibleIf": {
+        "field": "includeThickenedEdge",
+        "value": "true"
+      }
+    },
+    {
+      "name": "customEdgeLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "edgeRuns",
+        "value": "custom"
+      }
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "slabVolume"
+    },
+    {
+      "name": "slabVolumeDisplay"
+    },
+    {
+      "name": "edgeVolume"
+    },
+    {
+      "name": "edgeVolumeDisplay"
+    },
+    {
+      "name": "edgeLength"
+    },
+    {
+      "name": "totalVolume"
+    },
+    {
+      "name": "totalVolumeWithWaste"
+    },
+    {
+      "name": "totalVolumeDisplay"
+    },
+    {
+      "name": "totalVolumeCubicYards"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "slabLength": 10,
+    "slabWidth": 8,
+    "slabThickness": 0.15,
+    "includeThickenedEdge": "false",
+    "edgeRuns": "perimeter",
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["foundation-volume-calculator", "concrete-volume-calculator", "rebar-calculator", "rebar-weight-calculator", "cement-calculator"],
+  "isEnabled": true
+}
+

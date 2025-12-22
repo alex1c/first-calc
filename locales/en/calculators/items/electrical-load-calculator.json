@@ -1,0 +1,294 @@
+{
+  "title": "Electrical Load Calculator – Calculate Total Power Demand",
+  "shortDescription": "Calculate total electrical load by summing appliance power. Estimate home or workshop electricity demand easily.",
+  "longDescription": "Our Electrical Load Calculator helps you calculate total electrical load by summing the power consumption of all appliances. Enter appliance names, power ratings (in watts or kilowatts), and quantities, then apply a demand factor to account for simultaneous operation. Supports multiple appliances and includes demand factor (simultaneity factor) to estimate realistic simultaneous power consumption. Perfect for contractors, electricians, and homeowners planning electrical installations. Get accurate estimates with clear breakdowns showing raw load, demand-adjusted load, and per-appliance contributions. Use the results with the Cable Size Calculator to determine appropriate cable sizing.",
+  "inputs": [
+    {
+      "label": "Appliance 1 Name",
+      "unitLabel": "",
+      "placeholder": "Enter name",
+      "helpText": "Enter the name of the first appliance (e.g., Refrigerator, TV, etc.)"
+    },
+    {
+      "label": "Appliance 1 Power",
+      "unitLabel": "W or kW",
+      "placeholder": "Enter power",
+      "helpText": "Enter the power consumption in watts (W) or kilowatts (kW). Check appliance label for power rating."
+    },
+    {
+      "label": "Appliance 1 Quantity",
+      "unitLabel": "",
+      "placeholder": "Enter quantity",
+      "helpText": "Enter the number of this appliance (default: 1)"
+    },
+    {
+      "label": "Appliance 2 Name",
+      "unitLabel": "",
+      "placeholder": "Enter name (optional)",
+      "helpText": "Enter the name of the second appliance (optional)"
+    },
+    {
+      "label": "Appliance 2 Power",
+      "unitLabel": "W or kW",
+      "placeholder": "Enter power",
+      "helpText": "Enter the power consumption in watts (W) or kilowatts (kW)"
+    },
+    {
+      "label": "Appliance 2 Quantity",
+      "unitLabel": "",
+      "placeholder": "Enter quantity",
+      "helpText": "Enter the number of this appliance (default: 1)"
+    },
+    {
+      "label": "Appliance 3 Name",
+      "unitLabel": "",
+      "placeholder": "Enter name (optional)",
+      "helpText": "Enter the name of the third appliance (optional)"
+    },
+    {
+      "label": "Appliance 3 Power",
+      "unitLabel": "W or kW",
+      "placeholder": "Enter power",
+      "helpText": "Enter the power consumption in watts (W) or kilowatts (kW)"
+    },
+    {
+      "label": "Appliance 3 Quantity",
+      "unitLabel": "",
+      "placeholder": "Enter quantity",
+      "helpText": "Enter the number of this appliance (default: 1)"
+    },
+    {
+      "label": "Appliance 4 Name",
+      "unitLabel": "",
+      "placeholder": "Enter name (optional)",
+      "helpText": "Enter the name of the fourth appliance (optional)"
+    },
+    {
+      "label": "Appliance 4 Power",
+      "unitLabel": "W or kW",
+      "placeholder": "Enter power",
+      "helpText": "Enter the power consumption in watts (W) or kilowatts (kW)"
+    },
+    {
+      "label": "Appliance 4 Quantity",
+      "unitLabel": "",
+      "placeholder": "Enter quantity",
+      "helpText": "Enter the number of this appliance (default: 1)"
+    },
+    {
+      "label": "Appliance 5 Name",
+      "unitLabel": "",
+      "placeholder": "Enter name (optional)",
+      "helpText": "Enter the name of the fifth appliance (optional)"
+    },
+    {
+      "label": "Appliance 5 Power",
+      "unitLabel": "W or kW",
+      "placeholder": "Enter power",
+      "helpText": "Enter the power consumption in watts (W) or kilowatts (kW)"
+    },
+    {
+      "label": "Appliance 5 Quantity",
+      "unitLabel": "",
+      "placeholder": "Enter quantity",
+      "helpText": "Enter the number of this appliance (default: 1)"
+    },
+    {
+      "label": "Demand Factor",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the demand factor (simultaneity factor) as a percentage (default: 100%, typical: 70-80% for residential). This accounts for not all appliances running at the same time."
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Total Raw Load",
+      "unitLabel": "kW"
+    },
+    {
+      "label": "Adjusted Load",
+      "unitLabel": "kW"
+    },
+    {
+      "label": "Number of Appliances",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the name of the first appliance (e.g., Refrigerator, TV, etc.)",
+    "Enter the power consumption in watts (W) or kilowatts (kW) - check appliance label",
+    "Enter the quantity (number of this appliance, default: 1)",
+    "Optionally add more appliances (up to 5 appliances)",
+    "Enter the demand factor as a percentage (default: 100%, typical: 70-80% for residential)",
+    "Click the Calculate button",
+    "View the total raw electrical load (sum of all appliances)",
+    "See the adjusted load (with demand factor applied)",
+    "Review the per-appliance breakdown",
+    "Review the formula, breakdown, and explanation for calculation details",
+    "Use the adjusted load with the Cable Size Calculator to determine cable sizing"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Small Apartment",
+      "inputDescription": "Calculate total load for a small apartment.",
+      "steps": [
+        "Appliance 1: Refrigerator, 150 W, Qty 1",
+        "Appliance 2: TV, 100 W, Qty 1",
+        "Appliance 3: Lighting, 500 W, Qty 1",
+        "Appliance 4: Laptop, 50 W, Qty 1",
+        "Appliance 5: Phone Charger, 10 W, Qty 2",
+        "Demand Factor: 80%",
+        "Calculation:",
+        "  Raw Total = 150 + 100 + 500 + 50 + 20 = 820 W = 0.82 kW",
+        "  Adjusted = 0.82 × 0.80 = 0.66 kW"
+      ],
+      "resultDescription": "For a small apartment with basic appliances, the total raw load is 0.82 kW. With an 80% demand factor (realistic for residential), the adjusted load is 0.66 kW. This represents the expected simultaneous power consumption, which is useful for cable sizing and circuit planning."
+    },
+    {
+      "id": "example-2",
+      "title": "Kitchen Appliances",
+      "inputDescription": "Calculate load for kitchen appliances.",
+      "steps": [
+        "Appliance 1: Refrigerator, 150 W, Qty 1",
+        "Appliance 2: Electric Stove, 7000 W, Qty 1",
+        "Appliance 3: Microwave, 1000 W, Qty 1",
+        "Appliance 4: Dishwasher, 1200 W, Qty 1",
+        "Appliance 5: Coffee Maker, 800 W, Qty 1",
+        "Demand Factor: 70%",
+        "Calculation:",
+        "  Raw Total = 150 + 7000 + 1000 + 1200 + 800 = 10.15 kW",
+        "  Adjusted = 10.15 × 0.70 = 7.11 kW"
+      ],
+      "resultDescription": "For kitchen appliances, the total raw load is 10.15 kW. With a 70% demand factor (kitchen appliances rarely all run simultaneously), the adjusted load is 7.11 kW. The electric stove is the largest load - kitchens typically require dedicated circuits for high-power appliances."
+    },
+    {
+      "id": "example-3",
+      "title": "Workshop Tools",
+      "inputDescription": "Calculate load for workshop power tools.",
+      "steps": [
+        "Appliance 1: Table Saw, 1500 W, Qty 1",
+        "Appliance 2: Drill Press, 750 W, Qty 1",
+        "Appliance 3: Circular Saw, 1200 W, Qty 1",
+        "Appliance 4: Air Compressor, 2000 W, Qty 1",
+        "Appliance 5: Lighting, 200 W, Qty 4",
+        "Demand Factor: 60%",
+        "Calculation:",
+        "  Raw Total = 1500 + 750 + 1200 + 2000 + 800 = 6.25 kW",
+        "  Adjusted = 6.25 × 0.60 = 3.75 kW"
+      ],
+      "resultDescription": "For workshop tools, the total raw load is 6.25 kW. With a 60% demand factor (workshop tools are rarely used simultaneously), the adjusted load is 3.75 kW. Workshops may require dedicated circuits and higher-capacity electrical service."
+    },
+    {
+      "id": "example-4",
+      "title": "With Demand Factor",
+      "inputDescription": "Demonstrate the effect of demand factor.",
+      "steps": [
+        "Appliances: Various, Total Raw = 5 kW",
+        "Scenario 1: 100% demand factor",
+        "  Adjusted = 5 × 1.00 = 5 kW (all appliances running)",
+        "Scenario 2: 75% demand factor",
+        "  Adjusted = 5 × 0.75 = 3.75 kW (realistic simultaneous)",
+        "Comparison: Demand factor reduces load by 25%"
+      ],
+      "resultDescription": "The demand factor accounts for the fact that not all appliances run simultaneously. For a 5 kW raw load: 100% factor gives 5 kW (worst case, all running), while 75% factor gives 3.75 kW (more realistic). Typical residential demand factors are 70-80%, commercial 60-70%. Use adjusted load for realistic electrical system design."
+    },
+    {
+      "id": "example-5",
+      "title": "Home vs Garage Comparison",
+      "inputDescription": "Compare loads for home and garage.",
+      "steps": [
+        "Home Load:",
+        "  Appliances: Various, Raw = 8 kW",
+        "  Demand Factor: 75%",
+        "  Adjusted = 6 kW",
+        "Garage Load:",
+        "  Appliances: Tools, Raw = 4 kW",
+        "  Demand Factor: 60%",
+        "  Adjusted = 2.4 kW",
+        "Total Combined: 6 + 2.4 = 8.4 kW"
+      ],
+      "resultDescription": "Comparing home and garage loads shows different demand factors: Home (75%) accounts for typical residential usage patterns, while Garage (60%) accounts for tools rarely running simultaneously. Combined adjusted load is 8.4 kW, which is useful for main service sizing. Always consider peak loads and consult electricians for service upgrades."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is electrical load?",
+      "answer": "Electrical load is the total power consumption of all electrical devices and appliances connected to an electrical system. It's measured in watts (W) or kilowatts (kW). Load calculation is essential for: sizing electrical service, selecting circuit breakers, determining cable sizes, and planning electrical installations. This calculator sums up all appliance power to find total load."
+    },
+    {
+      "question": "Should I sum all appliances?",
+      "answer": "Yes, sum all appliances to get the total raw load. However, not all appliances run simultaneously, so apply a demand factor (simultaneity factor) to get realistic simultaneous load. The calculator does both: it sums all appliances (raw load) and applies demand factor (adjusted load). Use adjusted load for electrical system design, as it represents realistic simultaneous consumption."
+    },
+    {
+      "question": "What is demand factor?",
+      "answer": "Demand factor (also called simultaneity factor) is a percentage that accounts for the fact that not all appliances operate at the same time. Typical values: Residential: 70-80% (most appliances don't run simultaneously), Commercial: 60-70% (diverse usage patterns), Industrial: 50-60% (shifted operations). The demand factor reduces the total load to a realistic simultaneous consumption level. For example, 100% means all appliances running (worst case), 75% means realistic simultaneous usage."
+    },
+    {
+      "question": "Why adjusted load is lower?",
+      "answer": "Adjusted load is lower because the demand factor accounts for simultaneous operation. In reality, not all appliances run at the same time - you don't use the stove, microwave, dishwasher, and coffee maker all at once. The demand factor (typically 70-80% for residential) reduces the raw load to reflect realistic simultaneous consumption. This prevents over-sizing electrical systems while ensuring adequate capacity."
+    },
+    {
+      "question": "How is this used further?",
+      "answer": "Electrical load calculation is used for: Cable sizing (use adjusted load with Cable Size Calculator), circuit breaker selection (size breakers based on load), service panel sizing (main breaker/service size), electrical service upgrades (determine if upgrade needed), and code compliance (meet local electrical code requirements). The adjusted load is the key value for electrical system design."
+    },
+    {
+      "question": "What if I have more than 5 appliances?",
+      "answer": "The calculator supports up to 5 appliances per calculation. For more appliances: Calculate in groups (e.g., kitchen appliances, living room appliances), then sum the adjusted loads, or do multiple calculations and add the results. The demand factor should be applied to the total, so calculate groups separately or combine raw loads first, then apply demand factor to the total."
+    },
+    {
+      "question": "How do I find appliance power?",
+      "answer": "Appliance power is found on: Nameplate labels (usually in watts or kilowatts), product specifications, user manuals, or energy labels. Power is typically listed as: Rated power (maximum consumption), average power (typical usage), or power range (min-max). Use rated or maximum power for load calculations to ensure adequate capacity. Some appliances show current (A) instead - convert using: Power = Current × Voltage."
+    },
+    {
+      "question": "What about motor loads?",
+      "answer": "Motor loads require special consideration: Starting current: Motors draw 5-7× rated current during startup (may need larger circuits), power factor: Motors may have power factor < 1 (affects apparent power), and continuous vs intermittent: Continuous motors need full rating, intermittent may use lower demand factor. For motor loads, use rated power but consider starting current for circuit protection. Consult motor specifications for accurate values."
+    },
+    {
+      "question": "Can I use this for commercial buildings?",
+      "answer": "Yes, but commercial buildings have different considerations: Lower demand factors (typically 60-70% due to diverse usage), larger number of appliances (may need multiple calculations), and code requirements (commercial codes may specify different demand factors). Use lower demand factors for commercial applications and consult local electrical codes for specific requirements."
+    },
+    {
+      "question": "What about heating and cooling?",
+      "answer": "Heating and cooling loads are significant: Electric heating: High power (1-5 kW per room), may need dedicated circuits. Air conditioning: High starting current, may need larger circuits. Heat pumps: Variable load, check specifications. For load calculations, include heating/cooling at rated power, but consider that heating and cooling rarely run simultaneously. Apply appropriate demand factors or calculate separately."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on: Summation of appliance power (mathematically correct), demand factor application (standard practice), and power unit conversion (automatic). Accuracy depends on: Accurate appliance power ratings, appropriate demand factor selection, and complete appliance list. The calculations are correct, but actual loads may vary due to usage patterns, appliance efficiency, and other factors. Use for planning and estimation."
+    },
+    {
+      "question": "What about power factor?",
+      "answer": "Power factor affects apparent power vs real power: Resistive loads (heaters, incandescent lights): Power factor = 1.0 (no adjustment needed). Inductive loads (motors, transformers): Power factor < 1.0 (apparent power > real power). This calculator uses real power (watts). For inductive loads with low power factor, actual current may be higher than calculated. Consult appliance specifications for power factor if needed."
+    },
+    {
+      "question": "Can I use this for solar panel sizing?",
+      "answer": "This calculator provides electrical load for sizing electrical systems. For solar panel sizing: Use daily energy consumption (kWh), not just power (kW), account for sun hours and panel efficiency, and consider battery storage needs. This calculator helps determine load, but solar sizing requires additional calculations (daily consumption, panel capacity, etc.). Use load calculation as one input for solar system design."
+    },
+    {
+      "question": "What about circuit breakers?",
+      "answer": "Circuit breakers are sized based on load: Standard practice: Breaker should be 125% of continuous load, or match cable capacity (whichever is smaller). Example: 2.4 kW load at 230 V = 10.4 A → use 16 A breaker (next standard size). This calculator provides load - use with Cable Size Calculator to determine cable, then size breaker to protect cable. Always follow local electrical codes for breaker sizing."
+    },
+    {
+      "question": "How do I account for future loads?",
+      "answer": "For future loads, add estimated appliances to the calculation or increase demand factor slightly. Common practice: Add 20-30% margin to adjusted load for future expansion, or include planned appliances in the calculation. Electrical systems should have capacity for future growth. Consult electricians for service upgrades if current capacity is insufficient for future needs."
+    }
+  ],
+  "seo": {
+    "title": "Electrical Load Calculator – Calculate Total Power Demand",
+    "description": "Calculate total electrical load by summing appliance power. Estimate home or workshop electricity demand easily.",
+    "keywords": ["electrical load calculator", "power calculator", "home electricity", "electrical load", "wattage calculator", "power demand"]
+  }
+}
+

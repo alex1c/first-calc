@@ -1,0 +1,259 @@
+{
+  "title": "Laminate Calculator – How Much Laminate Flooring Do You Need?",
+  "shortDescription": "Calculate laminate flooring needs based on room size, plank dimensions, layout type, and waste margin. Estimate planks easily.",
+  "longDescription": "Our Laminate Calculator helps you estimate how much laminate flooring you need for your room. Enter room dimensions, laminate plank size, select layout type (straight or diagonal), and get accurate plank counts. Supports both metric (m²) and imperial (ft²) units. Includes optional waste margin calculation (5-25%) to account for cutting, breakage, and pattern matching. Diagonal layouts require higher waste margin (15%) than straight layouts (10%). Perfect for contractors, DIY builders, and home improvement projects. Get accurate estimates with clear breakdowns showing room area, plank area, base planks, and waste-adjusted totals.",
+  "inputs": [
+    {
+      "label": "Room Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the room in meters or feet"
+    },
+    {
+      "label": "Room Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the room in meters or feet"
+    },
+    {
+      "label": "Plank Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of each laminate plank in meters or feet (check laminate packaging)"
+    },
+    {
+      "label": "Plank Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of each laminate plank in meters or feet (check laminate packaging)"
+    },
+    {
+      "label": "Layout Type",
+      "unitLabel": "",
+      "placeholder": "Select layout",
+      "helpText": "Select layout type: Straight (standard, 10% waste) or Diagonal (45° angle, 15% waste)"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-25%) to account for cutting, breakage, and pattern matching"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (default: 10% for straight, 15% for diagonal layout)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Room Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Plank Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Base Planks",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Planks Required",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the room length and width (measure the room dimensions)",
+    "Enter the laminate plank length and width (check laminate packaging for exact dimensions)",
+    "Select the layout type: Straight or Diagonal",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin (defaults: 10% for straight, 15% for diagonal)",
+    "Adjust waste margin if needed (5-25%)",
+    "Click the Calculate button",
+    "View the room area and plank area",
+    "See the base number of planks needed",
+    "Check the total planks required with waste margin if enabled",
+    "Review the formula, breakdown, and explanation for calculation details",
+    "Check laminate packaging for planks per pack to determine number of packs needed"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Small Bedroom, Straight Layout",
+      "inputDescription": "Calculate laminate needed for a small bedroom.",
+      "steps": [
+        "Room Length: 4 meters",
+        "Room Width: 3 meters",
+        "Plank Size: 1.2 m × 0.2 m (120 cm × 20 cm)",
+        "Layout Type: Straight",
+        "Unit: Meters",
+        "Calculation:",
+        "  Room Area = 4 × 3 = 12 m²",
+        "  Plank Area = 1.2 × 0.2 = 0.24 m²",
+        "  Base Planks = 12 / 0.24 = 50 planks",
+        "  With 10% waste: 50 × 1.1 = 55 planks"
+      ],
+      "resultDescription": "For a small bedroom measuring 4m × 3m (12 m²), using 1.2×0.2 m laminate planks, you need 50 base planks. With 10% waste margin for straight layout, order 55 planks. This is typically 3-4 packs depending on planks per pack (check laminate packaging)."
+    },
+    {
+      "id": "example-2",
+      "title": "Living Room, Standard Planks",
+      "inputDescription": "Calculate laminate needed for a living room.",
+      "steps": [
+        "Room Length: 5 meters",
+        "Room Width: 4 meters",
+        "Plank Size: 1.38 m × 0.19 m (138 cm × 19 cm, standard size)",
+        "Layout Type: Straight",
+        "Unit: Meters",
+        "Calculation:",
+        "  Room Area = 5 × 4 = 20 m²",
+        "  Plank Area = 1.38 × 0.19 = 0.2622 m²",
+        "  Base Planks = 20 / 0.2622 = 76.28 → 77 planks",
+        "  With 10% waste: 77 × 1.1 = 84.7 → 85 planks"
+      ],
+      "resultDescription": "For a living room measuring 5m × 4m (20 m²), using standard 1.38×0.19 m laminate planks, you need 77 base planks. With 10% waste margin, order 85 planks. Standard planks are commonly available - check packaging for planks per pack."
+    },
+    {
+      "id": "example-3",
+      "title": "Diagonal Layout with Higher Waste",
+      "inputDescription": "Calculate laminate needed for a diagonal layout.",
+      "steps": [
+        "Room Length: 4.5 meters",
+        "Room Width: 3.5 meters",
+        "Plank Size: 1.2 m × 0.2 m",
+        "Layout Type: Diagonal",
+        "Unit: Meters",
+        "Calculation:",
+        "  Room Area = 4.5 × 3.5 = 15.75 m²",
+        "  Plank Area = 1.2 × 0.2 = 0.24 m²",
+        "  Base Planks = 15.75 / 0.24 = 65.63 → 66 planks",
+        "  With 15% waste (diagonal): 66 × 1.15 = 75.9 → 76 planks"
+      ],
+      "resultDescription": "For a room measuring 4.5m × 3.5m (15.75 m²) with diagonal layout, using 1.2×0.2 m planks, you need 66 base planks. Diagonal layouts require 15% waste margin (vs 10% for straight) due to more cutting at edges. With waste margin, order 76 planks."
+    },
+    {
+      "id": "example-4",
+      "title": "Large Room Flooring",
+      "inputDescription": "Calculate laminate needed for a large room.",
+      "steps": [
+        "Room Length: 6 meters",
+        "Room Width: 5 meters",
+        "Plank Size: 1.38 m × 0.19 m",
+        "Layout Type: Straight",
+        "Unit: Meters",
+        "Calculation:",
+        "  Room Area = 6 × 5 = 30 m²",
+        "  Plank Area = 1.38 × 0.19 = 0.2622 m²",
+        "  Base Planks = 30 / 0.2622 = 114.42 → 115 planks",
+        "  With 10% waste: 115 × 1.1 = 126.5 → 127 planks"
+      ],
+      "resultDescription": "For a large room measuring 6m × 5m (30 m²), using 1.38×0.19 m planks, you need 115 base planks. With 10% waste margin, order 127 planks. For large projects, buying in bulk may be more economical. Check laminate packaging for planks per pack."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate laminate needed using imperial units.",
+      "steps": [
+        "Room Length: 12 feet",
+        "Room Width: 10 feet",
+        "Plank Size: 48 inches × 7.5 inches (4 ft × 0.625 ft)",
+        "Layout Type: Straight",
+        "Unit: Feet",
+        "Calculation:",
+        "  Room Area = 12 × 10 = 120 ft²",
+        "  Plank Area = 4 × 0.625 = 2.5 ft²",
+        "  Base Planks = 120 / 2.5 = 48 planks",
+        "  With 10% waste: 48 × 1.1 = 52.8 → 53 planks"
+      ],
+      "resultDescription": "For a room measuring 12ft × 10ft (120 ft²), using 48×7.5 inch planks, you need 48 base planks. With 10% waste margin, order 53 planks. Standard US laminate planks are often 48 inches long - check packaging for exact dimensions and planks per pack."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How much extra laminate should I buy?",
+      "answer": "Buy 10% extra for straight layouts, 15% extra for diagonal layouts. Extra laminate accounts for: cutting at edges and around obstacles, breakage during installation, pattern matching (for patterned laminate), and future repairs or replacements. It's better to have leftover planks from the same batch than to run out and risk color/pattern mismatches."
+    },
+    {
+      "question": "Straight vs diagonal layout?",
+      "answer": "Straight layout: planks laid parallel to walls, standard installation, 10% waste margin, easier installation, less cutting. Diagonal layout: planks laid at 45° angle, more visually interesting, 15% waste margin (higher due to more edge cutting), more complex installation, more waste. Choose based on design preference and installation complexity."
+    },
+    {
+      "question": "Do I include closets?",
+      "answer": "Include closets in your room measurements if you plan to install laminate in them. If closets won't have laminate, don't include them. Measure the actual area where laminate will be installed. For accuracy, measure each area separately and add them together, or measure the entire room and subtract areas that won't be covered."
+    },
+    {
+      "question": "Laminate vs tile flooring?",
+      "answer": "Laminate and tile use similar calculation methods, but differ in: Material: laminate is wood-based composite, tiles are ceramic/porcelain. Installation: laminate clicks together, tiles require adhesive and grout. Durability: tiles are more durable and water-resistant. Cost: laminate is generally less expensive. Maintenance: laminate is easier to clean but less water-resistant. Use the same calculator method for both, but account for different waste percentages."
+    },
+    {
+      "question": "Can this be used for vinyl planks?",
+      "answer": "Yes, this calculator works for vinyl plank flooring (LVP - Luxury Vinyl Plank). Vinyl planks use the same calculation method as laminate. Enter vinyl plank dimensions instead of laminate dimensions. Vinyl planks may have slightly different sizes, so check packaging for exact dimensions. Waste margins are the same (10% straight, 15% diagonal)."
+    },
+    {
+      "question": "What laminate plank sizes are common?",
+      "answer": "Common laminate plank sizes: Standard: 1.38 m × 0.19 m (138 cm × 19 cm), 1.2 m × 0.2 m (120 cm × 20 cm). Wide planks: 1.38 m × 0.24 m (138 cm × 24 cm). Long planks: 2.2 m × 0.2 m (220 cm × 20 cm). Always check the actual plank dimensions on the packaging, as sizes may vary by manufacturer. Enter exact dimensions for accurate calculations."
+    },
+    {
+      "question": "How do I measure room dimensions?",
+      "answer": "Measure room dimensions from your construction drawings or by physically measuring: Measure length and width at the longest/widest points. Measure to the center of doorways if laminate will extend into them. For irregular rooms, break into rectangles, calculate each separately, and add together. Always measure the actual area where laminate will be installed."
+    },
+    {
+      "question": "What about expansion gaps?",
+      "answer": "Expansion gaps (typically 8-10 mm around perimeter) don't affect the number of planks needed - they're accounted for during installation. The calculator provides the number of planks needed to cover the room area. Expansion gaps are necessary for laminate to expand/contract with temperature and humidity changes. Installers account for these gaps during installation."
+    },
+    {
+      "question": "Do I need underlayment?",
+      "answer": "Yes, underlayment is typically required for laminate flooring, but it's calculated separately. Underlayment area is usually the same as the room area (or slightly less if not extending under baseboards). Underlayment provides: moisture barrier, sound dampening, and cushioning. Calculate underlayment separately using the room area from this calculator."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on geometric calculations. Accuracy depends on: precise room measurements, exact plank dimensions from packaging, correct layout type selection, and appropriate waste margin. The estimate is typically within 5-10% of actual needs when measurements are accurate. Always add the recommended waste margin (10-15%) for real-world projects."
+    },
+    {
+      "question": "What about laminate packs?",
+      "answer": "Laminate is sold in packs with varying quantities: Standard packs: 6-10 planks per pack (covers 1.5-2.5 m²). Large packs: 10-15 planks per pack. Always check laminate packaging for planks per pack and coverage area. The calculator gives you the total number of planks - divide by planks per pack to get number of packs needed. Round up to whole packs."
+    },
+    {
+      "question": "Can I install laminate myself?",
+      "answer": "Yes, laminate is designed for DIY installation with click-lock systems. However, proper installation requires: level subfloor, correct underlayment, expansion gaps, and careful cutting. The calculator helps you estimate materials, but installation quality depends on proper preparation and technique. Consider professional installation for large areas or complex layouts."
+    },
+    {
+      "question": "What about transitions and trim?",
+      "answer": "Transitions (between rooms) and trim (baseboards, quarter-round) are calculated separately from laminate planks. Transitions: measure linear length needed. Trim: measure perimeter of room. The calculator focuses on laminate planks only. Calculate transitions and trim separately based on your room layout and design preferences."
+    },
+    {
+      "question": "Can I use this for engineered hardwood?",
+      "answer": "Yes, this calculator works for engineered hardwood flooring. Engineered hardwood planks use the same calculation method as laminate. Enter engineered hardwood plank dimensions instead of laminate dimensions. Engineered hardwood may have different sizes, so check packaging for exact dimensions. Waste margins are the same (10% straight, 15% diagonal)."
+    },
+    {
+      "question": "What about moisture and humidity?",
+      "answer": "Moisture and humidity affect laminate installation but don't change the number of planks needed. Before installation: check subfloor moisture levels, acclimate laminate to room conditions (48-72 hours), and ensure proper underlayment. The calculator provides plank quantity - moisture considerations are part of installation preparation, not material calculation."
+    }
+  ],
+  "seo": {
+    "title": "Laminate Calculator – How Much Laminate Flooring Do You Need?",
+    "description": "Calculate laminate flooring needs based on room size, plank dimensions, layout type, and waste margin. Estimate planks easily.",
+    "keywords": ["laminate calculator", "laminate flooring", "how much laminate", "flooring calculator", "laminate planks", "flooring estimation"]
+  }
+}
+

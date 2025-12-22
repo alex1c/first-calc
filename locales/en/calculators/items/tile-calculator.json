@@ -1,0 +1,270 @@
+{
+  "title": "Tile Calculator – How Many Tiles Do You Need?",
+  "shortDescription": "Calculate the number of tiles needed for floors or walls based on surface size, tile dimensions, layout type, and waste margin.",
+  "longDescription": "Our Tile Calculator helps you estimate how many tiles you need for floors or walls. Enter surface dimensions, tile size, select layout type (straight or diagonal), and get accurate tile counts. Supports both metric (m²) and imperial (ft²) units. Includes optional waste margin calculation (5-25%) to account for cutting, breakage, and pattern matching. Diagonal layouts require higher waste margin (15%) than straight layouts (10%). Perfect for contractors, DIY builders, and home improvement projects. Get accurate estimates with clear breakdowns showing surface area, tile area, base tiles, and waste-adjusted totals.",
+  "inputs": [
+    {
+      "label": "Surface Type",
+      "unitLabel": "",
+      "placeholder": "Select type",
+      "helpText": "Select whether you're tiling a floor or wall"
+    },
+    {
+      "label": "Surface Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the surface to be tiled in meters or feet"
+    },
+    {
+      "label": "Surface Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the surface to be tiled in meters or feet"
+    },
+    {
+      "label": "Tile Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of each tile in meters or feet (check tile packaging)"
+    },
+    {
+      "label": "Tile Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of each tile in meters or feet (check tile packaging)"
+    },
+    {
+      "label": "Layout Type",
+      "unitLabel": "",
+      "placeholder": "Select layout",
+      "helpText": "Select layout type: Straight (standard, 10% waste) or Diagonal (45° angle, 15% waste)"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-25%) to account for cutting, breakage, and pattern matching"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (default: 10% for straight, 15% for diagonal layout)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Surface Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Tile Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Base Tiles",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Tiles Required",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the surface type: Floor or Wall",
+    "Enter the surface length and width (measure the area to be tiled)",
+    "Enter the tile length and width (check tile packaging for exact dimensions)",
+    "Select the layout type: Straight or Diagonal",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin (defaults: 10% for straight, 15% for diagonal)",
+    "Adjust waste margin if needed (5-25%)",
+    "Click the Calculate button",
+    "View the surface area and tile area",
+    "See the base number of tiles needed",
+    "Check the total tiles required with waste margin if enabled",
+    "Review the formula, breakdown, and explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Bathroom Floor, Straight Layout",
+      "inputDescription": "Calculate tiles needed for a bathroom floor.",
+      "steps": [
+        "Surface Type: Floor",
+        "Surface Length: 2.5 meters",
+        "Surface Width: 2 meters",
+        "Tile Size: 30 cm × 30 cm (0.3 m × 0.3 m)",
+        "Layout Type: Straight",
+        "Unit: Meters",
+        "Calculation:",
+        "  Surface Area = 2.5 × 2 = 5 m²",
+        "  Tile Area = 0.3 × 0.3 = 0.09 m²",
+        "  Base Tiles = 5 / 0.09 = 55.56 → 56 tiles",
+        "  With 10% waste: 56 × 1.1 = 61.6 → 62 tiles"
+      ],
+      "resultDescription": "For a bathroom floor measuring 2.5m × 2m (5 m²), using 30×30 cm tiles, you need 56 base tiles. With 10% waste margin for straight layout, order 62 tiles. This is typically 2-3 boxes depending on box size (check tile packaging for tiles per box)."
+    },
+    {
+      "id": "example-2",
+      "title": "Kitchen Wall Tiles",
+      "inputDescription": "Calculate tiles needed for a kitchen wall backsplash.",
+      "steps": [
+        "Surface Type: Wall",
+        "Surface Length: 3 meters",
+        "Surface Width: 0.6 meters (60 cm backsplash height)",
+        "Tile Size: 20 cm × 10 cm (0.2 m × 0.1 m)",
+        "Layout Type: Straight",
+        "Unit: Meters",
+        "Calculation:",
+        "  Surface Area = 3 × 0.6 = 1.8 m²",
+        "  Tile Area = 0.2 × 0.1 = 0.02 m²",
+        "  Base Tiles = 1.8 / 0.02 = 90 tiles",
+        "  With 10% waste: 90 × 1.1 = 99 → 99 tiles"
+      ],
+      "resultDescription": "For a kitchen wall backsplash measuring 3m × 0.6m (1.8 m²), using 20×10 cm tiles, you need 90 base tiles. With 10% waste margin, order 99 tiles. Small tiles like these are often sold in boxes - check packaging for tiles per box."
+    },
+    {
+      "id": "example-3",
+      "title": "Diagonal Layout with Higher Waste",
+      "inputDescription": "Calculate tiles needed for a diagonal layout.",
+      "steps": [
+        "Surface Type: Floor",
+        "Surface Length: 4 meters",
+        "Surface Width: 3 meters",
+        "Tile Size: 30 cm × 30 cm (0.3 m × 0.3 m)",
+        "Layout Type: Diagonal",
+        "Unit: Meters",
+        "Calculation:",
+        "  Surface Area = 4 × 3 = 12 m²",
+        "  Tile Area = 0.3 × 0.3 = 0.09 m²",
+        "  Base Tiles = 12 / 0.09 = 133.33 → 134 tiles",
+        "  With 15% waste (diagonal): 134 × 1.15 = 154.1 → 155 tiles"
+      ],
+      "resultDescription": "For a floor measuring 4m × 3m (12 m²) with diagonal layout, using 30×30 cm tiles, you need 134 base tiles. Diagonal layouts require 15% waste margin (vs 10% for straight) due to more cutting at edges. With waste margin, order 155 tiles."
+    },
+    {
+      "id": "example-4",
+      "title": "Large Room Flooring",
+      "inputDescription": "Calculate tiles needed for a large room floor.",
+      "steps": [
+        "Surface Type: Floor",
+        "Surface Length: 6 meters",
+        "Surface Width: 5 meters",
+        "Tile Size: 60 cm × 60 cm (0.6 m × 0.6 m)",
+        "Layout Type: Straight",
+        "Unit: Meters",
+        "Calculation:",
+        "  Surface Area = 6 × 5 = 30 m²",
+        "  Tile Area = 0.6 × 0.6 = 0.36 m²",
+        "  Base Tiles = 30 / 0.36 = 83.33 → 84 tiles",
+        "  With 10% waste: 84 × 1.1 = 92.4 → 93 tiles"
+      ],
+      "resultDescription": "For a large room floor measuring 6m × 5m (30 m²), using large 60×60 cm tiles, you need 84 base tiles. With 10% waste margin, order 93 tiles. Large tiles cover more area per tile, reducing the total number needed but requiring careful handling."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate tiles needed using imperial units.",
+      "steps": [
+        "Surface Type: Floor",
+        "Surface Length: 10 feet",
+        "Surface Width: 8 feet",
+        "Tile Size: 12 inches × 12 inches (1 ft × 1 ft)",
+        "Layout Type: Straight",
+        "Unit: Feet",
+        "Calculation:",
+        "  Surface Area = 10 × 8 = 80 ft²",
+        "  Tile Area = 1 × 1 = 1 ft²",
+        "  Base Tiles = 80 / 1 = 80 tiles",
+        "  With 10% waste: 80 × 1.1 = 88 → 88 tiles"
+      ],
+      "resultDescription": "For a floor measuring 10ft × 8ft (80 ft²), using 12×12 inch tiles, you need 80 base tiles. With 10% waste margin, order 88 tiles. Standard 12×12 inch tiles are common in the US - check tile boxes for coverage and tiles per box."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How much extra tile should I buy?",
+      "answer": "Buy 10% extra for straight layouts, 15% extra for diagonal layouts. Extra tiles account for: cutting at edges and around obstacles, breakage during installation, pattern matching (for patterned tiles), and future repairs or replacements. It's better to have leftover tiles from the same batch than to run out and risk color/pattern mismatches."
+    },
+    {
+      "question": "Straight vs diagonal layout?",
+      "answer": "Straight layout: tiles laid parallel to walls, standard installation, 10% waste margin, easier installation, less cutting. Diagonal layout: tiles laid at 45° angle, more visually interesting, 15% waste margin (higher due to more edge cutting), more complex installation, more waste. Choose based on design preference and installation complexity."
+    },
+    {
+      "question": "Tile size impact?",
+      "answer": "Tile size significantly affects the number of tiles needed: Large tiles (60×60 cm): fewer tiles needed, faster installation, less grout lines, but more waste per cut tile. Medium tiles (30×30 cm): balanced choice, moderate number of tiles. Small tiles (10×10 cm): more tiles needed, more grout lines, but less waste per cut tile. Larger tiles generally require less waste percentage."
+    },
+    {
+      "question": "Floor vs wall tiles?",
+      "answer": "Floor tiles and wall tiles use the same calculation method, but differ in: Material: floor tiles are thicker and more durable, wall tiles are thinner and lighter. Slip resistance: floor tiles have textured surfaces, wall tiles are smoother. The calculator works for both - just select the surface type. Always use appropriate tiles for the application (don't use wall tiles on floors)."
+    },
+    {
+      "question": "Can this calculator be used for slabs?",
+      "answer": "Yes, this calculator can be used for large format tiles or slabs. Enter the slab dimensions as tile size. Large slabs (120×60 cm or larger) may require: higher waste margin (15-20%) due to handling and cutting complexity, professional installation, and careful planning. The calculation method is the same, but account for higher waste and installation complexity."
+    },
+    {
+      "question": "What about tile spacing (grout lines)?",
+      "answer": "Tile spacing (grout lines) is typically 1-3 mm and doesn't significantly affect tile count calculation. The calculator provides the number of tiles needed - grout is calculated separately. Standard spacing is 2-3 mm for most tiles. Very wide grout lines (5+ mm) may slightly reduce the number of tiles needed, but the difference is usually covered by the waste margin."
+    },
+    {
+      "question": "How do I measure surface dimensions?",
+      "answer": "Measure the surface dimensions from your construction drawings or by physically measuring: For floors: measure length and width of the room (or area to be tiled). For walls: measure height and width of the wall area. Always measure the actual area to be tiled, not the entire room if some areas won't be tiled. Use the Wall Area Calculator if you need help calculating wall area."
+    },
+    {
+      "question": "What tile sizes are common?",
+      "answer": "Common tile sizes: Small: 10×10 cm, 15×15 cm, 20×10 cm. Medium: 30×30 cm, 30×60 cm, 40×40 cm. Large: 60×60 cm, 60×120 cm, 80×80 cm. Mosaic: 2.5×2.5 cm, 5×5 cm (sold in sheets). Always check the actual tile dimensions on the packaging, as sizes may vary slightly by manufacturer. Enter exact dimensions for accurate calculations."
+    },
+    {
+      "question": "Do I need to account for doorways and windows?",
+      "answer": "For floors: you can subtract large doorways if they won't be tiled, but small openings are usually covered by the waste margin. For walls: subtract large windows and doors only if they're significant (more than 1 m² or 10 ft² each). Small openings are covered by the waste margin. When in doubt, don't subtract - the waste margin accounts for cutting around openings."
+    },
+    {
+      "question": "What about patterned tiles?",
+      "answer": "Patterned tiles require: higher waste margin (15-20%) for pattern matching, careful planning to ensure patterns align, and buying all tiles from the same batch. The calculator works the same way - just increase the waste margin to 15-20% for patterned tiles. Always check tile packaging for pattern repeat information and buy extra for pattern matching."
+    },
+    {
+      "question": "Can I mix different tile sizes?",
+      "answer": "You can mix different tile sizes for design purposes, but the calculator assumes uniform tile size. For mixed sizes: calculate each tile size separately for its designated area, then add the totals together. Or use the average tile size as an approximation. Mixed tile installations require more planning and may need higher waste margin (15-20%)."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on geometric calculations. Accuracy depends on: precise surface measurements, exact tile dimensions from packaging, correct layout type selection, and appropriate waste margin. The estimate is typically within 5-10% of actual needs when measurements are accurate. Always add the recommended waste margin (10-15%) for real-world projects."
+    },
+    {
+      "question": "What about tile boxes?",
+      "answer": "Tiles are sold in boxes with varying quantities: Small tiles (10×10 cm): 100-200 tiles per box. Medium tiles (30×30 cm): 10-15 tiles per box. Large tiles (60×60 cm): 4-8 tiles per box. Always check tile packaging for tiles per box. The calculator gives you the total number of tiles - divide by tiles per box to get number of boxes needed. Round up to whole boxes."
+    },
+    {
+      "question": "Do I need underlayment or adhesive?",
+      "answer": "Yes, but these are calculated separately: Underlayment: typically same area as tiles (use surface area). Tile adhesive: coverage varies by type (check packaging), typically 3-5 kg per m². Grout: depends on tile size and spacing (check grout packaging). This calculator focuses on tile quantity only - calculate underlayment, adhesive, and grout separately."
+    },
+    {
+      "question": "Can I use this for outdoor tiles?",
+      "answer": "Yes, the calculator works for outdoor tiles (patios, decks, exterior walls). Outdoor installations may require: higher waste margin (15-20%) due to cutting around edges and obstacles, frost-resistant tiles for cold climates, and slip-resistant tiles for safety. Use the same calculation method but account for higher waste and ensure you're using appropriate outdoor-rated tiles."
+    }
+  ],
+  "seo": {
+    "title": "Tile Calculator – How Many Tiles Do You Need?",
+    "description": "Calculate the number of tiles needed for floors or walls based on surface size, tile dimensions, layout type, and waste margin.",
+    "keywords": ["tile calculator", "how many tiles", "floor tiles", "wall tiles", "tile estimation", "flooring calculator"]
+  }
+}
+

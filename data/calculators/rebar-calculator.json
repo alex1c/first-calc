@@ -1,0 +1,152 @@
+{
+  "id": "rebar-calculator",
+  "slug": "rebar-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateRebar",
+  "tags": ["rebar", "reinforcement", "rebar-calculator", "slab-rebar", "steel"],
+  "inputs": [
+    {
+      "name": "slabLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "slabWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "barDiameter",
+      "type": "select",
+      "options": [
+        { "value": "6", "label": "6 mm" },
+        { "value": "8", "label": "8 mm" },
+        { "value": "10", "label": "10 mm" },
+        { "value": "12", "label": "12 mm" },
+        { "value": "14", "label": "14 mm" },
+        { "value": "16", "label": "16 mm" },
+        { "value": "18", "label": "18 mm" },
+        { "value": "20", "label": "20 mm" }
+      ],
+      "defaultValue": "12"
+    },
+    {
+      "name": "spacing",
+      "type": "number",
+      "min": 50,
+      "max": 500,
+      "step": 10,
+      "defaultValue": 200
+    },
+    {
+      "name": "layers",
+      "type": "select",
+      "options": [
+        { "value": "1", "label": "1 Layer" },
+        { "value": "2", "label": "2 Layers" }
+      ],
+      "defaultValue": "1"
+    },
+    {
+      "name": "edgeAllowance",
+      "type": "number",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "defaultValue": 50
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 3,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 5,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "effectiveLength"
+    },
+    {
+      "name": "effectiveWidth"
+    },
+    {
+      "name": "barsAlongLengthDirection"
+    },
+    {
+      "name": "barsAlongWidthDirection"
+    },
+    {
+      "name": "lengthBars1"
+    },
+    {
+      "name": "lengthBars2"
+    },
+    {
+      "name": "totalLengthPerLayer"
+    },
+    {
+      "name": "totalLength"
+    },
+    {
+      "name": "totalLengthWithWaste"
+    },
+    {
+      "name": "totalWeight"
+    },
+    {
+      "name": "totalWeightWithWaste"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "slabLength": 6,
+    "slabWidth": 4,
+    "barDiameter": "12",
+    "spacing": 200,
+    "layers": "1",
+    "edgeAllowance": 50,
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 5
+  },
+  "relatedIds": ["slab-foundation-calculator", "foundation-volume-calculator", "concrete-volume-calculator", "rebar-weight-calculator"],
+  "isEnabled": true
+}
+

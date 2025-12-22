@@ -1,0 +1,233 @@
+{
+  "title": "Putty Calculator – How Much Wall Putty Do You Need?",
+  "shortDescription": "Calculate the amount of putty needed based on wall area, layer thickness, and number of layers. Estimate bags and material usage easily.",
+  "longDescription": "Our Putty Calculator helps you estimate how much putty (wall filler) you need for surface finishing. Enter the surface area, specify layer thickness and consumption rate, and get accurate estimates in kilograms or pounds. Supports multiple layers and accounts for waste margin. Supports both metric (m²/kg) and imperial (ft²/lbs) units. Includes optional waste margin calculation (5-30%) to account for spillage, uneven surfaces, and touch-ups. Perfect for contractors, DIY builders, and home improvement projects. Get accurate estimates with clear breakdowns showing putty per layer, total putty needed, and number of bags required.",
+  "inputs": [
+    {
+      "label": "Surface Area",
+      "unitLabel": "",
+      "placeholder": "Enter area",
+      "helpText": "Enter the total surface area to be filled in square meters or square feet (use Wall Area Calculator if needed)"
+    },
+    {
+      "label": "Layer Thickness",
+      "unitLabel": "",
+      "placeholder": "Enter thickness",
+      "helpText": "Enter the thickness of each putty layer in millimeters (default: 1 mm) or inches for imperial units"
+    },
+    {
+      "label": "Consumption Rate",
+      "unitLabel": "",
+      "placeholder": "Enter rate",
+      "helpText": "Enter putty consumption rate in kg per m² per mm (default: 1.2 kg/m²/mm). Check putty bag label for specific consumption."
+    },
+    {
+      "label": "Number of Layers",
+      "unitLabel": "",
+      "placeholder": "Enter number",
+      "helpText": "Enter the number of putty layers (default: 1, but 2 layers may be needed for uneven surfaces)"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters (m²) or feet (ft²) for area measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-30%) to account for spillage, uneven surfaces, and touch-ups"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for smooth surfaces, 20-30% for uneven surfaces)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Putty Required",
+      "unitLabel": ""
+    },
+    {
+      "label": "Putty per Layer",
+      "unitLabel": ""
+    },
+    {
+      "label": "Putty Required with Waste",
+      "unitLabel": ""
+    },
+    {
+      "label": "Number of Bags",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the total surface area to be filled (use Wall Area Calculator if needed)",
+    "Enter the layer thickness in millimeters (default: 1 mm, typically 0.5-2 mm)",
+    "Enter the consumption rate (default: 1.2 kg/m²/mm, check putty bag label)",
+    "Enter the number of layers (default: 1, use 2 for uneven surfaces)",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin and set the percentage (10% for smooth, 20-30% for uneven)",
+    "Click the Calculate button",
+    "View the estimated putty required in kilograms or pounds",
+    "See the putty per layer breakdown if multiple layers",
+    "Check the waste-adjusted total if waste margin is enabled",
+    "Review the number of bags needed (typically 20 kg or 44 lbs bags)",
+    "Review the explanation for calculation details and practical tips"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Smooth Wall, 1 mm Layer",
+      "inputDescription": "Calculate putty needed for a smooth wall with thin layer.",
+      "steps": [
+        "Surface Area: 30 m²",
+        "Layer Thickness: 1 mm",
+        "Consumption Rate: 1.2 kg/m²/mm (default)",
+        "Number of Layers: 1",
+        "Unit: Meters",
+        "Calculation:",
+        "  Putty = 30 × 1 × 1.2 × 1 = 36 kg"
+      ],
+      "resultDescription": "For 30 m² of smooth wall with 1 mm layer thickness, you need 36 kg of putty. This is approximately 2 bags of 20 kg each. With 10% waste margin, order 40 kg (2 bags). Smooth walls require less putty due to even surface."
+    },
+    {
+      "id": "example-2",
+      "title": "Uneven Wall, 2 mm Layer",
+      "inputDescription": "Calculate putty needed for an uneven wall requiring thicker layer.",
+      "steps": [
+        "Surface Area: 25 m²",
+        "Layer Thickness: 2 mm",
+        "Consumption Rate: 1.2 kg/m²/mm",
+        "Number of Layers: 1",
+        "Unit: Meters",
+        "Calculation:",
+        "  Putty = 25 × 2 × 1.2 × 1 = 60 kg"
+      ],
+      "resultDescription": "For 25 m² of uneven wall with 2 mm layer thickness, you need 60 kg of putty. This is 3 bags of 20 kg each. With 20% waste margin (higher for uneven surfaces), order 72 kg (4 bags). Uneven walls require more putty due to thicker layers needed to level the surface."
+    },
+    {
+      "id": "example-3",
+      "title": "Two-Layer Finishing",
+      "inputDescription": "Calculate putty needed for two-layer finishing.",
+      "steps": [
+        "Surface Area: 40 m²",
+        "Layer Thickness: 1 mm per layer",
+        "Consumption Rate: 1.2 kg/m²/mm",
+        "Number of Layers: 2",
+        "Unit: Meters",
+        "Calculation:",
+        "  Putty per Layer = 40 × 1 × 1.2 = 48 kg",
+        "  Total Putty = 48 × 2 = 96 kg"
+      ],
+      "resultDescription": "For 40 m² with two 1 mm layers, you need 48 kg per layer, totaling 96 kg. This is 5 bags of 20 kg each. Two-layer finishing provides better surface quality. With 10% waste margin, order 106 kg (6 bags)."
+    },
+    {
+      "id": "example-4",
+      "title": "Large Room Walls",
+      "inputDescription": "Calculate putty needed for a large room.",
+      "steps": [
+        "Surface Area: 100 m²",
+        "Layer Thickness: 1.5 mm",
+        "Consumption Rate: 1.2 kg/m²/mm",
+        "Number of Layers: 1",
+        "Unit: Meters",
+        "Calculation:",
+        "  Putty = 100 × 1.5 × 1.2 × 1 = 180 kg"
+      ],
+      "resultDescription": "For 100 m² of walls with 1.5 mm layer thickness, you need 180 kg of putty. This is 9 bags of 20 kg each. With 10% waste margin, order 198 kg (10 bags). For large projects, buying in bulk may be more economical."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate putty needed using imperial units.",
+      "steps": [
+        "Surface Area: 300 ft²",
+        "Layer Thickness: 0.04 inches (≈1 mm)",
+        "Consumption Rate: 1.2 kg/m²/mm (converted internally)",
+        "Number of Layers: 1",
+        "Unit: Feet",
+        "Calculation:",
+        "  Convert: 300 ft² = 27.87 m²",
+        "  Convert: 0.04 in = 1 mm",
+        "  Putty = 27.87 × 1 × 1.2 × 1 = 33.44 kg ≈ 74 lbs"
+      ],
+      "resultDescription": "For 300 ft² of walls with 0.04 inch (1 mm) layer thickness, you need approximately 74 lbs of putty. This is approximately 2 bags of 44 lbs each. With 10% waste margin, order 81 lbs (2 bags). Always check local bag sizes as they may vary."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Typical putty thickness?",
+      "answer": "Typical putty layer thickness ranges from 0.5-2 mm (0.02-0.08 inches). Thin layer (0.5-1 mm): for smooth surfaces, final finishing. Medium layer (1-1.5 mm): for most walls, standard application. Thick layer (1.5-2 mm): for uneven surfaces, leveling. Never apply more than 2-3 mm in a single layer - use multiple thin layers instead for better results."
+    },
+    {
+      "question": "One thick layer or two thin?",
+      "answer": "Two thin layers are generally better than one thick layer because: better adhesion (each layer bonds properly), less cracking (thick layers can crack as they dry), smoother finish (easier to sand thin layers), and better control (easier to apply and level). Use 1-1.5 mm per layer, apply 2 layers for best results. One thick layer may be faster but often results in lower quality."
+    },
+    {
+      "question": "Does surface type matter?",
+      "answer": "Yes, surface type significantly affects putty consumption: Smooth surfaces (painted, sealed): lower consumption, even application. Porous surfaces (plaster, drywall): may absorb more putty, slightly higher consumption. Rough surfaces (concrete, brick): much higher consumption due to increased surface area and unevenness. Very uneven walls may require 20-30% more putty than calculated."
+    },
+    {
+      "question": "How much extra should I buy?",
+      "answer": "Buy 10-15% extra for smooth surfaces, 20-30% extra for uneven surfaces. Extra putty accounts for: spillage and waste during application, uneven surface variations, touch-ups and repairs, and sanding losses. It's better to have leftover putty than to run out mid-project, which can cause color or texture mismatches if you need to buy more."
+    },
+    {
+      "question": "Putty vs plaster?",
+      "answer": "Putty (wall filler) is a fine finishing material for smooth surfaces, typically 0.5-2 mm thick, used for final surface preparation before painting. Plaster is a thicker coating material (5-20 mm), used for leveling walls and creating base layers. Putty is applied after plaster for final smoothness. Use putty for finishing, plaster for leveling. They have different consumption rates and applications."
+    },
+    {
+      "question": "What is putty consumption rate?",
+      "answer": "Putty consumption rate is the amount of putty needed per unit area per unit thickness, typically expressed as kg/m²/mm (kilograms per square meter per millimeter). Standard consumption is 1.2 kg/m²/mm, meaning 1.2 kg of putty is needed for 1 m² of surface with 1 mm thickness. Consumption varies by putty type and surface - check the putty bag label for specific consumption rates."
+    },
+    {
+      "question": "How do I measure surface area?",
+      "answer": "Measure the surface area the same way as for paint: For walls: length × height for each wall, add all walls together. Use the Wall Area Calculator for accurate measurements. Don't subtract windows and doors unless they're very large - the waste margin accounts for cutting in around openings. Measure from your construction drawings for accuracy."
+    },
+    {
+      "question": "What putty bag sizes are common?",
+      "answer": "Common putty bag sizes: Metric: 5 kg, 10 kg, 20 kg, 25 kg. Imperial: 11 lbs (5 kg), 22 lbs (10 kg), 44 lbs (20 kg), 55 lbs (25 kg). The calculator assumes 20 kg (44 lbs) bags, which is the most common size. Always check what sizes are available at your local store and adjust accordingly."
+    },
+    {
+      "question": "Can I apply putty in one thick layer?",
+      "answer": "It's not recommended to apply putty in one very thick layer (more than 2-3 mm) because: risk of cracking as it dries, poor adhesion to surface, difficult to sand smooth, and longer drying time. Always use multiple thin layers (1-1.5 mm each) for best results. Allow each layer to dry completely before applying the next."
+    },
+    {
+      "question": "How long does putty take to dry?",
+      "answer": "Putty drying time varies: Standard putty: 4-6 hours to touch, 24 hours before sanding, 48 hours before painting. Fast-drying putty: 2-3 hours to touch, 12 hours before sanding. Always check the putty bag label for specific drying times. Drying time depends on: layer thickness (thicker = longer), humidity, and temperature. Don't sand or paint until putty is fully dry."
+    },
+    {
+      "question": "Do I need to sand putty?",
+      "answer": "Yes, sanding is essential after putty application to: smooth the surface, remove imperfections, level the surface, and prepare for painting. Sand with fine-grit sandpaper (120-180 grit) after putty is fully dry. Sand gently to avoid removing too much putty. Vacuum or wipe away dust before painting. Multiple thin layers with sanding between layers provide the best finish."
+    },
+    {
+      "question": "Can I use putty on exterior walls?",
+      "answer": "Yes, but use exterior-grade putty which is: weather-resistant, UV-stable, and moisture-resistant. Exterior putty may have different consumption rates and application requirements. Check the manufacturer's specifications for exterior use. Interior putty should not be used outdoors as it will degrade from weather exposure."
+    },
+    {
+      "question": "What about putty for ceilings?",
+      "answer": "Putty for ceilings uses the same calculation method. Ceilings may require: slightly more putty due to overhead application (some waste), careful application to avoid sagging, and proper support during drying. Use the same consumption rates and layer thicknesses. Measure ceiling area (length × width) and calculate normally."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on geometric calculations and standard putty consumption rates. Accuracy depends on: precise surface area measurement, correct layer thickness estimation, accurate consumption rate from putty bag, and realistic assessment of surface evenness. The estimate is typically within 10-15% of actual needs when measurements are accurate. Always add a waste margin (10-30%) for real-world projects, especially for uneven surfaces."
+    },
+    {
+      "question": "Can I mix different putty brands?",
+      "answer": "It's generally not recommended to mix different putty brands or types in the same layer, as they may have: different drying times, different textures, and different properties. However, you can use different brands for different layers if needed. Always use the same brand and type within a single layer for consistent results. If you need to switch brands, ensure the previous layer is fully dry and sanded."
+    }
+  ],
+  "seo": {
+    "title": "Putty Calculator – How Much Wall Putty Do You Need?",
+    "description": "Calculate the amount of putty needed based on wall area, layer thickness, and number of layers. Estimate bags and material usage easily.",
+    "keywords": ["putty calculator", "wall putty", "putty consumption", "wall filler calculator", "finishing materials", "construction calculator"]
+  }
+}
+

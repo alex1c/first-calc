@@ -1,0 +1,126 @@
+{
+  "id": "tile-calculator",
+  "slug": "tile-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateTile",
+  "tags": ["tile", "tile-calculator", "floor-tiles", "wall-tiles", "flooring"],
+  "inputs": [
+    {
+      "name": "surfaceType",
+      "type": "select",
+      "options": [
+        { "value": "floor", "label": "Floor" },
+        { "value": "wall", "label": "Wall" }
+      ],
+      "defaultValue": "floor"
+    },
+    {
+      "name": "surfaceLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "surfaceWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "tileLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "tileWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "layoutType",
+      "type": "select",
+      "options": [
+        { "value": "straight", "label": "Straight Layout" },
+        { "value": "diagonal", "label": "Diagonal Layout" }
+      ],
+      "defaultValue": "straight"
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 25,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "surfaceArea"
+    },
+    {
+      "name": "tileArea"
+    },
+    {
+      "name": "baseTiles"
+    },
+    {
+      "name": "baseTilesRounded"
+    },
+    {
+      "name": "totalTiles"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "surfaceType": "floor",
+    "surfaceLength": 3,
+    "surfaceWidth": 2,
+    "tileLength": 0.3,
+    "tileWidth": 0.3,
+    "layoutType": "straight",
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["wall-area-calculator", "laminate-calculator"],
+  "isEnabled": true
+}
+

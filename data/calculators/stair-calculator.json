@@ -1,0 +1,100 @@
+{
+  "id": "stair-calculator",
+  "slug": "stair-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateStair",
+  "tags": ["stair-calculator", "stairs", "step-calculator", "staircase"],
+  "inputs": [
+    {
+      "name": "totalHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "preferredRiserHeight",
+      "type": "number",
+      "min": 100,
+      "max": 250,
+      "step": 5,
+      "defaultValue": 170
+    },
+    {
+      "name": "preferredTreadDepth",
+      "type": "number",
+      "min": 200,
+      "max": 400,
+      "step": 5,
+      "defaultValue": 270
+    },
+    {
+      "name": "maxSteps",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "optional": true
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "steps"
+    },
+    {
+      "name": "actualRiserHeight"
+    },
+    {
+      "name": "actualRiserHeightDisplay"
+    },
+    {
+      "name": "treadDepth"
+    },
+    {
+      "name": "treadDepthDisplay"
+    },
+    {
+      "name": "totalRun"
+    },
+    {
+      "name": "totalRunDisplay"
+    },
+    {
+      "name": "stairAngle"
+    },
+    {
+      "name": "comfortValue"
+    },
+    {
+      "name": "comfortLevel"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "totalHeight": 2.7,
+    "preferredRiserHeight": 170,
+    "preferredTreadDepth": 270,
+    "unit": "meters"
+  },
+  "relatedIds": ["concrete-volume-calculator"],
+  "isEnabled": true
+}
+

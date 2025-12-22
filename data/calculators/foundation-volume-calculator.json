@@ -1,0 +1,229 @@
+{
+  "id": "foundation-volume-calculator",
+  "slug": "foundation-volume-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateFoundationVolume",
+  "tags": ["foundation", "concrete-foundation", "foundation-volume", "construction"],
+  "inputs": [
+    {
+      "name": "foundationType",
+      "type": "select",
+      "options": [
+        { "value": "slab", "label": "Slab Foundation" },
+        { "value": "strip", "label": "Strip Foundation (Continuous Footing)" },
+        { "value": "pads", "label": "Isolated Footings (Pads)" },
+        { "value": "piles", "label": "Piles (Cylindrical)" }
+      ],
+      "defaultValue": "slab"
+    },
+    {
+      "name": "length",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "slab"
+      }
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "slab"
+      }
+    },
+    {
+      "name": "thickness",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "slab"
+      }
+    },
+    {
+      "name": "totalStripLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "strip"
+      }
+    },
+    {
+      "name": "stripWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "strip"
+      }
+    },
+    {
+      "name": "stripHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "strip"
+      }
+    },
+    {
+      "name": "padsCount",
+      "type": "number",
+      "min": 1,
+      "max": 10000,
+      "step": 1,
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "pads"
+      }
+    },
+    {
+      "name": "padLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "pads"
+      }
+    },
+    {
+      "name": "padWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "pads"
+      }
+    },
+    {
+      "name": "padHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "pads"
+      }
+    },
+    {
+      "name": "pilesCount",
+      "type": "number",
+      "min": 1,
+      "max": 10000,
+      "step": 1,
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "piles"
+      }
+    },
+    {
+      "name": "pileDiameter",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "piles"
+      }
+    },
+    {
+      "name": "pileDepth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "foundationType",
+        "value": "piles"
+      }
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "concreteVolume"
+    },
+    {
+      "name": "concreteVolumeWithWaste"
+    },
+    {
+      "name": "concreteVolumeDisplay"
+    },
+    {
+      "name": "concreteVolumeCubicYards"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "foundationName"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "foundationType": "slab",
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["concrete-volume-calculator", "concrete-mix-ratio-calculator", "strip-foundation-calculator", "slab-foundation-calculator", "pile-foundation-calculator"],
+  "isEnabled": true
+}
+

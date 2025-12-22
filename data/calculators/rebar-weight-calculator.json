@@ -1,0 +1,99 @@
+{
+  "id": "rebar-weight-calculator",
+  "slug": "rebar-weight-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateRebarWeight",
+  "tags": ["rebar-weight", "steel-weight", "reinforcement-weight", "kg-per-meter"],
+  "inputs": [
+    {
+      "name": "mode",
+      "type": "select",
+      "options": [
+        { "value": "length-to-weight", "label": "Length → Weight" },
+        { "value": "weight-to-length", "label": "Weight → Length" }
+      ],
+      "defaultValue": "length-to-weight"
+    },
+    {
+      "name": "barDiameter",
+      "type": "select",
+      "options": [
+        { "value": "6", "label": "6 mm" },
+        { "value": "8", "label": "8 mm" },
+        { "value": "10", "label": "10 mm" },
+        { "value": "12", "label": "12 mm" },
+        { "value": "14", "label": "14 mm" },
+        { "value": "16", "label": "16 mm" },
+        { "value": "18", "label": "18 mm" },
+        { "value": "20", "label": "20 mm" }
+      ],
+      "defaultValue": "12"
+    },
+    {
+      "name": "totalLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1,
+      "visibleIf": {
+        "field": "mode",
+        "value": "length-to-weight"
+      }
+    },
+    {
+      "name": "totalWeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1,
+      "visibleIf": {
+        "field": "mode",
+        "value": "weight-to-length"
+      }
+    },
+    {
+      "name": "quantity",
+      "type": "number",
+      "min": 1,
+      "max": 10000,
+      "step": 1,
+      "defaultValue": 1
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result"
+    },
+    {
+      "name": "resultLabel"
+    },
+    {
+      "name": "weightPerMeter"
+    },
+    {
+      "name": "barDiameter"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "weightTable"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "mode": "length-to-weight",
+    "barDiameter": "12",
+    "totalLength": 100,
+    "quantity": 1
+  },
+  "relatedIds": ["rebar-calculator"],
+  "isEnabled": true
+}
+

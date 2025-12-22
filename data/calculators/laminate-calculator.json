@@ -1,0 +1,116 @@
+{
+  "id": "laminate-calculator",
+  "slug": "laminate-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateLaminate",
+  "tags": ["laminate", "laminate-calculator", "laminate-flooring", "flooring"],
+  "inputs": [
+    {
+      "name": "roomLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "roomWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "plankLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "plankWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "layoutType",
+      "type": "select",
+      "options": [
+        { "value": "straight", "label": "Straight Layout" },
+        { "value": "diagonal", "label": "Diagonal Layout" }
+      ],
+      "defaultValue": "straight"
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 25,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "roomArea"
+    },
+    {
+      "name": "plankArea"
+    },
+    {
+      "name": "basePlanks"
+    },
+    {
+      "name": "basePlanksRounded"
+    },
+    {
+      "name": "totalPlanks"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "roomLength": 4,
+    "roomWidth": 3,
+    "plankLength": 1.2,
+    "plankWidth": 0.2,
+    "layoutType": "straight",
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["wall-area-calculator", "tile-calculator"],
+  "isEnabled": true
+}
+

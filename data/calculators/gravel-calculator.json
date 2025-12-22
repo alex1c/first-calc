@@ -1,0 +1,109 @@
+{
+  "id": "gravel-calculator",
+  "slug": "gravel-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateGravel",
+  "tags": ["gravel", "aggregate", "gravel-calculator", "construction-materials"],
+  "inputs": [
+    {
+      "name": "requiredVolume",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "application",
+      "type": "select",
+      "options": [
+        { "value": "concrete mix", "label": "Concrete Mix" },
+        { "value": "road base", "label": "Road Base" },
+        { "value": "drainage", "label": "Drainage" },
+        { "value": "general fill", "label": "General Fill" }
+      ],
+      "defaultValue": "concrete mix"
+    },
+    {
+      "name": "gravelDensity",
+      "type": "number",
+      "min": 1200,
+      "max": 1800,
+      "step": 10,
+      "defaultValue": 1500
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m³)" },
+        { "value": "feet", "label": "Feet (ft³)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "gravelWeight"
+    },
+    {
+      "name": "gravelWeightWithWaste"
+    },
+    {
+      "name": "gravelVolume"
+    },
+    {
+      "name": "gravelVolumeWithWaste"
+    },
+    {
+      "name": "gravelWeightTons"
+    },
+    {
+      "name": "gravelWeightTonsWithWaste"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "application"
+    },
+    {
+      "name": "gravelDensity"
+    }
+  ],
+  "defaults": {
+    "requiredVolume": 1,
+    "application": "concrete mix",
+    "gravelDensity": 1500,
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["concrete-volume-calculator", "cement-calculator", "sand-calculator", "concrete-mix-ratio-calculator"],
+  "isEnabled": true
+}
+

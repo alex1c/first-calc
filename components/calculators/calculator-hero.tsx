@@ -50,6 +50,9 @@ export function CalculatorHero({ calculator }: CalculatorHeroProps) {
 		// Check if this is an everyday calculator
 		const isEveryday = calculator.category === 'everyday'
 		
+		// Check if this is a construction calculator
+		const isConstruction = calculator.category === 'construction'
+		
 		// Check if this is BMR calculator
 		const isBMR = calculator.id === 'bmr-calculator' || calculator.slug === 'bmr-calculator'
 		
@@ -3009,6 +3012,190 @@ export function CalculatorHero({ calculator }: CalculatorHeroProps) {
 </div>
 )
 }
+		
+		if (isConstruction) {
+			// Construction calculator icons: Concrete Block, Brick, Rebar, Hammer
+			return (
+				<div className="flex flex-col items-center hidden md:flex">
+					<div className="flex items-center justify-center space-x-3 md:space-x-6 mb-3">
+						{/* Concrete Block */}
+						<div className="flex flex-col items-center">
+							<svg
+								width="60"
+								height="60"
+								viewBox="0 0 60 60"
+								className="text-orange-600 md:w-20 md:h-20"
+							>
+								<rect
+									x="10"
+									y="15"
+									width="40"
+									height="30"
+									rx="2"
+									ry="2"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+								{/* Lines for texture */}
+								<line
+									x1="20"
+									y1="20"
+									x2="40"
+									y2="20"
+									stroke="currentColor"
+									strokeWidth="1.5"
+									opacity="0.4"
+								/>
+								<line
+									x1="20"
+									y1="30"
+									x2="40"
+									y2="30"
+									stroke="currentColor"
+									strokeWidth="1.5"
+									opacity="0.4"
+								/>
+								<line
+									x1="20"
+									y1="40"
+									x2="40"
+									y2="40"
+									stroke="currentColor"
+									strokeWidth="1.5"
+									opacity="0.4"
+								/>
+							</svg>
+						</div>
+						{/* Brick */}
+						<div className="flex flex-col items-center">
+							<svg
+								width="60"
+								height="60"
+								viewBox="0 0 60 60"
+								className="text-orange-600 md:w-20 md:h-20"
+							>
+								<rect
+									x="8"
+									y="18"
+									width="44"
+									height="24"
+									rx="1"
+									ry="1"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+								{/* Mortar lines */}
+								<line
+									x1="8"
+									y1="30"
+									x2="52"
+									y2="30"
+									stroke="currentColor"
+									strokeWidth="1.5"
+									opacity="0.3"
+								/>
+								<line
+									x1="30"
+									y1="18"
+									x2="30"
+									y2="42"
+									stroke="currentColor"
+									strokeWidth="1.5"
+									opacity="0.3"
+								/>
+							</svg>
+						</div>
+						{/* Rebar */}
+						<div className="flex flex-col items-center">
+							<svg
+								width="60"
+								height="60"
+								viewBox="0 0 60 60"
+								className="text-orange-600 md:w-20 md:h-20"
+							>
+								{/* Rebar rod */}
+								<line
+									x1="10"
+									y1="30"
+									x2="50"
+									y2="30"
+									stroke="currentColor"
+									strokeWidth="3"
+									strokeLinecap="round"
+								/>
+								{/* Ribs/texture */}
+								<circle
+									cx="20"
+									cy="30"
+									r="2"
+									fill="currentColor"
+									opacity="0.6"
+								/>
+								<circle
+									cx="30"
+									cy="30"
+									r="2"
+									fill="currentColor"
+									opacity="0.6"
+								/>
+								<circle
+									cx="40"
+									cy="30"
+									r="2"
+									fill="currentColor"
+									opacity="0.6"
+								/>
+							</svg>
+						</div>
+						{/* Hammer */}
+						<div className="flex flex-col items-center">
+							<svg
+								width="60"
+								height="60"
+								viewBox="0 0 60 60"
+								className="text-orange-600 md:w-20 md:h-20"
+							>
+								{/* Hammer head */}
+								<rect
+									x="20"
+									y="15"
+									width="20"
+									height="12"
+									rx="1"
+									ry="1"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+								/>
+								{/* Handle */}
+								<line
+									x1="30"
+									y1="27"
+									x2="30"
+									y2="45"
+									stroke="currentColor"
+									strokeWidth="2.5"
+									strokeLinecap="round"
+								/>
+								{/* Claw */}
+								<path
+									d="M 20 15 L 15 10 L 12 13 L 17 18 Z"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2.5"
+									strokeLinejoin="round"
+								/>
+							</svg>
+						</div>
+					</div>
+					<p className="text-xs md:text-sm text-gray-600 font-medium">
+						Concrete • Brick • Rebar • Tools
+					</p>
+				</div>
+			)
+		}
 		
 		// Area calculator icons: Circle, Square, Rectangle, Triangle
 		return (

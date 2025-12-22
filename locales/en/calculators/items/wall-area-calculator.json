@@ -1,0 +1,310 @@
+{
+  "title": "Wall Area Calculator – Calculate Wall Surface Area (Net & Gross)",
+  "shortDescription": "Calculate wall surface area for painting, plastering, wallpaper, or insulation. Includes options to subtract doors and windows.",
+  "longDescription": "Our Wall Area Calculator helps you determine the wall surface area needed for finishing works like painting, plastering, wallpaper, or insulation. Calculate area for a single wall, a complete room (4 walls), or multiple walls. Optionally subtract openings (doors and windows) to get net wall area. Supports both metric (m²) and imperial (ft²) units. Perfect for contractors, DIY builders, and home improvement projects. Get accurate estimates with clear breakdowns showing gross area, openings area, and net area.",
+  "inputs": [
+    {
+      "label": "Calculation Mode",
+      "unitLabel": "",
+      "placeholder": "Select mode",
+      "helpText": "Select calculation mode: Single Wall, Room (4 walls), or Multiple Walls"
+    },
+    {
+      "label": "Wall Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the wall in meters or feet"
+    },
+    {
+      "label": "Wall Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height of the wall in meters or feet (typically floor to ceiling)"
+    },
+    {
+      "label": "Room Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the room in meters or feet"
+    },
+    {
+      "label": "Room Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the room in meters or feet"
+    },
+    {
+      "label": "Room Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height (ceiling height) of the room in meters or feet"
+    },
+    {
+      "label": "Number of Walls",
+      "unitLabel": "",
+      "placeholder": "Enter count",
+      "helpText": "Enter the number of walls (all with same dimensions)"
+    },
+    {
+      "label": "Subtract Openings",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to subtract doors and windows from the wall area"
+    },
+    {
+      "label": "Number of Doors",
+      "unitLabel": "",
+      "placeholder": "Enter count",
+      "helpText": "Enter the number of doors (leave as 0 if no doors)"
+    },
+    {
+      "label": "Door Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of each door in meters or feet"
+    },
+    {
+      "label": "Door Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height of each door in meters or feet"
+    },
+    {
+      "label": "Number of Windows",
+      "unitLabel": "",
+      "placeholder": "Enter count",
+      "helpText": "Enter the number of windows (leave as 0 if no windows)"
+    },
+    {
+      "label": "Window Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of each window in meters or feet"
+    },
+    {
+      "label": "Window Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height of each window in meters or feet"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for measurements"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Gross Wall Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Openings Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Doors Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Windows Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Net Wall Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the calculation mode: Single Wall, Room (4 walls), or Multiple Walls",
+    "Enter the required dimensions based on the selected mode",
+    "For Single Wall: Enter width and height",
+    "For Room: Enter length, width, and height (ceiling height)",
+    "For Multiple Walls: Enter number of walls, width, and height",
+    "Optionally enable 'Subtract Openings' to subtract doors and windows",
+    "If subtracting openings, enter the number and dimensions of doors and windows",
+    "Select the unit system: Meters or Feet",
+    "Click the Calculate button",
+    "View the gross wall area (total area before openings)",
+    "See the openings area (doors and windows) if enabled",
+    "Check the net wall area (area to be covered) after subtracting openings",
+    "Once wall area is known, use the Brick Calculator to estimate brick quantity, or the Paint Calculator to calculate paint needed",
+    "Review the formula, breakdown, and explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Single Wall, No Openings",
+      "inputDescription": "Calculate area for a single wall without openings.",
+      "steps": [
+        "Mode: Single Wall",
+        "Wall Width: 4 meters",
+        "Wall Height: 2.5 meters",
+        "Subtract Openings: No",
+        "Unit: Meters",
+        "Calculation:",
+        "  Wall Area = 4 × 2.5 = 10 m²"
+      ],
+      "resultDescription": "For a single wall measuring 4m × 2.5m, the wall area is 10 m². This is the gross area (total area) and net area (no openings to subtract). Use this area to estimate paint, plaster, or wallpaper needed for this wall."
+    },
+    {
+      "id": "example-2",
+      "title": "Room (4 Walls)",
+      "inputDescription": "Calculate wall area for a complete room.",
+      "steps": [
+        "Mode: Room (4 Walls)",
+        "Room Length: 5 meters",
+        "Room Width: 4 meters",
+        "Room Height: 2.5 meters",
+        "Subtract Openings: No",
+        "Unit: Meters",
+        "Calculation:",
+        "  Perimeter = 2 × (5 + 4) = 18 m",
+        "  Wall Area = 18 × 2.5 = 45 m²"
+      ],
+      "resultDescription": "For a room measuring 5m × 4m with 2.5m ceiling height, the perimeter is 18 meters. Total wall area (all 4 walls) is 45 m². This is the gross area - subtract openings if you want net area for painting or plastering."
+    },
+    {
+      "id": "example-3",
+      "title": "Room with 1 Door + 2 Windows",
+      "inputDescription": "Calculate net wall area for a room with openings.",
+      "steps": [
+        "Mode: Room (4 Walls)",
+        "Room Length: 6 meters",
+        "Room Width: 4 meters",
+        "Room Height: 2.5 meters",
+        "Subtract Openings: Yes",
+        "Doors: 1 door, 0.9m × 2.1m",
+        "Windows: 2 windows, 1.2m × 1.5m each",
+        "Unit: Meters",
+        "Calculation:",
+        "  Gross Area = 2 × (6 + 4) × 2.5 = 50 m²",
+        "  Doors Area = 1 × (0.9 × 2.1) = 1.89 m²",
+        "  Windows Area = 2 × (1.2 × 1.5) = 3.6 m²",
+        "  Total Openings = 1.89 + 3.6 = 5.49 m²",
+        "  Net Area = 50 - 5.49 = 44.51 m²"
+      ],
+      "resultDescription": "For a room with 50 m² gross wall area, subtracting 5.49 m² for openings (1 door + 2 windows) gives a net wall area of 44.51 m². This is the actual area you need to cover with paint, plaster, or wallpaper. Net area is more accurate for material estimation."
+    },
+    {
+      "id": "example-4",
+      "title": "Multiple Identical Walls (Partition Walls)",
+      "inputDescription": "Calculate area for multiple partition walls.",
+      "steps": [
+        "Mode: Multiple Walls",
+        "Number of Walls: 8",
+        "Wall Width: 3 meters",
+        "Wall Height: 2.5 meters",
+        "Subtract Openings: No",
+        "Unit: Meters",
+        "Calculation:",
+        "  Single Wall Area = 3 × 2.5 = 7.5 m²",
+        "  Total Wall Area = 8 × 7.5 = 60 m²"
+      ],
+      "resultDescription": "For 8 identical partition walls, each measuring 3m × 2.5m, the total wall area is 60 m². This mode is useful when you have multiple walls with the same dimensions, such as partition walls in an office or apartment building."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate wall area using imperial units.",
+      "steps": [
+        "Mode: Room (4 Walls)",
+        "Room Length: 15 feet",
+        "Room Width: 12 feet",
+        "Room Height: 8 feet",
+        "Subtract Openings: Yes",
+        "Doors: 1 door, 3ft × 7ft",
+        "Windows: 2 windows, 4ft × 3ft each",
+        "Unit: Feet",
+        "Calculation:",
+        "  Gross Area = 2 × (15 + 12) × 8 = 432 ft²",
+        "  Doors Area = 1 × (3 × 7) = 21 ft²",
+        "  Windows Area = 2 × (4 × 3) = 24 ft²",
+        "  Total Openings = 21 + 24 = 45 ft²",
+        "  Net Area = 432 - 45 = 387 ft²"
+      ],
+      "resultDescription": "For a room measuring 15ft × 12ft with 8ft ceiling height, the gross wall area is 432 ft². After subtracting 45 ft² for openings (1 door + 2 windows), the net wall area is 387 ft². This is approximately 36 m². Use net area for accurate material estimation."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Should I subtract windows and doors?",
+      "answer": "Yes, for accurate material estimation (paint, plaster, wallpaper), you should subtract windows and doors to get net wall area. Gross area includes all wall surface, while net area excludes openings. Net area is more accurate for calculating how much material you actually need. However, some contractors add 5-10% extra to net area to account for waste and cutting around edges."
+    },
+    {
+      "question": "Gross vs net wall area?",
+      "answer": "Gross wall area is the total wall surface area before subtracting any openings. Net wall area is the area after subtracting doors, windows, and other openings. Gross area is useful for understanding total wall space, while net area is more accurate for material estimation (paint, plaster, wallpaper). The calculator provides both values for your reference."
+    },
+    {
+      "question": "How to measure irregular rooms?",
+      "answer": "For irregular rooms (L-shaped, U-shaped, etc.), break the room into rectangular sections. Calculate the wall area for each section separately, then add them together. Alternatively, measure each wall individually using 'Single Wall' mode and add the results. For very complex shapes, consider using 'Multiple Walls' mode and count each wall section separately."
+    },
+    {
+      "question": "Include ceiling?",
+      "answer": "No, this calculator focuses on wall area only. Ceilings are calculated separately as they typically use different materials (ceiling paint, ceiling tiles) and have different coverage rates. To calculate ceiling area, use the Room Area Calculator or calculate: ceiling area = length × width. Wall area and ceiling area are separate measurements."
+    },
+    {
+      "question": "Area needed for plaster vs paint?",
+      "answer": "Both plaster and paint use the same wall area measurement (net area after subtracting openings). However, plaster typically requires more material per square meter due to thickness (plaster is applied in layers, typically 10-15 mm thick). Paint coverage depends on paint type and number of coats. Use the net wall area from this calculator, then consult material-specific calculators (Paint Calculator, Plaster Calculator) for actual material quantities."
+    },
+    {
+      "question": "How do I measure wall height?",
+      "answer": "Measure wall height from the floor to the ceiling. For standard rooms, this is typically 2.4-2.7 meters (8-9 feet). If you have baseboards or crown molding, you can include them in the wall height measurement, or calculate them separately. The calculator uses the height you provide - measure consistently for all walls in a room."
+    },
+    {
+      "question": "What about baseboards and crown molding?",
+      "answer": "Baseboards and crown molding are typically calculated separately from wall area. They have different material requirements (wood, MDF, etc.) and are measured by linear length rather than area. Wall area is for the main wall surface (paint, plaster, wallpaper). If you want to include baseboards in wall area, add their height to the wall height measurement, but this is not standard practice."
+    },
+    {
+      "question": "Can I use this for exterior walls?",
+      "answer": "Yes, this calculator works for both interior and exterior walls. For exterior walls, measure the outside dimensions. Exterior walls may have different finishing requirements (exterior paint, siding, insulation) but the area calculation method is the same. Remember that exterior walls are typically thicker than interior walls, but this doesn't affect surface area calculation."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate area estimates based on geometric formulas. Accuracy depends on precise measurement of dimensions. The formulas are mathematically correct, but actual material needs may vary slightly due to: wall irregularities, waste during cutting, and material-specific coverage rates. Always add a small margin (5-10%) for waste when ordering materials."
+    },
+    {
+      "question": "What if walls have different heights?",
+      "answer": "If walls in a room have different heights (e.g., sloped ceilings, partial walls), calculate each wall separately using 'Single Wall' mode and add the results. Or use 'Multiple Walls' mode if you have multiple walls with the same dimensions. The calculator assumes uniform height within each calculation mode - for varying heights, calculate separately."
+    },
+    {
+      "question": "How do I convert between units?",
+      "answer": "The calculator automatically handles unit conversion: 1 m = 3.28084 ft, or 1 ft = 0.3048 m. For area: 1 m² = 10.764 ft², or 1 ft² = 0.0929 m². Simply select your preferred unit system (meters or feet) and enter dimensions in that unit. The calculator will provide results in the same unit system."
+    },
+    {
+      "question": "What about wall openings like arches?",
+      "answer": "For standard rectangular openings (doors, windows), use the calculator's openings feature. For irregular openings (arches, circular windows), you can approximate them as rectangles or calculate their area separately and subtract manually. The calculator handles rectangular openings automatically - for complex shapes, calculate the opening area separately and subtract from gross area."
+    },
+    {
+      "question": "Do I need to account for wall texture?",
+      "answer": "Wall texture (smooth, textured, rough) doesn't affect the area calculation, but it may affect material coverage. Rough or heavily textured walls may require more paint or plaster per square meter due to increased surface area. Use the net wall area from this calculator, then adjust material quantities based on wall texture when using material-specific calculators (Paint Calculator, etc.)."
+    },
+    {
+      "question": "What about corners and edges?",
+      "answer": "Corners and edges are included in the wall area calculation. The calculator measures the full wall surface, including corners. For material estimation, you may need slightly more material for corners and edges due to cutting and waste, but the area calculation already includes these surfaces. Add 5-10% extra material for waste and cutting around corners."
+    },
+    {
+      "question": "Can I calculate multiple rooms?",
+      "answer": "Yes, calculate each room separately using 'Room (4 Walls)' mode, then add the net areas together. Or use 'Multiple Walls' mode if you have multiple walls with the same dimensions. The calculator handles one calculation at a time - for multiple rooms, calculate each room's wall area separately and sum them for total material requirements."
+    }
+  ],
+  "seo": {
+    "title": "Wall Area Calculator – Calculate Wall Surface Area (Net & Gross)",
+    "description": "Calculate wall surface area for painting, plastering, wallpaper, or insulation. Includes options to subtract doors and windows.",
+    "keywords": ["wall area calculator", "wall surface area", "paint area calculator", "plaster area", "wallpaper calculator", "construction calculator"]
+  }
+}
+

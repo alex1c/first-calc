@@ -1,0 +1,336 @@
+{
+  "title": "Brick Calculator – Estimate Bricks Needed for a Wall",
+  "shortDescription": "Calculate how many bricks you need for a wall based on dimensions, brick size, mortar joint thickness, openings, and waste margin.",
+  "longDescription": "Our Brick Calculator helps you estimate the number of bricks needed to build a wall. Enter wall dimensions, select brick type (standard, modular, or custom), specify mortar joint thickness and wall thickness, and optionally subtract openings (doors and windows). Supports both metric (m²) and imperial (ft²) units. Includes optional waste margin calculation (5-20%) to account for breakage, cutting, and batch color variations. Perfect for contractors, masons, and DIY builders. Get accurate estimates with clear breakdowns showing bricks per square meter, total bricks needed, and waste-adjusted quantities.",
+  "inputs": [
+    {
+      "label": "Wall Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the wall in meters or feet"
+    },
+    {
+      "label": "Wall Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height of the wall in meters or feet"
+    },
+    {
+      "label": "Brick Type",
+      "unitLabel": "",
+      "placeholder": "Select brick type",
+      "helpText": "Select standard brick (250×120×65 mm), modular brick (200×100×75 mm), or enter custom dimensions"
+    },
+    {
+      "label": "Custom Brick Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the custom brick in meters or feet"
+    },
+    {
+      "label": "Custom Brick Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the custom brick in meters or feet"
+    },
+    {
+      "label": "Custom Brick Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height of the custom brick in meters or feet"
+    },
+    {
+      "label": "Mortar Joint Thickness",
+      "unitLabel": "",
+      "placeholder": "Enter thickness",
+      "helpText": "Enter the mortar joint thickness in meters or feet (default: 10 mm or ~0.4 inches)"
+    },
+    {
+      "label": "Wall Thickness",
+      "unitLabel": "",
+      "placeholder": "Select thickness",
+      "helpText": "Select wall thickness: Half Brick (single wythe), One Brick (double wythe), or One and a Half Bricks"
+    },
+    {
+      "label": "Subtract Openings",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to subtract doors and windows from the wall area"
+    },
+    {
+      "label": "Number of Doors",
+      "unitLabel": "",
+      "placeholder": "Enter count",
+      "helpText": "Enter the number of doors (leave as 0 if no doors)"
+    },
+    {
+      "label": "Door Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of each door in meters or feet"
+    },
+    {
+      "label": "Door Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height of each door in meters or feet"
+    },
+    {
+      "label": "Number of Windows",
+      "unitLabel": "",
+      "placeholder": "Enter count",
+      "helpText": "Enter the number of windows (leave as 0 if no windows)"
+    },
+    {
+      "label": "Window Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of each window in meters or feet"
+    },
+    {
+      "label": "Window Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height of each window in meters or feet"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-20%) to account for breakage, cutting, and batch color variations"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Gross Wall Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Net Wall Area",
+      "unitLabel": ""
+    },
+    {
+      "label": "Bricks per Square Meter/Foot",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Bricks",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Bricks with Waste",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the wall length and height",
+    "Select the brick type: Standard, Modular, or Custom",
+    "If using custom bricks, enter the brick dimensions (length, width, height)",
+    "Enter the mortar joint thickness (default: 10 mm or ~0.4 inches)",
+    "Select the wall thickness: Half Brick, One Brick, or One and a Half Bricks",
+    "Optionally enable 'Subtract Openings' to subtract doors and windows",
+    "If subtracting openings, enter the number and dimensions of doors and windows",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin and set the percentage (typically 10%)",
+    "Click the Calculate button",
+    "View the net wall area and bricks per square meter/foot",
+    "See the total bricks needed (rounded up)",
+    "Check the waste-adjusted total if waste margin is enabled",
+    "Review the formula, breakdown, and explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Small Garden Wall, No Openings",
+      "inputDescription": "Calculate bricks for a small garden wall.",
+      "steps": [
+        "Wall Length: 3 meters",
+        "Wall Height: 1.5 meters",
+        "Brick Type: Standard (250×120×65 mm)",
+        "Mortar Joint: 10 mm (0.01 m)",
+        "Wall Thickness: Half Brick",
+        "Subtract Openings: No",
+        "Unit: Meters",
+        "Calculation:",
+        "  Net Wall Area = 3 × 1.5 = 4.5 m²",
+        "  Effective Brick Face = (0.25 + 0.01) × (0.065 + 0.01) = 0.0195 m²",
+        "  Bricks per m² = 1 / 0.0195 = 51.28 bricks",
+        "  Total Bricks = 4.5 × 51.28 × 0.5 = 115.38 → 116 bricks"
+      ],
+      "resultDescription": "For a small garden wall measuring 3m × 1.5m with half brick thickness, you need approximately 116 bricks. With 10% waste margin, order 128 bricks to account for breakage and cutting. Half brick walls are suitable for non-load-bearing walls like garden walls."
+    },
+    {
+      "id": "example-2",
+      "title": "House Wall with Windows",
+      "inputDescription": "Calculate bricks for a house wall with windows.",
+      "steps": [
+        "Wall Length: 8 meters",
+        "Wall Height: 2.5 meters",
+        "Brick Type: Standard",
+        "Mortar Joint: 10 mm",
+        "Wall Thickness: One Brick",
+        "Subtract Openings: Yes",
+        "Windows: 2 windows, 1.2m × 1.5m each",
+        "Unit: Meters",
+        "Calculation:",
+        "  Gross Area = 8 × 2.5 = 20 m²",
+        "  Openings Area = 2 × (1.2 × 1.5) = 3.6 m²",
+        "  Net Area = 20 - 3.6 = 16.4 m²",
+        "  Bricks per m² = 51.28 bricks",
+        "  Total Bricks = 16.4 × 51.28 × 2.0 = 1682 → 1682 bricks"
+      ],
+      "resultDescription": "For a house wall measuring 8m × 2.5m with 2 windows, the net wall area is 16.4 m². With one brick thickness (double wythe), you need approximately 1682 bricks. With 10% waste margin, order 1850 bricks. One brick walls provide better structural strength and insulation."
+    },
+    {
+      "id": "example-3",
+      "title": "Compare Half Brick vs One Brick Thickness",
+      "inputDescription": "Compare brick requirements for different wall thicknesses.",
+      "steps": [
+        "Wall: 5m × 2.5m",
+        "Brick Type: Standard",
+        "Mortar Joint: 10 mm",
+        "Scenario 1: Half Brick",
+        "  Bricks = 12.5 × 51.28 × 0.5 = 320 bricks",
+        "Scenario 2: One Brick",
+        "  Bricks = 12.5 × 51.28 × 2.0 = 1282 bricks",
+        "Comparison: One brick wall requires 4× more bricks"
+      ],
+      "resultDescription": "Comparing wall thicknesses shows the significant impact on brick quantity. For a 5m × 2.5m wall: Half brick requires 320 bricks, while one brick requires 1282 bricks (4× more). One brick walls are stronger and provide better insulation but require significantly more bricks and mortar."
+    },
+    {
+      "id": "example-4",
+      "title": "Custom Brick Size",
+      "inputDescription": "Calculate bricks using custom brick dimensions.",
+      "steps": [
+        "Wall Length: 6 meters",
+        "Wall Height: 2 meters",
+        "Brick Type: Custom",
+        "Custom Brick: 0.23m × 0.11m × 0.07m",
+        "Mortar Joint: 12 mm (0.012 m)",
+        "Wall Thickness: One Brick",
+        "Unit: Meters",
+        "Calculation:",
+        "  Net Wall Area = 6 × 2 = 12 m²",
+        "  Effective Brick Face = (0.23 + 0.012) × (0.07 + 0.012) = 0.0198 m²",
+        "  Bricks per m² = 1 / 0.0198 = 50.51 bricks",
+        "  Total Bricks = 12 × 50.51 × 2.0 = 1212 → 1212 bricks"
+      ],
+      "resultDescription": "For a wall using custom bricks (0.23m × 0.07m face) with 12mm mortar joints, you need approximately 1212 bricks for a one brick thick wall. Custom brick sizes may vary by region or manufacturer - always verify the actual brick dimensions you're using."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate bricks using imperial units.",
+      "steps": [
+        "Wall Length: 20 feet",
+        "Wall Height: 8 feet",
+        "Brick Type: Standard",
+        "Mortar Joint: 0.4 inches (0.033 ft)",
+        "Wall Thickness: One Brick",
+        "Subtract Openings: Yes",
+        "Doors: 1 door, 3ft × 7ft",
+        "Unit: Feet",
+        "Calculation:",
+        "  Gross Area = 20 × 8 = 160 ft²",
+        "  Openings Area = 1 × (3 × 7) = 21 ft²",
+        "  Net Area = 160 - 21 = 139 ft²",
+        "  Brick Face = (0.82 + 0.033) × (0.213 + 0.033) = 0.210 ft²",
+        "  Bricks per ft² = 1 / 0.210 = 4.76 bricks",
+        "  Total Bricks = 139 × 4.76 × 2.0 = 1324 → 1324 bricks"
+      ],
+      "resultDescription": "For a wall measuring 20ft × 8ft with 1 door, the net wall area is 139 ft². With one brick thickness, you need approximately 1324 bricks. With 10% waste margin, order 1456 bricks. Always check local brick sizes as they may vary from standard dimensions."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How many bricks per m²?",
+      "answer": "The number of bricks per square meter depends on brick size and mortar joint thickness. For standard bricks (250×65 mm face) with 10mm joints: approximately 50-52 bricks per m² for the face area. For one brick thick walls (double wythe), this becomes approximately 100-104 bricks per m². The calculator automatically calculates this based on your brick dimensions and joint thickness."
+    },
+    {
+      "question": "Does mortar thickness matter?",
+      "answer": "Yes, mortar joint thickness significantly affects the number of bricks needed. Thicker joints mean fewer bricks per square meter because each brick takes up more space including the joint. Standard joint thickness is 10mm (0.4 inches), but it can range from 8-15mm. The calculator accounts for joint thickness in the effective brick face area calculation."
+    },
+    {
+      "question": "Half brick vs one brick wall?",
+      "answer": "Half brick walls (single wythe) use bricks laid width-wise, requiring approximately 0.5× the bricks of a one brick wall. One brick walls (double wythe) use bricks laid length-wise in two layers, requiring approximately 2× the bricks. Half brick walls are suitable for non-load-bearing walls (garden walls, partitions). One brick walls provide better structural strength, insulation, and are used for load-bearing walls."
+    },
+    {
+      "question": "Should I add extra bricks?",
+      "answer": "Yes, it's highly recommended to add 5-10% extra bricks (waste margin) to account for breakage during handling and cutting, batch color variations, and to ensure you have matching bricks for repairs. Some contractors add up to 15% for complex projects or when using expensive bricks. It's better to have a few extra bricks than to run short and risk color mismatches from different batches."
+    },
+    {
+      "question": "Can this be used for blocks?",
+      "answer": "This calculator is designed for bricks, but the calculation method works for concrete blocks if you enter the block dimensions as custom brick size. However, blocks are typically larger (e.g., 400×200×200 mm) and have different laying patterns. For accurate block calculations, use a dedicated block calculator if available, or enter block dimensions as custom brick size and adjust the thickness multiplier accordingly."
+    },
+    {
+      "question": "What are standard brick dimensions?",
+      "answer": "Standard brick dimensions vary by region: UK/Europe: 215×102.5×65 mm (nominal 225×112.5×75 mm with joints). US: 203×102×57 mm (nominal 8×4×2.25 inches). The calculator uses 250×120×65 mm as 'standard' - adjust if your local standard differs. Always verify the actual brick dimensions you're using, as they may vary by manufacturer."
+    },
+    {
+      "question": "How do I measure wall dimensions?",
+      "answer": "Measure the wall length and height from your building plans or by physically measuring the wall. Length is measured horizontally along the wall, and height is measured vertically from foundation to top. For accuracy, measure from your construction drawings. Always measure in the same unit system (all meters or all feet)."
+    },
+    {
+      "question": "What about brick orientation?",
+      "answer": "Brick orientation affects the face area used in calculations. The calculator uses the brick length and height for the face area (the visible surface). For standard laying patterns (stretcher bond), bricks are laid with their length horizontal and height vertical. The calculator accounts for this in the effective brick face area calculation."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on geometric formulas and standard brick laying patterns. Accuracy depends on: precise wall measurements, correct brick dimensions, accurate mortar joint thickness, and realistic thickness multiplier. The calculations are mathematically correct, but actual needs may vary slightly due to: wall irregularities, cutting patterns, and laying techniques. Always add a waste margin (10%) for real-world projects."
+    },
+    {
+      "question": "What about brick bonds and patterns?",
+      "answer": "This calculator assumes standard stretcher bond (bricks laid length-wise). Different bond patterns (English bond, Flemish bond, etc.) may require slightly different quantities due to header bricks (bricks laid width-wise). For complex patterns, the calculator provides a good estimate, but you may need to add extra bricks (5-10%) for pattern-specific requirements."
+    },
+    {
+      "question": "Do I need to account for corners?",
+      "answer": "Corners are included in the wall area calculation. The calculator measures the full wall surface, including corners. For material estimation, corners may require slightly more bricks due to cutting, but the area calculation already includes corner surfaces. The waste margin (10%) accounts for cutting and corner requirements."
+    },
+    {
+      "question": "What about lintels and sills?",
+      "answer": "Lintels (above doors/windows) and sills (below windows) are typically made of different materials (concrete, stone) and don't require bricks. They're already accounted for when you subtract openings from the wall area. The calculator focuses on the brick wall area only - lintels and sills are separate structural elements."
+    },
+    {
+      "question": "How do I convert between units?",
+      "answer": "The calculator automatically handles unit conversion: 1 m = 3.28084 ft, or 1 ft = 0.3048 m. For area: 1 m² = 10.764 ft², or 1 ft² = 0.0929 m². Simply select your preferred unit system (meters or feet) and enter dimensions in that unit. The calculator will provide results in the same unit system. Brick dimensions are automatically converted based on the selected unit."
+    },
+    {
+      "question": "What about brick quality and breakage?",
+      "answer": "Brick quality affects breakage rates: High-quality bricks have lower breakage (5-8%), while lower-quality bricks may have higher breakage (10-15%). The waste margin accounts for breakage, but you may need to adjust it based on brick quality. Also consider: handling during transport, cutting requirements, and batch variations. Always inspect bricks upon delivery and account for any damaged bricks."
+    },
+    {
+      "question": "Can I calculate multiple walls?",
+      "answer": "This calculator handles one wall at a time. For multiple walls, calculate each wall separately and add the brick quantities together. Don't forget to apply the waste margin to the total combined quantity. Alternatively, if all walls have the same dimensions, you can multiply the result by the number of walls, but it's more accurate to calculate each wall separately to account for different openings."
+    }
+  ],
+  "seo": {
+    "title": "Brick Calculator – Estimate Bricks Needed for a Wall",
+    "description": "Calculate how many bricks you need for a wall based on dimensions, brick size, mortar joint thickness, openings, and waste margin.",
+    "keywords": ["brick calculator", "how many bricks", "bricks per square meter", "masonry calculator", "wall bricks", "construction calculator"]
+  }
+}
+

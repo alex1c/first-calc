@@ -367,6 +367,69 @@ export async function schemaToDefinition(
 		if (calculationId === 'calculatePaint') {
 			await import('@/lib/calculations/paint')
 		}
+		if (calculationId === 'calculateConcreteVolume') {
+			await import('@/lib/calculations/concrete-volume')
+		}
+		if (calculationId === 'calculateCement') {
+			await import('@/lib/calculations/cement')
+		}
+		if (calculationId === 'calculateSand') {
+			await import('@/lib/calculations/sand')
+		}
+		if (calculationId === 'calculateGravel') {
+			await import('@/lib/calculations/gravel')
+		}
+		if (calculationId === 'calculateConcreteMixRatio') {
+			await import('@/lib/calculations/concrete-mix-ratio')
+		}
+		if (calculationId === 'calculateFoundationVolume') {
+			await import('@/lib/calculations/foundation-volume')
+		}
+		if (calculationId === 'calculateStripFoundation') {
+			await import('@/lib/calculations/strip-foundation')
+		}
+		if (calculationId === 'calculateSlabFoundation') {
+			await import('@/lib/calculations/slab-foundation')
+		}
+		if (calculationId === 'calculatePileFoundation') {
+			await import('@/lib/calculations/pile-foundation')
+		}
+		if (calculationId === 'calculateWallArea') {
+			await import('@/lib/calculations/wall-area')
+		}
+		if (calculationId === 'calculateBrick') {
+			await import('@/lib/calculations/brick')
+		}
+		if (calculationId === 'calculatePrimer') {
+			await import('@/lib/calculations/primer')
+		}
+		if (calculationId === 'calculatePutty') {
+			await import('@/lib/calculations/putty')
+		}
+		if (calculationId === 'calculateTile') {
+			await import('@/lib/calculations/tile')
+		}
+		if (calculationId === 'calculateLaminate') {
+			await import('@/lib/calculations/laminate')
+		}
+		if (calculationId === 'calculateRebar') {
+			await import('@/lib/calculations/rebar')
+		}
+		if (calculationId === 'calculateRebarWeight') {
+			await import('@/lib/calculations/rebar-weight')
+		}
+		if (calculationId === 'calculateStair') {
+			await import('@/lib/calculations/stair')
+		}
+		if (calculationId === 'calculateCableSize') {
+			await import('@/lib/calculations/cable-size')
+		}
+		if (calculationId === 'calculateElectricalLoad') {
+			await import('@/lib/calculations/electrical-load')
+		}
+		if (calculationId === 'calculatePipeVolume') {
+			await import('@/lib/calculations/pipe-volume')
+		}
 		if (calculationId === 'calculateRandomNumber') {
 			await import('@/lib/calculations/random-number')
 		}

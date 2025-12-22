@@ -1,0 +1,268 @@
+{
+  "title": "Concrete Mix Ratio Calculator – Cement, Sand and Gravel Quantities",
+  "shortDescription": "Calculate cement, sand, and gravel quantities based on concrete mix ratios. Estimate materials for any concrete volume.",
+  "longDescription": "Our Concrete Mix Ratio Calculator helps you determine the exact quantities of cement, sand, and gravel needed for your concrete project. Enter the total concrete volume and select the mix ratio (1:2:4 standard, 1:3:6 lean mix, 1:1.5:3 high strength, or custom), and get accurate estimates of all material quantities. Supports both metric (m³) and imperial (ft³) units. Includes optional waste margin calculation (5-20%) to account for spillage and ensure sufficient material. Uses standard material densities (cement: 1440 kg/m³, sand: 1600 kg/m³, gravel: 1500 kg/m³) for accurate weight calculations. Perfect for contractors, DIY builders, and construction planning.",
+  "inputs": [
+    {
+      "label": "Total Concrete Volume",
+      "unitLabel": "",
+      "placeholder": "Enter volume",
+      "helpText": "Enter the total concrete volume needed in cubic meters or cubic feet"
+    },
+    {
+      "label": "Mix Ratio",
+      "unitLabel": "",
+      "placeholder": "Select mix ratio",
+      "helpText": "Select the concrete mix ratio (cement:sand:gravel). Standard is 1:2:4 for general construction."
+    },
+    {
+      "label": "Custom Mix Ratio",
+      "unitLabel": "",
+      "placeholder": "e.g., 1:2:3",
+      "helpText": "Enter custom mix ratio in format cement:sand:gravel (e.g., 1:2:3)"
+    },
+    {
+      "label": "Cement Bag Weight",
+      "unitLabel": "kg",
+      "placeholder": "Enter weight",
+      "helpText": "Enter the weight of one cement bag in kilograms (default: 50 kg)"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters (m³) or feet (ft³) for volume measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-20%) to account for spillage and ensure sufficient material"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Cement Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Cement Bags",
+      "unitLabel": ""
+    },
+    {
+      "label": "Sand Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Sand Volume",
+      "unitLabel": "m³"
+    },
+    {
+      "label": "Gravel Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Gravel Volume",
+      "unitLabel": "m³"
+    },
+    {
+      "label": "Total Materials Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the total concrete volume needed (use Concrete Volume Calculator if needed)",
+    "Select the mix ratio: 1:2:4 (standard), 1:3:6 (lean mix), 1:1.5:3 (high strength), or choose custom",
+    "Enter the cement bag weight (default: 50 kg per bag)",
+    "Select the unit system: Meters (m³) or Feet (ft³)",
+    "Optionally enable waste margin and set the percentage (typically 10%)",
+    "Click the Calculate button",
+    "View the calculated quantities for cement (kg and bags), sand (kg and m³), and gravel (kg and m³)",
+    "See the total material weight summary",
+    "Review the formula and explanation for calculation details",
+    "Use the waste margin to ensure you order enough materials"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "1 m³ Concrete, 1:2:4 Mix",
+      "inputDescription": "Calculate materials for 1 cubic meter of concrete with standard mix ratio.",
+      "steps": [
+        "Total Concrete Volume: 1 m³",
+        "Mix Ratio: 1:2:4 (Standard)",
+        "Cement Bag Weight: 50 kg",
+        "Unit: Meters",
+        "Calculation:",
+        "  Total Parts = 1 + 2 + 4 = 7",
+        "  Cement Volume = 1 × (1/7) = 0.143 m³",
+        "  Cement Weight = 0.143 × 1440 = 205.71 kg = 4.11 bags → 5 bags",
+        "  Sand Volume = 1 × (2/7) = 0.286 m³",
+        "  Sand Weight = 0.286 × 1600 = 457.14 kg",
+        "  Gravel Volume = 1 × (4/7) = 0.571 m³",
+        "  Gravel Weight = 0.571 × 1500 = 857.14 kg"
+      ],
+      "resultDescription": "For 1 m³ of concrete with a 1:2:4 mix ratio, you need: 206 kg of cement (5 bags of 50 kg), 457 kg of sand (0.286 m³), and 857 kg of gravel (0.571 m³). Total materials: 1520 kg. With 10% waste margin, order approximately 227 kg cement (5 bags), 503 kg sand, and 943 kg gravel."
+    },
+    {
+      "id": "example-2",
+      "title": "Slab Concrete, Different Ratio",
+      "inputDescription": "Calculate materials for a concrete slab using a lean mix ratio.",
+      "steps": [
+        "Total Concrete Volume: 5 m³",
+        "Mix Ratio: 1:3:6 (Lean Mix)",
+        "Cement Bag Weight: 50 kg",
+        "Unit: Meters",
+        "Calculation:",
+        "  Total Parts = 1 + 3 + 6 = 10",
+        "  Cement Volume = 5 × (1/10) = 0.5 m³",
+        "  Cement Weight = 0.5 × 1440 = 720 kg = 14.4 → 15 bags",
+        "  Sand Volume = 5 × (3/10) = 1.5 m³",
+        "  Sand Weight = 1.5 × 1600 = 2400 kg",
+        "  Gravel Volume = 5 × (6/10) = 3.0 m³",
+        "  Gravel Weight = 3.0 × 1500 = 4500 kg"
+      ],
+      "resultDescription": "For 5 m³ of concrete with a 1:3:6 lean mix, you need: 720 kg of cement (15 bags), 2400 kg of sand (1.5 m³), and 4500 kg of gravel (3.0 m³). Total materials: 7620 kg. The lean mix uses less cement but more aggregate compared to the standard 1:2:4 mix."
+    },
+    {
+      "id": "example-3",
+      "title": "Custom Mix",
+      "inputDescription": "Calculate materials for a custom mix ratio.",
+      "steps": [
+        "Total Concrete Volume: 3 m³",
+        "Mix Ratio: 1:1.5:3 (Custom - High Strength)",
+        "Cement Bag Weight: 50 kg",
+        "Unit: Meters",
+        "Calculation:",
+        "  Total Parts = 1 + 1.5 + 3 = 5.5",
+        "  Cement Volume = 3 × (1/5.5) = 0.545 m³",
+        "  Cement Weight = 0.545 × 1440 = 785.45 kg = 15.7 → 16 bags",
+        "  Sand Volume = 3 × (1.5/5.5) = 0.818 m³",
+        "  Sand Weight = 0.818 × 1600 = 1309.09 kg",
+        "  Gravel Volume = 3 × (3/5.5) = 1.636 m³",
+        "  Gravel Weight = 1.636 × 1500 = 2454.55 kg"
+      ],
+      "resultDescription": "For 3 m³ of concrete with a 1:1.5:3 high-strength mix, you need: 785 kg of cement (16 bags), 1309 kg of sand (0.818 m³), and 2455 kg of gravel (1.636 m³). Total materials: 4549 kg. High-strength mixes use more cement relative to aggregate, resulting in stronger but more expensive concrete."
+    },
+    {
+      "id": "example-4",
+      "title": "With Waste Margin",
+      "inputDescription": "Calculate materials with waste margin included.",
+      "steps": [
+        "Total Concrete Volume: 10 m³",
+        "Mix Ratio: 1:2:4 (Standard)",
+        "Cement Bag Weight: 50 kg",
+        "Unit: Meters",
+        "Include Waste: Yes (10%)",
+        "Base Calculation:",
+        "  Cement: 2057 kg (42 bags)",
+        "  Sand: 4571 kg (2.857 m³)",
+        "  Gravel: 8571 kg (5.714 m³)",
+        "With 10% Waste:",
+        "  Cement: 2263 kg (46 bags)",
+        "  Sand: 5029 kg (3.143 m³)",
+        "  Gravel: 9429 kg (6.286 m³)"
+      ],
+      "resultDescription": "For 10 m³ of concrete with a 1:2:4 mix, the base material requirements are: 2057 kg cement (42 bags), 4571 kg sand (2.86 m³), and 8571 kg gravel (5.71 m³). With a 10% waste margin, you should order: 2263 kg cement (46 bags), 5029 kg sand (3.14 m³), and 9429 kg gravel (6.29 m³) to account for spillage and ensure sufficient material."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate materials using imperial units.",
+      "steps": [
+        "Total Concrete Volume: 35.3 ft³",
+        "Mix Ratio: 1:2:4 (Standard)",
+        "Cement Bag Weight: 50 kg (or 110 lbs)",
+        "Unit: Feet",
+        "Calculation:",
+        "  Convert: 35.3 ft³ = 1.0 m³",
+        "  Cement: 206 kg (4.1 → 5 bags)",
+        "  Sand: 457 kg (0.286 m³ = 10.1 ft³)",
+        "  Gravel: 857 kg (0.571 m³ = 20.2 ft³)",
+        "  Total: 1520 kg"
+      ],
+      "resultDescription": "For 35.3 cubic feet (1 m³) of concrete with a 1:2:4 mix ratio, you need: 206 kg of cement (5 bags of 50 kg), 457 kg of sand (10.1 ft³), and 857 kg of gravel (20.2 ft³). Total materials: 1520 kg. Always check local suppliers for bag sizes and material availability."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Which mix ratio should I use?",
+      "answer": "The choice depends on your project requirements: 1:2:4 (standard) is suitable for most general construction, foundations, and slabs. 1:3:6 (lean mix) is for mass concrete, non-structural applications, and cost-sensitive projects. 1:1.5:3 (high strength) is for structural elements requiring higher strength. Always consult local building codes and structural engineers for specific requirements. The standard 1:2:4 mix is the most commonly used for general construction."
+    },
+    {
+      "question": "Why do different ratios exist?",
+      "answer": "Different mix ratios serve different purposes: Higher cement content (1:1.5:3) provides stronger concrete but is more expensive. Standard ratios (1:2:4) balance strength, workability, and cost for general use. Lean mixes (1:3:6) use less cement, reducing cost but providing lower strength suitable for non-structural applications. The ratio affects concrete strength, durability, workability, and cost. Choose based on your project's structural requirements and budget."
+    },
+    {
+      "question": "Can I change ratios?",
+      "answer": "Yes, you can use custom ratios, but be careful: Changing ratios affects concrete strength, durability, and workability. Higher cement content increases strength and cost. Lower cement content reduces strength and may not meet structural requirements. Always consult with a structural engineer or follow local building codes when deviating from standard ratios. The calculator supports custom ratios - enter them in the format cement:sand:gravel (e.g., 1:2:3)."
+    },
+    {
+      "question": "Does water affect quantities?",
+      "answer": "Water is added separately during mixing and doesn't affect the dry material quantities calculated by this calculator. The mix ratio (1:2:4) refers to the dry materials: cement, sand, and gravel. Water is typically added at 0.4-0.6 water-to-cement ratio (40-60% of cement weight) for proper workability. Water content affects workability and strength but doesn't change the material quantities you need to order."
+    },
+    {
+      "question": "Ready-mix vs site mix?",
+      "answer": "Ready-mix concrete is delivered pre-mixed from a plant, while site mix is mixed on-site. This calculator is for site mixing where you order materials separately. For ready-mix, you order by volume (cubic meters or yards) and the supplier handles the mix ratio. Site mixing gives you control over the mix ratio and may be more economical for large projects, but requires proper mixing equipment and expertise."
+    },
+    {
+      "question": "How accurate are the density values?",
+      "answer": "The calculator uses standard construction densities: Cement: 1440 kg/m³, Sand: 1600 kg/m³, Gravel: 1500 kg/m³. These are widely accepted standard values used in construction calculations. Actual densities may vary slightly (5-10%) depending on material type, moisture content, and compaction, but the standard values provide accurate estimates for material ordering and cost estimation."
+    },
+    {
+      "question": "What if I use different bag sizes?",
+      "answer": "You can adjust the cement bag weight in the calculator. Common bag sizes: 25 kg, 40 kg, 50 kg (most common), and 94 lb (US). The calculator will automatically recalculate the number of bags based on your specified bag weight. Always check what bag sizes are available at your local supplier and adjust accordingly."
+    },
+    {
+      "question": "How do I measure concrete volume?",
+      "answer": "Measure the dimensions (length × width × height) of the concrete structure. For slabs: length × width × thickness. For footings: length × width × height. For columns: π × radius² × height. Use the Concrete Volume Calculator if you need help calculating volumes for different shapes. Always add a small margin (5-10%) for formwork variations and spillage."
+    },
+    {
+      "question": "What about reinforcement (rebar)?",
+      "answer": "Reinforcement (rebar) is calculated separately and doesn't affect the concrete material quantities. Rebar displaces a small amount of concrete (typically less than 1-2%), which is usually covered by the waste margin. This calculator focuses on concrete materials (cement, sand, gravel) only. Rebar quantities are calculated based on structural design requirements."
+    },
+    {
+      "question": "Can I use this for different concrete strengths?",
+      "answer": "Mix ratios are related to concrete strength, but strength also depends on cement type, water-cement ratio, curing, and aggregate quality. Generally: 1:1.5:3 provides higher strength (M25-M30), 1:2:4 provides standard strength (M15-M20), and 1:3:6 provides lower strength (M10-M15). For specific strength requirements, consult with a structural engineer who can specify the exact mix design."
+    },
+    {
+      "question": "What's the difference between M15, M20, M25 concrete?",
+      "answer": "M15, M20, M25 refer to concrete strength grades (compressive strength in MPa): M15 = 15 MPa, M20 = 20 MPa, M25 = 25 MPa. These correspond roughly to mix ratios: M15 ≈ 1:2:4, M20 ≈ 1:1.5:3, M25 ≈ 1:1:2. However, actual strength depends on many factors beyond just the ratio. This calculator helps with material quantities, but strength specification should come from structural design."
+    },
+    {
+      "question": "How do I convert cubic feet to cubic meters?",
+      "answer": "1 cubic meter = 35.3147 cubic feet, or 1 cubic foot = 0.0283168 cubic meters. The calculator automatically handles this conversion when you select the unit. For example, 100 ft³ = 2.83 m³. Most construction projects use cubic meters (metric) or cubic yards (imperial: 1 yd³ = 27 ft³ = 0.7646 m³)."
+    },
+    {
+      "question": "What about admixtures?",
+      "answer": "Admixtures (plasticizers, accelerators, retarders) are added in small quantities (typically 0.5-2% of cement weight) and don't significantly affect the material quantities calculated by this calculator. Admixtures improve workability, set time, or other properties but don't change the basic mix ratio. This calculator focuses on the main materials: cement, sand, and gravel."
+    },
+    {
+      "question": "Should I order extra materials?",
+      "answer": "Yes, it's highly recommended to add 5-10% extra materials (waste margin) to account for spillage, handling losses, mixing variations, and to ensure you have enough material. Some contractors add up to 15% for complex projects. It's better to have a small amount left over than to run short during construction, which can delay the project and may result in inconsistent concrete batches."
+    },
+    {
+      "question": "How do I mix the concrete?",
+      "answer": "Concrete mixing requires proper equipment and technique: Use a concrete mixer for consistent results. Add water gradually while mixing. Mix for at least 2-3 minutes until uniform. The water-cement ratio should be 0.4-0.6 (40-60% of cement weight). This calculator provides material quantities - proper mixing technique is essential for quality concrete. Consider using ready-mix for large projects if you don't have mixing equipment."
+    }
+  ],
+  "seo": {
+    "title": "Concrete Mix Ratio Calculator – Cement, Sand and Gravel Quantities",
+    "description": "Calculate cement, sand, and gravel quantities based on concrete mix ratios. Estimate materials for any concrete volume.",
+    "keywords": ["concrete mix calculator", "mix ratio calculator", "cement sand gravel calculator", "concrete materials", "construction calculator"]
+  }
+}
+

@@ -1,0 +1,230 @@
+{
+  "id": "wall-area-calculator",
+  "slug": "wall-area-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateWallArea",
+  "tags": ["wall-area", "wall-surface-area", "plaster", "paint", "construction"],
+  "inputs": [
+    {
+      "name": "mode",
+      "type": "select",
+      "options": [
+        { "value": "single", "label": "Single Wall" },
+        { "value": "room", "label": "Room (4 Walls)" },
+        { "value": "multiple", "label": "Multiple Walls" }
+      ],
+      "defaultValue": "single"
+    },
+    {
+      "name": "wallWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "single"
+      }
+    },
+    {
+      "name": "wallHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "single"
+      }
+    },
+    {
+      "name": "roomLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "room"
+      }
+    },
+    {
+      "name": "roomWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "room"
+      }
+    },
+    {
+      "name": "roomHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "room"
+      }
+    },
+    {
+      "name": "wallsCount",
+      "type": "number",
+      "min": 1,
+      "max": 10000,
+      "step": 1,
+      "visibleIf": {
+        "field": "mode",
+        "value": "multiple"
+      }
+    },
+    {
+      "name": "wallWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "multiple"
+      }
+    },
+    {
+      "name": "wallHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "mode",
+        "value": "multiple"
+      }
+    },
+    {
+      "name": "subtractOpenings",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "doorsCount",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 0,
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "doorWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "doorHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "windowsCount",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 0,
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "windowWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "windowHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "grossArea"
+    },
+    {
+      "name": "openingsArea"
+    },
+    {
+      "name": "doorsArea"
+    },
+    {
+      "name": "windowsArea"
+    },
+    {
+      "name": "netArea"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "mode": "single",
+    "wallWidth": 4,
+    "wallHeight": 2.5,
+    "subtractOpenings": "false",
+    "unit": "meters"
+  },
+  "relatedIds": ["brick-calculator", "paint-calculator", "primer-calculator", "putty-calculator"],
+  "isEnabled": true
+}
+

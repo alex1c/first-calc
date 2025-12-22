@@ -1,0 +1,147 @@
+{
+  "id": "strip-foundation-calculator",
+  "slug": "strip-foundation-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateStripFoundation",
+  "tags": ["strip-foundation", "footing", "continuous-footing", "foundation", "concrete"],
+  "inputs": [
+    {
+      "name": "buildingLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "buildingWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "stripWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "stripHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "perimeterOnly",
+      "type": "select",
+      "options": [
+        { "value": "true", "label": "Yes (Perimeter Only)" },
+        { "value": "false", "label": "No (Include Internal Walls)" }
+      ],
+      "defaultValue": "true"
+    },
+    {
+      "name": "includeInternalWalls",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false",
+      "visibleIf": {
+        "field": "perimeterOnly",
+        "value": "false"
+      }
+    },
+    {
+      "name": "internalStripLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "includeInternalWalls",
+        "value": "true"
+      }
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "perimeter"
+    },
+    {
+      "name": "stripLength"
+    },
+    {
+      "name": "internalStripLength"
+    },
+    {
+      "name": "concreteVolume"
+    },
+    {
+      "name": "concreteVolumeWithWaste"
+    },
+    {
+      "name": "concreteVolumeDisplay"
+    },
+    {
+      "name": "concreteVolumeCubicYards"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "buildingLength": 10,
+    "buildingWidth": 8,
+    "stripWidth": 0.5,
+    "stripHeight": 0.6,
+    "perimeterOnly": "true",
+    "includeInternalWalls": "false",
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["foundation-volume-calculator", "concrete-volume-calculator", "cement-calculator", "rebar-calculator"],
+  "isEnabled": true
+}
+

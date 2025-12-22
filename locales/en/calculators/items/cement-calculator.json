@@ -1,0 +1,249 @@
+{
+  "title": "Cement Calculator – How Much Cement Do You Need?",
+  "shortDescription": "Calculate the amount of cement needed for concrete based on volume and mix ratio. Estimate cement bags and weight easily.",
+  "longDescription": "Our Cement Calculator helps you determine how much cement you need for your concrete project. Enter the concrete volume and select the mix ratio (1:2:4, 1:3:6, or custom), and get accurate estimates of cement weight and number of bags required. Supports both metric (m³) and imperial (ft³) units. Includes optional waste margin calculation (5-20%) to account for spillage and ensure you have enough material. Perfect for contractors, DIY builders, and construction planning. Uses standard cement density (1440 kg/m³) for accurate weight calculations.",
+  "inputs": [
+    {
+      "label": "Concrete Volume",
+      "unitLabel": "",
+      "placeholder": "Enter volume",
+      "helpText": "Enter the total concrete volume needed in cubic meters or cubic feet"
+    },
+    {
+      "label": "Mix Ratio",
+      "unitLabel": "",
+      "placeholder": "Select mix ratio",
+      "helpText": "Select the concrete mix ratio (cement:sand:gravel). Standard is 1:2:4 for general construction."
+    },
+    {
+      "label": "Custom Mix Ratio",
+      "unitLabel": "",
+      "placeholder": "e.g., 1:2:3",
+      "helpText": "Enter custom mix ratio in format cement:sand:gravel (e.g., 1:2:3)"
+    },
+    {
+      "label": "Cement Bag Weight",
+      "unitLabel": "kg",
+      "placeholder": "Enter weight",
+      "helpText": "Enter the weight of one cement bag in kilograms (default: 50 kg)"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters (m³) or feet (ft³) for volume measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-20%) to account for spillage and ensure sufficient material"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Cement Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Cement Weight with Waste",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Cement Volume",
+      "unitLabel": "m³"
+    },
+    {
+      "label": "Number of Bags",
+      "unitLabel": ""
+    },
+    {
+      "label": "Number of Bags with Waste",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the total concrete volume needed (use Concrete Volume Calculator if needed)",
+    "Select the mix ratio: 1:2:4 (standard) or 1:3:6 (lean mix), or choose custom and enter your ratio",
+    "Enter the cement bag weight (default: 50 kg per bag)",
+    "Select the unit system: Meters (m³) or Feet (ft³)",
+    "Optionally enable waste margin and set the percentage (typically 10%)",
+    "Click the Calculate button",
+    "View the calculated cement weight in kilograms",
+    "See the number of cement bags needed (rounded up)",
+    "Review the formula and explanation for calculation details",
+    "Use the waste margin to ensure you order enough cement"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Small Slab with 1:2:4 Mix",
+      "inputDescription": "Calculate cement needed for a small concrete slab.",
+      "steps": [
+        "Concrete Volume: 3.6 m³",
+        "Mix Ratio: 1:2:4 (Standard)",
+        "Bag Weight: 50 kg",
+        "Unit: Meters",
+        "Calculation:",
+        "  Total Parts = 1 + 2 + 4 = 7",
+        "  Cement Volume = 3.6 × (1/7) = 0.514 m³",
+        "  Cement Weight = 0.514 × 1440 = 740.16 kg",
+        "  Bags = 740.16 / 50 = 14.8 → 15 bags"
+      ],
+      "resultDescription": "For 3.6 m³ of concrete with a 1:2:4 mix ratio, you need approximately 740 kg of cement, which equals 15 bags of 50 kg each. With a 10% waste margin, order 16-17 bags to ensure sufficient material."
+    },
+    {
+      "id": "example-2",
+      "title": "Foundation Footing",
+      "inputDescription": "Calculate cement needed for a foundation footing.",
+      "steps": [
+        "Concrete Volume: 1.875 m³",
+        "Mix Ratio: 1:2:4 (Standard)",
+        "Bag Weight: 50 kg",
+        "Unit: Meters",
+        "Calculation:",
+        "  Total Parts = 7",
+        "  Cement Volume = 1.875 × (1/7) = 0.268 m³",
+        "  Cement Weight = 0.268 × 1440 = 385.71 kg",
+        "  Bags = 385.71 / 50 = 7.7 → 8 bags"
+      ],
+      "resultDescription": "For 1.875 m³ of concrete with a 1:2:4 mix ratio, you need approximately 386 kg of cement, which equals 8 bags of 50 kg each. Adding 10% waste margin gives you 9 bags to order."
+    },
+    {
+      "id": "example-3",
+      "title": "Different Mix Ratio Comparison",
+      "inputDescription": "Compare cement requirements for different mix ratios.",
+      "steps": [
+        "Concrete Volume: 5 m³",
+        "Mix Ratio: 1:3:6 (Lean Mix)",
+        "Bag Weight: 50 kg",
+        "Unit: Meters",
+        "Calculation:",
+        "  Total Parts = 1 + 3 + 6 = 10",
+        "  Cement Volume = 5 × (1/10) = 0.5 m³",
+        "  Cement Weight = 0.5 × 1440 = 720 kg",
+        "  Bags = 720 / 50 = 14.4 → 15 bags",
+        "Comparison with 1:2:4 mix:",
+        "  1:2:4 would need: 5 × (1/7) × 1440 = 1028.57 kg (21 bags)",
+        "  Lean mix (1:3:6) uses less cement"
+      ],
+      "resultDescription": "For 5 m³ of concrete, a 1:3:6 lean mix requires 720 kg (15 bags), while a 1:2:4 standard mix would need 1029 kg (21 bags). Lean mixes use less cement but may have lower strength. Choose based on your project requirements."
+    },
+    {
+      "id": "example-4",
+      "title": "With Waste Margin",
+      "inputDescription": "Calculate cement with waste margin included.",
+      "steps": [
+        "Concrete Volume: 10 m³",
+        "Mix Ratio: 1:2:4 (Standard)",
+        "Bag Weight: 50 kg",
+        "Unit: Meters",
+        "Include Waste: Yes (10%)",
+        "Calculation:",
+        "  Base Cement Weight = 10 × (1/7) × 1440 = 2057.14 kg",
+        "  With 10% Waste = 2057.14 × 1.10 = 2262.86 kg",
+        "  Bags = 2262.86 / 50 = 45.3 → 46 bags"
+      ],
+      "resultDescription": "For 10 m³ of concrete with a 1:2:4 mix, the base cement requirement is 2057 kg (42 bags). With a 10% waste margin, you should order 2263 kg (46 bags) to account for spillage, handling losses, and ensure sufficient material for the entire project."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate cement needed using imperial units.",
+      "steps": [
+        "Concrete Volume: 120 ft³",
+        "Mix Ratio: 1:2:4 (Standard)",
+        "Bag Weight: 50 kg (or 110 lbs)",
+        "Unit: Feet",
+        "Calculation:",
+        "  Convert: 120 ft³ = 120 × 0.0283168 = 3.398 m³",
+        "  Cement Volume = 3.398 × (1/7) = 0.486 m³",
+        "  Cement Weight = 0.486 × 1440 = 699.43 kg",
+        "  Bags = 699.43 / 50 = 14 → 14 bags"
+      ],
+      "resultDescription": "For 120 cubic feet (3.4 m³) of concrete with a 1:2:4 mix ratio, you need approximately 699 kg of cement, which equals 14 bags of 50 kg each. This is approximately 1540 lbs or 14 bags if using 110 lb bags. Always check local bag sizes and weights."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What mix ratio should I use?",
+      "answer": "The most common mix ratios are: 1:2:4 (standard) for general construction, foundations, and slabs; 1:3:6 (lean mix) for mass concrete and non-structural applications. For structural elements requiring higher strength, use 1:1.5:3 or consult a structural engineer. The choice depends on your project requirements, local building codes, and strength specifications."
+    },
+    {
+      "question": "Why convert volume to weight?",
+      "answer": "Cement is sold by weight (kilograms or pounds), not by volume. The calculator converts the cement volume (from the mix ratio) to weight using standard cement density (1440 kg/m³). This ensures you know exactly how many kilograms or bags to purchase. Different cement types may have slightly different densities, but 1440 kg/m³ is the standard value used in construction."
+    },
+    {
+      "question": "How many bags of cement per cubic meter?",
+      "answer": "The number of bags depends on the mix ratio. For a 1:2:4 mix: approximately 6.2 bags (50 kg each) per m³ of concrete. For a 1:3:6 lean mix: approximately 4.1 bags per m³. These values are calculated based on cement representing 1/7 or 1/10 of the total mix volume, respectively. Always add 10% extra for waste."
+    },
+    {
+      "question": "Should I add extra cement?",
+      "answer": "Yes, it's highly recommended to add 5-10% extra cement (waste margin) to account for spillage, handling losses, mixing variations, and to ensure you have enough material. Some contractors add up to 15% for complex projects. It's better to have a small amount left over than to run short during construction."
+    },
+    {
+      "question": "Does cement brand matter?",
+      "answer": "Different cement brands may have slightly different densities and properties, but the standard density (1440 kg/m³) used in this calculator applies to most Portland cement types. Premium cements may have better strength characteristics, but the volume-to-weight conversion remains similar. Always follow the manufacturer's specifications for mix ratios and strength requirements."
+    },
+    {
+      "question": "What is cement density?",
+      "answer": "Cement density is approximately 1440 kg/m³ (90 lb/ft³). This is the standard value used in construction calculations. The density can vary slightly (1400-1600 kg/m³) depending on cement type, age, and storage conditions, but 1440 kg/m³ is the accepted standard for Portland cement calculations."
+    },
+    {
+      "question": "Can I use different bag sizes?",
+      "answer": "Yes, you can adjust the bag weight in the calculator. Common bag sizes: 25 kg, 40 kg, 50 kg (most common), and 94 lb (US). The calculator will automatically recalculate the number of bags based on your specified bag weight. Always check what bag sizes are available at your local supplier."
+    },
+    {
+      "question": "What's the difference between 1:2:4 and 1:3:6 mix?",
+      "answer": "1:2:4 mix (cement:sand:gravel) is the standard mix for general construction, providing good strength and workability. 1:3:6 is a lean mix with less cement, suitable for mass concrete, foundations, and non-structural applications where high strength isn't required. Lean mixes are more economical but have lower strength. Choose based on your project's structural requirements."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on standard mix ratios and cement density (1440 kg/m³). Accuracy depends on: precise concrete volume measurement, correct mix ratio selection, and realistic waste margin. The calculations are mathematically correct, but actual needs may vary slightly due to mixing variations, cement type, and site conditions. Always add a waste margin for real-world projects."
+    },
+    {
+      "question": "Do I need to account for water in the mix?",
+      "answer": "No, the calculator focuses on cement only. Water is added separately during mixing (typically 0.4-0.6 water-to-cement ratio). The mix ratio (1:2:4) refers to the dry materials: cement, sand, and gravel. Water content affects workability and strength but doesn't change the cement quantity calculation."
+    },
+    {
+      "question": "What about sand and gravel?",
+      "answer": "This calculator focuses on cement only. For sand and gravel quantities, you would calculate: Sand Volume = Concrete Volume × (Sand Part / Total Parts), and Gravel Volume = Concrete Volume × (Gravel Part / Total Parts). For a 1:2:4 mix with 1 m³ concrete: Sand = 1 × (2/7) = 0.286 m³, Gravel = 1 × (4/7) = 0.571 m³."
+    },
+    {
+      "question": "Can I use this for ready-mix concrete?",
+      "answer": "This calculator is for estimating cement when mixing concrete yourself. For ready-mix concrete, you order by volume (cubic meters or yards), and the supplier handles the mix ratio. However, you can use this calculator to estimate cement content in ready-mix for cost comparison or material planning purposes."
+    },
+    {
+      "question": "What if my mix ratio is different?",
+      "answer": "Use the 'Custom' mix ratio option and enter your ratio in the format cement:sand:gravel (e.g., 1:1.5:3 for high-strength concrete, or 1:4:8 for very lean mix). The calculator will automatically calculate based on your custom ratio. Ensure the ratio follows the standard format with colons separating the parts."
+    },
+    {
+      "question": "How do I convert cubic feet to cubic meters?",
+      "answer": "1 cubic meter = 35.3147 cubic feet, or 1 cubic foot = 0.0283168 cubic meters. The calculator automatically handles this conversion when you select the unit. For example, 100 ft³ = 2.83 m³. Most construction projects use cubic meters (metric) or cubic yards (imperial: 1 yd³ = 27 ft³ = 0.7646 m³)."
+    },
+    {
+      "question": "What about cement storage and shelf life?",
+      "answer": "Cement has a shelf life and should be used within 3 months of manufacture for best results. Store cement in a dry, covered area. Old or exposed cement may have reduced strength. When calculating quantities, consider ordering fresh cement and using it promptly. Don't stockpile excessive amounts that may expire before use."
+    }
+  ],
+  "seo": {
+    "title": "Cement Calculator – How Much Cement Do You Need?",
+    "description": "Calculate the amount of cement needed for concrete based on volume and mix ratio. Estimate cement bags and weight easily.",
+    "keywords": ["cement calculator", "how much cement", "cement bags", "concrete mix ratio", "cement estimate", "construction calculator"]
+  }
+}
+

@@ -1,0 +1,135 @@
+{
+  "id": "concrete-mix-ratio-calculator",
+  "slug": "concrete-mix-ratio-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateConcreteMixRatio",
+  "tags": ["concrete-mix", "mix-ratio", "cement-sand-gravel", "concrete-design"],
+  "inputs": [
+    {
+      "name": "totalConcreteVolume",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "mixRatio",
+      "type": "select",
+      "options": [
+        { "value": "1:2:4", "label": "1:2:4 (Standard)" },
+        { "value": "1:3:6", "label": "1:3:6 (Lean Mix)" },
+        { "value": "1:1.5:3", "label": "1:1.5:3 (High Strength)" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "defaultValue": "1:2:4"
+    },
+    {
+      "name": "customMixRatio",
+      "type": "text",
+      "visibleIf": {
+        "field": "mixRatio",
+        "value": "custom"
+      }
+    },
+    {
+      "name": "cementBagWeight",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 50
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m³)" },
+        { "value": "feet", "label": "Feet (ft³)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "cementWeight"
+    },
+    {
+      "name": "cementWeightWithWaste"
+    },
+    {
+      "name": "cementVolume"
+    },
+    {
+      "name": "cementBags"
+    },
+    {
+      "name": "cementBagsWithWaste"
+    },
+    {
+      "name": "sandWeight"
+    },
+    {
+      "name": "sandWeightWithWaste"
+    },
+    {
+      "name": "sandVolume"
+    },
+    {
+      "name": "gravelWeight"
+    },
+    {
+      "name": "gravelWeightWithWaste"
+    },
+    {
+      "name": "gravelVolume"
+    },
+    {
+      "name": "totalWeight"
+    },
+    {
+      "name": "totalWeightWithWaste"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "explanation"
+    },
+    {
+      "name": "mixRatio"
+    }
+  ],
+  "defaults": {
+    "totalConcreteVolume": 1,
+    "mixRatio": "1:2:4",
+    "cementBagWeight": 50,
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["concrete-volume-calculator", "cement-calculator", "sand-calculator", "gravel-calculator", "foundation-volume-calculator"],
+  "isEnabled": true
+}
+

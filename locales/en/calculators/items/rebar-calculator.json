@@ -1,0 +1,290 @@
+{
+  "title": "Rebar Calculator – Estimate Rebar Weight and Length for a Slab",
+  "shortDescription": "Calculate rebar quantity for slab reinforcement. Get number of bars, total rebar length, and weight based on spacing, diameter, and layers.",
+  "longDescription": "Our Rebar Calculator helps you estimate rebar quantity for rectangular slab/grid reinforcement. Enter slab dimensions, select rebar diameter, specify spacing and number of layers, and get accurate estimates of bar counts, total rebar length, and weight. Supports standard rebar diameters (6-20 mm) and accounts for edge allowance (cover). Includes optional waste margin calculation (3-15%) to account for overlaps, cuts, and handling. Perfect for contractors, engineers, and construction planning. Get accurate estimates with clear breakdowns showing bars in each direction, per-layer totals, and waste-adjusted quantities. Note: This calculator provides estimates for grid reinforcement only and is not a structural design tool - always consult with a structural engineer for actual design requirements.",
+  "inputs": [
+    {
+      "label": "Slab Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the slab in meters"
+    },
+    {
+      "label": "Slab Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the slab in meters"
+    },
+    {
+      "label": "Bar Diameter",
+      "unitLabel": "",
+      "placeholder": "Select diameter",
+      "helpText": "Select the rebar diameter in millimeters (common: 10-16 mm for slabs)"
+    },
+    {
+      "label": "Spacing",
+      "unitLabel": "mm",
+      "placeholder": "Enter spacing",
+      "helpText": "Enter the spacing between rebar bars in millimeters (default: 200 mm, typical range: 150-300 mm)"
+    },
+    {
+      "label": "Layers",
+      "unitLabel": "",
+      "placeholder": "Select layers",
+      "helpText": "Select number of rebar layers: 1 layer (bottom reinforcement) or 2 layers (top and bottom)"
+    },
+    {
+      "label": "Edge Allowance",
+      "unitLabel": "mm",
+      "placeholder": "Enter allowance",
+      "helpText": "Enter the edge allowance (cover) in millimeters (default: 50 mm, typical: 40-75 mm)"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for slab dimensions (spacing and edge allowance are always in mm)"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (3-15%) to account for overlaps, cuts, and handling"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 5% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Effective Dimensions",
+      "unitLabel": ""
+    },
+    {
+      "label": "Bars Along Length Direction",
+      "unitLabel": ""
+    },
+    {
+      "label": "Bars Along Width Direction",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Length per Layer",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Rebar Length",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Rebar Weight",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Weight with Waste",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the slab length and width in meters",
+    "Select the rebar diameter (typically 10-16 mm for slabs)",
+    "Enter the spacing between bars in millimeters (default: 200 mm)",
+    "Select the number of layers: 1 (bottom) or 2 (top and bottom)",
+    "Enter the edge allowance (cover) in millimeters (default: 50 mm)",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin and set the percentage (typically 5%)",
+    "Click the Calculate button",
+    "View the effective dimensions (after accounting for edge allowance)",
+    "See the number of bars in each direction",
+    "Check the total rebar length and weight",
+    "Review the waste-adjusted totals if waste margin is enabled",
+    "After calculating rebar quantity, use the Rebar Weight Calculator to convert length to weight or vice versa",
+    "Review the formula, breakdown, and explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "6m × 4m Slab, Ø12, 200mm, 1 Layer",
+      "inputDescription": "Calculate rebar for a standard slab with single layer reinforcement.",
+      "steps": [
+        "Slab Length: 6 meters",
+        "Slab Width: 4 meters",
+        "Bar Diameter: 12 mm",
+        "Spacing: 200 mm",
+        "Layers: 1",
+        "Edge Allowance: 50 mm",
+        "Calculation:",
+        "  Effective Length = 6 - 2 × 0.05 = 5.9 m",
+        "  Effective Width = 4 - 2 × 0.05 = 3.9 m",
+        "  Bars along length = floor(3.9 / 0.2) + 1 = 20 bars",
+        "  Bars along width = floor(5.9 / 0.2) + 1 = 30 bars",
+        "  Length bars: 20 × 5.9 = 118 m",
+        "  Width bars: 30 × 3.9 = 117 m",
+        "  Total per layer: 235 m",
+        "  Weight: 235 × 0.888 = 208.68 kg"
+      ],
+      "resultDescription": "For a 6m × 4m slab with 12 mm rebar at 200 mm spacing, you need 20 bars along the length direction and 30 bars along the width direction. Total: 235 m of rebar, weighing 208.68 kg. With 5% waste margin, order 219.11 kg to account for overlaps and cuts."
+    },
+    {
+      "id": "example-2",
+      "title": "Same Slab, 2 Layers",
+      "inputDescription": "Calculate rebar for the same slab with two-layer reinforcement.",
+      "steps": [
+        "Slab Length: 6 meters",
+        "Slab Width: 4 meters",
+        "Bar Diameter: 12 mm",
+        "Spacing: 200 mm",
+        "Layers: 2",
+        "Edge Allowance: 50 mm",
+        "Calculation:",
+        "  Per layer: 235 m (from Example 1)",
+        "  Total length: 235 × 2 = 470 m",
+        "  Weight: 470 × 0.888 = 417.36 kg"
+      ],
+      "resultDescription": "For the same slab with 2 layers (top and bottom reinforcement), you need 470 m of rebar, weighing 417.36 kg. Two-layer reinforcement provides better structural performance for thicker slabs or higher loads. With 5% waste margin, order 438.23 kg."
+    },
+    {
+      "id": "example-3",
+      "title": "Tight Spacing 150mm vs 200mm Comparison",
+      "inputDescription": "Compare rebar requirements for different spacing.",
+      "steps": [
+        "Slab: 5m × 4m",
+        "Bar Diameter: 10 mm",
+        "Scenario 1: 200 mm spacing",
+        "  Bars along length = floor(3.9 / 0.2) + 1 = 20 bars",
+        "  Bars along width = floor(4.9 / 0.2) + 1 = 25 bars",
+        "  Total: ~195 m, Weight: ~120 kg",
+        "Scenario 2: 150 mm spacing",
+        "  Bars along length = floor(3.9 / 0.15) + 1 = 27 bars",
+        "  Bars along width = floor(4.9 / 0.15) + 1 = 33 bars",
+        "  Total: ~260 m, Weight: ~160 kg",
+        "Comparison: 150 mm spacing requires 33% more rebar"
+      ],
+      "resultDescription": "Comparing spacing shows the significant impact on rebar quantity. For a 5m × 4m slab: 200 mm spacing requires ~120 kg, while 150 mm spacing requires ~160 kg (33% more). Tighter spacing provides better reinforcement but significantly increases cost. Spacing is typically determined by structural design requirements."
+    },
+    {
+      "id": "example-4",
+      "title": "Larger Slab, Ø10",
+      "inputDescription": "Calculate rebar for a larger slab with smaller diameter bars.",
+      "steps": [
+        "Slab Length: 10 meters",
+        "Slab Width: 8 meters",
+        "Bar Diameter: 10 mm",
+        "Spacing: 200 mm",
+        "Layers: 1",
+        "Edge Allowance: 50 mm",
+        "Calculation:",
+        "  Effective Length = 10 - 2 × 0.05 = 9.9 m",
+        "  Effective Width = 8 - 2 × 0.05 = 7.9 m",
+        "  Bars along length = floor(7.9 / 0.2) + 1 = 40 bars",
+        "  Bars along width = floor(9.9 / 0.2) + 1 = 50 bars",
+        "  Length bars: 40 × 9.9 = 396 m",
+        "  Width bars: 50 × 7.9 = 395 m",
+        "  Total: 791 m",
+        "  Weight: 791 × 0.617 = 488.05 kg"
+      ],
+      "resultDescription": "For a larger 10m × 8m slab with 10 mm rebar at 200 mm spacing, you need 40 bars along length and 50 bars along width. Total: 791 m of rebar, weighing 488.05 kg. Larger slabs require significantly more rebar. With 5% waste margin, order 512.45 kg."
+    },
+    {
+      "id": "example-5",
+      "title": "Edge Allowance Effect Example",
+      "inputDescription": "Demonstrate how edge allowance affects rebar quantity.",
+      "steps": [
+        "Slab: 5m × 4m",
+        "Bar Diameter: 12 mm",
+        "Spacing: 200 mm",
+        "Scenario 1: 50 mm edge allowance",
+        "  Effective: 4.9 × 3.9 m",
+        "  Total rebar: ~235 m",
+        "Scenario 2: 75 mm edge allowance",
+        "  Effective: 4.85 × 3.85 m",
+        "  Total rebar: ~232 m",
+        "Comparison: Larger edge allowance slightly reduces rebar (small effect)"
+      ],
+      "resultDescription": "Edge allowance (cover) affects effective dimensions and thus rebar quantity. For a 5m × 4m slab: 50 mm cover requires ~235 m, while 75 mm cover requires ~232 m (slightly less). Edge allowance is determined by structural requirements and environmental conditions - larger cover provides better protection but slightly reduces effective reinforcement area."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How to choose spacing?",
+      "answer": "Rebar spacing is determined by structural design requirements based on: slab thickness, load requirements, and local building codes. Common spacing: 150-200 mm for residential slabs, 200-300 mm for light commercial, and as specified by structural engineer for heavy loads. Tighter spacing (150 mm) provides better reinforcement but costs more. Always follow structural design specifications - this calculator estimates quantity based on your spacing input."
+    },
+    {
+      "question": "What does rebar diameter mean?",
+      "answer": "Rebar diameter is the thickness of the steel bar, measured in millimeters. Common diameters: 6-8 mm for light reinforcement, 10-12 mm for standard slabs, 14-16 mm for heavy slabs, 18-20 mm for structural beams. Larger diameter bars are stronger but heavier and more expensive. The diameter affects weight per meter - larger diameters weigh more. Typical slab reinforcement uses 10-16 mm diameter bars."
+    },
+    {
+      "question": "1 or 2 layers?",
+      "answer": "Number of layers depends on structural requirements: 1 layer (bottom reinforcement): for thin slabs (10-15 cm), light loads, or one-way slabs. 2 layers (top and bottom): for thicker slabs (15+ cm), heavy loads, or two-way slabs. Two-layer reinforcement provides better structural performance and crack control. Always follow structural design specifications - this calculator estimates quantity for your selected number of layers."
+    },
+    {
+      "question": "Why edge allowance?",
+      "answer": "Edge allowance (also called cover or concrete cover) is the distance from the rebar to the edge of the concrete. It's necessary for: protecting rebar from corrosion, providing fire resistance, ensuring proper bond between concrete and rebar, and meeting building code requirements. Typical cover: 40-50 mm for interior slabs, 50-75 mm for exterior or exposed conditions. The calculator subtracts edge allowance from slab dimensions to calculate effective reinforcement area."
+    },
+    {
+      "question": "Is overlap included?",
+      "answer": "Overlaps (splices) are not explicitly calculated in the base quantity, but are accounted for in the waste margin. Rebar overlaps are typically 40-50 times the bar diameter (e.g., 480-600 mm for 12 mm bars). The waste margin (typically 5%) accounts for overlaps, cuts, and handling. For precise overlap calculations, consult structural design specifications. This calculator provides estimates - actual overlaps depend on bar lengths available and splice requirements."
+    },
+    {
+      "question": "Why results are estimates?",
+      "answer": "This calculator provides estimates because: it assumes uniform grid spacing (actual layouts may vary), it doesn't account for specific structural design requirements, bar lengths may require splices/overlaps, and actual requirements depend on loads, codes, and engineering analysis. This is an estimation tool for planning and budgeting - always consult with a structural engineer for actual rebar design and quantities. The calculator is not a structural design tool."
+    },
+    {
+      "question": "What about rebar weight per meter?",
+      "answer": "Rebar weight per meter varies by diameter: 6 mm: 0.222 kg/m, 8 mm: 0.395 kg/m, 10 mm: 0.617 kg/m, 12 mm: 0.888 kg/m, 14 mm: 1.210 kg/m, 16 mm: 1.580 kg/m, 18 mm: 2.000 kg/m, 20 mm: 2.470 kg/m. These are standard values based on steel density. The calculator uses these values to convert rebar length to weight. Actual weights may vary slightly by manufacturer."
+    },
+    {
+      "question": "Can I use this for beams or columns?",
+      "answer": "This calculator is designed for rectangular slab/grid reinforcement. For beams or columns: rebar layout is different (longitudinal bars + stirrups/ties), calculations are more complex, and structural design is required. Use specialized calculators or consult with a structural engineer for beams and columns. This calculator focuses on the most common case: slab reinforcement grids."
+    },
+    {
+      "question": "What about rebar grade?",
+      "answer": "Rebar grade (e.g., Grade 60, Grade 40) affects strength but not weight calculation. This calculator estimates weight and length only - grade selection is a structural design decision. Different grades have the same weight per meter for the same diameter. Always use the rebar grade specified in structural design - this calculator helps estimate quantity, not select grade."
+    },
+    {
+      "question": "How do I measure slab dimensions?",
+      "answer": "Measure slab dimensions from your construction drawings or by physically measuring: Measure length and width at the outer edges of the slab. For irregular shapes, break into rectangles, calculate each separately, and add totals together. Always measure the actual slab area where reinforcement will be placed. Use the Slab Foundation Calculator if you need help calculating slab dimensions."
+    },
+    {
+      "question": "What about rebar supports (chairs)?",
+      "answer": "Rebar supports (chairs, spacers) are calculated separately and are not included in this calculator. Supports are needed to: maintain proper cover (edge allowance), keep rebar in position during concrete pour, and support top reinforcement in two-layer slabs. Calculate supports separately based on spacing and slab area. This calculator focuses on rebar quantity only."
+    },
+    {
+      "question": "Can I use this for precast slabs?",
+      "answer": "Yes, this calculator works for precast slabs if they use grid reinforcement. However, precast slabs may have: different reinforcement patterns, prestressed reinforcement, or specialized layouts. Use this calculator as an estimate, but verify with precast manufacturer specifications. Precast slabs often have standardized reinforcement that may differ from field-cast slabs."
+    },
+    {
+      "question": "What about temperature/shrinkage reinforcement?",
+      "answer": "Temperature and shrinkage reinforcement is additional rebar to control cracking from temperature changes and concrete shrinkage. It's typically: smaller diameter bars (6-10 mm), wider spacing (300-400 mm), and placed in the top layer. This calculator estimates main reinforcement - temperature/shrinkage reinforcement is calculated separately. Consult structural design for temperature reinforcement requirements."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on geometric calculations and standard rebar weights. Accuracy depends on: precise slab measurements, correct spacing and diameter selection, appropriate edge allowance, and realistic waste margin. The estimate is typically within 5-10% of actual needs when inputs are accurate. However, actual rebar requirements depend on structural design, which may differ from estimates. Always add waste margin (5%) for real-world projects."
+    },
+    {
+      "question": "What about rebar cutting and bending?",
+      "answer": "Rebar cutting and bending are handled during installation and don't affect the quantity calculation directly. However: cutting creates waste (accounted for in waste margin), bending may require extra length for bends, and standard bar lengths (typically 12 m) may require cutting. The calculator provides total length needed - actual cutting and bending are part of installation planning. Waste margin accounts for cutting waste."
+    }
+  ],
+  "seo": {
+    "title": "Rebar Calculator – Estimate Rebar Weight and Length for a Slab",
+    "description": "Calculate rebar quantity for slab reinforcement. Get number of bars, total rebar length, and weight based on spacing, diameter, and layers.",
+    "keywords": ["rebar calculator", "rebar weight", "slab reinforcement", "rebar estimation", "steel reinforcement", "construction calculator"]
+  }
+}
+

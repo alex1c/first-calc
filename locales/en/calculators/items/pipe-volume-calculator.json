@@ -1,0 +1,225 @@
+{
+  "title": "Pipe Volume Calculator – Calculate Water Volume in Pipes",
+  "shortDescription": "Calculate the volume of water inside pipes based on diameter and length. Useful for plumbing and heating systems.",
+  "longDescription": "Our Pipe Volume Calculator helps you calculate the volume of liquid (water) inside pipes based on inner diameter and length. Enter pipe length, inner diameter, and number of pipes, and get accurate volume estimates in liters, cubic meters, and gallons. Supports both metric (meters, millimeters) and imperial (feet, inches) units. Perfect for plumbers, HVAC technicians, and contractors planning plumbing or heating systems. Get accurate estimates with clear breakdowns showing volume per pipe, total volume, and unit conversions. Useful for estimating filling time, amount of fluid needed, and system capacity.",
+  "inputs": [
+    {
+      "label": "Pipe Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the pipe in meters or feet"
+    },
+    {
+      "label": "Pipe Inner Diameter",
+      "unitLabel": "",
+      "placeholder": "Enter diameter",
+      "helpText": "Enter the inner diameter of the pipe in millimeters (metric) or inches (imperial). Use inner diameter, not outer diameter."
+    },
+    {
+      "label": "Number of Pipes",
+      "unitLabel": "",
+      "placeholder": "Enter count",
+      "helpText": "Enter the number of pipes (default: 1). Useful for calculating total volume in a system with multiple pipes."
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for pipe length measurements (diameter is always in mm for metric, inches for imperial)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Volume per Pipe",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Pipe Volume",
+      "unitLabel": ""
+    },
+    {
+      "label": "Volume in Liters",
+      "unitLabel": ""
+    },
+    {
+      "label": "Volume in Cubic Meters",
+      "unitLabel": ""
+    },
+    {
+      "label": "Volume in Gallons",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the pipe length in meters or feet",
+    "Enter the pipe inner diameter in millimeters (metric) or inches (imperial)",
+    "Enter the number of pipes (default: 1, use >1 for systems with multiple pipes)",
+    "Select the unit system: Meters or Feet",
+    "Click the Calculate button",
+    "View the volume per pipe in liters and cubic meters",
+    "See the total volume for all pipes",
+    "Check volume in gallons if using imperial units",
+    "Review the formula, breakdown, and explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Single Pipe, 20 m, Ø25 mm",
+      "inputDescription": "Calculate volume for a single pipe.",
+      "steps": [
+        "Pipe Length: 20 meters",
+        "Inner Diameter: 25 mm",
+        "Number of Pipes: 1",
+        "Unit: Meters",
+        "Calculation:",
+        "  Radius = 25 / 2 / 1000 = 0.0125 m",
+        "  Volume = π × 0.0125² × 20 = 0.00982 m³",
+        "  Volume = 9.82 liters"
+      ],
+      "resultDescription": "For a single pipe 20 m long with 25 mm inner diameter, the volume is 9.82 liters (0.00982 m³). This is useful for estimating how much water is in the pipe or how much fluid is needed to fill it. Typical residential pipes range from 15-50 mm diameter."
+    },
+    {
+      "id": "example-2",
+      "title": "Heating System with Multiple Pipes",
+      "inputDescription": "Calculate total volume for a heating system.",
+      "steps": [
+        "Pipe Length: 15 meters (per pipe)",
+        "Inner Diameter: 20 mm",
+        "Number of Pipes: 8 (heating system)",
+        "Unit: Meters",
+        "Calculation:",
+        "  Volume per Pipe = π × 0.01² × 15 = 0.00471 m³ = 4.71 liters",
+        "  Total Volume = 4.71 × 8 = 37.68 liters"
+      ],
+      "resultDescription": "For a heating system with 8 pipes, each 15 m long with 20 mm diameter, the total volume is 37.68 liters. This helps estimate: amount of water/antifreeze needed to fill the system, filling time, and system capacity. Heating systems require accurate volume calculations for proper operation."
+    },
+    {
+      "id": "example-3",
+      "title": "Large Diameter Pipe",
+      "inputDescription": "Calculate volume for a large diameter pipe.",
+      "steps": [
+        "Pipe Length: 50 meters",
+        "Inner Diameter: 100 mm",
+        "Number of Pipes: 1",
+        "Unit: Meters",
+        "Calculation:",
+        "  Radius = 100 / 2 / 1000 = 0.05 m",
+        "  Volume = π × 0.05² × 50 = 0.3927 m³",
+        "  Volume = 392.7 liters"
+      ],
+      "resultDescription": "For a large 100 mm diameter pipe 50 m long, the volume is 392.7 liters (0.3927 m³). Large diameter pipes hold significantly more volume - diameter has a squared effect on volume. This is important for main water lines, irrigation systems, and industrial applications."
+    },
+    {
+      "id": "example-4",
+      "title": "Compare Two Diameters",
+      "inputDescription": "Compare volumes for different pipe diameters.",
+      "steps": [
+        "Pipe Length: 10 meters (same for both)",
+        "Scenario 1: 20 mm diameter",
+        "  Volume = π × 0.01² × 10 = 3.14 liters",
+        "Scenario 2: 40 mm diameter",
+        "  Volume = π × 0.02² × 10 = 12.57 liters",
+        "Comparison: 40 mm holds 4× more than 20 mm"
+      ],
+      "resultDescription": "Comparing diameters shows the significant impact on volume. For 10 m pipes: 20 mm holds 3.14 liters, while 40 mm holds 12.57 liters (4× more). Volume increases with the square of diameter - doubling diameter quadruples volume. This is important when choosing pipe sizes for capacity requirements."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate pipe volume using imperial units.",
+      "steps": [
+        "Pipe Length: 30 feet",
+        "Inner Diameter: 1 inch",
+        "Number of Pipes: 1",
+        "Unit: Feet",
+        "Calculation:",
+        "  Convert: 30 ft = 9.144 m",
+        "  Convert: 1 in = 25.4 mm = 0.0254 m",
+        "  Radius = 0.0127 m",
+        "  Volume = π × 0.0127² × 9.144 = 0.00464 m³",
+        "  Volume = 4.64 liters = 1.23 gallons"
+      ],
+      "resultDescription": "For a pipe 30 feet long with 1 inch inner diameter, the volume is 4.64 liters (1.23 gallons). Standard US pipe sizes are often specified in inches - always use inner diameter for accurate volume calculations. This is useful for plumbing, irrigation, and HVAC systems."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Inner vs outer diameter?",
+      "answer": "Always use inner diameter (ID) for volume calculations, not outer diameter (OD). Inner diameter is the actual space inside the pipe where liquid flows. Outer diameter includes pipe wall thickness. For example: A pipe with 25 mm OD and 2 mm wall thickness has 21 mm ID. Use 21 mm for volume calculation, not 25 mm. Pipe specifications typically list both - always check which one you're using."
+    },
+    {
+      "question": "Why volume calculation is important?",
+      "answer": "Pipe volume calculation is important for: Filling systems: Estimate how much fluid (water, antifreeze, etc.) is needed to fill plumbing or heating systems. Draining systems: Know how much fluid will drain out. System capacity: Understand total system volume for design and operation. Maintenance: Calculate amount of fluid for flushing, cleaning, or replacement. Cost estimation: Estimate material costs for filling large systems. Time estimation: Estimate filling or draining time based on flow rates."
+    },
+    {
+      "question": "Does pipe material matter?",
+      "answer": "Pipe material (copper, PVC, steel, etc.) doesn't affect volume calculation directly - volume depends only on inner diameter and length. However, material affects: Wall thickness (affects inner diameter for same outer diameter), durability and pressure rating, and thermal properties (for heating systems). For volume calculations, use the actual inner diameter regardless of material. Different materials may have different standard sizes, so always verify inner diameter."
+    },
+    {
+      "question": "Can this be used for gas?",
+      "answer": "Yes, this calculator works for any fluid (liquid or gas) inside pipes. However, for gases: Volume is the same, but mass depends on gas density (much lighter than water), pressure affects gas volume (compressible), and temperature affects gas volume (thermal expansion). This calculator provides volume - for gas mass or pressure calculations, use gas density and pressure/temperature corrections. For most practical purposes, volume calculation is the same for liquids and gases."
+    },
+    {
+      "question": "Liters vs gallons?",
+      "answer": "Liters and gallons are both volume units: 1 liter = 0.264 gallons (US), 1 gallon (US) = 3.785 liters, 1 gallon (UK) = 4.546 liters. This calculator uses US gallons for imperial units. Metric system uses liters (1 m³ = 1000 liters). The calculator automatically converts between units - select your preferred unit system and get results in both metric and imperial if applicable."
+    },
+    {
+      "question": "How do I measure pipe diameter?",
+      "answer": "Measure pipe inner diameter: Use calipers to measure inside diameter directly, check pipe specifications (manufacturer data sheets), or measure outer diameter and subtract 2× wall thickness. Pipe sizes are often specified as nominal size (not actual diameter) - always verify actual inner diameter. For example, '1/2 inch pipe' may have different actual inner diameter depending on schedule/wall thickness."
+    },
+    {
+      "question": "What about pipe fittings and elbows?",
+      "answer": "Pipe fittings (elbows, tees, valves) add volume to the system but are not included in straight pipe calculations. To account for fittings: Estimate fitting volume separately (fittings have internal volume), add to pipe volume, or use a safety margin (typically 10-20% extra). For precise calculations, calculate each fitting separately and add to total. This calculator focuses on straight pipe volume - add fitting volume separately if needed."
+    },
+    {
+      "question": "Can I use this for non-circular pipes?",
+      "answer": "This calculator is designed for circular (cylindrical) pipes, which are the most common. For non-circular pipes (rectangular, square ducts): Use appropriate formulas (rectangular: length × width × height), or break into sections and calculate separately. This calculator uses circular pipe formula: V = π × r² × length. For HVAC ducts or special shapes, use specialized calculators or formulas."
+    },
+    {
+      "question": "What about pipe slope or elevation?",
+      "answer": "Pipe slope or elevation doesn't affect volume calculation - volume depends only on inner diameter and length, not orientation. However, slope affects: Flow rate (gravity-assisted flow), pressure (head pressure), and draining (slope helps drainage). For volume calculations, use the actual pipe length regardless of slope. Volume is the same whether pipe is horizontal, vertical, or sloped."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate volume estimates based on geometric formulas for cylindrical pipes. Accuracy depends on: Precise inner diameter measurement (most critical), accurate length measurement, and correct unit selection. The formulas are mathematically correct. Actual volume may vary slightly due to: Pipe manufacturing tolerances, wall thickness variations, and pipe irregularities. The estimate is typically within 1-2% of actual volume when measurements are accurate."
+    },
+    {
+      "question": "What about pipe expansion joints?",
+      "answer": "Pipe expansion joints don't significantly affect volume calculation - they're typically small compared to total pipe length. Expansion joints accommodate thermal expansion/contraction but don't change internal volume appreciably. For most calculations, ignore expansion joints. For very precise calculations, measure actual pipe length excluding expansion joint length, or add expansion joint volume separately if significant."
+    },
+    {
+      "question": "Can I use this for water tanks?",
+      "answer": "This calculator is designed for pipes (long, narrow cylinders). For water tanks (short, wide cylinders or other shapes): Use appropriate formulas (tank volume calculators), or if tank is cylindrical, this calculator works if you treat tank height as 'length'. Tanks are typically wider than pipes, so the calculation method is the same (V = π × r² × height), but tanks are usually calculated separately from pipes."
+    },
+    {
+      "question": "What about pipe insulation?",
+      "answer": "Pipe insulation doesn't affect internal volume - insulation is on the outside of the pipe. Volume calculation uses inner diameter, which is unaffected by insulation. Insulation affects: Heat loss/gain, pipe temperature, and external dimensions, but not internal volume. Use inner diameter for volume calculation regardless of insulation."
+    },
+    {
+      "question": "How do I convert between pipe sizes?",
+      "answer": "Pipe sizes are often specified in different units: Metric: millimeters (mm) or centimeters (cm). Imperial: inches (in) or nominal pipe size (NPS). Conversion: 1 inch = 25.4 mm, 1 cm = 10 mm. Nominal sizes don't match actual diameters - always check actual inner diameter. This calculator accepts diameter in mm (metric) or inches (imperial) - enter the actual inner diameter in the appropriate unit."
+    },
+    {
+      "question": "What about pipe schedule/thickness?",
+      "answer": "Pipe schedule (wall thickness) affects inner diameter for the same nominal size. For example: 1/2 inch Schedule 40: OD ≈ 0.84 in, ID ≈ 0.622 in. 1/2 inch Schedule 80: OD ≈ 0.84 in, ID ≈ 0.546 in (thicker walls = smaller ID). Always use actual inner diameter, not nominal size. Check pipe specifications for actual inner diameter based on schedule. This calculator uses inner diameter directly - schedule doesn't matter if you know the actual ID."
+    }
+  ],
+  "seo": {
+    "title": "Pipe Volume Calculator – Calculate Water Volume in Pipes",
+    "description": "Calculate the volume of water inside pipes based on diameter and length. Useful for plumbing and heating systems.",
+    "keywords": ["pipe volume calculator", "water volume in pipes", "pipe capacity", "plumbing calculator", "pipe volume", "water calculator"]
+  }
+}
+

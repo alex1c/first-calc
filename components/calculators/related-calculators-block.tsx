@@ -9,6 +9,7 @@ import { getClusterForCalculator } from '@/lib/navigation/math-clusters'
 import { getRelatedByFinanceCluster } from '@/lib/navigation/related-by-finance-cluster'
 import { getRelatedByHealthCluster } from '@/lib/navigation/related-by-health-cluster'
 import { getRelatedByEverydayCluster } from '@/lib/navigation/related-by-everyday-cluster'
+import { getRelatedByConstructionCluster } from '@/lib/navigation/related-by-construction-cluster'
 
 interface RelatedCalculatorsBlockProps {
 	calculator: CalculatorDefinitionClient
@@ -375,6 +376,16 @@ export async function RelatedCalculatorsBlock({
 		const existingIds = new Set(relatedCalculators.map((c) => c.id))
 		const newFromCluster = everydayClusterRelated.filter((c) => !existingIds.has(c.id))
 		// For everyday, prioritize same cluster (2-3 items), then add logical next-step (1-2 items)
+		relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
+	}
+	
+	// Priority 2e: Construction cluster-based related calculators
+	if (calculator.category === 'construction' && relatedCalculators.length < 6) {
+		const constructionClusterRelated = await getRelatedByConstructionCluster(calculator.id, locale, 6)
+		// Merge with existing, avoiding duplicates
+		const existingIds = new Set(relatedCalculators.map((c) => c.id))
+		const newFromCluster = constructionClusterRelated.filter((c) => !existingIds.has(c.id))
+		// For construction, prioritize same cluster (2-3 items), upstream (1-2), downstream (1-2)
 		relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
 	}
 	

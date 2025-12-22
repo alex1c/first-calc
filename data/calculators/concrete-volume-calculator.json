@@ -1,0 +1,170 @@
+{
+  "id": "concrete-volume-calculator",
+  "slug": "concrete-volume-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateConcreteVolume",
+  "tags": ["concrete", "volume", "concrete-volume", "construction"],
+  "inputs": [
+    {
+      "name": "shape",
+      "type": "select",
+      "options": [
+        { "value": "slab", "label": "Slab" },
+        { "value": "footing", "label": "Rectangular Footing" },
+        { "value": "column", "label": "Cylindrical Column" }
+      ],
+      "defaultValue": "slab"
+    },
+    {
+      "name": "length",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "slab"
+      }
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "slab"
+      }
+    },
+    {
+      "name": "thickness",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "slab"
+      }
+    },
+    {
+      "name": "length",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "footing"
+      }
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "footing"
+      }
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "footing"
+      }
+    },
+    {
+      "name": "radius",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "column"
+      }
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "shape",
+        "value": "column"
+      }
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wastePercent",
+      "type": "number",
+      "min": 5,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "volume"
+    },
+    {
+      "name": "volumeWithWaste"
+    },
+    {
+      "name": "volumeUnit"
+    },
+    {
+      "name": "volumeUnitFull"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "shapeName"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "shape": "slab",
+    "unit": "meters",
+    "includeWaste": "false",
+    "wastePercent": 10
+  },
+  "relatedIds": ["cement-calculator", "sand-calculator", "gravel-calculator", "foundation-volume-calculator"],
+  "isEnabled": true
+}
+

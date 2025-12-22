@@ -1,0 +1,234 @@
+{
+  "id": "brick-calculator",
+  "slug": "brick-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateBrick",
+  "tags": ["brick-calculator", "masonry", "wall-bricks", "bricks-per-square-meter"],
+  "inputs": [
+    {
+      "name": "wallLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "wallHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "brickType",
+      "type": "select",
+      "options": [
+        { "value": "standard", "label": "Standard (250×120×65 mm)" },
+        { "value": "modular", "label": "Modular (200×100×75 mm)" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "defaultValue": "standard"
+    },
+    {
+      "name": "customBrickLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "brickType",
+        "value": "custom"
+      }
+    },
+    {
+      "name": "customBrickWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "brickType",
+        "value": "custom"
+      }
+    },
+    {
+      "name": "customBrickHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "brickType",
+        "value": "custom"
+      }
+    },
+    {
+      "name": "jointThickness",
+      "type": "number",
+      "min": 0,
+      "max": 0.1,
+      "step": 0.001
+    },
+    {
+      "name": "wallThickness",
+      "type": "select",
+      "options": [
+        { "value": "half", "label": "Half Brick (Single Wythe)" },
+        { "value": "one", "label": "One Brick (Double Wythe)" },
+        { "value": "one-and-a-half", "label": "One and a Half Bricks" }
+      ],
+      "defaultValue": "one"
+    },
+    {
+      "name": "subtractOpenings",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "doorsCount",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 0,
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "doorWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "doorHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "windowsCount",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 0,
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "windowWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "windowHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "visibleIf": {
+        "field": "subtractOpenings",
+        "value": "true"
+      }
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "grossWallArea"
+    },
+    {
+      "name": "netWallArea"
+    },
+    {
+      "name": "brickFaceArea"
+    },
+    {
+      "name": "bricksPerSquareUnit"
+    },
+    {
+      "name": "totalBricks"
+    },
+    {
+      "name": "totalBricksWithWaste"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "wallLength": 5,
+    "wallHeight": 2.5,
+    "brickType": "standard",
+    "jointThickness": 0.01,
+    "wallThickness": "one",
+    "subtractOpenings": "false",
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["wall-area-calculator", "paint-calculator", "primer-calculator"],
+  "isEnabled": true
+}
+

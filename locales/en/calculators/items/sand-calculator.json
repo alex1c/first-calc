@@ -1,0 +1,244 @@
+{
+  "title": "Sand Calculator – Estimate Sand for Concrete and Masonry",
+  "shortDescription": "Calculate the amount of sand needed for concrete or mortar. Estimate sand volume and weight easily.",
+  "longDescription": "Our Sand Calculator helps you determine how much sand you need for your concrete or masonry project. Enter the concrete/mortar volume and select the mix ratio (1:2:4, 1:3:6 for concrete, or 1:3 for masonry mortar), and get accurate estimates of sand volume and weight. Supports both metric (m³) and imperial (ft³) units. Includes optional waste margin calculation (5-20%) to account for compaction, handling losses, and ensure sufficient material. Uses standard sand density (1600 kg/m³ for dry sand) for accurate weight calculations. Perfect for contractors, DIY builders, and construction planning.",
+  "inputs": [
+    {
+      "label": "Concrete/Mortar Volume",
+      "unitLabel": "",
+      "placeholder": "Enter volume",
+      "helpText": "Enter the total concrete or mortar volume needed in cubic meters or cubic feet"
+    },
+    {
+      "label": "Mix Ratio",
+      "unitLabel": "",
+      "placeholder": "Select mix ratio",
+      "helpText": "Select the mix ratio: 1:2:4 or 1:3:6 for concrete, 1:3 for masonry mortar, or choose custom"
+    },
+    {
+      "label": "Custom Mix Ratio",
+      "unitLabel": "",
+      "placeholder": "e.g., 1:2:3 or 1:4",
+      "helpText": "Enter custom mix ratio in format cement:sand:gravel (concrete) or cement:sand (mortar)"
+    },
+    {
+      "label": "Sand Density",
+      "unitLabel": "kg/m³",
+      "placeholder": "Enter density",
+      "helpText": "Enter sand density in kg/m³ (default: 1600 kg/m³ for dry sand). Wet sand may be 1800-2000 kg/m³"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters (m³) or feet (ft³) for volume measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-20%) to account for compaction, handling losses, and ensure sufficient material"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Sand Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Sand Weight with Waste",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Sand Volume",
+      "unitLabel": "m³"
+    },
+    {
+      "label": "Sand Volume with Waste",
+      "unitLabel": "m³"
+    },
+    {
+      "label": "Sand Weight (Tons)",
+      "unitLabel": "tons"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the total concrete or mortar volume needed (use Concrete Volume Calculator if needed)",
+    "Select the mix ratio: 1:2:4 (standard concrete), 1:3:6 (lean concrete), 1:3 (masonry mortar), or choose custom",
+    "Optionally adjust sand density (default: 1600 kg/m³ for dry sand)",
+    "Select the unit system: Meters (m³) or Feet (ft³)",
+    "Optionally enable waste margin and set the percentage (typically 10%)",
+    "Click the Calculate button",
+    "View the calculated sand weight in kilograms and volume in cubic meters",
+    "See the weight in tons for large volumes (if applicable)",
+    "Review the formula and explanation for calculation details",
+    "Use the waste margin to ensure you order enough sand"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Concrete Slab",
+      "inputDescription": "Calculate sand needed for a concrete slab.",
+      "steps": [
+        "Concrete Volume: 3.6 m³",
+        "Mix Ratio: 1:2:4 (Standard Concrete)",
+        "Sand Density: 1600 kg/m³ (Dry Sand)",
+        "Unit: Meters",
+        "Calculation:",
+        "  Total Parts = 1 + 2 + 4 = 7",
+        "  Sand Volume = 3.6 × (2/7) = 1.029 m³",
+        "  Sand Weight = 1.029 × 1600 = 1646.4 kg"
+      ],
+      "resultDescription": "For 3.6 m³ of concrete with a 1:2:4 mix ratio, you need approximately 1.03 m³ (1646 kg) of sand. This is about 1.65 tons. With a 10% waste margin, order approximately 1.13 m³ (1811 kg or 1.81 tons) to account for compaction and handling losses."
+    },
+    {
+      "id": "example-2",
+      "title": "Foundation Mix",
+      "inputDescription": "Calculate sand needed for foundation concrete.",
+      "steps": [
+        "Concrete Volume: 10 m³",
+        "Mix Ratio: 1:3:6 (Lean Mix)",
+        "Sand Density: 1600 kg/m³",
+        "Unit: Meters",
+        "Calculation:",
+        "  Total Parts = 1 + 3 + 6 = 10",
+        "  Sand Volume = 10 × (3/10) = 3.0 m³",
+        "  Sand Weight = 3.0 × 1600 = 4800 kg = 4.8 tons"
+      ],
+      "resultDescription": "For 10 m³ of concrete with a 1:3:6 lean mix, you need 3.0 m³ (4800 kg or 4.8 tons) of sand. The lean mix uses more sand relative to cement compared to the standard 1:2:4 mix. With 10% waste margin, order 3.3 m³ (5280 kg or 5.28 tons)."
+    },
+    {
+      "id": "example-3",
+      "title": "Masonry Mortar",
+      "inputDescription": "Calculate sand needed for masonry mortar.",
+      "steps": [
+        "Mortar Volume: 2 m³",
+        "Mix Ratio: 1:3 (Masonry Mortar)",
+        "Sand Density: 1600 kg/m³",
+        "Unit: Meters",
+        "Calculation:",
+        "  Total Parts = 1 + 3 = 4",
+        "  Sand Volume = 2 × (3/4) = 1.5 m³",
+        "  Sand Weight = 1.5 × 1600 = 2400 kg = 2.4 tons"
+      ],
+      "resultDescription": "For 2 m³ of masonry mortar with a 1:3 mix ratio, you need 1.5 m³ (2400 kg or 2.4 tons) of sand. Masonry mortar has a higher sand-to-cement ratio than concrete, making it more economical for bricklaying and plastering work. With 10% waste margin, order 1.65 m³ (2640 kg or 2.64 tons)."
+    },
+    {
+      "id": "example-4",
+      "title": "With Waste Margin",
+      "inputDescription": "Calculate sand with waste margin included.",
+      "steps": [
+        "Concrete Volume: 15 m³",
+        "Mix Ratio: 1:2:4 (Standard)",
+        "Sand Density: 1600 kg/m³",
+        "Unit: Meters",
+        "Include Waste: Yes (10%)",
+        "Calculation:",
+        "  Base Sand Volume = 15 × (2/7) = 4.286 m³",
+        "  Base Sand Weight = 4.286 × 1600 = 6857.6 kg",
+        "  With 10% Waste = 4.286 × 1.10 = 4.715 m³",
+        "  Weight with Waste = 6857.6 × 1.10 = 7543.4 kg = 7.54 tons"
+      ],
+      "resultDescription": "For 15 m³ of concrete with a 1:2:4 mix, the base sand requirement is 4.29 m³ (6858 kg or 6.86 tons). With a 10% waste margin, you should order 4.72 m³ (7543 kg or 7.54 tons) to account for compaction, handling losses, and ensure sufficient material for the entire project."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate sand needed using imperial units.",
+      "steps": [
+        "Concrete Volume: 120 ft³",
+        "Mix Ratio: 1:2:4 (Standard)",
+        "Sand Density: 1600 kg/m³",
+        "Unit: Feet",
+        "Calculation:",
+        "  Convert: 120 ft³ = 120 × 0.0283168 = 3.398 m³",
+        "  Sand Volume = 3.398 × (2/7) = 0.971 m³",
+        "  Sand Weight = 0.971 × 1600 = 1553.6 kg",
+        "  Convert to tons: 1553.6 / 1000 = 1.55 tons"
+      ],
+      "resultDescription": "For 120 cubic feet (3.4 m³) of concrete with a 1:2:4 mix ratio, you need approximately 0.97 m³ (1554 kg or 1.55 tons) of sand. This is approximately 34.3 cubic feet of sand. Always check local suppliers for sand availability and delivery minimums."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What sand density is used?",
+      "answer": "The calculator uses a default density of 1600 kg/m³ (100 lb/ft³) for dry sand, which is the standard value used in construction calculations. Sand density can vary: dry sand is typically 1400-1600 kg/m³, wet sand is 1800-2000 kg/m³, and compacted sand can be up to 2000 kg/m³. You can adjust the density in the calculator if you know the specific type and condition of sand you're using."
+    },
+    {
+      "question": "Does moisture affect sand volume?",
+      "answer": "Yes, moisture significantly affects sand. Wet sand has higher density (1800-2000 kg/m³ vs 1600 kg/m³ for dry sand) and takes up less volume for the same weight. However, when measuring by volume (m³ or ft³), wet sand may appear to have more volume due to bulking. For accurate calculations, use dry sand density (1600 kg/m³) when ordering by weight, or adjust the density if you're using wet sand."
+    },
+    {
+      "question": "Sand vs gravel difference?",
+      "answer": "Sand and gravel are both aggregates but differ in size: sand particles are 0.075-4.75 mm, while gravel is larger (4.75-75 mm). In concrete mixes (1:2:4), sand is the fine aggregate (2 parts) and gravel is the coarse aggregate (4 parts). Sand fills gaps between gravel particles and provides workability. Gravel provides strength and bulk. Both are essential in concrete, but this calculator focuses on sand only."
+    },
+    {
+      "question": "How accurate is this estimate?",
+      "answer": "The calculator provides accurate estimates based on standard mix ratios and sand density (1600 kg/m³). Accuracy depends on: precise volume measurement, correct mix ratio selection, and realistic density value. The calculations are mathematically correct, but actual needs may vary slightly due to sand type (river sand vs crushed sand), moisture content, compaction, and handling losses. Always add a waste margin (10%) for real-world projects."
+    },
+    {
+      "question": "Should I order extra sand?",
+      "answer": "Yes, it's highly recommended to add 5-10% extra sand (waste margin) to account for compaction, handling losses, spillage, and to ensure you have enough material. Some contractors add up to 15% for large projects or when using wet sand. It's better to have a small amount left over than to run short during construction, which can delay the project."
+    },
+    {
+      "question": "What's the difference between river sand and crushed sand?",
+      "answer": "River sand (natural sand) is rounded and smooth, providing better workability. Crushed sand (manufactured sand) is angular and may require slightly more cement for the same workability. Both have similar densities (around 1600 kg/m³), but crushed sand may compact more. The calculator works for both types, but you may need to adjust the waste margin slightly for crushed sand."
+    },
+    {
+      "question": "How do I measure sand volume?",
+      "answer": "Sand is typically measured by volume (cubic meters or cubic yards) or by weight (tons or kilograms). For small projects, you can measure by volume using containers. For large projects, suppliers deliver by truckload (typically 5-20 m³ per truck). The calculator converts between volume and weight using density, so you can order in whichever unit your supplier uses."
+    },
+    {
+      "question": "What about sand for plastering?",
+      "answer": "Plastering typically uses a 1:3 or 1:4 cement:sand ratio (similar to masonry mortar). Use the '1:3 (Masonry Mortar)' option in the calculator, or enter a custom ratio like 1:4. Plastering requires fine sand (passing through 1.18 mm sieve). The volume calculation remains the same, but ensure you're using the correct sand type for plastering work."
+    },
+    {
+      "question": "Can I use this for ready-mix concrete?",
+      "answer": "This calculator is for estimating sand when mixing concrete yourself. For ready-mix concrete, you order by volume (cubic meters or yards), and the supplier handles the mix ratio. However, you can use this calculator to estimate sand content in ready-mix for cost comparison or to understand material composition."
+    },
+    {
+      "question": "What if my mix ratio is different?",
+      "answer": "Use the 'Custom' mix ratio option and enter your ratio in the format cement:sand:gravel (for concrete) or cement:sand (for mortar). For example, enter '1:1.5:3' for high-strength concrete, or '1:4' for lean mortar. The calculator will automatically calculate based on your custom ratio. Ensure the ratio follows the standard format with colons separating the parts."
+    },
+    {
+      "question": "How do I convert cubic feet to cubic meters?",
+      "answer": "1 cubic meter = 35.3147 cubic feet, or 1 cubic foot = 0.0283168 cubic meters. The calculator automatically handles this conversion when you select the unit. For example, 100 ft³ = 2.83 m³. Most construction projects use cubic meters (metric) or cubic yards (imperial: 1 yd³ = 27 ft³ = 0.7646 m³)."
+    },
+    {
+      "question": "What's the difference between dry and wet sand?",
+      "answer": "Dry sand has density around 1600 kg/m³ and is used for calculations. Wet sand has higher density (1800-2000 kg/m³) due to water content. When sand gets wet, it may appear to have more volume (bulking) but actually weighs more per unit volume. For ordering, use dry sand density (1600 kg/m³) unless you specifically know you're using wet sand, in which case adjust the density accordingly."
+    },
+    {
+      "question": "How much sand per cubic meter of concrete?",
+      "answer": "The amount depends on the mix ratio. For 1:2:4 mix: approximately 0.286 m³ (457 kg) of sand per m³ of concrete. For 1:3:6 lean mix: approximately 0.3 m³ (480 kg) per m³. For masonry mortar (1:3): 0.75 m³ (1200 kg) per m³ of mortar. These values are calculated based on sand representing 2/7, 3/10, or 3/4 of the total mix volume, respectively."
+    },
+    {
+      "question": "Does sand type affect the calculation?",
+      "answer": "Different sand types (river sand, crushed sand, fine sand, coarse sand) have similar densities (around 1600 kg/m³) but may differ slightly. Fine sand may have slightly lower density, while coarse or compacted sand may have higher density. The calculator uses 1600 kg/m³ as standard, but you can adjust the density if you know the specific sand type. The volume calculation (based on mix ratio) remains the same regardless of sand type."
+    },
+    {
+      "question": "What about sand storage and handling?",
+      "answer": "Store sand in a covered, dry area to prevent moisture absorption and contamination. Sand should be protected from rain and kept clean. When handling sand, account for losses due to wind, spillage, and compaction. This is why adding a 10% waste margin is recommended. For large projects, consider ordering sand in stages to minimize storage and handling issues."
+    }
+  ],
+  "seo": {
+    "title": "Sand Calculator – Estimate Sand for Concrete and Masonry",
+    "description": "Calculate the amount of sand needed for concrete or mortar. Estimate sand volume and weight easily.",
+    "keywords": ["sand calculator", "how much sand", "sand for concrete", "sand estimate", "construction calculator", "masonry sand"]
+  }
+}
+

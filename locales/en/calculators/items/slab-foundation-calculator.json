@@ -1,0 +1,286 @@
+{
+  "title": "Slab Foundation Calculator – Concrete Volume for a Concrete Slab",
+  "shortDescription": "Calculate slab foundation concrete volume with slab thickness, optional thickened edges, unit conversion, and waste margin.",
+  "longDescription": "Our Slab Foundation Calculator helps you determine how much concrete you need for a slab foundation. Enter the slab dimensions (length, width, thickness) and optionally include thickened edges/beams around the perimeter for better load distribution. Supports both metric (m³) and imperial (ft³) units with automatic conversion to cubic yards. Includes optional waste margin calculation (5-20%) to account for formwork variations, spillage, and ensure sufficient material. Perfect for contractors, DIY builders, and construction planning. Get accurate estimates with clear breakdowns showing slab volume vs thickened edge volume.",
+  "inputs": [
+    {
+      "label": "Slab Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the slab foundation in meters or feet"
+    },
+    {
+      "label": "Slab Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the slab foundation in meters or feet"
+    },
+    {
+      "label": "Slab Thickness",
+      "unitLabel": "",
+      "placeholder": "Enter thickness",
+      "helpText": "Enter the thickness of the slab foundation in meters or feet (typically 10-15 cm or 4-6 inches for residential)"
+    },
+    {
+      "label": "Include Thickened Edge",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to include thickened edges/beams around the perimeter for better load distribution"
+    },
+    {
+      "label": "Edge Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the thickened edge in meters or feet (typically 30-60 cm or 12-24 inches)"
+    },
+    {
+      "label": "Edge Depth",
+      "unitLabel": "",
+      "placeholder": "Enter depth",
+      "helpText": "Enter the depth (height) of the thickened edge in meters or feet (typically 20-40 cm or 8-16 inches deeper than slab)"
+    },
+    {
+      "label": "Edge Runs",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Select 'Perimeter Only' to calculate edge around the perimeter, or 'Custom' to enter total edge length"
+    },
+    {
+      "label": "Custom Edge Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the total length of thickened edge if not running around the full perimeter in meters or feet"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-20%) to account for formwork variations, spillage, and ensure sufficient material"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Slab Volume",
+      "unitLabel": ""
+    },
+    {
+      "label": "Edge Volume",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Concrete Volume",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Volume with Waste",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Volume (Cubic Yards)",
+      "unitLabel": "yd³"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the slab length, width, and thickness (from foundation design drawings)",
+    "Optionally enable 'Include Thickened Edge' if your slab has thickened edges/beams",
+    "If including thickened edge, enter edge width and depth",
+    "Select whether edge runs around perimeter only or enter custom edge length",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin and set the percentage (typically 10%)",
+    "Click the Calculate button",
+    "View the breakdown showing slab volume and edge volume separately",
+    "See the total concrete volume in cubic meters or cubic feet",
+    "Check the volume in cubic yards if using imperial units",
+    "Review the formula, breakdown, and explanation for calculation details",
+    "After calculating slab volume, use the Rebar Calculator to estimate reinforcement quantity, or the Cement Calculator to determine cement needs"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Simple Slab for Garage",
+      "inputDescription": "Calculate concrete for a simple garage slab foundation.",
+      "steps": [
+        "Slab Length: 6 meters",
+        "Slab Width: 4 meters",
+        "Slab Thickness: 0.15 meters (15 cm)",
+        "Include Thickened Edge: No",
+        "Unit: Meters",
+        "Calculation:",
+        "  Base Slab Volume = 6 × 4 × 0.15 = 3.6 m³"
+      ],
+      "resultDescription": "For a simple garage slab measuring 6m × 4m × 0.15m, you need 3.6 m³ of concrete. With 10% waste margin, order 3.96 m³ to account for formwork variations and spillage. Simple slabs without thickened edges are suitable for light structures like garages and sheds."
+    },
+    {
+      "id": "example-2",
+      "title": "House Slab",
+      "inputDescription": "Calculate concrete for a house slab foundation.",
+      "steps": [
+        "Slab Length: 12 meters",
+        "Slab Width: 10 meters",
+        "Slab Thickness: 0.15 meters (15 cm)",
+        "Include Thickened Edge: No",
+        "Unit: Meters",
+        "Calculation:",
+        "  Base Slab Volume = 12 × 10 × 0.15 = 18 m³"
+      ],
+      "resultDescription": "For a house slab measuring 12m × 10m × 0.15m, you need 18 m³ of concrete. With 10% waste margin, order 19.8 m³. House slabs typically require 10-15 cm thickness for residential loads. Consider adding thickened edges if you have heavy loads or poor soil conditions."
+    },
+    {
+      "id": "example-3",
+      "title": "Slab with Thickened Perimeter Edge",
+      "inputDescription": "Calculate concrete for a slab with thickened edges around the perimeter.",
+      "steps": [
+        "Slab Length: 10 meters",
+        "Slab Width: 8 meters",
+        "Slab Thickness: 0.15 meters (15 cm)",
+        "Include Thickened Edge: Yes",
+        "Edge Width: 0.5 meters (50 cm)",
+        "Edge Depth: 0.4 meters (40 cm total, 25 cm deeper than slab)",
+        "Edge Runs: Perimeter Only",
+        "Unit: Meters",
+        "Calculation:",
+        "  Base Slab Volume = 10 × 8 × 0.15 = 12 m³",
+        "  Perimeter = 2 × (10 + 8) = 36 m",
+        "  Edge Volume = 36 × 0.5 × 0.4 = 7.2 m³",
+        "  Total Volume = 12 + 7.2 = 19.2 m³"
+      ],
+      "resultDescription": "For a slab with thickened perimeter edge, the base slab requires 12 m³ and the thickened edge (36m perimeter, 0.5m × 0.4m) requires an additional 7.2 m³. Total: 19.2 m³. With 10% waste margin, order 21.12 m³. Thickened edges provide better load distribution around the perimeter."
+    },
+    {
+      "id": "example-4",
+      "title": "Custom Edge Length Case",
+      "inputDescription": "Calculate concrete for a slab with custom edge length (not full perimeter).",
+      "steps": [
+        "Slab Length: 15 meters",
+        "Slab Width: 12 meters",
+        "Slab Thickness: 0.2 meters (20 cm)",
+        "Include Thickened Edge: Yes",
+        "Edge Width: 0.6 meters (60 cm)",
+        "Edge Depth: 0.5 meters (50 cm)",
+        "Edge Runs: Custom",
+        "Custom Edge Length: 20 meters",
+        "Unit: Meters",
+        "Calculation:",
+        "  Base Slab Volume = 15 × 12 × 0.2 = 36 m³",
+        "  Edge Volume = 20 × 0.6 × 0.5 = 6 m³",
+        "  Total Volume = 36 + 6 = 42 m³"
+      ],
+      "resultDescription": "For a slab with custom edge length (20m instead of full perimeter), the base slab requires 36 m³ and the thickened edge (20m length, 0.6m × 0.5m) requires 6 m³. Total: 42 m³. Custom edge length is useful when only specific sections of the perimeter need thickening, such as load-bearing wall locations."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate slab foundation using imperial units.",
+      "steps": [
+        "Slab Length: 40 feet",
+        "Slab Width: 30 feet",
+        "Slab Thickness: 0.5 feet (6 inches)",
+        "Include Thickened Edge: Yes",
+        "Edge Width: 1.5 feet (18 inches)",
+        "Edge Depth: 1.33 feet (16 inches total, 10 inches deeper than slab)",
+        "Edge Runs: Perimeter Only",
+        "Unit: Feet",
+        "Calculation:",
+        "  Base Slab Volume = 40 × 30 × 0.5 = 600 ft³",
+        "  Perimeter = 2 × (40 + 30) = 140 ft",
+        "  Edge Volume = 140 × 1.5 × 1.33 = 279.3 ft³",
+        "  Total Volume = 600 + 279.3 = 879.3 ft³",
+        "  Convert to m³: 879.3 × 0.0283168 = 24.9 m³",
+        "  Convert to yd³: 879.3 / 27 = 32.6 cubic yards"
+      ],
+      "resultDescription": "For a slab measuring 40ft × 30ft × 0.5ft with thickened perimeter edge, you need 879.3 cubic feet (24.9 m³) of concrete. This equals approximately 32.6 cubic yards. Most concrete suppliers in the US quote prices in cubic yards, so this conversion is helpful for ordering."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is a slab foundation?",
+      "answer": "A slab foundation is a large, flat concrete slab that serves as both the foundation and the floor of a building. It's poured directly on prepared ground (often with a gravel base) and provides a solid, level surface. Slab foundations are commonly used for residential and commercial buildings, especially in areas with stable soil conditions. They're economical, provide a finished floor, and distribute building loads over a large area."
+    },
+    {
+      "question": "Typical slab thickness?",
+      "answer": "Slab thickness depends on load and soil conditions: Residential slabs: typically 10-15 cm (4-6 inches). Commercial/industrial slabs: 15-25 cm (6-10 inches). Thicker slabs (20-30 cm) may be needed for heavy loads, poor soil, or specific structural requirements. Always check local building codes and consult with a structural engineer for specific thickness requirements. The calculator accepts any thickness value you provide."
+    },
+    {
+      "question": "Do I need thickened edges?",
+      "answer": "Thickened edges (also called edge beams or perimeter beams) are recommended when: you have heavy loads around the perimeter (load-bearing walls), soil conditions require additional support, or local building codes require them. Thickened edges provide better load distribution and help prevent edge settlement. For light structures on good soil, simple slabs without thickened edges may be sufficient. Consult with a structural engineer to determine if your project needs thickened edges."
+    },
+    {
+      "question": "How much extra concrete to order?",
+      "answer": "It's recommended to add 5-10% extra concrete (waste margin) to account for formwork variations, spillage, and to ensure you have enough material. For large slabs or complex shapes, consider adding 10-15% extra. It's better to have a small amount left over than to run short during pouring, which can cause delays, cold joints, or inconsistent concrete batches."
+    },
+    {
+      "question": "Slab vs strip foundation?",
+      "answer": "Slab foundations are large flat concrete slabs that support the entire building and serve as the floor. Strip foundations are continuous footings that run along the perimeter and load-bearing walls. Slab foundations are better for larger buildings, provide a finished floor, and distribute loads over a larger area. Strip foundations are more economical for smaller structures. The choice depends on building size, soil conditions, and budget. Consult with a structural engineer for the appropriate foundation type."
+    },
+    {
+      "question": "How do I measure slab dimensions?",
+      "answer": "Measure the outer dimensions of the slab (length and width). This is the distance from the outside edge of one side to the outside edge of the opposite side. For rectangular slabs, measure the longest side (length) and the perpendicular side (width). For irregular shapes, break them into rectangles, calculate each separately, and add the volumes together. Always measure from your foundation design drawings for accuracy."
+    },
+    {
+      "question": "What about slab reinforcement (rebar)?",
+      "answer": "Reinforcement (rebar) is calculated separately and doesn't affect the concrete volume calculation. Rebar displaces a small amount of concrete (typically less than 1-2%), which is usually covered by the waste margin. This calculator focuses on concrete volume only. Rebar quantities are calculated based on structural design requirements, spacing specifications, and local building codes. Slabs typically require rebar mesh or rebar grid for reinforcement."
+    },
+    {
+      "question": "Can I use this for irregular slab shapes?",
+      "answer": "This calculator works best for rectangular or square slabs. For irregular shapes (L-shaped, U-shaped, etc.), break the slab into rectangular sections, calculate each section separately, and add the volumes together. Alternatively, use the Concrete Volume Calculator for more complex shapes. Always add the volumes together and apply the waste margin to the total combined volume."
+    },
+    {
+      "question": "What about slab-on-grade vs suspended slab?",
+      "answer": "This calculator is designed for slab-on-grade foundations (slabs poured directly on prepared ground). Suspended slabs (slabs supported by beams or columns) require different calculations that account for beam volumes. For suspended slabs, calculate the slab volume separately from beam volumes and add them together. This calculator handles slab-on-grade with optional thickened edges around the perimeter."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate volume estimates based on geometric formulas. Accuracy depends on precise measurement of slab dimensions and thickness. The formulas are mathematically correct, but actual concrete needs may vary slightly due to formwork, surface irregularities, and compaction. Always add a waste margin (5-10%) for real-world projects to account for these variations."
+    },
+    {
+      "question": "What about vapor barriers and insulation?",
+      "answer": "Vapor barriers and insulation are installed before pouring the concrete and don't affect the concrete volume calculation. They're typically placed between the gravel base and the concrete slab. This calculator focuses on concrete volume only. Vapor barriers and insulation are important for moisture control and energy efficiency but don't change the concrete quantity needed."
+    },
+    {
+      "question": "Ready-mix vs site mix for slab foundations?",
+      "answer": "Ready-mix concrete is delivered pre-mixed from a plant, while site mix is mixed on-site. For slab foundations, ready-mix is often preferred because: it ensures consistent quality, saves time, and is suitable for large volumes. Site mixing may be more economical for small projects but requires proper mixing equipment and expertise. This calculator helps you estimate volume for either option."
+    },
+    {
+      "question": "How do I convert between units?",
+      "answer": "The calculator automatically handles unit conversion: 1 m = 3.28084 ft, or 1 ft = 0.3048 m. For volume: 1 m³ = 35.3147 ft³, or 1 ft³ = 0.0283168 m³. For cubic yards: 1 yd³ = 27 ft³ = 0.7646 m³. Simply select your preferred unit system (meters or feet) and enter dimensions in that unit. The calculator will provide results in both the selected unit and cubic meters (for consistency), plus cubic yards if using imperial units."
+    },
+    {
+      "question": "What about foundation excavation?",
+      "answer": "Foundation excavation volume is separate from concrete volume. Excavation removes soil to create space for the foundation, while concrete fills that space. Excavation volume is typically larger than concrete volume due to formwork space, over-excavation, and working space. This calculator focuses on concrete volume only. Calculate excavation separately if needed, accounting for formwork and working space around the foundation."
+    },
+    {
+      "question": "Do I need to account for formwork?",
+      "answer": "Formwork (the molds that hold concrete) doesn't directly affect the concrete volume calculation, but it can cause slight variations in the actual concrete needed. Formwork may not be perfectly square, and concrete can settle or spread slightly. This is why adding a waste margin (5-10%) is recommended. The waste margin accounts for formwork variations, spillage, and ensures you have enough material."
+    }
+  ],
+  "seo": {
+    "title": "Slab Foundation Calculator – Concrete Volume for a Concrete Slab",
+    "description": "Calculate slab foundation concrete volume with slab thickness, optional thickened edges, unit conversion, and waste margin.",
+    "keywords": ["slab foundation calculator", "concrete slab calculator", "foundation slab", "slab volume", "concrete foundation", "construction calculator"]
+  }
+}
+

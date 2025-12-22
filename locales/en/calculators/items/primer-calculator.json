@@ -1,0 +1,236 @@
+{
+  "title": "Primer Calculator – How Much Primer Do You Need?",
+  "shortDescription": "Estimate how much primer you need based on surface area, surface type, and number of coats. Prepare surfaces correctly before painting.",
+  "longDescription": "Our Primer Calculator helps you estimate how much primer you need for surface preparation before painting. Enter the surface area, select surface condition (smooth, porous, or rough), specify number of coats and primer coverage, and get accurate estimates in liters or gallons. The calculator automatically adjusts coverage based on surface condition - porous and rough surfaces require more primer. Supports both metric (m²/liters) and imperial (ft²/gallons) units. Includes optional waste margin calculation (5-20%) to account for spillage, touch-ups, and cutting in around edges. Perfect for contractors, DIY builders, and home improvement projects. Get accurate estimates with clear breakdowns showing primer per coat and total primer needed.",
+  "inputs": [
+    {
+      "label": "Surface Area",
+      "unitLabel": "",
+      "placeholder": "Enter area",
+      "helpText": "Enter the total surface area to be primed in square meters or square feet (use Wall Area Calculator if needed)"
+    },
+    {
+      "label": "Surface Condition",
+      "unitLabel": "",
+      "placeholder": "Select condition",
+      "helpText": "Select surface condition: Smooth (painted, sealed surfaces), Porous (plaster, drywall, new surfaces), or Rough (concrete, brick, textured)"
+    },
+    {
+      "label": "Primer Coverage",
+      "unitLabel": "",
+      "placeholder": "Enter coverage",
+      "helpText": "Enter primer coverage (defaults based on surface condition: Smooth 10 m²/l, Porous 7 m²/l, Rough 5 m²/l). Check primer can label for specific coverage."
+    },
+    {
+      "label": "Number of Primer Coats",
+      "unitLabel": "",
+      "placeholder": "Enter number",
+      "helpText": "Enter the number of primer coats (default: 1, but 2 coats may be needed for porous or rough surfaces)"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters (m²) or feet (ft²) for area measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-20%) to account for spillage, touch-ups, and cutting in around edges"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Primer Required",
+      "unitLabel": ""
+    },
+    {
+      "label": "Primer per Coat",
+      "unitLabel": ""
+    },
+    {
+      "label": "Primer Required with Waste",
+      "unitLabel": ""
+    },
+    {
+      "label": "Cans Estimate",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the total surface area to be primed (use Wall Area Calculator if needed)",
+    "Select the surface condition: Smooth, Porous, or Rough",
+    "The calculator will automatically set default coverage based on surface condition",
+    "Optionally adjust primer coverage if you know the specific coverage from the primer can",
+    "Enter the number of primer coats (typically 1, but 2 for porous or rough surfaces)",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin and set the percentage (typically 10%)",
+    "Click the Calculate button",
+    "View the estimated primer required in liters or gallons",
+    "See the primer per coat breakdown",
+    "Check the waste-adjusted total if waste margin is enabled",
+    "Review the cans estimate for common primer can sizes",
+    "Review the explanation for calculation details and primer benefits"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Smooth Wall Before Repainting",
+      "inputDescription": "Calculate primer needed for a smooth wall before repainting.",
+      "steps": [
+        "Surface Area: 30 m²",
+        "Surface Condition: Smooth",
+        "Primer Coverage: 10 m²/liter (default for smooth)",
+        "Number of Coats: 1",
+        "Unit: Meters",
+        "Calculation:",
+        "  Primer per Coat = 30 / 10 = 3 liters",
+        "  Total Primer = (30 × 1) / 10 = 3 liters"
+      ],
+      "resultDescription": "For 30 m² of smooth wall surface, applying 1 coat of primer with standard coverage (10 m²/liter), you need 3 liters of primer. Smooth surfaces require less primer due to better coverage. With 10% waste margin, order 3.3 liters (typically 1 × 5 liter can with leftover)."
+    },
+    {
+      "id": "example-2",
+      "title": "New Drywall (Porous Surface)",
+      "inputDescription": "Calculate primer needed for new drywall.",
+      "steps": [
+        "Surface Area: 50 m²",
+        "Surface Condition: Porous",
+        "Primer Coverage: 7 m²/liter (default for porous)",
+        "Number of Coats: 1",
+        "Unit: Meters",
+        "Calculation:",
+        "  Primer per Coat = 50 / 7 = 7.14 liters",
+        "  Total Primer = (50 × 1) / 7 = 7.14 liters"
+      ],
+      "resultDescription": "For 50 m² of new drywall (porous surface), applying 1 coat of primer with porous surface coverage (7 m²/liter), you need 7.14 liters of primer. Porous surfaces like new drywall absorb more primer, requiring higher coverage. With 10% waste margin, order 7.85 liters (typically 2 × 5 liter cans)."
+    },
+    {
+      "id": "example-3",
+      "title": "Concrete Wall",
+      "inputDescription": "Calculate primer needed for a concrete wall.",
+      "steps": [
+        "Surface Area: 40 m²",
+        "Surface Condition: Rough",
+        "Primer Coverage: 5 m²/liter (default for rough)",
+        "Number of Coats: 1",
+        "Unit: Meters",
+        "Calculation:",
+        "  Primer per Coat = 40 / 5 = 8 liters",
+        "  Total Primer = (40 × 1) / 5 = 8 liters"
+      ],
+      "resultDescription": "For 40 m² of concrete wall (rough surface), applying 1 coat of primer with rough surface coverage (5 m²/liter), you need 8 liters of primer. Rough surfaces like concrete and brick have the lowest coverage due to increased surface area and porosity. With 15% waste margin (higher for rough surfaces), order 9.2 liters."
+    },
+    {
+      "id": "example-4",
+      "title": "Two Coats of Primer",
+      "inputDescription": "Calculate primer needed for two coats on a porous surface.",
+      "steps": [
+        "Surface Area: 25 m²",
+        "Surface Condition: Porous",
+        "Primer Coverage: 7 m²/liter",
+        "Number of Coats: 2",
+        "Unit: Meters",
+        "Calculation:",
+        "  Primer per Coat = 25 / 7 = 3.57 liters",
+        "  Total Primer = (25 × 2) / 7 = 7.14 liters"
+      ],
+      "resultDescription": "For 25 m² of porous surface, applying 2 coats of primer, you need 3.57 liters per coat, totaling 7.14 liters. Two coats of primer are recommended for very porous surfaces or when transitioning from dark to light colors. With 10% waste margin, order 7.85 liters."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate primer needed using imperial units.",
+      "steps": [
+        "Surface Area: 300 ft²",
+        "Surface Condition: Smooth",
+        "Primer Coverage: 400 ft²/gallon (default for smooth)",
+        "Number of Coats: 1",
+        "Unit: Feet",
+        "Calculation:",
+        "  Primer per Coat = 300 / 400 = 0.75 gallons",
+        "  Total Primer = (300 × 1) / 400 = 0.75 gallons"
+      ],
+      "resultDescription": "For 300 ft² of smooth wall surface, applying 1 coat of primer with standard coverage (400 ft²/gallon), you need 0.75 gallons of primer. This is typically 1 × 1 gallon can. With 10% waste margin, order 0.825 gallons (approximately 1 gallon can)."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Do I really need primer?",
+      "answer": "Primer is highly recommended for: new drywall or plaster (seals porous surfaces), painting over dark colors, painting on raw wood or metal, and surfaces with stains or discoloration. Primer improves paint adhesion, provides uniform color base, and reduces paint consumption. While not always required, primer significantly improves paint finish and durability."
+    },
+    {
+      "question": "Primer vs paint?",
+      "answer": "Primer is a base coat that prepares surfaces for painting, while paint provides color and finish. Primer: seals porous surfaces, improves adhesion, blocks stains, provides uniform base. Paint: provides color, finish, and protection. Primer is typically white or tinted, while paint comes in any color. You need both - primer first, then paint."
+    },
+    {
+      "question": "One coat or two?",
+      "answer": "Most surfaces require 1 coat of primer. However, 2 coats may be needed for: very porous surfaces (new drywall, raw wood), transitioning from dark to light colors, surfaces with stains or discoloration, and rough or textured surfaces. The calculator allows you to specify the number of coats - use 1 for most cases, 2 for challenging surfaces."
+    },
+    {
+      "question": "Does primer reduce paint usage?",
+      "answer": "Yes, primer reduces paint consumption by: sealing porous surfaces (prevents paint absorption), providing uniform base (reduces number of paint coats needed), and improving coverage (paint spreads better on primed surfaces). Primed surfaces typically require 1 less coat of paint, saving paint overall. The primer cost is often offset by reduced paint consumption."
+    },
+    {
+      "question": "Primer for exterior walls?",
+      "answer": "Yes, exterior primer is essential for: new construction (seals raw materials), repainting (improves adhesion to old paint), and protecting against weather. Exterior primer has weather-resistant properties and typically has lower coverage (6-8 m²/liter) than interior primer. Use exterior-grade primer for outdoor surfaces and adjust coverage accordingly."
+    },
+    {
+      "question": "How does surface condition affect coverage?",
+      "answer": "Surface condition significantly affects primer coverage: Smooth surfaces (painted, sealed): 10 m²/liter - best coverage. Porous surfaces (plaster, drywall): 7 m²/liter - medium coverage due to absorption. Rough surfaces (concrete, brick): 5 m²/liter - lowest coverage due to increased surface area and porosity. The calculator automatically adjusts default coverage based on surface condition."
+    },
+    {
+      "question": "Can I skip primer on painted walls?",
+      "answer": "You can often skip primer on painted walls if: the existing paint is in good condition, you're painting a similar color, and the surface is clean and smooth. However, primer is still recommended for: color changes (especially dark to light), improving adhesion, and ensuring uniform finish. Primer is relatively inexpensive compared to paint, so it's often worth using."
+    },
+    {
+      "question": "What about primer for wood?",
+      "answer": "Wood surfaces typically require primer to: seal the wood (prevents paint absorption), prevent tannin bleed-through (especially for cedar and redwood), and improve paint adhesion. Raw wood is porous and requires primer. Use wood primer or all-purpose primer. Coverage is typically 7-8 m²/liter for raw wood (similar to porous surfaces)."
+    },
+    {
+      "question": "Primer for metal surfaces?",
+      "answer": "Metal surfaces require special metal primer to: prevent rust, improve paint adhesion, and provide corrosion protection. Metal primer has different coverage rates (typically 8-10 m²/liter) and is essential for metal surfaces. Never skip primer on metal - it's critical for preventing rust and ensuring paint adhesion."
+    },
+    {
+      "question": "How do I measure surface area?",
+      "answer": "Measure the surface area the same way as for paint: For walls: length × height for each wall, add all walls together. Use the Wall Area Calculator for accurate measurements. Don't subtract windows and doors unless they're very large - the waste margin accounts for cutting in around openings. Measure from your construction drawings for accuracy."
+    },
+    {
+      "question": "What primer can sizes are common?",
+      "answer": "Common primer can sizes: Metric: 1 liter, 2.5 liters, 5 liters, 10 liters. Imperial: 1 quart (0.25 gallon), 1 gallon, 5 gallons. Primer is often sold in similar sizes to paint. The calculator estimates cans based on these common sizes. Always check what sizes are available at your local store."
+    },
+    {
+      "question": "Does primer color matter?",
+      "answer": "Primer color can matter for final paint color: White primer: best for light colors, provides bright base. Tinted primer: can be tinted to match paint color, reduces number of paint coats needed for dark colors. Gray primer: good for dark colors, provides neutral base. Ask your paint store to tint primer to match your paint color for best results."
+    },
+    {
+      "question": "How long does primer take to dry?",
+      "answer": "Primer drying time varies: Most primers: 1-2 hours to touch, 4-6 hours before painting. Some fast-drying primers: 30 minutes to touch, 1-2 hours before painting. Always check the primer can label for specific drying times. Don't paint over primer until it's fully dry - this can cause adhesion problems."
+    },
+    {
+      "question": "Can I use paint as primer?",
+      "answer": "While some paints claim to be 'paint and primer in one,' dedicated primer is generally better for: sealing porous surfaces, blocking stains, and improving adhesion. Paint-and-primer combinations work for repainting similar colors on smooth surfaces, but dedicated primer is recommended for new surfaces, color changes, and challenging surfaces."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on geometric calculations and standard primer coverage rates. Accuracy depends on: precise surface area measurement, correct surface condition selection, accurate primer coverage rate from the primer can, and realistic number of coats. The estimate is typically within 10-15% of actual needs when measurements are accurate. Always add a waste margin (10-15%) for real-world projects."
+    }
+  ],
+  "seo": {
+    "title": "Primer Calculator – How Much Primer Do You Need?",
+    "description": "Estimate how much primer you need based on surface area, surface type, and number of coats. Prepare surfaces correctly before painting.",
+    "keywords": ["primer calculator", "how much primer", "primer coverage", "wall primer", "surface preparation", "paint primer"]
+  }
+}
+

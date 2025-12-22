@@ -1,0 +1,111 @@
+{
+  "id": "putty-calculator",
+  "slug": "putty-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculatePutty",
+  "tags": ["putty", "putty-calculator", "wall-putty", "finishing-materials"],
+  "inputs": [
+    {
+      "name": "surfaceArea",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": 0.1
+    },
+    {
+      "name": "layerThickness",
+      "type": "number",
+      "min": 0.1,
+      "max": 10,
+      "step": 0.1,
+      "defaultValue": 1
+    },
+    {
+      "name": "consumptionRate",
+      "type": "number",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.1
+    },
+    {
+      "name": "numberOfLayers",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "defaultValue": 1
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m²)" },
+        { "value": "feet", "label": "Feet (ft²)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "puttyRequired"
+    },
+    {
+      "name": "puttyRequiredFormatted"
+    },
+    {
+      "name": "puttyPerLayer"
+    },
+    {
+      "name": "puttyPerLayerFormatted"
+    },
+    {
+      "name": "puttyRequiredWithWaste"
+    },
+    {
+      "name": "puttyRequiredWithWasteFormatted"
+    },
+    {
+      "name": "numberOfBags"
+    },
+    {
+      "name": "bagWeight"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "surfaceArea": 20,
+    "layerThickness": 1,
+    "consumptionRate": 1.2,
+    "numberOfLayers": 1,
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["wall-area-calculator", "primer-calculator", "paint-calculator"],
+  "isEnabled": true
+}
+

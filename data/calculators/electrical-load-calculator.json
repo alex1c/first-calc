@@ -1,0 +1,153 @@
+{
+  "id": "electrical-load-calculator",
+  "slug": "electrical-load-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateElectricalLoad",
+  "tags": ["electrical-load", "power-calculator", "home-electricity", "wattage"],
+  "inputs": [
+    {
+      "name": "appliance1Name",
+      "type": "text",
+      "placeholder": "Appliance name"
+    },
+    {
+      "name": "appliance1Power",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "step": 0.1
+    },
+    {
+      "name": "appliance1Quantity",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 1
+    },
+    {
+      "name": "appliance2Name",
+      "type": "text",
+      "placeholder": "Appliance name (optional)"
+    },
+    {
+      "name": "appliance2Power",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "step": 0.1
+    },
+    {
+      "name": "appliance2Quantity",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 1
+    },
+    {
+      "name": "appliance3Name",
+      "type": "text",
+      "placeholder": "Appliance name (optional)"
+    },
+    {
+      "name": "appliance3Power",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "step": 0.1
+    },
+    {
+      "name": "appliance3Quantity",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 1
+    },
+    {
+      "name": "appliance4Name",
+      "type": "text",
+      "placeholder": "Appliance name (optional)"
+    },
+    {
+      "name": "appliance4Power",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "step": 0.1
+    },
+    {
+      "name": "appliance4Quantity",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 1
+    },
+    {
+      "name": "appliance5Name",
+      "type": "text",
+      "placeholder": "Appliance name (optional)"
+    },
+    {
+      "name": "appliance5Power",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "step": 0.1
+    },
+    {
+      "name": "appliance5Quantity",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 1
+    },
+    {
+      "name": "demandFactor",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 100
+    }
+  ],
+  "outputs": [
+    {
+      "name": "totalRawPower"
+    },
+    {
+      "name": "adjustedPower"
+    },
+    {
+      "name": "applianceCount"
+    },
+    {
+      "name": "applianceList"
+    },
+    {
+      "name": "applianceDetails"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "appliance1Name": "Lighting",
+    "appliance1Power": 500,
+    "appliance1Quantity": 1,
+    "demandFactor": 100
+  },
+  "relatedIds": ["cable-size-calculator"],
+  "isEnabled": true
+}
+

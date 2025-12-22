@@ -1,0 +1,246 @@
+{
+  "title": "Stair Calculator – Calculate Steps, Riser Height and Stair Angle",
+  "shortDescription": "Calculate staircase dimensions including number of steps, riser height, tread depth, and stair angle for comfortable stairs.",
+  "longDescription": "Our Stair Calculator helps you design comfortable stairs by calculating the optimal number of steps, riser height, tread depth, and stair angle. Enter the total height (floor to floor), preferred riser and tread dimensions, and get accurate calculations. The calculator follows the comfort rule: 2 × riser + tread ≈ 600-640 mm for safe and comfortable stairs. Supports both metric (meters, millimeters) and imperial (feet, inches) units. Perfect for contractors, architects, and DIY builders. Get accurate estimates with clear breakdowns showing step count, actual riser height, total run, stair angle, and comfort level assessment.",
+  "inputs": [
+    {
+      "label": "Total Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the total height from floor to floor in meters or feet"
+    },
+    {
+      "label": "Preferred Riser Height",
+      "unitLabel": "mm",
+      "placeholder": "Enter height",
+      "helpText": "Enter the preferred riser height in millimeters (default: 170 mm, typical: 150-190 mm)"
+    },
+    {
+      "label": "Preferred Tread Depth",
+      "unitLabel": "mm",
+      "placeholder": "Enter depth",
+      "helpText": "Enter the preferred tread depth in millimeters (default: 270 mm, typical: 250-300 mm)"
+    },
+    {
+      "label": "Max Steps",
+      "unitLabel": "",
+      "placeholder": "Enter max (optional)",
+      "helpText": "Optionally enter maximum number of steps to limit the calculation"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for total height measurements"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Number of Steps",
+      "unitLabel": ""
+    },
+    {
+      "label": "Actual Riser Height",
+      "unitLabel": ""
+    },
+    {
+      "label": "Tread Depth",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Run",
+      "unitLabel": ""
+    },
+    {
+      "label": "Stair Angle",
+      "unitLabel": "°"
+    },
+    {
+      "label": "Comfort Level",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the total height from floor to floor in meters or feet",
+    "Enter the preferred riser height in millimeters (default: 170 mm)",
+    "Enter the preferred tread depth in millimeters (default: 270 mm)",
+    "Optionally enter maximum number of steps to limit the calculation",
+    "Select the unit system: Meters or Feet",
+    "Click the Calculate button",
+    "View the calculated number of steps",
+    "See the actual riser height (may differ from preferred due to rounding)",
+    "Check the tread depth and total horizontal run",
+    "Review the stair angle and comfort level assessment",
+    "Review the formula, breakdown, and explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Typical House Stairs",
+      "inputDescription": "Calculate stairs for a typical house with standard ceiling height.",
+      "steps": [
+        "Total Height: 2.7 meters (typical floor-to-floor height)",
+        "Preferred Riser: 170 mm",
+        "Preferred Tread: 270 mm",
+        "Calculation:",
+        "  Steps = round(2.7 / 0.17) = 16 steps",
+        "  Actual Riser = 2.7 / 16 = 0.16875 m = 168.75 mm",
+        "  Total Run = 16 × 0.27 = 4.32 m",
+        "  Angle = arctan(0.16875 / 0.27) = 32.0°",
+        "  Comfort: 2 × 168.75 + 270 = 607.5 mm (Optimal)"
+      ],
+      "resultDescription": "For a typical 2.7 m floor-to-floor height, you need 16 steps with riser height of 168.75 mm and tread depth of 270 mm. Total horizontal run is 4.32 m, and stair angle is 32.0°. The comfort value is 607.5 mm, which is optimal (within 600-640 mm range). These dimensions provide comfortable and safe stairs for residential use."
+    },
+    {
+      "id": "example-2",
+      "title": "Low Ceiling Height",
+      "inputDescription": "Calculate stairs for a space with low ceiling height.",
+      "steps": [
+        "Total Height: 2.4 meters",
+        "Preferred Riser: 180 mm",
+        "Preferred Tread: 250 mm",
+        "Calculation:",
+        "  Steps = round(2.4 / 0.18) = 13 steps",
+        "  Actual Riser = 2.4 / 13 = 0.1846 m = 184.6 mm",
+        "  Total Run = 13 × 0.25 = 3.25 m",
+        "  Angle = arctan(0.1846 / 0.25) = 36.4°",
+        "  Comfort: 2 × 184.6 + 250 = 619.2 mm (Optimal)"
+      ],
+      "resultDescription": "For a lower 2.4 m height, you need 13 steps with riser height of 184.6 mm and tread depth of 250 mm. Total run is 3.25 m, and stair angle is 36.4° (slightly steeper but still comfortable). The comfort value is 619.2 mm, which is optimal. Lower ceiling heights may require slightly steeper stairs, but these dimensions remain safe and comfortable."
+    },
+    {
+      "id": "example-3",
+      "title": "Compare Riser Heights",
+      "inputDescription": "Compare different riser heights for the same total height.",
+      "steps": [
+        "Total Height: 3.0 meters",
+        "Scenario 1: 150 mm riser",
+        "  Steps = round(3.0 / 0.15) = 20 steps",
+        "  Actual Riser = 150 mm",
+        "  Total Run = 20 × 0.27 = 5.4 m",
+        "Scenario 2: 190 mm riser",
+        "  Steps = round(3.0 / 0.19) = 16 steps",
+        "  Actual Riser = 187.5 mm",
+        "  Total Run = 16 × 0.27 = 4.32 m",
+        "Comparison: Lower riser = more steps, longer run"
+      ],
+      "resultDescription": "Comparing riser heights shows the trade-off: 150 mm riser requires 20 steps and 5.4 m run (more comfortable but takes more space), while 190 mm riser requires 16 steps and 4.32 m run (steeper but more compact). Lower risers are more comfortable but require more horizontal space. Choose based on available space and comfort requirements."
+    },
+    {
+      "id": "example-4",
+      "title": "Compact Staircase",
+      "inputDescription": "Calculate stairs for a compact space with limited run.",
+      "steps": [
+        "Total Height: 2.5 meters",
+        "Preferred Riser: 190 mm",
+        "Preferred Tread: 240 mm (narrower for space saving)",
+        "Calculation:",
+        "  Steps = round(2.5 / 0.19) = 13 steps",
+        "  Actual Riser = 2.5 / 13 = 0.1923 m = 192.3 mm",
+        "  Total Run = 13 × 0.24 = 3.12 m",
+        "  Angle = arctan(0.1923 / 0.24) = 38.7°",
+        "  Comfort: 2 × 192.3 + 240 = 624.6 mm (Optimal)"
+      ],
+      "resultDescription": "For a compact staircase, using 190 mm riser and 240 mm tread, you need 13 steps with total run of 3.12 m. The stair angle is 38.7° (steeper but acceptable). The comfort value is 624.6 mm, which is still optimal. Compact stairs require careful balance between riser and tread - narrower treads save space but may feel less comfortable."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate stairs using imperial units.",
+      "steps": [
+        "Total Height: 9 feet",
+        "Preferred Riser: 7 inches (177.8 mm)",
+        "Preferred Tread: 10 inches (254 mm)",
+        "Calculation:",
+        "  Convert: 9 ft = 2.743 m",
+        "  Convert: 7 in = 177.8 mm = 0.1778 m",
+        "  Convert: 10 in = 254 mm = 0.254 m",
+        "  Steps = round(2.743 / 0.1778) = 15 steps",
+        "  Actual Riser = 2.743 / 15 = 0.1829 m = 7.2 inches",
+        "  Total Run = 15 × 0.254 = 3.81 m = 12.5 feet",
+        "  Angle = arctan(0.1829 / 0.254) = 35.8°"
+      ],
+      "resultDescription": "For a 9-foot floor-to-floor height, using 7-inch riser and 10-inch tread, you need 15 steps with actual riser of 7.2 inches and total run of 12.5 feet. The stair angle is 35.8°. Standard US residential stairs typically use 7-7.5 inch risers and 10-11 inch treads. Always check local building codes for specific requirements."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is comfortable stair height?",
+      "answer": "Comfortable riser height ranges from 150-190 mm (6-7.5 inches) for residential stairs. Optimal riser height is typically 170-180 mm (6.7-7.1 inches). Lower risers (150-160 mm) are more comfortable but require more steps and space. Higher risers (180-190 mm) are more compact but may feel steeper. The comfort rule states: 2 × riser + tread should be 600-640 mm for optimal comfort. Always check local building codes for maximum riser height requirements."
+    },
+    {
+      "question": "How many steps is normal?",
+      "answer": "The number of steps depends on total height and riser height. For typical residential stairs: Floor-to-floor height 2.4-2.7 m: 13-16 steps. Floor-to-floor height 2.7-3.0 m: 16-18 steps. Floor-to-floor height 3.0-3.3 m: 18-20 steps. The calculator determines the optimal number based on your total height and preferred riser. More steps mean lower risers (more comfortable) but longer horizontal run (more space needed)."
+    },
+    {
+      "question": "Why stair angle matters?",
+      "answer": "Stair angle affects comfort and safety: Comfortable angle: 30-35° (easy to climb, less tiring). Moderate angle: 35-40° (acceptable, slightly steeper). Steep angle: 40-45° (more difficult, may require handrails). Very steep: >45° (ladder-like, not recommended for regular use). The angle is calculated from riser and tread: angle = arctan(riser / tread). Steeper angles save space but are less comfortable. The calculator shows the angle so you can assess comfort level."
+    },
+    {
+      "question": "Can this be used outdoors?",
+      "answer": "Yes, this calculator works for outdoor stairs, but consider: Outdoor stairs may need different dimensions (wider treads for safety), weather resistance (non-slip surfaces), and code requirements (may differ from indoor). The calculation method is the same, but you may want to adjust preferred riser/tread for outdoor conditions. Typical outdoor stairs use: risers 150-170 mm, treads 300-350 mm (wider for safety). Always check local codes for outdoor stair requirements."
+    },
+    {
+      "question": "Is this calculator code-compliant?",
+      "answer": "This calculator provides estimates based on comfort rules and typical dimensions. Building codes vary by location and may specify: Maximum riser height (typically 190-200 mm), minimum tread depth (typically 250-280 mm), maximum variation between risers (typically ±5 mm), and other safety requirements. Always consult local building codes and a qualified professional for code-compliant stair design. This calculator helps with initial planning but is not a substitute for code compliance verification."
+    },
+    {
+      "question": "What is the comfort rule?",
+      "answer": "The comfort rule states: 2 × riser + tread should equal 600-640 mm (24-25 inches). This formula ensures comfortable step proportions. For example: 2 × 170 mm + 270 mm = 610 mm (optimal). Values below 600 mm indicate stairs are too steep. Values above 640 mm indicate stairs are too shallow. The calculator automatically checks this rule and indicates if your dimensions are optimal, too steep, or too shallow."
+    },
+    {
+      "question": "How do I measure total height?",
+      "answer": "Measure total height from the finished floor level of the lower floor to the finished floor level of the upper floor. Include: Floor thickness, subfloor, and any floor coverings. Measure at multiple points to account for floor level variations. Use a level or laser level for accuracy. The measurement should be vertical (not along the stair path). For accuracy, measure from your construction drawings if available."
+    },
+    {
+      "question": "What about landing requirements?",
+      "answer": "Landings are required by building codes for: Long stair runs (typically every 12-15 steps), changes in direction, and at door openings. Landings don't affect the step calculation but add to total horizontal space needed. This calculator focuses on the stair run itself - add landing space separately. Typical landing depth: 900-1200 mm (3-4 feet). Always check local building codes for landing requirements."
+    },
+    {
+      "question": "Can I adjust riser and tread after calculation?",
+      "answer": "Yes, you can adjust preferred riser and tread values and recalculate. The calculator will: Recalculate number of steps based on new riser, adjust actual riser to match total height, and reassess comfort level. Experiment with different values to find the best balance between comfort and space. Remember: Lower risers = more steps = longer run, Higher risers = fewer steps = shorter run but steeper."
+    },
+    {
+      "question": "What about spiral stairs?",
+      "answer": "This calculator is designed for straight stairs. Spiral stairs have different requirements: Tread width varies (wider at outside, narrower at inside), riser height may vary, and calculations are more complex. For spiral stairs, consult specialized calculators or a structural engineer. This calculator works best for straight or L-shaped stairs with uniform risers and treads."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on geometric calculations and comfort rules. Accuracy depends on: Precise total height measurement, realistic preferred riser/tread values, and proper unit selection. The calculations are mathematically correct, but actual construction may require adjustments for: Floor level variations, structural requirements, and code compliance. Always verify with a qualified professional before construction."
+    },
+    {
+      "question": "What about handrails and guardrails?",
+      "answer": "Handrails and guardrails are required by building codes but don't affect step calculations. Requirements typically include: Handrail height: 900-1000 mm (34-38 inches), guardrail height: 1000-1100 mm (38-43 inches), and spacing between balusters. This calculator focuses on step dimensions - add handrail/guardrail space separately. Always check local building codes for specific requirements."
+    },
+    {
+      "question": "Can I use this for commercial stairs?",
+      "answer": "Yes, but commercial stairs may have different requirements: Wider treads (typically 300+ mm), lower risers (typically 150-170 mm), and stricter code requirements. The calculation method is the same, but adjust preferred riser/tread for commercial standards. Commercial stairs prioritize safety and accessibility, so they're typically more gradual (lower riser, wider tread) than residential stairs."
+    },
+    {
+      "question": "What if my calculated riser doesn't match preferred?",
+      "answer": "The actual riser may differ from preferred due to rounding. For example: Total height 2.7 m, preferred riser 170 mm → 16 steps, actual riser 168.75 mm. This is normal and ensures the total height is exactly met. The difference is usually small (5-10 mm) and acceptable. If the difference is too large, adjust preferred riser or use max steps constraint to limit the number of steps."
+    },
+    {
+      "question": "How do I account for floor coverings?",
+      "answer": "Floor coverings (carpet, tile, etc.) affect final riser height. To account for this: Measure total height before floor coverings, calculate stairs, then adjust if needed after floor coverings are installed. Or: Estimate floor covering thickness and add to total height before calculating. Typical floor coverings add 5-15 mm. The calculator uses total height as input - include floor covering thickness in your measurement if you want final dimensions to account for them."
+    }
+  ],
+  "seo": {
+    "title": "Stair Calculator – Calculate Steps, Riser Height and Stair Angle",
+    "description": "Calculate staircase dimensions including number of steps, riser height, tread depth, and stair angle for comfortable stairs.",
+    "keywords": ["stair calculator", "stairs calculation", "step calculator", "staircase design", "riser height", "tread depth", "construction calculator"]
+  }
+}
+

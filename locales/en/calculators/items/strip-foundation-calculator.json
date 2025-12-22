@@ -1,0 +1,280 @@
+{
+  "title": "Strip Foundation Calculator – Concrete Volume for Continuous Footings",
+  "shortDescription": "Estimate strip foundation concrete volume using building dimensions, footing width/height, and optional internal walls.",
+  "longDescription": "Our Strip Foundation Calculator helps you determine how much concrete you need for a strip foundation (continuous footing). Enter your building dimensions (length and width) and strip foundation dimensions (width and height), and get accurate concrete volume estimates. Optionally include internal load-bearing walls that also require strip foundations. Supports both metric (m³) and imperial (ft³) units with automatic conversion to cubic yards. Includes optional waste margin calculation (5-20%) to account for formwork variations, spillage, and ensure sufficient material. Perfect for contractors, DIY builders, and construction planning. Get accurate estimates with clear breakdowns showing perimeter calculation and total strip length.",
+  "inputs": [
+    {
+      "label": "Building Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the building in meters or feet"
+    },
+    {
+      "label": "Building Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the building in meters or feet"
+    },
+    {
+      "label": "Strip Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the strip foundation in meters or feet (typically 30-60 cm or 12-24 inches)"
+    },
+    {
+      "label": "Strip Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height (depth) of the strip foundation in meters or feet (typically 30-100 cm or 12-40 inches)"
+    },
+    {
+      "label": "Perimeter Only",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Select 'Yes' to calculate only the perimeter strip, or 'No' to include internal walls"
+    },
+    {
+      "label": "Include Internal Walls",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to include internal load-bearing walls that also require strip foundations"
+    },
+    {
+      "label": "Internal Strip Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the total length of internal load-bearing walls that require strip foundations in meters or feet"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-20%) to account for formwork variations, spillage, and ensure sufficient material"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Perimeter",
+      "unitLabel": ""
+    },
+    {
+      "label": "Total Strip Length",
+      "unitLabel": ""
+    },
+    {
+      "label": "Concrete Volume",
+      "unitLabel": ""
+    },
+    {
+      "label": "Concrete Volume with Waste",
+      "unitLabel": ""
+    },
+    {
+      "label": "Concrete Volume (Cubic Yards)",
+      "unitLabel": "yd³"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the building length and width (outer dimensions)",
+    "Enter the strip foundation width and height (from drawings or specifications)",
+    "Select whether to calculate perimeter only or include internal walls",
+    "If including internal walls, enter the total length of internal load-bearing walls",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin and set the percentage (typically 10%)",
+    "Click the Calculate button",
+    "View the calculated perimeter and total strip length",
+    "See the concrete volume in cubic meters or cubic feet",
+    "Check the volume in cubic yards if using imperial units",
+    "Review the formula, breakdown, and explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Simple Perimeter Only",
+      "inputDescription": "Calculate concrete for a simple strip foundation around the building perimeter.",
+      "steps": [
+        "Building Length: 10 meters",
+        "Building Width: 8 meters",
+        "Strip Width: 0.5 meters (50 cm)",
+        "Strip Height: 0.6 meters (60 cm)",
+        "Perimeter Only: Yes",
+        "Unit: Meters",
+        "Calculation:",
+        "  Perimeter = 2 × (10 + 8) = 36 m",
+        "  Total Strip Length = 36 m",
+        "  Volume = 36 × 0.5 × 0.6 = 10.8 m³"
+      ],
+      "resultDescription": "For a building measuring 10m × 8m with a strip foundation 0.5m wide and 0.6m deep, the perimeter is 36 meters. You need 10.8 m³ of concrete for the perimeter strip foundation. With 10% waste margin, order 11.88 m³."
+    },
+    {
+      "id": "example-2",
+      "title": "With Internal Load-Bearing Walls",
+      "inputDescription": "Calculate concrete for strip foundation including internal load-bearing walls.",
+      "steps": [
+        "Building Length: 12 meters",
+        "Building Width: 10 meters",
+        "Strip Width: 0.5 meters",
+        "Strip Height: 0.6 meters",
+        "Perimeter Only: No",
+        "Include Internal Walls: Yes",
+        "Internal Strip Length: 8 meters",
+        "Unit: Meters",
+        "Calculation:",
+        "  Perimeter = 2 × (12 + 10) = 44 m",
+        "  Total Strip Length = 44 + 8 = 52 m",
+        "  Volume = 52 × 0.5 × 0.6 = 15.6 m³"
+      ],
+      "resultDescription": "For a building with 12m × 10m footprint and 8 meters of internal load-bearing walls requiring strip foundations, the total strip length is 52 meters (44m perimeter + 8m internal). You need 15.6 m³ of concrete. With 10% waste margin, order 17.16 m³."
+    },
+    {
+      "id": "example-3",
+      "title": "Larger House Footprint",
+      "inputDescription": "Calculate concrete for a larger house with strip foundation.",
+      "steps": [
+        "Building Length: 15 meters",
+        "Building Width: 12 meters",
+        "Strip Width: 0.6 meters (60 cm)",
+        "Strip Height: 0.8 meters (80 cm)",
+        "Perimeter Only: Yes",
+        "Unit: Meters",
+        "Calculation:",
+        "  Perimeter = 2 × (15 + 12) = 54 m",
+        "  Total Strip Length = 54 m",
+        "  Volume = 54 × 0.6 × 0.8 = 25.92 m³"
+      ],
+      "resultDescription": "For a larger house measuring 15m × 12m with a wider and deeper strip foundation (0.6m × 0.8m), the perimeter is 54 meters. You need 25.92 m³ of concrete. With 10% waste margin, order 28.51 m³. Larger foundations typically require wider and deeper strips for better load distribution."
+    },
+    {
+      "id": "example-4",
+      "title": "With Waste Margin",
+      "inputDescription": "Calculate strip foundation concrete with waste margin included.",
+      "steps": [
+        "Building Length: 20 meters",
+        "Building Width: 15 meters",
+        "Strip Width: 0.5 meters",
+        "Strip Height: 0.7 meters",
+        "Perimeter Only: Yes",
+        "Unit: Meters",
+        "Include Waste: Yes (10%)",
+        "Base Calculation:",
+        "  Perimeter = 2 × (20 + 15) = 70 m",
+        "  Base Volume = 70 × 0.5 × 0.7 = 24.5 m³",
+        "With 10% Waste:",
+        "  Volume with Waste = 24.5 × 1.10 = 26.95 m³"
+      ],
+      "resultDescription": "For a building with 20m × 15m footprint, the base concrete requirement is 24.5 m³ for the strip foundation. With a 10% waste margin, you should order 26.95 m³ to account for formwork variations, spillage, and ensure sufficient material for the entire foundation."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate strip foundation using imperial units.",
+      "steps": [
+        "Building Length: 40 feet",
+        "Building Width: 30 feet",
+        "Strip Width: 1.5 feet (18 inches)",
+        "Strip Height: 2 feet (24 inches)",
+        "Perimeter Only: Yes",
+        "Unit: Feet",
+        "Calculation:",
+        "  Perimeter = 2 × (40 + 30) = 140 ft",
+        "  Total Strip Length = 140 ft",
+        "  Volume = 140 × 1.5 × 2 = 420 ft³",
+        "  Convert to m³: 420 × 0.0283168 = 11.89 m³",
+        "  Convert to yd³: 420 / 27 = 15.56 cubic yards"
+      ],
+      "resultDescription": "For a building measuring 40ft × 30ft with a strip foundation 1.5ft wide and 2ft deep, you need 420 cubic feet (11.89 m³) of concrete. This equals approximately 15.6 cubic yards. Most concrete suppliers in the US quote prices in cubic yards, so this conversion is helpful for ordering."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is a strip foundation?",
+      "answer": "A strip foundation (also called continuous footing) is a type of shallow foundation that runs continuously along the perimeter of a building or under load-bearing walls. It distributes the building load over a wider area of soil. Strip foundations are commonly used for residential and small commercial buildings. They are more economical than slab foundations for smaller structures and provide good load distribution."
+    },
+    {
+      "question": "Do I include internal walls?",
+      "answer": "Include internal walls only if they are load-bearing walls that require strip foundations. Non-load-bearing partition walls typically don't need foundations. To determine if a wall is load-bearing, check your structural drawings or consult with a structural engineer. If you have internal load-bearing walls, measure their total length and add it to the perimeter calculation using the 'Include Internal Walls' option."
+    },
+    {
+      "question": "How to measure strip height?",
+      "answer": "Strip height (depth) is measured from the bottom of the foundation to the top of the footing. It depends on several factors: frost line depth (foundation should extend below frost line), soil bearing capacity (deeper for weaker soils), and building load (deeper for heavier loads). Typical depths: 30-60 cm (12-24 inches) for light structures, 60-100 cm (24-40 inches) for heavier structures. Always check local building codes and consult with a structural engineer for specific requirements."
+    },
+    {
+      "question": "How much extra concrete to order?",
+      "answer": "It's recommended to add 5-10% extra concrete (waste margin) to account for formwork variations, spillage, and to ensure you have enough material. For complex foundations or when using site mixing, consider adding 10-15% extra. It's better to have a small amount left over than to run short during pouring, which can cause delays and may result in inconsistent concrete batches or cold joints."
+    },
+    {
+      "question": "Strip vs slab foundation?",
+      "answer": "Strip foundations are continuous footings that run along the perimeter and load-bearing walls. Slab foundations are large flat concrete slabs that support the entire building. Strip foundations are more economical for smaller structures and provide good load distribution. Slab foundations are better for larger buildings, provide a finished floor, and distribute loads over a larger area. The choice depends on building size, soil conditions, and budget. Consult with a structural engineer for the appropriate foundation type."
+    },
+    {
+      "question": "How do I measure building dimensions?",
+      "answer": "Measure the outer dimensions of the building footprint (length and width). This is the distance from the outside edge of one wall to the outside edge of the opposite wall. For rectangular buildings, measure the longest side (length) and the perpendicular side (width). For irregular shapes, break them into rectangles, calculate each separately, and add the perimeters together."
+    },
+    {
+      "question": "What strip width should I use?",
+      "answer": "Strip width depends on building load and soil bearing capacity: Light structures (residential): typically 30-50 cm (12-20 inches). Medium structures: 50-60 cm (20-24 inches). Heavy structures: 60-100 cm (24-40 inches). Wider strips distribute load over more area, reducing soil pressure. Always check your structural drawings or consult with a structural engineer for the specific strip width required for your project."
+    },
+    {
+      "question": "Can I use this for irregular building shapes?",
+      "answer": "This calculator works best for rectangular or square buildings. For irregular shapes (L-shaped, U-shaped, etc.), break the building into rectangular sections, calculate the perimeter of each section separately, and add them together. Alternatively, measure the total perimeter manually and use that as the 'building length' with width = 0, then manually enter the total perimeter length."
+    },
+    {
+      "question": "What about stepped foundations?",
+      "answer": "Stepped foundations change depth or width at different sections. This calculator assumes uniform strip dimensions. For stepped foundations, calculate each section separately based on its dimensions, then add the volumes together. Measure the length, width, and height for each step, calculate volume for each, and sum them."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate volume estimates based on geometric formulas. Accuracy depends on precise measurement of building dimensions and strip dimensions. The formulas are mathematically correct, but actual concrete needs may vary slightly due to formwork, surface irregularities, and compaction. Always add a waste margin (5-10%) for real-world projects to account for these variations."
+    },
+    {
+      "question": "What about reinforcement (rebar)?",
+      "answer": "Reinforcement (rebar) is calculated separately and doesn't affect the concrete volume calculation. Rebar displaces a small amount of concrete (typically less than 1-2%), which is usually covered by the waste margin. This calculator focuses on concrete volume only. Rebar quantities are calculated based on structural design requirements, spacing specifications, and local building codes."
+    },
+    {
+      "question": "Ready-mix vs site mix for strip foundations?",
+      "answer": "Ready-mix concrete is delivered pre-mixed from a plant, while site mix is mixed on-site. For strip foundations, ready-mix is often preferred because: it ensures consistent quality, saves time, and is suitable for continuous pouring. Site mixing may be more economical for small projects but requires proper mixing equipment and expertise. This calculator helps you estimate volume for either option."
+    },
+    {
+      "question": "How do I convert between units?",
+      "answer": "The calculator automatically handles unit conversion: 1 m = 3.28084 ft, or 1 ft = 0.3048 m. For volume: 1 m³ = 35.3147 ft³, or 1 ft³ = 0.0283168 m³. For cubic yards: 1 yd³ = 27 ft³ = 0.7646 m³. Simply select your preferred unit system (meters or feet) and enter dimensions in that unit. The calculator will provide results in both the selected unit and cubic meters (for consistency), plus cubic yards if using imperial units."
+    },
+    {
+      "question": "What about foundation excavation?",
+      "answer": "Foundation excavation volume is separate from concrete volume. Excavation removes soil to create space for the foundation, while concrete fills that space. Excavation volume is typically larger than concrete volume due to formwork space and over-excavation. This calculator focuses on concrete volume only. Calculate excavation separately if needed, accounting for formwork and working space around the foundation."
+    },
+    {
+      "question": "Do I need to account for formwork?",
+      "answer": "Formwork (the molds that hold concrete) doesn't directly affect the concrete volume calculation, but it can cause slight variations in the actual concrete needed. Formwork may not be perfectly square, and concrete can settle or spread slightly. This is why adding a waste margin (5-10%) is recommended. The waste margin accounts for formwork variations, spillage, and ensures you have enough material."
+    }
+  ],
+  "seo": {
+    "title": "Strip Foundation Calculator – Concrete Volume for Continuous Footings",
+    "description": "Estimate strip foundation concrete volume using building dimensions, footing width/height, and optional internal walls.",
+    "keywords": ["strip foundation calculator", "continuous footing", "foundation calculator", "strip footing", "concrete foundation", "construction calculator"]
+  }
+}
+

@@ -1,0 +1,147 @@
+{
+  "id": "pile-foundation-calculator",
+  "slug": "pile-foundation-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculatePileFoundation",
+  "tags": ["pile-foundation", "piles", "concrete-piles", "foundation"],
+  "inputs": [
+    {
+      "name": "pilesCount",
+      "type": "number",
+      "min": 1,
+      "max": 10000,
+      "step": 1
+    },
+    {
+      "name": "pileDiameter",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "pileDepth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any"
+    },
+    {
+      "name": "pileCapCount",
+      "type": "number",
+      "min": 0,
+      "max": 10000,
+      "step": 1,
+      "defaultValue": 0,
+      "optional": true
+    },
+    {
+      "name": "pileCapLength",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "optional": true
+    },
+    {
+      "name": "pileCapWidth",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "optional": true
+    },
+    {
+      "name": "pileCapHeight",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000,
+      "step": "any",
+      "optional": true
+    },
+    {
+      "name": "unit",
+      "type": "select",
+      "options": [
+        { "value": "meters", "label": "Meters (m)" },
+        { "value": "feet", "label": "Feet (ft)" }
+      ],
+      "defaultValue": "meters"
+    },
+    {
+      "name": "includeWaste",
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "name": "wasteMargin",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "defaultValue": 10,
+      "visibleIf": {
+        "field": "includeWaste",
+        "value": "true"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "singlePileVolume"
+    },
+    {
+      "name": "singlePileVolumeDisplay"
+    },
+    {
+      "name": "totalPileVolume"
+    },
+    {
+      "name": "totalPileVolumeDisplay"
+    },
+    {
+      "name": "capVolume"
+    },
+    {
+      "name": "totalCapVolume"
+    },
+    {
+      "name": "totalVolume"
+    },
+    {
+      "name": "totalVolumeWithWaste"
+    },
+    {
+      "name": "totalVolumeDisplay"
+    },
+    {
+      "name": "totalVolumeCubicYards"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "pilesCount": 12,
+    "pileDiameter": 0.4,
+    "pileDepth": 3,
+    "pileCapCount": 0,
+    "unit": "meters",
+    "includeWaste": "false",
+    "wasteMargin": 10
+  },
+  "relatedIds": ["foundation-volume-calculator", "concrete-volume-calculator", "cement-calculator", "rebar-calculator"],
+  "isEnabled": true
+}
+

@@ -1,0 +1,91 @@
+{
+  "id": "cable-size-calculator",
+  "slug": "cable-size-calculator",
+  "category": "construction",
+  "engine": "function",
+  "calculationId": "calculateCableSize",
+  "tags": ["cable-size", "wire-gauge", "electrical-cable", "cross-section"],
+  "inputs": [
+    {
+      "name": "voltage",
+      "type": "select",
+      "options": [
+        { "value": "220-230", "label": "220-230 V" },
+        { "value": "110-120", "label": "110-120 V" },
+        { "value": "380-400", "label": "380-400 V" }
+      ],
+      "defaultValue": "220-230"
+    },
+    {
+      "name": "phase",
+      "type": "select",
+      "options": [
+        { "value": "single-phase", "label": "Single-Phase" },
+        { "value": "three-phase", "label": "Three-Phase" }
+      ],
+      "defaultValue": "single-phase"
+    },
+    {
+      "name": "totalPower",
+      "type": "number",
+      "min": 0,
+      "max": 1000000,
+      "step": 0.1
+    },
+    {
+      "name": "material",
+      "type": "select",
+      "options": [
+        { "value": "copper", "label": "Copper" },
+        { "value": "aluminum", "label": "Aluminum" }
+      ],
+      "defaultValue": "copper"
+    },
+    {
+      "name": "installationType",
+      "type": "select",
+      "options": [
+        { "value": "indoor", "label": "Indoor" },
+        { "value": "outdoor", "label": "Outdoor" },
+        { "value": "underground", "label": "Underground" }
+      ],
+      "defaultValue": "indoor"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "current"
+    },
+    {
+      "name": "recommendedSize"
+    },
+    {
+      "name": "maxCurrent"
+    },
+    {
+      "name": "voltage"
+    },
+    {
+      "name": "phase"
+    },
+    {
+      "name": "formula"
+    },
+    {
+      "name": "breakdown"
+    },
+    {
+      "name": "explanation"
+    }
+  ],
+  "defaults": {
+    "voltage": "220-230",
+    "phase": "single-phase",
+    "totalPower": 3,
+    "material": "copper",
+    "installationType": "indoor"
+  },
+  "relatedIds": ["electrical-load-calculator"],
+  "isEnabled": true
+}
+

@@ -1,0 +1,237 @@
+{
+  "title": "Concrete Volume Calculator – How Much Concrete Do You Need?",
+  "shortDescription": "Calculate concrete volume for slabs, footings, and columns. Get accurate concrete estimates for construction projects.",
+  "longDescription": "Our Concrete Volume Calculator helps you determine how much concrete you need for your construction project. Calculate the required concrete volume for slabs, rectangular footings, and cylindrical columns. Supports both metric (meters) and imperial (feet) units. Includes optional waste margin calculation (5-10%) to account for spillage, formwork variations, and unexpected needs. Perfect for contractors, DIY builders, and construction planning.",
+  "inputs": [
+    {
+      "label": "Shape",
+      "unitLabel": "",
+      "placeholder": "Select shape",
+      "helpText": "Select the type of concrete structure: Slab, Rectangular Footing, or Cylindrical Column"
+    },
+    {
+      "label": "Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the slab or footing in meters or feet"
+    },
+    {
+      "label": "Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the slab or footing in meters or feet"
+    },
+    {
+      "label": "Thickness",
+      "unitLabel": "",
+      "placeholder": "Enter thickness",
+      "helpText": "Enter the thickness of the slab in meters or feet"
+    },
+    {
+      "label": "Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height of the footing or column in meters or feet"
+    },
+    {
+      "label": "Radius",
+      "unitLabel": "",
+      "placeholder": "Enter radius",
+      "helpText": "Enter the radius of the cylindrical column in meters or feet"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-10%) to account for spillage and formwork variations"
+    },
+    {
+      "label": "Waste Percentage",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 5-10%)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Concrete Volume",
+      "unitLabel": ""
+    },
+    {
+      "label": "Volume with Waste",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the shape type: Slab, Rectangular Footing, or Cylindrical Column",
+    "Enter the required dimensions based on the selected shape",
+    "For Slab: Enter length, width, and thickness",
+    "For Footing: Enter length, width, and height",
+    "For Column: Enter radius and height",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin and set the percentage (5-10%)",
+    "Click the Calculate button",
+    "View the calculated concrete volume in cubic meters or cubic feet",
+    "Review the formula and explanation for calculation details",
+    "After calculating concrete volume, use the Cement Calculator to estimate cement quantity, or the Foundation Volume Calculator for foundation-specific calculations"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Concrete Slab for Garage",
+      "inputDescription": "Calculate concrete needed for a garage slab.",
+      "steps": [
+        "Shape: Slab",
+        "Length: 6 meters",
+        "Width: 4 meters",
+        "Thickness: 0.15 meters (15 cm)",
+        "Unit: Meters",
+        "Calculation: V = 6 × 4 × 0.15 = 3.6 m³"
+      ],
+      "resultDescription": "For a garage slab measuring 6m × 4m × 0.15m, you need 3.6 cubic meters of concrete. With a 10% waste margin, order approximately 4.0 m³ to account for spillage and formwork variations."
+    },
+    {
+      "id": "example-2",
+      "title": "Foundation Footing",
+      "inputDescription": "Calculate concrete needed for a foundation footing.",
+      "steps": [
+        "Shape: Rectangular Footing",
+        "Length: 2.5 meters",
+        "Width: 1.5 meters",
+        "Height: 0.5 meters",
+        "Unit: Meters",
+        "Calculation: V = 2.5 × 1.5 × 0.5 = 1.875 m³"
+      ],
+      "resultDescription": "For a foundation footing measuring 2.5m × 1.5m × 0.5m, you need 1.875 cubic meters of concrete. Adding 10% waste margin gives you 2.06 m³ to order."
+    },
+    {
+      "id": "example-3",
+      "title": "Cylindrical Column Volume",
+      "inputDescription": "Calculate concrete needed for a cylindrical column.",
+      "steps": [
+        "Shape: Cylindrical Column",
+        "Radius: 0.3 meters (30 cm)",
+        "Height: 3 meters",
+        "Unit: Meters",
+        "Calculation: V = π × 0.3² × 3 ≈ 0.848 m³"
+      ],
+      "resultDescription": "For a cylindrical column with radius 0.3m and height 3m, you need approximately 0.848 cubic meters of concrete. With 10% waste margin, order about 0.93 m³."
+    },
+    {
+      "id": "example-4",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate concrete needed using imperial units.",
+      "steps": [
+        "Shape: Slab",
+        "Length: 20 feet",
+        "Width: 12 feet",
+        "Thickness: 0.5 feet (6 inches)",
+        "Unit: Feet",
+        "Calculation: V = 20 × 12 × 0.5 = 120 ft³"
+      ],
+      "resultDescription": "For a slab measuring 20ft × 12ft × 0.5ft, you need 120 cubic feet of concrete. This equals approximately 4.44 cubic yards (120 ÷ 27). With 10% waste margin, order about 4.9 cubic yards."
+    },
+    {
+      "id": "example-5",
+      "title": "Patio Slab with Waste Margin",
+      "inputDescription": "Calculate concrete for a patio with waste margin included.",
+      "steps": [
+        "Shape: Slab",
+        "Length: 5 meters",
+        "Width: 3 meters",
+        "Thickness: 0.1 meters (10 cm)",
+        "Unit: Meters",
+        "Include Waste: Yes (10%)",
+        "Base Volume: 5 × 3 × 0.1 = 1.5 m³",
+        "With Waste: 1.5 × 1.10 = 1.65 m³"
+      ],
+      "resultDescription": "For a patio slab measuring 5m × 3m × 0.1m, the base volume is 1.5 m³. With a 10% waste margin, you should order 1.65 m³ of concrete to ensure you have enough material for the entire project."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate volume calculations based on the geometric formulas for each shape. Accuracy depends on precise measurements of your dimensions. The formulas are mathematically correct, but actual concrete needs may vary slightly due to formwork, surface irregularities, and compaction. Always add a waste margin for real-world projects."
+    },
+    {
+      "question": "Should I add extra concrete?",
+      "answer": "Yes, it's highly recommended to add 5-10% extra concrete to account for waste, spillage, formwork variations, and unexpected needs. Some contractors add up to 15% for complex projects. It's better to have a small amount left over than to run short during pouring."
+    },
+    {
+      "question": "Does formwork matter for volume calculations?",
+      "answer": "Formwork (the molds that hold concrete) doesn't directly affect the volume calculation, but it can cause slight variations in the actual concrete needed. Formwork may not be perfectly square, and concrete can settle or spread slightly. This is why adding a waste margin (5-10%) is recommended."
+    },
+    {
+      "question": "What about reinforcement (rebar)?",
+      "answer": "Reinforcement (rebar) is calculated separately and doesn't affect the concrete volume calculation. Rebar displaces a small amount of concrete (typically less than 1-2%), which is usually covered by the waste margin. This calculator focuses on concrete volume only."
+    },
+    {
+      "question": "What's the difference between m³ and cubic yards?",
+      "answer": "Cubic meters (m³) is the metric unit, while cubic yards (yd³) is the imperial unit. 1 cubic yard = 0.7646 cubic meters, or approximately 27 cubic feet. Most concrete suppliers use cubic yards in the US and cubic meters elsewhere. The calculator supports both metric (meters) and imperial (feet) inputs, and you can convert the result if needed."
+    },
+    {
+      "question": "How do I convert cubic feet to cubic yards?",
+      "answer": "To convert cubic feet to cubic yards, divide by 27 (since 1 cubic yard = 27 cubic feet). For example, 120 ft³ ÷ 27 = 4.44 cubic yards. Most concrete suppliers in the US quote prices in cubic yards."
+    },
+    {
+      "question": "What thickness should I use for a concrete slab?",
+      "answer": "Typical slab thicknesses: Residential driveways and patios: 4-6 inches (10-15 cm). Garage floors: 4-6 inches (10-15 cm). Sidewalks: 4 inches (10 cm). Commercial floors: 6-8 inches (15-20 cm). Always check local building codes for minimum thickness requirements."
+    },
+    {
+      "question": "Can I use this for irregular shapes?",
+      "answer": "This calculator is designed for regular geometric shapes (slabs, rectangular footings, cylindrical columns). For irregular shapes, break them down into regular shapes, calculate each separately, and add the volumes together. For complex shapes, consult with a structural engineer."
+    },
+    {
+      "question": "What if my measurements are in different units?",
+      "answer": "Convert all measurements to the same unit system (either all meters or all feet) before entering them. The calculator uses the unit you select for all dimensions. Don't mix metric and imperial units in the same calculation."
+    },
+    {
+      "question": "How much does concrete cost per cubic meter/yard?",
+      "answer": "Concrete costs vary by region, mix strength, and delivery fees. Typical ranges: $100-150 per cubic yard in the US, or €80-120 per cubic meter in Europe. Prices include delivery for minimum orders (usually 1-2 cubic yards/meters). Always get quotes from local suppliers."
+    },
+    {
+      "question": "What concrete mix strength should I use?",
+      "answer": "Concrete mix strength (measured in PSI or MPa) depends on the application: Residential slabs: 2500-3000 PSI (17-21 MPa). Driveways: 3000-4000 PSI (21-28 MPa). Foundations: 3000-4000 PSI (21-28 MPa). Commercial: 4000+ PSI (28+ MPa). Consult local building codes and your contractor."
+    },
+    {
+      "question": "Do I need to account for compaction?",
+      "answer": "Concrete compaction (vibration) reduces air bubbles and increases density slightly, but the volume change is minimal (less than 1%). The waste margin (5-10%) typically covers this. For very precise projects, you might add an extra 1-2% for compaction effects."
+    },
+    {
+      "question": "Can I calculate multiple shapes at once?",
+      "answer": "The calculator handles one shape at a time. For projects with multiple shapes (e.g., a foundation with footings and a slab), calculate each shape separately and add the volumes together. Don't forget to apply the waste margin to the total volume."
+    },
+    {
+      "question": "What about concrete for steps or stairs?",
+      "answer": "For steps or stairs, calculate each step as a rectangular footing (length × width × height), then add all step volumes together. Don't forget the landing area if applicable. The calculator's 'Rectangular Footing' option works well for individual steps."
+    },
+    {
+      "question": "How do I measure irregular or sloped surfaces?",
+      "answer": "For sloped surfaces, use the average thickness. Measure thickness at multiple points, calculate the average, and use that in the calculator. For very irregular surfaces, consider breaking them into smaller regular sections and calculating each separately."
+    },
+    {
+      "question": "What's the minimum order for concrete delivery?",
+      "answer": "Most concrete suppliers have minimum orders: typically 1-2 cubic yards (0.76-1.5 m³) in the US, or 1-2 cubic meters elsewhere. For smaller projects, you may need to use bagged concrete mix. Check with local suppliers for their minimum order requirements."
+    }
+  ],
+  "seo": {
+    "title": "Concrete Volume Calculator – How Much Concrete Do You Need?",
+    "description": "Calculate concrete volume for slabs, footings, and columns. Get accurate concrete estimates for construction projects.",
+    "keywords": ["concrete calculator", "concrete volume", "how much concrete", "concrete estimate", "concrete slab calculator", "concrete footing calculator", "construction calculator"]
+  }
+}
+

@@ -1,0 +1,234 @@
+{
+  "title": "Gravel Calculator – Estimate Gravel Volume and Weight",
+  "shortDescription": "Calculate the amount of gravel needed for concrete, driveways, or base layers. Estimate gravel volume and weight easily.",
+  "longDescription": "Our Gravel Calculator helps you determine how much gravel (aggregate) you need for your construction project. Enter the required volume and select the application (concrete mix, road base, drainage, or general fill), and get accurate estimates of gravel volume and weight. Supports both metric (m³) and imperial (ft³) units. Includes optional waste margin calculation (5-20%) to account for compaction, handling losses, and ensure sufficient material. Uses standard gravel density (1500 kg/m³ for dry gravel) for accurate weight calculations. Perfect for contractors, DIY builders, and construction planning.",
+  "inputs": [
+    {
+      "label": "Required Volume",
+      "unitLabel": "",
+      "placeholder": "Enter volume",
+      "helpText": "Enter the total gravel volume needed in cubic meters or cubic feet"
+    },
+    {
+      "label": "Application",
+      "unitLabel": "",
+      "placeholder": "Select application",
+      "helpText": "Select the intended use for the gravel (informational only, doesn't affect calculation)"
+    },
+    {
+      "label": "Gravel Density",
+      "unitLabel": "kg/m³",
+      "placeholder": "Enter density",
+      "helpText": "Enter gravel density in kg/m³ (default: 1500 kg/m³ for dry gravel). Compacted or wet gravel may be 1600-1800 kg/m³"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters (m³) or feet (ft³) for volume measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-20%) to account for compaction, handling losses, and ensure sufficient material"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Gravel Weight",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Gravel Weight with Waste",
+      "unitLabel": "kg"
+    },
+    {
+      "label": "Gravel Volume",
+      "unitLabel": "m³"
+    },
+    {
+      "label": "Gravel Volume with Waste",
+      "unitLabel": "m³"
+    },
+    {
+      "label": "Gravel Weight (Tons)",
+      "unitLabel": "tons"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter the total gravel volume needed (use Concrete Volume Calculator if calculating for concrete mix)",
+    "Select the application type (concrete mix, road base, drainage, or general fill) - this is informational only",
+    "Optionally adjust gravel density (default: 1500 kg/m³ for dry gravel)",
+    "Select the unit system: Meters (m³) or Feet (ft³)",
+    "Optionally enable waste margin and set the percentage (typically 10%)",
+    "Click the Calculate button",
+    "View the calculated gravel weight in kilograms and volume in cubic meters",
+    "See the weight in tons for large volumes (if applicable)",
+    "Review the formula and explanation for calculation details",
+    "Use the waste margin to ensure you order enough gravel"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Concrete Mix Aggregate",
+      "inputDescription": "Calculate gravel needed for concrete mix aggregate.",
+      "steps": [
+        "Required Volume: 2.057 m³",
+        "Application: Concrete Mix",
+        "Gravel Density: 1500 kg/m³ (Dry Gravel)",
+        "Unit: Meters",
+        "Calculation:",
+        "  Gravel Weight = 2.057 × 1500 = 3085.5 kg",
+        "  Gravel Weight in Tons = 3085.5 / 1000 = 3.09 tons"
+      ],
+      "resultDescription": "For 2.057 m³ of gravel for concrete mix, you need approximately 2.06 m³ (3086 kg or 3.09 tons) of gravel. This is the aggregate portion for approximately 5 m³ of concrete with a 1:2:4 mix ratio. With a 10% waste margin, order 2.26 m³ (3394 kg or 3.39 tons)."
+    },
+    {
+      "id": "example-2",
+      "title": "Driveway Base Layer",
+      "inputDescription": "Calculate gravel needed for a driveway base layer.",
+      "steps": [
+        "Required Volume: 10 m³",
+        "Application: Road Base",
+        "Gravel Density: 1500 kg/m³",
+        "Unit: Meters",
+        "Calculation:",
+        "  Gravel Weight = 10 × 1500 = 15000 kg",
+        "  Gravel Weight in Tons = 15000 / 1000 = 15 tons"
+      ],
+      "resultDescription": "For 10 m³ of gravel for a driveway base layer, you need 10 m³ (15000 kg or 15 tons) of gravel. Base layers require good compaction, so consider adding 10-15% extra for compaction losses. With 10% waste margin, order 11 m³ (16500 kg or 16.5 tons)."
+    },
+    {
+      "id": "example-3",
+      "title": "Drainage Layer",
+      "inputDescription": "Calculate gravel needed for a drainage layer.",
+      "steps": [
+        "Required Volume: 5 m³",
+        "Application: Drainage",
+        "Gravel Density: 1500 kg/m³",
+        "Unit: Meters",
+        "Calculation:",
+        "  Gravel Weight = 5 × 1500 = 7500 kg",
+        "  Gravel Weight in Tons = 7500 / 1000 = 7.5 tons"
+      ],
+      "resultDescription": "For 5 m³ of gravel for a drainage layer, you need 5 m³ (7500 kg or 7.5 tons) of gravel. Drainage layers typically use larger size gravel (20-40 mm) for better water flow. With 10% waste margin, order 5.5 m³ (8250 kg or 8.25 tons)."
+    },
+    {
+      "id": "example-4",
+      "title": "With Waste Margin",
+      "inputDescription": "Calculate gravel with waste margin included.",
+      "steps": [
+        "Required Volume: 20 m³",
+        "Application: General Fill",
+        "Gravel Density: 1500 kg/m³",
+        "Unit: Meters",
+        "Include Waste: Yes (10%)",
+        "Calculation:",
+        "  Base Gravel Weight = 20 × 1500 = 30000 kg",
+        "  With 10% Waste = 20 × 1.10 = 22 m³",
+        "  Weight with Waste = 22 × 1500 = 33000 kg = 33 tons"
+      ],
+      "resultDescription": "For 20 m³ of gravel for general fill, the base requirement is 20 m³ (30000 kg or 30 tons). With a 10% waste margin, you should order 22 m³ (33000 kg or 33 tons) to account for compaction, handling losses, and ensure sufficient material for the entire project."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate gravel needed using imperial units.",
+      "steps": [
+        "Required Volume: 100 ft³",
+        "Application: Concrete Mix",
+        "Gravel Density: 1500 kg/m³",
+        "Unit: Feet",
+        "Calculation:",
+        "  Convert: 100 ft³ = 100 × 0.0283168 = 2.832 m³",
+        "  Gravel Weight = 2.832 × 1500 = 4248 kg",
+        "  Convert to tons: 4248 / 1000 = 4.25 tons",
+        "  Convert to cubic yards: 2.832 / 0.7646 = 3.70 yd³"
+      ],
+      "resultDescription": "For 100 cubic feet (2.83 m³) of gravel, you need approximately 2.83 m³ (4248 kg or 4.25 tons) of gravel. This is approximately 3.7 cubic yards. Most suppliers in the US quote prices in cubic yards, so this conversion is helpful for ordering."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What gravel density is used?",
+      "answer": "The calculator uses a default density of 1500 kg/m³ (93.6 lb/ft³) for dry gravel, which is the standard value used in construction calculations. Gravel density can vary: dry gravel is typically 1400-1600 kg/m³, compacted gravel is 1600-1800 kg/m³, and wet gravel may be slightly higher. You can adjust the density in the calculator if you know the specific type and condition of gravel you're using."
+    },
+    {
+      "question": "Gravel vs crushed stone?",
+      "answer": "Gravel is naturally occurring rounded stones, while crushed stone is mechanically crushed angular stones. Both are used as aggregates in construction. Crushed stone typically has slightly higher density (1600-1800 kg/m³) and better compaction properties, while gravel is more rounded and may have lower density (1400-1600 kg/m³). The calculator works for both, but you may need to adjust the density slightly for crushed stone."
+    },
+    {
+      "question": "How much extra should I order?",
+      "answer": "It's recommended to add 5-10% extra gravel (waste margin) to account for compaction, handling losses, spillage, and to ensure you have enough material. For base layers and areas requiring heavy compaction, consider adding 10-15% extra. It's better to have a small amount left over than to run short during construction, which can delay the project."
+    },
+    {
+      "question": "Volume vs weight ordering?",
+      "answer": "Gravel is typically ordered by volume (cubic meters or cubic yards) rather than weight, as volume is easier to measure and transport. However, weight calculations help with transportation planning (truck weight limits) and cost estimation. Suppliers usually quote prices per cubic meter or cubic yard. The calculator provides both volume and weight for your convenience."
+    },
+    {
+      "question": "Does moisture affect gravel?",
+      "answer": "Moisture can slightly affect gravel density, but the effect is less significant than with sand. Wet gravel may have 5-10% higher density due to water content, but gravel doesn't absorb water like sand does. For most calculations, the standard dry density (1500 kg/m³) is sufficient. If you're using very wet gravel, you might adjust the density to 1600-1700 kg/m³."
+    },
+    {
+      "question": "What size gravel should I use?",
+      "answer": "Gravel size depends on application: Concrete mix typically uses 10-20 mm or 20-40 mm aggregate. Road base uses 20-40 mm or 40-60 mm for better compaction. Drainage layers use larger sizes (20-40 mm or 40-60 mm) for better water flow. General fill can use various sizes. Check your project specifications or consult with a supplier for the appropriate size."
+    },
+    {
+      "question": "How do I measure gravel volume?",
+      "answer": "For small projects, measure the area (length × width) and depth to calculate volume. For large projects, suppliers deliver by truckload (typically 5-20 m³ per truck). You can also estimate from drawings or use the Concrete Volume Calculator if calculating for concrete mix. Always add a waste margin for compaction and handling losses."
+    },
+    {
+      "question": "What's the difference between compacted and loose gravel?",
+      "answer": "Loose gravel is the volume before compaction, while compacted gravel is after compaction. Compaction reduces volume by 10-20% depending on the gravel type and compaction method. When ordering, specify whether you need loose or compacted volume. The calculator uses loose volume - add extra (10-15%) if you need to account for compaction."
+    },
+    {
+      "question": "Can I use this for concrete aggregate calculation?",
+      "answer": "Yes, but for concrete, you typically calculate aggregate based on the concrete mix ratio. For a 1:2:4 mix with 1 m³ concrete: Gravel = 1 × (4/7) = 0.571 m³. This calculator is useful when you know the exact gravel volume needed, or you can use it to verify calculations from mix ratio-based calculators."
+    },
+    {
+      "question": "How do I convert cubic feet to cubic yards?",
+      "answer": "1 cubic yard = 27 cubic feet, or 1 cubic foot = 0.037037 cubic yards. The calculator works in m³ and ft³. To convert to cubic yards: divide cubic feet by 27, or divide cubic meters by 0.7646. For example, 100 ft³ = 3.70 yd³, or 2.83 m³ = 3.70 yd³."
+    },
+    {
+      "question": "What about gravel for driveways?",
+      "answer": "Driveways typically require a base layer of 10-15 cm (4-6 inches) of compacted gravel, then a surface layer. Calculate the base layer volume: length × width × depth. Use 20-40 mm gravel for better compaction. Add 10-15% extra for compaction. The calculator helps estimate the gravel needed for the base layer."
+    },
+    {
+      "question": "Does gravel type affect density?",
+      "answer": "Yes, different gravel types have different densities: River gravel: 1400-1500 kg/m³. Crushed stone: 1600-1800 kg/m³. Limestone: 1500-1600 kg/m³. Granite: 1600-1700 kg/m³. The calculator uses 1500 kg/m³ as standard, but you can adjust the density based on the specific gravel type you're using."
+    },
+    {
+      "question": "What about delivery and minimum orders?",
+      "answer": "Most gravel suppliers have minimum delivery orders: typically 5-10 m³ (or 5-10 cubic yards) per delivery. For smaller projects, you may need to pick up gravel yourself or pay a premium for small deliveries. Check with local suppliers for their minimum order requirements and delivery fees."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate estimates based on standard gravel density (1500 kg/m³). Accuracy depends on: precise volume measurement, correct density value for your gravel type, and realistic waste margin. The calculations are mathematically correct, but actual needs may vary slightly due to gravel type, compaction, and handling losses. Always add a waste margin (10%) for real-world projects."
+    },
+    {
+      "question": "What about gravel for landscaping?",
+      "answer": "For landscaping, gravel is often used for pathways, decorative areas, or drainage. Calculate the area and desired depth to get volume. Use the 'General Fill' application option. Landscaping gravel may use smaller sizes (5-10 mm) for pathways or larger decorative stones. The calculation method remains the same - adjust density if needed for the specific gravel type."
+    }
+  ],
+  "seo": {
+    "title": "Gravel Calculator – Estimate Gravel Volume and Weight",
+    "description": "Calculate the amount of gravel needed for concrete, driveways, or base layers. Estimate gravel volume and weight easily.",
+    "keywords": ["gravel calculator", "how much gravel", "gravel estimate", "aggregate calculator", "construction calculator", "gravel volume"]
+  }
+}
+

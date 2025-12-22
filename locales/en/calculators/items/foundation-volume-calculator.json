@@ -1,0 +1,300 @@
+{
+  "title": "Foundation Volume Calculator – Concrete Needed for Slab, Strip, Pads & Piles",
+  "shortDescription": "Calculate foundation concrete volume for slab, strip, pad footings, and piles. Includes unit conversion and waste margin.",
+  "longDescription": "Our Foundation Volume Calculator helps you determine how much concrete you need for your foundation project. Calculate concrete volume for slab foundations, strip foundations (continuous footings), isolated pad footings, and cylindrical piles. Supports both metric (m³) and imperial (ft³) units with automatic conversion to cubic yards. Includes optional waste margin calculation (5-20%) to account for formwork variations, spillage, and ensure sufficient material. Perfect for contractors, DIY builders, and construction planning. Get accurate estimates for any foundation type with clear breakdowns and practical ordering notes.",
+  "inputs": [
+    {
+      "label": "Foundation Type",
+      "unitLabel": "",
+      "placeholder": "Select foundation type",
+      "helpText": "Select the type of foundation: Slab, Strip (continuous footing), Isolated Pads, or Piles"
+    },
+    {
+      "label": "Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of the slab foundation in meters or feet"
+    },
+    {
+      "label": "Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the slab foundation in meters or feet"
+    },
+    {
+      "label": "Thickness",
+      "unitLabel": "",
+      "placeholder": "Enter thickness",
+      "helpText": "Enter the thickness of the slab foundation in meters or feet"
+    },
+    {
+      "label": "Total Strip Length",
+      "unitLabel": "",
+      "placeholder": "Enter total length",
+      "helpText": "Enter the total length of all strip foundation sections combined in meters or feet"
+    },
+    {
+      "label": "Strip Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of the strip foundation in meters or feet"
+    },
+    {
+      "label": "Strip Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height (depth) of the strip foundation in meters or feet"
+    },
+    {
+      "label": "Number of Pads",
+      "unitLabel": "",
+      "placeholder": "Enter count",
+      "helpText": "Enter the number of isolated pad footings"
+    },
+    {
+      "label": "Pad Length",
+      "unitLabel": "",
+      "placeholder": "Enter length",
+      "helpText": "Enter the length of each pad footing in meters or feet"
+    },
+    {
+      "label": "Pad Width",
+      "unitLabel": "",
+      "placeholder": "Enter width",
+      "helpText": "Enter the width of each pad footing in meters or feet"
+    },
+    {
+      "label": "Pad Height",
+      "unitLabel": "",
+      "placeholder": "Enter height",
+      "helpText": "Enter the height (depth) of each pad footing in meters or feet"
+    },
+    {
+      "label": "Number of Piles",
+      "unitLabel": "",
+      "placeholder": "Enter count",
+      "helpText": "Enter the number of cylindrical piles"
+    },
+    {
+      "label": "Pile Diameter",
+      "unitLabel": "",
+      "placeholder": "Enter diameter",
+      "helpText": "Enter the diameter of each pile in meters or feet"
+    },
+    {
+      "label": "Pile Depth",
+      "unitLabel": "",
+      "placeholder": "Enter depth",
+      "helpText": "Enter the depth (length) of each pile in meters or feet"
+    },
+    {
+      "label": "Unit",
+      "unitLabel": "",
+      "placeholder": "Select unit",
+      "helpText": "Select meters or feet for measurements"
+    },
+    {
+      "label": "Include Waste Margin",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable to add a waste margin (5-20%) to account for formwork variations, spillage, and ensure sufficient material"
+    },
+    {
+      "label": "Waste Margin",
+      "unitLabel": "%",
+      "placeholder": "Enter percentage",
+      "helpText": "Enter the waste margin percentage (typically 10% for most projects)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Concrete Volume",
+      "unitLabel": ""
+    },
+    {
+      "label": "Concrete Volume with Waste",
+      "unitLabel": ""
+    },
+    {
+      "label": "Concrete Volume (Cubic Yards)",
+      "unitLabel": "yd³"
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the foundation type: Slab, Strip, Isolated Pads, or Piles",
+    "Enter the required dimensions based on the selected foundation type",
+    "For Slab: Enter length, width, and thickness",
+    "For Strip: Enter total strip length, width, and height",
+    "For Pads: Enter number of pads, pad length, width, and height",
+    "For Piles: Enter number of piles, pile diameter, and depth",
+    "Select the unit system: Meters or Feet",
+    "Optionally enable waste margin and set the percentage (typically 10%)",
+    "Click the Calculate button",
+    "View the calculated concrete volume in cubic meters or cubic feet",
+    "See the volume in cubic yards if using imperial units",
+    "Review the formula, breakdown, and explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Slab for Small House",
+      "inputDescription": "Calculate concrete needed for a small house slab foundation.",
+      "steps": [
+        "Foundation Type: Slab Foundation",
+        "Length: 10 meters",
+        "Width: 8 meters",
+        "Thickness: 0.2 meters (20 cm)",
+        "Unit: Meters",
+        "Calculation:",
+        "  V = 10 × 8 × 0.2 = 16 m³"
+      ],
+      "resultDescription": "For a slab foundation measuring 10m × 8m × 0.2m, you need 16 m³ of concrete. With a 10% waste margin, order approximately 17.6 m³ to account for formwork variations and spillage. This is suitable for a small house foundation."
+    },
+    {
+      "id": "example-2",
+      "title": "Strip Foundation Perimeter",
+      "inputDescription": "Calculate concrete needed for a strip foundation around a building perimeter.",
+      "steps": [
+        "Foundation Type: Strip Foundation",
+        "Total Strip Length: 40 meters (perimeter)",
+        "Strip Width: 0.5 meters",
+        "Strip Height: 0.6 meters",
+        "Unit: Meters",
+        "Calculation:",
+        "  V = 40 × 0.5 × 0.6 = 12 m³"
+      ],
+      "resultDescription": "For a strip foundation with total length 40m, width 0.5m, and height 0.6m, you need 12 m³ of concrete. Strip foundations are continuous footings that run along the perimeter or load-bearing walls. With 10% waste margin, order 13.2 m³."
+    },
+    {
+      "id": "example-3",
+      "title": "10 Pad Footings",
+      "inputDescription": "Calculate concrete needed for multiple isolated pad footings.",
+      "steps": [
+        "Foundation Type: Isolated Footings (Pads)",
+        "Number of Pads: 10",
+        "Pad Length: 1.5 meters",
+        "Pad Width: 1.5 meters",
+        "Pad Height: 0.5 meters",
+        "Unit: Meters",
+        "Calculation:",
+        "  Single Pad Volume = 1.5 × 1.5 × 0.5 = 1.125 m³",
+        "  Total Volume = 10 × 1.125 = 11.25 m³"
+      ],
+      "resultDescription": "For 10 isolated pad footings, each measuring 1.5m × 1.5m × 0.5m, you need 11.25 m³ of concrete. Pad footings are used to support individual columns or posts. With 10% waste margin, order 12.38 m³ to ensure sufficient material for all pads."
+    },
+    {
+      "id": "example-4",
+      "title": "20 Piles Example",
+      "inputDescription": "Calculate concrete needed for cylindrical pile foundations.",
+      "steps": [
+        "Foundation Type: Piles (Cylindrical)",
+        "Number of Piles: 20",
+        "Pile Diameter: 0.4 meters (40 cm)",
+        "Pile Depth: 3 meters",
+        "Unit: Meters",
+        "Calculation:",
+        "  Radius = 0.4 / 2 = 0.2 m",
+        "  Single Pile Volume = π × 0.2² × 3 = 0.377 m³",
+        "  Total Volume = 20 × 0.377 = 7.54 m³"
+      ],
+      "resultDescription": "For 20 cylindrical piles with diameter 0.4m and depth 3m, you need approximately 7.54 m³ of concrete. Pile foundations are used in areas with poor soil conditions or for deep foundations. With 10% waste margin, order 8.29 m³."
+    },
+    {
+      "id": "example-5",
+      "title": "Imperial Units Example",
+      "inputDescription": "Calculate foundation volume using imperial units.",
+      "steps": [
+        "Foundation Type: Slab Foundation",
+        "Length: 30 feet",
+        "Width: 20 feet",
+        "Thickness: 0.5 feet (6 inches)",
+        "Unit: Feet",
+        "Calculation:",
+        "  V = 30 × 20 × 0.5 = 300 ft³",
+        "  Convert to m³: 300 × 0.0283168 = 8.495 m³",
+        "  Convert to yd³: 300 / 27 = 11.11 cubic yards"
+      ],
+      "resultDescription": "For a slab foundation measuring 30ft × 20ft × 0.5ft, you need 300 cubic feet (8.5 m³) of concrete. This equals approximately 11.1 cubic yards. Most concrete suppliers in the US quote prices in cubic yards, so this conversion is helpful for ordering."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How to estimate foundation volume?",
+      "answer": "Measure the dimensions of your foundation: For slabs, measure length, width, and thickness. For strip foundations, measure the total length of all strips, width, and height. For pads, measure each pad's dimensions and count them. For piles, measure diameter and depth, then count them. Use this calculator to get accurate volume estimates. Always add 5-10% extra for waste and formwork variations."
+    },
+    {
+      "question": "Slab vs strip vs piles?",
+      "answer": "Slab foundations are large flat concrete slabs that support the entire building. Strip foundations (continuous footings) run along load-bearing walls. Isolated pad footings support individual columns or posts. Pile foundations are deep cylindrical foundations used in poor soil conditions or for heavy loads. The choice depends on soil conditions, building load, and local building codes. Consult with a structural engineer for the appropriate foundation type."
+    },
+    {
+      "question": "How much extra concrete should I order?",
+      "answer": "It's recommended to add 5-10% extra concrete (waste margin) to account for formwork variations, spillage, and to ensure you have enough material. For complex foundations or when using site mixing, consider adding 10-15% extra. It's better to have a small amount left over than to run short during pouring, which can cause delays and inconsistent concrete batches."
+    },
+    {
+      "question": "Do I include footing + slab together?",
+      "answer": "It depends on your foundation design: If you have a slab-on-grade (slab directly on ground), calculate only the slab volume. If you have footings with a slab above, calculate them separately and add the volumes together. Some foundations combine strip footings with a slab - calculate each part separately and sum them. This calculator handles each foundation type separately - if you have multiple types, calculate each and add the results."
+    },
+    {
+      "question": "Metric vs cubic yards?",
+      "answer": "The calculator supports both metric (cubic meters) and imperial (cubic feet) units. For imperial users, it also provides cubic yards conversion (1 yd³ = 27 ft³ = 0.7646 m³). Most concrete suppliers in the US quote prices in cubic yards, while suppliers elsewhere use cubic meters. The calculator automatically converts between units for your convenience."
+    },
+    {
+      "question": "What thickness should I use for a slab foundation?",
+      "answer": "Slab foundation thickness depends on load and soil conditions: Residential slabs: typically 10-15 cm (4-6 inches). Commercial/industrial slabs: 15-25 cm (6-10 inches). Thicker slabs (20-30 cm) may be needed for heavy loads or poor soil. Always check local building codes and consult with a structural engineer for specific requirements. The calculator accepts any thickness value."
+    },
+    {
+      "question": "How do I measure strip foundation length?",
+      "answer": "Measure the total length of all strip foundation sections combined. For a rectangular building, this is typically the perimeter (2 × length + 2 × width). For complex layouts, measure each section separately and add them together. Include all continuous footing sections that will be poured together. The calculator multiplies this total length by width and height to get volume."
+    },
+    {
+      "question": "Can I calculate multiple foundation types together?",
+      "answer": "This calculator handles one foundation type at a time. If your project has multiple types (e.g., strip footings plus a slab), calculate each type separately using this calculator, then add the volumes together. Don't forget to apply the waste margin to the total combined volume when ordering."
+    },
+    {
+      "question": "What about reinforcement (rebar)?",
+      "answer": "Reinforcement (rebar) is calculated separately and doesn't affect the concrete volume calculation. Rebar displaces a small amount of concrete (typically less than 1-2%), which is usually covered by the waste margin. This calculator focuses on concrete volume only. Rebar quantities are calculated based on structural design requirements and spacing specifications."
+    },
+    {
+      "question": "How accurate is this calculator?",
+      "answer": "The calculator provides accurate volume estimates based on geometric formulas for each foundation type. Accuracy depends on precise measurement of dimensions. The formulas are mathematically correct, but actual concrete needs may vary slightly due to formwork, surface irregularities, and compaction. Always add a waste margin (5-10%) for real-world projects to account for these variations."
+    },
+    {
+      "question": "What if my foundation has irregular shapes?",
+      "answer": "This calculator handles regular geometric shapes (rectangular slabs, strips, pads, and cylindrical piles). For irregular shapes, break them down into regular shapes, calculate each separately, and add the volumes together. For very complex foundations, consider consulting with a structural engineer or using CAD software for accurate volume calculations."
+    },
+    {
+      "question": "Ready-mix vs site mix for foundations?",
+      "answer": "Ready-mix concrete is delivered pre-mixed from a plant, while site mix is mixed on-site. For foundations, ready-mix is often preferred because: it ensures consistent quality, saves time, and is suitable for large volumes. Site mixing may be more economical for small projects but requires proper mixing equipment and expertise. This calculator helps you estimate volume for either option."
+    },
+    {
+      "question": "What about foundation depth?",
+      "answer": "Foundation depth (height/thickness) depends on several factors: soil bearing capacity, frost line depth, building load, and local building codes. Typical depths: Shallow foundations (slabs, strips): 0.3-1.5 meters. Deep foundations (piles): 3-30+ meters depending on soil conditions. Always consult local building codes and a structural engineer for specific depth requirements. The calculator accepts any depth value you provide."
+    },
+    {
+      "question": "How do I convert between units?",
+      "answer": "The calculator automatically handles unit conversion: 1 m³ = 35.3147 ft³, or 1 ft³ = 0.0283168 m³. For cubic yards: 1 yd³ = 27 ft³ = 0.7646 m³. Simply select your preferred unit system (meters or feet) and enter dimensions in that unit. The calculator will provide results in both the selected unit and cubic meters (for consistency), plus cubic yards if using imperial units."
+    },
+    {
+      "question": "What about foundation excavation?",
+      "answer": "Foundation excavation volume is separate from concrete volume. Excavation removes soil to create space for the foundation, while concrete fills that space. Excavation volume is typically larger than concrete volume due to formwork space and over-excavation. This calculator focuses on concrete volume only. Calculate excavation separately if needed, accounting for formwork and working space around the foundation."
+    }
+  ],
+  "seo": {
+    "title": "Foundation Volume Calculator – Concrete Needed for Slab, Strip, Pads & Piles",
+    "description": "Calculate foundation concrete volume for slab, strip, pad footings, and piles. Includes unit conversion and waste margin.",
+    "keywords": ["foundation calculator", "foundation volume", "concrete foundation", "slab foundation", "strip foundation", "pile foundation", "construction calculator"]
+  }
+}
+

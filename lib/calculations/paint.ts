@@ -1,7 +1,7 @@
 /**
- * Calculate paint needed for a room
- * Inputs: roomArea, numberOfCoats, paintCoverage, unit
- * Outputs: paintRequired, paintRequiredFormatted, paintRequiredGallons, explanation, cansEstimate
+ * Calculate paint needed for walls, ceilings, or floors
+ * Inputs: surfaceArea, surfaceType, numberOfCoats, paintCoverage, unit, wasteMargin
+ * Outputs: paintRequired, paintPerCoat, paintRequiredWithWaste, explanation, cansEstimate
  */
 
 import type { CalculatorFunction } from '@/lib/calculators/types'
@@ -40,23 +40,29 @@ function squareFeetToSquareMeters(sqft: number): number {
  */
 export const calculatePaint: CalculatorFunction = (inputs) => {
 	// Extract inputs
-	const roomAreaStr = String(inputs.roomArea || '').trim()
+	const surfaceAreaStr = String(inputs.surfaceArea || inputs.roomArea || '').trim() // Support both for backward compatibility
+	const surfaceType = String(inputs.surfaceType || 'walls').toLowerCase()
 	const numberOfCoatsStr = String(inputs.numberOfCoats || '2').trim()
 	const paintCoverageStr = String(inputs.paintCoverage || '').trim()
 	const unit = String(inputs.unit || 'meters').toLowerCase()
+	const includeWaste = 
+		inputs.includeWaste === true || 
+		inputs.includeWaste === 'true' || 
+		String(inputs.includeWaste).toLowerCase() === 'true'
+	const wastePercent = Number(inputs.wasteMargin) || 10
 
 	// Validation
-	if (!roomAreaStr || roomAreaStr.trim() === '') {
-		throw new Error('Room area is required.')
+	if (!surfaceAreaStr || surfaceAreaStr.trim() === '') {
+		throw new Error('Surface area is required.')
 	}
 
-	const roomArea = parseFloat(roomAreaStr)
-	if (isNaN(roomArea) || !Number.isFinite(roomArea)) {
-		throw new Error('Room area must be a valid number.')
+	const surfaceArea = parseFloat(surfaceAreaStr)
+	if (isNaN(surfaceArea) || !Number.isFinite(surfaceArea)) {
+		throw new Error('Surface area must be a valid number.')
 	}
 
-	if (roomArea <= 0) {
-		throw new Error('Room area must be greater than 0.')
+	if (surfaceArea <= 0) {
+		throw new Error('Surface area must be greater than 0.')
 	}
 
 	const numberOfCoats = parseInt(numberOfCoatsStr, 10)
@@ -99,9 +105,18 @@ export const calculatePaint: CalculatorFunction = (inputs) => {
 		paintUnit = 'gallons'
 	}
 
+	// Calculate paint per coat
+	const paintPerCoat = surfaceArea / paintCoverage
+	
 	// Calculate total paint needed
-	// TotalPaint = (roomArea × numberOfCoats) / paintCoverage
-	const totalPaint = (roomArea * numberOfCoats) / paintCoverage
+	// TotalPaint = (surfaceArea × numberOfCoats) / paintCoverage
+	const totalPaint = (surfaceArea * numberOfCoats) / paintCoverage
+	
+	// Apply waste margin if enabled
+	let totalPaintWithWaste = totalPaint
+	if (includeWaste) {
+		totalPaintWithWaste = totalPaint * (1 + wastePercent / 100)
+	}
 
 	// Format paint required
 	const paintRequiredFormatted = totalPaint < 0.1 
@@ -157,25 +172,64 @@ export const calculatePaint: CalculatorFunction = (inputs) => {
 		}
 	}
 
+	// Format paint per coat
+	const paintPerCoatFormatted = paintPerCoat < 0.1 
+		? paintPerCoat.toFixed(3) 
+		: paintPerCoat < 1 
+		? paintPerCoat.toFixed(2) 
+		: paintPerCoat < 10 
+		? paintPerCoat.toFixed(1) 
+		: Math.round(paintPerCoat * 10) / 10
+		
+	// Format paint with waste
+	const paintRequiredWithWasteFormatted = totalPaintWithWaste < 0.1 
+		? totalPaintWithWaste.toFixed(3) 
+		: totalPaintWithWaste < 1 
+		? totalPaintWithWaste.toFixed(2) 
+		: totalPaintWithWaste < 10 
+		? totalPaintWithWaste.toFixed(1) 
+		: Math.round(totalPaintWithWaste * 10) / 10
+
 	// Create explanation
 	const areaUnit = unit === 'meters' || unit === 'meter' || unit === 'm' ? 'm²' : 'ft²'
-	const explanation = `For a room with area ${roomArea.toFixed(1)} ${areaUnit}, applying ${numberOfCoats} coat${numberOfCoats > 1 ? 's' : ''} with paint coverage of ${paintCoverage} ${coverageUnit}, you will need approximately ${paintRequiredFormatted} ${paintUnit} of paint.`
+	const surfaceTypeName = surfaceType === 'walls' ? 'walls' : surfaceType === 'ceiling' ? 'ceiling' : surfaceType === 'floor' ? 'floor' : 'surface'
+	
+	let explanation = `For ${surfaceArea.toFixed(1)} ${areaUnit} of ${surfaceTypeName} area, applying ${numberOfCoats} coat${numberOfCoats > 1 ? 's' : ''} with paint coverage of ${paintCoverage} ${coverageUnit}, you will need approximately ${paintRequiredFormatted} ${paintUnit} of paint.`
+	
+	if (includeWaste) {
+		explanation += ` With a ${wastePercent}% waste margin, you should order ${paintRequiredWithWasteFormatted} ${paintUnit} to account for spillage, touch-ups, and cutting in around edges.`
+	} else {
+		explanation += ` Consider adding 10% extra for waste, spillage, and touch-ups.`
+	}
+	
+	// Add tip about rough surfaces
+	if (surfaceType === 'walls' || surfaceType === 'ceiling') {
+		explanation += ` Tip: Rough or textured surfaces may require 10-20% more paint than smooth surfaces.`
+	}
 
 	return {
 		paintRequired: totalPaint,
 		paintRequiredFormatted,
+		paintPerCoat: paintPerCoat,
+		paintPerCoatFormatted,
+		paintRequiredWithWaste: includeWaste ? totalPaintWithWaste : totalPaint,
+		paintRequiredWithWasteFormatted: includeWaste ? paintRequiredWithWasteFormatted : paintRequiredFormatted,
 		paintRequiredAlternative,
 		paintRequiredAlternativeFormatted,
 		alternativeUnit,
 		explanation,
 		cansEstimate,
-		roomArea,
+		surfaceArea,
+		roomArea: surfaceArea, // Backward compatibility
 		numberOfCoats,
 		paintCoverage,
 		coverageUnit,
 		paintUnit,
+		surfaceType,
 		unit: unit === 'meters' || unit === 'meter' || unit === 'm' ? 'meters' : 'feet',
 		areaUnit,
+		includeWaste: includeWaste ? 'true' : 'false',
+		wastePercent: includeWaste ? wastePercent : 0,
 	}
 }
 

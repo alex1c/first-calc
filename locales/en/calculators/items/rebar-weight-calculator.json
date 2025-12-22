@@ -1,0 +1,220 @@
+{
+  "title": "Rebar Weight Calculator – Weight per Meter and Total Steel Weight",
+  "shortDescription": "Calculate rebar weight from diameter and length, or convert weight to length. Includes kg per meter reference table.",
+  "longDescription": "Our Rebar Weight Calculator helps you convert between rebar length and weight. Enter rebar diameter, length (or weight), and quantity, and get accurate weight or length calculations. Supports standard rebar diameters (6-20 mm) with built-in weight per meter reference table. Perfect for contractors, engineers, and construction planning. Use it to estimate material needs, verify deliveries, or convert between length and weight measurements. Get instant results with clear breakdowns showing weight per meter, total calculations, and a reference table for common diameters.",
+  "inputs": [
+    {
+      "label": "Calculation Mode",
+      "unitLabel": "",
+      "placeholder": "Select mode",
+      "helpText": "Select calculation mode: Length → Weight (calculate weight from length) or Weight → Length (calculate length from weight)"
+    },
+    {
+      "label": "Bar Diameter",
+      "unitLabel": "",
+      "placeholder": "Select diameter",
+      "helpText": "Select the rebar diameter in millimeters (common: 10-16 mm)"
+    },
+    {
+      "label": "Total Length",
+      "unitLabel": "m",
+      "placeholder": "Enter length",
+      "helpText": "Enter the total rebar length in meters (visible in Length → Weight mode)"
+    },
+    {
+      "label": "Total Weight",
+      "unitLabel": "kg",
+      "placeholder": "Enter weight",
+      "helpText": "Enter the total rebar weight in kilograms (visible in Weight → Length mode)"
+    },
+    {
+      "label": "Quantity",
+      "unitLabel": "",
+      "placeholder": "Enter quantity",
+      "helpText": "Enter the number of bars (default: 1). The calculation will multiply or divide accordingly."
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Result",
+      "unitLabel": ""
+    },
+    {
+      "label": "Weight per Meter",
+      "unitLabel": "kg/m"
+    },
+    {
+      "label": "Weight Table",
+      "unitLabel": ""
+    },
+    {
+      "label": "Formula",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    },
+    {
+      "label": "Explanation",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Select the calculation mode: Length → Weight or Weight → Length",
+    "Select the rebar diameter (6-20 mm)",
+    "Enter the total length (in Length → Weight mode) or total weight (in Weight → Length mode)",
+    "Optionally enter the quantity (number of bars, default: 1)",
+    "Click the Calculate button",
+    "View the calculated weight or length",
+    "Check the weight per meter value used in the calculation",
+    "Review the weight table for common diameters",
+    "Review the formula, breakdown, and explanation for calculation details"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "100m of Ø12 → Weight",
+      "inputDescription": "Calculate weight for 100 meters of 12 mm rebar.",
+      "steps": [
+        "Mode: Length → Weight",
+        "Bar Diameter: 12 mm",
+        "Total Length: 100 meters",
+        "Quantity: 1",
+        "Calculation:",
+        "  Weight per Meter: 0.888 kg/m",
+        "  Weight = 100 m × 0.888 kg/m × 1 = 88.8 kg"
+      ],
+      "resultDescription": "For 100 meters of 12 mm rebar, the total weight is 88.8 kg. This is useful for estimating material needs or verifying deliveries. 12 mm rebar weighs 0.888 kg per meter, which is a standard value used in construction."
+    },
+    {
+      "id": "example-2",
+      "title": "500kg of Ø16 → Length",
+      "inputDescription": "Calculate length for 500 kg of 16 mm rebar.",
+      "steps": [
+        "Mode: Weight → Length",
+        "Bar Diameter: 16 mm",
+        "Total Weight: 500 kg",
+        "Quantity: 1",
+        "Calculation:",
+        "  Weight per Meter: 1.580 kg/m",
+        "  Length = 500 kg / (1.580 kg/m × 1) = 316.46 m"
+      ],
+      "resultDescription": "For 500 kg of 16 mm rebar, the total length is 316.46 meters. This is useful when you know the weight (e.g., from delivery) and need to calculate the length. 16 mm rebar weighs 1.580 kg per meter."
+    },
+    {
+      "id": "example-3",
+      "title": "Multiple Bars Count",
+      "inputDescription": "Calculate weight for multiple bars.",
+      "steps": [
+        "Mode: Length → Weight",
+        "Bar Diameter: 10 mm",
+        "Total Length: 50 meters",
+        "Quantity: 20 bars",
+        "Calculation:",
+        "  Weight per Meter: 0.617 kg/m",
+        "  Weight = 50 m × 0.617 kg/m × 20 = 617 kg"
+      ],
+      "resultDescription": "For 20 bars of 10 mm rebar, each 50 meters long, the total weight is 617 kg. The quantity multiplies the result - useful when calculating for multiple identical bars. Total length would be 50 m × 20 = 1000 m, but entering quantity separately helps track individual bar lengths."
+    },
+    {
+      "id": "example-4",
+      "title": "Compare Diameters for Same Length",
+      "inputDescription": "Compare weights for different diameters at the same length.",
+      "steps": [
+        "Length: 100 meters",
+        "Scenario 1: 10 mm rebar",
+        "  Weight = 100 × 0.617 = 61.7 kg",
+        "Scenario 2: 16 mm rebar",
+        "  Weight = 100 × 1.580 = 158 kg",
+        "Comparison: 16 mm weighs 2.56× more than 10 mm"
+      ],
+      "resultDescription": "Comparing diameters shows the significant impact on weight. For 100 meters: 10 mm rebar weighs 61.7 kg, while 16 mm rebar weighs 158 kg (2.56× more). Larger diameter bars are heavier and stronger, but also more expensive. Choose diameter based on structural requirements."
+    },
+    {
+      "id": "example-5",
+      "title": "Quick Purchasing Scenario",
+      "inputDescription": "Calculate how much rebar to buy for a project.",
+      "steps": [
+        "Mode: Weight → Length",
+        "Bar Diameter: 12 mm",
+        "Total Weight: 1000 kg (1 ton)",
+        "Quantity: 1",
+        "Calculation:",
+        "  Length = 1000 kg / 0.888 kg/m = 1126.13 m",
+        "Interpretation:",
+        "  1 ton of 12 mm rebar = 1126 meters",
+        "  If standard bars are 12 m long: 1126 / 12 = 94 bars"
+      ],
+      "resultDescription": "For 1 ton (1000 kg) of 12 mm rebar, you get 1126.13 meters. If standard rebar bars are 12 meters long, this equals approximately 94 bars. This helps estimate how many bars to order or how much length you'll get from a weight-based purchase."
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is kg per meter?",
+      "answer": "Kg per meter (kg/m) is the weight of one meter of rebar for a given diameter. It's a standard value used in construction to calculate total weight from length. For example, 12 mm rebar weighs 0.888 kg per meter, meaning every meter of 12 mm rebar weighs 0.888 kg. This value is based on steel density and is standardized across the industry."
+    },
+    {
+      "question": "Why weight differs by diameter?",
+      "answer": "Weight differs by diameter because larger diameter bars have more steel volume per meter. Weight is proportional to cross-sectional area, which increases with the square of diameter. For example: 10 mm bar has area π × (5 mm)², while 16 mm bar has area π × (8 mm)² - the 16 mm bar has 2.56× more area and thus 2.56× more weight per meter. Larger diameters are heavier but also stronger."
+    },
+    {
+      "question": "Is this exact?",
+      "answer": "These values are typical approximations used in practice. Actual weights may vary slightly by: manufacturer specifications, rebar grade (though grade doesn't affect weight for same diameter), and manufacturing tolerances. The values are based on standard steel density (7850 kg/m³) and are accurate enough for estimation, planning, and material ordering. For precise calculations, check manufacturer specifications."
+    },
+    {
+      "question": "Can I use this for steel wire?",
+      "answer": "This calculator is designed for rebar (reinforcement bars), which are typically 6-20 mm diameter. Steel wire may have different specifications and weights. However, if the wire diameter matches rebar diameters (6-20 mm), you can use this calculator as an approximation. For other wire sizes or types, use the formula: Weight = Length × (π × (diameter/2)² × density), where density is typically 7850 kg/m³ for steel."
+    },
+    {
+      "question": "How to estimate for a project?",
+      "answer": "To estimate rebar for a project: 1) Calculate total rebar length needed (use Rebar Calculator for slabs), 2) Use this calculator to convert length to weight, 3) Add 5% waste margin for overlaps and cuts, 4) Order based on weight. Alternatively, if you know the weight needed, use Weight → Length mode to verify you have enough length. Always consult structural design for actual requirements."
+    },
+    {
+      "question": "What rebar diameters are common?",
+      "answer": "Common rebar diameters: Light reinforcement: 6-8 mm. Standard slabs: 10-12 mm. Heavy slabs/beams: 14-16 mm. Structural elements: 18-20 mm. The calculator supports all standard diameters (6, 8, 10, 12, 14, 16, 18, 20 mm). Choose diameter based on structural design requirements - larger diameters provide more strength but cost more."
+    },
+    {
+      "question": "How do I measure rebar length?",
+      "answer": "Measure rebar length: For straight bars: measure from end to end. For bent bars: measure along the bar (not straight-line distance). Standard rebar lengths: 12 meters (most common), 6 meters, or custom lengths. When calculating total length for a project, account for overlaps and splices (typically 40-50× bar diameter). Use the Rebar Calculator for slab reinforcement calculations."
+    },
+    {
+      "question": "What about rebar grade?",
+      "answer": "Rebar grade (e.g., Grade 60, Grade 40) affects strength and yield point but not weight. For the same diameter, different grades have the same weight per meter. This calculator estimates weight only - grade selection is a structural design decision based on strength requirements. Always use the rebar grade specified in structural design."
+    },
+    {
+      "question": "Can I calculate for multiple diameters?",
+      "answer": "This calculator handles one diameter at a time. For projects with multiple diameters: calculate each diameter separately, then add the weights together. For example, if you need 100 m of 10 mm and 200 m of 12 mm: calculate 10 mm separately (61.7 kg), calculate 12 mm separately (177.6 kg), then add: 61.7 + 177.6 = 239.3 kg total."
+    },
+    {
+      "question": "What if I have imperial units?",
+      "answer": "This calculator uses metric units (meters, kilograms, millimeters). For imperial: convert first - 1 ft = 0.3048 m, 1 lb = 0.4536 kg, 1 inch = 25.4 mm. For example, 100 feet = 30.48 meters, 1000 lbs = 453.6 kg. The calculator will work with converted values. Future versions may include direct imperial unit support."
+    },
+    {
+      "question": "How accurate is the weight table?",
+      "answer": "The weight table uses standard values based on steel density (7850 kg/m³) and is accurate for estimation purposes. Actual weights may vary by ±2-3% due to manufacturing tolerances. For precise calculations, check manufacturer specifications or measure actual samples. The values are industry-standard approximations used in construction practice."
+    },
+    {
+      "question": "What about rebar coatings?",
+      "answer": "This calculator calculates bare steel weight. Epoxy-coated or galvanized rebar may have slightly different weights due to coating, but the difference is typically less than 1-2% and is usually negligible for estimation. For precise calculations with coated rebar, check manufacturer specifications. The calculator provides bare steel weight, which is standard for material ordering."
+    },
+    {
+      "question": "Can I use this for rebar mesh?",
+      "answer": "This calculator is designed for individual rebar bars. Rebar mesh (welded wire mesh) has different specifications: mesh size, wire diameter, and spacing. For mesh, calculate based on total wire length in the mesh, or use mesh-specific calculators if available. This calculator works for individual bars or can approximate mesh if you know the total wire length."
+    },
+    {
+      "question": "How to verify a delivery?",
+      "answer": "To verify a rebar delivery: 1) Count the number of bars and measure length of a sample, 2) Use Length → Weight mode to calculate expected weight, 3) Compare with delivery weight. Or: 1) Weigh the delivery, 2) Use Weight → Length mode to calculate expected length, 3) Compare with delivery length. Small differences (2-3%) are normal due to manufacturing tolerances."
+    },
+    {
+      "question": "What about rebar bends?",
+      "answer": "Rebar bends don't significantly affect weight calculation - weight is based on total bar length, not straight-line distance. For bent bars, measure along the bar (following the curve) to get accurate length. The calculator uses total length, so bends are already accounted for in the length measurement. Weight calculation remains the same regardless of bends."
+    }
+  ],
+  "seo": {
+    "title": "Rebar Weight Calculator – Weight per Meter and Total Steel Weight",
+    "description": "Calculate rebar weight from diameter and length, or convert weight to length. Includes kg per meter reference table.",
+    "keywords": ["rebar weight calculator", "steel weight", "rebar weight per meter", "kg per meter", "reinforcement weight", "construction calculator"]
+  }
+}
+
