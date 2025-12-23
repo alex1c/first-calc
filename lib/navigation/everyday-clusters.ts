@@ -69,3 +69,4 @@ export function getAllEverydayClusters(): EverydayCluster[] {
 	return Object.keys(everydayClusters) as EverydayCluster[]
 }
 
+

@@ -132,3 +132,4 @@ export const calculateDateCalculator: CalculatorFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateDateCalculator', calculateDateCalculator)
 
+

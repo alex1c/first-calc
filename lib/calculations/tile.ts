@@ -161,3 +161,4 @@ export const calculateTile: CalculationFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateTile', calculateTile)
 
+

@@ -26,9 +26,7 @@ import { PageContainer } from '@/components/layout/page-container'
 import { getCalculatorsListBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { CategoryTiles } from '@/components/navigation/category-tiles'
 import { TagsFilter } from '@/components/navigation/tags-filter'
-import { LegacyToolsBlock } from '@/components/calculators/legacy-tools-block'
 import { categories as categoryConfigs } from '@/lib/navigation/categories'
-import { getTopTags } from '@/lib/navigation/tags'
 
 /**
  * Required i18n namespaces for this page
@@ -153,9 +151,18 @@ export default async function CalculatorsPage({
 						<h1 className="text-4xl font-bold text-gray-900 mb-4">
 							{t('calculators/ui.page.title')}
 						</h1>
-						<p className="text-lg text-gray-600 mb-8">
+						<p className="text-lg text-gray-600 mb-6">
 							{t('calculators/ui.page.description')}
 						</p>
+						<div className="mb-8 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+							<span>{t('calculators/ui.page.toolsCta.title')}</span>
+							<Link
+								href={`${locale === 'en' ? '' : `/${locale}`}/tools`}
+								className="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800 hover:border-blue-400 hover:text-blue-700 transition-colors"
+							>
+								{t('calculators/ui.page.toolsCta.linkLabel')}
+							</Link>
+						</div>
 
 						{/* Category tiles at the top */}
 						<CategoryTiles locale={locale} categories={categoryTilesData} />
@@ -174,7 +181,7 @@ export default async function CalculatorsPage({
 
 						{/* Popular Calculators */}
 						{popularCalculators.length > 0 && (
-							<div className="mb-8">
+							<div className="mb-8" id="popular-calculators">
 								<h2 className="text-2xl font-semibold text-gray-900 mb-4">
 									{t('calculators/ui.sections.popular')}
 								</h2>
@@ -230,9 +237,6 @@ export default async function CalculatorsPage({
 								</div>
 							</div>
 						)}
-
-						{/* Legacy Tools / Converters */}
-						<LegacyToolsBlock locale={locale} />
 
 						{/* Calculators by category */}
 						<div className="space-y-8">

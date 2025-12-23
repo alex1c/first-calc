@@ -1,7 +1,12 @@
 {
 	"page": {
 		"title": "Calculadoras",
-		"description": "Explora nuestra colección de calculadoras online gratuitas"
+		"description": "Explora nuestra colección de calculadoras online gratuitas",
+		"toolsCta": {
+			"title": "¿Necesitas conversores y generadores rápidos?",
+			"description": "Las herramientas clásicas funcionan al instante sin formularios complejos.",
+			"linkLabel": "Ver herramientas"
+		}
 	},
 	"sections": {
 		"popular": "Calculadoras Populares",
@@ -23,7 +28,40 @@
 		"geometry": "Geometría",
 		"everyday": "Cotidiano",
 		"engineering": "Ingeniería",
-		"business": "Negocios"
+		"business": "Negocios",
+		"compatibility": "Compatibilidad"
+	},
+	"compatibility": {
+		"title": "Calculadoras de compatibilidad",
+		"subtitle": "Herramientas lúdicas y de autorreflexión basadas en fechas y patrones simples.",
+		"clustersTitle": "Explora temas de compatibilidad",
+		"clustersDescription": "Elige un tema para iniciar una comparación divertida.",
+		"popularTitle": "Calculadoras de compatibilidad populares",
+		"tryAlsoTitle": "Prueba también",
+		"tryAlsoDescription": "Accesos rápidos a otras herramientas de compatibilidad divertidas.",
+		"disclaimer": "Los resultados son únicamente para entretenimiento y auto-reflexión.",
+		"clusters": {
+			"dating": {
+				"title": "Ideas para citas",
+				"description": "Compara nombres y fechas de nacimiento para un chequeo divertido."
+			},
+			"zodiac": {
+				"title": "Química zodiacal",
+				"description": "Observa cómo interactúan dos signos y sus elementos."
+			},
+			"numerology": {
+				"title": "Numerología y caminos de vida",
+				"description": "Usa los números de vida para iniciar conversaciones más profundas."
+			},
+			"friendship": {
+				"title": "Amistad y vínculos",
+				"description": "Celebra amistades o lazos familiares con datos ligeros."
+			},
+			"work": {
+				"title": "Trabajo y colaboración",
+				"description": "Contrasta estilos de comunicación antes del próximo proyecto."
+			}
+		}
 	},
 	"search": {
 		"placeholder": "Buscar calculadoras...",

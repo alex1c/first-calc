@@ -193,3 +193,4 @@ import { registerCalculation } from './registry'
 registerCalculation('calculateCarResaleValue', calculateCarResaleValue)
 
 
+

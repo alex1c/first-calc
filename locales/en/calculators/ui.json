@@ -1,7 +1,44 @@
 {
 	"page": {
 		"title": "Calculators",
-		"description": "Browse our collection of free online calculators"
+		"description": "Browse our collection of free online calculators",
+		"toolsCta": {
+			"title": "Need quick converters and generators?",
+			"description": "Classic Tools run instantly without complex forms.",
+			"linkLabel": "Browse Tools"
+		}
+	},
+	"compatibility": {
+		"title": "Compatibility Calculators",
+		"subtitle": "Fun and self-reflection tools based on dates and simple patterns.",
+		"clustersTitle": "Explore compatibility themes",
+		"clustersDescription": "Pick a topic to start a playful comparison.",
+		"popularTitle": "Popular compatibility calculators",
+		"tryAlsoTitle": "Try these next",
+		"tryAlsoDescription": "Quick jumps to other playful compatibility tools.",
+		"disclaimer": "Results are for entertainment and self-reflection purposes only.",
+		"clusters": {
+			"dating": {
+				"title": "Dating insights",
+				"description": "Compare names and birthdays for a quick relationship vibe check."
+			},
+			"zodiac": {
+				"title": "Zodiac chemistry",
+				"description": "See how two signs and their elements interact."
+			},
+			"numerology": {
+				"title": "Numerology & life paths",
+				"description": "Use life path numbers to spark deeper conversations."
+			},
+			"friendship": {
+				"title": "Friendship & social",
+				"description": "Celebrate friendships or sibling dynamics with light stats."
+			},
+			"work": {
+				"title": "Work & collaboration",
+				"description": "Reflect on teammate styles before the next project."
+			}
+		}
 	},
 	"sections": {
 		"popular": "Popular Calculators",
@@ -24,7 +61,8 @@
 		"geometry": "Geometry",
 		"everyday": "Everyday",
 		"engineering": "Engineering",
-		"business": "Business"
+		"business": "Business",
+		"compatibility": "Compatibility"
 	},
 	"search": {
 		"placeholder": "Search calculators...",

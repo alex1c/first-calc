@@ -13,6 +13,7 @@ import { CalculatorNavigation } from '@/components/navigation/calculator-navigat
 import { getCalculatorsByCategoryWithPopularity } from '@/lib/navigation/structure'
 import { RelatedCalculatorsWrapper } from '@/components/calculators/related-calculators-wrapper'
 import { RelatedArticlesBlock } from '@/components/calculators/related-articles-block'
+import { EngineeringContextBlock } from '@/components/calculators/engineering-context-block'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'errors', 'navigation'] as const
@@ -237,6 +238,8 @@ export default async function CalculatorRoutePage({
 					locale={locale}
 					calculatorId={calculator.id}
 				/>
+				{/* Engineering Context Block - Standards link (after Results, before Examples) */}
+				<EngineeringContextBlock calculatorId={calculator.id} locale={locale} />
 				{/* Related Calculators - Server Component */}
 				<div className="mb-8">
 					<RelatedCalculatorsWrapper calculator={clientCalculator} locale={locale} />

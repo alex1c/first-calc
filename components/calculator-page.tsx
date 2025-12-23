@@ -8,6 +8,8 @@ import { HowToBlock } from './calculators/how-to-block'
 import { ExamplesBlock } from './calculators/examples-block'
 import { FaqBlock } from './calculators/faq-block'
 import { CalculatorHero } from './calculators/calculator-hero'
+import { CompatibilityHeader } from '@/components/compatibility/compatibility-header'
+import type { CompatibilityHeaderVariant } from '@/components/compatibility/compatibility-header'
 
 interface CalculatorPageProps {
 	calculator: CalculatorDefinitionClient
@@ -19,6 +21,33 @@ interface CalculatorPageProps {
  * Main calculator page component
  * Renders calculator in a standardized format with all required blocks
  */
+function getCompatibilityVariant(calculatorId: string): CompatibilityHeaderVariant {
+	switch (calculatorId) {
+		case 'zodiac-compatibility':
+			return 'zodiac'
+		case 'numerology-compatibility':
+			return 'numerology'
+		case 'friendship-compatibility':
+			return 'friendship'
+		case 'work-compatibility':
+			return 'work'
+		default:
+			return 'birth-date'
+	}
+}
+
+function getSubtitlePreview(description: string): string {
+	const trimmed = description.trim()
+	if (trimmed.length <= 160) {
+		return trimmed
+	}
+	const sentences = trimmed.split('.')
+	if (sentences.length > 1) {
+		return `${sentences[0].trim()}.`
+	}
+	return `${trimmed.slice(0, 157).trim()}...`
+}
+
 export function CalculatorPage({
 	calculator,
 	locale,
@@ -243,11 +272,24 @@ export function CalculatorPage({
 		[calculator, validateInput, calculatorId, locale],
 	)
 
+	const isCompatibilityCalculator = calculator.category === 'compatibility'
+	const compatibilityVariant = isCompatibilityCalculator
+		? getCompatibilityVariant(calculator.id)
+		: null
+
 	return (
 		<div className="min-h-screen bg-gray-50">
 			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 				{/* Hero Section */}
-				<CalculatorHero calculator={calculator} />
+				{isCompatibilityCalculator ? (
+					<CompatibilityHeader
+						title={calculator.title}
+						subtitle={getSubtitlePreview(calculator.shortDescription)}
+						variant={compatibilityVariant || 'birth-date'}
+					/>
+				) : (
+					<CalculatorHero calculator={calculator} />
+				)}
 
 				{/* Migration warning for disabled calculators */}
 				{calculator.isEnabled === false && (

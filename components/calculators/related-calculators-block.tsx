@@ -10,10 +10,76 @@ import { getRelatedByFinanceCluster } from '@/lib/navigation/related-by-finance-
 import { getRelatedByHealthCluster } from '@/lib/navigation/related-by-health-cluster'
 import { getRelatedByEverydayCluster } from '@/lib/navigation/related-by-everyday-cluster'
 import { getRelatedByConstructionCluster } from '@/lib/navigation/related-by-construction-cluster'
+import { compatibilityClusters } from '@/lib/navigation/compatibility-clusters'
 
 interface RelatedCalculatorsBlockProps {
 	calculator: CalculatorDefinitionClient
 	locale: string
+}
+
+type RegistryCalculator = Awaited<ReturnType<typeof calculatorRegistry.getById>>
+type ScenarioLink = {
+	calculator: RegistryCalculator
+	reason: string
+}
+
+function addCompatibilityCandidate(
+	calc: RegistryCalculator | undefined,
+	current: RegistryCalculator[],
+	excludeId: string,
+	seen: Set<string>,
+) {
+	if (!calc || calc.id === excludeId || seen.has(calc.id)) {
+		return
+	}
+	seen.add(calc.id)
+	current.push(calc)
+}
+
+async function getCompatibilityRelatedCalculators(
+	calculator: CalculatorDefinitionClient,
+	locale: string,
+): Promise<RegistryCalculator[]> {
+	const compatibilityCalcs = await calculatorRegistry.getByCategory(
+		'compatibility',
+		locale,
+	)
+	const calcMap = new Map(compatibilityCalcs.map((calc) => [calc.id, calc]))
+	const selected: RegistryCalculator[] = []
+	const seen = new Set<string>()
+
+	const clusterEntry = Object.values(compatibilityClusters).find((cluster) =>
+		cluster.calculatorIds.includes(calculator.id),
+	)
+	if (clusterEntry) {
+		clusterEntry.calculatorIds.forEach((id) =>
+			addCompatibilityCandidate(calcMap.get(id), selected, calculator.id, seen),
+		)
+	}
+
+	if (calculator.relatedIds) {
+		calculator.relatedIds.forEach((id) =>
+			addCompatibilityCandidate(calcMap.get(id), selected, calculator.id, seen),
+		)
+	}
+
+	const curatedOrder = [
+		'birth-date-compatibility',
+		'zodiac-compatibility',
+		'numerology-compatibility',
+		'friendship-compatibility',
+		'work-compatibility',
+		'love-compatibility',
+	]
+	curatedOrder.forEach((id) =>
+		addCompatibilityCandidate(calcMap.get(id), selected, calculator.id, seen),
+	)
+
+	compatibilityCalcs.forEach((calc) =>
+		addCompatibilityCandidate(calc, selected, calculator.id, seen),
+	)
+
+	return selected.slice(0, Math.max(4, Math.min(6, selected.length)))
 }
 
 /**
@@ -330,88 +396,106 @@ export async function RelatedCalculatorsBlock({
 	calculator,
 	locale,
 }: RelatedCalculatorsBlockProps) {
-	// Get scenario-based links first
-	const scenarioLinks = await getScenarioBasedLinks(calculator, locale)
-	// Get related calculators with priority: tags > cluster > manual > category
-	let relatedCalculators: Awaited<ReturnType<typeof calculatorRegistry.getById>>[] = []
-	
-	// Priority 1: Tag-based related calculators (for math and finance categories)
-	if ((calculator.category === 'math' || calculator.category === 'finance') && calculator.tags && calculator.tags.length > 0) {
-		const tagRelated = await getRelatedByTags(calculator.id, locale, 6)
-		relatedCalculators = tagRelated
-	}
-	
-	// Priority 2: Cluster-based related calculators
-	if (calculator.category === 'math' && relatedCalculators.length < 6) {
-		const clusterRelated = await getRelatedByCluster(calculator.id, locale, 6)
-		// Merge with tag-based, avoiding duplicates
-		const existingIds = new Set(relatedCalculators.map((c) => c.id))
-		const newFromCluster = clusterRelated.filter((c) => !existingIds.has(c.id))
-		relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 8)
-	}
-	
-	// Priority 2b: Finance cluster-based related calculators
-	if (calculator.category === 'finance' && relatedCalculators.length < 6) {
-		const financeClusterRelated = await getRelatedByFinanceCluster(calculator.id, locale)
-		// Merge with tag-based, avoiding duplicates
-		const existingIds = new Set(relatedCalculators.map((c) => c.id))
-		const newFromCluster = financeClusterRelated.filter((c) => !existingIds.has(c.id))
-		relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 8)
-	}
-	
-	// Priority 2c: Health cluster-based related calculators
-	if (calculator.category === 'health' && relatedCalculators.length < 6) {
-		const healthClusterRelated = await getRelatedByHealthCluster(calculator.id, locale)
-		// Merge with existing, avoiding duplicates
-		const existingIds = new Set(relatedCalculators.map((c) => c.id))
-		const newFromCluster = healthClusterRelated.filter((c) => !existingIds.has(c.id))
-		// For health, prioritize same cluster (2-3 items), then add logical next-step (1-2 items)
-		relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
-	}
-	
-	// Priority 2d: Everyday cluster-based related calculators
-	if (calculator.category === 'everyday' && relatedCalculators.length < 6) {
-		const everydayClusterRelated = await getRelatedByEverydayCluster(calculator.id, locale, 6)
-		// Merge with existing, avoiding duplicates
-		const existingIds = new Set(relatedCalculators.map((c) => c.id))
-		const newFromCluster = everydayClusterRelated.filter((c) => !existingIds.has(c.id))
-		// For everyday, prioritize same cluster (2-3 items), then add logical next-step (1-2 items)
-		relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
-	}
-	
-	// Priority 2e: Construction cluster-based related calculators
-	if (calculator.category === 'construction' && relatedCalculators.length < 6) {
-		const constructionClusterRelated = await getRelatedByConstructionCluster(calculator.id, locale, 6)
-		// Merge with existing, avoiding duplicates
-		const existingIds = new Set(relatedCalculators.map((c) => c.id))
-		const newFromCluster = constructionClusterRelated.filter((c) => !existingIds.has(c.id))
-		// For construction, prioritize same cluster (2-3 items), upstream (1-2), downstream (1-2)
-		relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
-	}
-	
-	// Priority 3: Manual relatedIds
-	if (relatedCalculators.length < 6 && calculator.relatedIds && calculator.relatedIds.length > 0) {
-		const manualRelated = await Promise.all(
-			calculator.relatedIds.map((id) =>
-				calculatorRegistry.getById(id, locale),
-			),
-		).then((calcs) => calcs.filter((c): c is NonNullable<typeof c> => c !== undefined))
-		const existingIds = new Set(relatedCalculators.map((c) => c.id))
-		const newFromManual = manualRelated.filter((c) => !existingIds.has(c.id))
-		relatedCalculators = [...relatedCalculators, ...newFromManual].slice(0, 8)
-	}
-	
-	// Priority 4: Same category fallback
-	if (relatedCalculators.length < 6) {
-		const categoryCalcs = await calculatorRegistry.getByCategory(
-			calculator.category,
-			locale,
-		)
-		const existingIds = new Set(relatedCalculators.map((c) => c.id))
-		const newFromCategory = categoryCalcs
-			.filter((calc) => calc.id !== calculator.id && !existingIds.has(calc.id))
-			.slice(0, 8 - relatedCalculators.length)
-		relatedCalculators = [...relatedCalculators, ...newFromCategory]
+	const scenarioLinks: ScenarioLink[] =
+		calculator.category === 'compatibility'
+			? []
+			: await getScenarioBasedLinks(calculator, locale)
+
+	let relatedCalculators: RegistryCalculator[] = []
+
+	if (calculator.category === 'compatibility') {
+		relatedCalculators = await getCompatibilityRelatedCalculators(calculator, locale)
+	} else {
+		if (
+			(calculator.category === 'math' || calculator.category === 'finance') &&
+			calculator.tags &&
+			calculator.tags.length > 0
+		) {
+			const tagRelated = await getRelatedByTags(calculator.id, locale, 6)
+			relatedCalculators = tagRelated
+		}
+
+		if (calculator.category === 'math' && relatedCalculators.length < 6) {
+			const clusterRelated = await getRelatedByCluster(calculator.id, locale, 6)
+			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const newFromCluster = clusterRelated.filter((c) => !existingIds.has(c.id))
+			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 8)
+		}
+
+		if (calculator.category === 'finance' && relatedCalculators.length < 6) {
+			const financeClusterRelated = await getRelatedByFinanceCluster(
+				calculator.id,
+				locale,
+			)
+			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const newFromCluster = financeClusterRelated.filter(
+				(c) => !existingIds.has(c.id),
+			)
+			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 8)
+		}
+
+		if (calculator.category === 'health' && relatedCalculators.length < 6) {
+			const healthClusterRelated = await getRelatedByHealthCluster(
+				calculator.id,
+				locale,
+			)
+			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const newFromCluster = healthClusterRelated.filter(
+				(c) => !existingIds.has(c.id),
+			)
+			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
+		}
+
+		if (calculator.category === 'everyday' && relatedCalculators.length < 6) {
+			const everydayClusterRelated = await getRelatedByEverydayCluster(
+				calculator.id,
+				locale,
+				6,
+			)
+			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const newFromCluster = everydayClusterRelated.filter(
+				(c) => !existingIds.has(c.id),
+			)
+			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
+		}
+
+		if (calculator.category === 'construction' && relatedCalculators.length < 6) {
+			const constructionClusterRelated = await getRelatedByConstructionCluster(
+				calculator.id,
+				locale,
+				6,
+			)
+			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const newFromCluster = constructionClusterRelated.filter(
+				(c) => !existingIds.has(c.id),
+			)
+			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
+		}
+
+		if (
+			relatedCalculators.length < 6 &&
+			calculator.relatedIds &&
+			calculator.relatedIds.length > 0
+		) {
+			const manualRelated = await Promise.all(
+				calculator.relatedIds.map((id) => calculatorRegistry.getById(id, locale)),
+			).then((calcs) => calcs.filter((c): c is NonNullable<typeof c> => c !== undefined))
+			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const newFromManual = manualRelated.filter((c) => !existingIds.has(c.id))
+			relatedCalculators = [...relatedCalculators, ...newFromManual].slice(0, 8)
+		}
+
+		if (relatedCalculators.length < 6) {
+			const categoryCalcs = await calculatorRegistry.getByCategory(
+				calculator.category,
+				locale,
+			)
+			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const newFromCategory = categoryCalcs
+				.filter((calc) => calc.id !== calculator.id && !existingIds.has(calc.id))
+				.slice(0, 8 - relatedCalculators.length)
+			relatedCalculators = [...relatedCalculators, ...newFromCategory]
+		}
 	}
 	
 	const legacyTools = getLegacyToolsForCalculator(calculator.id)

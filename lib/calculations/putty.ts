@@ -254,3 +254,4 @@ export const calculatePutty: CalculationFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculatePutty', calculatePutty)
 
+

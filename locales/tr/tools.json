@@ -1,0 +1,24 @@
+{
+	"page": {
+		"title": "Araçlar ve üreticiler",
+		"subtitle": "Metin, sayılar ve biçim dönüştürmeleri için klasik yardımcılar.",
+		"ctaCalculators": "Etkileşimli hesaplayıcılar mı arıyorsunuz? Hesaplayıcılara göz atın.",
+		"ctaCalculatorsLabel": "Hesaplayıcıları keşfet",
+		"ctaToolsFromCalculators": "Hızlı araçlar mı istiyorsunuz? Klasik araçlara bakın."
+	},
+	"groups": {
+		"numbersText": {
+			"title": "Sayılar ve metin",
+			"description": "Sayıları metne dönüştürün, aralık tabloları oluşturun ve büyük değerleri anında işleyin."
+		},
+		"converters": {
+			"title": "Dönüştürücüler",
+			"description": "Rakamlar, yüzdeler ve biçimler için uzun formlar olmadan hızlı dönüştürücüler."
+		},
+		"utilities": {
+			"title": "Klasik yardımcılar",
+			"description": "Bölenler, kökler ve sık kullanılan kalıplar için yoğun kullanılan yardımcılar."
+		}
+	}
+}
+

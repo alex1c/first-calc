@@ -1,4 +1,4 @@
-import type { CalculatorDefinition } from '@/lib/calculators/types'
+import type { CalculatorDefinition, CalculatorLocale } from '@/lib/calculators/types'
 import { calculatePercentageOfNumber } from '@/lib/calculations/percentage'
 import { calculateAddPercentage } from '@/lib/calculations/add-percentage'
 import { calculateSubtractPercentage } from '@/lib/calculations/subtract-percentage'
@@ -18,6 +18,1201 @@ import { calculateInvestmentVsSavings } from '@/lib/calculations/investment-vs-s
 import { calculateTakeHomePay } from '@/lib/calculations/take-home-pay'
 import { calculateEmergencyFund } from '@/lib/calculations/emergency-fund'
 import { calculateNetWorth } from '@/lib/calculations/net-worth'
+import {
+	calculateLoveCompatibility,
+	calculateBirthDateCompatibility,
+	calculateZodiacCompatibility,
+	calculateNumerologyCompatibility,
+	calculateFriendshipCompatibility,
+	calculateWorkCompatibility,
+} from '@/lib/calculations/compatibility'
+
+const compatibilityLocales: CalculatorLocale[] = ['en', 'ru', 'es', 'tr', 'hi']
+
+type CompatibilityCalculatorBase = Omit<CalculatorDefinition, 'locale'>
+
+function createCompatibilityEntries(
+	base: CompatibilityCalculatorBase,
+): CalculatorDefinition[] {
+	return compatibilityLocales.map((locale) => ({
+		...base,
+		locale,
+	}))
+}
+
+const loveCompatibilityBase: CompatibilityCalculatorBase = {
+	id: 'love-compatibility',
+	slug: 'love-compatibility',
+	category: 'compatibility',
+	title: 'Love Compatibility by Birth Date',
+	shortDescription:
+		'Blend two names and birthdays to get a playful compatibility score with a quick insight.',
+	longDescription:
+		'This light-hearted calculator combines both names and birth dates to create a fun compatibility score. It is not a scientific or regulatory tool—just an entertaining way to start conversations, reflect on your connection, or plan the next date night.',
+	contentLocale: 'en',
+	inputs: [
+		{
+			name: 'partnerOneName',
+			label: 'Your name',
+			type: 'text',
+			placeholder: 'Taylor',
+			validation: {
+				required: true,
+				message: 'Enter name',
+			},
+		},
+		{
+			name: 'partnerOneBirthDate',
+			label: 'Your birth date',
+			type: 'date',
+			validation: {
+				required: true,
+				message: 'Select a birth date',
+			},
+		},
+		{
+			name: 'partnerTwoName',
+			label: 'Partner name',
+			type: 'text',
+			placeholder: 'Jordan',
+			validation: {
+				required: true,
+				message: 'Enter partner name',
+			},
+		},
+		{
+			name: 'partnerTwoBirthDate',
+			label: 'Partner birth date',
+			type: 'date',
+			validation: {
+				required: true,
+				message: 'Select a birth date',
+			},
+		},
+	],
+	outputs: [
+		{
+			name: 'compatibilityScore',
+			label: 'Compatibility score',
+		},
+		{
+			name: 'matchSummary',
+			label: 'Match summary',
+		},
+		{
+			name: 'insight',
+			label: 'Insight',
+		},
+	],
+	calculate: calculateLoveCompatibility,
+	howToBullets: [
+		'Enter both names exactly how you prefer to be called',
+		'Add birth dates (no year limitations—past or present)',
+		'Press Calculate to reveal the percentage and quick insight',
+		'Remember: this is for fun and self-reflection only',
+	],
+	examples: [
+		{
+			id: 'love-example-1',
+			title: 'Example: Taylor & Jordan',
+			inputDescription: 'Taylor (02/14/1992) and Jordan (09/03/1991)',
+			steps: [
+				'Enter both names',
+				'Pick the two birth dates',
+				'Tap Calculate',
+				'Score: 78% – Strong connection',
+			],
+			resultDescription:
+				'Shows a high score plus a suggestion to plan a special date night.',
+		},
+	],
+	faq: [
+		{
+			question: 'Is this a scientific compatibility test?',
+			answer:
+				'No, it is a playful calculator intended for entertainment and self-reflection only.',
+		},
+		{
+			question: 'Does the calculator store my data?',
+			answer:
+				'No, the inputs are calculated instantly in your browser and are not saved.',
+		},
+		{
+			question: 'Need a date-only comparison?',
+			answer:
+				'Run the [Birth Date Compatibility Calculator](compatibility/birth-date-compatibility) for a quick 0–100 score before layering on names and stories here.',
+		},
+	],
+	relatedIds: [
+		'zodiac-compatibility',
+		'numerology-compatibility',
+		'friendship-compatibility',
+	],
+	meta: {
+		keywords: [
+			'love compatibility',
+			'date compatibility',
+			'fun relationship calculator',
+		],
+	},
+}
+
+const zodiacCompatibilityBase: CompatibilityCalculatorBase = {
+	id: 'zodiac-compatibility',
+	slug: 'zodiac-compatibility',
+	category: 'compatibility',
+	title: 'Zodiac Compatibility Checker',
+	shortDescription:
+		'Enter two birth dates to reveal their zodiac signs, compatibility score, and a short interpretation.',
+	longDescription:
+		'This calculator determines each zodiac sign from the supplied birth dates and uses a fixed compatibility matrix to create a playful score. It is perfect for self-reflection, journaling prompts, or light-hearted conversations.',
+	contentLocale: 'en',
+	tags: ['compatibility', 'zodiac', 'astrology', 'relationships'],
+	inputs: [
+		{
+			name: 'dateA',
+			label: 'Birth date #1',
+			type: 'date',
+			defaultValue: defaultBirthDate(26),
+			validation: {
+				required: true,
+				message: 'Select the first birth date',
+			},
+		},
+		{
+			name: 'dateB',
+			label: 'Birth date #2',
+			type: 'date',
+			defaultValue: defaultBirthDate(24),
+			validation: {
+				required: true,
+				message: 'Select the second birth date',
+			},
+		},
+	],
+	outputs: [
+		{
+			name: 'signA',
+			label: 'Sign (person 1)',
+		},
+		{
+			name: 'signB',
+			label: 'Sign (person 2)',
+		},
+		{
+			name: 'compatibilityScore',
+			label: 'Compatibility score',
+		},
+		{
+			name: 'interpretation',
+			label: 'Interpretation',
+		},
+	],
+	calculate: calculateZodiacCompatibility,
+	howToBullets: [
+		'Enter two birth dates (any year works).',
+		'The calculator finds each zodiac sign automatically.',
+		'It looks up the pairing in a fixed compatibility matrix—no randomness involved.',
+		'You receive the sign names, a 0–100 score, and a short interpretation.',
+		'Use the result to start a conversation, journal entry, or playful debate.',
+		'Run multiple scenarios if you want to compare different dates.',
+		'No information is saved or sent to a server; everything happens in your browser.',
+		'Remember: results are for entertainment and self-reflection only.',
+	],
+	examples: [
+		{
+			id: 'zodiac-example-1',
+			title: 'Example: 1990-08-04 + 1992-12-01',
+			inputDescription: 'Birth dates convert to Leo and Sagittarius',
+			steps: [
+				'Enter 1990-08-04 and 1992-12-01',
+				'Tap Calculate',
+				'Signs: Leo + Sagittarius',
+				'Score: 91% – Fantastic chemistry',
+			],
+			resultDescription:
+				'Great for couples who want a fire-sign pulse check before planning a milestone date.',
+		},
+		{
+			id: 'zodiac-example-2',
+			title: 'Example: 1985-01-10 + 1987-10-18',
+			inputDescription: 'Capricorn meets Libra',
+			steps: [
+				'Enter 1985-01-10 and 1987-10-18',
+				'Tap Calculate',
+				'Signs: Capricorn + Libra',
+				'Score: 63% – Mixed signals',
+			],
+			resultDescription:
+				'Suggests adjusting pace and expectations to keep things steady.',
+		},
+		{
+			id: 'zodiac-example-3',
+			title: 'Example: 1993-06-05 + 1994-02-14',
+			inputDescription: 'Gemini with Aquarius',
+			steps: [
+				'Enter 1993-06-05 and 1994-02-14',
+				'Tap Calculate',
+				'Signs: Gemini + Aquarius',
+				'Score: 85% – Strong potential',
+			],
+			resultDescription:
+				'Perfect for friends or partners planning creative collaborations.',
+		},
+	],
+	faq: [
+		{
+			question: 'Do I need the birth time?',
+			answer:
+				'No. This tool only needs calendar dates and uses Western sun-sign boundaries.',
+		},
+		{
+			question: 'Is the compatibility matrix random?',
+			answer:
+				'No. Each pairing references a fixed table so the same dates always yield the same score.',
+		},
+		{
+			question: 'Can I compare more than two people?',
+			answer:
+				'Run the calculator multiple times with different date pairs and compare the results.',
+		},
+		{
+			question: 'Why do some signs seem to score higher?',
+			answer:
+				'Fire-fire and water-water pairings often receive higher numbers, matching common astrology themes.',
+		},
+		{
+			question: 'What if two people share the same birthday?',
+			answer:
+				'You’ll see identical sign names and a balanced score—fun for twins or “birthday twins.”',
+		},
+		{
+			question: 'Does a low score mean the relationship is doomed?',
+			answer:
+				'Absolutely not. Treat it as a playful insight, not a prediction.',
+		},
+		{
+			question: 'Does the tool store my dates or signs?',
+			answer:
+				'No. Calculations happen instantly in your browser and are not saved.',
+		},
+		{
+			question: 'Can I use this for friendships or work relationships?',
+			answer:
+				'Definitely. Many people use it for any connection where curiosity and fun matter.',
+		},
+		{
+			question: 'Is Vedic/Jyotish astrology supported?',
+			answer:
+				'This calculator currently uses Western sun-sign boundaries only.',
+		},
+		{
+			question: 'Can the score change over time?',
+			answer:
+				'It only changes if you enter different dates. The matrix itself is static.',
+		},
+		{
+			question: 'What about cusp birthdays?',
+			answer:
+				'We follow standard date ranges. If you’re on a cusp, try both dates for fun.',
+		},
+		{
+			question: 'Is this advice for real-life decisions?',
+			answer:
+				'No. Use it for entertainment, then talk to the people in your life for actual decisions.',
+		},
+		{
+			question: 'Can I embed this calculator on my blog?',
+			answer:
+				'Not yet. Share the URL instead so readers always see the latest version.',
+		},
+		{
+			question: 'Does the matrix cover all 12 x 12 pairs?',
+			answer:
+				'Yes. Every sign combination has a predefined score, even if it defaults to a balanced 60%.',
+		},
+		{
+			question: 'Why is the interpretation short?',
+			answer:
+				'We keep it concise so you can add your own reflections or discussions afterward.',
+		},
+		{
+			question: 'Want a number-focused perspective too?',
+			answer:
+				'Pair this with the [Numerology Compatibility Calculator](compatibility/numerology-compatibility) to see how your life path numbers line up alongside zodiac chemistry.',
+		},
+	],
+	relatedIds: ['birth-date-compatibility', 'numerology-compatibility'],
+	meta: {
+		keywords: [
+			'zodiac compatibility',
+			'birth date zodiac calculator',
+			'astrology compatibility score',
+		],
+	},
+	seo: {
+		title: 'Zodiac Compatibility Calculator',
+		description:
+			'Enter two birth dates to reveal their zodiac signs, compatibility score, and short interpretation. Entertainment and self-reflection only.',
+		schema: {
+			applicationSubCategory: 'EntertainmentCalculator',
+		},
+	},
+}
+
+const numerologyCompatibilityBase: CompatibilityCalculatorBase = {
+	id: 'numerology-compatibility',
+	slug: 'numerology-compatibility',
+	category: 'compatibility',
+	title: 'Numerology Compatibility (Life Path Numbers)',
+	shortDescription:
+		'Turn two birth dates into life path numbers, compare the pairing, and read a friendly interpretation.',
+	longDescription:
+		'Enter two birth dates to calculate classic life path numbers and see how they interact. The calculator relies on a deterministic scoring matrix inspired by numerology traditions, so you always get the same score for the same dates. Treat every result as entertainment and self-reflection, not professional advice.',
+	contentLocale: 'en',
+	tags: ['numerology', 'life-path', 'compatibility', 'entertainment'],
+	inputs: [
+		{
+			name: 'dateA',
+			label: 'Birth date #1',
+			type: 'date',
+			defaultValue: defaultBirthDate(27),
+			validation: {
+				required: true,
+				message: 'Select the first birth date',
+			},
+		},
+		{
+			name: 'dateB',
+			label: 'Birth date #2',
+			type: 'date',
+			defaultValue: defaultBirthDate(24),
+			validation: {
+				required: true,
+				message: 'Select the second birth date',
+			},
+		},
+	],
+	outputs: [
+		{
+			name: 'lifePathA',
+			label: 'Life path (person 1)',
+		},
+		{
+			name: 'lifePathB',
+			label: 'Life path (person 2)',
+		},
+		{
+			name: 'compatibilityScore',
+			label: 'Compatibility score',
+		},
+		{
+			name: 'interpretation',
+			label: 'Interpretation',
+		},
+	],
+	calculate: calculateNumerologyCompatibility,
+	howToBullets: [
+		'Enter any two birth dates (past or present).',
+		'We sum the digits to create each life path number.',
+		'A deterministic scoring matrix compares the two paths.',
+		'Life path values plus the compatibility percentage display instantly.',
+		'Read the interpretation paragraph for context and journaling prompts.',
+		'Repeat the calculation if you want to compare multiple connections.',
+		'Share the result with friends as a playful conversation starter.',
+		'Remember: entertainment and self-reflection only.',
+	],
+	examples: [
+		{
+			id: 'numerology-example-1',
+			title: 'Example: 1991-04-07 & 1992-11-15',
+			inputDescription: 'Dates convert to life paths 4 and 1',
+			steps: [
+				'Enter 1991-04-07 and 1992-11-15',
+				'Tap Calculate',
+				'Life paths: 4 + 1',
+				'Score: 68% – Balanced potential',
+			],
+			resultDescription:
+				'Great for couples who appreciate structure but need occasional flexibility.',
+		},
+		{
+			id: 'numerology-example-2',
+			title: 'Example: 1988-11-23 & 1996-05-19',
+			inputDescription: 'Produces life paths 6 and 3',
+			steps: [
+				'Enter 1988-11-23 and 1996-05-19',
+				'Tap Calculate',
+				'Life paths: 6 + 3',
+				'Score: 82% – Strong creative spark',
+			],
+			resultDescription:
+				'Highlights the caring + expressive combo that thrives on shared projects.',
+		},
+		{
+			id: 'numerology-example-3',
+			title: 'Example: 1999-07-29 & 1999-08-02',
+			inputDescription: 'Same year friends with paths 1 and 1',
+			steps: [
+				'Enter 1999-07-29 and 1999-08-02',
+				'Tap Calculate',
+				'Life paths: 1 + 1',
+				'Score: 91% – Matching drive',
+			],
+			resultDescription:
+				'Demonstrates how identical life paths often earn high scores for momentum.',
+		},
+		{
+			id: 'numerology-example-4',
+			title: 'Example: 1978-02-11 & 1980-12-24',
+			inputDescription: 'Yields master number 11 with life path 6',
+			steps: [
+				'Enter 1978-02-11 and 1980-12-24',
+				'Tap Calculate',
+				'Life paths: 11 + 6',
+				'Score: 74% – Intentional teamwork',
+			],
+			resultDescription:
+				'Shows how master numbers boost the score while still suggesting mindful planning.',
+		},
+	],
+	faq: [
+		{
+			question: 'How are life path numbers calculated?',
+			answer:
+				'We add all digits in YYYYMMDD format and reduce to a single digit, keeping master numbers 11 and 22 intact.',
+		},
+		{
+			question: 'Do I need the exact birth time?',
+			answer:
+				'No. Life path numbers only use the date, so time and location are not required.',
+		},
+		{
+			question: 'Can this replace professional numerology readings?',
+			answer:
+				'It cannot. This is an entertainment tool for quick self-reflection.',
+		},
+		{
+			question: 'Does the score ever change for the same dates?',
+			answer:
+				'No. The scoring matrix is deterministic, so identical inputs always return the same result.',
+		},
+		{
+			question: 'What does a high compatibility score mean?',
+			answer:
+				'It indicates the life path pairing is traditionally considered harmonious, perfect for journaling or planning fun activities.',
+		},
+		{
+			question: 'What if the score is low?',
+			answer:
+				'Use it as a conversation starter. Different life paths add perspective and growth.',
+		},
+		{
+			question: 'Are master numbers treated differently?',
+			answer:
+				'Yes. Life paths 11 and 22 receive gentle boosts and extra interpretation notes.',
+		},
+		{
+			question: 'Can I compare friendships or coworkers?',
+			answer:
+				'Absolutely—run it for any two people when you want a playful compatibility snapshot.',
+		},
+		{
+			question: 'Is my data stored anywhere?',
+			answer:
+				'No. Everything is calculated instantly in your browser and never saved.',
+		},
+		{
+			question: 'Does numerology guarantee relationship outcomes?',
+			answer:
+				'No. Real relationships depend on communication, boundaries, and professional guidance when needed.',
+		},
+		{
+			question: 'Why do identical life paths score higher?',
+			answer:
+				'Matching numbers often point to shared pacing and priorities, so the algorithm adds a small boost.',
+		},
+		{
+			question: 'Can I use different calendar systems?',
+			answer:
+				'The calculator expects Gregorian dates in YYYY-MM-DD format. Convert other calendars before entering.',
+		},
+		{
+			question: 'Does this support more than two people?',
+			answer:
+				'Run multiple comparisons if you want to map dynamics inside a group.',
+		},
+		{
+			question: 'What if I am on the cusp of two life paths?',
+			answer:
+				'Use the official birth certificate date, then explore how the interpretation resonates.',
+		},
+		{
+			question: 'Can I cite this calculator for serious decisions?',
+			answer:
+				'Please do not. Treat it as a playful resource alongside real conversations and expert advice.',
+		},
+		{
+			question: 'Need sign-based context too?',
+			answer:
+				'Use the [Zodiac Compatibility Checker](compatibility/zodiac-compatibility) alongside numerology to compare life path numbers with elemental chemistry.',
+		},
+	],
+	relatedIds: ['birth-date-compatibility', 'zodiac-compatibility'],
+	meta: {
+		keywords: [
+			'numerology compatibility',
+			'life path number calculator',
+			'fun relationship numerology',
+		],
+	},
+	seo: {
+		title: 'Numerology Compatibility Calculator',
+		description:
+			'Compare two life path numbers derived from birth dates and get a fun compatibility score with a short interpretation.',
+		schema: {
+			applicationSubCategory: 'LifestyleCalculator',
+		},
+	},
+}
+
+const friendshipCompatibilityBase: CompatibilityCalculatorBase = {
+	id: 'friendship-compatibility',
+	slug: 'friendship-compatibility',
+	category: 'compatibility',
+	title: 'Friendship Compatibility Calculator',
+	shortDescription:
+		'Enter two birth dates to see a playful friendship score plus communication, trust, and energy highlights.',
+	longDescription:
+		'This calculator reuses the same scoring engine as our birth date compatibility tool but shifts the interpretation toward friendships. It breaks the results into communication, trust, and shared energy signals so you can plan meetups, road trips, or downtime with more intention. Use it strictly for entertainment and self-reflection.',
+	contentLocale: 'en',
+	tags: ['friendship', 'compatibility', 'birth-date', 'self-reflection'],
+	inputs: [
+		{
+			name: 'dateA',
+			label: 'Friend birth date #1',
+			type: 'date',
+			defaultValue: defaultBirthDate(23),
+			validation: {
+				required: true,
+				message: 'Enter the first birth date',
+			},
+		},
+		{
+			name: 'dateB',
+			label: 'Friend birth date #2',
+			type: 'date',
+			defaultValue: defaultBirthDate(22),
+			validation: {
+				required: true,
+				message: 'Enter the second birth date',
+			},
+		},
+	],
+	outputs: [
+		{
+			name: 'overallCompatibility',
+			label: 'Overall friendship score',
+		},
+		{
+			name: 'communication',
+			label: 'Communication flow',
+		},
+		{
+			name: 'trust',
+			label: 'Trust signal',
+		},
+		{
+			name: 'energy',
+			label: 'Shared energy',
+		},
+		{
+			name: 'interpretation',
+			label: 'Interpretation',
+		},
+	],
+	calculate: calculateFriendshipCompatibility,
+	howToBullets: [
+		'Enter each friend’s birth date (no need for year alignment).',
+		'Hit Calculate to generate the overall score plus three quick signals.',
+		'Communication highlights how easy it is to talk or plan.',
+		'Trust reflects comfort levels for honest conversations and support.',
+		'Shared energy suggests whether to plan chill time or high-action outings.',
+		'Use screenshots or shared links as conversation starters.',
+		'Repeat the process with different friends or group pairings.',
+		'Remember: results are for entertainment and self-reflection only.',
+	],
+	examples: [
+		{
+			id: 'friend-example-1',
+			title: 'Example: 1998-03-21 & 1997-09-12',
+			inputDescription: 'Roommates planning a reunion trip',
+			steps: [
+				'Enter 1998-03-21 and 1997-09-12',
+				'Tap Calculate',
+				'Score: 79% overall',
+				'Communication: 82%, Trust: 75%, Energy: 80%',
+			],
+			resultDescription:
+				'Suggests booking an itinerary that balances deep talks with spontaneous adventures.',
+		},
+		{
+			id: 'friend-example-2',
+			title: 'Example: 2000-01-05 & 1999-11-30',
+			inputDescription: 'Coworkers-turned-friends',
+			steps: [
+				'Enter 2000-01-05 and 1999-11-30',
+				'Tap Calculate',
+				'Score: 62% overall',
+				'Communication: 58%, Trust: 66%, Energy: 63%',
+			],
+			resultDescription:
+				'The interpretation recommends structured check-ins before launching side projects together.',
+		},
+		{
+			id: 'friend-example-3',
+			title: 'Example: 1995-07-18 & 1995-07-18',
+			inputDescription: 'Birthday twins celebrating yearly traditions',
+			steps: [
+				'Enter the same date twice',
+				'Tap Calculate',
+				'Score: 90% overall',
+				'Communication: 92%, Trust: 89%, Energy: 88%',
+			],
+			resultDescription:
+				'Identical dates highlight how shared pacing fuels effortless planning.',
+		},
+	],
+	faq: [
+		{
+			question: 'Why does the calculator need birth dates for friendships?',
+			answer:
+				'We reuse the same date-based scoring engine as our relationship calculator to keep results consistent.',
+		},
+		{
+			question: 'Is this information stored anywhere?',
+			answer:
+				'No. Everything is calculated instantly in your browser and never saved to our servers.',
+		},
+		{
+			question: 'Does a high score guarantee we will stay friends?',
+			answer:
+				'No. Treat the score as a conversation starter, not a promise about the future.',
+		},
+		{
+			question: 'Can I use this for siblings or cousins?',
+			answer:
+				'Absolutely. Any two people can be compared as long as you have their birthdays.',
+		},
+		{
+			question: 'What if we only know the birth month?',
+			answer:
+				'Pick your best guess or placeholder date—the tool is meant for reflection, not official records.',
+		},
+		{
+			question: 'Why do communication and trust sometimes differ a lot?',
+			answer:
+				'Each metric uses a different part of the date math, which makes the breakdown more varied.',
+		},
+		{
+			question: 'Does the tool make friendship recommendations?',
+			answer:
+				'It provides playful ideas in the interpretation text, but you decide what actually fits your bond.',
+		},
+		{
+			question: 'Can I compare more than two friends?',
+			answer:
+				'Run the calculator multiple times and keep notes if you want a bigger picture of your group dynamics.',
+		},
+		{
+			question: 'Are the scores deterministic?',
+			answer:
+				'Yes. Identical date inputs always generate the same numbers.',
+		},
+		{
+			question: 'Do I need to share my name or email?',
+			answer:
+				'No. Birth dates are the only inputs, and they never leave your device.',
+		},
+		{
+			question: 'What if the energy score is low?',
+			answer:
+				'Use it as a reminder to alternate between quiet catch-ups and high-energy plans.',
+		},
+		{
+			question: 'Can this replace honest conversations?',
+			answer:
+				'Never. Use the output to spark discussions, then rely on real communication to keep the friendship healthy.',
+		},
+		{
+			question: 'Will you add group compatibility in the future?',
+			answer:
+				'We are exploring it. For now, pair-by-pair comparisons are the easiest way to map a group.',
+		},
+		{
+			question: 'Is it okay to share results on social media?',
+			answer:
+				'Sure—as long as both friends are comfortable sharing their birth dates publicly.',
+		},
+		{
+			question: 'Does the calculator work on mobile?',
+			answer:
+				'Yes. The form and results are optimized for both phones and desktops.',
+		},
+		{
+			question: 'Planning to collaborate on a project together?',
+			answer:
+				'Run the [Work & Team Compatibility Calculator](compatibility/work-compatibility) for sprint-friendly tips, then come back here to plan hangouts and recharge sessions.',
+		},
+	],
+	relatedIds: ['birth-date-compatibility', 'work-compatibility'],
+	meta: {
+		keywords: [
+			'friendship compatibility calculator',
+			'birth date friendship score',
+			'communication trust energy quiz',
+		],
+	},
+	seo: {
+		title: 'Friendship Compatibility Calculator',
+		description:
+			'Check friendship compatibility with a playful birth date calculator featuring communication, trust, and energy breakdowns.',
+		schema: {
+			applicationSubCategory: 'LifestyleCalculator',
+		},
+	},
+}
+
+const workCompatibilityBase: CompatibilityCalculatorBase = {
+	id: 'work-compatibility',
+	slug: 'work-compatibility',
+	category: 'compatibility',
+	title: 'Work & Team Compatibility Calculator',
+	shortDescription:
+		'Enter two birth dates to see collaboration, communication, and planning scores plus tailored teamwork tips.',
+	longDescription:
+		'This work-focused calculator reuses the deterministic date engine from our relationship tools to highlight collaboration chemistry for colleagues, co-founders, or study partners. It produces three quick indicators and a set of actionable recommendations so you can plan meetings, sprints, or co-created projects with more intention. Treat every insight as entertainment and self-reflection.',
+	contentLocale: 'en',
+	tags: ['work', 'team', 'compatibility', 'collaboration', 'self-reflection'],
+	inputs: [
+		{
+			name: 'dateA',
+			label: 'Teammate birth date #1',
+			type: 'date',
+			defaultValue: defaultBirthDate(30),
+			validation: {
+				required: true,
+				message: 'Enter the first birth date',
+			},
+		},
+		{
+			name: 'dateB',
+			label: 'Teammate birth date #2',
+			type: 'date',
+			defaultValue: defaultBirthDate(28),
+			validation: {
+				required: true,
+				message: 'Enter the second birth date',
+			},
+		},
+	],
+	outputs: [
+		{
+			name: 'collaborationScore',
+			label: 'Collaboration score',
+		},
+		{
+			name: 'communicationScore',
+			label: 'Communication score',
+		},
+		{
+			name: 'planningScore',
+			label: 'Planning & discipline score',
+		},
+		{
+			name: 'recommendations',
+			label: 'Best ways to work together',
+		},
+	],
+	calculate: calculateWorkCompatibility,
+	howToBullets: [
+		'Enter both birth dates. Year does not need to match.',
+		'Press Calculate to see collaboration, communication, and planning signals.',
+		'Compare the three metrics to choose meeting cadences or pairing styles.',
+		'Use the recommendation bullets as lightweight working-agreement ideas.',
+		'Re-run the calculator for any duo you want to map inside your team.',
+		'Remember: results are for entertainment and self-reflection—not performance reviews.',
+	],
+	examples: [
+		{
+			id: 'work-example-1',
+			title: 'Example: 1987-04-12 & 1991-10-09',
+			inputDescription: 'Product manager + engineering lead',
+			steps: [
+				'Enter the two dates',
+				'Tap Calculate',
+				'Collaboration: 83%',
+				'Communication: 78%',
+				'Planning: 80%',
+			],
+			resultDescription:
+				'Recommendations focus on alternating sprint planning ownership and using async docs.',
+		},
+		{
+			id: 'work-example-2',
+			title: 'Example: 1995-06-03 & 1998-02-27',
+			inputDescription: 'Early-career duo building a side project',
+			steps: [
+				'Enter the two dates',
+				'Tap Calculate',
+				'Collaboration: 64%',
+				'Communication: 59%',
+				'Planning: 62%',
+			],
+			resultDescription:
+				'Suggests adding weekly check-ins and documenting decisions right away.',
+		},
+		{
+			id: 'work-example-3',
+			title: 'Example: 1980-12-05 & 1980-12-05',
+			inputDescription: 'Co-founders with the same birthday',
+			steps: [
+				'Enter identical dates',
+				'Tap Calculate',
+				'Collaboration: 90%',
+				'Communication: 92%',
+				'Planning: 88%',
+			],
+			resultDescription:
+				'Highlights how mirrored pacing helps them co-lead strategic planning sessions.',
+		},
+	],
+	faq: [
+		{
+			question: 'Why does a work calculator use birth dates?',
+			answer:
+				'We reuse the same deterministic date engine as other compatibility tools so every duo can compare signals consistently.',
+		},
+		{
+			question: 'Is this an HR assessment?',
+			answer:
+				'No. It is an entertainment and self-reflection tool meant for informal team conversations.',
+		},
+		{
+			question: 'Does entering my date of birth store any data?',
+			answer:
+				'No. All calculations run instantly in your browser and are never saved to our servers.',
+		},
+		{
+			question: 'Can I share the recommendations with my team?',
+			answer:
+				'Definitely—just be sure everyone understands the playful, non-evaluative nature of the tool.',
+		},
+		{
+			question: 'How should we interpret a low collaboration score?',
+			answer:
+				'Use it as a prompt to clarify roles, expectations, and escalation paths—not as a verdict on anyone’s skills.',
+		},
+		{
+			question: 'Do identical birthdays always yield perfect results?',
+			answer:
+				'They tend to score high because pacing is similar, but the recommendations still encourage intentional planning.',
+		},
+		{
+			question: 'Can we run this for mentors, study buddies, or volunteer teams?',
+			answer:
+				'Yes. Any two collaborators can use the calculator as long as you have their birthdays.',
+		},
+		{
+			question: 'Will you add support for entire teams (3+ people)?',
+			answer:
+				'We are exploring it. For now, compare pairs to map relationships across the group.',
+		},
+		{
+			question: 'Does the calculator adjust for industry or job role?',
+			answer:
+				'Not yet. Keep the insights high-level and adapt them to your domain.',
+		},
+		{
+			question: 'How many recommendations do we get?',
+			answer:
+				'You receive 6–8 bullet tips tailored to collaboration, communication, and planning signals.',
+		},
+		{
+			question: 'Can we embed the results in onboarding docs?',
+			answer:
+				'Feel free to copy the text, provided you note it’s an entertainment tool.',
+		},
+		{
+			question: 'Does timezone or birth time matter?',
+			answer:
+				'No. Only the calendar date is used in the calculation.',
+		},
+		{
+			question: 'What if I mistype a date?',
+			answer:
+				'Simply update the input and recalculate—the matrix always returns deterministic results.',
+		},
+		{
+			question: 'Are there accessibility considerations?',
+			answer:
+				'The form uses standard date pickers and text output compatible with screen readers.',
+		},
+		{
+			question: 'Can I cite this in performance reviews?',
+			answer:
+				'Please do not. Keep it squarely in the fun, self-reflection category.',
+		},
+		{
+			question: 'Want a lighter friendship-focused view afterward?',
+			answer:
+				'After setting work agreements here, switch to the [Friendship Compatibility Calculator](compatibility/friendship-compatibility) to plan recharge time as friends.',
+		},
+	],
+	relatedIds: ['friendship-compatibility', 'numerology-compatibility'],
+	meta: {
+		keywords: [
+			'work compatibility calculator',
+			'team collaboration score',
+			'self reflection work quiz',
+		],
+	},
+	seo: {
+		title: 'Work Compatibility Calculator',
+		description:
+			'Check work compatibility with collaboration, communication, and planning scores plus quick teamwork tips.',
+		schema: {
+			applicationSubCategory: 'LifestyleCalculator',
+		},
+	},
+}
+
+function defaultBirthDate(yearsAgo: number): string {
+	const date = new Date()
+	date.setFullYear(date.getFullYear() - yearsAgo)
+	return date.toISOString().slice(0, 10)
+}
+
+const birthDateCompatibilityBase: CompatibilityCalculatorBase = {
+	id: 'birth-date-compatibility',
+	slug: 'birth-date-compatibility',
+	category: 'compatibility',
+	title: 'Birth Date Compatibility Calculator',
+	shortDescription:
+		'Compare two birth dates to get a playful compatibility score with communication, emotional, and lifestyle breakdowns.',
+	longDescription:
+		'Enter two birth dates to see a fun compatibility score. This tool summarizes communication, emotional, and lifestyle signals using simple date-based patterns—ideal for icebreakers, journaling prompts, or planning your next conversation.',
+	contentLocale: 'en',
+	tags: ['compatibility', 'birth-date', 'relationship', 'love-compatibility'],
+	inputs: [
+		{
+			name: 'dateA',
+			label: 'Birth date #1',
+			type: 'date',
+			defaultValue: defaultBirthDate(25),
+			validation: {
+				required: true,
+				message: 'Enter the first birth date',
+			},
+		},
+		{
+			name: 'dateB',
+			label: 'Birth date #2',
+			type: 'date',
+			defaultValue: defaultBirthDate(24),
+			validation: {
+				required: true,
+				message: 'Enter the second birth date',
+			},
+		},
+	],
+	outputs: [
+		{
+			name: 'overallCompatibility',
+			label: 'Overall compatibility',
+		},
+		{
+			name: 'communication',
+			label: 'Communication energy',
+		},
+		{
+			name: 'emotional',
+			label: 'Emotional rhythm',
+		},
+		{
+			name: 'lifestyle',
+			label: 'Lifestyle pacing',
+		},
+		{
+			name: 'interpretation',
+			label: 'Interpretation',
+		},
+	],
+	calculate: calculateBirthDateCompatibility,
+	howToBullets: [
+		'Enter two birth dates (any calendar year works).',
+		'Press Calculate to generate an overall score plus three detailed metrics.',
+		'Use the insight paragraph as a journaling prompt or conversation starter.',
+		'Compare multiple dates if you want to track different dynamics.',
+		'Results do not store any personal data—they are generated instantly in your browser.',
+		'Share the score screenshot with a partner or friend if you want a fun icebreaker.',
+		'Repeat the calculation whenever you pick a new hypothetical date idea.',
+		'Remember: every result is for entertainment and self-reflection only.',
+	],
+	examples: [
+		{
+			id: 'bdc-example-1',
+			title: 'Example: 1994-05-18 + 1992-11-03',
+			inputDescription: 'Two 90s birthdays',
+			steps: [
+				'Enter 1994-05-18 and 1992-11-03',
+				'Tap Calculate',
+				'Overall score: 82%',
+				'Highlights: Communication 84%, Emotional 79%, Lifestyle 83%',
+			],
+			resultDescription:
+				'Great for couples planning a milestone dinner and wanting a playful preview.',
+		},
+		{
+			id: 'bdc-example-2',
+			title: 'Example: 1988-02-07 + 1999-07-22',
+			inputDescription: 'Different decades, new friendship',
+			steps: [
+				'Enter 1988-02-07 and 1999-07-22',
+				'Tap Calculate',
+				'Overall score: 64%',
+				'Highlights: Communication 68%, Emotional 59%, Lifestyle 65%',
+			],
+			resultDescription:
+				'Suggests slowing the pace and comparing expectations early in the friendship.',
+		},
+		{
+			id: 'bdc-example-3',
+			title: 'Example: 2001-12-30 + 2001-12-30',
+			inputDescription: 'Matching birthdays',
+			steps: [
+				'Enter the same date twice',
+				'Tap Calculate',
+				'Overall score: 90%',
+				'Highlights: Communication 92%, Emotional 89%, Lifestyle 88%',
+			],
+			resultDescription:
+				'Shows how identical dates often yield balanced scores—fun for twins or close friends.',
+		},
+	],
+	faq: [
+		{
+			question: 'Is this calculator scientifically validated?',
+			answer:
+				'No. It uses deterministic patterns for entertainment and self-reflection only.',
+		},
+		{
+			question: 'Can I use the scores to make relationship decisions?',
+			answer:
+				'Please don’t. Treat the results as a conversation starter, not a definitive answer.',
+		},
+		{
+			question: 'Does the tool store or share my birth dates?',
+			answer:
+				'No. The calculation happens instantly in your browser and is never saved to a server.',
+		},
+		{
+			question: 'Why do scores sum to different numbers each time?',
+			answer:
+				'Scores depend on the day, month, and year differences. Identical dates always repeat the same score.',
+		},
+		{
+			question: 'Can I compare multiple people?',
+			answer:
+				'Yes. Run the calculator as many times as you like to compare different pairs.',
+		},
+		{
+			question: 'What if I only know the month and day?',
+			answer:
+				'You can use an approximate year. The calculator still generates a consistent score.',
+		},
+		{
+			question: 'Does matching birthdays always mean perfect compatibility?',
+			answer:
+				'Not necessarily, but identical dates often receive high lifestyle and emotional scores.',
+		},
+		{
+			question: 'Why do communication and lifestyle scores differ?',
+			answer:
+				'Each dimension uses different parts of the date inputs, highlighting varied patterns.',
+		},
+		{
+			question: 'Can I share the results?',
+			answer:
+				'Absolutely. Many people screenshot the score to send as a playful message.',
+		},
+		{
+			question: 'Do you plan to add custom messages for zodiac signs?',
+			answer:
+				'Possibly in the future. Right now the focus is on date-based math for clarity.',
+		},
+		{
+			question: 'Can I export the scores?',
+			answer:
+				'Not yet. For now the easiest option is to copy or screenshot the results.',
+		},
+		{
+			question: 'Does time of birth matter?',
+			answer:
+				'This tool does not use time of birth—only the calendar date.',
+		},
+		{
+			question: 'Why do 1980s and 2000s pairs sometimes score lower?',
+			answer:
+				'Large year gaps reduce the lifestyle score slightly to reflect different life stages.',
+		},
+		{
+			question: 'Is there a best score range?',
+			answer:
+				'Anything above 70% usually indicates smooth energy, but remember it’s only for fun.',
+		},
+		{
+			question: 'How often should I recalculate?',
+			answer:
+				'As often as you like—especially if you’re journaling about different connections or hypotheticals.',
+		},
+		{
+			question: 'Want to see how those same dates map to zodiac signs?',
+			answer:
+				'After checking this score, run the [Zodiac Compatibility Checker](compatibility/zodiac-compatibility) to compare elemental chemistry with your birth-date breakdown.',
+		},
+	],
+	relatedIds: [
+		'love-compatibility',
+		'zodiac-compatibility',
+		'numerology-compatibility',
+	],
+	meta: {
+		keywords: [
+			'birth date compatibility',
+			'birthday compatibility',
+			'fun compatibility calculator',
+		],
+		author: 'FirstCalc',
+	},
+	seo: {
+		title: 'Birth Date Compatibility Calculator',
+		description:
+			'Check compatibility based on two birth dates. Fun, instant results with breakdown and explanations.',
+		schema: {
+			applicationSubCategory: 'EntertainmentCalculator',
+		},
+	},
+}
+
+const compatibilityCalculators: CalculatorDefinition[] = [
+	...createCompatibilityEntries(loveCompatibilityBase),
+	...createCompatibilityEntries(zodiacCompatibilityBase),
+	...createCompatibilityEntries(numerologyCompatibilityBase),
+	...createCompatibilityEntries(friendshipCompatibilityBase),
+	...createCompatibilityEntries(workCompatibilityBase),
+	...createCompatibilityEntries(birthDateCompatibilityBase),
+]
 
 /**
  * Registry of all calculator definitions
@@ -25,6 +1220,7 @@ import { calculateNetWorth } from '@/lib/calculations/net-worth'
  * Each calculator can have multiple locale versions with the same id
  */
 export const calculators: CalculatorDefinition[] = [
+	...compatibilityCalculators,
 	// Percentage of a Number (EN)
 	{
 		id: 'percentage-of-a-number',

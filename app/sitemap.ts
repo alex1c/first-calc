@@ -5,6 +5,7 @@ import {
 	getCategories,
 } from '@/data/calculators'
 import { getStandardsByLocale, getCountries } from '@/data/standards'
+import { getNationalLandingList } from '@/data/national-standards'
 import { getArticlesByLocale } from '@/data/articles'
 
 /**
@@ -48,6 +49,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			alternates: {
 				languages: Object.fromEntries(
 					locales.map((l) => [l, `${baseUrl}/${l}/standards`]),
+				),
+			},
+		})
+
+		sitemapEntries.push({
+			url: `${baseUrl}/${locale}/standards/national`,
+			lastModified: new Date(),
+			changeFrequency: 'weekly',
+			priority: 0.7,
+			alternates: {
+				languages: Object.fromEntries(
+					locales.map((l) => [l, `${baseUrl}/${l}/standards/national`]),
 				),
 			},
 		})
@@ -117,6 +130,85 @@ export default function sitemap(): MetadataRoute.Sitemap {
 				},
 			})
 		}
+
+		// National standards hub routes
+		const nationalEntries = getNationalLandingList(locale)
+		for (const landing of nationalEntries) {
+			sitemapEntries.push({
+				url: `${baseUrl}/${locale}/standards/national/${landing.slug}`,
+				lastModified: new Date(),
+				changeFrequency: 'weekly',
+				priority: 0.6,
+				alternates: {
+					languages: Object.fromEntries(
+						locales.map((l) => [
+							l,
+							`${baseUrl}/${l}/standards/national/${landing.slug}`,
+						]),
+					),
+				},
+			})
+		}
+
+		sitemapEntries.push({
+			url: `${baseUrl}/${locale}/standards/national/us/aci-concrete`,
+			lastModified: new Date(),
+			changeFrequency: 'weekly',
+			priority: 0.6,
+			alternates: {
+				languages: Object.fromEntries(
+					locales.map((l) => [
+						l,
+						`${baseUrl}/${l}/standards/national/us/aci-concrete`,
+					]),
+				),
+			},
+		})
+
+		sitemapEntries.push({
+			url: `${baseUrl}/${locale}/standards/national/us/asce-loads`,
+			lastModified: new Date(),
+			changeFrequency: 'weekly',
+			priority: 0.6,
+			alternates: {
+				languages: Object.fromEntries(
+					locales.map((l) => [
+						l,
+						`${baseUrl}/${l}/standards/national/us/asce-loads`,
+					]),
+				),
+			},
+		})
+
+		sitemapEntries.push({
+			url: `${baseUrl}/${locale}/standards/national/de/din-construction`,
+			lastModified: new Date(),
+			changeFrequency: 'weekly',
+			priority: 0.6,
+			alternates: {
+				languages: Object.fromEntries(
+					locales.map((l) => [
+						l,
+						`${baseUrl}/${l}/standards/national/de/din-construction`,
+					]),
+				),
+			},
+		})
+
+		sitemapEntries.push({
+			url: `${baseUrl}/${locale}/standards/national/ru/sp-snip-foundations`,
+			lastModified: new Date(),
+			changeFrequency: 'weekly',
+			priority: 0.6,
+			alternates: {
+				languages: Object.fromEntries(
+					locales.map((l) => [
+						l,
+						`${baseUrl}/${l}/standards/national/ru/sp-snip-foundations`,
+					]),
+				),
+			},
+		})
 
 		// Standard countries
 		const countries = getCountries(locale)

@@ -22,6 +22,7 @@ export type CategoryId =
 	| 'fun'
 	| 'it'
 	| 'everyday'
+	| 'compatibility'
 
 /**
  * Category configuration interface
@@ -109,6 +110,12 @@ export const categories: CategoryConfig[] = [
 		order: 12,
 		iconKey: '📅',
 		calcCount: 9,
+	},
+	{
+		id: 'compatibility',
+		order: 13,
+		iconKey: '💞',
+		calcCount: 5,
 	},
 ]
 

@@ -117,3 +117,4 @@ export const calculateDaysBetweenDates: CalculatorFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateDaysBetweenDates', calculateDaysBetweenDates)
 
+

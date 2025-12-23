@@ -2,8 +2,13 @@
 	"numbersToWords": {
 		"localizedComingSoon": "Esta herramienta actualmente muestra palabras en inglés. Las versiones localizadas están en desarrollo.",
 		"contentInEnglish": "Contenido en inglés"
+	},
+	"classicBadge": {
+		"label": "Herramienta clásica",
+		"helper": "Esta es una utilidad clásica con un uso muy alto día a día."
 	}
 }
+
 
 
 

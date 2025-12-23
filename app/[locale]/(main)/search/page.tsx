@@ -7,7 +7,6 @@ import type { Metadata } from 'next'
 import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { searchPortal } from '@/lib/search'
 import Link from 'next/link'
-import { CalculatorCard } from '@/components/calculators/calculator-card'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'calculators/ui'] as const
@@ -82,96 +81,123 @@ export default async function SearchPage({
 				{/* Results */}
 				{query && results && (
 					<div className="space-y-8">
-						{/* Summary */}
 						<div className="text-gray-600">
-							Found {results.calculators.length} calculators,{' '}
-							{results.standards.length} standards, and {results.articles.length}{' '}
-							articles for &quot;{query}&quot;
+							Found {results.calculators.total} calculators,{' '}
+							{results.standards.total} standards, and {results.articles.total} articles for
+							&quot;{query}&quot;
 						</div>
 
-						{/* Calculators */}
-						{results.calculators.length > 0 && (
-							<div>
-								<h2 className="text-2xl font-semibold text-gray-900 mb-4">
-									{t('navigation.menu.calculators')} ({results.calculators.length})
-								</h2>
-								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-									{results.calculators.map((calc) => (
-										<CalculatorCard
-											key={calc.id}
-											calculator={calc}
-											locale={locale}
-											hasStandard={
-												calc.standardIds && calc.standardIds.length > 0
-											}
-										/>
-									))}
-								</div>
+						{results.fallbackLocaleUsed && (
+							<div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4 text-sm text-yellow-800">
+								No matches in this language. Showing English content.
 							</div>
 						)}
 
-						{/* Standards */}
-						{results.standards.length > 0 && (
-							<div>
+						{results.calculators.total > 0 && (
+							<section>
 								<h2 className="text-2xl font-semibold text-gray-900 mb-4">
-									{t('navigation.menu.standards')} ({results.standards.length})
+									{t('navigation.menu.calculators')} ({results.calculators.total})
 								</h2>
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-									{results.standards.map((standard) => (
+								<div className="space-y-3">
+									{results.calculators.items.map((item) => (
 										<Link
-											key={`${standard.id}-${standard.locale}`}
-											href={`/${locale}/standards/${standard.country}/${standard.slug}`}
-											className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+											key={item.id}
+											href={item.url}
+											className="block rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-blue-200 hover:shadow-md transition"
 										>
-											<h3 className="text-xl font-semibold text-gray-900 mb-2">
-												{standard.title}
-											</h3>
-											<p className="text-gray-600 text-sm mb-2">
-												{standard.shortDescription}
-											</p>
-											<div className="flex items-center gap-2 text-xs text-gray-500">
-												<span className="px-2 py-1 bg-gray-100 rounded">
-													{standard.country}
-												</span>
-												{standard.meta?.year && (
-													<span>{standard.meta.year}</span>
+											<div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-gray-900">
+												<span>{item.title}</span>
+												{item.badge && (
+													<span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+														{item.badge}
+													</span>
+												)}
+												{item.isForeignLocale && (
+													<span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-medium text-amber-800">
+														Content in English
+													</span>
 												)}
 											</div>
-										</Link>
-									))}
-								</div>
-							</div>
-						)}
-
-						{/* Articles */}
-						{results.articles.length > 0 && (
-							<div>
-								<h2 className="text-2xl font-semibold text-gray-900 mb-4">
-									{t('navigation.menu.learn')} ({results.articles.length})
-								</h2>
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-									{results.articles.map((article) => (
-										<Link
-											key={`${article.id}-${article.locale}`}
-											href={`/${locale}/learn/${article.slug}`}
-											className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
-										>
-											<h3 className="text-xl font-semibold text-gray-900 mb-2">
-												{article.title}
-											</h3>
-											<p className="text-gray-600 text-sm">
-												{article.shortDescription}
+											<p className="mt-2 text-sm text-gray-600">
+												{item.description}
 											</p>
 										</Link>
 									))}
 								</div>
-							</div>
+							</section>
 						)}
 
-						{/* No results */}
-						{results.calculators.length === 0 &&
-							results.standards.length === 0 &&
-							results.articles.length === 0 && (
+						{results.standards.total > 0 && (
+							<section>
+								<h2 className="text-2xl font-semibold text-gray-900 mb-4">
+									{t('navigation.menu.standards')} ({results.standards.total})
+								</h2>
+								<div className="space-y-3">
+									{results.standards.items.map((item) => (
+										<Link
+											key={item.id}
+											href={item.url}
+											className="block rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-blue-200 hover:shadow-md transition"
+										>
+											<div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-gray-900">
+												<span>{item.title}</span>
+												{item.badge && (
+													<span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+														{item.badge}
+													</span>
+												)}
+												{item.isForeignLocale && (
+													<span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-medium text-amber-800">
+														Content in English
+													</span>
+												)}
+											</div>
+											<p className="mt-2 text-sm text-gray-600">
+												{item.description}
+											</p>
+										</Link>
+									))}
+								</div>
+							</section>
+						)}
+
+						{results.articles.total > 0 && (
+							<section>
+								<h2 className="text-2xl font-semibold text-gray-900 mb-4">
+									{t('navigation.menu.learn')} ({results.articles.total})
+								</h2>
+								<div className="space-y-3">
+									{results.articles.items.map((item) => (
+										<Link
+											key={item.id}
+											href={item.url}
+											className="block rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-blue-200 hover:shadow-md transition"
+										>
+											<div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-gray-900">
+												<span>{item.title}</span>
+												{item.badge && (
+													<span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+														{item.badge}
+													</span>
+												)}
+												{item.isForeignLocale && (
+													<span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-medium text-amber-800">
+														Content in English
+													</span>
+												)}
+											</div>
+											<p className="mt-2 text-sm text-gray-600">
+												{item.description}
+											</p>
+										</Link>
+									))}
+								</div>
+							</section>
+						)}
+
+						{results.calculators.total === 0 &&
+							results.standards.total === 0 &&
+							results.articles.total === 0 && (
 								<div className="text-center py-12">
 									<p className="text-gray-600 text-lg mb-2">
 										{t('common.label.noResults')} &quot;{query}&quot;

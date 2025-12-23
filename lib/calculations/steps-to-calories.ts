@@ -236,3 +236,4 @@ import { registerCalculation } from './registry'
 // Auto-register on module load
 registerCalculation('calculateStepsToCalories', calculateStepsToCalories)
 
+

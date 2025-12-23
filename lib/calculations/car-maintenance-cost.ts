@@ -206,3 +206,4 @@ import { registerCalculation } from './registry'
 registerCalculation('calculateCarMaintenanceCost', calculateCarMaintenanceCost)
 
 
+

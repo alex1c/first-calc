@@ -166,3 +166,4 @@ export const calculateCableSize: CalculationFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateCableSize', calculateCableSize)
 
+

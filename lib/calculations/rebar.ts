@@ -212,3 +212,4 @@ export const calculateRebar: CalculationFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateRebar', calculateRebar)
 
+

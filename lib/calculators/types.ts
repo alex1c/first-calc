@@ -12,6 +12,17 @@ export type CalculatorCategory =
 	| 'everyday'
 	| 'engineering'
 	| 'business'
+	| 'construction'
+	| 'auto'
+	| 'health'
+	| 'geometry'
+	| 'life'
+	| 'time'
+	| 'science'
+	| 'converter'
+	| 'fun'
+	| 'it'
+	| 'compatibility'
 
 /**
  * Supported locales for calculators

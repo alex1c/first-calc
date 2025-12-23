@@ -110,6 +110,42 @@ export const standards: StandardDefinition[] = [
 			year: 2019,
 		},
 	},
+	// ISO Soil & Geotechnical Basics (EN)
+	{
+		id: 'iso-soil-foundations',
+		country: 'ISO',
+		slug: 'soil-and-foundations',
+		locale: 'en',
+		title: 'Soil and Foundation Basics – ISO Geotechnical Principles Explained',
+		shortDescription:
+			'Learn how soil properties affect foundations and how geotechnical principles relate to foundation, pile, and concrete calculations.',
+		longDescription:
+			'Geotechnical standards describe how soil properties influence foundation design. This page explains why the same building needs different foundations on different soils, how standards describe soil behavior and classification, and how soil assumptions connect to practical foundation calculations. This is an educational resource that bridges soil mechanics concepts with construction calculations.',
+		formulas: undefined,
+		tables: undefined,
+		relatedCalculatorIds: [
+			'foundation-volume-calculator',
+			'strip-foundation-calculator',
+			'slab-foundation-calculator',
+			'pile-foundation-calculator',
+			'concrete-volume-calculator',
+			'rebar-calculator',
+		],
+		meta: {
+			keywords: [
+				'iso',
+				'soil mechanics',
+				'geotechnical engineering',
+				'foundations',
+				'bearing capacity',
+				'settlement',
+				'pile foundations',
+				'ground conditions',
+				'construction standards',
+			],
+			organization: 'ISO',
+		},
+	},
 	// Eurocode 2 - Design of concrete structures (EN)
 	{
 		id: 'eurocode-2',
@@ -323,6 +359,30 @@ export const standards: StandardDefinition[] = [
 			year: 2016,
 		},
 	},
+	// SP & SNiP Foundations Hub (EN)
+	{
+		id: 'sp-snip-foundations-hub',
+		country: 'RU',
+		slug: 'sp-snip-foundations',
+		locale: 'en',
+		title: 'SP & SNiP Foundations – Russian Construction Context Explained',
+		shortDescription:
+			'Education-focused hub describing how Russian SP and SNiP documents guide foundation design, soil decisions, and concrete execution.',
+		longDescription:
+			'SP and legacy SNiP documents organize Russian practice for foundations and concrete. They combine geotechnical investigations, concrete mix requirements, reinforcement detailing, and safety factors tailored to local regulations. This hub summarizes those themes so readers can map calculators and conceptual planning steps to Russian terminology.',
+		relatedCalculatorIds: [
+			'strip-foundation-calculator',
+			'slab-foundation-calculator',
+			'pile-foundation-calculator',
+			'foundation-volume-calculator',
+			'concrete-volume-calculator',
+			'rebar-calculator',
+		],
+		meta: {
+			keywords: ['SP', 'SNiP', 'Russia', 'foundations', 'concrete'],
+			organization: 'Минстрой России',
+		},
+	},
 	// ISO 80000 - Quantities and units (EN)
 	{
 		id: 'iso-80000',
@@ -411,6 +471,30 @@ export const standards: StandardDefinition[] = [
 			keywords: ['iso', 'величины', 'единицы', 'СИ', 'измерение'],
 			organization: 'ISO',
 			year: 2019,
+		},
+	},
+	// DIN Construction Hub (EN)
+	{
+		id: 'din-construction-hub',
+		country: 'DE',
+		slug: 'din-construction',
+		locale: 'en',
+		title: 'DIN Construction Standards – Germany Engineering Context',
+		shortDescription:
+			'Overview of how DIN standards guide materials, testing, and safety concepts in Germany alongside Eurocodes.',
+		longDescription:
+			'DIN construction standards complement Eurocode requirements by detailing German procedures for materials, testing, and execution quality. They describe how products are certified, how site practices are verified, and how safety factors are applied when adapting Eurocodes to local conditions.',
+		relatedCalculatorIds: [
+			'concrete-volume-calculator',
+			'concrete-mix-ratio-calculator',
+			'strip-foundation-calculator',
+			'slab-foundation-calculator',
+			'pile-foundation-calculator',
+			'rebar-calculator',
+		],
+		meta: {
+			keywords: ['DIN', 'Germany', 'construction standards', 'materials', 'quality'],
+			organization: 'DIN',
 		},
 	},
 	// TSE 500 - Turkish concrete standard (EN)

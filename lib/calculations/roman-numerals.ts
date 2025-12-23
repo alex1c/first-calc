@@ -252,3 +252,4 @@ export const calculateRomanNumerals: CalculatorFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateRomanNumerals', calculateRomanNumerals)
 
+

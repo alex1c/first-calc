@@ -75,6 +75,64 @@ export const articles: ArticleDefinition[] = [
 			publishedDate: '2024-01-01',
 		},
 	},
+	// Estimation vs Engineering Design (EN) - EEAT
+	{
+		id: 'estimation-vs-engineering-design',
+		slug: 'estimation-vs-engineering-design',
+		locale: 'en',
+		title: 'Estimation vs Engineering Design – What Calculators Can and Cannot Do',
+		shortDescription:
+			'Understand the difference between early estimates and full engineering design so you can use calculators responsibly.',
+		contentHtml: `
+			<h2>1. What estimation means</h2>
+			<p>Estimation is about quantities, budgets, and logistics. You use rough soil parameters, typical loads, and simplified geometry to answer “How much concrete?”, “How many piles?”, or “What’s the material cost?”. Estimation keeps projects moving while teams gather detailed information.</p>
+
+			<h2>2. What engineering design means</h2>
+			<p>Engineering design verifies every assumption using current standards and certified calculations. It combines site data (for example <a href="/standards/ISO/soil-and-foundations">ISO soil investigations</a>) with structural rules from <a href="/standards/EU/eurocode-1">Eurocode 1</a> (loads) and <a href="/standards/EU/eurocode-2">Eurocode 2</a> (concrete design). The result is a sealed document that authorities and contractors can trust.</p>
+
+			<h2>3. Where calculators are useful</h2>
+			<ul>
+				<li>Checking ballpark volumes for slabs, foundations, or concrete pours.</li>
+				<li>Comparing alternative layouts during budgeting.</li>
+				<li>Communicating with stakeholders using consistent numbers.</li>
+			</ul>
+			<p>Our construction calculators are designed for this stage—they make it easy to test scenarios before the engineering team finalizes the design.</p>
+
+			<h2>4. Common mistakes users make</h2>
+			<ul>
+				<li><strong>Skipping soil testing:</strong> Calculators assume typical soil. Real sites rarely match those assumptions.</li>
+				<li><strong>Using estimation numbers for permits:</strong> Authorities want sealed calculations, not preliminary totals.</li>
+				<li><strong>Forgetting load combinations:</strong> Eurocode and ISO rules combine loads differently than a simple calculator does.</li>
+			</ul>
+
+			<h2>5. How to use this portal responsibly</h2>
+			<ol>
+				<li>Use calculators to explore options and communicate with your team.</li>
+				<li>Share results with licensed engineers so they can update inputs with real soil data, loads, and reinforcement requirements.</li>
+				<li>Always defer to the latest regulations and professional advice before construction.</li>
+			</ol>
+
+			<div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 24px; margin-top: 32px;">
+				<p style="margin: 0; font-weight: 600; color: #92400e;">Friendly reminder</p>
+				<p style="margin: 8px 0 0 0; color: #78350f;">Calculators support learning and planning only. Final engineering design must come from qualified professionals.</p>
+			</div>
+		`,
+		relatedCalculatorIds: [
+			'strip-foundation-calculator',
+			'slab-foundation-calculator',
+			'pile-foundation-calculator',
+		],
+		relatedStandardIds: [
+			'eurocode-1',
+			'eurocode-2',
+			'iso-soil-foundations',
+		],
+		meta: {
+			keywords: ['estimation', 'engineering design', 'calculators', 'Eurocode', 'ISO soil'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-20',
+		},
+	},
 	// What is percentage of a number (EN)
 	{
 		id: 'what-is-percentage-of-a-number',
@@ -151,6 +209,102 @@ export const articles: ArticleDefinition[] = [
 			keywords: ['percentage', 'calculation', 'math', 'discount', 'tip'],
 			author: 'FirstCalc',
 			publishedDate: '2024-01-02',
+		},
+	},
+	{
+		id: 'compatibility-by-birth-date',
+		slug: 'compatibility-by-birth-date',
+		locale: 'en',
+		title: 'Compatibility by Birth Date – How It Works',
+		shortDescription:
+			'Learn how date-based compatibility scores are generated, when to use them, and how to combine them with other playful tools.',
+		contentHtml: `
+			<h2>1. Why birth-date patterns feel helpful</h2>
+			<p>Birth-date compatibility calculators look at how day, month, and year values interact. They turn differences between two dates into playful signals about communication, emotional rhythm, and lifestyle pacing. The goal is not to predict anything definitive—it is to give you a prompt for journaling or conversation.</p>
+			<p>The <a href="../calculators/compatibility/birth-date-compatibility">Birth Date Compatibility Calculator</a> is the anchor tool in our mini-portal. It always uses the same deterministic math, so identical inputs return identical results.</p>
+
+			<h2>2. How the scoring engine works</h2>
+			<ul>
+				<li><strong>Communication score:</strong> Compares day values to estimate how easily conversations start.</li>
+				<li><strong>Emotional score:</strong> Uses month spacing to mimic how moods or rituals may align.</li>
+				<li><strong>Lifestyle score:</strong> Looks at the gap between birth years to hint at pacing or priorities.</li>
+			</ul>
+			<p>Because the system is deterministic, you can safely log the score today and run it again later to see if you still feel the same way about the interpretation.</p>
+
+			<h2>3. When to use each calculator</h2>
+			<ul>
+				<li>Use the <a href="../calculators/compatibility/birth-date-compatibility">Birth Date Compatibility Calculator</a> for a quick 0–100 snapshot.</li>
+				<li>Switch to the <a href="../calculators/compatibility/friendship-compatibility">Friendship Compatibility Calculator</a> when you want trust and shared-energy signals.</li>
+				<li>Need co-working tips? The <a href="../calculators/compatibility/work-compatibility">Work &amp; Team Compatibility Calculator</a> turns the same engine into collaboration recommendations.</li>
+			</ul>
+
+			<h2>4. Keep it playful</h2>
+			<p>Treat results as icebreakers. Jot them in a journal, send a screenshot to a friend, or compare multiple date pairs before a reunion. If you want additional context, layer in zodiac or numerology calculators to see the same dates from different angles.</p>
+
+			<div style="background:#fff7ed;border:1px solid #fdba74;border-radius:12px;padding:18px;margin-top:24px;">
+				<p style="margin:0;font-weight:600;color:#9a3412;">Disclaimer</p>
+				<p style="margin:6px 0 0 0;color:#9a3412;">Date-based compatibility scores are for entertainment and self-reflection only. They are not scientific guidance or relationship advice.</p>
+			</div>
+		`,
+		relatedCalculatorIds: [
+			'birth-date-compatibility',
+			'friendship-compatibility',
+			'work-compatibility',
+		],
+		meta: {
+			keywords: [
+				'compatibility by birth date',
+				'birth date score',
+				'compatibility explanation',
+			],
+			author: 'FirstCalc',
+			publishedDate: '2025-01-15',
+		},
+	},
+	{
+		id: 'zodiac-compatibility-explained',
+		slug: 'zodiac-compatibility-explained',
+		locale: 'en',
+		title: 'Zodiac Compatibility Explained',
+		shortDescription:
+			'Understand how the zodiac compatibility matrix works, what the score ranges mean, and how to combine it with numerology.',
+		contentHtml: `
+			<h2>1. What the zodiac matrix measures</h2>
+			<p>Western sun signs are grouped into four elements: fire, earth, air, and water. Our <a href="../calculators/compatibility/zodiac-compatibility">Zodiac Compatibility Checker</a> converts each birth date into a sign, then looks up the pairing inside a 12×12 matrix. Some relationships receive a boost because the elements complement each other, while others sit near 60% for “balanced potential.”</p>
+
+			<h2>2. Score ranges at a glance</h2>
+			<ul>
+				<li><strong>81–100%:</strong> Highly complementary or matching elements—plan something memorable.</li>
+				<li><strong>61–80%:</strong> Solid chemistry—lean on honest check-ins to keep momentum.</li>
+				<li><strong>31–60%:</strong> Mixed signals—communicate expectations early.</li>
+				<li><strong>0–30%:</strong> Different rhythms—treat it as a learning lab, not a verdict.</li>
+			</ul>
+			<p>The calculator output also spells out each sign (e.g., Aries vs. Libra) so you can copy the text into your notes.</p>
+
+			<h2>3. Combine with other tools</h2>
+			<p>Want a numbers-first view? Pair the zodiac output with the <a href="../calculators/compatibility/numerology-compatibility">Numerology Compatibility Calculator</a> to compare life path numbers. You can also cross-check birth dates directly with the <a href="../calculators/compatibility/birth-date-compatibility">Birth Date Compatibility Calculator</a> before diving into astrology.</p>
+
+			<h2>4. Responsible use</h2>
+			<p>These tools are designed for entertainment, not for making life decisions. Use them as prompts for storytelling, date-night planning, or journal entries. Real compatibility depends on communication, boundaries, and shared effort.</p>
+
+			<div style="background:#ecfeff;border:1px solid #67e8f9;border-radius:12px;padding:18px;margin-top:24px;">
+				<p style="margin:0;font-weight:600;color:#0e7490;">Disclaimer</p>
+				<p style="margin:6px 0 0 0;color:#0e7490;">Astrology-based compatibility scores are not scientific guidance. Always make personal and professional decisions using real-world conversations and expert advice.</p>
+			</div>
+		`,
+		relatedCalculatorIds: [
+			'zodiac-compatibility',
+			'numerology-compatibility',
+			'birth-date-compatibility',
+		],
+		meta: {
+			keywords: [
+				'zodiac compatibility explained',
+				'astrology compatibility guide',
+				'zodiac score ranges',
+			],
+			author: 'FirstCalc',
+			publishedDate: '2025-01-15',
 		},
 	},
 	// How to calculate compound interest (EN)
@@ -3723,6 +3877,594 @@ export const articles: ArticleDefinition[] = [
 			keywords: ['car affordability', 'car budget', 'how much car can I afford', 'car loan', 'vehicle financing'],
 			author: 'FirstCalc',
 			publishedDate: '2024-01-20',
+		},
+	},
+	// What Are Structural Loads? (EN) - Eurocode 1
+	{
+		id: 'what-are-structural-loads',
+		slug: 'what-are-structural-loads',
+		locale: 'en',
+		title: 'What Are Structural Loads and Why They Matter',
+		shortDescription:
+			'Understand dead, live, and environmental loads, why they shape foundations and slabs, and where estimation ends and engineering begins.',
+		contentHtml: `
+			<h2>1. Loads in plain language</h2>
+			<p>Structural loads are the weights and forces a building must resist. They exist because gravity, people, weather, and equipment all push on the structure. Before an engineer sizes any footing or slab, they list every load that could realistically occur.</p>
+			<p>Standards such as <a href="/standards/EU/eurocode-1">Eurocode 1</a> organize those loads so designers across Europe follow the same playbook.</p>
+
+			<h2>2. Main load types</h2>
+			<h3>Dead loads</h3>
+			<p>These are permanent weights: the concrete itself, brick walls, roofing, fixed mechanical units. Once installed, they rarely change. Estimators usually know dead loads early because they come directly from the material schedule.</p>
+
+			<h3>Live loads</h3>
+			<p>Live loads move. People, furniture, storage pallets, and vehicles fall into this category. Standards assign default live loads by occupancy so a living room, office, or warehouse gets an appropriate allowance.</p>
+
+			<h3>Environmental loads</h3>
+			<p>Weather and site conditions add environmental loads: snow piling on a roof, wind pushing on walls, temperature swings, or seismic shaking. These loads depend on climate, exposure, and building height.</p>
+
+			<h2>3. Why assumptions matter for foundations and slabs</h2>
+			<p>If the assumed load grows, the footing or slab must grow too. Underestimating loads can shrink the bearing area, increase soil pressure, or make slabs too thin to resist cracking. Overestimating loads isn’t ideal either because it inflates quantities and costs. That’s why standards publish baseline values—everyone estimates from the same starting point.</p>
+
+			<h2>4. Estimation vs. engineering design</h2>
+			<ul>
+				<li><strong>Estimation stage:</strong> Tools like the <a href="/calculators/construction/slab-foundation-calculator">Slab Foundation Calculator</a>, <a href="/calculators/construction/foundation-volume-calculator">Foundation Volume Calculator</a>, and <a href="/calculators/construction/stair-calculator">Stair Calculator</a> help translate preliminary loads into volumes and dimensions for budgeting.</li>
+				<li><strong>Engineering stage:</strong> Licensed engineers verify exact loads, combine them per code, and check soils, reinforcement, and detailing. This step may reference other frameworks, for example ASCE 7 for U.S. projects, but it always results in sealed documents tailored to the site.</li>
+			</ul>
+
+			<h2>5. Summary</h2>
+			<p>Loads explain why two similar-looking houses can have different foundations: each site and occupancy produces a unique combination of dead, live, and environmental forces. Use calculators for quick quantity checks, but rely on engineers—and the latest standards—for the final design.</p>
+
+			<div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 24px; margin-top: 32px;">
+				<p style="margin: 0; font-weight: 600; color: #92400e;">Educational notice</p>
+				<p style="margin: 8px 0 0 0; color: #78350f;">This article is for learning and estimation only. It does not provide structural design or compliance guidance.</p>
+			</div>
+		`,
+		relatedCalculatorIds: [
+			'slab-foundation-calculator',
+			'foundation-volume-calculator',
+			'stair-calculator',
+		],
+		relatedStandardIds: ['eurocode-1'],
+		meta: {
+			keywords: ['structural loads', 'dead loads', 'live loads', 'foundations', 'estimation'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-20',
+		},
+	},
+	// Dead Load vs Live Load (EN) - ASCE loads hub support
+	{
+		id: 'dead-load-vs-live-load',
+		slug: 'dead-load-vs-live-load',
+		locale: 'en',
+		title: 'Dead Load vs Live Load',
+		shortDescription:
+			'Compare permanent and variable loads, understand their sources, and see how they influence structural sizing.',
+		contentHtml: `
+			<h2>Two Core Load Categories</h2>
+			<p>Design standards split loads into <strong>dead loads</strong> (permanent) and <strong>live loads</strong> (variable). Understanding the difference keeps calculations organized and prevents underestimated forces.</p>
+
+			<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 24px 0;">
+				<div style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; background: #f8fafc;">
+					<h3 style="margin-top: 0; color: #0f172a;">Dead Loads</h3>
+					<ul style="padding-left: 18px; margin: 0;">
+						<li>Self-weight of concrete, steel, wood members</li>
+						<li>Permanent partitions, finishes, built-ins</li>
+						<li>Roofing, cladding, mechanical systems</li>
+					</ul>
+				</div>
+				<div style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; background: #f0fdf4;">
+					<h3 style="margin-top: 0; color: #064e3b;">Live Loads</h3>
+					<ul style="padding-left: 18px; margin: 0;">
+						<li>People, furniture, movable equipment</li>
+						<li>Vehicles, storage pallets, temporary machinery</li>
+						<li>Any usage-driven load that can appear or disappear</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2>Why the Distinction Matters</h2>
+			<ul>
+				<li>Dead loads rarely change, so they anchor the baseline for structural sizing.</li>
+				<li>Live loads fluctuate, so ASCE 7 supplies default values based on occupancy.</li>
+				<li>Combining both with environmental effects ensures conservative design.</li>
+			</ul>
+
+			<h2>Using Calculators</h2>
+			<p>When you estimate slab or foundation size, start with approximate dead load from materials, then layer in the governing live load category. Online calculators give quick quantities, but the final selection of load values must match local code tables.</p>
+		`,
+		relatedCalculatorIds: [
+			'slab-foundation-calculator',
+			'foundation-volume-calculator',
+			'concrete-volume-calculator',
+		],
+		relatedStandardIds: [],
+		meta: {
+			keywords: ['dead load', 'live load', 'structural loads', 'ASCE 7', 'building design'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-10',
+		},
+	},
+	// Why Foundations Depend on Loads (EN) - ASCE loads hub support
+	{
+		id: 'why-foundations-depend-on-loads',
+		slug: 'why-foundations-depend-on-loads',
+		locale: 'en',
+		title: 'Why Foundations Depend on Loads',
+		shortDescription:
+			'See how structural load assumptions flow into footing width, slab thickness, and reinforcement decisions.',
+		contentHtml: `
+			<h2>Loads Drive Bearing Pressures</h2>
+			<p>Foundations transfer structural loads into soil. Higher loads or weaker soils demand larger contact areas to keep bearing pressure below allowable values.</p>
+			<ul>
+				<li>Double the load → roughly double the required footing area when soil capacity stays constant.</li>
+				<li>Better soil (higher allowable pressure) → smaller foundations for the same load.</li>
+			</ul>
+
+			<h2>Slab Thickness and Reinforcement</h2>
+			<p>Slabs distributing heavy live loads need additional thickness and reinforcement. ASCE 7 load categories inform the assumed wheel loads, pallet loads, or occupancy loads that feed these sizing decisions.</p>
+
+			<h2>Serviceability Considerations</h2>
+			<p>Loads affect more than strength. They control settlement, crack widths, and deflection. Higher live loads can produce noticeable floor vibration unless stiffness increases.</p>
+
+			<h2>Planning Workflow</h2>
+			<ol>
+				<li>Gather dead load estimates from material takeoffs.</li>
+				<li>Select the appropriate ASCE 7 live load category.</li>
+				<li>Combine loads per code to find governing reactions.</li>
+				<li>Size foundations and slabs preliminarily, then verify with an engineer.</li>
+			</ol>
+		`,
+		relatedCalculatorIds: [
+			'slab-foundation-calculator',
+			'foundation-volume-calculator',
+			'rebar-calculator',
+		],
+		relatedStandardIds: [],
+		meta: {
+			keywords: ['foundations', 'structural loads', 'bearing capacity', 'slabs', 'ASCE'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-10',
+		},
+	},
+	// Concrete Basics for Construction (EN) - Eurocode 2
+	{
+		id: 'concrete-basics-for-construction',
+		slug: 'concrete-basics-for-construction',
+		locale: 'en',
+		title: 'Concrete Basics for Construction',
+		shortDescription:
+			'Learn the fundamentals of concrete in construction, including mix ratios, volume calculations, and reinforcement basics.',
+		contentHtml: `
+			<h2>Understanding Concrete in Construction</h2>
+			<p>Concrete is one of the most widely used construction materials in the world. It's strong, durable, and versatile - used in everything from foundations and slabs to columns and beams. Understanding concrete basics helps you make better decisions in construction projects.</p>
+			<p>Concrete is a composite material made by mixing cement, water, and aggregates (sand and gravel). When these ingredients combine, a chemical reaction occurs that creates a strong, stone-like material.</p>
+			
+			<div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 12px; padding: 24px; margin: 32px 0; color: white;">
+				<h3 style="color: white; margin-top: 0; font-size: 1.25rem; font-weight: 600;">🏗️ Key Concept</h3>
+				<p style="color: rgba(255,255,255,0.9); margin-bottom: 0;">Concrete strength and properties depend on the mix proportions. Different projects require different concrete mixes based on strength requirements and exposure conditions.</p>
+			</div>
+			
+			<h2>Concrete Components</h2>
+			
+			<h3>Cement</h3>
+			<p>Cement is the binding agent that holds concrete together. When mixed with water, it forms a paste that hardens and binds the aggregates. The most common type is Portland cement, which comes in different grades for different strength requirements.</p>
+			
+			<h3>Aggregates</h3>
+			<p>Aggregates provide bulk and strength to concrete. They come in two main types:</p>
+			<ul>
+				<li><strong>Fine aggregates (sand):</strong> Small particles that fill spaces between larger aggregates</li>
+				<li><strong>Coarse aggregates (gravel):</strong> Larger particles that provide structural strength</li>
+			</ul>
+			<p>The size and quality of aggregates affect concrete strength, workability, and durability.</p>
+			
+			<h3>Water</h3>
+			<p>Water activates the cement and makes the concrete workable. The amount of water is critical - too little makes concrete hard to work with, too much weakens the final product. The water-to-cement ratio is a key factor in concrete strength.</p>
+			
+			<h2>Concrete Mix Ratios</h2>
+			<p>Mix ratios describe the proportions of cement, sand, and gravel in concrete. Common ratios include:</p>
+			
+			<div style="background: #f0f9ff; border-left: 4px solid #3b82f6; padding: 20px; margin: 24px 0; border-radius: 8px;">
+				<p style="margin: 0 0 12px 0; font-weight: 600; color: #1e40af;">Common Mix Ratios:</p>
+				<ul style="margin: 0; padding-left: 20px; color: #1e3a8a;">
+					<li style="margin-bottom: 8px;"><strong>1:2:4:</strong> Standard mix - 1 part cement, 2 parts sand, 4 parts gravel</li>
+					<li style="margin-bottom: 8px;"><strong>1:3:6:</strong> Lean mix - less cement, used for lower strength requirements</li>
+					<li style="margin-bottom: 0;"><strong>1:1.5:3:</strong> Rich mix - more cement, used for higher strength requirements</li>
+				</ul>
+			</div>
+			
+			<p>Different projects require different mix ratios based on:</p>
+			<ul>
+				<li>Strength requirements (foundations need stronger concrete than sidewalks)</li>
+				<li>Exposure conditions (outdoor concrete needs different properties than indoor)</li>
+				<li>Workability needs (some applications require more fluid concrete)</li>
+			</ul>
+			
+			<h2>Concrete Volume Calculations</h2>
+			<p>Calculating concrete volume is essential for ordering materials and estimating costs. Volume depends on the shape and dimensions of the concrete element:</p>
+			
+			<ul>
+				<li><strong>Slabs:</strong> Length × Width × Thickness</li>
+				<li><strong>Footings:</strong> Length × Width × Height</li>
+				<li><strong>Columns:</strong> π × Radius² × Height (for cylindrical columns)</li>
+			</ul>
+			
+			<p>It's important to add a waste factor (typically 5-10%) to account for spillage, uneven surfaces, and measurement errors. Always order slightly more than calculated to ensure you have enough.</p>
+			
+			<h2>Reinforcement Basics</h2>
+			<p>Concrete is strong in compression but weak in tension. To handle tension forces, we add steel reinforcement (rebar). This creates reinforced concrete, which can handle both compression and tension.</p>
+			
+			<p>Key concepts in reinforcement:</p>
+			<ul>
+				<li><strong>Rebar spacing:</strong> How far apart reinforcement bars are placed - closer spacing means more reinforcement</li>
+				<li><strong>Cover:</strong> The distance between rebar and the concrete surface - protects steel from corrosion</li>
+				<li><strong>Layers:</strong> Some slabs need reinforcement in multiple layers for adequate strength</li>
+			</ul>
+			
+			<h2>Concrete Strength Grades</h2>
+			<p>Concrete is classified by strength grades, which indicate its compressive strength. Common grades include:</p>
+			<ul>
+				<li>Lower grades (C15-C25): For foundations and non-structural elements</li>
+				<li>Standard grades (C30-C40): For most structural applications</li>
+				<li>High-strength grades (C50+): For special applications requiring very high strength</li>
+			</ul>
+			<p>Higher strength concrete requires more cement and careful mix design, but provides better durability and load-carrying capacity.</p>
+			
+			<h2>Practical Applications</h2>
+			<p>Understanding concrete basics helps you:</p>
+			<ul>
+				<li>Estimate material quantities for construction projects</li>
+				<li>Choose appropriate mix ratios for different applications</li>
+				<li>Calculate costs based on concrete volume</li>
+				<li>Understand why different projects use different concrete types</li>
+			</ul>
+			
+			<div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 24px; margin: 24px 0;">
+				<p style="font-weight: 600; color: #92400e; margin-bottom: 8px;">💡 Remember</p>
+				<p style="color: #78350f; margin: 0;">Concrete properties depend on mix proportions, materials quality, and proper curing. Always follow recommended practices for mixing, placing, and curing concrete to achieve the desired strength and durability.</p>
+			</div>
+		`,
+		relatedCalculatorIds: ['concrete-volume-calculator', 'cement-calculator', 'rebar-calculator'],
+		relatedStandardIds: ['eurocode-2'],
+		meta: {
+			keywords: ['concrete', 'cement', 'mix ratio', 'concrete volume', 'reinforcement', 'construction materials', 'rebar'],
+			author: 'FirstCalc',
+			publishedDate: '2024-01-25',
+		},
+	},
+	// Foundation Types Explained (EN) - DIN hub support
+	{
+		id: 'foundation-types-explained',
+		slug: 'foundation-types-explained',
+		locale: 'en',
+		title: 'Foundation Types Explained: Strip, Slab, and Pile Foundations',
+		shortDescription:
+			'Learn how strip, slab, and pile foundations share loads, when each option fits, and why geotechnical input matters.',
+		contentHtml: `
+			<h2>1. What foundations do</h2>
+			<p>Foundations transfer loads from the building into soil. Their main job is to keep settlement controlled and prevent overturning or sliding. Standards such as <a href="/standards/ISO/soil-and-foundations">ISO soil &amp; foundation guidance</a> explain how soil investigations feed into this choice, while <a href="/standards/EU/eurocode-2">Eurocode 2</a> describes the concrete and reinforcement rules used to build each foundation type.</p>
+
+			<h2>2. Strip foundations</h2>
+			<p>Strip (continuous) footings run beneath load-bearing walls. They work best on relatively uniform soils with moderate bearing capacity—typical for masonry houses or low-rise buildings.</p>
+			<ul>
+				<li>Advantages: simple formwork, minimal excavation depth, economical for repetitive wall lines.</li>
+				<li>Limitations: not ideal for very soft soils or heavy point loads, may need thickened pads under columns.</li>
+			</ul>
+			<p>Use the <a href="/calculators/construction/strip-foundation-calculator">Strip Foundation Calculator</a> to estimate width, depth, and concrete volume before a geotechnical report arrives.</p>
+
+			<h2>3. Slab foundations</h2>
+			<p>Slab-on-grade foundations are large reinforced slabs that spread loads across a wide area. They suit light commercial or residential projects where soil capacity is moderate and frost depth is shallow.</p>
+			<ul>
+				<li>Advantages: acts as both floor and foundation, good for distributed loads, simplifies services routing.</li>
+				<li>Limitations: requires careful soil preparation, can crack if subgrade support varies.</li>
+			</ul>
+			<p>Estimate thickness and concrete quantities with the <a href="/calculators/construction/slab-foundation-calculator">Slab Foundation Calculator</a> and refine totals using the <a href="/calculators/construction/foundation-volume-calculator">Foundation Volume Calculator</a>.</p>
+
+			<h2>4. Pile foundations</h2>
+			<p>Piles transfer loads to deeper, stronger layers when near-surface soils are weak or when uplift forces are high. They are common for high-rises, industrial plants, and sites with high groundwater.</p>
+			<ul>
+				<li>Advantages: bypass soft soil, resist uplift, control settlement in challenging ground.</li>
+				<li>Limitations: require specialized equipment, higher cost, and detailed design.</li>
+			</ul>
+			<p>The <a href="/calculators/construction/pile-foundation-calculator">Pile Foundation Calculator</a> offers first-pass quantities (number of piles, approximate length) so procurement teams can plan budgets while waiting for test results.</p>
+
+			<h2>5. Estimation vs structural design</h2>
+			<p>Estimators rely on typical soil values and simple load assumptions to size foundations quickly. These numbers help compare options and order materials, but they do not replace engineered design. Once soil investigations are complete, structural engineers re-calculate footing sizes using the actual parameters prescribed by ISO guidance, Eurocode 2, or local codes. Always treat calculator outputs as preliminary.</p>
+
+			<div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 24px; margin-top: 32px;">
+				<p style="margin: 0; font-weight: 600; color: #92400e;">Educational notice</p>
+				<p style="margin: 8px 0 0 0; color: #78350f;">These concepts support planning only. Final foundation design requires qualified engineers and current regulations.</p>
+			</div>
+		`,
+		relatedCalculatorIds: [
+			'strip-foundation-calculator',
+			'slab-foundation-calculator',
+			'pile-foundation-calculator',
+			'foundation-volume-calculator',
+		],
+		relatedStandardIds: ['iso-soil-foundations'],
+		meta: {
+			keywords: ['foundations', 'strip footings', 'slab-on-grade', 'piles', 'estimation'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-20',
+		},
+	},
+	// Soil Basics for Foundations (EN) - SP/SNiP hub support
+	{
+		id: 'soil-basics-for-foundations',
+		slug: 'soil-basics-for-foundations',
+		locale: 'en',
+		title: 'Soil Basics for Foundations',
+		shortDescription:
+			'Understand how soil types, bearing capacity, and groundwater inform Russian foundation choices.',
+		contentHtml: `
+			<h2>Why Soil Matters</h2>
+			<p>Foundations transfer building loads to soil. The soil's strength, compressibility, and drainage characteristics decide how large or deep a foundation must be.</p>
+
+			<h2>Key Soil Parameters</h2>
+			<ul>
+				<li><strong>Bearing capacity:</strong> load the soil can safely resist.</li>
+				<li><strong>Compressibility:</strong> affects settlement and differential movement.</li>
+				<li><strong>Groundwater:</strong> influences buoyancy, frost heave, and construction methods.</li>
+			</ul>
+
+			<h2>Using Investigations</h2>
+			<p>Russian SP documents require site investigations. Logs, lab tests, and in-situ tests supply parameters for strip, slab, or pile foundations.</p>
+		`,
+		relatedCalculatorIds: [
+			'strip-foundation-calculator',
+			'slab-foundation-calculator',
+			'pile-foundation-calculator',
+		],
+		relatedStandardIds: ['sp-snip-foundations-hub', 'iso-soil-foundations'],
+		meta: {
+			keywords: ['soil', 'foundations', 'geotechnical', 'Russia'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-15',
+		},
+	},
+	// When to Use Piles (EN) - SP/SNiP hub support
+	{
+		id: 'when-to-use-piles',
+		slug: 'when-to-use-piles',
+		locale: 'en',
+		title: 'When to Use Piles',
+		shortDescription:
+			'Learn scenarios where piles help Russian projects deal with weak soils, uplift, or high water tables.',
+		contentHtml: `
+			<h2>Piles vs. Shallow Foundations</h2>
+			<p>Piles transfer loads to deeper, stronger soils or rock. They also resist uplift from wind or frost if designed correctly.</p>
+
+			<h2>Common Triggers</h2>
+			<ul>
+				<li>Soft surface clays that cannot support strip or slab footings.</li>
+				<li>Large uplift forces from wind or seismic actions.</li>
+				<li>Construction near water where scour or erosion reduces bearing capacity.</li>
+			</ul>
+
+			<h2>Early Estimation</h2>
+			<p>Use preliminary load data to estimate pile quantity and length, then coordinate with geotechnical engineers and SP documents for final design.</p>
+		`,
+		relatedCalculatorIds: ['pile-foundation-calculator', 'foundation-volume-calculator'],
+		relatedStandardIds: ['sp-snip-foundations-hub'],
+		meta: {
+			keywords: ['piles', 'foundations', 'Russia', 'geotechnical'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-15',
+		},
+	},
+	// Concrete Foundations Explained (EN) - SP/SNiP hub support
+	{
+		id: 'concrete-foundations-explained',
+		slug: 'concrete-foundations-explained',
+		locale: 'en',
+		title: 'Concrete Foundations Explained',
+		shortDescription:
+			'Overview of how concrete materials, reinforcement, and curing affect Russian foundation practice.',
+		contentHtml: `
+			<h2>Concrete as a Foundation Material</h2>
+			<p>Concrete foundations mix cement, aggregates, and reinforcement to spread loads and control cracking. Russian standards specify mix classes, durability requirements, and execution steps.</p>
+
+			<h2>Reinforcement Concepts</h2>
+			<p>Rebar handles tension where soil reactions create bending or uplift. Cover thickness and bar spacing protect steel, aligning with SP and SNiP tolerances.</p>
+
+			<h2>Curing and Quality Control</h2>
+			<p>Temperature, moisture, and testing requirements ensure concrete reaches the design strength assumed in calculations.</p>
+		`,
+		relatedCalculatorIds: [
+			'concrete-volume-calculator',
+			'concrete-mix-ratio-calculator',
+			'rebar-calculator',
+		],
+		relatedStandardIds: ['sp-snip-foundations-hub'],
+		meta: {
+			keywords: ['concrete foundations', 'rebar', 'Russia', 'construction'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-15',
+		},
+	},
+	// Concrete Mix Ratios Explained (EN) - ACI hub support
+	{
+		id: 'concrete-mix-ratios-explained',
+		slug: 'concrete-mix-ratios-explained',
+		locale: 'en',
+		title: 'Concrete Mix Ratios Explained',
+		shortDescription:
+			'Understand how different cement, sand, and aggregate proportions influence strength, workability, and durability.',
+		contentHtml: `
+			<h2>Why Mix Ratios Matter</h2>
+			<p>Concrete performance depends on the relative amounts of cement paste and aggregate. Mix ratios describe those proportions so field crews can repeat the same performance every time.</p>
+
+			<div style="background: #ecfccb; border-left: 4px solid #65a30d; padding: 20px; border-radius: 8px; margin: 24px 0;">
+				<p style="margin: 0;">A typical notation such as <strong>1:2:4</strong> means 1 part cement, 2 parts sand, and 4 parts gravel by volume.</p>
+			</div>
+
+			<h2>Common Mix Families</h2>
+			<ul>
+				<li><strong>Lean mixes (1:3:6):</strong> Lower cement content for mass concrete or blinding layers.</li>
+				<li><strong>Standard mixes (1:2:4):</strong> Balance workability and strength for slabs and footings.</li>
+				<li><strong>Rich mixes (1:1.5:3):</strong> Higher cement content for beams, columns, or harsh exposure.</li>
+			</ul>
+
+			<h2>Tailoring a Mix</h2>
+			<p>Adjustments respond to project demands:</p>
+			<ul>
+				<li>Increase cement for higher compressive strength.</li>
+				<li>Modify sand content to shift workability.</li>
+				<li>Add admixtures to improve setting, durability, or pumpability.</li>
+			</ul>
+
+			<h2>Keeping Records</h2>
+			<p>Documenting mix ratios, batch tickets, and cylinder breaks helps teams demonstrate quality control and trace issues back to specific pours.</p>
+		`,
+		relatedCalculatorIds: [
+			'concrete-mix-ratio-calculator',
+			'concrete-volume-calculator',
+			'cement-calculator',
+		],
+		relatedStandardIds: [],
+		meta: {
+			keywords: ['concrete mix ratio', 'cement', 'aggregate', 'construction materials'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-05',
+		},
+	},
+	// Concrete vs Reinforced Concrete (EN) - Eurocode 2
+	{
+		id: 'concrete-vs-reinforced-concrete',
+		slug: 'concrete-vs-reinforced-concrete',
+		locale: 'en',
+		title: 'Concrete vs Reinforced Concrete – Key Differences Explained',
+		shortDescription:
+			'Learn why plain concrete needs reinforcement, how steel and concrete share loads, and what that means for quick estimates.',
+		contentHtml: `
+			<h2>1. What concrete is</h2>
+			<p>Concrete is a mix of cement, water, sand, and coarse aggregate. Once it hardens, it becomes strong at resisting compression (squeezing). Standards such as <a href="/standards/EU/eurocode-2">Eurocode 2</a> describe how design values are derived, but at a conceptual level you only need to remember: more cement and better aggregates usually mean higher compressive strength.</p>
+
+			<h2>2. Why reinforcement is needed</h2>
+			<p>Concrete is weak in tension (pulling). Loads that cause bending or uplift create tensile stresses that plain concrete cannot resist without cracking. Reinforcement addresses that weakness so beams, slabs, and foundations can handle everyday forces without failing.</p>
+
+			<h2>3. How concrete and steel work together</h2>
+			<ul>
+				<li><strong>Bond:</strong> Ribbed bars grip the surrounding concrete so loads transfer from the concrete into the steel.</li>
+				<li><strong>Compatible movement:</strong> Concrete and steel expand similarly under temperature changes, so they stay locked together.</li>
+				<li><strong>Division of labor:</strong> Concrete carries compression while steel carries tension, giving a balanced structural system.</li>
+			</ul>
+			<p>In U.S. practice you’ll see similar principles described in ACI concrete guides, even though detailing rules differ from Eurocode 2.</p>
+
+			<h2>4. Practical implications for estimation</h2>
+			<p>When estimating, you rarely know the final reinforcement schedule, but you can still approximate quantities:</p>
+			<ul>
+				<li>Use the <a href="/calculators/construction/concrete-volume-calculator">Concrete Volume Calculator</a> to understand how much material a footing or slab needs.</li>
+				<li>The <a href="/calculators/construction/concrete-mix-ratio-calculator">Concrete Mix Ratio Calculator</a> shows how mix choices affect cement, sand, and gravel orders.</li>
+				<li>The <a href="/calculators/construction/rebar-calculator">Rebar Calculator</a> helps convert a spacing assumption into linear metres and weight so you can budget steel.</li>
+			</ul>
+
+			<h2>5. Common misconceptions</h2>
+			<ul>
+				<li><strong>“Concrete is strong enough on its own.”</strong> Only true for compression-only cases. Anything that bends or sees uplift needs reinforcement.</li>
+				<li><strong>“Rebar is optional for small projects.”</strong> Even small slabs can crack without proper reinforcement; local codes decide when steel is allowed or required.</li>
+				<li><strong>“Estimating tools replace engineering.”</strong> Calculators assist with quantities, but only qualified engineers can finalize reinforcement layouts and verify compliance.</li>
+			</ul>
+
+			<div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 24px; margin-top: 32px;">
+				<p style="margin: 0; font-weight: 600; color: #92400e;">Educational notice</p>
+				<p style="margin: 8px 0 0 0; color: #78350f;">This article explains concepts only. It is not structural design or compliance guidance.</p>
+			</div>
+		`,
+		relatedCalculatorIds: [
+			'concrete-volume-calculator',
+			'concrete-mix-ratio-calculator',
+			'rebar-calculator',
+		],
+		relatedStandardIds: ['eurocode-2'],
+		meta: {
+			keywords: ['concrete', 'reinforced concrete', 'rebar', 'Eurocode 2'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-20',
+		},
+	},
+	// Rebar Estimation Basics (EN) - ACI hub support
+	{
+		id: 'rebar-estimation-basics',
+		slug: 'rebar-estimation-basics',
+		locale: 'en',
+		title: 'Rebar Estimation Basics',
+		shortDescription:
+			'Learn how early-stage projects approximate reinforcement quantities before detailed structural design.',
+		contentHtml: `
+			<h2>Rebar in Early Planning</h2>
+			<p>Before drawings are finalized, estimators still need a sense of how much reinforcement a project may require. Basic unit weights and spacing assumptions provide that first-pass number.</p>
+
+			<h2>Key Inputs</h2>
+			<ul>
+				<li><strong>Bar size:</strong> Determines unit weight per linear foot.</li>
+				<li><strong>Spacing:</strong> Drives how many bars fit across each slab or wall bay.</li>
+				<li><strong>Lap lengths:</strong> Adds extra footage to account for overlaps and hooks.</li>
+			</ul>
+
+			<h2>Estimating Workflow</h2>
+			<ol>
+				<li>Break the structure into repeating elements (slabs, footings, walls).</li>
+				<li>Assume a bar size and spacing consistent with similar projects.</li>
+				<li>Multiply linear footage by unit weight to reach tonnage.</li>
+				<li>Add a contingency (often 5-10%) for waste and detailing adjustments.</li>
+			</ol>
+
+			<h2>Why It Stays Approximate</h2>
+			<p>Only licensed engineers can finalize reinforcement schedules. Early estimates ensure procurement and budgeting stay on track but must never replace sealed calculations.</p>
+		`,
+		relatedCalculatorIds: ['rebar-calculator', 'rebar-weight-calculator'],
+		relatedStandardIds: [],
+		meta: {
+			keywords: ['rebar', 'reinforcement', 'steel takeoff', 'construction estimation'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-05',
+		},
+	},
+	// Why Soil Investigation Matters (EN) - ISO
+	{
+		id: 'why-soil-investigation-matters',
+		slug: 'why-soil-investigation-matters',
+		locale: 'en',
+		title: 'Why Soil Investigation Matters for Foundations',
+		shortDescription:
+			'Understand why soil assumptions are risky, how bearing capacity and settlement vary, and when testing becomes mandatory.',
+		contentHtml: `
+			<h2>1. Why soil properties vary</h2>
+			<p>Even neighboring plots can sit on completely different soils—dense sand in one corner, soft clay in another. Past construction, groundwater, and seasonal moisture shifts all change how the ground behaves. <a href="/standards/ISO/soil-and-foundations">ISO geotechnical guidance</a> exists because guessing leads to surprises.</p>
+
+			<h2>2. Bearing capacity (concept)</h2>
+			<p>Bearing capacity describes how much pressure the soil can resist before failing. Strong soils let you keep foundations compact; weak soils demand wider footings or piles. Without testing, you might undersize the footing (risking failure) or oversize it (wasting concrete and money).</p>
+
+			<h2>3. Settlement and groundwater risks</h2>
+			<p>Soils compress under load. Some settle uniformly, others settle unevenly and crack slabs. Groundwater can reduce strength, cause buoyancy, or add frost-heave risks. Investigation reveals how much movement to expect and whether drainage or deeper foundations are required.</p>
+
+			<h2>4. Why calculators use assumptions</h2>
+			<p>Tools like the <a href="/calculators/construction/strip-foundation-calculator">Strip Foundation Calculator</a>, <a href="/calculators/construction/slab-foundation-calculator">Slab Foundation Calculator</a>, and <a href="/calculators/construction/pile-foundation-calculator">Pile Foundation Calculator</a> rely on typical soil parameters so you can estimate concrete and reinforcement. They are great for budgeting, but final design must swap those assumptions for real test data.</p>
+
+			<h2>5. When soil investigation is mandatory</h2>
+			<ul>
+				<li>New construction on unknown or variable soils.</li>
+				<li>Projects with basements, piles, or heavy industrial loads.</li>
+				<li>Sites near slopes, water, or past failures.</li>
+				<li>Whenever codes or lenders require a geotechnical report (common for commercial work).</li>
+			</ul>
+
+			<div style="background: #fee2e2; border: 2px solid #ef4444; border-radius: 12px; padding: 24px; margin-top: 32px;">
+				<p style="margin: 0; font-weight: 600; color: #b91c1c;">Strong warning</p>
+				<p style="margin: 8px 0 0 0; color: #7f1d1d;">Soil assumptions are dangerous. Always consult qualified geotechnical engineers and use current regulations before finalizing foundations.</p>
+			</div>
+		`,
+		relatedCalculatorIds: [
+			'strip-foundation-calculator',
+			'slab-foundation-calculator',
+			'pile-foundation-calculator',
+		],
+		relatedStandardIds: ['iso-soil-foundations'],
+		meta: {
+			keywords: ['soil investigation', 'bearing capacity', 'groundwater', 'foundation risk'],
+			author: 'FirstCalc',
+			publishedDate: '2024-11-20',
 		},
 	},
 ]

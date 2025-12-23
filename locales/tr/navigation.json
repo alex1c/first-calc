@@ -12,7 +12,8 @@
 		"home": "Ana Sayfa",
 		"calculators": "Hesaplayıcılar",
 		"standards": "Standartlar",
-		"learn": "Öğren"
+		"learn": "Öğren",
+		"tools": "Araçlar"
 	},
 	"categories": {
 		"math": "Matematik",
@@ -21,7 +22,8 @@
 		"geometry": "Geometri",
 		"everyday": "Günlük",
 		"engineering": "Mühendislik",
-		"business": "İş"
+		"business": "İş",
+		"compatibility": "Uyumluluk"
 	},
 	"categoryDescriptions": {
 		"math": "Cebir, hesap ve sayı işlemleri için matematik hesaplayıcıları",
@@ -30,7 +32,8 @@
 		"geometry": "Alan, hacim ve şekil hesaplamaları için geometrik hesaplayıcılar",
 		"everyday": "Günlük hesaplamalar ve dönüşümler için günlük hesaplayıcılar",
 		"engineering": "Teknik ve bilimsel hesaplamalar için mühendislik hesaplayıcıları",
-		"business": "Kar, ROI ve iş metrikleri için iş hesaplayıcıları"
+		"business": "Kar, ROI ve iş metrikleri için iş hesaplayıcıları",
+		"compatibility": "Tarihler ve basit kalıplara dayanan eğlenceli, kendini keşfetme araçları."
 	},
 	"previous": "Önceki",
 	"next": "Sonraki"

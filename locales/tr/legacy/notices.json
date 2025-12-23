@@ -2,8 +2,13 @@
 	"numbersToWords": {
 		"localizedComingSoon": "Bu araç şu anda İngilizce kelimeler gösteriyor. Yerelleştirilmiş sürümler geliştiriliyor.",
 		"contentInEnglish": "İçerik İngilizce"
+	},
+	"classicBadge": {
+		"label": "Klasik araç",
+		"helper": "Bu araç yüksek kullanım hacmine sahip klasik bir yardımcıdır."
 	}
 }
+
 
 
 

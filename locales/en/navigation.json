@@ -12,7 +12,8 @@
 		"home": "Home",
 		"calculators": "Calculators",
 		"standards": "Standards",
-		"learn": "Learn"
+		"learn": "Learn",
+		"tools": "Tools"
 	},
 	"categories": {
 		"math": "Mathematics",
@@ -22,7 +23,9 @@
 		"geometry": "Geometry",
 		"everyday": "Everyday",
 		"engineering": "Engineering",
-		"business": "Business"
+		"business": "Business",
+		"construction": "Construction",
+		"compatibility": "Compatibility"
 	},
 	"categoryDescriptions": {
 		"math": "Mathematical calculators for algebra, calculus, and number operations",
@@ -32,7 +35,9 @@
 		"geometry": "Geometric calculators for area, volume, and shape calculations",
 		"everyday": "Everyday calculators for common calculations and conversions",
 		"engineering": "Engineering calculators for technical and scientific calculations",
-		"business": "Business calculators for profit, ROI, and business metrics"
+		"business": "Business calculators for profit, ROI, and business metrics",
+		"construction": "Construction calculators for materials, foundations, and building projects",
+		"compatibility": "Fun and self-reflection tools based on dates and simple patterns."
 	},
 	"previous": "Previous",
 	"next": "Next"

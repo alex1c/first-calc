@@ -86,3 +86,4 @@ registerCalculation('calculatePythagorean', calculatePythagorean)
 
 
 
+

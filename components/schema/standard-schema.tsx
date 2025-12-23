@@ -12,11 +12,17 @@ export function StandardSchema({
 	standard,
 	canonicalUrl,
 }: StandardSchemaProps) {
+	// Determine about field based on standard type
+	let about: string | string[] = standard.country
+	if (standard.id === 'iso-soil-foundations') {
+		about = ['soil mechanics', 'geotechnical engineering', 'foundations']
+	}
+
 	const schema = {
 		'@context': 'https://schema.org',
 		'@type': 'TechArticle',
 		headline: standard.title,
-		about: standard.country,
+		about: about,
 		url: canonicalUrl,
 		description: standard.shortDescription,
 		inLanguage: standard.locale,
@@ -29,6 +35,7 @@ export function StandardSchema({
 		/>
 	)
 }
+
 
 
 

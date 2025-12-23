@@ -12,7 +12,8 @@
 		"home": "Inicio",
 		"calculators": "Calculadoras",
 		"standards": "Estándares",
-		"learn": "Aprender"
+		"learn": "Aprender",
+		"tools": "Herramientas"
 	},
 	"categories": {
 		"math": "Matemáticas",
@@ -21,7 +22,8 @@
 		"geometry": "Geometría",
 		"everyday": "Cotidiano",
 		"engineering": "Ingeniería",
-		"business": "Negocios"
+		"business": "Negocios",
+		"compatibility": "Compatibilidad"
 	},
 	"categoryDescriptions": {
 		"math": "Calculadoras matemáticas para álgebra, cálculo y operaciones con números",
@@ -30,7 +32,8 @@
 		"geometry": "Calculadoras geométricas para área, volumen y cálculos de formas",
 		"everyday": "Calculadoras cotidianas para cálculos comunes y conversiones",
 		"engineering": "Calculadoras de ingeniería para cálculos técnicos y científicos",
-		"business": "Calculadoras de negocios para ganancias, ROI y métricas empresariales"
+		"business": "Calculadoras de negocios para ganancias, ROI y métricas empresariales",
+		"compatibility": "Herramientas lúdicas y de autorreflexión basadas en fechas y patrones simples."
 	},
 	"previous": "Anterior",
 	"next": "Siguiente"

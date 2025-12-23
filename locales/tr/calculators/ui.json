@@ -1,7 +1,12 @@
 {
 	"page": {
 		"title": "Hesaplayıcılar",
-		"description": "Ücretsiz online hesaplayıcı koleksiyonumuzu keşfedin"
+		"description": "Ücretsiz online hesaplayıcı koleksiyonumuzu keşfedin",
+		"toolsCta": {
+			"title": "Hızlı dönüştürücülere mi ihtiyacınız var?",
+			"description": "Klasik araçlar karmaşık formlar olmadan anında çalışır.",
+			"linkLabel": "Araçlara göz atın"
+		}
 	},
 	"sections": {
 		"popular": "Popüler Hesaplayıcılar",
@@ -23,7 +28,40 @@
 		"geometry": "Geometri",
 		"everyday": "Günlük",
 		"engineering": "Mühendislik",
-		"business": "İş"
+		"business": "İş",
+		"compatibility": "Uyumluluk"
+	},
+	"compatibility": {
+		"title": "Uyumluluk hesaplayıcıları",
+		"subtitle": "Tarihler ve basit kalıplara dayanan eğlenceli, kendini keşfetme araçları.",
+		"clustersTitle": "Uyumluluk temalarını keşfedin",
+		"clustersDescription": "Eğlenceli bir karşılaştırma için bir tema seçin.",
+		"popularTitle": "Popüler uyumluluk hesaplayıcıları",
+		"tryAlsoTitle": "Bunları da deneyin",
+		"tryAlsoDescription": "Diğer eğlenceli uyumluluk araçlarına hızlı geçiş yapın.",
+		"disclaimer": "Sonuçlar yalnızca eğlence ve kendini değerlendirme amaçlıdır.",
+		"clusters": {
+			"dating": {
+				"title": "Flört ve ilişkiler",
+				"description": "İsimleri ve doğum tarihlerini karşılaştırarak hafif bir uyum kontrolü yapın."
+			},
+			"zodiac": {
+				"title": "Burç uyumu",
+				"description": "İki burcun ve elementlerinin nasıl etkileştiğini görün."
+			},
+			"numerology": {
+				"title": "Numeroloji ve yaşam yolları",
+				"description": "Yaşam yolu numaralarını kullanarak daha derin sohbetler başlatın."
+			},
+			"friendship": {
+				"title": "Arkadaşlık ve sosyal bağlar",
+				"description": "Dostlukları veya aile bağlarını hafif istatistiklerle kutlayın."
+			},
+			"work": {
+				"title": "İş ve iş birliği",
+				"description": "Yeni projeden önce ekip arkadaşlarının iletişim tarzlarını karşılaştırın."
+			}
+		}
 	},
 	"search": {
 		"placeholder": "Hesaplayıcı ara...",

@@ -121,3 +121,4 @@ export const calculateRandomNumber: CalculatorFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateRandomNumber', calculateRandomNumber)
 
+

@@ -2,8 +2,13 @@
 	"numbersToWords": {
 		"localizedComingSoon": "This tool currently outputs English words. Localized versions are coming.",
 		"contentInEnglish": "Content in English"
+	},
+	"classicBadge": {
+		"label": "Classic Tool",
+		"helper": "This is a classic utility tool with high-volume usage."
 	}
 }
+
 
 
 

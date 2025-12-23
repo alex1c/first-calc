@@ -155,3 +155,4 @@ export const calculateRoomArea: CalculatorFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateRoomArea', calculateRoomArea)
 
+

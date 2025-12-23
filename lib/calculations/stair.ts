@@ -227,3 +227,4 @@ export const calculateStair: CalculationFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateStair', calculateStair)
 
+

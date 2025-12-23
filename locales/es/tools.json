@@ -1,0 +1,24 @@
+{
+	"page": {
+		"title": "Herramientas y generadores",
+		"subtitle": "Utilidades clásicas para texto, números y conversiones de formato.",
+		"ctaCalculators": "¿Buscas calculadoras interactivas? Explora Calculadoras.",
+		"ctaCalculatorsLabel": "Explorar Calculadoras",
+		"ctaToolsFromCalculators": "¿Prefieres utilidades rápidas? Visita las herramientas clásicas."
+	},
+	"groups": {
+		"numbersText": {
+			"title": "Números y texto",
+			"description": "Convierte números en texto, crea tablas de rangos y maneja valores grandes al instante."
+		},
+		"converters": {
+			"title": "Convertidores",
+			"description": "Convertidores rápidos para porcentajes, números romanos y formatos sin formularios complejos."
+		},
+		"utilities": {
+			"title": "Utilidades clásicas",
+			"description": "Herramientas de alto uso para factores, raíces y otros patrones frecuentes."
+		}
+	}
+}
+

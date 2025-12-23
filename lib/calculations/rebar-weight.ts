@@ -158,3 +158,4 @@ export const calculateRebarWeight: CalculationFunction = (inputs) => {
 // Register the calculation function
 registerCalculation('calculateRebarWeight', calculateRebarWeight)
 
+
