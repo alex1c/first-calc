@@ -1,3 +1,9 @@
+/**
+ * Build and cache normalized search documents for calculators, articles, and standards.
+ *
+ * Each document carries raw and normalized text plus locale metadata used by the
+ * scoring heuristics. Results are cached per locale to avoid repeated registry calls.
+ */
 import type { Locale } from '@/lib/i18n'
 import { calculatorRegistry, articleRegistry } from '@/lib/registry/loader'
 import { getStandardsByLocale } from '@/data/standards'
@@ -123,6 +129,12 @@ function createStandardDocs(locale: Locale, standards: any[]): SearchDocument[] 
 	})
 }
 
+/**
+ * Return cached search documents for a locale.
+ *
+ * Populates the cache on first access by fetching calculators, articles, and
+ * standards through their registries and normalizing their text fields.
+ */
 export async function getDocumentsForLocale(locale: Locale): Promise<SearchDocument[]> {
 	if (!documentsCache.has(locale)) {
 		documentsCache.set(

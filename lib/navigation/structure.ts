@@ -1,6 +1,9 @@
 /**
- * Navigation structure and content strategy
- * Provides functions for popular, new, and recommended calculators
+ * Navigation structure and content strategy.
+ *
+ * Provides helpers to surface curated/popular calculators and to recommend
+ * related items based on category, relationships, and soft heuristics. Used by
+ * homepage and detail pages to keep discovery consistent across locales.
  */
 
 import type { CalculatorDefinition } from '@/lib/calculators/types'
@@ -24,10 +27,10 @@ const POPULAR_CALCULATOR_IDS: Record<string, string[]> = {
 }
 
 /**
- * Get popular calculators for a locale
+ * Get curated popular calculators for a locale using POPULAR_CALCULATOR_IDS.
  */
 export async function getPopularCalculators(
-	locale: string = 'en',
+        locale: string = 'en',
 ): Promise<CalculatorDefinition[]> {
 	const popularIds = POPULAR_CALCULATOR_IDS[locale] || POPULAR_CALCULATOR_IDS['en']
 	const allCalculators = await calculatorRegistry.getAll(locale)
@@ -38,13 +41,14 @@ export async function getPopularCalculators(
 }
 
 /**
- * Get new calculators (recently added)
- * For now, returns calculators sorted by ID (newest first)
- * In future, can use a "createdAt" field
+ * Get recently added calculators.
+ *
+ * Currently sorts by id descending as a proxy for recency; swap to createdAt
+ * timestamps once available.
  */
 export async function getNewCalculators(
-	locale: string = 'en',
-	limit: number = 5,
+        locale: string = 'en',
+        limit: number = 5,
 ): Promise<CalculatorDefinition[]> {
 	const allCalculators = await calculatorRegistry.getAll(locale)
 
@@ -56,12 +60,14 @@ export async function getNewCalculators(
 }
 
 /**
- * Get recommended calculators based on category and locale
- * Uses simple heuristics: same category, related calculators
+ * Get recommended calculators based on category and known relationships.
+ *
+ * Prioritizes explicit relatedIds and category matches while respecting
+ * exclusions (e.g., current calculator id).
  */
 export async function getRecommendedCalculators(
-	locale: string = 'en',
-	options?: {
+        locale: string = 'en',
+        options?: {
 		category?: string
 		excludeIds?: string[]
 		limit?: number
@@ -102,11 +108,11 @@ export async function getRecommendedCalculators(
 }
 
 /**
- * Get calculators by category with popularity boost
+ * Get calculators by category with a popularity boost when curated ids exist.
  */
 export async function getCalculatorsByCategoryWithPopularity(
-	category: string,
-	locale: string = 'en',
+        category: string,
+        locale: string = 'en',
 ): Promise<CalculatorDefinition[]> {
 	const calculators = await calculatorRegistry.getByCategory(category, locale)
 	const popularIds = POPULAR_CALCULATOR_IDS[locale] || []

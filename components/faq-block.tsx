@@ -4,12 +4,15 @@ import { useState } from 'react'
 import type { FAQItem } from '@/lib/calculator-types'
 
 interface FaqBlockProps {
-	faq: FAQItem[]
-	title?: string
+        faq: FAQItem[]
+        title?: string
 }
 
+/**
+ * Accordion-style FAQ block used across calculator and article pages.
+ */
 export function FaqBlock({ faq, title = 'Frequently Asked Questions' }: FaqBlockProps) {
-	const [openIndex, setOpenIndex] = useState<number | null>(null)
+        const [openIndex, setOpenIndex] = useState<number | null>(null)
 
 	if (!faq || faq.length === 0) {
 		return null
