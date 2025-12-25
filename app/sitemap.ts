@@ -195,20 +195,65 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			},
 		})
 
-		sitemapEntries.push({
-			url: `${baseUrl}/${locale}/standards/national/ru/sp-snip-foundations`,
-			lastModified: new Date(),
-			changeFrequency: 'weekly',
-			priority: 0.6,
+                sitemapEntries.push({
+                        url: `${baseUrl}/${locale}/standards/national/ru/sp-snip-foundations`,
+                        lastModified: new Date(),
+                        changeFrequency: 'weekly',
+                        priority: 0.6,
 			alternates: {
 				languages: Object.fromEntries(
 					locales.map((l) => [
 						l,
 						`${baseUrl}/${l}/standards/national/ru/sp-snip-foundations`,
 					]),
-				),
-			},
-		})
+                                ),
+                        },
+                })
+
+                sitemapEntries.push({
+                        url: `${baseUrl}/${locale}/standards/national/ru/sp20-load-concepts`,
+                        lastModified: new Date(),
+                        changeFrequency: 'weekly',
+                        priority: 0.6,
+                        alternates: {
+                                languages: Object.fromEntries(
+                                        locales.map((l) => [
+                                                l,
+                                                `${baseUrl}/${l}/standards/national/ru/sp20-load-concepts`,
+                                        ]),
+                                ),
+                        },
+                })
+
+                sitemapEntries.push({
+                        url: `${baseUrl}/${locale}/standards/national/ru/sp24-soil-foundations`,
+                        lastModified: new Date(),
+                        changeFrequency: 'weekly',
+                        priority: 0.6,
+                        alternates: {
+                                languages: Object.fromEntries(
+                                        locales.map((l) => [
+                                                l,
+                                                `${baseUrl}/${l}/standards/national/ru/sp24-soil-foundations`,
+                                        ]),
+                                ),
+                        },
+                })
+
+                sitemapEntries.push({
+                        url: `${baseUrl}/${locale}/standards/national/ru/sp63-concrete-principles`,
+                        lastModified: new Date(),
+                        changeFrequency: 'weekly',
+                        priority: 0.6,
+                        alternates: {
+                                languages: Object.fromEntries(
+                                        locales.map((l) => [
+                                                l,
+                                                `${baseUrl}/${l}/standards/national/ru/sp63-concrete-principles`,
+                                        ]),
+                                ),
+                        },
+                })
 
 		// Standard countries
 		const countries = getCountries(locale)
