@@ -129,7 +129,7 @@ export default async function RuStandardsLanding({ params }: RuStandardsLandingP
                                                         <h3 className="text-lg font-semibold text-gray-900 mb-2">Бетон и арматура</h3>
                                                         <p className="text-gray-700 text-sm">
                                                                 СП 63 описывает классы бетона, защитные слои и общие принципы
-                                                                расположения арматуры для долговечности и crack-контроля.
+                                                                расположения арматуры для долговечности и контроля трещин.
                                                         </p>
                                                 </div>
                                         </div>
