@@ -20,3 +20,4 @@ export function hasTelegramBot(): boolean {
 	return Boolean(process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN)
 }
 
+

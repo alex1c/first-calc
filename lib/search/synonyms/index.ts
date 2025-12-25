@@ -14,3 +14,4 @@ export function getSynonyms(locale: Locale): Record<string, string[]> {
 	return localesMap[locale] || {}
 }
 
+

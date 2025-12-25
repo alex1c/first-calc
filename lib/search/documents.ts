@@ -146,3 +146,4 @@ export async function getDocumentsForLocale(locale: Locale): Promise<SearchDocum
 	return documentsCache.get(locale)!
 }
 
+
