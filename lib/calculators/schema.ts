@@ -5,7 +5,10 @@
 
 /**
  * Calculator Schema (structure only, no texts)
- * Texts are loaded from locales/{locale}/calculators/items/{slug}.json
+ *
+ * This describes the data the calculation engine needs: ids, inputs, outputs,
+ * and the calculation approach (formula or registered function). All user-facing
+ * copy is provided via locale item files, keeping schema files language-neutral.
  */
 export interface CalculatorSchema {
 	id: string
@@ -41,7 +44,10 @@ export interface CalculatorSchema {
 }
 
 /**
- * Validate calculator schema
+ * Validate a calculator schema loaded from disk.
+ *
+ * Ensures required identifiers, input/output collections, and engine-specific
+ * fields are present before conversion to a runtime definition.
  */
 export function validateCalculatorSchema(schema: unknown): {
 	valid: boolean
@@ -142,12 +148,15 @@ export function validateCalculatorSchema(schema: unknown): {
 }
 
 /**
- * Parse formula string and execute calculation
- * Supports basic math operations: +, -, *, /, %, **, Math functions
+ * Parse a formula string and execute it against numeric variables.
+ *
+ * Supports basic math operations (+, -, *, /, %, **), Math functions, and
+ * simple templated variable substitution. Intended for trusted formulas that
+ * have already passed schema validation.
  */
 export function executeFormula(
-	formula: string,
-	variables: Record<string, number>,
+        formula: string,
+        variables: Record<string, number>,
 ): number {
 	// Create safe evaluation context
 	const context: Record<string, number> = {
@@ -181,13 +190,15 @@ export function executeFormula(
 }
 
 /**
- * Convert CalculatorSchema to CalculatorDefinition
- * Loads content from locales/{locale}/calculators/items/{slug}.json
- * Falls back to autogen if content not found
+ * Convert a `CalculatorSchema` into a localized `CalculatorDefinition`.
+ *
+ * Pulls translated copy from `locales/<locale>/calculators/items/<slug>.json`,
+ * falls back to English defaults when missing, and wires the calculation engine
+ * (formula or registered function). The resulting object is safe for UI render.
  */
 export async function schemaToDefinition(
-	schema: CalculatorSchema,
-	locale: string = 'en',
+        schema: CalculatorSchema,
+        locale: string = 'en',
 ): Promise<import('@/lib/calculators/types').CalculatorDefinition> {
 	// Load content from items file
 	const { loadCalculatorContent, getDefaultCalculatorContent } = await import(
@@ -609,11 +620,14 @@ export async function schemaToDefinition(
 }
 
 /**
- * Load calculator schema from JSON file
- * Note: This function only works on the server side (Node.js environment)
+ * Load a calculator schema JSON file from disk.
+ *
+ * Intended for server-side execution only. Validates the parsed object before
+ * returning it so downstream code can assume the structure matches
+ * `CalculatorSchema`.
  */
 export async function loadCalculatorSchema(
-	filePath: string,
+        filePath: string,
 ): Promise<CalculatorSchema> {
 	// Check if we're on the server side
 	if (typeof window !== 'undefined') {

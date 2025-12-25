@@ -76,14 +76,16 @@ async function loadNamespace(
 }
 
 /**
- * Load and merge multiple namespace dictionaries
- * Uses dynamic imports to avoid bundling all translations
- * Implements server-side caching for performance
+ * Load and merge multiple namespace dictionaries.
+ *
+ * Uses dynamic imports to avoid bundling all translations and merges deep
+ * structures so nested namespaces stay intact. A server-side cache is used in
+ * production; development skips cache to reflect translation edits immediately.
  */
 export async function loadNamespaces(
-	locale: Locale,
-	namespaces: readonly Namespace[],
-	options: LoadNamespacesOptions = {},
+        locale: Locale,
+        namespaces: readonly Namespace[],
+        options: LoadNamespacesOptions = {},
 ): Promise<MergedDictionary> {
 	const { fallbackLocale = defaultLocale, logMissing = false } = options
 

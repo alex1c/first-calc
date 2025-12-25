@@ -1,5 +1,12 @@
 import type { Locale } from '@/lib/i18n'
 import { getDocumentsForLocale } from './documents'
+/**
+ * Lightweight in-memory search that scores calculators, articles, and standards.
+ *
+ * Text is normalized per locale, expanded with synonyms, and ranked with simple
+ * weighted heuristics. Designed for server-side usage without external search
+ * infrastructure.
+ */
 import { getSynonyms } from './synonyms'
 import { normalizeText, tokenize } from './utils'
 import type { SearchResponse, SearchOptions, SearchDocument, SearchGroup, SearchHit } from './types'
@@ -112,10 +119,16 @@ function buildGroup(
 	}
 }
 
+/**
+ * Search calculators, articles, and standards for a locale.
+ *
+ * Falls back to English when no results are found in the requested locale,
+ * retaining a flag so the UI can display a "Content in English" badge.
+ */
 export async function searchPortal(
-	query: string,
-	locale: Locale,
-	options: SearchOptions = {},
+        query: string,
+        locale: Locale,
+        options: SearchOptions = {},
 ): Promise<SearchResponse> {
 	const limit = options.limitPerType ?? 20
 	const normalizedQuery = normalizeText(query)

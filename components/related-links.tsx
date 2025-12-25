@@ -6,8 +6,8 @@ interface RelatedLink {
 }
 
 interface RelatedLinksProps {
-	locale: string
-	links?: RelatedLink[]
+        locale: string
+        links?: RelatedLink[]
 }
 
 // Default related links for legacy services
@@ -27,9 +27,15 @@ const defaultCalculatorLinks: RelatedLink[] = [
 
 // Common links for all pages
 const commonLinks: RelatedLink[] = [
-	{ href: '/calculators', label: 'All Calculators' },
+        { href: '/calculators', label: 'All Calculators' },
 ]
 
+/**
+ * Generic related links list used on legacy and calculator pages.
+ *
+ * Accepts explicit links or falls back to curated defaults while prefixing
+ * locale-aware paths.
+ */
 export function RelatedLinks({ locale, links }: RelatedLinksProps) {
 	// Use provided links or default based on context
 	const displayLinks =
