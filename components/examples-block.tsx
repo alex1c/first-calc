@@ -1,14 +1,20 @@
 import type { Example } from '@/lib/calculator-types'
 
 interface ExamplesBlockProps {
-	examples: Example[]
-	calculatorInputs?: Array<{ name: string; label: string; units?: string }>
-	calculatorOutputs?: Array<{ name: string; label: string; units?: string }>
+        examples: Example[]
+        calculatorInputs?: Array<{ name: string; label: string; units?: string }>
+        calculatorOutputs?: Array<{ name: string; label: string; units?: string }>
 }
 
+/**
+ * Renders worked examples for a calculator.
+ *
+ * Supports legacy examples with explicit inputs/outputs as well as narrative
+ * examples with steps and result text.
+ */
 export function ExamplesBlock({
-	examples,
-	calculatorInputs = [],
+        examples,
+        calculatorInputs = [],
 	calculatorOutputs = [],
 }: ExamplesBlockProps) {
 	if (!examples || examples.length === 0) {

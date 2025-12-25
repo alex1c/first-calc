@@ -1,6 +1,9 @@
 /**
- * Translation function creator
- * Creates a translation function from a dictionary with key path support
+ * Translation function creator.
+ *
+ * Accepts a merged dictionary and returns a function that resolves dot/slug
+ * paths, logs missing keys in development, and performs simple template
+ * replacement for `{param}` placeholders.
  */
 
 import type { Dictionary, TranslationFunction } from './types'

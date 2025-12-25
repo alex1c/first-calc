@@ -1,12 +1,17 @@
 interface HowToBlockProps {
-	title?: string
-	steps: string[]
-	locale?: string
+        title?: string
+        steps: string[]
+        locale?: string
 }
 
+/**
+ * Displays ordered "how to" guidance for a calculator or tool.
+ *
+ * Falls back to a simple locale-aware title when none is provided.
+ */
 export function HowToBlock({ title, steps, locale = 'en' }: HowToBlockProps) {
-	if (!steps || steps.length === 0) {
-		return null
+        if (!steps || steps.length === 0) {
+                return null
 	}
 
 	const defaultTitle = locale === 'ru' ? 'Как рассчитать?' : 'How to calculate?'
