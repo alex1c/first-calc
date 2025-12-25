@@ -120,49 +120,52 @@ const baseNationalContent = [
 			},
 		],
 	},
-	{
-		slug: 'ru',
-		countryName: 'Russia',
-		title: 'Russia National Standards Overview',
-		intro: [
-			'Russian design work references SP documents that organize actions, materials, soil behavior, and detailing expectations.',
-			'This educational hub previews how SP 20, SP 24, and SP 63 interact conceptually ahead of deeper explanatory content.',
-		],
-		seoTitle: 'Russia National Standards Overview',
-		seoDescription:
-			'Conceptual description of how Russian SP documents frame structural practice.',
-		tiles: [
-			{
-				id: 'ru-sp20',
-				title: 'SP 20 Load Concepts',
-				description:
-					'Placeholder tile that will expand on climate actions, partial factors, and combinations used across Russian practice.',
-				anchor: 'sp20-load-concepts',
-			},
-			{
-				id: 'ru-sp24',
-				title: 'SP 24 Soil & Foundations',
-				description:
-					'Upcoming explanation of how SP 24.13330 connects soil categories with foundation selection.',
-				anchor: 'sp24-soil-foundations',
-			},
-			{
-				id: 'ru-sp63',
-				title: 'SP 63 Concrete Principles',
-				description:
-					'Planned summary describing design resistance, material factors, and detailing tone within SP 63.13330.',
-				anchor: 'sp63-concrete-principles',
-			},
-			{
-				id: 'ru-sp-snip-foundations',
-				title: 'SP & SNiP Foundations Hub',
-				description:
-					'Educational hub on Russian foundation standards and concrete basics, linked to calculators and context pages.',
-				anchor: 'sp-snip-foundations',
-				href: '/standards/national/ru/sp-snip-foundations',
-			},
-		],
-	},
+        {
+                slug: 'ru',
+                countryName: 'Russia',
+                title: 'Russia National Standards Overview',
+                intro: [
+                        'Russian design work references SP documents that organize actions, materials, soil behavior, and detailing expectations.',
+                        'This educational hub previews how SP 20, SP 24, and SP 63 interact conceptually ahead of deeper explanatory content.',
+                ],
+                seoTitle: 'Russia National Standards Overview',
+                seoDescription:
+                        'Conceptual description of how Russian SP documents frame structural practice.',
+                tiles: [
+                        {
+                                id: 'ru-sp20',
+                                title: 'SP 20 Load Concepts',
+                                description:
+                                        'Placeholder tile that will expand on climate actions, partial factors, and combinations used across Russian practice.',
+                                anchor: 'sp20-load-concepts',
+                                href: '/standards/national/ru/sp20-load-concepts',
+                        },
+                        {
+                                id: 'ru-sp24',
+                                title: 'SP 24 Soil & Foundations',
+                                description:
+                                        'Upcoming explanation of how SP 24.13330 connects soil categories with foundation selection.',
+                                anchor: 'sp24-soil-foundations',
+                                href: '/standards/national/ru/sp24-soil-foundations',
+                        },
+                        {
+                                id: 'ru-sp63',
+                                title: 'SP 63 Concrete Principles',
+                                description:
+                                        'Planned summary describing design resistance, material factors, and detailing tone within SP 63.13330.',
+                                anchor: 'sp63-concrete-principles',
+                                href: '/standards/national/ru/sp63-concrete-principles',
+                        },
+                        {
+                                id: 'ru-sp-snip-foundations',
+                                title: 'SP & SNiP Foundations Hub',
+                                description:
+                                        'Educational hub on Russian foundation standards and concrete basics, linked to calculators and context pages.',
+                                anchor: 'sp-snip-foundations',
+                                href: '/standards/national/ru/sp-snip-foundations',
+                        },
+                ],
+        },
 ]
 
 /**
@@ -174,13 +177,60 @@ const supportedLocales: Locale[] = ['en', 'ru', 'es', 'tr', 'hi']
 /**
  * Fully expanded list of national landing definitions by locale.
  */
+const ruLocaleOverrides: Partial<NationalStandardLanding> = {
+        countryName: 'Россия',
+        title: 'Российские национальные стандарты (СП и СНиП) – обзор',
+        intro: [
+                'В строительной практике России широко обсуждаются документы серии СП, которые развивают идеи старых СНиПов и описывают нагрузки, материалы и взаимодействие конструкций с грунтом.',
+                'Этот раздел собирает образовательные обзоры по СП 20, СП 24 и СП 63, показывая, как общие концепции нагрузок, оснований и бетона переходят от эскизов к более детальной проработке.',
+        ],
+        seoTitle: 'Российские национальные стандарты (СП и СНиП) – обзор',
+        seoDescription:
+                'Образовательный обзор того, как СП 20, СП 24 и СП 63 связывают нагрузки, грунты и бетон в российской практике.',
+        tiles: [
+                {
+                        id: 'ru-sp20',
+                        title: 'СП 20.13330 – концепции нагрузок',
+                        description:
+                                'Обзор постоянных и временных воздействий, климатических факторов и типичных комбинаций для ранних оценок.',
+                        anchor: 'sp20-load-concepts',
+                        href: '/standards/national/ru/sp20-load-concepts',
+                },
+                {
+                        id: 'ru-sp24',
+                        title: 'СП 24.13330 – грунты и фундаменты',
+                        description:
+                                'Разбор категорий грунтов, уровней грунтовых вод и выбора мелкого или свайного фундамента на концептуальном уровне.',
+                        anchor: 'sp24-soil-foundations',
+                        href: '/standards/national/ru/sp24-soil-foundations',
+                },
+                {
+                        id: 'ru-sp63',
+                        title: 'СП 63.13330 – принципы бетона',
+                        description:
+                                'Образовательная страница о классах бетона, защитных слоях арматуры и привычных деталировочных подходах.',
+                        anchor: 'sp63-concrete-principles',
+                        href: '/standards/national/ru/sp63-concrete-principles',
+                },
+                {
+                        id: 'ru-sp-snip-foundations',
+                        title: 'СП и СНиП – фундаменты',
+                        description:
+                                'Образовательный хаб о фундаментных темах с ссылками на калькуляторы и смежные материалы.',
+                        anchor: 'sp-snip-foundations',
+                        href: '/standards/national/ru/sp-snip-foundations',
+                },
+        ],
+}
+
 export const nationalStandards: NationalStandardLanding[] = supportedLocales.flatMap(
-	(locale) =>
-		baseNationalContent.map((entry) => ({
-			...entry,
-			locale,
-			id: `${entry.slug}-${locale}`,
-		})),
+        (locale) =>
+                baseNationalContent.map((entry) => ({
+                        ...entry,
+                        ...(entry.slug === 'ru' && locale === 'ru' ? ruLocaleOverrides : {}),
+                        locale,
+                        id: `${entry.slug}-${locale}`,
+                })),
 )
 
 /**
