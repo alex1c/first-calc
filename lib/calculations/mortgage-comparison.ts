@@ -4,7 +4,7 @@
  * Outputs: comparisonTable, winner, bestScenarioByMetric, formulaExplanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Mortgage comparison result interface
@@ -34,7 +34,7 @@ interface MortgageComparisonResult {
 /**
  * Calculate mortgage comparison with multiple scenarios
  */
-export const calculateMortgageComparison: CalculatorFunction = (inputs) => {
+export const calculateMortgageComparison: CalculationFunction = (inputs) => {
 	const comparisonMetric = String(inputs.comparisonMetric || 'lowest-total-monthly-payment').toLowerCase()
 	const includeTaxesInsurance = inputs.includeTaxesInsurance === 'true' || inputs.includeTaxesInsurance === true
 	const paymentFrequencyStr = inputs.paymentFrequency || 'monthly'
@@ -64,7 +64,8 @@ export const calculateMortgageComparison: CalculatorFunction = (inputs) => {
 			const HOAmonthly = Number(inputs[`scenario${i}HOAmonthly`] || inputs[`scenario${i}HOA`] || 0)
 			const extraMonthlyPayment = Number(inputs[`scenario${i}ExtraMonthlyPayment`] || 0)
 			const closingCosts = Number(inputs[`scenario${i}ClosingCosts`] || 0)
-			const startDate = inputs[`scenario${i}StartDate`] ? new Date(inputs[`scenario${i}StartDate`]) : new Date()
+			const startDateValue = inputs[`scenario${i}StartDate`]
+			const startDate = startDateValue && typeof startDateValue !== 'boolean' ? new Date(startDateValue) : new Date()
 
 			if (homePrice > 0 && interestRateAPR > 0 && loanTermYears > 0) {
 				// Calculate down payment amount

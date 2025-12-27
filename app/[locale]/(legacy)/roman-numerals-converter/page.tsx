@@ -77,6 +77,9 @@ export default async function RomanNumeralsConverterLandingPage({
 	const content = getLegacyContent('roman-numerals-converter', locale)
 	const title = getLegacyTitle('roman-numerals-converter', locale)
 
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 	// Generate breadcrumbs
 	const breadcrumbs = getLegacyBreadcrumbs(
 		locale,
@@ -95,9 +98,9 @@ export default async function RomanNumeralsConverterLandingPage({
 			breadcrumbs={breadcrumbs}
 		>
 			{/* Description */}
-			{content && content.text[locale] && (
+			{content && content.text[contentLocale] && (
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					{content.text[locale].map((paragraph, index) => (
+					{content.text[contentLocale].map((paragraph, index) => (
 						<p key={index} className="text-gray-700 mb-4 last:mb-0">
 							{paragraph}
 						</p>

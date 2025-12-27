@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
+import type { CalculatorDefinitionClient, CalculatorLocale } from '@/lib/calculators/types'
 import { CalculatorForm } from './calculators/calculator-form'
 import { CalculatorResults } from './calculators/calculator-results'
 import { HowToBlock } from './calculators/how-to-block'
@@ -10,10 +10,12 @@ import { FaqBlock } from './calculators/faq-block'
 import { CalculatorHero } from './calculators/calculator-hero'
 import { CompatibilityHeader } from '@/components/compatibility/compatibility-header'
 import type { CompatibilityHeaderVariant } from '@/components/compatibility/compatibility-header'
+import { HowResultsCalculatedBlock } from './calculators/how-results-calculated-block'
+import type { Locale } from '@/lib/i18n'
 
 interface CalculatorPageProps {
 	calculator: CalculatorDefinitionClient
-	locale: string
+	locale: CalculatorLocale
 	calculatorId?: string // Optional, will use calculator.id or calculator.slug as fallback
 }
 
@@ -62,7 +64,7 @@ export function CalculatorPage({
 
 	// Validate input field
 	const validateInput = useCallback(
-		(name: string, value: number | string): string | null => {
+		(name: string, value: number | string | boolean): string | null => {
 			const inputDef = calculator.inputs.find((inp) => inp.name === name)
 			if (!inputDef || !inputDef.validation) return null
 
@@ -96,19 +98,19 @@ export function CalculatorPage({
 
 				// Only prevent negative if explicitly required (min >= 0 in validation)
 				// This allows negative values for calculations that need them (e.g., percentage change)
-				if (validation.min !== undefined && validation.min >= 0 && numValue < 0) {
+				if (validation.min !== undefined && typeof validation.min === 'number' && validation.min >= 0 && numValue < 0) {
 					return validation.message || `${inputDef.label} cannot be negative`
 				}
 
 				// Only check min/max if explicitly set in validation
-				if (validation.min !== undefined && numValue < validation.min) {
+				if (validation.min !== undefined && typeof validation.min === 'number' && numValue < validation.min) {
 					return (
 						validation.message ||
 						`${inputDef.label} must be at least ${validation.min}`
 					)
 				}
 
-				if (validation.max !== undefined && numValue > validation.max) {
+				if (validation.max !== undefined && typeof validation.max === 'number' && numValue > validation.max) {
 					return (
 						validation.message ||
 						`${inputDef.label} must be at most ${validation.max}`
@@ -117,7 +119,7 @@ export function CalculatorPage({
 
 				// Only require > 0 if explicitly required AND zero would break the calculation
 				// Most fields should allow 0 as a valid input
-				if (validation.required && validation.min !== undefined && validation.min > 0 && numValue <= 0) {
+				if (validation.required && validation.min !== undefined && typeof validation.min === 'number' && validation.min > 0 && numValue <= 0) {
 					return validation.message || `${inputDef.label} must be greater than 0`
 				}
 			}
@@ -148,7 +150,7 @@ export function CalculatorPage({
 
 	// Handle calculation
 	const handleCalculate = useCallback(
-		(inputs: Record<string, number | string>) => {
+		(inputs: Record<string, number | string | boolean>) => {
 			// Determine which inputs should be visible based on shape selection
 			const shouldShowInput = (input: typeof calculator.inputs[0]): boolean => {
 				if (!input.visibleIf) return true
@@ -181,7 +183,7 @@ export function CalculatorPage({
 			setErrors({})
 
 			// Convert string inputs to appropriate types
-			const processedInputs: Record<string, number | string> = {}
+			const processedInputs: Record<string, number | string | boolean> = {}
 			
 			// Always include select fields first (they control visibility and calculation type)
 			calculator.inputs
@@ -291,8 +293,8 @@ export function CalculatorPage({
 					<CalculatorHero calculator={calculator} />
 				)}
 
-				{/* Migration warning for disabled calculators */}
-				{calculator.isEnabled === false && (
+			{/* Migration warning for disabled calculators */}
+			{'isEnabled' in calculator && calculator.isEnabled === false && (
 					<div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
 						<div className="flex">
 							<div className="flex-shrink-0">
@@ -373,6 +375,11 @@ export function CalculatorPage({
 				<div className="mb-12">
 					<HowToBlock calculator={calculator} howToLabel="How to Calculate" />
 				</div>
+
+				{/* How results are calculated - Universal info block (shown when results exist) */}
+				{Object.keys(outputs).length > 0 && (
+					<HowResultsCalculatedBlock locale={locale as Locale} />
+				)}
 
 				{/* Examples */}
 				<div className="mb-12">

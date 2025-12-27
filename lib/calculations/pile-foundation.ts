@@ -15,7 +15,7 @@ import type { CalculationFunction } from './registry'
  * @returns Calculated pile volume, cap volume, total volume, and breakdown
  */
 export function calculatePileFoundation(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const isMetric = unit === 'meters' || unit === 'm'
@@ -87,10 +87,10 @@ export function calculatePileFoundation(
 	}
 	
 	// Apply waste margin if enabled
-	const includeWaste = 
-		inputs.includeWaste === true || 
-		inputs.includeWaste === 'true' || 
-		String(inputs.includeWaste).toLowerCase() === 'true'
+	const includeWaste =
+		(typeof inputs.includeWaste === 'boolean' && inputs.includeWaste) ||
+		(typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') ||
+		(typeof inputs.includeWaste === 'number' && inputs.includeWaste > 0)
 	const wastePercent = Number(inputs.wasteMargin) || 10
 	
 	let totalVolumeWithWaste = totalVolumeM3

@@ -20,8 +20,8 @@ const GRAVEL_DENSITY = 1500 // kg/m³
  * @returns Calculated gravel weight, volume, and explanation
  */
 export function calculateGravel(
-	inputs: Record<string, number | string>,
-): Record<string, number | string> {
+	inputs: Record<string, number | string | boolean>,
+): Record<string, number | string | null | undefined> {
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const isMetric = unit === 'meters' || unit === 'm'
 	
@@ -57,7 +57,7 @@ export function calculateGravel(
 	const includeWaste = 
 		inputs.includeWaste === true || 
 		inputs.includeWaste === 'true' || 
-		String(inputs.includeWaste).toLowerCase() === 'true'
+		(typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true')
 	const wastePercent = Number(inputs.wasteMargin) || 10
 	
 	let gravelWeightWithWaste = gravelWeightKg

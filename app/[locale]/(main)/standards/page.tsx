@@ -96,7 +96,7 @@ export default async function StandardsPage({ params }: { params: { locale: Loca
 	)
 
 	// Generate breadcrumbs
-	const breadcrumbs = getStandardsBreadcrumbs(locale, undefined, undefined, undefined, t)
+	const breadcrumbs = getStandardsBreadcrumbs(locale, t)
 
 	// Schema for CollectionPage
 	const schema = {

@@ -18,8 +18,8 @@ import type { CalculationFunction } from './registry'
  * @returns Calculated area and shape information
  */
 export function calculateArea(
-	inputs: Record<string, number | string>,
-): Record<string, number | string> {
+	inputs: Record<string, number | string | boolean>,
+): Record<string, number | string | null> {
 	const shape = String(inputs.shape || inputs.figureType || 'circle').toLowerCase()
 	
 	let area = 0

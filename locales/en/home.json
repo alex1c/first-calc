@@ -1,0 +1,19 @@
+{
+	"hero": {
+		"title": "Free Online Calculators & Tools",
+		"subtitle": "Calculate percentages, loans, compound interest, and much more with our easy-to-use tools.",
+		"searchPlaceholder": "Search calculators, tools, and articles...",
+		"ctaBrowse": "Browse Calculators",
+		"ctaTools": "Tools"
+	},
+	"sections": {
+		"categories": "Browse by Category",
+		"popular": "Popular Calculators",
+		"tools": "Classic Utilities",
+		"learn": "Learn & Guides",
+		"standards": "Engineering Standards"
+	},
+	"disclaimer": "Educational and estimation purposes only."
+}
+
+

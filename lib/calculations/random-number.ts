@@ -4,7 +4,7 @@
  * Outputs: numbers, numbersFormatted, explanation, range
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -17,12 +17,12 @@ function randomInt(min: number, max: number): number {
 /**
  * Generate random numbers
  */
-export const calculateRandomNumber: CalculatorFunction = (inputs) => {
+export const calculateRandomNumber: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const minValueStr = String(inputs.minValue || '').trim()
 	const maxValueStr = String(inputs.maxValue || '').trim()
 	const quantityStr = String(inputs.quantity || '1').trim()
-	const allowDuplicates = inputs.allowDuplicates === true || inputs.allowDuplicates === 'true' || String(inputs.allowDuplicates).toLowerCase() === 'true'
+	const allowDuplicates = inputs.allowDuplicates === true || (typeof inputs.allowDuplicates === 'string' && inputs.allowDuplicates.toLowerCase() === 'true') || inputs.allowDuplicates === 'true' || String(inputs.allowDuplicates).toLowerCase() === 'true'
 
 	// Validation
 	if (!minValueStr || minValueStr.trim() === '') {

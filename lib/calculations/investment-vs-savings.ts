@@ -3,12 +3,12 @@
  * Shows side-by-side comparison of two strategies over time
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate savings vs investment comparison
  */
-export const calculateInvestmentVsSavings: CalculatorFunction = (inputs) => {
+export const calculateInvestmentVsSavings: CalculationFunction = (inputs) => {
 	const initialAmount = Number(inputs.initialAmount || 0)
 	const monthlyContribution = Number(inputs.monthlyContribution || 0)
 	const timeHorizonYears = Math.floor(Number(inputs.timeHorizonYears || 0))

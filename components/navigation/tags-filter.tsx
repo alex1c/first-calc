@@ -8,9 +8,10 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { getTopTags } from '@/lib/navigation/tags'
 import { useClientT } from '@/lib/i18n/useClientT'
+import type { Locale } from '@/lib/i18n'
 
 interface TagsFilterProps {
-	locale: string
+	locale: Locale
 }
 
 /**

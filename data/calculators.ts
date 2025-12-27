@@ -29,15 +29,21 @@ import {
 
 const compatibilityLocales: CalculatorLocale[] = ['en', 'ru', 'es', 'tr', 'hi']
 
-type CompatibilityCalculatorBase = Omit<CalculatorDefinition, 'locale'>
+type CompatibilityCalculatorBase = Omit<CalculatorDefinition, 'locale' | 'contentLocale'> & {
+	contentLocale?: CalculatorLocale
+}
 
 function createCompatibilityEntries(
 	base: CompatibilityCalculatorBase,
 ): CalculatorDefinition[] {
-	return compatibilityLocales.map((locale) => ({
-		...base,
-		locale,
-	}))
+	return compatibilityLocales.map((locale) => {
+		const entry: CalculatorDefinition = {
+			...base,
+			locale,
+			contentLocale: base.contentLocale || locale,
+		}
+		return entry
+	})
 }
 
 const loveCompatibilityBase: CompatibilityCalculatorBase = {
@@ -1205,14 +1211,14 @@ const birthDateCompatibilityBase: CompatibilityCalculatorBase = {
 	},
 }
 
-const compatibilityCalculators: CalculatorDefinition[] = [
+const compatibilityCalculators = [
 	...createCompatibilityEntries(loveCompatibilityBase),
 	...createCompatibilityEntries(zodiacCompatibilityBase),
 	...createCompatibilityEntries(numerologyCompatibilityBase),
 	...createCompatibilityEntries(friendshipCompatibilityBase),
 	...createCompatibilityEntries(workCompatibilityBase),
 	...createCompatibilityEntries(birthDateCompatibilityBase),
-]
+] as CalculatorDefinition[]
 
 /**
  * Registry of all calculator definitions
@@ -1232,6 +1238,7 @@ export const calculators: CalculatorDefinition[] = [
 		longDescription:
 			'This calculator helps you determine what a specific percentage of any number equals. Simply enter the base number and the percentage you want to calculate. Perfect for calculating discounts, tips, taxes, commissions, and any other percentage-based calculations.',
 		locale: 'en',
+		contentLocale: 'en',
 		inputs: [
 			{
 				name: 'value',

@@ -3,12 +3,12 @@
  * Helps users understand their financial position
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate net worth
  */
-export const calculateNetWorth: CalculatorFunction = (inputs) => {
+export const calculateNetWorth: CalculationFunction = (inputs) => {
 	// Assets
 	const cashSavings = Number(inputs.cashSavings || 0)
 	const investments = Number(inputs.investments || 0)

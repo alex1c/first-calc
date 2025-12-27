@@ -3,7 +3,7 @@
  * Calculates putty (wall filler) needed for surface finishing
  */
 
-import type { CalculationFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -69,7 +69,7 @@ export const calculatePutty: CalculationFunction = (inputs) => {
 	const numberOfLayersStr = String(inputs.numberOfLayers || '1').trim()
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const includeWaste = 
-		inputs.includeWaste === true || 
+		inputs.includeWaste === true || (typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') || 
 		inputs.includeWaste === 'true' || 
 		String(inputs.includeWaste).toLowerCase() === 'true'
 	const wastePercent = Number(inputs.wasteMargin) || 10

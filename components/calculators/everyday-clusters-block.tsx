@@ -91,8 +91,10 @@ export async function EverydayClustersBlock({ locale }: EverydayClustersBlockPro
 							</div>
 
 							<ul className="space-y-2">
-								{calculators.map((calc) => (
-									<li key={calc.id}>
+								{calculators.map((calc) => {
+									if (!calc) return null
+									return (
+										<li key={calc.id}>
 										<Link
 											href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
 											className="text-blue-600 hover:text-blue-800 hover:underline font-medium text-sm flex items-center gap-2"
@@ -101,7 +103,8 @@ export async function EverydayClustersBlock({ locale }: EverydayClustersBlockPro
 											{calc.title}
 										</Link>
 									</li>
-								))}
+									)
+								})}
 							</ul>
 
 							{calculators.length < everydayClusters[cluster].length && (

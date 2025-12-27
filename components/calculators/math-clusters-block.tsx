@@ -62,8 +62,10 @@ export async function MathClustersBlock({ locale }: MathClustersBlockProps) {
 						</h3>
 						
 						<ul className="space-y-2 mb-4">
-							{calculators.map((calc) => (
-								<li key={calc.id}>
+							{calculators.map((calc) => {
+								if (!calc) return null
+								return (
+									<li key={calc.id}>
 									<Link
 										href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
 										className="text-blue-600 hover:text-blue-800 underline"
@@ -71,7 +73,8 @@ export async function MathClustersBlock({ locale }: MathClustersBlockProps) {
 										{calc.title}
 									</Link>
 								</li>
-							))}
+								)
+							})}
 						</ul>
 						
 						{totalCount > calculators.length && (

@@ -46,77 +46,66 @@ const baseNationalContent = [
 			'Educational overview of how U.S. reference standards relate conceptually to building practice.',
 		tiles: [
 			{
-				id: 'us-ibc-paths',
-				title: 'IBC Load Path Essentials',
+				id: 'us-loads-hazards',
+				title: 'Loads & Hazards',
 				description:
-					'Upcoming explainer connecting the IBC concept of complete load paths with educational sketches.',
-				anchor: 'ibc-load-path-essentials',
+					'Educational overview of structural loads, load paths, and hazard categories that influence early design assumptions.',
+				anchor: 'loads-hazards',
+				href: '/standards/national/us/asce-loads',
 			},
 			{
-				id: 'us-asce-hazards',
-				title: 'ASCE 7 Hazard Categories',
+				id: 'us-soil-foundations',
+				title: 'Soil & Foundations',
 				description:
-					'Planned summary describing how wind, seismic, and snow categories structure early design assumptions.',
-				anchor: 'asce7-hazard-categories',
+					'Conceptual explanation of how soil properties and foundation types relate to early estimation and design assumptions.',
+				anchor: 'soil-foundations',
+				href: '/standards/national/us/soil-foundations',
 			},
 			{
 				id: 'us-aci-concrete',
-				title: 'ACI Concrete Principles',
+				title: 'Concrete Principles',
 				description:
-					'New hub that explains how ACI guidance shapes concrete estimation and links to supporting calculators.',
+					'Educational hub explaining how ACI guidance shapes concrete estimation and links to supporting calculators.',
 				anchor: 'aci318-concepts',
 				href: '/standards/national/us/aci-concrete',
-			},
-			{
-				id: 'us-asce-loads',
-				title: 'ASCE 7 – Structural Loads Explained',
-				description:
-					'New educational hub showing how ASCE 7 load categories influence foundations, slabs, and early estimates.',
-				anchor: 'asce7-loads',
-				href: '/standards/national/us/asce-loads',
 			},
 		],
 	},
 	{
-		slug: 'de',
-		countryName: 'Germany',
-		title: 'Germany National Standards Overview',
+		slug: 'eu',
+		countryName: 'European Union',
+		title: 'European Union National Standards Overview',
 		intro: [
-			'Germany adopts Eurocodes alongside DIN supplements that translate European concepts into national practice.',
-			'This hub outlines how DIN references such as DIN 1055 and DIN EN 1992 add context for engineers working through conceptual problems.',
+			'European building practice relies on Eurocodes, a family of harmonized standards that provide common design principles across EU member states.',
+			'This landing page explains how Eurocode concepts relate to loads, foundations, and materials in an educational context without implying compliance.',
 		],
-		seoTitle: 'Germany National Standards Overview',
+		seoTitle: 'European Union National Standards Overview',
 		seoDescription:
-			'High-level look at how DIN guidance extends Eurocode principles inside Germany.',
+			'Educational overview of how Eurocode standards relate conceptually to building practice across Europe.',
 		tiles: [
 			{
-				id: 'de-din-loads',
-				title: 'DIN 1055 Load Fundamentals',
+				id: 'eu-ec1-loads',
+				title: 'Eurocode Load Concepts (EC1)',
 				description:
-					'Future content that walks through German interpretations of variable actions, roof snow, and safety factors.',
-				anchor: 'din1055-load-fundamentals',
+					'Educational overview of structural loads, actions, and load combinations that influence early design assumptions.',
+				anchor: 'ec1-load-concepts',
+				href: '/standards/national/eu/ec1-load-concepts',
 			},
 			{
-				id: 'de-din-concrete',
-				title: 'DIN EN 1992 Adaptations',
+				id: 'eu-ec7-soil',
+				title: 'Eurocode Soil & Foundations (EC7)',
 				description:
-					'Placeholder for explaining how DIN National Annex alters Eurocode 2 concrete provisions.',
-				anchor: 'din-en1992-adaptations',
+					'Conceptual explanation of geotechnical principles, soil properties, and foundation design assumptions.',
+				anchor: 'ec7-soil-foundations',
+				href: '/standards/national/eu/ec7-soil-foundations',
 			},
 			{
-				id: 'de-din-geotech',
-				title: 'DIN 1054 Ground Assumptions',
+				id: 'eu-ec2-concrete',
+				title: 'Eurocode Concrete Principles (EC2)',
 				description:
-					'Upcoming article about how German geotechnical assumptions and safety concepts appear in early sketches.',
-				anchor: 'din1054-ground-assumptions',
-			},
-			{
-				id: 'de-din-construction',
-				title: 'DIN Construction & Materials Principles',
-				description:
-					'Hub describing how German DIN guidance interprets materials, tests, and safety alongside Eurocodes.',
-				anchor: 'din-construction',
-				href: '/standards/national/de/din-construction',
+					'Educational hub explaining how Eurocode 2 concepts shape concrete estimation and material assumptions.',
+				anchor: 'ec2-concrete-principles',
+				href: '/standards/national/eu/ec2-concrete-principles',
 			},
 		],
 	},
@@ -136,7 +125,7 @@ const baseNationalContent = [
                                 id: 'ru-sp20',
                                 title: 'SP 20 Load Concepts',
                                 description:
-                                        'Placeholder tile that will expand on climate actions, partial factors, and combinations used across Russian practice.',
+                                        'Educational overview of climate actions, partial factors, and load combinations used across Russian practice.',
                                 anchor: 'sp20-load-concepts',
                                 href: '/standards/national/ru/sp20-load-concepts',
                         },
@@ -144,7 +133,7 @@ const baseNationalContent = [
                                 id: 'ru-sp24',
                                 title: 'SP 24 Soil & Foundations',
                                 description:
-                                        'Upcoming explanation of how SP 24.13330 connects soil categories with foundation selection.',
+                                        'Conceptual explanation of how SP 24.13330 connects soil categories with foundation selection.',
                                 anchor: 'sp24-soil-foundations',
                                 href: '/standards/national/ru/sp24-soil-foundations',
                         },
@@ -152,7 +141,7 @@ const baseNationalContent = [
                                 id: 'ru-sp63',
                                 title: 'SP 63 Concrete Principles',
                                 description:
-                                        'Planned summary describing design resistance, material factors, and detailing tone within SP 63.13330.',
+                                        'Educational summary describing design resistance, material factors, and concrete principles within SP 63.13330.',
                                 anchor: 'sp63-concrete-principles',
                                 href: '/standards/national/ru/sp63-concrete-principles',
                         },
@@ -160,7 +149,7 @@ const baseNationalContent = [
                                 id: 'ru-sp-snip-foundations',
                                 title: 'SP & SNiP Foundations Hub',
                                 description:
-                                        'Educational hub on Russian foundation standards and concrete basics, linked to calculators and context pages.',
+                                        'Additional educational hub on Russian foundation standards and concrete basics, linked to calculators and context pages.',
                                 anchor: 'sp-snip-foundations',
                                 href: '/standards/national/ru/sp-snip-foundations',
                         },
@@ -230,7 +219,10 @@ export const nationalStandards: NationalStandardLanding[] = supportedLocales.fla
                         ...(entry.slug === 'ru' && locale === 'ru' ? ruLocaleOverrides : {}),
                         locale,
                         id: `${entry.slug}-${locale}`,
-                })),
+                })).filter((entry) => {
+                        // Filter out 'de' (Germany) entry as we're replacing it with 'eu'
+                        return entry.slug !== 'de'
+                }),
 )
 
 /**

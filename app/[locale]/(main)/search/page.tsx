@@ -24,7 +24,8 @@ export async function generateMetadata({
 	params,
 	searchParams,
 }: SearchPageProps): Promise<Metadata> {
-	const { locale, q } = searchParams
+	const { locale } = params
+	const { q } = searchParams
 
 	return {
 		title: q ? `Search: ${q} - Calculator Portal` : 'Search - Calculator Portal',

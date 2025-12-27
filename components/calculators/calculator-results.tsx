@@ -136,7 +136,7 @@ export function CalculatorResults({
 			const totalEarnings = outputs.totalEarnings as number
 			const inflationAdjustedBalance = outputs.inflationAdjustedBalance as number | null
 			const monthlyRetirementIncome = outputs.monthlyRetirementIncome as number | null
-			const yearlyBreakdown = outputs.yearlyBreakdown as any[]
+			const yearlyBreakdown = (outputs.yearlyBreakdown as any) || []
 			const formulaExplanation = outputs.formulaExplanation as string
 
 			if (finalBalance === null || finalBalance === undefined) {
@@ -269,7 +269,7 @@ export function CalculatorResults({
 		const payoffDate = outputs.payoffDate as string
 		const paymentBreakdown = outputs.paymentBreakdown as any
 		const extraPaymentImpact = outputs.extraPaymentImpact as any
-		const amortizationSchedule = outputs.amortizationSchedule as any[]
+		const amortizationSchedule = (outputs.amortizationSchedule as any) || []
 		const formulaExplanation = outputs.formulaExplanation as string
 
 		if (monthlyMortgagePayment === null || monthlyMortgagePayment === undefined) {
@@ -2598,10 +2598,11 @@ export function CalculatorResults({
 				formattedMainValue = `x = ${mainValue.toFixed(6)}`
 			} else if (Array.isArray(mainValue)) {
 				// Array of roots
-				if (mainValue.length === 0) {
+				const arrValue = mainValue as unknown[]
+				if (arrValue.length === 0) {
 					formattedMainValue = 'No real roots'
 				} else {
-					formattedMainValue = mainValue.map((r: number) => `x = ${r.toFixed(6)}`).join(', ')
+					formattedMainValue = (arrValue as number[]).map((r: number) => `x = ${r.toFixed(6)}`).join(', ')
 				}
 			} else {
 				formattedMainValue = String(mainValue)
@@ -2609,12 +2610,13 @@ export function CalculatorResults({
 		} else if (mainOutput.name === 'roots') {
 			// Format roots array for quadratic calculator
 			if (Array.isArray(mainValue)) {
-				if (mainValue.length === 0) {
+				const arrValue = mainValue as unknown[]
+				if (arrValue.length === 0) {
 					formattedMainValue = 'No real roots'
-				} else if (mainValue.length === 1 && typeof mainValue[0] === 'string') {
-					formattedMainValue = mainValue[0]
+				} else if (arrValue.length === 1 && typeof arrValue[0] === 'string') {
+					formattedMainValue = arrValue[0] as string
 				} else {
-					formattedMainValue = mainValue.map((r: number) => r.toFixed(6)).join(', ')
+					formattedMainValue = (arrValue as number[]).map((r: number) => r.toFixed(6)).join(', ')
 				}
 			} else if (typeof mainValue === 'string') {
 				formattedMainValue = mainValue
@@ -2638,7 +2640,7 @@ export function CalculatorResults({
 	const explanationValue = explanationOutput ? outputs[explanationOutput.name] : null
 
 	// Special handling for BMI calculator
-	const categoryValue = calculator.id === 'bmi-calculator' ? outputs.category : null
+	const categoryValue = calculator.id === 'bmi-calculator' ? (outputs.category ? String(outputs.category) : null) : null
 	const categoryDescriptionValue = calculator.id === 'bmi-calculator' ? outputs.categoryDescription : null
 	const healthyWeightRangeValue = calculator.id === 'bmi-calculator' ? outputs.healthyWeightRange : null
 
@@ -2979,7 +2981,7 @@ export function CalculatorResults({
 								<div className="mt-4 mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
 									<p className="text-sm font-medium text-blue-900 mb-2">Goal: {goalDescriptionValue}</p>
 									<p className="text-2xl font-semibold text-blue-700">{goalCaloriesValue.toLocaleString()} <span className="text-base font-normal text-blue-600">kcal/day</span></p>
-									{goalDeltaValue !== 0 && (
+									{goalDeltaValue !== 0 && typeof goalDeltaValue === 'number' && (
 										<p className="text-xs text-blue-700 mt-1">
 											{goalDeltaValue > 0 ? '+' : ''}{goalDeltaValue} calories from maintenance
 										</p>
@@ -3166,8 +3168,8 @@ export function CalculatorResults({
 								</div>
 							)}
 							
-							{/* Note about neck measurement */}
-							{bodyFatHasNeckValue === false && (
+						{/* Note about neck measurement */}
+						{bodyFatHasNeckValue !== null && bodyFatHasNeckValue !== undefined && !bodyFatHasNeckValue && (
 								<div className="mt-4 mb-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
 									<p className="text-sm text-yellow-800">
 										<strong>Note:</strong> This calculation used an estimated neck measurement. For improved accuracy, measure your neck circumference and include it in the calculation.
@@ -3666,7 +3668,7 @@ export function CalculatorResults({
 									<div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
 										<p className="text-sm text-blue-700 mb-1">Weeks</p>
 										<p className="text-3xl font-semibold text-blue-900">{daysWeeksValue}</p>
-										{daysRemainingDaysValue !== null && daysRemainingDaysValue !== undefined && daysRemainingDaysValue > 0 && (
+										{daysRemainingDaysValue !== null && daysRemainingDaysValue !== undefined && typeof daysRemainingDaysValue === 'number' && daysRemainingDaysValue > 0 && (
 											<p className="text-xs text-blue-600 mt-1">+ {daysRemainingDaysValue} {daysRemainingDaysValue === 1 ? 'day' : 'days'}</p>
 										)}
 									</div>
@@ -3733,19 +3735,19 @@ export function CalculatorResults({
 							{/* Breakdown by Scale */}
 							{(numbersToWordsMillionsValue !== null || numbersToWordsThousandsValue !== null || numbersToWordsHundredsValue !== null) && (
 								<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 mb-4">
-									{numbersToWordsMillionsValue !== null && numbersToWordsMillionsValue !== undefined && numbersToWordsMillionsValue > 0 && (
-										<div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-											<p className="text-sm text-blue-700 mb-1">Millions</p>
-											<p className="text-2xl font-semibold text-blue-900">{numbersToWordsMillionsValue.toLocaleString()}</p>
-										</div>
-									)}
-									{numbersToWordsThousandsValue !== null && numbersToWordsThousandsValue !== undefined && numbersToWordsThousandsValue > 0 && (
-										<div className="p-4 bg-green-50 rounded-lg border border-green-200">
-											<p className="text-sm text-green-700 mb-1">Thousands</p>
-											<p className="text-2xl font-semibold text-green-900">{numbersToWordsThousandsValue.toLocaleString()}</p>
-										</div>
-									)}
-									{numbersToWordsHundredsValue !== null && numbersToWordsHundredsValue !== undefined && numbersToWordsHundredsValue > 0 && (
+								{numbersToWordsMillionsValue !== null && numbersToWordsMillionsValue !== undefined && typeof numbersToWordsMillionsValue === 'number' && numbersToWordsMillionsValue > 0 && (
+									<div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+										<p className="text-sm text-blue-700 mb-1">Millions</p>
+										<p className="text-2xl font-semibold text-blue-900">{numbersToWordsMillionsValue.toLocaleString()}</p>
+									</div>
+								)}
+								{numbersToWordsThousandsValue !== null && numbersToWordsThousandsValue !== undefined && typeof numbersToWordsThousandsValue === 'number' && numbersToWordsThousandsValue > 0 && (
+									<div className="p-4 bg-green-50 rounded-lg border border-green-200">
+										<p className="text-sm text-green-700 mb-1">Thousands</p>
+										<p className="text-2xl font-semibold text-green-900">{numbersToWordsThousandsValue.toLocaleString()}</p>
+									</div>
+								)}
+								{numbersToWordsHundredsValue !== null && numbersToWordsHundredsValue !== undefined && typeof numbersToWordsHundredsValue === 'number' && numbersToWordsHundredsValue > 0 && (
 										<div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
 											<p className="text-sm text-purple-700 mb-1">Hundreds</p>
 											<p className="text-2xl font-semibold text-purple-900">{numbersToWordsHundredsValue.toLocaleString()}</p>
@@ -3896,7 +3898,7 @@ export function CalculatorResults({
 							)}
 							
 							{/* Days Difference Summary */}
-							{dateDaysDifferenceValue !== null && dateDaysDifferenceValue !== undefined && (
+							{dateDaysDifferenceValue !== null && dateDaysDifferenceValue !== undefined && typeof dateDaysDifferenceValue === 'number' && (
 								<div className="mt-4 mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
 									<p className="text-sm text-green-800">
 										<strong>Total Days Difference:</strong> {Math.abs(dateDaysDifferenceValue)} {Math.abs(dateDaysDifferenceValue) === 1 ? 'day' : 'days'}
@@ -3922,7 +3924,7 @@ export function CalculatorResults({
 							<div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">
 								{cookingResultFormattedValue && typeof cookingResultFormattedValue === 'string'
 									? cookingResultFormattedValue
-									: cookingResultValue !== null && cookingResultValue !== undefined
+									: cookingResultValue !== null && cookingResultValue !== undefined && typeof cookingResultValue === 'number'
 									? cookingResultValue.toFixed(2)
 									: formattedMainValue}
 								{cookingToUnitValue && typeof cookingToUnitValue === 'string' && (
@@ -3933,7 +3935,7 @@ export function CalculatorResults({
 							</div>
 							<p className="text-sm text-gray-500 mb-4">
 								{cookingOriginalValue !== null && cookingOriginalValue !== undefined && cookingFromUnitValue && typeof cookingFromUnitValue === 'string'
-									? `${cookingOriginalValue} ${cookingFromUnitValue} = ${cookingResultFormattedValue || cookingResultValue?.toFixed(2) || 'N/A'} ${cookingToUnitValue || ''}`
+									? `${cookingOriginalValue} ${cookingFromUnitValue} = ${cookingResultFormattedValue || (cookingResultValue !== null && cookingResultValue !== undefined && typeof cookingResultValue === 'number' ? cookingResultValue.toFixed(2) : 'N/A')} ${cookingToUnitValue || ''}`
 									: 'Conversion Result'}
 							</p>
 							
@@ -3988,7 +3990,7 @@ export function CalculatorResults({
 							<div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">
 								{roomAreaFormattedValue && typeof roomAreaFormattedValue === 'string'
 									? roomAreaFormattedValue
-									: roomAreaValue !== null && roomAreaValue !== undefined
+									: roomAreaValue !== null && roomAreaValue !== undefined && typeof roomAreaValue === 'number'
 									? roomAreaValue.toFixed(2)
 									: formattedMainValue}
 								{roomUnitSymbolValue && typeof roomUnitSymbolValue === 'string' && (
@@ -4040,7 +4042,7 @@ export function CalculatorResults({
 							<div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">
 								{paintRequiredFormattedValue && typeof paintRequiredFormattedValue === 'string'
 									? paintRequiredFormattedValue
-									: paintRequiredValue !== null && paintRequiredValue !== undefined
+									: paintRequiredValue !== null && paintRequiredValue !== undefined && typeof paintRequiredValue === 'number'
 									? paintRequiredValue.toFixed(1)
 									: formattedMainValue}
 								{paintUnitValue && typeof paintUnitValue === 'string' && (
@@ -4078,7 +4080,7 @@ export function CalculatorResults({
 							{(paintRoomAreaValue !== null || paintNumberOfCoatsValue !== null || paintCoverageValue !== null) && (
 								<div className="mt-4 mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
 									<div className="text-sm text-gray-700">
-										{paintRoomAreaValue !== null && paintAreaUnitValue && typeof paintAreaUnitValue === 'string' && (
+										{paintRoomAreaValue !== null && typeof paintRoomAreaValue === 'number' && paintAreaUnitValue && typeof paintAreaUnitValue === 'string' && (
 											<p className="mb-1">
 												<strong>Room Area:</strong> {paintRoomAreaValue.toFixed(1)} {paintAreaUnitValue}
 											</p>
@@ -4123,7 +4125,7 @@ export function CalculatorResults({
 									: formattedMainValue}
 							</div>
 							<p className="text-sm text-gray-500 mb-4">
-								{randomQuantityValue !== null && randomQuantityValue !== undefined && randomQuantityValue > 1
+								{randomQuantityValue !== null && randomQuantityValue !== undefined && typeof randomQuantityValue === 'number' && randomQuantityValue > 1
 									? `Generated ${randomQuantityValue} Random Numbers`
 									: 'Generated Random Number'}
 							</p>

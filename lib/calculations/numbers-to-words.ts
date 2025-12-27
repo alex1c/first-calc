@@ -4,7 +4,7 @@
  * Outputs: words, breakdown, currencyWords, explanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -137,10 +137,10 @@ function getBreakdown(num: number): {
 /**
  * Calculate numbers to words
  */
-export const calculateNumbersToWords: CalculatorFunction = (inputs) => {
+export const calculateNumbersToWords: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const numberStr = String(inputs.number || '')
-	const currencyMode = inputs.currencyMode === true || inputs.currencyMode === 'true' || String(inputs.currencyMode).toLowerCase() === 'true'
+	const currencyMode = inputs.currencyMode === true || (typeof inputs.currencyMode === 'string' && inputs.currencyMode.toLowerCase() === 'true') || inputs.currencyMode === 'true' || String(inputs.currencyMode).toLowerCase() === 'true'
 	const language = String(inputs.language || 'en').toLowerCase()
 
 	// Validation

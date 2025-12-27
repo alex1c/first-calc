@@ -18,8 +18,8 @@ import type { CalculationFunction } from './registry'
  * @returns Calculated concrete volume and breakdown
  */
 export function calculateFoundationVolume(
-	inputs: Record<string, number | string>,
-): Record<string, number | string> {
+	inputs: Record<string, number | string | boolean>,
+): Record<string, number | string | null | undefined> {
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const isMetric = unit === 'meters' || unit === 'm'
 	
@@ -153,7 +153,7 @@ export function calculateFoundationVolume(
 	const includeWaste = 
 		inputs.includeWaste === true || 
 		inputs.includeWaste === 'true' || 
-		String(inputs.includeWaste).toLowerCase() === 'true'
+		(typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true')
 	const wastePercent = Number(inputs.wasteMargin) || 10
 	
 	let volumeWithWaste = volume

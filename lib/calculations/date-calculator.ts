@@ -4,7 +4,7 @@
  * Outputs: resultDate, weekday, isoDate, explanation, daysAdded, daysSubtracted
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -44,7 +44,7 @@ function formatReadableDate(date: Date, locale: string = 'en'): string {
 /**
  * Calculate date by adding or subtracting days
  */
-export const calculateDateCalculator: CalculatorFunction = (inputs) => {
+export const calculateDateCalculator: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const startDateStr = String(inputs.startDate || '').trim()
 	const operation = String(inputs.operation || 'add').toLowerCase()

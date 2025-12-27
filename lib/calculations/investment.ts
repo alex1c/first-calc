@@ -4,7 +4,7 @@
  * Outputs: finalValue, totalContributions, totalReturn, returnPercentage, inflationAdjustedValue, yearlyBreakdown, formulaExplanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Year-by-year breakdown interface
@@ -20,9 +20,12 @@ interface YearBreakdown {
 /**
  * Map compounding frequency string to number
  */
-function getCompoundingFrequency(frequency: string | number): number {
+function getCompoundingFrequency(frequency: string | number | boolean): number {
 	if (typeof frequency === 'number') {
 		return frequency
+	}
+	if (typeof frequency === 'boolean') {
+		return 12 // Default to monthly for boolean
 	}
 	const frequencyMap: Record<string, number> = {
 		'annually': 1,
@@ -35,7 +38,10 @@ function getCompoundingFrequency(frequency: string | number): number {
 /**
  * Map contribution frequency string to contributions per year
  */
-function getContributionsPerYear(frequency: string): number {
+function getContributionsPerYear(frequency: string | boolean): number {
+	if (typeof frequency === 'boolean') {
+		return 12 // Default to monthly for boolean
+	}
 	const frequencyMap: Record<string, number> = {
 		'monthly': 12,
 		'yearly': 1,
@@ -46,7 +52,7 @@ function getContributionsPerYear(frequency: string): number {
 /**
  * Calculate investment growth with comprehensive breakdown
  */
-export const calculateInvestment: CalculatorFunction = (inputs) => {
+export const calculateInvestment: CalculationFunction = (inputs) => {
 	const initialInvestment = Number(inputs.initialInvestment || 0)
 	const periodicContribution = Number(inputs.periodicContribution || inputs.monthlyContribution || 0)
 	const contributionFrequencyStr = inputs.contributionFrequency || inputs.monthlyContribution ? 'monthly' : 'yearly'

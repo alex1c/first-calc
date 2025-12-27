@@ -4,13 +4,13 @@
  * Outputs: years, months, days, totalDays, totalWeeks, ageString, referenceDateUsed
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Calculate age from date of birth
  */
-export const calculateAge: CalculatorFunction = (inputs) => {
+export const calculateAge: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const dateOfBirthStr = String(inputs.dateOfBirth || '')
 	const referenceDateStr = String(inputs.referenceDate || '')

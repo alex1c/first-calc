@@ -4,17 +4,17 @@
  * Outputs: totalDays, weeks, remainingDays, totalDaysInclusive, breakdown, explanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Calculate days between two dates
  */
-export const calculateDaysBetweenDates: CalculatorFunction = (inputs) => {
+export const calculateDaysBetweenDates: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const startDateStr = String(inputs.startDate || '')
 	const endDateStr = String(inputs.endDate || '')
-	const includeEndDate = inputs.includeEndDate === true || inputs.includeEndDate === 'true' || String(inputs.includeEndDate).toLowerCase() === 'true'
+	const includeEndDate = inputs.includeEndDate === true || (typeof inputs.includeEndDate === 'string' && inputs.includeEndDate.toLowerCase() === 'true') || inputs.includeEndDate === 'true' || String(inputs.includeEndDate).toLowerCase() === 'true'
 
 	// Validation
 	if (!startDateStr || startDateStr.trim() === '') {

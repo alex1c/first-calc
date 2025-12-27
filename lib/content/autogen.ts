@@ -41,7 +41,7 @@ function generateHowTo(schema: CalculatorSchema): string[] {
 	// Step 1: Enter inputs
 	schema.inputs.forEach((input) => {
 		steps.push(
-			`Enter the ${input.label.toLowerCase()}${input.unit ? ` in ${input.unit}` : ''}`,
+			`Enter the ${input.name.toLowerCase()}${input.unit ? ` in ${input.unit}` : ''}`,
 		)
 	})
 
@@ -51,7 +51,7 @@ function generateHowTo(schema: CalculatorSchema): string[] {
 	// Step 3: Understand result
 	if (schema.outputs.length === 1) {
 		steps.push(
-			`The result shows the ${schema.outputs[0].label.toLowerCase()}${schema.outputs[0].unit ? ` in ${schema.outputs[0].unit}` : ''}`,
+			`The result shows the ${schema.outputs[0].name.toLowerCase()}`,
 		)
 	} else {
 		steps.push('Review the calculated results')
@@ -77,7 +77,7 @@ function generateFaq(schema: CalculatorSchema): CalculatorFaqItem[] {
 
 	// FAQ 1: How to use
 	faq.push({
-		question: `How do I use the ${schema.title} calculator?`,
+		question: `How do I use the ${schema.slug.replace(/-/g, ' ')} calculator?`,
 		answer: `Enter the required values in the input fields and click "Calculate" to get the result. The calculator uses the formula: ${schema.formula}`,
 	})
 
@@ -85,8 +85,8 @@ function generateFaq(schema: CalculatorSchema): CalculatorFaqItem[] {
 	if (schema.inputs.length > 0) {
 		const firstInput = schema.inputs[0]
 		faq.push({
-			question: `What is ${firstInput.label}?`,
-			answer: `${firstInput.label} is ${schema.variables?.[firstInput.name] || 'a required input value'}${firstInput.unit ? ` measured in ${firstInput.unit}` : ''}`,
+			question: `What is ${firstInput.name}?`,
+			answer: `${firstInput.name} is ${schema.variables?.[firstInput.name] || 'a required input value'}${firstInput.unit ? ` measured in ${firstInput.unit}` : ''}`,
 		})
 	}
 
@@ -104,15 +104,15 @@ function generateFaq(schema: CalculatorSchema): CalculatorFaqItem[] {
 	if (schema.outputs.length > 0) {
 		const firstOutput = schema.outputs[0]
 		faq.push({
-			question: `What does ${firstOutput.label} mean?`,
-			answer: `${firstOutput.label} is the calculated result${firstOutput.unit ? ` in ${firstOutput.unit}` : ''}`,
+			question: `What does ${firstOutput.name} mean?`,
+			answer: `${firstOutput.name} is the calculated result`,
 		})
 	}
 
 	// FAQ 5: Use cases
 	faq.push({
 		question: 'When should I use this calculator?',
-		answer: `This calculator is useful for ${schema.description.toLowerCase()}`,
+		answer: `This calculator is useful for calculations related to ${schema.category} and ${schema.id.replace(/-/g, ' ')}.`,
 	})
 
 	// FAQ 6: Limitations
@@ -123,7 +123,7 @@ function generateFaq(schema: CalculatorSchema): CalculatorFaqItem[] {
 				const parts: string[] = []
 				if (inp.min !== undefined) parts.push(`minimum ${inp.min}`)
 				if (inp.max !== undefined) parts.push(`maximum ${inp.max}`)
-				return `${inp.label}: ${parts.join(', ')}`
+				return `${inp.name}: ${parts.join(', ')}`
 			})
 			.join('; ')
 
@@ -154,7 +154,7 @@ function generateExamples(schema: CalculatorSchema): CalculatorExample[] {
 				if (input.defaultValue !== undefined) {
 					exampleInputs[input.name] = Number(input.defaultValue)
 				} else if (input.min !== undefined) {
-					exampleInputs[input.name] = input.min + (i * 10)
+					exampleInputs[input.name] = Number(input.min) + (i * 10)
 				} else {
 					exampleInputs[input.name] = (i + 1) * 10
 				}
@@ -165,6 +165,10 @@ function generateExamples(schema: CalculatorSchema): CalculatorExample[] {
 		const exampleResults: Record<string, number> = {}
 		try {
 			// Simple formula evaluation (in production, use proper parser)
+			if (!schema.formula) {
+				// Skip example if no formula
+				continue
+			}
 			let formula = schema.formula
 			for (const [key, value] of Object.entries(exampleInputs)) {
 				formula = formula.replace(new RegExp(`\\b${key}\\b`, 'g'), String(value))
@@ -189,24 +193,24 @@ function generateExamples(schema: CalculatorSchema): CalculatorExample[] {
 			inputDescription: `Calculate with ${Object.entries(exampleInputs)
 				.map(([key, value]) => {
 					const input = schema.inputs.find((inp) => inp.name === key)
-					return `${input?.label || key} = ${value}${input?.unit || ''}`
+					return `${input?.name || key} = ${value}${input?.unit || ''}`
 				})
 				.join(', ')}`,
 			steps: [
 				...Object.entries(exampleInputs).map(([key, value]) => {
 					const input = schema.inputs.find((inp) => inp.name === key)
-					return `${input?.label || key}: ${value}${input?.unit ? ` ${input.unit}` : ''}`
+					return `${input?.name || key}: ${value}${input?.unit ? ` ${input.unit}` : ''}`
 				}),
 				`Formula: ${schema.formula}`,
 				...Object.entries(exampleResults).map(([key, value]) => {
 					const output = schema.outputs.find((out) => out.name === key)
-					return `Result: ${output?.label || key} = ${value}${output?.unit ? ` ${output.unit}` : ''}`
+					return `Result: ${output?.name || key} = ${value}`
 				}),
 			],
 			resultDescription: Object.entries(exampleResults)
 				.map(([key, value]) => {
 					const output = schema.outputs.find((out) => out.name === key)
-					return `${output?.label || key} = ${value}${output?.unit ? ` ${output.unit}` : ''}`
+					return `${output?.name || key} = ${value}`
 				})
 				.join(', '),
 		})

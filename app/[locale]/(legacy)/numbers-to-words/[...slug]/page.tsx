@@ -48,6 +48,9 @@ export async function generateMetadata({
 	const ogDescription = getLegacyOgDescription('numbers-to-words', locale)
 	const content = getLegacyContent('numbers-to-words', locale)
 
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 	let title = baseTitle
 	let description = baseDescription
 
@@ -95,7 +98,7 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords: content?.keywords[locale]?.join(', ') || 'numbers to words, number converter, english, text representation',
+		keywords: content?.keywords[contentLocale]?.join(', ') || 'numbers to words, number converter, english, text representation',
 		robots,
 		openGraph: {
 			title: ogTitle,
@@ -201,6 +204,9 @@ export default function NumbersToWordsPage({
 		const title = `Number ${singleNumber} in words`
 		const content = getLegacyContent('numbers-to-words', locale)
 
+		// Use 'en' as fallback for locales that don't have translations
+		const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 		return (
 			<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
 				{/* Form for new conversion - at the top */}
@@ -231,9 +237,9 @@ export default function NumbersToWordsPage({
 				</div>
 
 				{/* Text content */}
-				{content && content.text[locale] && (
+				{content && content.text[contentLocale] && (
 					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-						{content.text[locale].map((paragraph, index) => (
+						{content.text[contentLocale].map((paragraph, index) => (
 							<p key={index} className="text-gray-700 mb-4 last:mb-0">
 								{paragraph}
 							</p>
@@ -242,8 +248,8 @@ export default function NumbersToWordsPage({
 				)}
 
 				{/* Use cases */}
-				{content && content.useCases[locale] && (
-					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				{content && content.useCases[contentLocale] && (
+					<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
 				)}
 
 				{/* Examples */}
@@ -292,6 +298,9 @@ export default function NumbersToWordsPage({
 		const title = `Numbers from ${range.start} to ${range.end} in words`
 		const content = getLegacyContent('numbers-to-words', locale)
 
+		// Use 'en' as fallback for locales that don't have translations
+		const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 		// Prepare table data
 		const tableData = numbers.map((num) => {
 			let wordRepresentation: string
@@ -319,9 +328,9 @@ export default function NumbersToWordsPage({
 				/>
 
 				{/* Text content */}
-				{content && content.text[locale] && (
+				{content && content.text[contentLocale] && (
 					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-						{content.text[locale].map((paragraph, index) => (
+						{content.text[contentLocale].map((paragraph, index) => (
 							<p key={index} className="text-gray-700 mb-4 last:mb-0">
 								{paragraph}
 							</p>
@@ -330,8 +339,8 @@ export default function NumbersToWordsPage({
 				)}
 
 				{/* Use cases */}
-				{content && content.useCases[locale] && (
-					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				{content && content.useCases[contentLocale] && (
+					<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
 				)}
 
 				{/* Examples */}

@@ -15,7 +15,7 @@ import type { CalculationFunction } from './registry'
  * @returns Calculated strip length, concrete volume, and breakdown
  */
 export function calculateStripFoundation(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const isMetric = unit === 'meters' || unit === 'm'
@@ -43,17 +43,17 @@ export function calculateStripFoundation(
 	}
 	
 	// Get perimeter option
-	const perimeterOnly = 
-		inputs.perimeterOnly === true || 
-		inputs.perimeterOnly === 'true' || 
-		String(inputs.perimeterOnly).toLowerCase() === 'true' ||
+	const perimeterOnly =
+		(typeof inputs.perimeterOnly === 'boolean' && inputs.perimeterOnly) ||
+		(typeof inputs.perimeterOnly === 'string' && inputs.perimeterOnly.toLowerCase() === 'true') ||
+		(typeof inputs.perimeterOnly === 'number' && inputs.perimeterOnly > 0) ||
 		inputs.perimeterOnly === undefined // Default to true
 	
 	// Get internal walls option
-	const includeInternalWalls = 
-		inputs.includeInternalWalls === true || 
-		inputs.includeInternalWalls === 'true' || 
-		String(inputs.includeInternalWalls).toLowerCase() === 'true'
+	const includeInternalWalls =
+		(typeof inputs.includeInternalWalls === 'boolean' && inputs.includeInternalWalls) ||
+		(typeof inputs.includeInternalWalls === 'string' && inputs.includeInternalWalls.toLowerCase() === 'true') ||
+		(typeof inputs.includeInternalWalls === 'number' && inputs.includeInternalWalls > 0)
 	
 	// Get internal strip length (optional)
 	const internalStripLength = includeInternalWalls 
@@ -84,9 +84,9 @@ export function calculateStripFoundation(
 	}
 	
 	// Apply waste margin if enabled
-	const includeWaste = 
-		inputs.includeWaste === true || 
-		inputs.includeWaste === 'true' || 
+	const includeWaste =
+		inputs.includeWaste === true ||
+		(typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') ||
 		String(inputs.includeWaste).toLowerCase() === 'true'
 	const wastePercent = Number(inputs.wasteMargin) || 10
 	

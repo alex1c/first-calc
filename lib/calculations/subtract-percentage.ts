@@ -1,11 +1,11 @@
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Subtract percentage from a number
  * Inputs: value, percent
  * Outputs: result
  */
-export const calculateSubtractPercentage: CalculatorFunction = (inputs) => {
+export const calculateSubtractPercentage: CalculationFunction = (inputs) => {
 	const value = Number(inputs.value)
 	const percent = Number(inputs.percent)
 

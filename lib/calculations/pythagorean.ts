@@ -16,7 +16,7 @@ import type { CalculationFunction } from './registry'
  * @returns Calculated side, formula, and explanation
  */
 export function calculatePythagorean(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const mode = String(inputs.mode || 'hypotenuse').toLowerCase()
 	

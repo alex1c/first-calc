@@ -3,6 +3,8 @@
  * Provides stable parsing functions with error handling
  */
 
+import { isValidRoman } from '@/lib/romanNumerals'
+
 /**
  * Parse single number from slug (supports decimals and language suffix)
  * @param slug - Array of slug segments

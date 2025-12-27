@@ -164,8 +164,8 @@ export default async function CalculatorRoutePage({
 		locale,
 		category,
 		slug,
-		calculator.title,
 		t,
+		calculator.title,
 	)
 
 	// Get calculators in category for Previous/Next navigation

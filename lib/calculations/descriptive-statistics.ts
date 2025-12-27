@@ -127,8 +127,8 @@ function calculateStandardDeviation(numbers: number[]): number {
  * @returns Calculated statistics
  */
 export function calculateDescriptiveStatistics(
-	inputs: Record<string, number | string>,
-): Record<string, number | string | number[]> {
+	inputs: Record<string, number | string | boolean>,
+): Record<string, number | string | number[] | null | undefined> {
 	const datasetStr = String(inputs.dataset || '')
 	const numbers = parseDataset(datasetStr)
 

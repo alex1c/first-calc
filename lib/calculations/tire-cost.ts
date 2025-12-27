@@ -6,18 +6,18 @@
  *          insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate tire costs over time and per mile
  */
-export const calculateTireCost: CalculatorFunction = (inputs) => {
+export const calculateTireCost: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const tirePricePerUnit = Number(inputs.tirePricePerUnit || 0)
 	const tiresCount = Math.floor(Number(inputs.tiresCount || 4))
 	const tireLifespanMilesKm = Number(inputs.tireLifespanMilesKm || 0)
 	const annualMileage = Number(inputs.annualMileage || 0)
-	const seasonalTiresToggle = inputs.seasonalTiresToggle === true || inputs.seasonalTiresToggle === 'true'
+	const seasonalTiresToggle = inputs.seasonalTiresToggle === true || (typeof inputs.seasonalTiresToggle === 'string' && inputs.seasonalTiresToggle.toLowerCase() === 'true') || inputs.seasonalTiresToggle === 'true'
 	const mountingAndBalancingCost = Number(inputs.mountingAndBalancingCost || 0)
 
 	// Validation

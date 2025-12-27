@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { locales, type Locale } from '@/lib/i18n'
 import { PageContainer } from '@/components/layout/page-container'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'

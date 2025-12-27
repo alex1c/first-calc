@@ -71,3 +71,4 @@ export default function TermsPage({ params }: TermsPageProps) {
 
 
 
+

@@ -14,7 +14,7 @@ import type { CalculationFunction } from './registry'
  * @returns Percentage change, direction, formula, and absolute difference
  */
 export function calculatePercentageChange(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const original = Number(inputs.original)
 	const newValue = Number(inputs.new)

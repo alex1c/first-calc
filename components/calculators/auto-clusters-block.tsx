@@ -120,8 +120,10 @@ export async function AutoClustersBlock({ locale }: AutoClustersBlockProps) {
 						</p>
 						
 						<ul className="space-y-2">
-							{cluster.calculators.map((calc) => (
-								<li key={calc.id}>
+							{cluster.calculators.map((calc) => {
+								if (!calc) return null
+								return (
+									<li key={calc.id}>
 									<Link
 										href={`/${locale === 'en' ? '' : locale}/calculators/${calc.category}/${calc.slug}`}
 										className="text-blue-600 hover:text-blue-800 underline flex items-center"
@@ -134,7 +136,8 @@ export async function AutoClustersBlock({ locale }: AutoClustersBlockProps) {
 										)}
 									</Link>
 								</li>
-							))}
+								)
+							})}
 						</ul>
 					</div>
 				))}

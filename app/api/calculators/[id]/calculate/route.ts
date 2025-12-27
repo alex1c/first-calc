@@ -61,12 +61,12 @@ export async function POST(
 				}
 
 				// Only check min/max if explicitly set in validation
-				if (input.validation?.min !== undefined && numValue < input.validation.min) {
+				if (input.validation?.min !== undefined && typeof input.validation.min === 'number' && numValue < input.validation.min) {
 					errors[input.name] = `${input.label} must be at least ${input.validation.min}`
 					return
 				}
 
-				if (input.validation?.max !== undefined && numValue > input.validation.max) {
+				if (input.validation?.max !== undefined && typeof input.validation.max === 'number' && numValue > input.validation.max) {
 					errors[input.name] = `${input.label} must be at most ${input.validation.max}`
 					return
 				}

@@ -18,8 +18,8 @@ export function getCalculatorBreadcrumbs(
 	locale: Locale,
 	category: string,
 	slug: string,
-	calculatorTitle?: string,
 	t: TranslationFunction,
+	calculatorTitle?: string,
 ): BreadcrumbItem[] {
 	// EN locale uses URLs without /en prefix
 	const basePath = locale === 'en' ? '' : `/${locale}`
@@ -144,10 +144,10 @@ function getStandardRegionLabel(country: string, t: TranslationFunction): string
  */
 export function getStandardsBreadcrumbs(
 	locale: Locale,
+	t: TranslationFunction,
 	country?: string,
 	slug?: string,
 	standardTitle?: string,
-	t: TranslationFunction,
 ): BreadcrumbItem[] {
 	// EN locale uses URLs without /en prefix
 	const basePath = locale === 'en' ? '' : `/${locale}`
@@ -225,9 +225,9 @@ export function getNationalStandardsBreadcrumbs(
  */
 export function getLearnBreadcrumbs(
 	locale: Locale,
+	t: TranslationFunction,
 	slug?: string,
 	articleTitle?: string,
-	t: TranslationFunction,
 ): BreadcrumbItem[] {
 	// EN locale uses URLs without /en prefix
 	const basePath = locale === 'en' ? '' : `/${locale}`

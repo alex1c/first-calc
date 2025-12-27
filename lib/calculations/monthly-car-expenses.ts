@@ -7,12 +7,12 @@
  *          costPerMile, breakdown, biggestExpense, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate monthly car expenses with comprehensive breakdown
  */
-export const calculateMonthlyCarExpenses: CalculatorFunction = (inputs) => {
+export const calculateMonthlyCarExpenses: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const insuranceMonthly = Number(inputs.insuranceMonthly || 0)
 	const parkingMonthly = Number(inputs.parkingMonthly || 0)
@@ -25,7 +25,7 @@ export const calculateMonthlyCarExpenses: CalculatorFunction = (inputs) => {
 	const maintenanceMonthly = Number(inputs.maintenanceMonthly || 0)
 	const repairsMonthly = Number(inputs.repairsMonthly || 0)
 	const otherMonthly = Number(inputs.otherMonthly || 0)
-	const useFuelCalculation = inputs.useFuelCalculation === true || inputs.useFuelCalculation === 'true'
+	const useFuelCalculation = inputs.useFuelCalculation === true || (typeof inputs.useFuelCalculation === 'string' && inputs.useFuelCalculation.toLowerCase() === 'true') || inputs.useFuelCalculation === 'true'
 
 	// Validation
 	if (

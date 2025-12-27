@@ -74,7 +74,7 @@ export default async function LearnPage({ params }: LearnPageProps) {
 	)
 
 	// Generate breadcrumbs
-	const breadcrumbs = getLearnBreadcrumbs(locale, undefined, undefined, t)
+	const breadcrumbs = getLearnBreadcrumbs(locale, t)
 
 	return (
 		<>

@@ -4,7 +4,7 @@
  * Outputs: devineWeight, robinsonWeight, millerWeight, minWeight, maxWeight, idealRangeKg, idealRangeLb, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Conversion constants
 const CM_TO_INCHES = 0.393701
@@ -103,7 +103,7 @@ function round(value: number, decimals: number = 1): number {
 /**
  * Calculate ideal weight range
  */
-export const calculateIdealWeight: CalculatorFunction = (inputs) => {
+export const calculateIdealWeight: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const sex = String(inputs.sex || 'male').toLowerCase().trim()
 	const height = Number(inputs.height || 0)

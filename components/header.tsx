@@ -12,7 +12,6 @@ const menuItems = [
 	{ href: '/standards', key: 'standards' },
 	{ href: '/tools', key: 'tools' },
 	{ href: '/learn', key: 'learn' },
-	{ href: '/api', key: 'api' },
 	{ href: '/about', key: 'about' },
 	{ href: '/contact', key: 'contact' },
 ]
@@ -41,7 +40,6 @@ function useClientTranslations(locale: Locale) {
 								standards: 'Standards',
 								tools: 'Tools',
 								learn: 'Learn',
-								api: 'API',
 								about: 'About',
 								contact: 'Contact',
 							},

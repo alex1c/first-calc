@@ -33,10 +33,13 @@ export async function generateMetadata({
 	const ogDescription = getLegacyOgDescription('number-format', locale)
 	const content = getLegacyContent('number-format', locale)
 
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 	return {
 		title: `Indian Number Format - ${number} – calculator`,
 		description: `Convert ${number} to Indian number format (lakhs and crores). Compare with US format.`,
-		keywords: content?.keywords[locale]?.join(', ') || 'indian number format, lakh, crore, number formatting',
+		keywords: content?.keywords[contentLocale]?.join(', ') || 'indian number format, lakh, crore, number formatting',
 		openGraph: {
 			title: ogTitle,
 			description: ogDescription,
@@ -96,6 +99,9 @@ export default function NumberFormatInPage({
 	const usFormat = new Intl.NumberFormat('en-US').format(parsedNumber)
 	const content = getLegacyContent('number-format', locale)
 
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 	return (
 		<LegacyPageLayout locale={locale} title="Indian Number Format" relatedLinks={false}>
 			<ResultsTable
@@ -114,9 +120,9 @@ export default function NumberFormatInPage({
 			/>
 
 			{/* Text content */}
-			{content && content.text[locale] && (
+			{content && content.text[contentLocale] && (
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					{content.text[locale].map((paragraph, index) => (
+					{content.text[contentLocale].map((paragraph, index) => (
 						<p key={index} className="text-gray-700 mb-4 last:mb-0">
 							{paragraph}
 						</p>
@@ -125,8 +131,8 @@ export default function NumberFormatInPage({
 			)}
 
 			{/* Use cases */}
-			{content && content.useCases[locale] && (
-				<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+			{content && content.useCases[contentLocale] && (
+				<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
 			)}
 
 			<LegacyFaqBlock faq={getFaqForLegacyTool('number-format-in')} />

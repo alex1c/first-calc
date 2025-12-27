@@ -57,14 +57,14 @@ export interface CalculatorFaqItem {
 export interface CalculatorInput {
 	name: string
 	label: string
-	type: 'number' | 'select' | 'text' | 'date'
+	type: 'number' | 'select' | 'text' | 'date' | 'checkbox'
 	unitLabel?: string
 	placeholder?: string
 	options?: Array<{ value: string; label: string }>
 	min?: number | string
 	max?: number | string
 	step?: number | 'any'
-	defaultValue?: number | string
+	defaultValue?: number | string | boolean
 	helpText?: string
 	visibleIf?: {
 		field: string
@@ -86,15 +86,15 @@ export interface CalculatorOutput {
 	name: string
 	label: string
 	unitLabel?: string
-	formatType?: 'number' | 'currency' | 'percentage' | 'default'
+	formatType?: 'number' | 'currency' | 'percentage' | 'date' | 'text' | 'default'
 }
 
 /**
  * Calculator calculation function type
  */
 export type CalculatorFunction = (
-	values: Record<string, number | string>,
-) => Record<string, number | string>
+	values: Record<string, number | string | boolean>,
+) => Record<string, any>
 
 /**
  * Main calculator definition interface
@@ -108,7 +108,7 @@ export interface CalculatorDefinition {
 	shortDescription: string
 	longDescription?: string
 	locale: CalculatorLocale
-	contentLocale: CalculatorLocale // Locale of the actual content (may differ from locale if fallback to EN)
+	contentLocale?: CalculatorLocale // Locale of the actual content (may differ from locale if fallback to EN), defaults to locale if not provided
 	tags?: string[] // Optional tags for filtering and navigation
 	inputs: CalculatorInput[]
 	outputs: CalculatorOutput[]
@@ -122,6 +122,13 @@ export interface CalculatorDefinition {
 	meta?: {
 		keywords?: string[]
 		author?: string
+	}
+	seo?: {
+		title?: string
+		description?: string
+		schema?: {
+			applicationSubCategory?: string
+		}
 	}
 }
 
@@ -137,7 +144,7 @@ export interface CalculatorDefinitionClient {
 	shortDescription: string
 	longDescription?: string
 	locale: CalculatorLocale
-	contentLocale: CalculatorLocale // Locale of the actual content (may differ from locale if fallback to EN)
+	contentLocale?: CalculatorLocale // Locale of the actual content (may differ from locale if fallback to EN), defaults to locale if not provided
 	tags?: string[] // Optional tags for filtering and navigation
 	inputs: CalculatorInput[]
 	outputs: CalculatorOutput[]
@@ -149,6 +156,13 @@ export interface CalculatorDefinitionClient {
 	meta?: {
 		keywords?: string[]
 		author?: string
+	}
+	seo?: {
+		title?: string
+		description?: string
+		schema?: {
+			applicationSubCategory?: string
+		}
 	}
 }
 

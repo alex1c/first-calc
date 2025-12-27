@@ -7,8 +7,8 @@
  * Format a value based on format type
  */
 export function formatOutputValue(
-	value: number | string | null,
-	formatType?: 'number' | 'currency' | 'percentage' | 'default',
+	value: number | string | null | undefined,
+	formatType?: 'number' | 'currency' | 'percentage' | 'date' | 'text' | 'default',
 	unitLabel?: string,
 ): string {
 	if (value === null || value === undefined) {

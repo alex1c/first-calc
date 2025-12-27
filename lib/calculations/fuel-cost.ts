@@ -5,19 +5,19 @@
  * Outputs: fuelUsed, fuelCost, costPerDistance, totalFuelCost, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate fuel cost for driving trips or periods
  */
-export const calculateFuelCost: CalculatorFunction = (inputs) => {
+export const calculateFuelCost: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const distance = Number(inputs.distance || 0)
 	const fuelConsumption = Number(inputs.fuelConsumption || 0)
 	const consumptionUnit = String(inputs.consumptionUnit || 'L/100km').toLowerCase()
 	const fuelPricePerUnit = Number(inputs.fuelPricePerUnit || 0)
 	const periodType = String(inputs.periodType || 'trip').toLowerCase() // trip, monthly, yearly
-	const roundTrip = inputs.roundTrip === true || inputs.roundTrip === 'true'
+	const roundTrip = inputs.roundTrip === true || (typeof inputs.roundTrip === 'string' && inputs.roundTrip.toLowerCase() === 'true') || inputs.roundTrip === 'true'
 	const currency = String(inputs.currency || '$')
 
 	// Validation

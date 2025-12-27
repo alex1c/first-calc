@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { locales, type Locale } from '@/lib/i18n'
 import { calculateFactors, getNumberClassification } from '@/lib/legacy/factors'
+import { getPrimeFactors } from '@/lib/factors'
 import { LegacyPageLayout } from '@/components/legacy/legacy-page-layout'
 import { ErrorDisplay } from '@/components/legacy/error-display'
 import { LegacyRelatedLinks } from '@/components/legacy/related-links'
@@ -30,12 +31,15 @@ export async function generateMetadata({
 
 	const ogTitle = getLegacyOgTitle('factors', locale)
 	const ogDescription = getLegacyOgDescription('factors', locale)
-	const content = getLegacyContent('factors', locale)
+		const content = getLegacyContent('factors', locale)
+
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
 	return {
 		title: `Factors of ${number} – calculator`,
 		description: `Find all factors and prime factorization of ${number}. Calculate divisors and prime factors.`,
-		keywords: content?.keywords[locale]?.join(', ') || 'factors, divisors, prime factorization, number decomposition',
+		keywords: content?.keywords[contentLocale]?.join(', ') || 'factors, divisors, prime factorization, number decomposition',
 		openGraph: {
 			title: ogTitle,
 			description: ogDescription,
@@ -82,9 +86,11 @@ export default function FactorsPage({ params }: FactorsPageProps) {
 
 	const factors = calculateFactors(parsedNumber)
 	const classification = getNumberClassification(parsedNumber)
-	const { getPrimeFactors } = await import('@/lib/factors')
 	const primeFactorsRaw = getPrimeFactors(parsedNumber)
 	const content = getLegacyContent('factors', locale)
+
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
 	return (
 		<LegacyPageLayout locale={locale} title={`Factors of ${parsedNumber}`} relatedLinks={false}>
@@ -160,9 +166,9 @@ export default function FactorsPage({ params }: FactorsPageProps) {
 			</div>
 
 			{/* Text content */}
-			{content && content.text[locale] && (
+			{content && content.text[contentLocale] && (
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					{content.text[locale].map((paragraph, index) => (
+					{content.text[contentLocale].map((paragraph, index) => (
 						<p key={index} className="text-gray-700 mb-4 last:mb-0">
 							{paragraph}
 						</p>
@@ -171,8 +177,8 @@ export default function FactorsPage({ params }: FactorsPageProps) {
 			)}
 
 			{/* Use cases */}
-			{content && content.useCases[locale] && (
-				<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+			{content && content.useCases[contentLocale] && (
+				<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
 			)}
 
 			<LegacyFaqBlock faq={getFaqForLegacyTool('factors')} />

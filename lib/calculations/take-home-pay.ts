@@ -3,12 +3,12 @@
  * General estimation tool, not country-specific
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate take-home pay
  */
-export const calculateTakeHomePay: CalculatorFunction = (inputs) => {
+export const calculateTakeHomePay: CalculationFunction = (inputs) => {
 	const grossIncome = Number(inputs.grossIncome || 0)
 	const incomePeriod = String(inputs.incomePeriod || 'yearly').toLowerCase()
 	const effectiveTaxRate = Number(inputs.effectiveTaxRate || 0)

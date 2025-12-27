@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 import { calculatorRegistry, standardRegistry } from '@/lib/registry/loader'
+import type { Locale } from '@/lib/i18n'
 import { getLegacyToolsForCalculator } from '@/lib/links/legacyToCalculators'
 import { getStandardsForCalculator } from '@/lib/standards/linking'
 import { getRelatedByTags } from '@/lib/navigation/related-by-tags'
@@ -417,19 +418,19 @@ export async function RelatedCalculatorsBlock({
 
 		if (calculator.category === 'math' && relatedCalculators.length < 6) {
 			const clusterRelated = await getRelatedByCluster(calculator.id, locale, 6)
-			const existingIds = new Set(relatedCalculators.map((c) => c.id))
-			const newFromCluster = clusterRelated.filter((c) => !existingIds.has(c.id))
+			const existingIds = new Set(relatedCalculators.filter((c): c is NonNullable<typeof c> => c !== undefined).map((c) => c.id))
+			const newFromCluster = clusterRelated.filter((c): c is NonNullable<typeof c> => c !== undefined && !existingIds.has(c.id))
 			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 8)
 		}
 
 		if (calculator.category === 'finance' && relatedCalculators.length < 6) {
 			const financeClusterRelated = await getRelatedByFinanceCluster(
 				calculator.id,
-				locale,
+				locale as Locale,
 			)
-			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const existingIds = new Set(relatedCalculators.filter((c): c is NonNullable<typeof c> => c !== undefined).map((c) => c.id))
 			const newFromCluster = financeClusterRelated.filter(
-				(c) => !existingIds.has(c.id),
+				(c): c is NonNullable<typeof c> => c !== undefined && !existingIds.has(c.id),
 			)
 			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 8)
 		}
@@ -437,11 +438,11 @@ export async function RelatedCalculatorsBlock({
 		if (calculator.category === 'health' && relatedCalculators.length < 6) {
 			const healthClusterRelated = await getRelatedByHealthCluster(
 				calculator.id,
-				locale,
+				locale as Locale,
 			)
-			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const existingIds = new Set(relatedCalculators.filter((c): c is NonNullable<typeof c> => c !== undefined).map((c) => c.id))
 			const newFromCluster = healthClusterRelated.filter(
-				(c) => !existingIds.has(c.id),
+				(c): c is NonNullable<typeof c> => c !== undefined && !existingIds.has(c.id),
 			)
 			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
 		}
@@ -449,12 +450,12 @@ export async function RelatedCalculatorsBlock({
 		if (calculator.category === 'everyday' && relatedCalculators.length < 6) {
 			const everydayClusterRelated = await getRelatedByEverydayCluster(
 				calculator.id,
-				locale,
+				locale as Locale,
 				6,
 			)
-			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const existingIds = new Set(relatedCalculators.filter((c): c is NonNullable<typeof c> => c !== undefined).map((c) => c.id))
 			const newFromCluster = everydayClusterRelated.filter(
-				(c) => !existingIds.has(c.id),
+				(c): c is NonNullable<typeof c> => c !== undefined && !existingIds.has(c.id),
 			)
 			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
 		}
@@ -462,12 +463,12 @@ export async function RelatedCalculatorsBlock({
 		if (calculator.category === 'construction' && relatedCalculators.length < 6) {
 			const constructionClusterRelated = await getRelatedByConstructionCluster(
 				calculator.id,
-				locale,
+				locale as Locale,
 				6,
 			)
-			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const existingIds = new Set(relatedCalculators.filter((c): c is NonNullable<typeof c> => c !== undefined).map((c) => c.id))
 			const newFromCluster = constructionClusterRelated.filter(
-				(c) => !existingIds.has(c.id),
+				(c): c is NonNullable<typeof c> => c !== undefined && !existingIds.has(c.id),
 			)
 			relatedCalculators = [...relatedCalculators, ...newFromCluster].slice(0, 6)
 		}
@@ -480,8 +481,8 @@ export async function RelatedCalculatorsBlock({
 			const manualRelated = await Promise.all(
 				calculator.relatedIds.map((id) => calculatorRegistry.getById(id, locale)),
 			).then((calcs) => calcs.filter((c): c is NonNullable<typeof c> => c !== undefined))
-			const existingIds = new Set(relatedCalculators.map((c) => c.id))
-			const newFromManual = manualRelated.filter((c) => !existingIds.has(c.id))
+			const existingIds = new Set(relatedCalculators.filter((c): c is NonNullable<typeof c> => c !== undefined).map((c) => c.id))
+			const newFromManual = manualRelated.filter((c): c is NonNullable<typeof c> => c !== undefined && !existingIds.has(c.id))
 			relatedCalculators = [...relatedCalculators, ...newFromManual].slice(0, 8)
 		}
 
@@ -490,9 +491,9 @@ export async function RelatedCalculatorsBlock({
 				calculator.category,
 				locale,
 			)
-			const existingIds = new Set(relatedCalculators.map((c) => c.id))
+			const existingIds = new Set(relatedCalculators.filter((c): c is NonNullable<typeof c> => c !== undefined).map((c) => c.id))
 			const newFromCategory = categoryCalcs
-				.filter((calc) => calc.id !== calculator.id && !existingIds.has(calc.id))
+				.filter((calc): calc is NonNullable<typeof calc> => calc !== undefined && calc.id !== calculator.id && !existingIds.has(calc.id))
 				.slice(0, 8 - relatedCalculators.length)
 			relatedCalculators = [...relatedCalculators, ...newFromCategory]
 		}
@@ -532,7 +533,9 @@ export async function RelatedCalculatorsBlock({
 						You Might Also Need
 					</h3>
 					<div className="space-y-3">
-						{scenarioLinks.map(({ calculator: calc, reason }) => (
+						{scenarioLinks
+							.filter((item): item is typeof item & { calculator: NonNullable<typeof item.calculator> } => item.calculator !== undefined && item.calculator !== null)
+							.map(({ calculator: calc, reason }) => (
 							<div key={calc.id} className="bg-white rounded-lg p-4 border border-blue-200">
 								<Link
 									href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
@@ -553,7 +556,9 @@ export async function RelatedCalculatorsBlock({
 			{relatedCalculators.length > 0 && (
 				<div className="mb-4">
 					<ul className="space-y-2">
-						{relatedCalculators.map((calc) => (
+						{relatedCalculators
+							.filter((calc): calc is NonNullable<typeof calc> => calc !== undefined && calc !== null)
+							.map((calc) => (
 							<li key={calc.id}>
 								<Link
 									href={`/${locale}/calculators/${calc.category}/${calc.slug}`}

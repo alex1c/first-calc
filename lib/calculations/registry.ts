@@ -10,8 +10,8 @@
  * Takes input values and returns output values
  */
 export type CalculationFunction = (
-	inputs: Record<string, number | string>,
-) => Record<string, number | string>
+	inputs: Record<string, number | string | boolean>,
+) => Record<string, any>
 
 /**
  * Calculation registry

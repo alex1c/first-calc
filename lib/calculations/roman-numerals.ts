@@ -4,7 +4,7 @@
  * Outputs: result, breakdown, explanation, symbolsUsed
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -140,7 +140,7 @@ function getSymbolsUsed(roman: string): string[] {
 /**
  * Calculate Roman numerals conversion
  */
-export const calculateRomanNumerals: CalculatorFunction = (inputs) => {
+export const calculateRomanNumerals: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const mode = String(inputs.mode || 'number-to-roman').toLowerCase()
 	const value = String(inputs.value || '').trim()

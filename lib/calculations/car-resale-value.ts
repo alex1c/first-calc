@@ -7,12 +7,12 @@
  *          yearByYearTable, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Estimate car resale value after a number of years
  */
-export const calculateCarResaleValue: CalculatorFunction = (inputs) => {
+export const calculateCarResaleValue: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const currentCarValue = Number(inputs.currentCarValue || inputs.purchasePrice || 0)
 	const yearsUntilSale = Math.floor(Number(inputs.yearsUntilSale || 1))
@@ -20,7 +20,7 @@ export const calculateCarResaleValue: CalculatorFunction = (inputs) => {
 	const annualMileage = Number(inputs.annualMileage || 0)
 	const baselineDepreciationRate = Number(inputs.baselineDepreciationRate || 0)
 	const purchaseType = String(inputs.purchaseType || 'used').toLowerCase()
-	const mileageImpactToggle = inputs.mileageImpactToggle === true || inputs.mileageImpactToggle === 'true'
+	const mileageImpactToggle = inputs.mileageImpactToggle === true || (typeof inputs.mileageImpactToggle === 'string' && inputs.mileageImpactToggle.toLowerCase() === 'true') || inputs.mileageImpactToggle === 'true'
 	const mileageBaselinePerYear = Number(inputs.mileageBaselinePerYear || 12000)
 	const mileagePenaltyPerExtraUnit = Number(inputs.mileagePenaltyPerExtraUnit || 0.01)
 

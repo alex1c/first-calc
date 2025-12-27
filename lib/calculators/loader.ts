@@ -152,14 +152,14 @@ export async function getCalculatorBySlug(
  * @example
  * const definition = convertSchemaToDefinition({ id: 'test', ... })
  */
-export function convertSchemaToDefinition(
+export async function convertSchemaToDefinition(
 	schema: unknown,
-): CalculatorDefinition {
+): Promise<CalculatorDefinition> {
 	const validation = validateCalculatorSchema(schema)
 	if (!validation.valid) {
 		throw new Error(`Invalid schema: ${validation.errors.join(', ')}`)
 	}
-	return schemaToDefinition(schema as import('./schema').CalculatorSchema)
+	return await schemaToDefinition(schema as import('./schema').CalculatorSchema)
 }
 
 

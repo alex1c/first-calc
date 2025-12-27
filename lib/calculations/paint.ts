@@ -4,7 +4,7 @@
  * Outputs: paintRequired, paintPerCoat, paintRequiredWithWaste, explanation, cansEstimate
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -38,7 +38,7 @@ function squareFeetToSquareMeters(sqft: number): number {
 /**
  * Calculate paint needed
  */
-export const calculatePaint: CalculatorFunction = (inputs) => {
+export const calculatePaint: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const surfaceAreaStr = String(inputs.surfaceArea || inputs.roomArea || '').trim() // Support both for backward compatibility
 	const surfaceType = String(inputs.surfaceType || 'walls').toLowerCase()
@@ -46,7 +46,7 @@ export const calculatePaint: CalculatorFunction = (inputs) => {
 	const paintCoverageStr = String(inputs.paintCoverage || '').trim()
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const includeWaste = 
-		inputs.includeWaste === true || 
+		inputs.includeWaste === true || (typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') || 
 		inputs.includeWaste === 'true' || 
 		String(inputs.includeWaste).toLowerCase() === 'true'
 	const wastePercent = Number(inputs.wasteMargin) || 10

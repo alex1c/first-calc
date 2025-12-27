@@ -3,7 +3,7 @@
  * Calculates number of laminate planks needed for flooring
  */
 
-import type { CalculationFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -27,7 +27,7 @@ export const calculateLaminate: CalculationFunction = (inputs) => {
 	const layoutType = String(inputs.layoutType || 'straight').toLowerCase()
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const includeWaste = 
-		inputs.includeWaste === true || 
+		inputs.includeWaste === true || (typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') || 
 		inputs.includeWaste === 'true' || 
 		String(inputs.includeWaste).toLowerCase() === 'true'
 	

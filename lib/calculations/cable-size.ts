@@ -3,7 +3,7 @@
  * Estimates recommended cable cross-section based on electrical load and voltage
  */
 
-import type { CalculationFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**

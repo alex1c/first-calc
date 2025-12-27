@@ -4,7 +4,7 @@
  * Outputs: proteinGrams, carbsGrams, fatGrams, proteinCalories, carbsCalories, fatCalories, proteinPercent, carbsPercent, fatPercent, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Calories per gram for each macronutrient
 const PROTEIN_KCAL_PER_GRAM = 4
@@ -62,7 +62,7 @@ function round(value: number, decimals: number = 1): number {
 /**
  * Calculate macronutrient breakdown
  */
-export const calculateMacronutrient: CalculatorFunction = (inputs) => {
+export const calculateMacronutrient: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const dailyCalories = Number(inputs.dailyCalories || 0)
 	const macroPreset = String(inputs.macroPreset || 'balanced')

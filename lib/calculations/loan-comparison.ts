@@ -4,7 +4,7 @@
  * Outputs: comparisonTable, winner, bestLoanByMetric, formulaExplanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Loan comparison result interface
@@ -27,9 +27,12 @@ interface LoanComparisonResult {
 /**
  * Map payment frequency string to payments per year
  */
-function getPaymentsPerYear(frequency: string | number): number {
+function getPaymentsPerYear(frequency: string | number | boolean): number {
 	if (typeof frequency === 'number') {
 		return frequency
+	}
+	if (typeof frequency === 'boolean') {
+		return 12 // Default to monthly for boolean
 	}
 	const frequencyMap: Record<string, number> = {
 		'monthly': 12,
@@ -41,7 +44,7 @@ function getPaymentsPerYear(frequency: string | number): number {
 /**
  * Calculate loan comparison with multiple loans
  */
-export const calculateLoanComparison: CalculatorFunction = (inputs) => {
+export const calculateLoanComparison: CalculationFunction = (inputs) => {
 	const paymentFrequencyStr = inputs.paymentFrequency || 'monthly'
 	const comparisonMetric = String(inputs.comparisonMetric || 'lowest-monthly-payment').toLowerCase()
 

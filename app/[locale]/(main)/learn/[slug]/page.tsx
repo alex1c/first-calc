@@ -91,7 +91,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 	const t = createT(dict)
 
 	// Generate breadcrumbs
-	const breadcrumbs = getLearnBreadcrumbs(locale, slug, article.title, t)
+	const breadcrumbs = getLearnBreadcrumbs(locale, t, slug, article.title)
 
 	return (
 		<>

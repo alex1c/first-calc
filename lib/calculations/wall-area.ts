@@ -19,7 +19,7 @@ import type { CalculationFunction } from './registry'
  * @returns Calculated gross area, openings area, net area, and breakdown
  */
 export function calculateWallArea(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const isMetric = unit === 'meters' || unit === 'm'
@@ -106,9 +106,9 @@ export function calculateWallArea(
 	}
 	
 	// Calculate openings area if enabled
-	const subtractOpenings = 
-		inputs.subtractOpenings === true || 
-		inputs.subtractOpenings === 'true' || 
+	const subtractOpenings =
+		inputs.subtractOpenings === true ||
+		(typeof inputs.subtractOpenings === 'string' && inputs.subtractOpenings.toLowerCase() === 'true') ||
 		String(inputs.subtractOpenings).toLowerCase() === 'true'
 	
 	let openingsArea = 0

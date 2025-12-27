@@ -14,7 +14,7 @@ import type { CalculatorDefinitionClient } from './types'
  */
 function convertExampleInputs(
 	calculator: CalculatorDefinitionClient,
-	exampleInputs: Record<string, number | string>,
+	exampleInputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const converted: Record<string, number | string> = {}
 	
@@ -25,8 +25,12 @@ function convertExampleInputs(
 		if (value !== undefined && value !== null && value !== '') {
 			// Convert based on input type
 			if (input.type === 'number') {
-				const numValue = typeof value === 'number' ? value : Number(value)
-				converted[input.name] = isNaN(numValue) ? (input.defaultValue !== undefined ? input.defaultValue : 0) : numValue
+				// Handle boolean values for number inputs
+				const numValue = typeof value === 'number' ? value : (typeof value === 'boolean' ? (value ? 1 : 0) : Number(value))
+				const defaultValue = input.defaultValue !== undefined 
+					? (typeof input.defaultValue === 'boolean' ? (input.defaultValue ? 1 : 0) : (typeof input.defaultValue === 'number' ? input.defaultValue : Number(input.defaultValue)))
+					: 0
+				converted[input.name] = isNaN(numValue) ? defaultValue : numValue
 			} else if (input.type === 'select') {
 				// Keep select values as strings, but ensure they match expected format
 				// Handle boolean-like strings
@@ -38,12 +42,14 @@ function convertExampleInputs(
 					converted[input.name] = String(value)
 				}
 			} else {
-				converted[input.name] = value
+				// Convert boolean to string for text inputs
+				converted[input.name] = typeof value === 'boolean' ? String(value) : value
 			}
 		} else {
 			// Use default value if available
 			if (input.defaultValue !== undefined) {
-				converted[input.name] = input.defaultValue
+				// Convert boolean default values to strings
+				converted[input.name] = typeof input.defaultValue === 'boolean' ? String(input.defaultValue) : input.defaultValue
 			} else if (input.type === 'number') {
 				converted[input.name] = 0
 			}
@@ -53,7 +59,9 @@ function convertExampleInputs(
 	// Also include any inputs not in the definition (for flexibility)
 	Object.keys(exampleInputs).forEach((key) => {
 		if (!(key in converted) && exampleInputs[key] !== undefined && exampleInputs[key] !== null) {
-			converted[key] = exampleInputs[key]
+			const value = exampleInputs[key]
+			// Convert boolean to string
+			converted[key] = typeof value === 'boolean' ? String(value) : value
 		}
 	})
 	
@@ -69,13 +77,13 @@ export async function executeExampleCalculation(
 		const convertedInputs = convertExampleInputs(calculator, exampleInputs)
 		
 		// Use the calculator's calculate function if available
-		if (calculator.calculate && typeof calculator.calculate === 'function') {
+		if ('calculate' in calculator && calculator.calculate && typeof calculator.calculate === 'function') {
 			return calculator.calculate(convertedInputs)
 		}
 
 		// If calculate is a string (calculationId), we need to fetch it via API
 		// For client-side, we'll need to make an API call
-		if (typeof calculator.calculate === 'string') {
+		if ('calculate' in calculator && typeof calculator.calculate === 'string') {
 			try {
 				const response = await fetch(`/api/calculators/${calculator.id}/calculate`, {
 					method: 'POST',

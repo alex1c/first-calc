@@ -4,7 +4,7 @@
  * Outputs: bmr, bmrPerHour, formulaUsed, explanation, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Conversion constants
 const POUNDS_TO_KG = 0.453592
@@ -114,7 +114,7 @@ function round(value: number): number {
 /**
  * Calculate BMR
  */
-export const calculateBMR: CalculatorFunction = (inputs) => {
+export const calculateBMR: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const sex = String(inputs.sex || 'male').toLowerCase().trim()
 	const age = Number(inputs.age || 0)

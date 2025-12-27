@@ -80,11 +80,11 @@ export function ExamplesBlock({ calculator }: ExamplesBlockProps) {
 
 	// For equation-solver, group examples by type
 	if (calculator.id === 'equation-solver') {
-		const linearExamples = calculator.examples.filter((ex) => 
-			ex.title?.toLowerCase().includes('linear') || ex.description?.toLowerCase().includes('linear')
+		const linearExamples = calculator.examples.filter((ex) =>
+			ex.title?.toLowerCase().includes('linear') || ex.inputDescription?.toLowerCase().includes('linear')
 		)
-		const quadraticExamples = calculator.examples.filter((ex) => 
-			ex.title?.toLowerCase().includes('quadratic') || ex.description?.toLowerCase().includes('quadratic')
+		const quadraticExamples = calculator.examples.filter((ex) =>
+			ex.title?.toLowerCase().includes('quadratic') || ex.inputDescription?.toLowerCase().includes('quadratic')
 		)
 		const otherExamples = calculator.examples.filter((ex) => 
 			!linearExamples.includes(ex) && !quadraticExamples.includes(ex)
@@ -111,7 +111,7 @@ export function ExamplesBlock({ calculator }: ExamplesBlockProps) {
 										onClick={() => {
 											// Extract equation text from example
 											const equationMatch = example.title.match(/([\d\sx+\-=^²]+)/) || 
-												example.description.match(/([\d\sx+\-=^²]+)/)
+												example.inputDescription?.match(/([\d\sx+\-=^²]+)/)
 											if (equationMatch) {
 												// This would need to be handled by parent component
 												// For now, just log
@@ -159,7 +159,7 @@ export function ExamplesBlock({ calculator }: ExamplesBlockProps) {
 										className="border border-gray-200 rounded-lg p-5 bg-gradient-to-br from-gray-50 to-white hover:shadow-md transition-shadow cursor-pointer"
 										onClick={() => {
 											const equationMatch = example.title.match(/([\d\sx+\-=^²]+)/) || 
-												example.description.match(/([\d\sx+\-=^²]+)/)
+												example.inputDescription?.match(/([\d\sx+\-=^²]+)/)
 											if (equationMatch) {
 												console.log('Example clicked:', equationMatch[1])
 											}
@@ -391,7 +391,7 @@ function ExampleCardWithCalculation({
 
 	// Execute calculation when component mounts
 	useEffect(() => {
-		if (hasInputs && calculator.calculate) {
+		if (hasInputs && 'calculate' in calculator && calculator.calculate) {
 			setIsCalculating(true)
 			setCalculationError(null)
 

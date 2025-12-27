@@ -3,7 +3,7 @@
  * Calculates comfortable stair dimensions: steps, riser height, tread depth, and angle
  */
 
-import type { CalculationFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**

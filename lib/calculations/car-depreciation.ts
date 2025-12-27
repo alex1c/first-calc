@@ -6,12 +6,12 @@
  *          depreciationPercentTotal, yearByYearTable, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate car depreciation and resale value over time
  */
-export const calculateCarDepreciation: CalculatorFunction = (inputs) => {
+export const calculateCarDepreciation: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const purchasePrice = Number(inputs.purchasePrice || 0)
 	const purchaseType = String(inputs.purchaseType || 'new').toLowerCase()
@@ -20,7 +20,7 @@ export const calculateCarDepreciation: CalculatorFunction = (inputs) => {
 	const annualDepreciationRate = Number(inputs.annualDepreciationRate || 0)
 	const firstYearDropRate = Number(inputs.firstYearDropRate || 0)
 	const mileagePerYear = Number(inputs.mileagePerYear || 0)
-	const mileageImpact = inputs.mileageImpact === true || inputs.mileageImpact === 'true'
+	const mileageImpact = inputs.mileageImpact === true || (typeof inputs.mileageImpact === 'string' && inputs.mileageImpact.toLowerCase() === 'true') || inputs.mileageImpact === 'true'
 	const fixedResaleValue = inputs.fixedResaleValue !== undefined && inputs.fixedResaleValue !== null
 		? Number(inputs.fixedResaleValue)
 		: null

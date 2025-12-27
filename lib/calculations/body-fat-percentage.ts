@@ -4,7 +4,7 @@
  * Outputs: bodyFatPercentage, category, categoryDescription, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Conversion constants
 const POUNDS_TO_KG = 0.453592
@@ -138,7 +138,7 @@ function round(value: number, decimals: number = 1): number {
 /**
  * Calculate body fat percentage using U.S. Navy Method
  */
-export const calculateBodyFatPercentage: CalculatorFunction = (inputs) => {
+export const calculateBodyFatPercentage: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const sex = String(inputs.sex || 'male').toLowerCase().trim()
 	const age = Number(inputs.age || 0)
@@ -220,6 +220,9 @@ export const calculateBodyFatPercentage: CalculatorFunction = (inputs) => {
 			if (hipInches === undefined || hipInches <= 0) {
 				throw new Error('For females, hip measurement is required.')
 			}
+			if (neckInches === undefined || neckInches <= 0) {
+				throw new Error('Neck measurement is required for accurate calculation.')
+			}
 			const sum = waistInches + hipInches - neckInches
 			bodyFat = 163.205 * Math.log10(sum) - 97.684 * Math.log10(totalHeightInches) - 78.387
 		}
@@ -230,6 +233,9 @@ export const calculateBodyFatPercentage: CalculatorFunction = (inputs) => {
 			bodyFat = 86.010 * Math.log10(waistInches) - 70.041 * Math.log10(totalHeightInches) + 36.76
 		} else {
 			// Full formula with neck
+			if (neckInches === undefined || neckInches <= 0) {
+				throw new Error('Neck measurement is required for accurate calculation.')
+			}
 			const difference = waistInches - neckInches
 			if (difference <= 0) {
 				throw new Error('Waist circumference must be greater than neck circumference.')

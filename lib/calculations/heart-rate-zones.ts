@@ -4,7 +4,7 @@
  * Outputs: maxHeartRate, zone1Min, zone1Max, zone2Min, zone2Max, zone3Min, zone3Max, zone4Min, zone4Max, zone5Min, zone5Max, methodUsed, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate maximum heart rate using simple formula
@@ -54,7 +54,7 @@ function round(value: number): number {
 /**
  * Calculate heart rate zones
  */
-export const calculateHeartRateZones: CalculatorFunction = (inputs) => {
+export const calculateHeartRateZones: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const age = Number(inputs.age || 0)
 	const restingHeartRate = inputs.restingHeartRate !== undefined ? Number(inputs.restingHeartRate) : undefined

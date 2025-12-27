@@ -23,6 +23,20 @@ export function ArticleSchema({ article, canonicalUrl }: ArticleSchemaProps) {
 		article.title.toLowerCase().includes('standard deviation') ||
 		article.title.toLowerCase().includes('percentage')
 
+	// Check if article is educational (for students, early-stage planners, non-engineers)
+	const isEducationalArticle = article.meta?.keywords?.some((kw) =>
+		['educational', 'educational comparison', 'students', 'concepts', 'design concepts'].includes(kw.toLowerCase())
+	) || article.title.toLowerCase().includes('educational') ||
+		article.title.toLowerCase().includes('concepts') ||
+		article.slug.includes('vs') ||
+		article.slug.includes('comparison')
+
+	// Check if article is about calculators and standards
+	const isCalculatorStandardsArticle = article.meta?.keywords?.some((kw) =>
+		['calculators', 'standards', 'engineering education', 'abstraction'].includes(kw.toLowerCase())
+	) || article.slug.includes('calculators') ||
+		article.slug.includes('standards')
+
 	const schema = {
 		'@context': 'https://schema.org',
 		'@type': 'Article',
@@ -40,6 +54,28 @@ export function ArticleSchema({ article, canonicalUrl }: ArticleSchemaProps) {
 				'@type': 'Thing',
 				name: 'Mathematics',
 			},
+		}),
+		...(isEducationalArticle && {
+			audience: {
+				'@type': 'EducationalAudience',
+				educationalRole: ['student', 'learner'],
+			},
+		}),
+		...(isCalculatorStandardsArticle && {
+			about: [
+				{
+					'@type': 'Thing',
+					name: 'Calculators',
+				},
+				{
+					'@type': 'Thing',
+					name: 'Standards',
+				},
+				{
+					'@type': 'Thing',
+					name: 'Engineering Education',
+				},
+			],
 		}),
 	}
 

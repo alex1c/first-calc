@@ -18,7 +18,7 @@ import type { CalculationFunction } from './registry'
  * @returns Calculated volume and shape information
  */
 export function calculateVolume(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const shape = String(inputs.shape || 'cube').toLowerCase()
 	

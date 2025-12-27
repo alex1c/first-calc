@@ -4,7 +4,7 @@
  * Outputs: finalSavings, totalContributions, totalInterestEarned, timeToTarget, inflationAdjustedSavings, yearlyBreakdown, formulaExplanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Year-by-year breakdown interface
@@ -20,9 +20,12 @@ interface YearBreakdown {
 /**
  * Map compounding frequency string to number
  */
-function getCompoundingFrequency(frequency: string | number): number {
+function getCompoundingFrequency(frequency: string | number | boolean): number {
 	if (typeof frequency === 'number') {
 		return frequency
+	}
+	if (typeof frequency === 'boolean') {
+		return frequency ? 12 : 1 // Default to monthly if true, annually if false
 	}
 	const frequencyMap: Record<string, number> = {
 		'annually': 1,
@@ -35,7 +38,13 @@ function getCompoundingFrequency(frequency: string | number): number {
 /**
  * Map contribution frequency string to contributions per year
  */
-function getContributionsPerYear(frequency: string): number {
+function getContributionsPerYear(frequency: string | number | boolean): number {
+	if (typeof frequency === 'number') {
+		return frequency
+	}
+	if (typeof frequency === 'boolean') {
+		return frequency ? 12 : 1 // Default to monthly if true, annually if false
+	}
 	const frequencyMap: Record<string, number> = {
 		'monthly': 12,
 		'yearly': 1,
@@ -46,7 +55,7 @@ function getContributionsPerYear(frequency: string): number {
 /**
  * Calculate savings growth with comprehensive breakdown
  */
-export const calculateSavings: CalculatorFunction = (inputs) => {
+export const calculateSavings: CalculationFunction = (inputs) => {
 	const initialSavings = Number(inputs.initialSavings || 0)
 	const regularContribution = Number(inputs.regularContribution || inputs.monthlyContribution || 0)
 	const contributionFrequencyStr = inputs.contributionFrequency || (inputs.monthlyContribution ? 'monthly' : 'yearly')

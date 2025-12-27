@@ -19,8 +19,8 @@ import type { CalculationFunction } from './registry'
  * @returns Discriminant, roots, explanation, and formula
  */
 export function calculateQuadratic(
-	inputs: Record<string, number | string>,
-): Record<string, number | string> {
+	inputs: Record<string, number | string | boolean>,
+): Record<string, number | string | number[]> {
 	const a = Number(inputs.a)
 	const b = Number(inputs.b)
 	const c = Number(inputs.c)

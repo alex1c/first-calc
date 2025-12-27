@@ -110,10 +110,13 @@ export async function generateMetadata({
 	// Disable indexing for large ranges
 	const shouldIndex = !range || range.end - range.start <= 999
 
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 	return {
 		title: `${title} - Calculator Portal`,
 		description,
-			keywords: content?.keywords[locale]?.join(', ') || 'число прописью, конвертер чисел, пропись, number to words',
+		keywords: content?.keywords[contentLocale]?.join(', ') || 'число прописью, конвертер чисел, пропись, number to words',
 		robots: shouldIndex ? 'index, follow' : 'noindex, nofollow',
 		openGraph: {
 			title: ogTitle,
@@ -250,6 +253,9 @@ export default async function ChisloPropisyuPage({
 		const title = `Число ${singleNumber} прописью`
 		const content = getLegacyContent('chislo-propisyu', locale)
 
+		// Use 'en' as fallback for locales that don't have translations
+		const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 		// Generate breadcrumbs
 		const breadcrumbs = getLegacyBreadcrumbs(
 			locale,
@@ -297,9 +303,9 @@ export default async function ChisloPropisyuPage({
 				</div>
 
 				{/* Text content */}
-				{content && content.text[locale] && (
+				{content && content.text[contentLocale] && (
 					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-						{content.text[locale].map((paragraph, index) => (
+						{content.text[contentLocale].map((paragraph, index) => (
 							<p key={index} className="text-gray-700 mb-4 last:mb-0">
 								{paragraph}
 							</p>
@@ -308,8 +314,8 @@ export default async function ChisloPropisyuPage({
 				)}
 
 				{/* Use cases */}
-				{content && content.useCases[locale] && (
-					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				{content && content.useCases[contentLocale] && (
+					<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
 				)}
 
 				{/* Examples */}
@@ -358,6 +364,9 @@ export default async function ChisloPropisyuPage({
 		const title = `Числа от ${range.start} до ${range.end} прописью`
 		const content = getLegacyContent('chislo-propisyu', locale)
 
+		// Use 'en' as fallback for locales that don't have translations
+		const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 		// Prepare table data
 		const tableData = numbers.map((num) => {
 			let wordRepresentation: string
@@ -385,9 +394,9 @@ export default async function ChisloPropisyuPage({
 				/>
 
 				{/* Text content */}
-				{content && content.text[locale] && (
+				{content && content.text[contentLocale] && (
 					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-						{content.text[locale].map((paragraph, index) => (
+						{content.text[contentLocale].map((paragraph, index) => (
 							<p key={index} className="text-gray-700 mb-4 last:mb-0">
 								{paragraph}
 							</p>
@@ -396,8 +405,8 @@ export default async function ChisloPropisyuPage({
 				)}
 
 				{/* Use cases */}
-				{content && content.useCases[locale] && (
-					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				{content && content.useCases[contentLocale] && (
+					<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
 				)}
 
 				{/* Examples */}

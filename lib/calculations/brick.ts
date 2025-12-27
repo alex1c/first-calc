@@ -26,8 +26,8 @@ const MODULAR_BRICK = { length: 200, width: 100, height: 75 } // mm
  * @returns Calculated brick quantities and breakdown
  */
 export function calculateBrick(
-	inputs: Record<string, number | string>,
-): Record<string, number | string> {
+	inputs: Record<string, number | string | boolean>,
+): Record<string, number | string | null | undefined> {
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const isMetric = unit === 'meters' || unit === 'm'
 	
@@ -46,10 +46,10 @@ export function calculateBrick(
 	const grossWallArea = wallLength * wallHeight
 	
 	// Calculate openings area if enabled
-	const subtractOpenings = 
-		inputs.subtractOpenings === true || 
-		inputs.subtractOpenings === 'true' || 
-		String(inputs.subtractOpenings).toLowerCase() === 'true'
+	const subtractOpenings =
+		inputs.subtractOpenings === true || (typeof inputs.subtractOpenings === 'string' && inputs.subtractOpenings.toLowerCase() === 'true') ||
+		inputs.subtractOpenings === 'true' ||
+		(typeof inputs.subtractOpenings === 'string' && inputs.subtractOpenings.toLowerCase() === 'true')
 	
 	let openingsArea = 0
 	let doorsArea = 0
@@ -184,7 +184,7 @@ export function calculateBrick(
 	
 	// Apply waste margin if enabled
 	const includeWaste = 
-		inputs.includeWaste === true || 
+		inputs.includeWaste === true || (typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') || 
 		inputs.includeWaste === 'true' || 
 		String(inputs.includeWaste).toLowerCase() === 'true'
 	const wastePercent = Number(inputs.wasteMargin) || 10

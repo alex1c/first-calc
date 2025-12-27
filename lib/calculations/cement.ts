@@ -19,8 +19,8 @@ const CEMENT_DENSITY = 1440 // kg/m³
  * @returns Calculated cement weight, volume, bags, and explanation
  */
 export function calculateCement(
-	inputs: Record<string, number | string>,
-): Record<string, number | string> {
+	inputs: Record<string, number | string | boolean>,
+): Record<string, number | string | null | undefined> {
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const isMetric = unit === 'meters' || unit === 'm'
 	
@@ -92,9 +92,9 @@ export function calculateCement(
 	
 	// Apply waste margin if enabled
 	const includeWaste = 
-		inputs.includeWaste === true || 
+		inputs.includeWaste === true || (typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') || 
 		inputs.includeWaste === 'true' || 
-		String(inputs.includeWaste).toLowerCase() === 'true'
+		(typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true')
 	const wastePercent = Number(inputs.wasteMargin) || 10
 	
 	let cementWeightWithWaste = cementWeightKg

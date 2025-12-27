@@ -58,7 +58,7 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords: content?.keywords[locale]?.join(', ') || 'percentage, add, subtract, increase, decrease, calculation',
+		keywords: (content?.keywords && locale in content.keywords ? content.keywords[locale as keyof typeof content.keywords]?.join(', ') : null) || 'percentage, add, subtract, increase, decrease, calculation',
 		openGraph: {
 			title: ogTitle,
 			description: ogDescription,
@@ -173,10 +173,10 @@ export default function AddSubtractPercentagePage({
 				</ol>
 			</div>
 
-			{/* Text content */}
-			{content && content.text[locale] && (
-				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					{content.text[locale].map((paragraph, index) => (
+		{/* Text content */}
+		{content && locale in content.text && content.text[locale as keyof typeof content.text] && (
+			<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+				{(content.text[locale as keyof typeof content.text] as string[]).map((paragraph, index) => (
 						<p key={index} className="text-gray-700 mb-4 last:mb-0">
 							{paragraph}
 						</p>
@@ -184,10 +184,10 @@ export default function AddSubtractPercentagePage({
 				</div>
 			)}
 
-			{/* Use cases */}
-			{content && content.useCases[locale] && (
-				<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
-			)}
+		{/* Use cases */}
+		{content && locale in content.useCases && content.useCases[locale as keyof typeof content.useCases] && (
+			<UseCasesBlock useCases={content.useCases[locale as keyof typeof content.useCases] as any} locale={locale} />
+		)}
 
 			<LegacyExamplesBlock
 				examples={getExamplesForLegacyTool('add-subtract-percentage')}

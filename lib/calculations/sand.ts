@@ -21,7 +21,7 @@ const SAND_DENSITY = 1600 // kg/m³
  * @returns Calculated sand weight, volume, and explanation
  */
 export function calculateSand(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const isMetric = unit === 'meters' || unit === 'm'
@@ -114,10 +114,10 @@ export function calculateSand(
 	const sandWeightTons = sandWeightKg / 1000
 	
 	// Apply waste margin if enabled
-	const includeWaste = 
-		inputs.includeWaste === true || 
-		inputs.includeWaste === 'true' || 
-		String(inputs.includeWaste).toLowerCase() === 'true'
+	const includeWaste =
+		(typeof inputs.includeWaste === 'boolean' && inputs.includeWaste) ||
+		(typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') ||
+		(typeof inputs.includeWaste === 'number' && inputs.includeWaste > 0)
 	const wastePercent = Number(inputs.wasteMargin) || 10
 	
 	let sandWeightWithWaste = sandWeightKg

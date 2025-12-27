@@ -22,6 +22,7 @@ const clusterNames: Record<FinanceCluster, string> = {
 	business: 'Business Calculators',
 	taxes: 'Tax Calculators',
 	retirement: 'Retirement Calculators',
+	'long-term-planning': 'Long-Term Planning Calculators',
 }
 
 /**
@@ -63,8 +64,10 @@ export async function FinanceClustersBlock({ locale }: FinanceClustersBlockProps
 							{clusterNames[cluster]}
 						</h3>
 						
-						<ul className="space-y-2 mb-4">
-							{calculators.map((calc) => (
+					<ul className="space-y-2 mb-4">
+						{calculators.map((calc) => {
+							if (!calc) return null
+							return (
 								<li key={calc.id}>
 									<Link
 										href={`/${locale === 'en' ? '' : locale}/calculators/${calc.category}/${calc.slug}`}
@@ -73,8 +76,9 @@ export async function FinanceClustersBlock({ locale }: FinanceClustersBlockProps
 										{calc.title}
 									</Link>
 								</li>
-							))}
-						</ul>
+							)
+						})}
+					</ul>
 						
 						{totalCount > calculators.length && (
 							<Link

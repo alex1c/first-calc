@@ -151,10 +151,10 @@ export default async function StandardPage({ params }: StandardPageProps) {
 	// Generate breadcrumbs
 	const breadcrumbs = getStandardsBreadcrumbs(
 		locale,
+		t,
 		country,
 		standardSlug,
 		standard.title,
-		t,
 	)
 
 	return (

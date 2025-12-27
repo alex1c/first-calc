@@ -35,7 +35,7 @@ export default async function StandardsCountryPage({
 	}
 
 	// Generate breadcrumbs
-	const breadcrumbs = getStandardsBreadcrumbs(locale, country, undefined, undefined, t)
+	const breadcrumbs = getStandardsBreadcrumbs(locale, t, country)
 
 	return (
 		<>

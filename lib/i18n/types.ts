@@ -14,7 +14,9 @@ export type Namespace =
 	| 'common'
 	| 'navigation'
 	| 'errors'
+	| 'home'
 	| 'calculators/ui'
+	| 'tools/ui'
 	| 'seo/templates'
 	| `calculators/items/${string}`
 	| `standards/items/${string}`

@@ -4,7 +4,7 @@
  * Outputs: result, resultFormatted, explanation, conversionType
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -123,7 +123,7 @@ function getIngredientDensity(ingredient: string): number {
 /**
  * Calculate cooking measurement conversion
  */
-export const calculateCookingMeasurement: CalculatorFunction = (inputs) => {
+export const calculateCookingMeasurement: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const valueStr = String(inputs.value || '').trim()
 	const fromUnit = String(inputs.fromUnit || '').trim()

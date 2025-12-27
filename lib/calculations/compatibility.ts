@@ -3,7 +3,7 @@
  * Entertainment-focused estimations based on simple patterns
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 function normalize(value: string): string {
@@ -284,7 +284,7 @@ function getWorkRecommendations(
 	return unique.slice(0, 8)
 }
 
-export const calculateLoveCompatibility: CalculatorFunction = (inputs) => {
+export const calculateLoveCompatibility: CalculationFunction = (inputs) => {
 	const partnerOneName = normalize(String(inputs.partnerOneName || ''))
 	const partnerTwoName = normalize(String(inputs.partnerTwoName || ''))
 	const partnerOneBirth = String(inputs.partnerOneBirthDate || '')
@@ -311,7 +311,7 @@ export const calculateLoveCompatibility: CalculatorFunction = (inputs) => {
 
 registerCalculation('calculateLoveCompatibility', calculateLoveCompatibility)
 
-export const calculateZodiacCompatibility: CalculatorFunction = (inputs) => {
+export const calculateZodiacCompatibility: CalculationFunction = (inputs) => {
 	const dateA = String(inputs.dateA || '')
 	const dateB = String(inputs.dateB || '')
 
@@ -342,7 +342,7 @@ export const calculateZodiacCompatibility: CalculatorFunction = (inputs) => {
 
 registerCalculation('calculateZodiacCompatibility', calculateZodiacCompatibility)
 
-export const calculateNumerologyCompatibility: CalculatorFunction = (inputs) => {
+export const calculateNumerologyCompatibility: CalculationFunction = (inputs) => {
 	const dateA = String(inputs.dateA || '')
 	const dateB = String(inputs.dateB || '')
 
@@ -372,7 +372,7 @@ export const calculateNumerologyCompatibility: CalculatorFunction = (inputs) => 
 
 registerCalculation('calculateNumerologyCompatibility', calculateNumerologyCompatibility)
 
-export const calculateFriendshipCompatibility: CalculatorFunction = (inputs) => {
+export const calculateFriendshipCompatibility: CalculationFunction = (inputs) => {
 	const dateA = String(inputs.dateA || '')
 	const dateB = String(inputs.dateB || '')
 
@@ -403,7 +403,7 @@ export const calculateFriendshipCompatibility: CalculatorFunction = (inputs) => 
 
 registerCalculation('calculateFriendshipCompatibility', calculateFriendshipCompatibility)
 
-export const calculateWorkCompatibility: CalculatorFunction = (inputs) => {
+export const calculateWorkCompatibility: CalculationFunction = (inputs) => {
 	const dateA = String(inputs.dateA || '')
 	const dateB = String(inputs.dateB || '')
 
@@ -435,7 +435,7 @@ export const calculateWorkCompatibility: CalculatorFunction = (inputs) => {
 
 registerCalculation('calculateWorkCompatibility', calculateWorkCompatibility)
 
-export const calculateBirthDateCompatibility: CalculatorFunction = (inputs) => {
+export const calculateBirthDateCompatibility: CalculationFunction = (inputs) => {
 	const dateA = String(inputs.dateA || '')
 	const dateB = String(inputs.dateB || '')
 

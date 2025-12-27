@@ -117,8 +117,10 @@ export async function ConstructionClustersBlock({
 							<p className="text-sm text-gray-600 mb-4">{info.description}</p>
 
 							<ul className="space-y-2 mb-4">
-								{calculators.map((calc) => (
-									<li key={calc.id}>
+								{calculators.map((calc) => {
+									if (!calc) return null
+									return (
+										<li key={calc.id}>
 										<Link
 											href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
 											className="text-blue-600 hover:text-blue-800 underline text-sm"
@@ -126,7 +128,8 @@ export async function ConstructionClustersBlock({
 											{calc.title}
 										</Link>
 									</li>
-								))}
+									)
+								})}
 							</ul>
 
 							{totalCount > calculators.length && (

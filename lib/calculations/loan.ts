@@ -1,4 +1,4 @@
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Step interface for loan payment calculation
@@ -12,9 +12,12 @@ interface CalculationStep {
 /**
  * Map payment frequency string to payments per year
  */
-function getPaymentsPerYear(frequency: string | number): number {
+function getPaymentsPerYear(frequency: string | number | boolean): number {
 	if (typeof frequency === 'number') {
 		return frequency
+	}
+	if (typeof frequency === 'boolean') {
+		return frequency ? 12 : 1 // Default to monthly if true, annually if false
 	}
 	const frequencyMap: Record<string, number> = {
 		'monthly': 12,
@@ -29,12 +32,12 @@ function getPaymentsPerYear(frequency: string | number): number {
  * Inputs: loanAmount, annualInterestRate, loanTerm, paymentFrequency, loanType
  * Outputs: periodicPayment, totalPayment, totalInterest, overpayment, formulaExplanation
  */
-export const calculateLoanPayment: CalculatorFunction = (inputs) => {
+export const calculateLoanPayment: CalculationFunction = (inputs) => {
 	const loanAmount = Number(inputs.loanAmount || inputs.principal || 0)
 	const annualInterestRate = Number(inputs.annualInterestRate || inputs.annualRate || 0)
 	const loanTerm = Math.floor(Number(inputs.loanTerm || inputs.years || 0)) // Must be integer >= 1
 	const paymentFrequencyStr = inputs.paymentFrequency || 'monthly'
-	const loanType = (inputs.loanType || 'annuity').toLowerCase()
+	const loanType = String(inputs.loanType || 'annuity').toLowerCase()
 
 	// Validation
 	if (

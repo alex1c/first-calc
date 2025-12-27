@@ -15,7 +15,7 @@ import type { CalculationFunction } from './registry'
  * @returns Calculated slab volume, edge volume, total volume, and breakdown
  */
 export function calculateSlabFoundation(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const isMetric = unit === 'meters' || unit === 'm'
@@ -39,10 +39,10 @@ export function calculateSlabFoundation(
 	const slabVolume = slabLength * slabWidth * slabThickness
 	
 	// Check if thickened edge is enabled
-	const includeThickenedEdge = 
-		inputs.includeThickenedEdge === true || 
-		inputs.includeThickenedEdge === 'true' || 
-		String(inputs.includeThickenedEdge).toLowerCase() === 'true'
+	const includeThickenedEdge =
+		(typeof inputs.includeThickenedEdge === 'boolean' && inputs.includeThickenedEdge) ||
+		(typeof inputs.includeThickenedEdge === 'string' && inputs.includeThickenedEdge.toLowerCase() === 'true') ||
+		(typeof inputs.includeThickenedEdge === 'number' && inputs.includeThickenedEdge > 0)
 	
 	let edgeVolume = 0
 	let edgeLength = 0
@@ -98,10 +98,10 @@ export function calculateSlabFoundation(
 	}
 	
 	// Apply waste margin if enabled
-	const includeWaste = 
-		inputs.includeWaste === true || 
-		inputs.includeWaste === 'true' || 
-		String(inputs.includeWaste).toLowerCase() === 'true'
+	const includeWaste =
+		(typeof inputs.includeWaste === 'boolean' && inputs.includeWaste) ||
+		(typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') ||
+		(typeof inputs.includeWaste === 'number' && inputs.includeWaste > 0)
 	const wastePercent = Number(inputs.wasteMargin) || 10
 	
 	let totalVolumeWithWaste = totalVolumeM3

@@ -4,12 +4,12 @@
  * Outputs: roiPercentage, netProfit, totalInvestment, profitMargin, formulaExplanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate ROI with comprehensive breakdown
  */
-export const calculateROI: CalculatorFunction = (inputs) => {
+export const calculateROI: CalculationFunction = (inputs) => {
 	const investmentCost = Number(inputs.investmentCost || inputs.initialInvestment || inputs.cost || 0)
 	const returnValue = Number(inputs.returnValue || inputs.finalValue || inputs.return || 0)
 	const timePeriod = Number(inputs.timePeriod || 0) // Optional

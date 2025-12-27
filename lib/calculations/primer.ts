@@ -3,7 +3,7 @@
  * Calculates primer needed for surface preparation before painting
  */
 
-import type { CalculationFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -40,7 +40,7 @@ export const calculatePrimer: CalculationFunction = (inputs) => {
 	const primerCoverageStr = String(inputs.primerCoverage || '').trim()
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const includeWaste = 
-		inputs.includeWaste === true || 
+		inputs.includeWaste === true || (typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') || 
 		inputs.includeWaste === 'true' || 
 		String(inputs.includeWaste).toLowerCase() === 'true'
 	const wastePercent = Number(inputs.wasteMargin) || 10
@@ -72,7 +72,7 @@ export const calculatePrimer: CalculationFunction = (inputs) => {
 	let primerCoverage: number
 	let coverageUnit: string
 	let primerUnit: string
-	let conditionDescription: string
+	let conditionDescription: string = 'Smooth'
 
 	if (unit === 'meters' || unit === 'meter' || unit === 'm') {
 		// Metric: determine coverage based on condition

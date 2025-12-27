@@ -6,7 +6,7 @@
  *          recommendedBudgetRange, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate maximum loan amount from monthly payment using inverse amortization
@@ -30,7 +30,7 @@ function calculateMaxLoanAmount(
 /**
  * Calculate how much car you can afford
  */
-export const calculateCarAffordability: CalculatorFunction = (inputs) => {
+export const calculateCarAffordability: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const mode = String(inputs.mode || 'byMonthlyBudget').toLowerCase()
 	const maxMonthlyCarBudget = Number(inputs.maxMonthlyCarBudget || 0)

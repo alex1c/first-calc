@@ -77,6 +77,9 @@ export default async function NumbersToWordsLandingPage({
 	const content = getLegacyContent('numbers-to-words', locale)
 	const title = getLegacyTitle('numbers-to-words', locale)
 
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 	// Generate breadcrumbs
 	const breadcrumbs = getLegacyBreadcrumbs(locale, 'numbers-to-words', [], t, title)
 
@@ -98,9 +101,9 @@ export default async function NumbersToWordsLandingPage({
 			)}
 
 			{/* Description */}
-			{content && content.text[locale] && (
+			{content && content.text[contentLocale] && (
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					{content.text[locale].map((paragraph, index) => (
+					{content.text[contentLocale].map((paragraph, index) => (
 						<p key={index} className="text-gray-700 mb-4 last:mb-0">
 							{paragraph}
 						</p>

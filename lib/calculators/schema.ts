@@ -159,7 +159,7 @@ export function executeFormula(
         variables: Record<string, number>,
 ): number {
 	// Create safe evaluation context
-	const context: Record<string, number> = {
+	const context: Record<string, number | typeof Math> = {
 		...variables,
 		Math,
 		PI: Math.PI,

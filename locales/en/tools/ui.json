@@ -1,0 +1,24 @@
+{
+	"page": {
+		"title": "Tools & Generators",
+		"subtitle": "Classic utilities and generators used for text, numbers, and format conversions.",
+		"ctaCalculators": "Looking for interactive calculators? Explore Calculators.",
+		"ctaCalculatorsLabel": "Explore Calculators",
+		"ctaToolsFromCalculators": "Prefer quick utilities? Browse classic Tools."
+	},
+	"groups": {
+		"numbers-text": {
+			"title": "Numbers & Text",
+			"description": "Convert numbers to text, build range tables, and handle large numeric inputs instantly."
+		},
+		"converters": {
+			"title": "Converters",
+			"description": "Quick converters for numerals, percentages, and formatting without long forms."
+		},
+		"utilities": {
+			"title": "Classic Utilities",
+			"description": "High-traffic helpers for factors, roots, and other frequently reused patterns."
+		}
+	}
+}
+

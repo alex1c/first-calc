@@ -141,7 +141,7 @@ export default async function RuStandardsLanding({ params }: RuStandardsLandingP
                                         </h2>
                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                                 <Link
-                                                        href="/ru/standards/national/ru/sp20-load-concepts"
+                                                        href={`/${locale}/standards/national/ru/sp20-load-concepts`}
                                                         className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
                                                 >
                                                         <p className="text-sm text-gray-500 mb-2 uppercase tracking-wide">
@@ -156,7 +156,7 @@ export default async function RuStandardsLanding({ params }: RuStandardsLandingP
                                                         </p>
                                                 </Link>
                                                 <Link
-                                                        href="/ru/standards/national/ru/sp24-soil-foundations"
+                                                        href={`/${locale}/standards/national/ru/sp24-soil-foundations`}
                                                         className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
                                                 >
                                                         <p className="text-sm text-gray-500 mb-2 uppercase tracking-wide">
@@ -171,7 +171,7 @@ export default async function RuStandardsLanding({ params }: RuStandardsLandingP
                                                         </p>
                                                 </Link>
                                                 <Link
-                                                        href="/ru/standards/national/ru/sp63-concrete-principles"
+                                                        href={`/${locale}/standards/national/ru/sp63-concrete-principles`}
                                                         className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
                                                 >
                                                         <p className="text-sm text-gray-500 mb-2 uppercase tracking-wide">
@@ -186,7 +186,7 @@ export default async function RuStandardsLanding({ params }: RuStandardsLandingP
                                                         </p>
                                                 </Link>
                                                 <Link
-                                                        href="/ru/standards/national/ru/sp-snip-foundations"
+                                                        href={`/${locale}/standards/national/ru/sp-snip-foundations`}
                                                         className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
                                                 >
                                                         <p className="text-sm text-gray-500 mb-2 uppercase tracking-wide">

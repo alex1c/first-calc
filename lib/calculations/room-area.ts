@@ -4,7 +4,7 @@
  * Outputs: area, areaFormatted, areaInAlternativeUnit, explanation, formula
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -24,7 +24,7 @@ function squareFeetToSquareMeters(sqft: number): number {
 /**
  * Calculate room area
  */
-export const calculateRoomArea: CalculatorFunction = (inputs) => {
+export const calculateRoomArea: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const shape = String(inputs.shape || 'rectangle').toLowerCase()
 	const lengthStr = String(inputs.length || '').trim()

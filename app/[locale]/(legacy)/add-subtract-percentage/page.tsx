@@ -94,10 +94,10 @@ export default async function AddSubtractPercentageLandingPage({
 			toolType="add-subtract-percentage"
 			breadcrumbs={breadcrumbs}
 		>
-			{/* Description */}
-			{content && content.text[locale] && (
-				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					{content.text[locale].map((paragraph, index) => (
+		{/* Description */}
+		{content && locale in content.text && content.text[locale as keyof typeof content.text] && (
+			<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+				{(content.text[locale as keyof typeof content.text] as string[]).map((paragraph, index) => (
 						<p key={index} className="text-gray-700 mb-4 last:mb-0">
 							{paragraph}
 						</p>

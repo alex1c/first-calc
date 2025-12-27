@@ -156,8 +156,8 @@ async function main() {
 		// Create placeholder OG image info (actual image generation would be done separately)
 		const ogInfo = {
 			slug: schema.slug,
-			title: schema.title,
-			description: schema.description,
+			id: schema.id,
+			category: schema.category,
 			generated: new Date().toISOString(),
 		}
 		await fs.writeFile(

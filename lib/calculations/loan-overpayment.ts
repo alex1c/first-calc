@@ -4,14 +4,17 @@
  * Outputs: overpayment, totalInterest, totalPayment, regularPayment, interestSaved, loanDurationReduced, formulaExplanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Map payment frequency string to payments per year
  */
-function getPaymentsPerYear(frequency: string | number): number {
+function getPaymentsPerYear(frequency: string | number | boolean): number {
 	if (typeof frequency === 'number') {
 		return frequency
+	}
+	if (typeof frequency === 'boolean') {
+		return frequency ? 12 : 1 // Default to monthly if true, annually if false
 	}
 	const frequencyMap: Record<string, number> = {
 		'monthly': 12,
@@ -23,13 +26,13 @@ function getPaymentsPerYear(frequency: string | number): number {
 /**
  * Calculate loan overpayment with extra payment support
  */
-export const calculateLoanOverpayment: CalculatorFunction = (inputs) => {
+export const calculateLoanOverpayment: CalculationFunction = (inputs) => {
 	const loanAmount = Number(inputs.loanAmount || 0)
 	const annualInterestRate = Number(inputs.annualInterestRate || inputs.interestRate || 0)
 	const loanTerm = Math.floor(Number(inputs.loanTerm || inputs.years || 0)) // Must be integer >= 1
 	const paymentFrequencyStr = inputs.paymentFrequency || 'monthly'
 	const extraMonthlyPayment = Number(inputs.extraMonthlyPayment || inputs.extraPayment || 0)
-	const loanType = (inputs.loanType || 'annuity').toLowerCase()
+	const loanType = String(inputs.loanType || 'annuity').toLowerCase()
 
 	// Validation
 	if (

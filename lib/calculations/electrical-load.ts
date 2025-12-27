@@ -3,7 +3,7 @@
  * Calculates total electrical load by summing appliance power
  */
 
-import type { CalculationFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -11,7 +11,7 @@ import { registerCalculation } from '@/lib/calculations/registry'
  * Accepts format: "name1:power1:qty1,name2:power2:qty2" or JSON array
  * Also accepts individual appliance inputs (appliance1, appliance2, etc.)
  */
-function parseAppliances(inputs: Record<string, number | string>): Array<{ name: string; power: number; quantity: number }> {
+function parseAppliances(inputs: Record<string, number | string | boolean>): Array<{ name: string; power: number; quantity: number }> {
 	const appliances: Array<{ name: string; power: number; quantity: number }> = []
 	
 	// Try to get appliances from structured inputs (appliance1, appliance2, etc.)
@@ -101,7 +101,7 @@ function parseAppliances(inputs: Record<string, number | string>): Array<{ name:
  * @param inputs - Input values including appliances and demand factor
  * @returns Calculated total load and breakdown
  */
-export const calculateElectricalLoad: CalculationFunction = (inputs) => {
+export const calculateElectricalLoad: CalculationFunction = (inputs: Record<string, number | string | boolean>) => {
 	// Extract inputs
 	const demandFactorStr = String(inputs.demandFactor || '100').trim()
 	

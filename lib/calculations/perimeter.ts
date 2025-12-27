@@ -18,7 +18,7 @@ import type { CalculationFunction } from './registry'
  * @returns Calculated perimeter and shape information
  */
 export function calculatePerimeter(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const shape = String(inputs.shape || 'circle').toLowerCase()
 	

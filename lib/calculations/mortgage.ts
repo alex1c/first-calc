@@ -4,7 +4,7 @@
  * Outputs: monthlyMortgagePayment, totalMonthlyPayment, loanAmount, totalInterest, totalCost, payoffDate, paymentBreakdown, extraPaymentImpact, amortizationSchedule, formulaExplanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Amortization schedule entry
@@ -20,9 +20,12 @@ interface AmortizationEntry {
 /**
  * Map payment frequency string to payments per year
  */
-function getPaymentsPerYear(frequency: string | number): number {
+function getPaymentsPerYear(frequency: string | number | boolean): number {
 	if (typeof frequency === 'number') {
 		return frequency
+	}
+	if (typeof frequency === 'boolean') {
+		return frequency ? 12 : 1 // Default to monthly if true, annually if false
 	}
 	const frequencyMap: Record<string, number> = {
 		'monthly': 12,
@@ -34,7 +37,7 @@ function getPaymentsPerYear(frequency: string | number): number {
 /**
  * Calculate mortgage payment with comprehensive breakdown
  */
-export const calculateMortgage: CalculatorFunction = (inputs) => {
+export const calculateMortgage: CalculationFunction = (inputs) => {
 	const homePrice = Number(inputs.homePrice || 0)
 	const downPayment = Number(inputs.downPayment || 0)
 	const downPaymentType = String(inputs.downPaymentType || 'amount').toLowerCase()
@@ -56,7 +59,8 @@ export const calculateMortgage: CalculatorFunction = (inputs) => {
 	const extraMonthlyPayment = Number(inputs.extraMonthlyPayment || inputs.extraPayment || 0)
 	
 	// Start date (optional, for payoff date calculation)
-	const startDate = inputs.startDate ? new Date(inputs.startDate) : new Date()
+	const startDateValue = inputs.startDate
+	const startDate = startDateValue && typeof startDateValue !== 'boolean' ? new Date(startDateValue) : new Date()
 
 	// Calculate down payment amount
 	let downPaymentAmount = 0

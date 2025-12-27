@@ -4,7 +4,7 @@
  * Outputs: bmi, category, categoryDescription, healthyWeightRange, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Conversion constants
 const POUNDS_TO_KG = 0.453592
@@ -131,7 +131,7 @@ function round(value: number): number {
 /**
  * Calculate BMI
  */
-export const calculateBMI: CalculatorFunction = (inputs) => {
+export const calculateBMI: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const weight = Number(inputs.weight || 0)
 	const weightUnit = String(inputs.weightUnit || 'kg')

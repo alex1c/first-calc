@@ -7,7 +7,7 @@
  * Outputs: totalCostBuy, totalCostLease, difference, recommendationText, breakdown, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate monthly loan payment using standard amortization formula
@@ -31,7 +31,7 @@ function calculateLoanPayment(
 /**
  * Compare total cost of leasing vs buying a car
  */
-export const calculateLeaseVsBuy: CalculatorFunction = (inputs) => {
+export const calculateLeaseVsBuy: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const comparisonYears = Math.floor(Number(inputs.comparisonYears || 1))
 	const annualMileage = Number(inputs.annualMileage || 0)

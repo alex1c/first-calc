@@ -3,7 +3,7 @@
  * Calculates number of tiles needed for floors or walls
  */
 
-import type { CalculationFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from './registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
@@ -28,7 +28,7 @@ export const calculateTile: CalculationFunction = (inputs) => {
 	const layoutType = String(inputs.layoutType || 'straight').toLowerCase()
 	const unit = String(inputs.unit || 'meters').toLowerCase()
 	const includeWaste = 
-		inputs.includeWaste === true || 
+		inputs.includeWaste === true || (typeof inputs.includeWaste === 'string' && inputs.includeWaste.toLowerCase() === 'true') || 
 		inputs.includeWaste === 'true' || 
 		String(inputs.includeWaste).toLowerCase() === 'true'
 	

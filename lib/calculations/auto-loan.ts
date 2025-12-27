@@ -4,12 +4,12 @@
  * Outputs: loanAmount, monthlyPayment, totalPayment, totalInterest, overpayment, formulaExplanation
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate auto loan payment with comprehensive breakdown
  */
-export const calculateAutoLoan: CalculatorFunction = (inputs) => {
+export const calculateAutoLoan: CalculationFunction = (inputs) => {
 	// Support both old and new input names for backward compatibility
 	const vehiclePrice = Number(inputs.vehiclePrice || inputs.carPrice || 0)
 	const downPayment = Number(inputs.downPayment || 0)

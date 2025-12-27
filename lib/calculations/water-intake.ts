@@ -4,7 +4,7 @@
  * Outputs: dailyWaterIntakeLiters, dailyWaterIntakeCups, dailyWaterIntakeOunces, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Conversion constants
 const POUNDS_TO_KG = 0.453592
@@ -70,7 +70,7 @@ function round(value: number, decimals: number = 1): number {
 /**
  * Calculate recommended daily water intake
  */
-export const calculateWaterIntake: CalculatorFunction = (inputs) => {
+export const calculateWaterIntake: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const weight = Number(inputs.weight || 0)
 	const weightUnit = String(inputs.weightUnit || 'kg')

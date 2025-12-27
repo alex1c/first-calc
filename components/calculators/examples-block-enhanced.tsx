@@ -61,7 +61,7 @@ function ExampleCard({
 
 	// Execute calculation when component mounts or inputs change
 	useEffect(() => {
-		if (hasInputs && calculator.calculate) {
+		if (hasInputs && 'calculate' in calculator && calculator.calculate) {
 			setIsCalculating(true)
 			setCalculationError(null)
 

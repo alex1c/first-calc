@@ -18,22 +18,26 @@
 	"categories": {
 		"math": "Matematik",
 		"finance": "Finans",
+		"construction": "İnşaat",
+		"health": "Sağlık",
+		"everyday": "Günlük",
+		"compatibility": "Uyumluluk",
 		"auto": "Otomobil",
 		"geometry": "Geometri",
-		"everyday": "Günlük",
 		"engineering": "Mühendislik",
-		"business": "İş",
-		"compatibility": "Uyumluluk"
+		"business": "İş"
 	},
 	"categoryDescriptions": {
 		"math": "Cebir, hesap ve sayı işlemleri için matematik hesaplayıcıları",
 		"finance": "Krediler, yatırımlar ve para yönetimi için finansal hesaplayıcılar",
+		"construction": "Malzemeler, temeller ve inşaat projeleri için inşaat hesaplayıcıları",
+		"health": "VKİ, vücut metrikleri ve sağlık ölçümleri için sağlık hesaplayıcıları",
+		"everyday": "Günlük hesaplamalar ve dönüşümler için günlük hesaplayıcılar",
+		"compatibility": "Tarihler ve basit kalıplara dayanan eğlenceli, kendini keşfetme araçları",
 		"auto": "Sahiplik maliyetleri, yakıt giderleri, krediler ve bakım için otomobil hesaplayıcıları",
 		"geometry": "Alan, hacim ve şekil hesaplamaları için geometrik hesaplayıcılar",
-		"everyday": "Günlük hesaplamalar ve dönüşümler için günlük hesaplayıcılar",
 		"engineering": "Teknik ve bilimsel hesaplamalar için mühendislik hesaplayıcıları",
-		"business": "Kar, ROI ve iş metrikleri için iş hesaplayıcıları",
-		"compatibility": "Tarihler ve basit kalıplara dayanan eğlenceli, kendini keşfetme araçları."
+		"business": "Kar, ROI ve iş metrikleri için iş hesaplayıcıları"
 	},
 	"previous": "Önceki",
 	"next": "Sonraki"

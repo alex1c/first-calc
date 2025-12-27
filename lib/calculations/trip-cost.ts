@@ -7,7 +7,7 @@
  *          totalTripCost, costPerPerson, costPerDistance, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Conversion constants
 const MILES_TO_KM = 1.609344
@@ -17,7 +17,7 @@ const GALLON_UK_TO_LITERS = 4.54609
 /**
  * Calculate total trip cost including fuel, tolls, parking, meals, and accommodation
  */
-export const calculateTripCost: CalculatorFunction = (inputs) => {
+export const calculateTripCost: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const tripDistance = Number(inputs.tripDistance || 0)
 	const distanceUnit = String(inputs.distanceUnit || 'km').toLowerCase()

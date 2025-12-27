@@ -4,7 +4,7 @@
  * Outputs: caloriesBurned, estimatedDistance, distanceUnit, caloriesPer1000Steps, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Conversion constants
 const POUNDS_TO_KG = 0.453592
@@ -105,7 +105,7 @@ function round(value: number, decimals: number = 1): number {
 /**
  * Calculate calories burned from steps
  */
-export const calculateStepsToCalories: CalculatorFunction = (inputs) => {
+export const calculateStepsToCalories: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const stepsCount = Number(inputs.stepsCount || 0)
 	const weight = Number(inputs.weight || 0)

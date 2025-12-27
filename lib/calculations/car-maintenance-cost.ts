@@ -7,12 +7,12 @@
  *          breakdown, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate car maintenance costs per year and per month
  */
-export const calculateCarMaintenanceCost: CalculatorFunction = (inputs) => {
+export const calculateCarMaintenanceCost: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const annualMileage = Number(inputs.annualMileage || 0)
 	const vehicleAgeYears = Math.floor(Number(inputs.vehicleAgeYears || 0))

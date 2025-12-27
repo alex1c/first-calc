@@ -6,7 +6,7 @@ import { getSensibleDefault } from '@/lib/calculators/defaults'
 
 interface CalculatorFormProps {
 	calculator: CalculatorDefinitionClient
-	onCalculate: (inputs: Record<string, number | string>) => void
+	onCalculate: (inputs: Record<string, number | string | boolean>) => void
 	errors: Record<string, string>
 }
 
@@ -19,8 +19,8 @@ export function CalculatorForm({
 	onCalculate,
 	errors,
 }: CalculatorFormProps) {
-	const [inputs, setInputs] = useState<Record<string, number | string>>(() => {
-		const initial: Record<string, number | string> = {}
+	const [inputs, setInputs] = useState<Record<string, number | string | boolean>>(() => {
+		const initial: Record<string, number | string | boolean> = {}
 		calculator.inputs.forEach((input) => {
 			// Set default value: use schema defaultValue OR sensible default OR empty
 			let defaultValue = input.defaultValue
@@ -64,7 +64,7 @@ export function CalculatorForm({
 	})
 
 	const handleInputChange = useCallback(
-		(name: string, value: string | number) => {
+		(name: string, value: string | number | boolean) => {
 			setInputs((prev) => {
 				const updated = { ...prev, [name]: value }
 				// If shape changes, clear shape-specific inputs
@@ -131,7 +131,12 @@ export function CalculatorForm({
 								type="number"
 								id={input.name}
 								name={input.name}
-								value={inputs[input.name] ?? ''}
+								value={(() => {
+									const val = inputs[input.name]
+									if (typeof val === 'number') return val
+									if (typeof val === 'string') return val
+									return ''
+								})()}
 							onChange={(e) => {
 								const value = e.target.value
 								// Allow empty string for clearing, or valid number
@@ -208,6 +213,17 @@ export function CalculatorForm({
 									? 'border-red-500 bg-red-50'
 									: 'border-gray-300 bg-white'
 							}`}
+						/>
+					)}
+
+					{input.type === 'checkbox' && (
+						<input
+							type="checkbox"
+							id={input.name}
+							name={input.name}
+							checked={inputs[input.name] === true}
+							onChange={(e) => handleInputChange(input.name, e.target.checked)}
+							className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
 						/>
 					)}
 

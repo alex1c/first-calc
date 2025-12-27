@@ -97,7 +97,7 @@ function calculateStandardDeviation(numbers: number[], type: 'population' | 'sam
  * @returns Calculated statistics
  */
 export function calculateStandardDeviationStats(
-	inputs: Record<string, number | string>,
+	inputs: Record<string, number | string | boolean>,
 ): Record<string, number | string> {
 	const datasetStr = String(inputs.dataset || '')
 	const type = String(inputs.type || 'population').toLowerCase() as 'population' | 'sample'

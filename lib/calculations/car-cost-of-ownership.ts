@@ -7,12 +7,12 @@
  *          monthlyCost, annualCost, costPerMile, breakdown, biggestCostDriver, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate car cost of ownership with comprehensive breakdown
  */
-export const calculateCarCostOfOwnership: CalculatorFunction = (inputs) => {
+export const calculateCarCostOfOwnership: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const purchasePrice = Number(inputs.purchasePrice || 0)
 	const ownershipPeriodYears = Math.floor(Number(inputs.ownershipPeriodYears || 1))

@@ -359,8 +359,8 @@ function solveQuadratic(a: number, b: number, c: number): SolutionResult {
  * Main equation solver function
  */
 export function solveEquation(
-	inputs: Record<string, number | string>,
-): Record<string, number | string | SolutionStep[] | number[]> {
+	inputs: Record<string, number | string | boolean>,
+): Record<string, number | string | SolutionStep[] | number[] | null | undefined> {
 	const inputMode = String(inputs.inputMode || 'equation')
 	const equationType = String(inputs.equationType || 'linear')
 	
@@ -440,7 +440,7 @@ export function solveEquation(
 		normalizedForm: solution.normalizedForm,
 		steps: solution.steps,
 		result: typeof solution.result === 'string' ? solution.result : solution.result,
-		discriminant: solution.discriminant,
+		...(solution.discriminant !== undefined && { discriminant: solution.discriminant }),
 		roots: Array.isArray(solution.roots) ? solution.roots : solution.roots || '',
 	}
 }

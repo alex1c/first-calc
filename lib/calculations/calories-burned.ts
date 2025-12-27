@@ -4,7 +4,7 @@
  * Outputs: caloriesBurned, caloriesPerMinute, metValue, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Conversion constants
 const POUNDS_TO_KG = 0.453592
@@ -94,7 +94,7 @@ function round(value: number, decimals: number = 1): number {
 /**
  * Calculate calories burned
  */
-export const calculateCaloriesBurned: CalculatorFunction = (inputs) => {
+export const calculateCaloriesBurned: CalculationFunction = (inputs) => {
 	// Extract inputs
 	const weight = Number(inputs.weight || 0)
 	const weightUnit = String(inputs.weightUnit || 'kg')

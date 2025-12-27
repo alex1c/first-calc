@@ -38,7 +38,7 @@ const cache = new Map<string, MergedDictionary>()
  * Generate cache key
  */
 function getCacheKey(locale: Locale, namespaces: readonly Namespace[]): string {
-	return `${locale}:${namespaces.sort().join(',')}`
+	return `${locale}:${[...namespaces].sort().join(',')}`
 }
 
 /**

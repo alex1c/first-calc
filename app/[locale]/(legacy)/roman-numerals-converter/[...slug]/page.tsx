@@ -43,6 +43,9 @@ export async function generateMetadata({
 	const ogDescription = getLegacyOgDescription('roman-numerals-converter', locale)
 	const content = getLegacyContent('roman-numerals-converter', locale)
 
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 	let title = baseTitle
 	let description = baseDescription
 
@@ -75,7 +78,7 @@ export async function generateMetadata({
 	return {
 		title,
 		description,
-		keywords: content?.keywords[locale]?.join(', ') || 'roman numerals, arabic numbers, converter, I V X L C D M',
+		keywords: content?.keywords[contentLocale]?.join(', ') || 'roman numerals, arabic numbers, converter, I V X L C D M',
 		robots: shouldIndex ? 'index, follow' : 'noindex, nofollow',
 		openGraph: {
 			title: ogTitle,
@@ -140,6 +143,9 @@ export default function RomanNumeralsConverterPage({
 		const title = `Roman numerals from ${range.start} to ${range.end}`
 		const content = getLegacyContent('roman-numerals-converter', locale)
 
+		// Use 'en' as fallback for locales that don't have translations
+		const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 		const tableData = numbers.map((num) => {
 			try {
 				const roman = toRoman(num)
@@ -166,9 +172,9 @@ export default function RomanNumeralsConverterPage({
 				/>
 
 				{/* Text content */}
-				{content && content.text[locale] && (
+				{content && content.text[contentLocale] && (
 					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-						{content.text[locale].map((paragraph, index) => (
+						{content.text[contentLocale].map((paragraph, index) => (
 							<p key={index} className="text-gray-700 mb-4 last:mb-0">
 								{paragraph}
 							</p>
@@ -177,8 +183,8 @@ export default function RomanNumeralsConverterPage({
 				)}
 
 				{/* Use cases */}
-				{content && content.useCases[locale] && (
-					<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+				{content && content.useCases[contentLocale] && (
+					<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
 				)}
 
 				<LegacyFaqBlock faq={getFaqForLegacyTool('roman-numerals-converter')} />
@@ -276,6 +282,9 @@ export default function RomanNumeralsConverterPage({
 	}
 
 	const content = getLegacyContent('roman-numerals-converter', locale)
+
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
 	return (
 		<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
@@ -404,9 +413,9 @@ export default function RomanNumeralsConverterPage({
 			</div>
 
 			{/* Text content */}
-			{content && content.text[locale] && (
+			{content && content.text[contentLocale] && (
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					{content.text[locale].map((paragraph, index) => (
+					{content.text[contentLocale].map((paragraph, index) => (
 						<p key={index} className="text-gray-700 mb-4 last:mb-0">
 							{paragraph}
 						</p>
@@ -415,8 +424,8 @@ export default function RomanNumeralsConverterPage({
 			)}
 
 			{/* Use cases */}
-			{content && content.useCases[locale] && (
-				<UseCasesBlock useCases={content.useCases[locale]} locale={locale} />
+			{content && content.useCases[contentLocale] && (
+				<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
 			)}
 
 			<LegacyFaqBlock faq={getFaqForLegacyTool('roman-numerals-converter')} />

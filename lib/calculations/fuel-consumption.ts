@@ -4,7 +4,7 @@
  * Outputs: l100km, mpgUS, mpgUK, convertedValue, insights
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 // Conversion constants
 const MILES_TO_KM = 1.609344
@@ -17,7 +17,7 @@ const LITERS_TO_GALLON_UK = 1 / GALLON_UK_TO_LITERS
 /**
  * Calculate fuel consumption or convert between units
  */
-export const calculateFuelConsumption: CalculatorFunction = (inputs) => {
+export const calculateFuelConsumption: CalculationFunction = (inputs) => {
 	const mode = String(inputs.mode || 'calculate').toLowerCase()
 
 	if (mode === 'convert') {

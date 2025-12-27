@@ -77,6 +77,9 @@ export default async function PercentageOfANumberLandingPage({
 	const content = getLegacyContent('percentage-of-a-number', locale)
 	const title = getLegacyTitle('percentage-of-a-number', locale)
 
+	// Use 'en' as fallback for locales that don't have translations
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+
 	// Generate breadcrumbs
 	const breadcrumbs = getLegacyBreadcrumbs(
 		locale,
@@ -95,9 +98,9 @@ export default async function PercentageOfANumberLandingPage({
 			breadcrumbs={breadcrumbs}
 		>
 			{/* Description */}
-			{content && content.text[locale] && (
+			{content && content.text[contentLocale] && (
 				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					{content.text[locale].map((paragraph, index) => (
+					{content.text[contentLocale].map((paragraph, index) => (
 						<p key={index} className="text-gray-700 mb-4 last:mb-0">
 							{paragraph}
 						</p>

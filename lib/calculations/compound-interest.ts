@@ -1,4 +1,4 @@
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Step interface for compound interest calculation
@@ -23,7 +23,10 @@ interface YearBreakdown {
 /**
  * Map compounding frequency string to number
  */
-function getCompoundingFrequency(frequency: string | number): number {
+function getCompoundingFrequency(frequency: string | number | boolean): number {
+	if (typeof frequency === 'boolean') {
+		return 12 // Default to monthly for boolean
+	}
 	if (typeof frequency === 'number') {
 		return frequency
 	}
@@ -41,7 +44,7 @@ function getCompoundingFrequency(frequency: string | number): number {
  * Inputs: initialAmount, monthlyContribution, annualInterestRate, investmentPeriod, compoundingFrequency
  * Outputs: finalAmount, totalContributions, totalInterestEarned, effectiveAnnualRate, yearBreakdown, formulaExplanation
  */
-export const calculateCompoundInterest: CalculatorFunction = (inputs) => {
+export const calculateCompoundInterest: CalculationFunction = (inputs) => {
 	const initialAmount = Number(inputs.initialAmount || 0)
 	const monthlyContribution = Number(inputs.monthlyContribution || 0)
 	const annualInterestRate = Number(inputs.annualInterestRate)

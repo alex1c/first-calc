@@ -5,12 +5,12 @@
  * - required_savings: How much do I need to save?
  */
 
-import type { CalculatorFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 
 /**
  * Calculate retirement based on selected mode
  */
-export const calculateRetirement: CalculatorFunction = (inputs) => {
+export const calculateRetirement: CalculationFunction = (inputs) => {
 	const calculationMode = String(inputs.calculationMode || 'future_balance').toLowerCase()
 
 	if (calculationMode === 'future_balance') {

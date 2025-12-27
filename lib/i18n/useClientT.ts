@@ -6,8 +6,8 @@
  */
 
 import { useEffect, useState } from 'react'
-import type { Locale } from './types'
-import { createT, type Dictionary } from './t'
+import type { Locale, Dictionary } from './types'
+import { createT } from './t'
 
 /**
  * Hook to load and use translations in client components

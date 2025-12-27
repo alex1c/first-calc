@@ -3,7 +3,7 @@
  * Calculates volume of liquid inside pipes based on diameter and length
  */
 
-import type { CalculationFunction } from '@/lib/calculators/types'
+import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
