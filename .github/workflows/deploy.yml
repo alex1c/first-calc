@@ -1,7 +1,10 @@
 name: Deploy to Server
 
 on:
-    push:
+    workflow_run:
+        workflows: ['CI']
+        types:
+            - completed
         branches:
             - main
     workflow_dispatch:
@@ -9,10 +12,15 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        # Only deploy if CI workflow succeeded
+        if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
 
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.event.workflow_run.head_branch || github.ref }}
+                  sha: ${{ github.event.workflow_run.head_sha || github.sha }}
 
             - name: Setup SSH
               uses: webfactory/ssh-agent@v0.9.0
