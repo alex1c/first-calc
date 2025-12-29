@@ -5,7 +5,7 @@
  * Loads translations dynamically for client components
  */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import type { Locale, Dictionary } from './types'
 import { createT } from './t'
 
@@ -20,6 +20,9 @@ export function useClientT(
 	namespaces: readonly string[],
 ): (key: string, params?: Record<string, string | number>) => string {
 	const [dict, setDict] = useState<Dictionary>({})
+
+	// Memoize namespaces string to avoid complex expression in dependency array
+	const namespacesKey = useMemo(() => namespaces.join(','), [namespaces])
 
 	useEffect(() => {
 		// Load all namespaces in parallel
@@ -56,7 +59,7 @@ export function useClientT(
 			}
 			setDict(merged)
 		})
-	}, [locale, namespaces.join(',')])
+	}, [locale, namespacesKey, namespaces])
 
 	return (key: string, params?: Record<string, string | number>) => {
 		const t = createT(dict)
