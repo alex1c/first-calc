@@ -33,42 +33,7 @@ jobs:
             - name: Deploy to server
               timeout-minutes: 15
               run: |
-                  echo "Attempting SSH connection to ${{ secrets.SERVER_HOST }}..."
-
-                  # Configure SSH to use only the provided key
-                  mkdir -p ~/.ssh
-                  chmod 700 ~/.ssh
-
-                  # Debug: Check if SSH agent has keys
-                  echo "Checking SSH agent keys..."
-                  ssh-add -l || echo "No keys in agent or agent not running"
-
-                  # Remove default SSH keys to force using agent key only
-                  rm -f ~/.ssh/id_rsa ~/.ssh/id_ecdsa ~/.ssh/id_ecdsa_sk ~/.ssh/id_ed25519 ~/.ssh/id_ed25519_sk ~/.ssh/id_xmss ~/.ssh/id_dsa 2>/dev/null || true
-
-                  # Create SSH config to use only agent key
-                  cat > ~/.ssh/config << 'SSHCONFIG'
-                  Host *
-                      IdentitiesOnly yes
-                      PreferredAuthentications publickey
-                      PubkeyAuthentication yes
-                      PasswordAuthentication no
-                      IdentityAgent $SSH_AUTH_SOCK
-                  SSHCONFIG
-                  chmod 600 ~/.ssh/config
-
-                  # Try SSH connection
-                  ssh -o ConnectTimeout=30 \
-                      -o StrictHostKeyChecking=no \
-                      -o ServerAliveInterval=60 \
-                      -o ServerAliveCountMax=3 \
-                      -o TCPKeepAlive=yes \
-                      -o IdentitiesOnly=yes \
-                      -o PreferredAuthentications=publickey \
-                      -o PubkeyAuthentication=yes \
-                      -o PasswordAuthentication=no \
-                      -o IdentityAgent=$SSH_AUTH_SOCK \
-                      root@${{ secrets.SERVER_HOST }} '
+                  ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} '
                     set -e
                     
                     # Navigate to project directory
