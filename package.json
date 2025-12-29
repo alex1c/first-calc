@@ -41,6 +41,8 @@
 		"@vitest/coverage-v8": "^1.0.4",
 		"@vitest/ui": "^1.0.4",
 		"autoprefixer": "^10.4.17",
+		"eslint": "^8.57.0",
+		"eslint-config-next": "^14.2.0",
 		"happy-dom": "^12.10.3",
 		"msw": "^2.0.8",
 		"next-router-mock": "^0.9.0",
