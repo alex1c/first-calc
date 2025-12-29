@@ -29,19 +29,39 @@ jobs:
               run: |
                   mkdir -p ~/.ssh
                   chmod 700 ~/.ssh
+
+                  # Check if secret is set
+                  if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+                      echo "ERROR: SSH_PRIVATE_KEY secret is not set!"
+                      echo "Please add SSH_PRIVATE_KEY secret in repository settings"
+                      exit 1
+                  fi
+
                   echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
                   chmod 600 ~/.ssh/deploy_key
 
                   # Verify key format
-                  echo "Checking key format..."
+                  echo "=== Key Format Check ==="
+                  echo "First line:"
                   head -1 ~/.ssh/deploy_key
+                  echo "Last line:"
                   tail -1 ~/.ssh/deploy_key
+                  echo "Key length:"
+                  wc -l ~/.ssh/deploy_key
 
                   # Get public key from private and check fingerprint
-                  ssh-keygen -y -f ~/.ssh/deploy_key > ~/.ssh/deploy_key.pub 2>&1 || echo "Failed to extract public key"
-                  if [ -f ~/.ssh/deploy_key.pub ]; then
-                      echo "Public key fingerprint:"
+                  echo ""
+                  echo "=== Extracting Public Key ==="
+                  if ssh-keygen -y -f ~/.ssh/deploy_key > ~/.ssh/deploy_key.pub 2>&1; then
+                      echo "Public key extracted successfully"
+                      echo "Fingerprint:"
                       ssh-keygen -lf ~/.ssh/deploy_key.pub
+                      echo ""
+                      echo "Expected fingerprint: SHA256:PwnqD/gRXu7Jb1OlJLX5+BjwIg98ljLfROqcYl5BPTE"
+                  else
+                      echo "ERROR: Failed to extract public key from private key"
+                      echo "This usually means the key format is incorrect"
+                      exit 1
                   fi
 
             - name: Add server to known hosts
