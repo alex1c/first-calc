@@ -12,6 +12,10 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        # Only one deployment at a time
+        concurrency:
+            group: deploy
+            cancel-in-progress: false
         # Only deploy if CI workflow succeeded
         if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
 
@@ -33,7 +37,11 @@ jobs:
             - name: Deploy to server
               timeout-minutes: 15
               run: |
-                  ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} '
+                  # Configure SSH to use only agent key
+                  ssh -o StrictHostKeyChecking=no \
+                      -o IdentitiesOnly=yes \
+                      -o PreferredAuthentications=publickey \
+                      root@${{ secrets.SERVER_HOST }} '
                     set -e
                     
                     # Navigate to project directory
