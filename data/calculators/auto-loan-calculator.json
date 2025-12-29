@@ -4,7 +4,7 @@
 	"category": "finance",
 	"engine": "function",
 	"calculationId": "calculateAutoLoan",
-	"tags": ["finance", "loans", "auto-loan", "car-loan", "vehicle"],
+	"tags": ["finance", "auto-loan", "car-loan", "loan", "interest", "calculator"],
 	"inputs": [
 		{
 			"name": "carPrice",

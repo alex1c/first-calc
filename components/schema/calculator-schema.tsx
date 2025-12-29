@@ -19,12 +19,26 @@ export function CalculatorSchema({
 		engineering: 'EducationalApplication',
 		business: 'FinanceApplication',
 		auto: 'FinanceApplication', // Auto calculators are financial tools
+		construction: 'EducationalApplication',
+		health: 'EducationalApplication',
+		geometry: 'EducationalApplication',
 	}
 
-	// Enhanced schema for finance and auto calculators
+	// Determine application subcategory based on calculator category
+	const subCategoryMap: Record<string, string> = {
+		finance: 'FinancialCalculator',
+		auto: 'AutoCalculator',
+		construction: 'ConstructionCalculator',
+		health: 'HealthCalculator',
+		math: 'MathCalculator',
+		geometry: 'GeometryCalculator',
+	}
+
 	const isFinanceCalculator = calculator.category === 'finance'
 	const isAutoCalculator = calculator.category === 'auto'
-	
+	const isConstructionCalculator = calculator.category === 'construction'
+	const subCategory = subCategoryMap[calculator.category]
+
 	const baseSchema = {
 		'@context': 'https://schema.org',
 		'@type': 'SoftwareApplication',
@@ -33,23 +47,22 @@ export function CalculatorSchema({
 		operatingSystem: 'Web',
 		url: canonicalUrl,
 		description: calculator.shortDescription,
+		offers: {
+			'@type': 'Offer',
+			price: '0',
+			priceCurrency: 'USD',
+		},
+		...(subCategory && {
+			applicationSubCategory: subCategory,
+		}),
 		...(isFinanceCalculator && {
-			applicationSubCategory: 'FinancialCalculator',
 			featureList: calculator.inputs?.map((input) => input.label || input.name) || [],
-			offers: {
-				'@type': 'Offer',
-				price: '0',
-				priceCurrency: 'USD',
-			},
 		}),
 		...(isAutoCalculator && {
-			applicationSubCategory: 'AutoCalculator',
 			featureList: calculator.inputs?.map((input) => input.label || input.name) || [],
-			offers: {
-				'@type': 'Offer',
-				price: '0',
-				priceCurrency: 'USD',
-			},
+		}),
+		...(isConstructionCalculator && {
+			featureList: calculator.inputs?.map((input) => input.label || input.name) || [],
 		}),
 	}
 

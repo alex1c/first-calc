@@ -77,23 +77,12 @@ export async function generateMetadata({
 		description = `Convert numbers from ${range.start} to ${range.end} to English words.`
 	}
 
-	// Disable indexing for large ranges
-	const shouldIndex = !range || range.end - range.start <= 999
-
-	// For es/tr/hi locales: noindex,follow for specific number pages (not landing)
-	// Landing page (/numbers-to-words) is always indexable
-	// For en/ru: keep current indexing logic
-	let robots: string
-	if (['es', 'tr', 'hi'].includes(locale) && singleNumber !== null) {
-		// Specific number page for es/tr/hi: noindex,follow
-		robots = 'noindex, follow'
-	} else if (['es', 'tr', 'hi'].includes(locale) && range) {
-		// Range page for es/tr/hi: noindex,follow
-		robots = 'noindex, follow'
-	} else {
-		// For en/ru or landing pages: use existing logic
-		robots = shouldIndex ? 'index, follow' : 'noindex, nofollow'
-	}
+	// SEO Safety: Prevent indexing of infinite dynamic legacy pages
+	// Only the landing page (/numbers-to-words) should be indexed
+	// All dynamic routes (single numbers, ranges) should be noindex
+	// This prevents millions of indexed URLs from competing with modern calculators
+	const isLandingPage = slug.length === 0
+	const robots = isLandingPage ? 'index, follow' : 'noindex, follow'
 
 	return {
 		title,

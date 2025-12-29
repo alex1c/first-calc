@@ -107,8 +107,11 @@ export async function generateMetadata({
 				: `Convert numbers from ${range.start} to ${range.end} to words.`
 	}
 
-	// Disable indexing for large ranges
-	const shouldIndex = !range || range.end - range.start <= 999
+	// SEO Safety: Prevent indexing of infinite dynamic legacy pages
+	// Only the landing page (/chislo-propisyu) should be indexed
+	// All dynamic routes (single numbers, ranges) should be noindex
+	const isLandingPage = slug.length === 0
+	const robots = isLandingPage ? 'index, follow' : 'noindex, follow'
 
 	// Use 'en' as fallback for locales that don't have translations
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
@@ -117,7 +120,7 @@ export async function generateMetadata({
 		title: `${title} - Calculator Portal`,
 		description,
 		keywords: content?.keywords[contentLocale]?.join(', ') || 'число прописью, конвертер чисел, пропись, number to words',
-		robots: shouldIndex ? 'index, follow' : 'noindex, nofollow',
+		robots,
 		openGraph: {
 			title: ogTitle,
 			description: ogDescription,

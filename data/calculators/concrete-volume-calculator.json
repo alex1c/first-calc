@@ -4,7 +4,7 @@
   "category": "construction",
   "engine": "function",
   "calculationId": "calculateConcreteVolume",
-  "tags": ["concrete", "volume", "concrete-volume", "construction"],
+  "tags": ["construction", "concrete", "volume", "estimator"],
   "inputs": [
     {
       "name": "shape",

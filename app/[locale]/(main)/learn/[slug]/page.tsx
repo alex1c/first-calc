@@ -36,19 +36,25 @@ export async function generateMetadata({
 	const keywords = article.meta?.keywords || []
 	const keywordsString = keywords.join(', ')
 
+	// Build canonical URL - EN locale should not have /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+	const baseUrl = 'https://first-calc.com'
+	const canonicalPath = `${basePath}/learn/${slug}`
+
+	// Build alternates with proper EN path (no /en prefix)
+	const alternates: Record<string, string> = {}
+	for (const loc of locales) {
+		const locPath = loc === 'en' ? '' : `/${loc}`
+		alternates[loc] = `${baseUrl}${locPath}/learn/${slug}`
+	}
+
 	return {
 		title: `${article.title} - Calculator Portal`,
 		description: article.shortDescription || article.title,
 		keywords: keywordsString,
 		alternates: {
-			languages: {
-				en: `/en/learn/${slug}`,
-				ru: `/ru/learn/${slug}`,
-				es: `/es/learn/${slug}`,
-				tr: `/tr/learn/${slug}`,
-				hi: `/hi/learn/${slug}`,
-			},
-			canonical: `/${locale}/learn/${slug}`,
+			languages: alternates,
+			canonical: `${baseUrl}${canonicalPath}`,
 		},
 	}
 }
@@ -84,7 +90,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
 	// Generate FAQ based on article topic
 	const faqItems = generateFaq(article.title, locale)
-	const canonicalUrl = `https://first-calc.com/${locale}/learn/${slug}`
+	// Build canonical URL - EN locale should not have /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+	const canonicalUrl = `https://first-calc.com${basePath}/learn/${slug}`
 
 	// Load translations
 	const dict = await loadNamespaces(locale, namespaces)

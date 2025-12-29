@@ -4,7 +4,7 @@
 	"category": "finance",
 	"engine": "function",
 	"calculationId": "calculatePersonalLoan",
-	"tags": ["finance", "loans", "personal-loan", "unsecured-loan"],
+	"tags": ["finance", "loan", "interest", "calculator"],
 	"inputs": [
 		{
 			"name": "loanAmount",

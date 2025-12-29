@@ -4,7 +4,7 @@
   "category": "health",
   "engine": "function",
   "calculationId": "calculateBMI",
-  "tags": ["health", "bmi", "body-mass-index", "weight", "height"],
+  "tags": ["health", "bmi", "calculator"],
   "inputs": [
     {
       "name": "weight",

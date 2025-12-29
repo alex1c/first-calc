@@ -4,7 +4,7 @@
   "category": "everyday",
   "engine": "function",
   "calculationId": "calculateRandomNumber",
-  "tags": ["random-number", "rng", "number-generator", "randomizer"],
+  "tags": ["life", "random", "generator"],
   "inputs": [
     {
       "name": "minValue",
@@ -25,8 +25,12 @@
     },
     {
       "name": "allowDuplicates",
-      "type": "checkbox",
-      "defaultValue": false,
+      "type": "select",
+      "options": [
+        { "value": "false", "label": "No" },
+        { "value": "true", "label": "Yes" }
+      ],
+      "defaultValue": "false",
       "optional": true
     }
   ],

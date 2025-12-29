@@ -51,19 +51,25 @@ export async function generateMetadata({
 			'Learn how soil properties affect foundations and how geotechnical principles relate to foundation, pile, and concrete calculations.'
 	}
 
+	// Build canonical URL - EN locale should not have /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+	const baseUrl = 'https://first-calc.com'
+	const canonicalPath = `${basePath}/standards/${country}/${standardSlug}`
+
+	// Build alternates with proper EN path (no /en prefix)
+	const alternates: Record<string, string> = {}
+	for (const loc of locales) {
+		const locPath = loc === 'en' ? '' : `/${loc}`
+		alternates[loc] = `${baseUrl}${locPath}/standards/${country}/${standardSlug}`
+	}
+
 	return {
 		title: title,
 		description: description,
 		keywords: keywordsString,
 		alternates: {
-			languages: {
-				en: `/en/standards/${country}/${standardSlug}`,
-				ru: `/ru/standards/${country}/${standardSlug}`,
-				es: `/es/standards/${country}/${standardSlug}`,
-				tr: `/tr/standards/${country}/${standardSlug}`,
-				hi: `/hi/standards/${country}/${standardSlug}`,
-			},
-			canonical: `/${locale}/standards/${country}/${standardSlug}`,
+			languages: alternates,
+			canonical: `${baseUrl}${canonicalPath}`,
 		},
 	}
 }
@@ -106,7 +112,9 @@ export default async function StandardPage({ params }: StandardPageProps) {
 	// Get related articles for this standard
 	const relatedArticles = await getArticlesByStandard(standard.id, locale)
 
-	const canonicalUrl = `https://first-calc.com/${locale}/standards/${country}/${standardSlug}`
+	// Build canonical URL - EN locale should not have /en prefix
+	const basePath = locale === 'en' ? '' : `/${locale}`
+	const canonicalUrl = `https://first-calc.com${basePath}/standards/${country}/${standardSlug}`
 
 	const crossLinksSection = (() => {
 		if (standard.id === 'eurocode-2') {

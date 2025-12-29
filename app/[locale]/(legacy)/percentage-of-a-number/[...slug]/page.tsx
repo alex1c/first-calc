@@ -53,6 +53,12 @@ export async function generateMetadata({
 		description = `How to calculate ${parsed.percent}% of ${parsed.value}? Step-by-step percent calculator. Result: ${resultStr}.`
 	}
 
+	// SEO Safety: Prevent indexing of infinite dynamic legacy pages
+	// Only the landing page (/percentage-of-a-number) should be indexed
+	// All dynamic routes should be noindex
+	const isLandingPage = slug.length === 0
+	const robots = isLandingPage ? 'index, follow' : 'noindex, follow'
+
 	// Use 'en' as fallback for locales that don't have translations
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
@@ -60,6 +66,7 @@ export async function generateMetadata({
 		title,
 		description,
 		keywords: content?.keywords[contentLocale]?.join(', ') || 'percentage, calculation, math, number, percent',
+		robots,
 		openGraph: {
 			title: ogTitle,
 			description: ogDescription,

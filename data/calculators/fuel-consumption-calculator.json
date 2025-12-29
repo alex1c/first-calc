@@ -4,7 +4,7 @@
 	"category": "auto",
 	"engine": "function",
 	"calculationId": "calculateFuelConsumption",
-	"tags": ["auto", "fuel-consumption", "mpg", "l-100km", "fuel-efficiency", "mileage"],
+	"tags": ["auto", "fuel-consumption", "fuel", "calculator"],
 	"inputs": [
 		{
 			"name": "mode",

@@ -15,64 +15,87 @@ export default function sitemap(): MetadataRoute.Sitemap {
 	const baseUrl = 'https://first-calc.com'
 	const sitemapEntries: MetadataRoute.Sitemap = []
 
-	// Main pages
+	// Main pages - Home
 	for (const locale of locales) {
+		const homePath = locale === 'en' ? '' : `/${locale}`
 		sitemapEntries.push({
-			url: `${baseUrl}/${locale}`,
+			url: `${baseUrl}${homePath || '/'}`,
 			lastModified: new Date(),
 			changeFrequency: 'daily',
 			priority: 1.0,
 			alternates: {
 				languages: Object.fromEntries(
-					locales.map((l) => [l, `${baseUrl}/${l}`]),
+					locales.map((l) => [l, `${baseUrl}/${l === 'en' ? '' : l}`]),
 				),
 			},
 		})
 
+		// Calculators list page
+		const calculatorsPath = locale === 'en' ? '/calculators' : `/${locale}/calculators`
 		sitemapEntries.push({
-			url: `${baseUrl}/${locale}/calculators`,
+			url: `${baseUrl}${calculatorsPath}`,
 			lastModified: new Date(),
 			changeFrequency: 'daily',
 			priority: 0.9,
 			alternates: {
 				languages: Object.fromEntries(
-					locales.map((l) => [l, `${baseUrl}/${l}/calculators`]),
+					locales.map((l) => [
+						l,
+						`${baseUrl}/${l === 'en' ? '' : l}/calculators`,
+					]),
 				),
 			},
 		})
 
+		// Standards pages
+		const standardsPath = locale === 'en' ? '/standards' : `/${locale}/standards`
 		sitemapEntries.push({
-			url: `${baseUrl}/${locale}/standards`,
+			url: `${baseUrl}${standardsPath}`,
 			lastModified: new Date(),
 			changeFrequency: 'weekly',
 			priority: 0.8,
 			alternates: {
 				languages: Object.fromEntries(
-					locales.map((l) => [l, `${baseUrl}/${l}/standards`]),
+					locales.map((l) => [
+						l,
+						`${baseUrl}/${l === 'en' ? '' : l}/standards`,
+					]),
 				),
 			},
 		})
 
+		const nationalStandardsPath =
+			locale === 'en'
+				? '/standards/national'
+				: `/${locale}/standards/national`
 		sitemapEntries.push({
-			url: `${baseUrl}/${locale}/standards/national`,
+			url: `${baseUrl}${nationalStandardsPath}`,
 			lastModified: new Date(),
 			changeFrequency: 'weekly',
 			priority: 0.7,
 			alternates: {
 				languages: Object.fromEntries(
-					locales.map((l) => [l, `${baseUrl}/${l}/standards/national`]),
+					locales.map((l) => [
+						l,
+						`${baseUrl}/${l === 'en' ? '' : l}/standards/national`,
+					]),
 				),
 			},
 		})
 
+		// Learn page
+		const learnPath = locale === 'en' ? '/learn' : `/${locale}/learn`
 		sitemapEntries.push({
-			url: `${baseUrl}/${locale}/learn`,
+			url: `${baseUrl}${learnPath}`,
 			lastModified: new Date(),
 			changeFrequency: 'weekly',
 			priority: 0.8,
 			alternates: {
 				languages: Object.fromEntries(
-					locales.map((l) => [l, `${baseUrl}/${l}/learn`]),
+					locales.map((l) => [
+						l,
+						`${baseUrl}/${l === 'en' ? '' : l}/learn`,
+					]),
 				),
 			},
 		})
@@ -80,8 +103,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		// Calculators
 		const calculators = getCalculatorsByLocale(locale)
 		for (const calc of calculators) {
+			const calcPath =
+				locale === 'en'
+					? `/calculators/${calc.category}/${calc.slug}`
+					: `/${locale}/calculators/${calc.category}/${calc.slug}`
 			sitemapEntries.push({
-				url: `${baseUrl}/${locale}/calculators/${calc.category}/${calc.slug}`,
+				url: `${baseUrl}${calcPath}`,
 				lastModified: new Date(),
 				changeFrequency: 'monthly',
 				priority: 0.7,
@@ -89,7 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 					languages: Object.fromEntries(
 						locales.map((l) => [
 							l,
-							`${baseUrl}/${l}/calculators/${calc.category}/${calc.slug}`,
+							`${baseUrl}/${l === 'en' ? '' : l}/calculators/${calc.category}/${calc.slug}`,
 						]),
 					),
 				},
@@ -99,24 +126,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		// Calculator categories
 		const categories = getCategories(locale)
 		for (const category of categories) {
-		sitemapEntries.push({
-			url: `${baseUrl}/${locale}/calculators/${category}`,
-			lastModified: new Date(),
-			changeFrequency: 'weekly',
-			priority: 0.6,
-			alternates: {
-				languages: Object.fromEntries(
-					locales.map((l) => [l, `${baseUrl}/${l}/calculators/${category}`]),
-				),
-			},
-		})
+			const categoryPath =
+				locale === 'en'
+					? `/calculators/${category}`
+					: `/${locale}/calculators/${category}`
+			sitemapEntries.push({
+				url: `${baseUrl}${categoryPath}`,
+				lastModified: new Date(),
+				changeFrequency: 'weekly',
+				priority: 0.6,
+				alternates: {
+					languages: Object.fromEntries(
+						locales.map((l) => [
+							l,
+							`${baseUrl}/${l === 'en' ? '' : l}/calculators/${category}`,
+						]),
+					),
+				},
+			})
 		}
 
 		// Standards
 		const standards = getStandardsByLocale(locale)
 		for (const std of standards) {
+			const stdPath =
+				locale === 'en'
+					? `/standards/${std.country}/${std.slug}`
+					: `/${locale}/standards/${std.country}/${std.slug}`
 			sitemapEntries.push({
-				url: `${baseUrl}/${locale}/standards/${std.country}/${std.slug}`,
+				url: `${baseUrl}${stdPath}`,
 				lastModified: new Date(),
 				changeFrequency: 'monthly',
 				priority: 0.6,
@@ -124,7 +162,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 					languages: Object.fromEntries(
 						locales.map((l) => [
 							l,
-							`${baseUrl}/${l}/standards/${std.country}/${std.slug}`,
+							`${baseUrl}/${l === 'en' ? '' : l}/standards/${std.country}/${std.slug}`,
 						]),
 					),
 				},
@@ -134,8 +172,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		// National standards hub routes
 		const nationalEntries = getNationalLandingList(locale)
 		for (const landing of nationalEntries) {
+			const nationalPath =
+				locale === 'en'
+					? `/standards/national/${landing.slug}`
+					: `/${locale}/standards/national/${landing.slug}`
 			sitemapEntries.push({
-				url: `${baseUrl}/${locale}/standards/national/${landing.slug}`,
+				url: `${baseUrl}${nationalPath}`,
 				lastModified: new Date(),
 				changeFrequency: 'weekly',
 				priority: 0.6,
@@ -143,129 +185,92 @@ export default function sitemap(): MetadataRoute.Sitemap {
 					languages: Object.fromEntries(
 						locales.map((l) => [
 							l,
-							`${baseUrl}/${l}/standards/national/${landing.slug}`,
+							`${baseUrl}/${l === 'en' ? '' : l}/standards/national/${landing.slug}`,
 						]),
 					),
 				},
 			})
 		}
 
-		sitemapEntries.push({
-			url: `${baseUrl}/${locale}/standards/national/us/aci-concrete`,
-			lastModified: new Date(),
-			changeFrequency: 'weekly',
-			priority: 0.6,
-			alternates: {
-				languages: Object.fromEntries(
-					locales.map((l) => [
-						l,
-						`${baseUrl}/${l}/standards/national/us/aci-concrete`,
-					]),
-				),
+		// National standard detail pages (US, EU, RU)
+		const nationalDetailPages = [
+			{
+				country: 'us',
+				slug: 'aci-concrete',
 			},
-		})
-
-		sitemapEntries.push({
-			url: `${baseUrl}/${locale}/standards/national/us/asce-loads`,
-			lastModified: new Date(),
-			changeFrequency: 'weekly',
-			priority: 0.6,
-			alternates: {
-				languages: Object.fromEntries(
-					locales.map((l) => [
-						l,
-						`${baseUrl}/${l}/standards/national/us/asce-loads`,
-					]),
-				),
+			{
+				country: 'us',
+				slug: 'asce-loads',
 			},
-		})
-
-		sitemapEntries.push({
-			url: `${baseUrl}/${locale}/standards/national/de/din-construction`,
-			lastModified: new Date(),
-			changeFrequency: 'weekly',
-			priority: 0.6,
-			alternates: {
-				languages: Object.fromEntries(
-					locales.map((l) => [
-						l,
-						`${baseUrl}/${l}/standards/national/de/din-construction`,
-					]),
-				),
+			{
+				country: 'eu',
+				slug: 'ec1-load-concepts',
 			},
-		})
+			{
+				country: 'eu',
+				slug: 'ec2-concrete-principles',
+			},
+			{
+				country: 'eu',
+				slug: 'ec7-soil-foundations',
+			},
+			{
+				country: 'ru',
+				slug: 'sp20-load-concepts',
+			},
+			{
+				country: 'ru',
+				slug: 'sp24-soil-foundations',
+			},
+			{
+				country: 'ru',
+				slug: 'sp63-concrete-principles',
+			},
+			{
+				country: 'ru',
+				slug: 'sp-snip-foundations',
+			},
+		]
 
-                sitemapEntries.push({
-                        url: `${baseUrl}/${locale}/standards/national/ru/sp-snip-foundations`,
-                        lastModified: new Date(),
-                        changeFrequency: 'weekly',
-                        priority: 0.6,
-			alternates: {
-				languages: Object.fromEntries(
-					locales.map((l) => [
-						l,
-						`${baseUrl}/${l}/standards/national/ru/sp-snip-foundations`,
-					]),
-                                ),
-                        },
-                })
-
-                sitemapEntries.push({
-                        url: `${baseUrl}/${locale}/standards/national/ru/sp20-load-concepts`,
-                        lastModified: new Date(),
-                        changeFrequency: 'weekly',
-                        priority: 0.6,
-                        alternates: {
-                                languages: Object.fromEntries(
-                                        locales.map((l) => [
-                                                l,
-                                                `${baseUrl}/${l}/standards/national/ru/sp20-load-concepts`,
-                                        ]),
-                                ),
-                        },
-                })
-
-                sitemapEntries.push({
-                        url: `${baseUrl}/${locale}/standards/national/ru/sp24-soil-foundations`,
-                        lastModified: new Date(),
-                        changeFrequency: 'weekly',
-                        priority: 0.6,
-                        alternates: {
-                                languages: Object.fromEntries(
-                                        locales.map((l) => [
-                                                l,
-                                                `${baseUrl}/${l}/standards/national/ru/sp24-soil-foundations`,
-                                        ]),
-                                ),
-                        },
-                })
-
-                sitemapEntries.push({
-                        url: `${baseUrl}/${locale}/standards/national/ru/sp63-concrete-principles`,
-                        lastModified: new Date(),
-                        changeFrequency: 'weekly',
-                        priority: 0.6,
-                        alternates: {
-                                languages: Object.fromEntries(
-                                        locales.map((l) => [
-                                                l,
-                                                `${baseUrl}/${l}/standards/national/ru/sp63-concrete-principles`,
-                                        ]),
-                                ),
-                        },
-                })
+		for (const page of nationalDetailPages) {
+			const pagePath =
+				locale === 'en'
+					? `/standards/national/${page.country}/${page.slug}`
+					: `/${locale}/standards/national/${page.country}/${page.slug}`
+			sitemapEntries.push({
+				url: `${baseUrl}${pagePath}`,
+				lastModified: new Date(),
+				changeFrequency: 'weekly',
+				priority: 0.6,
+				alternates: {
+					languages: Object.fromEntries(
+						locales.map((l) => [
+							l,
+							`${baseUrl}/${l === 'en' ? '' : l}/standards/national/${page.country}/${page.slug}`,
+						]),
+					),
+				},
+			})
+		}
 
 		// Standard countries
 		const countries = getCountries(locale)
 		for (const country of countries) {
+			const countryPath =
+				locale === 'en'
+					? `/standards/${country}`
+					: `/${locale}/standards/${country}`
 			sitemapEntries.push({
-				url: `${baseUrl}/${locale}/standards/${country}`,
+				url: `${baseUrl}${countryPath}`,
 				lastModified: new Date(),
 				changeFrequency: 'weekly',
 				priority: 0.5,
 				alternates: {
 					languages: Object.fromEntries(
-						locales.map((l) => [l, `${baseUrl}/${l}/standards/${country}`]),
+						locales.map((l) => [
+							l,
+							`${baseUrl}/${l === 'en' ? '' : l}/standards/${country}`,
+						]),
 					),
 				},
 			})
@@ -274,39 +279,51 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		// Articles
 		const articles = getArticlesByLocale(locale)
 		for (const article of articles) {
+			const articlePath =
+				locale === 'en' ? `/learn/${article.slug}` : `/${locale}/learn/${article.slug}`
 			sitemapEntries.push({
-				url: `${baseUrl}/${locale}/learn/${article.slug}`,
+				url: `${baseUrl}${articlePath}`,
 				lastModified: new Date(),
 				changeFrequency: 'monthly',
 				priority: 0.6,
 				alternates: {
 					languages: Object.fromEntries(
-						locales.map((l) => [l, `${baseUrl}/${l}/learn/${article.slug}`]),
+						locales.map((l) => [
+							l,
+							`${baseUrl}/${l === 'en' ? '' : l}/learn/${article.slug}`,
+						]),
 					),
 				},
 			})
 		}
 
-		// Legacy routes (limited, without huge ranges)
-		const legacyRoutes = [
-			'/chislo-propisyu/123',
-			'/numbers-to-words/123',
-			'/roman-numerals-converter/123',
-			'/percentage-of-a-number/100-20',
-			'/add-subtract-percentage/100-20-add',
-			'/factors/24',
-			'/number-format/in/1234567',
+		// Legacy landing pages only (no dynamic routes)
+		// These are the main landing pages that should be indexed
+		const legacyLandingPages = [
+			'/numbers-to-words',
+			'/chislo-propisyu',
+			'/roman-numerals-converter',
+			'/percentage-of-a-number',
+			'/add-subtract-percentage',
+			'/factors',
+			'/number-format',
+			'/root-calculator',
 		]
 
-		for (const route of legacyRoutes) {
+		for (const route of legacyLandingPages) {
+			const legacyPath =
+				locale === 'en' ? route : `/${locale}${route}`
 			sitemapEntries.push({
-				url: `${baseUrl}/${locale}${route}`,
+				url: `${baseUrl}${legacyPath}`,
 				lastModified: new Date(),
 				changeFrequency: 'monthly',
 				priority: 0.4,
 				alternates: {
 					languages: Object.fromEntries(
-						locales.map((l) => [l, `${baseUrl}/${l}${route}`]),
+						locales.map((l) => [
+							l,
+							`${baseUrl}/${l === 'en' ? '' : l}${route}`,
+						]),
 					),
 				},
 			})

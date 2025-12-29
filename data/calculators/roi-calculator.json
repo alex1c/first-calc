@@ -4,7 +4,7 @@
   "category": "finance",
   "engine": "function",
   "calculationId": "calculateROI",
-  "tags": ["finance", "investments", "business", "roi", "profit"],
+  "tags": ["finance", "roi", "investment", "calculator"],
   "inputs": [
     {
       "name": "investmentCost",

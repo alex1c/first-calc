@@ -4,7 +4,7 @@
   "category": "finance",
   "engine": "function",
   "calculationId": "calculateLoanOverpayment",
-  "tags": ["finance", "loans", "overpayment", "interest-savings"],
+  "tags": ["finance", "loan", "interest", "calculator"],
   "inputs": [
     {
       "name": "loanAmount",

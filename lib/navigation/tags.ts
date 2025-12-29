@@ -1,80 +1,18 @@
 /**
  * Tags system for calculators
  * Provides tag definitions, top tags, and filtering utilities
+ * 
+ * @deprecated Use lib/tags/definitions.ts for tag definitions
+ * This file is kept for backward compatibility
  */
 
+import { tagDefinitions, getTagLabel } from '@/lib/tags/definitions'
+
 /**
- * Allowed tags for calculators
+ * Allowed tags for calculators (from centralized definitions)
  * Used for validation and filtering
  */
-export const allowedTags = [
-	'finance',
-	'auto',
-	'tax',
-	'loan',
-	'mortgage',
-	'percent',
-	'area',
-	'volume',
-	'date',
-	'time',
-	'health',
-	'bmi',
-	'pregnancy',
-	'converter',
-	'temperature',
-	'speed',
-	'pressure',
-	'energy',
-	'gpa',
-	'random',
-	'password',
-	'qr',
-	'ip',
-	'crypto',
-	'construction',
-	'concrete',
-	'paint',
-	'wallpaper',
-	'roof',
-	'electrical',
-	'age',
-	'calendar',
-	'timer',
-	'countdown',
-	'weight',
-	'length',
-	'data',
-	'angle',
-	'fun',
-	'generator',
-] as const
-
-/**
- * Top tags (most popular/used)
- */
-export const topTags: string[] = [
-	'finance',
-	'loan',
-	'mortgage',
-	'percent',
-	'converter',
-	'area',
-	'volume',
-	'date',
-	'time',
-	'health',
-	'bmi',
-	'construction',
-	'auto',
-	'tax',
-	'temperature',
-	'speed',
-	'random',
-	'password',
-	'qr',
-	'crypto',
-]
+export const allowedTags = tagDefinitions.map((tag) => tag.id) as readonly string[]
 
 /**
  * Type for allowed tag values
@@ -85,14 +23,19 @@ export type AllowedTag = (typeof allowedTags)[number]
  * Check if a tag is allowed
  */
 export function isAllowedTag(tag: string): tag is AllowedTag {
-	return allowedTags.includes(tag as AllowedTag)
+	return allowedTags.includes(tag)
 }
 
 /**
  * Get top tags (limited to top N)
+ * 
+ * @deprecated Use lib/tags/usage.ts getTopUsedTags() instead
+ * This function is kept for backward compatibility but now uses dynamic data
  */
-export function getTopTags(limit: number = 20): string[] {
-	return topTags.slice(0, limit)
+export async function getTopTags(limit: number = 20): Promise<string[]> {
+	const { getTopUsedTags } = await import('@/lib/tags/usage')
+	const tags = await getTopUsedTags('en', limit, false)
+	return tags.map((tag) => tag.id)
 }
 
 

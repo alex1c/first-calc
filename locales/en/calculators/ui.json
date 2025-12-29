@@ -46,13 +46,17 @@
 		"recommended": "Recommended for You",
 		"categories": "Browse by Category",
 		"tags": "Tags",
+		"tagsHint": "Filter calculators by topic",
 		"toc": "Table of Contents",
 		"all": "All Calculators"
 	},
 	"tags": {
 		"popular": "Popular",
 		"new": "New",
-		"basedOnStandard": "Based on Standard"
+		"basedOnStandard": "Based on Standard",
+		"clear": "Clear filter",
+		"filteredBy": "Filtered by tag",
+		"noResultsHint": "Try selecting a different tag or clear the filter"
 	},
 	"categories": {
 		"math": "Math",

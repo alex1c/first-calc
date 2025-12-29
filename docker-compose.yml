@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+	first-calc:
+		build:
+			context: .
+			dockerfile: Dockerfile
+		container_name: first-calc
+		restart: unless-stopped
+		ports:
+			- '3003:3000'
+		environment:
+			- NODE_ENV=production
+			- NEXT_TELEMETRY_DISABLED=1
+			- NEXT_PUBLIC_DATA_SOURCE=local
+		# Health check to ensure container is running
+		healthcheck:
+			test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:3000']
+			interval: 30s
+			timeout: 10s
+			retries: 3
+			start_period: 40s
+		# Optional: Add volumes for persistent data if needed
+		# volumes:
+		#   - ./data:/app/data
+

@@ -27,6 +27,7 @@ import { getCalculatorsListBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { CategoryTiles } from '@/components/navigation/category-tiles'
 import { TagsFilter } from '@/components/navigation/tags-filter'
 import { categories as categoryConfigs } from '@/lib/navigation/categories'
+import { getTopUsedTags } from '@/lib/tags/usage'
 
 /**
  * Required i18n namespaces for this page
@@ -141,6 +142,14 @@ export default async function CalculatorsPage({
 
 	const breadcrumbs = getCalculatorsListBreadcrumbs(locale, t)
 
+	// Get top used tags (excluding intent tags for UI)
+	const topUsedTags = await getTopUsedTags(locale, 20, false)
+	const tagsForUI = topUsedTags.map((tag) => ({
+		id: tag.id,
+		label: tag.label,
+		count: tag.count,
+	}))
+
 	return (
 		<>
 			<BreadcrumbsBar items={breadcrumbs} />
@@ -168,14 +177,23 @@ export default async function CalculatorsPage({
 						<CategoryTiles locale={locale} categories={categoryTilesData} />
 
 						{/* Tags filter */}
-						<TagsFilter locale={locale} />
+						<TagsFilter locale={locale} tags={tagsForUI} />
 
-						{/* Show active tag filter if present */}
-						{tag && (
-							<div className="mb-6">
-								<p className="text-sm text-gray-600">
-									Filtered by tag: <span className="font-semibold text-blue-600">{tag}</span>
+						{/* Empty state when tag filter returns no results */}
+						{tag && calculators.length === 0 && (
+							<div className="mb-8 p-8 bg-gray-50 rounded-lg border border-gray-200 text-center">
+								<p className="text-lg text-gray-700 mb-2">
+									{t('calculators/ui.search.noResults') || 'No calculators found'}
 								</p>
+								<p className="text-sm text-gray-600 mb-4">
+									{t('calculators/ui.tags.noResultsHint') || 'Try selecting a different tag or clear the filter'}
+								</p>
+								<Link
+									href={`${locale === 'en' ? '' : `/${locale}`}/calculators`}
+									className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+								>
+									{t('calculators/ui.tags.clear') || 'Clear filter'}
+								</Link>
 							</div>
 						)}
 

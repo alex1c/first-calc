@@ -4,7 +4,7 @@
   "category": "finance",
   "engine": "function",
   "calculationId": "calculateMortgage",
-  "tags": ["finance", "loans", "mortgage", "home-loan", "real-estate"],
+  "tags": ["finance", "mortgage", "loan", "interest", "calculator"],
   "inputs": [
     {
       "name": "loanAmount",

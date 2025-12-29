@@ -82,9 +82,16 @@ export async function generateMetadata({
 		}
 	}
 
+	// SEO Safety: Prevent indexing of infinite dynamic legacy pages
+	// Only the landing page (/root-calculator) should be indexed
+	// All dynamic routes should be noindex
+	const isLandingPage = slug.length === 0
+	const robots = isLandingPage ? 'index, follow' : 'noindex, follow'
+
 	return {
 		title: `${title} - Calculator Portal`,
 		description,
+		robots,
 		alternates: {
 			languages: {
 				en: `/root-calculator/${slug.join('/')}`,

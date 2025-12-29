@@ -2,6 +2,8 @@
 const nextConfig = {
 	// Enable React strict mode
 	reactStrictMode: true,
+	// Enable standalone output for Docker
+	output: 'standalone',
 	// Allow dots in URLs for decimal numbers
 	async rewrites() {
 		return []

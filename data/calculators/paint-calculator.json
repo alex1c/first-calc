@@ -4,7 +4,7 @@
   "category": "construction",
   "engine": "function",
   "calculationId": "calculatePaint",
-  "tags": ["paint", "paint-calculator", "wall-paint", "interior-paint", "exterior-paint"],
+  "tags": ["construction", "paint", "estimator"],
   "inputs": [
     {
       "name": "surfaceType",

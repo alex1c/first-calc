@@ -4,7 +4,7 @@
   "category": "finance",
   "engine": "function",
   "calculationId": "calculateInvestment",
-  "tags": ["finance", "investments", "compound-interest", "savings", "retirement"],
+  "tags": ["finance", "investment", "compound-interest", "savings", "interest", "calculator"],
   "inputs": [
     {
       "name": "initialInvestment",

@@ -72,14 +72,17 @@ export async function generateMetadata({
 		description = `Convert Arabic numbers from ${range.start} to ${range.end} to Roman numerals.`
 	}
 
-	// Disable indexing for large ranges
-	const shouldIndex = !range || range.end - range.start <= 999
+	// SEO Safety: Prevent indexing of infinite dynamic legacy pages
+	// Only the landing page (/roman-numerals-converter) should be indexed
+	// All dynamic routes (single conversions, ranges) should be noindex
+	const isLandingPage = slug.length === 0
+	const robots = isLandingPage ? 'index, follow' : 'noindex, follow'
 
 	return {
 		title,
 		description,
 		keywords: content?.keywords[contentLocale]?.join(', ') || 'roman numerals, arabic numbers, converter, I V X L C D M',
-		robots: shouldIndex ? 'index, follow' : 'noindex, nofollow',
+		robots,
 		openGraph: {
 			title: ogTitle,
 			description: ogDescription,

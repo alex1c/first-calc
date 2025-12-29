@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { locales, type Locale } from '@/lib/i18n'
 import { SearchButton } from '@/components/search/search-button'
+import { Logo } from '@/components/logo'
 
 // Navigation menu items (will be replaced with i18n in server component)
 const menuItems = [
@@ -83,13 +84,8 @@ export function Header() {
 		<header className="border-b border-gray-200 bg-white">
 			<div className="container mx-auto px-4 py-4">
 				<div className="flex items-center justify-between">
-					{/* Logo placeholder */}
-					<Link
-						href={getLocalizedPath('/')}
-						className="text-2xl font-bold text-gray-900"
-					>
-						Calculator Portal
-					</Link>
+					{/* Logo */}
+					<Logo locale={currentLocale} />
 
 					{/* Navigation menu */}
 					<nav className="hidden md:flex items-center gap-6">

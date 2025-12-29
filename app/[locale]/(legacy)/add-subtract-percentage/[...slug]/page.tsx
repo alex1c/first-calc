@@ -55,10 +55,17 @@ export async function generateMetadata({
 		description = `How to ${operation} ${parsed.percent}% ${parsed.type === 'add' ? 'to' : 'from'} ${parsed.value}? Result: ${result.toFixed(2)}.`
 	}
 
+	// SEO Safety: Prevent indexing of infinite dynamic legacy pages
+	// Only the landing page (/add-subtract-percentage) should be indexed
+	// All dynamic routes should be noindex
+	const isLandingPage = slug.length === 0
+	const robots = isLandingPage ? 'index, follow' : 'noindex, follow'
+
 	return {
 		title,
 		description,
 		keywords: (content?.keywords && locale in content.keywords ? content.keywords[locale as keyof typeof content.keywords]?.join(', ') : null) || 'percentage, add, subtract, increase, decrease, calculation',
+		robots,
 		openGraph: {
 			title: ogTitle,
 			description: ogDescription,

@@ -51,12 +51,16 @@ export async function generateMetadata({
 	// For old format URLs (without /range/), use the same format
 	const canonicalPath = locale === 'en' ? `/${rangeString}` : `/${locale}/${rangeString}`
 
+	// Legacy dynamic range pages should NOT be indexed
+	// Only the landing pages should be indexed
+	// This prevents infinite URL generation from being indexed
+	const robots = 'noindex, follow'
+
 	return {
 		title,
 		description,
 		keywords: 'range, calculator, numbers, words, russian, english',
-		// Always index,follow for range pages (both chunks and overview)
-		robots: 'index, follow',
+		robots,
 		alternates: {
 			languages: {
 				en: `/${rangeString}`,
