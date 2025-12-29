@@ -53,8 +53,8 @@ systemctl reload apache2
 
 ```bash
 # Clone repository
-mkdir -p /opt/first-calc
-cd /opt/first-calc
+mkdir -p /var/www/first-calc
+cd /var/www/first-calc
 git clone https://github.com/alex1c/first-calc.git .
 
 # Copy docker-compose.yml and Dockerfile (they should be in repo)
@@ -105,7 +105,7 @@ If you need to deploy manually:
 ssh root@165.227.171.143
 
 # Navigate to project directory
-cd /opt/first-calc
+cd /var/www/first-calc
 
 # Pull latest changes
 git pull origin main
@@ -235,7 +235,7 @@ To backup the application:
 
 ```bash
 # Backup code
-tar -czf first-calc-backup-$(date +%Y%m%d).tar.gz /opt/first-calc
+tar -czf first-calc-backup-$(date +%Y%m%d).tar.gz /var/www/first-calc
 
 # Backup Docker images (optional)
 docker save first-calc:latest | gzip > first-calc-image-$(date +%Y%m%d).tar.gz
@@ -246,7 +246,7 @@ docker save first-calc:latest | gzip > first-calc-image-$(date +%Y%m%d).tar.gz
 If you need to rollback to a previous version:
 
 ```bash
-cd /opt/first-calc
+cd /var/www/first-calc
 git checkout <previous-commit-hash>
 docker-compose build --no-cache
 docker-compose up -d

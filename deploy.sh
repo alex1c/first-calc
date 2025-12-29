@@ -5,7 +5,7 @@
 set -e
 
 # Configuration
-PROJECT_DIR="/opt/first-calc"
+PROJECT_DIR="/var/www/first-calc"
 GIT_REPO="https://github.com/alex1c/first-calc.git"
 CONTAINER_NAME="first-calc"
 PORT="3003"

@@ -31,8 +31,8 @@ systemctl reload apache2
 
 ```bash
 # Создайте директорию проекта
-mkdir -p /opt/first-calc
-cd /opt/first-calc
+mkdir -p /var/www/first-calc
+cd /var/www/first-calc
 
 # Клонируйте репозиторий
 git clone https://github.com/alex1c/first-calc.git .
@@ -85,13 +85,13 @@ docker logs -f first-calc  # Следить за логами в реально�
 
 ### Перезапуск контейнера
 ```bash
-cd /opt/first-calc
+cd /var/www/first-calc
 docker-compose restart
 ```
 
 ### Обновление вручную
 ```bash
-cd /opt/first-calc
+cd /var/www/first-calc
 git pull origin main
 docker-compose down
 docker-compose build --no-cache
