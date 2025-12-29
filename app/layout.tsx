@@ -25,8 +25,6 @@ export const metadata: Metadata = {
 		robots: {
 			index: false,
 			follow: false,
-			noindex: true,
-			nofollow: true,
 		},
 	}),
 }
