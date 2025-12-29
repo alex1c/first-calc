@@ -34,13 +34,24 @@ jobs:
               run: |
                   ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts || true
 
+            - name: Verify SSH key
+              run: |
+                  echo "Checking SSH agent..."
+                  ssh-add -l || echo "No keys in agent"
+                  echo "SSH_AUTH_SOCK: $SSH_AUTH_SOCK"
+
             - name: Deploy to server
               timeout-minutes: 15
               run: |
+                  # Remove any default SSH keys to force using agent key only
+                  rm -f ~/.ssh/id_* 2>/dev/null || true
+
                   # Configure SSH to use only agent key
-                  ssh -o StrictHostKeyChecking=no \
+                  ssh -v -o StrictHostKeyChecking=no \
                       -o IdentitiesOnly=yes \
                       -o PreferredAuthentications=publickey \
+                      -o PubkeyAuthentication=yes \
+                      -o PasswordAuthentication=no \
                       root@${{ secrets.SERVER_HOST }} '
                     set -e
                     
