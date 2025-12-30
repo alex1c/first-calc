@@ -1,0 +1,159 @@
+{
+  "title": "Numbers to Words Converter – Write Numbers in Words",
+  "shortDescription": "Convert numbers into words instantly. Supports large numbers and decimals.",
+  "longDescription": "Our Numbers to Words Converter helps you convert any number into its written form. Simply enter a number (integer or decimal), and optionally enable currency mode for dollar and cent formatting. The calculator handles numbers from zero to trillions, including decimal numbers. Perfect for writing checks, formal documents, or learning number spelling.",
+  "inputs": [
+    {
+      "label": "Number",
+      "unitLabel": "",
+      "placeholder": "Enter number",
+      "helpText": "Enter any number (integer or decimal)"
+    },
+    {
+      "label": "Currency Mode",
+      "unitLabel": "",
+      "placeholder": "Select option",
+      "helpText": "Enable currency mode to format as dollars and cents"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Number in Words",
+      "unitLabel": ""
+    },
+    {
+      "label": "Currency Format",
+      "unitLabel": ""
+    },
+    {
+      "label": "Breakdown",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter a number in the Number field (supports integers and decimals)",
+    "Optionally, enable Currency Mode to format the result as dollars and cents",
+    "Click the Calculate button",
+    "View the number written in words",
+    "See the breakdown by millions, thousands, and hundreds",
+    "If currency mode is enabled, see the currency format (dollars and cents)"
+  ],
+  "examples": [
+    {
+      "id": "example-1",
+      "title": "Small Number",
+      "inputDescription": "Convert a small number to words.",
+      "steps": [
+        "Number: 42",
+        "Currency Mode: No",
+        "The calculator converts each digit and combines them",
+        "42 = forty-two"
+      ],
+      "resultDescription": "The number 42 is written as \"forty-two\" in words. Small numbers are converted directly using basic number words."
+    },
+    {
+      "id": "example-2",
+      "title": "Large Number",
+      "inputDescription": "Convert a large number to words.",
+      "steps": [
+        "Number: 1,234,567",
+        "Currency Mode: No",
+        "The calculator breaks down by scale: millions, thousands, hundreds",
+        "1,234,567 = one million two hundred thirty-four thousand five hundred sixty-seven"
+      ],
+      "resultDescription": "The number 1,234,567 is written as \"one million two hundred thirty-four thousand five hundred sixty-seven\" in words. Large numbers are broken down by scale (millions, thousands, hundreds) and combined."
+    },
+    {
+      "id": "example-3",
+      "title": "Decimal Number",
+      "inputDescription": "Convert a decimal number to words.",
+      "steps": [
+        "Number: 123.45",
+        "Currency Mode: No",
+        "The calculator converts the integer part, then the decimal part",
+        "123.45 = one hundred twenty-three point four five"
+      ],
+      "resultDescription": "The number 123.45 is written as \"one hundred twenty-three point four five\" in words. Decimal numbers are converted by spelling out the integer part, then the decimal digits individually after \"point\"."
+    },
+    {
+      "id": "example-4",
+      "title": "Currency Mode Example",
+      "inputDescription": "Convert a number to currency words (dollars and cents).",
+      "steps": [
+        "Number: 1234.56",
+        "Currency Mode: Yes",
+        "The calculator converts to dollars and cents format",
+        "1234.56 = one thousand two hundred thirty-four dollars and fifty-six cents"
+      ],
+      "resultDescription": "The number 1234.56 in currency mode is written as \"one thousand two hundred thirty-four dollars and fifty-six cents\". Currency mode formats the number as dollars (integer part) and cents (decimal part × 100)."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How are numbers converted to words?",
+      "answer": "Numbers are converted by breaking them down into groups (millions, thousands, hundreds) and converting each group to words. The groups are then combined with appropriate scale words (million, thousand, etc.). For example, 1,234,567 becomes \"one million two hundred thirty-four thousand five hundred sixty-seven\"."
+    },
+    {
+      "question": "What are the limits of conversion?",
+      "answer": "The calculator supports numbers up to 999,999,999,999,999 (999 trillion). This covers most practical use cases. Very large numbers beyond this limit may not convert correctly."
+    },
+    {
+      "question": "How are decimal numbers handled?",
+      "answer": "Decimal numbers are converted by spelling out the integer part in words, then the decimal digits individually after the word \"point\". For example, 123.45 becomes \"one hundred twenty-three point four five\"."
+    },
+    {
+      "question": "What is currency mode?",
+      "answer": "Currency mode formats numbers as dollars and cents. The integer part becomes dollars, and the decimal part (multiplied by 100) becomes cents. For example, 1234.56 becomes \"one thousand two hundred thirty-four dollars and fifty-six cents\"."
+    },
+    {
+      "question": "How do I write a check amount?",
+      "answer": "Use currency mode and enter the dollar amount. The calculator will format it as dollars and cents, which is the standard format for writing checks. For example, $1,234.56 becomes \"one thousand two hundred thirty-four dollars and fifty-six cents\"."
+    },
+    {
+      "question": "Are negative numbers supported?",
+      "answer": "Yes, negative numbers are supported. They are converted with the word \"negative\" before the number. For example, -42 becomes \"negative forty-two\"."
+    },
+    {
+      "question": "How are large numbers broken down?",
+      "answer": "Large numbers are broken down by scale: millions, thousands, and hundreds. Each scale is converted separately and combined. For example, 1,234,567 is broken down as: 1 million, 234 thousand, 567 hundreds."
+    },
+    {
+      "question": "What about zero?",
+      "answer": "Zero is converted as \"zero\". In currency mode, zero dollars would be \"zero dollars\"."
+    },
+    {
+      "question": "Can I convert very small decimal numbers?",
+      "answer": "Yes, the calculator handles decimal numbers of any reasonable precision. Each decimal digit is spelled out individually after \"point\". For example, 0.123 becomes \"zero point one two three\"."
+    },
+    {
+      "question": "How accurate is the conversion?",
+      "answer": "The conversion is very accurate and follows standard English number naming conventions. It correctly handles all number scales from ones to trillions, including proper hyphenation and scale word usage."
+    },
+    {
+      "question": "What language is supported?",
+      "answer": "Currently, the calculator supports English number words. Future versions may support additional languages."
+    },
+    {
+      "question": "How do I copy the result?",
+      "answer": "The number in words is displayed in a large, copyable format. You can select and copy the text directly from the result display."
+    },
+    {
+      "question": "Can I use this for formal documents?",
+      "answer": "Yes, the converter follows standard English number naming conventions, making it suitable for formal documents, legal papers, and official writing where numbers need to be written in words."
+    },
+    {
+      "question": "What's the difference between standard and currency mode?",
+      "answer": "Standard mode converts numbers to words as-is (e.g., \"one thousand two hundred thirty-four\"). Currency mode formats numbers as dollars and cents (e.g., \"one thousand two hundred thirty-four dollars and fifty-six cents\"). Use currency mode for financial documents and checks."
+    },
+    {
+      "question": "How are numbers with many decimal places handled?",
+      "answer": "All decimal digits are spelled out individually after \"point\". For example, 123.456789 becomes \"one hundred twenty-three point four five six seven eight nine\". There's no limit on decimal precision, though very long decimals may be impractical to read."
+    }
+  ],
+  "seo": {
+    "title": "Numbers to Words Converter – Write Numbers in Words",
+    "description": "Convert numbers into words instantly. Supports large numbers and decimals.",
+    "keywords": ["numbers to words", "number to text", "number spelling", "convert number to words", "write number in words", "number converter"]
+  }
+}
+

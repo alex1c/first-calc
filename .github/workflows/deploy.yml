@@ -68,6 +68,29 @@ jobs:
               run: |
                   ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts || true
 
+            - name: Test SSH connection
+              run: |
+                  echo "=== Testing SSH Connection ==="
+                  echo "Using key: ~/.ssh/deploy_key"
+                  echo "Target: root@${{ secrets.SERVER_HOST }}"
+                  echo ""
+
+                  # Try connection with verbose output
+                  ssh -vv -i ~/.ssh/deploy_key \
+                      -o StrictHostKeyChecking=no \
+                      -o IdentitiesOnly=yes \
+                      -o PreferredAuthentications=publickey \
+                      -o ConnectTimeout=10 \
+                      root@${{ secrets.SERVER_HOST }} 'echo "Connection successful"' 2>&1 | tail -30 || {
+                      echo ""
+                      echo "=== Connection failed ==="
+                      echo "Please check:"
+                      echo "1. Key fingerprint matches server"
+                      echo "2. Public key is in ~/.ssh/authorized_keys on server"
+                      echo "3. Key format is correct"
+                      exit 1
+                  }
+
             - name: Deploy to server
               timeout-minutes: 15
               run: |
