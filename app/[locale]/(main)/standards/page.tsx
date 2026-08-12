@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { PageContainer } from '@/components/layout/page-container'
 import { getStandardsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 const namespaces = ['common', 'navigation'] as const
 
@@ -19,8 +20,6 @@ export async function generateMetadata({
 	params: { locale: Locale }
 }): Promise<Metadata> {
 	const { locale } = params
-	const basePath = locale === 'en' ? '' : `/${locale}`
-
 	return {
 		title: 'Engineering Standards Explained – How Calculations Relate to Standards',
 		description:
@@ -34,14 +33,8 @@ export async function generateMetadata({
 			'structural engineering',
 		].join(', '),
 		alternates: {
-			languages: {
-				en: '/standards',
-				ru: '/ru/standards',
-				es: '/es/standards',
-				tr: '/tr/standards',
-				hi: '/hi/standards',
-			},
-			canonical: `${basePath}/standards`,
+			languages: languageAlternates('/standards'),
+			canonical: localeUrl(locale, '/standards'),
 		},
 	}
 }

@@ -29,3 +29,4 @@ echo ""
 echo "You need to add the public key that corresponds to the private key in GitHub Secrets."
 echo "The public key should have fingerprint: $FINGERPRINT"
 
+

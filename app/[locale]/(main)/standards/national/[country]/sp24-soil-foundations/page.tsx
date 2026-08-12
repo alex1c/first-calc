@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
@@ -182,16 +183,7 @@ export async function generateMetadata({ params }: Sp24PageProps): Promise<Metad
 	return {
 		title: c.title,
 		description: c.schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/ru/sp24-soil-foundations',
-				ru: '/ru/standards/national/ru/sp24-soil-foundations',
-				es: '/es/standards/national/ru/sp24-soil-foundations',
-				tr: '/tr/standards/national/ru/sp24-soil-foundations',
-				hi: '/hi/standards/national/ru/sp24-soil-foundations',
-			},
-			canonical: `${basePath}/standards/national/ru/sp24-soil-foundations`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/ru/sp24-soil-foundations', ['en', 'ru']),
 		openGraph: {
 			title: c.title,
 			description: c.schemaDescription,

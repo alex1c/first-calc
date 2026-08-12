@@ -81,3 +81,4 @@ fail2ban-client status sshd || echo "SSH jail not found, but Fail2Ban is running
 echo ""
 echo "Whitelisted IPs: $GITHUB_IPS"
 
+

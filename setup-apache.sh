@@ -46,3 +46,4 @@ systemctl reload apache2
 
 echo "Apache configuration created and enabled successfully!"
 
+

@@ -16,6 +16,7 @@ import {
 	getLegacyOgDescription,
 	getLegacyContent,
 } from '@/lib/legacy/content'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 interface NumberFormatInPageProps {
 	params: {
@@ -37,6 +38,7 @@ export async function generateMetadata({
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
 	return {
+		robots: { index: false, follow: true },
 		title: `Indian Number Format - ${number} – calculator`,
 		description: `Convert ${number} to Indian number format (lakhs and crores). Compare with US format.`,
 		keywords: content?.keywords[contentLocale]?.join(', ') || 'indian number format, lakh, crore, number formatting',
@@ -51,14 +53,8 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: `/en/number-format/in/${number}`,
-				ru: `/ru/number-format/in/${number}`,
-				es: `/es/number-format/in/${number}`,
-				tr: `/tr/number-format/in/${number}`,
-				hi: `/hi/number-format/in/${number}`,
-			},
-			canonical: `/${locale}/number-format/in/${number}`,
+			languages: languageAlternates(`/number-format/in/${number}`, ['en', 'ru']),
+			canonical: localeUrl(locale, `/number-format/in/${number}`),
 		},
 	}
 }

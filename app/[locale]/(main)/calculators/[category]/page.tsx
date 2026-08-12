@@ -14,9 +14,25 @@ import { HealthClustersBlock } from '@/components/calculators/health-clusters-bl
 import { EverydayClustersBlock } from '@/components/calculators/everyday-clusters-block'
 import { ConstructionClustersBlock } from '@/components/calculators/construction-clusters-block'
 import { compatibilityClusters } from '@/lib/navigation/compatibility-clusters'
+import type { Metadata } from 'next'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation', 'calculators/ui'] as const
+
+export function generateMetadata({
+	params,
+}: CalculatorsCategoryPageProps): Metadata {
+	const pathname = `/calculators/${params.category}`
+	return {
+		title: `${params.category.replace(/-/g, ' ')} Calculators`,
+		description: `Browse free ${params.category.replace(/-/g, ' ')} calculators.`,
+		alternates: {
+			canonical: localeUrl(params.locale, pathname),
+			languages: languageAlternates(pathname),
+		},
+	}
+}
 
 interface CalculatorsCategoryPageProps {
 	params: {
@@ -362,4 +378,3 @@ export default async function CalculatorsCategoryPage({
 		</>
 	)
 }
-

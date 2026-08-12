@@ -13,8 +13,8 @@ services:
       - NODE_ENV=production
       - NEXT_TELEMETRY_DISABLED=1
       - NEXT_PUBLIC_DATA_SOURCE=local
-      - NEXT_PUBLIC_BASE_URL=https://test.first-calc.com
-      - NEXT_PUBLIC_ENV=test
+      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL:-https://first-calc.com}
+      - NEXT_PUBLIC_ENV=${NEXT_PUBLIC_ENV:-production}
     # Health check to ensure container is running
     healthcheck:
       test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:3000']
@@ -25,4 +25,3 @@ services:
     # Optional: Add volumes for persistent data if needed
     # volumes:
     #   - ./data:/app/data
-

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { getSiteOrigin, isIndexingDisabled } from '@/lib/site-url'
 
 /**
  * robots.txt configuration
@@ -6,14 +7,17 @@ import type { MetadataRoute } from 'next'
  * Test environment - blocks all indexing
  */
 export default function robots(): MetadataRoute.Robots {
+	const origin = getSiteOrigin()
+	if (isIndexingDisabled()) {
+		return {
+			rules: [{ userAgent: '*', disallow: '/' }],
+			sitemap: `${origin}/sitemap.xml`,
+		}
+	}
+
 	return {
-		rules: [
-			{
-				userAgent: '*',
-				disallow: '/',
-			},
-		],
+		rules: [{ userAgent: '*', allow: '/', disallow: ['/admin', '/api/'] }],
+		sitemap: `${origin}/sitemap.xml`,
 	}
 }
-
 

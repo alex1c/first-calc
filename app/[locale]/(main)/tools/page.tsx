@@ -6,6 +6,8 @@ import { PageContainer } from '@/components/layout/page-container'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { getToolsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { toolGroups, legacyTools } from '@/lib/tools/registry'
+import type { Metadata } from 'next'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 interface ToolsPageProps {
 	params: {
@@ -14,6 +16,17 @@ interface ToolsPageProps {
 }
 
 const namespaces = ['common', 'navigation', 'tools/ui'] as const
+
+export function generateMetadata({ params }: ToolsPageProps): Metadata {
+	return {
+		title: 'Online Tools and Converters',
+		description: 'Browse number, percentage, conversion, and utility tools.',
+		alternates: {
+			canonical: localeUrl(params.locale, '/tools'),
+			languages: languageAlternates('/tools'),
+		},
+	}
+}
 
 function cleanLegacyTitle(title: string): string {
 	return title

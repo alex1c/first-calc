@@ -14,6 +14,7 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -48,14 +49,8 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: '/add-subtract-percentage',
-				ru: '/ru/add-subtract-percentage',
-				es: '/es/add-subtract-percentage',
-				tr: '/tr/add-subtract-percentage',
-				hi: '/hi/add-subtract-percentage',
-			},
-			canonical: `/${locale}/add-subtract-percentage`,
+			languages: languageAlternates('/add-subtract-percentage', ['en', 'ru']),
+			canonical: localeUrl(locale, '/add-subtract-percentage'),
 		},
 	}
 }
@@ -121,4 +116,3 @@ export default async function AddSubtractPercentageLandingPage({
 		</LegacyPageLayout>
 	)
 }
-

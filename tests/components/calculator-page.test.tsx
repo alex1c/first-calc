@@ -139,9 +139,13 @@ describe('CalculatorPage', () => {
 		const calculator = createTestCalculator({
 			examples: [
 				{
+					id: 'example-1',
 					title: 'Example 1',
+					inputDescription: 'Value is 5',
+					steps: ['Enter 5', 'Calculate'],
+					resultDescription: 'Result is 10',
 					inputs: { value: 5 },
-					outputs: { result: 10 },
+					result: '10',
 				},
 			],
 		})
@@ -166,4 +170,3 @@ describe('CalculatorPage', () => {
 		expect(screen.getByText('Test Calculator')).toBeInTheDocument()
 	})
 })
-

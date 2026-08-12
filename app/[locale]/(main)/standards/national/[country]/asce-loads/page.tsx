@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -70,16 +71,7 @@ export async function generateMetadata({
 	return {
 		title: 'ASCE 7 Structural Loads – USA Load Concepts Explained',
 		description: schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/us/asce-loads',
-				ru: '/ru/standards/national/us/asce-loads',
-				es: '/es/standards/national/us/asce-loads',
-				tr: '/tr/standards/national/us/asce-loads',
-				hi: '/hi/standards/national/us/asce-loads',
-			},
-			canonical: `${basePath}/standards/national/us/asce-loads`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/us/asce-loads', ['en']),
 		openGraph: {
 			title: 'ASCE 7 Structural Loads – USA Load Concepts Explained',
 			description: schemaDescription,
@@ -368,4 +360,3 @@ export default async function AsceLoadsPage({ params }: AsceLoadsPageProps) {
 		</>
 	)
 }
-

@@ -14,6 +14,8 @@ import {
 	getCalculatorDescription,
 	type CalculatorGroup,
 } from '@/lib/standards/calculator-grouping'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { standards } from '@/data/standards'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -52,24 +54,23 @@ export async function generateMetadata({
 	}
 
 	// Build canonical URL - EN locale should not have /en prefix
-	const basePath = locale === 'en' ? '' : `/${locale}`
-	const baseUrl = 'https://first-calc.com'
-	const canonicalPath = `${basePath}/standards/${country}/${standardSlug}`
-
-	// Build alternates with proper EN path (no /en prefix)
-	const alternates: Record<string, string> = {}
-	for (const loc of locales) {
-		const locPath = loc === 'en' ? '' : `/${loc}`
-		alternates[loc] = `${baseUrl}${locPath}/standards/${country}/${standardSlug}`
-	}
+	const pathname = `/standards/${country}/${standardSlug}`
+	const availableLocales = locales.filter((candidate) =>
+		standards.some(
+			(item) =>
+				item.country === country &&
+				item.slug === standardSlug &&
+				item.locale === candidate,
+		),
+	)
 
 	return {
 		title: title,
 		description: description,
 		keywords: keywordsString,
 		alternates: {
-			languages: alternates,
-			canonical: `${baseUrl}${canonicalPath}`,
+			languages: languageAlternates(pathname, availableLocales),
+			canonical: localeUrl(locale, pathname),
 		},
 	}
 }
@@ -113,8 +114,7 @@ export default async function StandardPage({ params }: StandardPageProps) {
 	const relatedArticles = await getArticlesByStandard(standard.id, locale)
 
 	// Build canonical URL - EN locale should not have /en prefix
-	const basePath = locale === 'en' ? '' : `/${locale}`
-	const canonicalUrl = `https://first-calc.com${basePath}/standards/${country}/${standardSlug}`
+	const canonicalUrl = localeUrl(locale, `/standards/${country}/${standardSlug}`)
 
 	const crossLinksSection = (() => {
 		if (standard.id === 'eurocode-2') {

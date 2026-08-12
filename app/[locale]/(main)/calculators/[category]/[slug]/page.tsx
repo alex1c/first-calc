@@ -15,6 +15,8 @@ import { getCalculatorsByCategoryWithPopularity } from '@/lib/navigation/structu
 import { RelatedCalculatorsWrapper } from '@/components/calculators/related-calculators-wrapper'
 import { RelatedArticlesBlock } from '@/components/calculators/related-articles-block'
 import { EngineeringContextBlock } from '@/components/calculators/engineering-context-block'
+import { calculatorContentLocales } from '@/lib/i18n/content-availability'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'errors', 'navigation'] as const
@@ -68,25 +70,20 @@ export async function generateMetadata({
 	const keywordsString = keywords.join(', ')
 
 	// Build canonical URL - EN locale should not have /en prefix
-	const basePath = locale === 'en' ? '' : `/${locale}`
-	const canonicalPath = `${basePath}/calculators/${category}/${slug}`
-
-	// Build alternates with proper EN path (no /en prefix)
-	const baseUrl = 'https://first-calc.com'
-	const alternates: Record<string, string> = {}
-	for (const loc of locales) {
-		const locPath = loc === 'en' ? '' : `/${loc}`
-		alternates[loc] = `${baseUrl}${locPath}/calculators/${category}/${slug}`
-	}
+	const pathname = `/calculators/${category}/${slug}`
+	const availableLocales = calculatorContentLocales(slug)
+	const hasLocalizedContent = availableLocales.includes(locale)
+	const canonicalLocale = hasLocalizedContent ? locale : 'en'
 
 	return {
 		title: seoTitle,
 		description: seoDescription,
 		keywords: keywordsString,
 		alternates: {
-			languages: alternates,
-			canonical: `${baseUrl}${canonicalPath}`,
+			languages: languageAlternates(pathname, availableLocales),
+			canonical: localeUrl(canonicalLocale, pathname),
 		},
+		...(!hasLocalizedContent && { robots: { index: false, follow: true } }),
 		openGraph: {
 			title: calculator.title,
 			description: calculator.longDescription || calculator.shortDescription,
@@ -114,8 +111,12 @@ export default async function CalculatorRoutePage({
 	}
 
 	// Build canonical URL - EN locale should not have /en prefix
-	const basePath = locale === 'en' ? '' : `/${locale}`
-	const canonicalUrl = `https://first-calc.com${basePath}/calculators/${category}/${slug}`
+	const pathname = `/calculators/${category}/${slug}`
+	const availableLocales = calculatorContentLocales(slug)
+	const canonicalUrl = localeUrl(
+		availableLocales.includes(locale) ? locale : 'en',
+		pathname,
+	)
 
 	// Load translations
 	const dict = await loadNamespaces(locale, namespaces)

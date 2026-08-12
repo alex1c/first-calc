@@ -5,8 +5,21 @@ import Link from 'next/link'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { PageContainer } from '@/components/layout/page-container'
 import { getLearnBreadcrumbs } from '@/lib/navigation/breadcrumbs'
+import type { Metadata } from 'next'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 const namespaces = ['common', 'navigation'] as const
+
+export function generateMetadata({ params }: LearnPageProps): Metadata {
+	return {
+		title: 'Calculation Guides and Articles',
+		description: 'Educational guides about calculations, formulas, and standards.',
+		alternates: {
+			canonical: localeUrl(params.locale, '/learn'),
+			languages: languageAlternates('/learn'),
+		},
+	}
+}
 
 interface LearnPageProps {
 	params: {

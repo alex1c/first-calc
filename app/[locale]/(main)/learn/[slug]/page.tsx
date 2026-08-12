@@ -9,6 +9,8 @@ import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { PageContainer } from '@/components/layout/page-container'
 import { getLearnBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { CalculatorCard } from '@/components/calculators/calculator-card'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { articles } from '@/data/articles'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -37,24 +39,18 @@ export async function generateMetadata({
 	const keywordsString = keywords.join(', ')
 
 	// Build canonical URL - EN locale should not have /en prefix
-	const basePath = locale === 'en' ? '' : `/${locale}`
-	const baseUrl = 'https://first-calc.com'
-	const canonicalPath = `${basePath}/learn/${slug}`
-
-	// Build alternates with proper EN path (no /en prefix)
-	const alternates: Record<string, string> = {}
-	for (const loc of locales) {
-		const locPath = loc === 'en' ? '' : `/${loc}`
-		alternates[loc] = `${baseUrl}${locPath}/learn/${slug}`
-	}
+	const pathname = `/learn/${slug}`
+	const availableLocales = locales.filter((candidate) =>
+		articles.some((item) => item.slug === slug && item.locale === candidate),
+	)
 
 	return {
 		title: `${article.title} - Calculator Portal`,
 		description: article.shortDescription || article.title,
 		keywords: keywordsString,
 		alternates: {
-			languages: alternates,
-			canonical: `${baseUrl}${canonicalPath}`,
+			languages: languageAlternates(pathname, availableLocales),
+			canonical: localeUrl(locale, pathname),
 		},
 	}
 }
@@ -91,8 +87,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 	// Generate FAQ based on article topic
 	const faqItems = generateFaq(article.title, locale)
 	// Build canonical URL - EN locale should not have /en prefix
-	const basePath = locale === 'en' ? '' : `/${locale}`
-	const canonicalUrl = `https://first-calc.com${basePath}/learn/${slug}`
+	const canonicalUrl = localeUrl(locale, `/learn/${slug}`)
 
 	// Load translations
 	const dict = await loadNamespaces(locale, namespaces)

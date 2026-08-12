@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
@@ -186,16 +187,7 @@ export async function generateMetadata({ params }: Sp20PageProps): Promise<Metad
 	return {
 		title: c.title,
 		description: c.schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/ru/sp20-load-concepts',
-				ru: '/ru/standards/national/ru/sp20-load-concepts',
-				es: '/es/standards/national/ru/sp20-load-concepts',
-				tr: '/tr/standards/national/ru/sp20-load-concepts',
-				hi: '/hi/standards/national/ru/sp20-load-concepts',
-			},
-			canonical: `${basePath}/standards/national/ru/sp20-load-concepts`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/ru/sp20-load-concepts', ['en', 'ru']),
 		openGraph: {
 			title: c.title,
 			description: c.schemaDescription,

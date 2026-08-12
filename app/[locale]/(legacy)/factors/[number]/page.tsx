@@ -16,6 +16,7 @@ import {
 	getLegacyOgDescription,
 	getLegacyContent,
 } from '@/lib/legacy/content'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 interface FactorsPageProps {
 	params: {
@@ -37,6 +38,7 @@ export async function generateMetadata({
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
 	return {
+		robots: { index: false, follow: true },
 		title: `Factors of ${number} – calculator`,
 		description: `Find all factors and prime factorization of ${number}. Calculate divisors and prime factors.`,
 		keywords: content?.keywords[contentLocale]?.join(', ') || 'factors, divisors, prime factorization, number decomposition',
@@ -51,14 +53,8 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: `/en/factors/${number}`,
-				ru: `/ru/factors/${number}`,
-				es: `/es/factors/${number}`,
-				tr: `/tr/factors/${number}`,
-				hi: `/hi/factors/${number}`,
-			},
-			canonical: `/${locale}/factors/${number}`,
+			languages: languageAlternates(`/factors/${number}`, ['en', 'ru']),
+			canonical: localeUrl(locale, `/factors/${number}`),
 		},
 	}
 }

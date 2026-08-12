@@ -14,6 +14,7 @@ import {
 	type NationalStandardLanding,
 } from '@/data/national-standards'
 import { getNationalStandardsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
+import { localizedContentMetadata } from '@/lib/site-url'
 
 const namespaces = ['common', 'navigation'] as const
 
@@ -44,23 +45,17 @@ export async function generateMetadata({
 }: NationalCountryPageProps): Promise<Metadata> {
 	const { locale, country } = params
 	const landing = resolveLanding(locale, country)
-	const basePath = locale === 'en' ? '' : `/${locale}`
 
 	// Provide locale-aware canonical metadata so the new routes appear clean in
 	// search engines without implying compliance statements.
 	return {
 		title: landing.seoTitle,
 		description: landing.seoDescription,
-		alternates: {
-			languages: {
-				en: `/en/standards/national/${landing.slug}`,
-				ru: `/ru/standards/national/${landing.slug}`,
-				es: `/es/standards/national/${landing.slug}`,
-				tr: `/tr/standards/national/${landing.slug}`,
-				hi: `/hi/standards/national/${landing.slug}`,
-			},
-			canonical: `${basePath}/standards/national/${landing.slug}`,
-		},
+		...localizedContentMetadata(
+			locale,
+			`/standards/national/${landing.slug}`,
+			landing.slug === 'ru' ? ['en', 'ru'] : ['en'],
+		),
 	}
 }
 
@@ -188,4 +183,3 @@ export default async function NationalCountryPage({
 		</>
 	)
 }
-

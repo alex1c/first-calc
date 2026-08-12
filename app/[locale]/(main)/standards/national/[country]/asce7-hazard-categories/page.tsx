@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -60,16 +61,7 @@ export async function generateMetadata({
 	return {
 		title: 'ASCE 7 Hazard Categories – Educational Overview',
 		description: schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/us/asce7-hazard-categories',
-				ru: '/ru/standards/national/us/asce7-hazard-categories',
-				es: '/es/standards/national/us/asce7-hazard-categories',
-				tr: '/tr/standards/national/us/asce7-hazard-categories',
-				hi: '/hi/standards/national/us/asce7-hazard-categories',
-			},
-			canonical: `${basePath}/standards/national/us/asce7-hazard-categories`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/us/asce7-hazard-categories', ['en']),
 		openGraph: {
 			title: 'ASCE 7 Hazard Categories – Educational Overview',
 			description: schemaDescription,
@@ -485,6 +477,7 @@ export default async function Asce7HazardCategoriesPage({
 		</>
 	)
 }
+
 
 
 

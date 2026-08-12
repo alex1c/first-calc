@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -59,16 +60,7 @@ export async function generateMetadata({
 	return {
 		title: 'Eurocode Soil & Foundations (EC7) – Educational Overview',
 		description: schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/eu/ec7-soil-foundations',
-				ru: '/ru/standards/national/eu/ec7-soil-foundations',
-				es: '/es/standards/national/eu/ec7-soil-foundations',
-				tr: '/tr/standards/national/eu/ec7-soil-foundations',
-				hi: '/hi/standards/national/eu/ec7-soil-foundations',
-			},
-			canonical: `${basePath}/standards/national/eu/ec7-soil-foundations`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/eu/ec7-soil-foundations', ['en']),
 		openGraph: {
 			title: 'Eurocode Soil & Foundations (EC7) – Educational Overview',
 			description: schemaDescription,
@@ -374,6 +366,7 @@ export default async function Ec7SoilFoundationsPage({
 		</>
 	)
 }
+
 
 
 

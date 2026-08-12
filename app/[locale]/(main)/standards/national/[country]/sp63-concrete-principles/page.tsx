@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
@@ -198,16 +199,7 @@ export async function generateMetadata({ params }: Sp63PageProps): Promise<Metad
 	return {
 		title: c.title,
 		description: c.schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/ru/sp63-concrete-principles',
-				ru: '/ru/standards/national/ru/sp63-concrete-principles',
-				es: '/es/standards/national/ru/sp63-concrete-principles',
-				tr: '/tr/standards/national/ru/sp63-concrete-principles',
-				hi: '/hi/standards/national/ru/sp63-concrete-principles',
-			},
-			canonical: `${basePath}/standards/national/ru/sp63-concrete-principles`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/ru/sp63-concrete-principles', ['en', 'ru']),
 		openGraph: {
 			title: c.title,
 			description: c.schemaDescription,

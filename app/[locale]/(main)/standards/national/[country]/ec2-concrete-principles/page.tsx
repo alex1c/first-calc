@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -64,16 +65,7 @@ export async function generateMetadata({
 	return {
 		title: 'Eurocode Concrete Principles (EC2) – Educational Overview',
 		description: schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/eu/ec2-concrete-principles',
-				ru: '/ru/standards/national/eu/ec2-concrete-principles',
-				es: '/es/standards/national/eu/ec2-concrete-principles',
-				tr: '/tr/standards/national/eu/ec2-concrete-principles',
-				hi: '/hi/standards/national/eu/ec2-concrete-principles',
-			},
-			canonical: `${basePath}/standards/national/eu/ec2-concrete-principles`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/eu/ec2-concrete-principles', ['en']),
 		openGraph: {
 			title: 'Eurocode Concrete Principles (EC2) – Educational Overview',
 			description: schemaDescription,
@@ -354,4 +346,3 @@ export default async function Ec2ConcretePrinciplesPage({
 		</>
 	)
 }
-

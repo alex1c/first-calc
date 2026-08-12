@@ -28,6 +28,8 @@ import { CategoryTiles } from '@/components/navigation/category-tiles'
 import { TagsFilter } from '@/components/navigation/tags-filter'
 import { categories as categoryConfigs } from '@/lib/navigation/categories'
 import { getTopUsedTags } from '@/lib/tags/usage'
+import type { Metadata } from 'next'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 /**
  * Required i18n namespaces for this page
@@ -36,6 +38,17 @@ import { getTopUsedTags } from '@/lib/tags/usage'
  * - calculators/ui: Calculator-specific UI text
  */
 const namespaces = ['common', 'navigation', 'calculators/ui'] as const
+
+export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
+	return {
+		title: 'Online Calculators',
+		description: 'Browse free online calculators by category.',
+		alternates: {
+			canonical: localeUrl(params.locale, '/calculators'),
+			languages: languageAlternates('/calculators'),
+		},
+	}
+}
 
 interface CalculatorsPageProps {
 	params: {

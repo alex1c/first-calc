@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -60,16 +61,7 @@ export async function generateMetadata({
 	return {
 		title: 'IBC Load Path Essentials – Educational Overview',
 		description: schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/us/ibc-load-path-essentials',
-				ru: '/ru/standards/national/us/ibc-load-path-essentials',
-				es: '/es/standards/national/us/ibc-load-path-essentials',
-				tr: '/tr/standards/national/us/ibc-load-path-essentials',
-				hi: '/hi/standards/national/us/ibc-load-path-essentials',
-			},
-			canonical: `${basePath}/standards/national/us/ibc-load-path-essentials`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/us/ibc-load-path-essentials', ['en']),
 		openGraph: {
 			title: 'IBC Load Path Essentials – Educational Overview',
 			description: schemaDescription,
@@ -543,6 +535,7 @@ export default async function IbcLoadPathPage({ params }: IbcLoadPathPageProps) 
 		</>
 	)
 }
+
 
 
 

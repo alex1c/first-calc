@@ -1,4 +1,5 @@
 import { locales, type Locale } from './i18n'
+import { languageAlternates, localeUrl, stripLocalePrefix } from './site-url'
 
 /**
  * Generate hreflang links for a given path
@@ -8,15 +9,12 @@ export function generateHreflangLinks(path: string): Array<{
 	href: string
 	hreflang: string
 }> {
-	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://calculator-portal.com'
+	const pathWithoutLocale = stripLocalePrefix(path)
 
-	// Remove leading locale from path if present
-	const pathWithoutLocale = path.replace(/^\/(en|ru|es|tr|hi)/, '')
-
-	return locales.map((locale) => ({
-		href: `${baseUrl}/${locale}${pathWithoutLocale}`,
+	return [...locales.map((locale) => ({
+		href: localeUrl(locale, pathWithoutLocale),
 		hreflang: locale,
-	}))
+	})), { href: localeUrl('en', pathWithoutLocale), hreflang: 'x-default' }]
 }
 
 /**
@@ -24,23 +22,12 @@ export function generateHreflangLinks(path: string): Array<{
  */
 export function generateHreflangMetadata(path: string): {
 	alternates: {
-		languages: Record<Locale, string>
+		languages: Record<string, string>
 	}
 } {
-	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://calculator-portal.com'
-
-	// Remove leading locale from path if present
-	const pathWithoutLocale = path.replace(/^\/(en|ru|es|tr|hi)/, '')
-
-	const languages: Record<Locale, string> = {} as Record<Locale, string>
-
-	locales.forEach((locale) => {
-		languages[locale] = `${baseUrl}/${locale}${pathWithoutLocale}`
-	})
-
 	return {
 		alternates: {
-			languages,
+			languages: languageAlternates(path),
 		},
 	}
 }

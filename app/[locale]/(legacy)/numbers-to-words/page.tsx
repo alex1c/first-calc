@@ -14,6 +14,7 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation', 'legacy/notices'] as const
@@ -48,14 +49,8 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: '/numbers-to-words',
-				ru: '/ru/numbers-to-words',
-				es: '/es/numbers-to-words',
-				tr: '/tr/numbers-to-words',
-				hi: '/hi/numbers-to-words',
-			},
-			canonical: `/${locale}/numbers-to-words`,
+			languages: languageAlternates('/numbers-to-words', ['en', 'ru']),
+			canonical: localeUrl(locale, '/numbers-to-words'),
 		},
 	}
 }
@@ -127,4 +122,3 @@ export default async function NumbersToWordsLandingPage({
 		</LegacyPageLayout>
 	)
 }
-

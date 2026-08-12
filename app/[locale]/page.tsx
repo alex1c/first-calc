@@ -12,6 +12,7 @@ import { getLegacyTitle } from '@/lib/legacy/content'
 import { CalculatorCard } from '@/components/calculators/calculator-card'
 import { SearchInput } from '@/components/home/search-input'
 import { PageContainer } from '@/components/layout/page-container'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 const namespaces = ['common', 'navigation', 'home'] as const
 
@@ -42,21 +43,12 @@ export async function generateMetadata({
 		hi: 'गणित, वित्त और अधिक के लिए मुफ्त ऑनलाइन कैलकुलेटर। हमारे उपयोग में आसान उपकरणों के साथ प्रतिशत, ऋण, चक्रवृद्धि ब्याज और बहुत कुछ की गणना करें।',
 	}
 
-	const basePath = locale === 'en' ? '' : `/${locale}`
-	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://first-calc.com'
-
 	return {
 		title: titles[locale],
 		description: descriptions[locale],
 		alternates: {
-			languages: {
-				en: `${baseUrl}/`,
-				ru: `${baseUrl}/ru`,
-				es: `${baseUrl}/es`,
-				tr: `${baseUrl}/tr`,
-				hi: `${baseUrl}/hi`,
-			},
-			canonical: `${baseUrl}${basePath === '' ? '/' : basePath}`,
+			languages: languageAlternates('/'),
+			canonical: localeUrl(locale, '/'),
 		},
 		openGraph: {
 			title: titles[locale],

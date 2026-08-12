@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -64,16 +65,7 @@ export async function generateMetadata({
 	return {
 		title: 'Soil & Foundations – Educational Overview',
 		description: schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/us/soil-foundations',
-				ru: '/ru/standards/national/us/soil-foundations',
-				es: '/es/standards/national/us/soil-foundations',
-				tr: '/tr/standards/national/us/soil-foundations',
-				hi: '/hi/standards/national/us/soil-foundations',
-			},
-			canonical: `${basePath}/standards/national/us/soil-foundations`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/us/soil-foundations', ['en']),
 		openGraph: {
 			title: 'Soil & Foundations – Educational Overview',
 			description: schemaDescription,
@@ -379,6 +371,7 @@ export default async function SoilFoundationsPage({
 		</>
 	)
 }
+
 
 
 

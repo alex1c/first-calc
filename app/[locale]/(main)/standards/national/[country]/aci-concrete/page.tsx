@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -89,16 +90,7 @@ export async function generateMetadata({
 	return {
 		title: 'ACI Concrete Principles – USA Concrete Design Context',
 		description: schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/us/aci-concrete',
-				ru: '/ru/standards/national/us/aci-concrete',
-				es: '/es/standards/national/us/aci-concrete',
-				tr: '/tr/standards/national/us/aci-concrete',
-				hi: '/hi/standards/national/us/aci-concrete',
-			},
-			canonical: `${basePath}/standards/national/us/aci-concrete`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/us/aci-concrete', ['en']),
 		openGraph: {
 			title: 'ACI Concrete Principles – USA Concrete Design Context',
 			description: schemaDescription,
@@ -379,4 +371,3 @@ export default async function AciConcretePage({ params }: AciConcretePageProps) 
 		</>
 	)
 }
-

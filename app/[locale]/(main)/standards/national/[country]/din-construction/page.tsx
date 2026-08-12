@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -74,16 +75,7 @@ export async function generateMetadata({
 	return {
 		title: 'DIN Construction Standards – Germany Engineering Context',
 		description: schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/de/din-construction',
-				ru: '/ru/standards/national/de/din-construction',
-				es: '/es/standards/national/de/din-construction',
-				tr: '/tr/standards/national/de/din-construction',
-				hi: '/hi/standards/national/de/din-construction',
-			},
-			canonical: `${basePath}/standards/national/de/din-construction`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/de/din-construction', ['en']),
 		openGraph: {
 			title: 'DIN Construction Standards – Germany Engineering Context',
 			description: schemaDescription,
@@ -368,4 +360,3 @@ export default async function DinConstructionPage({
 		</>
 	)
 }
-

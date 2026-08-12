@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
@@ -193,16 +194,7 @@ export async function generateMetadata({
 	return {
 		title: c.title,
 		description: c.schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/ru',
-				ru: '/ru/standards/national/ru',
-				es: '/es/standards/national/ru',
-				tr: '/tr/standards/national/ru',
-				hi: '/hi/standards/national/ru',
-			},
-			canonical: `${basePath}/standards/national/ru`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/ru', ['en', 'ru']),
 		openGraph: {
 			title: c.title,
 			description: c.schemaDescription,

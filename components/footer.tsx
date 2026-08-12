@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import { ShareButtons } from './footer/share-buttons'
 import { getTelegramContactLink, hasTelegramBot } from '@/lib/contact'
+import { headers } from 'next/headers'
+import { locales, type Locale } from '@/lib/i18n'
+import { localePath } from '@/lib/site-url'
 
 const calculatorLinks = [
 	{ label: 'Math', href: '/calculators/math' },
@@ -32,6 +35,10 @@ const legalLinks = [
 export function Footer() {
 	const year = new Date().getFullYear()
 	const telegramLink = getTelegramContactLink()
+	const requestedLocale = headers().get('x-first-calc-locale')
+	const locale: Locale = locales.includes(requestedLocale as Locale)
+		? (requestedLocale as Locale)
+		: 'en'
 
 	return (
 		<footer className="bg-slate-950 text-slate-100 mt-16">
@@ -60,7 +67,7 @@ export function Footer() {
 							{calculatorLinks.map((link) => (
 								<li key={link.href}>
 									<Link
-										href={link.href}
+									href={localePath(locale, link.href)}
 										className="text-slate-300 hover:text-white transition-colors"
 									>
 										{link.label}
@@ -77,7 +84,7 @@ export function Footer() {
 							{knowledgeLinks.map((link) => (
 								<li key={link.href}>
 									<Link
-										href={link.href}
+									href={localePath(locale, link.href)}
 										className="text-slate-300 hover:text-white transition-colors"
 									>
 										{link.label}
@@ -92,7 +99,7 @@ export function Footer() {
 							{toolLinks.map((link) => (
 								<li key={link.href}>
 									<Link
-										href={link.href}
+									href={localePath(locale, link.href)}
 										className="text-slate-300 hover:text-white transition-colors"
 									>
 										{link.label}
@@ -132,7 +139,7 @@ export function Footer() {
 						{legalLinks.map((link) => (
 							<Link
 								key={link.href}
-								href={link.href}
+								href={localePath(locale, link.href)}
 								className="hover:text-white transition-colors"
 							>
 								{link.label}
@@ -144,7 +151,6 @@ export function Footer() {
 		</footer>
 	)
 }
-
 
 
 

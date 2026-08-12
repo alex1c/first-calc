@@ -14,6 +14,7 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -48,14 +49,8 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: '/chislo-propisyu',
-				ru: '/ru/chislo-propisyu',
-				es: '/es/chislo-propisyu',
-				tr: '/tr/chislo-propisyu',
-				hi: '/hi/chislo-propisyu',
-			},
-			canonical: `/${locale}/chislo-propisyu`,
+			languages: languageAlternates('/chislo-propisyu', ['en', 'ru']),
+			canonical: localeUrl(locale, '/chislo-propisyu'),
 		},
 	}
 }
@@ -118,4 +113,3 @@ export default async function ChisloPropisyuLandingPage({
 		</LegacyPageLayout>
 	)
 }
-

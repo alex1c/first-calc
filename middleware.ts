@@ -108,6 +108,8 @@ export function middleware(request: NextRequest) {
 	}
 
 	const detectedLocale = getLocale(pathname)
+	const requestHeaders = new Headers(request.headers)
+	requestHeaders.set('x-first-calc-locale', detectedLocale || defaultLocale)
 
 	// Case 1: Path starts with /en - redirect to path without /en (301 permanent redirect)
 	// This ensures clean URLs for English (default locale)
@@ -122,7 +124,7 @@ export function middleware(request: NextRequest) {
 	// These locales require prefix for clarity
 	// Example: /ru/calculators → allowed as-is
 	if (detectedLocale && detectedLocale !== 'en') {
-		return NextResponse.next()
+		return NextResponse.next({ request: { headers: requestHeaders } })
 	}
 
 	// Case 3: Check if pathname matches numeric range pattern (e.g., /10000-19999)
@@ -154,7 +156,7 @@ export function middleware(request: NextRequest) {
 			const rewritePath = `/${locale}/range${pathname}`
 			const url = request.nextUrl.clone()
 			url.pathname = rewritePath
-			return NextResponse.rewrite(url)
+			return NextResponse.rewrite(url, { request: { headers: requestHeaders } })
 		}
 	}
 
@@ -164,7 +166,7 @@ export function middleware(request: NextRequest) {
 	const rewritePath = `/en${pathname}`
 	const url = request.nextUrl.clone()
 	url.pathname = rewritePath
-	return NextResponse.rewrite(url)
+	return NextResponse.rewrite(url, { request: { headers: requestHeaders } })
 }
 
 export const config = {
@@ -180,7 +182,6 @@ export const config = {
 		'/((?!api|_next/static|_next/image|favicon\\.ico).*)',
 	],
 }
-
 
 
 

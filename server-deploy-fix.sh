@@ -28,3 +28,4 @@ chmod +x /var/www/first-calc/auto-deploy.sh
 echo "Script created at /var/www/first-calc/auto-deploy.sh"
 echo "Cron job added. Check with: crontab -l"
 
+

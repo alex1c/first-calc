@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { locales, type Locale } from '@/lib/i18n'
 import { SearchButton } from '@/components/search/search-button'
 import { Logo } from '@/components/logo'
+import { localePath } from '@/lib/site-url'
 
 // Navigation menu items (will be replaced with i18n in server component)
 const menuItems = [
@@ -75,10 +76,10 @@ export function Header() {
 
 	// Get path without locale for navigation
 	const getLocalizedPath = (path: string) => {
-		// Ensure path starts with /
-		const normalizedPath = path.startsWith('/') ? path : `/${path}`
-		return `/${currentLocale}${normalizedPath}`
+		return localePath(currentLocale, path)
 	}
+
+	const currentLogicalPath = localePath('en', pathname || '/')
 
 	return (
 		<header className="border-b border-gray-200 bg-white">
@@ -103,16 +104,12 @@ export function Header() {
 					<div className="flex items-center gap-3">
 						<SearchButton />
 						<select
+							aria-label="Language"
 							className="px-3 py-1 border border-gray-300 rounded-md text-sm"
 							value={currentLocale}
 							onChange={(e) => {
 								const newLocale = e.target.value as Locale
-								const pathSegments = pathname?.split('/').filter(Boolean) || []
-								const pathWithoutLocale =
-									pathSegments.length > 1
-										? '/' + pathSegments.slice(1).join('/')
-										: '/'
-								window.location.href = `/${newLocale}${pathWithoutLocale}`
+								window.location.href = localePath(newLocale, currentLogicalPath)
 							}}
 						>
 							{locales.map((locale) => (
@@ -127,4 +124,3 @@ export function Header() {
 		</header>
 	)
 }
-

@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -210,16 +211,7 @@ export async function generateMetadata({
 	return {
 		title: c.title,
 		description: c.schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/ru/sp-snip-foundations',
-				ru: '/ru/standards/national/ru/sp-snip-foundations',
-				es: '/es/standards/national/ru/sp-snip-foundations',
-				tr: '/tr/standards/national/ru/sp-snip-foundations',
-				hi: '/hi/standards/national/ru/sp-snip-foundations',
-			},
-			canonical: `${basePath}/standards/national/ru/sp-snip-foundations`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/ru/sp-snip-foundations', ['en', 'ru']),
 		openGraph: {
 			title: c.title,
 			description: c.schemaDescription,

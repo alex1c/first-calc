@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { localizedContentMetadata } from '@/lib/site-url'
 import Link from 'next/link'
 import {
 	locales,
@@ -59,16 +60,7 @@ export async function generateMetadata({
 	return {
 		title: 'Eurocode Load Concepts (EC1) – Educational Overview',
 		description: schemaDescription,
-		alternates: {
-			languages: {
-				en: '/standards/national/eu/ec1-load-concepts',
-				ru: '/ru/standards/national/eu/ec1-load-concepts',
-				es: '/es/standards/national/eu/ec1-load-concepts',
-				tr: '/tr/standards/national/eu/ec1-load-concepts',
-				hi: '/hi/standards/national/eu/ec1-load-concepts',
-			},
-			canonical: `${basePath}/standards/national/eu/ec1-load-concepts`,
-		},
+		...localizedContentMetadata(locale, '/standards/national/eu/ec1-load-concepts', ['en']),
 		openGraph: {
 			title: 'Eurocode Load Concepts (EC1) – Educational Overview',
 			description: schemaDescription,
@@ -344,6 +336,7 @@ export default async function Ec1LoadConceptsPage({
 		</>
 	)
 }
+
 
 
 

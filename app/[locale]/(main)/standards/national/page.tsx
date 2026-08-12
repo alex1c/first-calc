@@ -6,6 +6,7 @@ import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { PageContainer } from '@/components/layout/page-container'
 import { getNationalLandingList } from '@/data/national-standards'
 import { getNationalStandardsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
+import { localizedContentMetadata } from '@/lib/site-url'
 
 const namespaces = ['common', 'navigation'] as const
 
@@ -19,7 +20,6 @@ export async function generateMetadata({
 	params,
 }: NationalStandardsIndexProps): Promise<Metadata> {
 	const { locale } = params
-	const basePath = locale === 'en' ? '' : `/${locale}`
 
 	// The national index shares the same metadata for every locale because the
 	// content is purely educational and identical at launch.
@@ -27,16 +27,7 @@ export async function generateMetadata({
 		title: 'National Engineering Standards Overview',
 		description:
 			'Educational navigation hub for country-level standards references. No calculators, no compliance claims.',
-		alternates: {
-			languages: {
-				en: '/standards/national',
-				ru: '/ru/standards/national',
-				es: '/es/standards/national',
-				tr: '/tr/standards/national',
-				hi: '/hi/standards/national',
-			},
-			canonical: `${basePath}/standards/national`,
-		},
+		...localizedContentMetadata(locale, '/standards/national', ['en']),
 	}
 }
 
@@ -130,4 +121,3 @@ export default async function NationalStandardsIndex({
 		</>
 	)
 }
-

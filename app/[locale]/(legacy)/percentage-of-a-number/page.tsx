@@ -14,6 +14,7 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -48,14 +49,8 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: '/percentage-of-a-number',
-				ru: '/ru/percentage-of-a-number',
-				es: '/es/percentage-of-a-number',
-				tr: '/tr/percentage-of-a-number',
-				hi: '/hi/percentage-of-a-number',
-			},
-			canonical: `/${locale}/percentage-of-a-number`,
+			languages: languageAlternates('/percentage-of-a-number', ['en', 'ru']),
+			canonical: localeUrl(locale, '/percentage-of-a-number'),
 		},
 	}
 }
@@ -124,4 +119,3 @@ export default async function PercentageOfANumberLandingPage({
 		</LegacyPageLayout>
 	)
 }
-

@@ -1,43 +1,154 @@
-import type { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next'
+import { existsSync } from 'fs'
+import path from 'path'
+import { articles } from '@/data/articles'
+import { standards } from '@/data/standards'
+import { calculatorRegistry } from '@/lib/registry/loader'
+import { legacyTools } from '@/lib/tools/registry'
+import { locales, type Locale } from '@/lib/i18n'
+import { isIndexingDisabled, localeUrl } from '@/lib/site-url'
 
-/**
- * Sitemap configuration
- * Generates sitemap.xml for search engines
- * For test environment, returns empty sitemap
- */
-export default function sitemap(): MetadataRoute.Sitemap {
-	// Check if this is test environment
-	const isTestEnvironment =
-		process.env.NEXT_PUBLIC_BASE_URL?.includes('test.first-calc.com') ||
-		process.env.NEXT_PUBLIC_ENV === 'test' ||
-		process.env.NODE_ENV === 'development';
+export type SitemapGroup =
+	| 'pages'
+	| 'categories'
+	| 'calculators'
+	| 'articles'
+	| 'standards'
+	| 'other'
 
-	// For test environment, return empty sitemap
-	if (isTestEnvironment) {
-		return [];
+export interface ClassifiedSitemapEntry {
+	url: string
+	group: SitemapGroup
+	locale: Locale
+}
+
+const publicPages = [
+	'/',
+	'/calculators',
+	'/tools',
+] as const
+
+const englishInformationalPages = [
+	'/learn',
+	'/standards',
+	'/standards/national',
+	'/about',
+	'/contact',
+	'/privacy',
+	'/terms',
+	'/disclaimer',
+] as const
+
+const englishNationalStandardPages = [
+	'/standards/national/us',
+	'/standards/national/us/aci-concrete',
+	'/standards/national/us/asce-loads',
+	'/standards/national/us/asce7-hazard-categories',
+	'/standards/national/us/ibc-load-path-essentials',
+	'/standards/national/us/soil-foundations',
+	'/standards/national/eu',
+	'/standards/national/eu/ec1-load-concepts',
+	'/standards/national/eu/ec2-concrete-principles',
+	'/standards/national/eu/ec7-soil-foundations',
+	'/standards/national/de/din-construction',
+	'/standards/national/ru',
+	'/standards/national/ru/sp20-load-concepts',
+	'/standards/national/ru/sp24-soil-foundations',
+	'/standards/national/ru/sp63-concrete-principles',
+	'/standards/national/ru/sp-snip-foundations',
+] as const
+
+function hasCalculatorContent(locale: Locale, slug: string): boolean {
+	if (locale === 'en') return true
+	return existsSync(
+		path.join(process.cwd(), 'locales', locale, 'calculators', 'items', `${slug}.json`),
+	)
+}
+
+function addEntry(
+	entries: ClassifiedSitemapEntry[],
+	seen: Set<string>,
+	locale: Locale,
+	pathname: string,
+	group: SitemapGroup,
+) {
+	const url = localeUrl(locale, pathname)
+	if (!seen.has(url)) {
+		seen.add(url)
+		entries.push({ url, group, locale })
+	}
+}
+
+export async function buildSitemapEntries(): Promise<ClassifiedSitemapEntry[]> {
+	if (isIndexingDisabled()) return []
+
+	const entries: ClassifiedSitemapEntry[] = []
+	const seen = new Set<string>()
+
+	for (const locale of locales) {
+		for (const pathname of publicPages) {
+			addEntry(entries, seen, locale, pathname, 'pages')
+		}
+		if (locale === 'en') {
+			for (const pathname of englishInformationalPages) {
+				addEntry(entries, seen, locale, pathname, 'pages')
+			}
+			for (const pathname of englishNationalStandardPages) {
+				addEntry(entries, seen, locale, pathname, 'standards')
+			}
+		}
+		if (locale === 'ru') {
+			for (const pathname of englishNationalStandardPages.filter((item) =>
+				item.startsWith('/standards/national/ru'),
+			)) {
+				addEntry(entries, seen, locale, pathname, 'standards')
+			}
+		}
+
+		const calculators = (await calculatorRegistry.getAll(locale)).filter(
+			(calculator) =>
+				calculator.isEnabled !== false && hasCalculatorContent(locale, calculator.slug),
+		)
+		const categories = new Set(calculators.map((calculator) => calculator.category))
+		for (const category of categories) {
+			addEntry(entries, seen, locale, `/calculators/${category}`, 'categories')
+		}
+		for (const calculator of calculators) {
+			addEntry(
+				entries,
+				seen,
+				locale,
+				`/calculators/${calculator.category}/${calculator.slug}`,
+				'calculators',
+			)
+		}
+
+		for (const article of articles.filter((item) => item.locale === locale)) {
+			addEntry(entries, seen, locale, `/learn/${article.slug}`, 'articles')
+		}
+		for (const standard of standards.filter((item) => item.locale === locale)) {
+			addEntry(
+				entries,
+				seen,
+				locale,
+				`/standards/${standard.country}/${standard.slug}`,
+				'standards',
+			)
+		}
 	}
 
-	const baseUrl =
-		process.env.NEXT_PUBLIC_BASE_URL || 'https://first-calc.com';
-	const locales = ['en', 'ru', 'es', 'tr', 'hi'];
+	// Legacy pages have substantial locale-specific content only in English/Russian.
+	for (const locale of ['en', 'ru'] as const) {
+		for (const tool of legacyTools) {
+			// Do not enumerate arbitrary numeric/range variants from example tool URLs.
+			if (!tool.slug) continue
+			addEntry(entries, seen, locale, tool.path, 'other')
+		}
+	}
 
-	// Generate sitemap entries for main pages
-	const entries: MetadataRoute.Sitemap = [];
+	return entries
+}
 
-	// Home pages for each locale
-	locales.forEach((locale) => {
-		const path = locale === 'en' ? '' : `/${locale}`;
-		entries.push({
-			url: `${baseUrl}${path}`,
-			lastModified: new Date(),
-			changeFrequency: 'daily',
-			priority: 1.0,
-		});
-	});
-
-	// Add other main pages (calculators, standards, learn, tools)
-	// These would be populated from your data sources
-	// For now, returning basic structure
-
-	return entries;
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+	return (await buildSitemapEntries()).map(({ url }) => ({ url }))
 }

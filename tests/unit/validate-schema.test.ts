@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { validateCalculatorSchema } from '@/lib/calculators/schema'
-import type { CalculatorSchema } from '@/lib/calculators/types'
+import type { CalculatorSchema } from '@/lib/calculators/schema'
 
 describe('validateCalculatorSchema', () => {
 	it('should validate a correct schema', () => {
@@ -12,13 +12,11 @@ describe('validateCalculatorSchema', () => {
 				{
 					name: 'value',
 					type: 'number',
-					label: 'Value',
 				},
 			],
 			outputs: [
 				{
 					name: 'result',
-					label: 'Result',
 				},
 			],
 			formula: 'value * 2',
@@ -46,7 +44,7 @@ describe('validateCalculatorSchema', () => {
 			category: 'math',
 			slug: 'test',
 			inputs: [],
-			outputs: [{ name: 'result', label: 'Result' }],
+			outputs: [{ name: 'result' }],
 			formula: '1',
 		}
 
@@ -60,8 +58,8 @@ describe('validateCalculatorSchema', () => {
 			id: 'test',
 			category: 'math',
 			slug: 'test',
-			inputs: [{ name: 'value', type: 'number', label: 'Value' }],
-			outputs: [{ name: 'result', label: 'Result' }],
+			inputs: [{ name: 'value', type: 'number' }],
+			outputs: [{ name: 'result' }],
 			engine: 'formula',
 		}
 
@@ -75,8 +73,8 @@ describe('validateCalculatorSchema', () => {
 			id: 'test',
 			category: 'math',
 			slug: 'test',
-			inputs: [{ name: 'value', type: 'number', label: 'Value' }],
-			outputs: [{ name: 'result', label: 'Result' }],
+			inputs: [{ name: 'value', type: 'number' }],
+			outputs: [{ name: 'result' }],
 			engine: 'function',
 		}
 
@@ -108,10 +106,9 @@ describe('validateCalculatorSchema', () => {
 				{
 			name: 'value',
 					type: 'invalid',
-					label: 'Value',
 				},
 			],
-			outputs: [{ name: 'result', label: 'Result' }],
+			outputs: [{ name: 'result' }],
 			formula: 'value',
 		}
 
@@ -129,10 +126,9 @@ describe('validateCalculatorSchema', () => {
 				{
 					name: 'choice',
 					type: 'select',
-					label: 'Choice',
 				},
 			],
-			outputs: [{ name: 'result', label: 'Result' }],
+			outputs: [{ name: 'result' }],
 			formula: '1',
 		}
 
@@ -141,6 +137,7 @@ describe('validateCalculatorSchema', () => {
 		expect(result.errors).toContain('inputs[0].options is required for select type')
 	})
 })
+
 
 
 

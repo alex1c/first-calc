@@ -7,6 +7,7 @@ import { RootCalculatorForm } from '@/components/legacy/root-calculator-form'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -45,14 +46,8 @@ export async function generateMetadata({
 			description,
 		},
 		alternates: {
-			languages: {
-				en: '/root-calculator',
-				ru: '/ru/root-calculator',
-				es: '/es/root-calculator',
-				tr: '/tr/root-calculator',
-				hi: '/hi/root-calculator',
-			},
-			canonical: `/${locale}/root-calculator`,
+			languages: languageAlternates('/root-calculator', ['en', 'ru']),
+			canonical: localeUrl(locale, '/root-calculator'),
 		},
 	}
 }
@@ -138,4 +133,3 @@ export default async function RootCalculatorLandingPage({
 		</LegacyPageLayout>
 	)
 }
-

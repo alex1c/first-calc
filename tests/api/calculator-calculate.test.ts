@@ -16,12 +16,12 @@ describe('POST /api/calculators/:id/calculate', () => {
 	})
 
 	it('should calculate and return results', async () => {
-		const calculator = createTestCalculator({
-			id: 'test-calc',
-			calculate: (inputs) => ({
+		const calculator = {
+			...createTestCalculator({ id: 'test-calc' }),
+			calculate: (inputs: Record<string, number | string | boolean>) => ({
 				result: Number(inputs.value) * 2,
 			}),
-		})
+		}
 
 		vi.mocked(calculatorRegistry.getById).mockResolvedValue(calculator as any)
 
@@ -84,6 +84,7 @@ describe('POST /api/calculators/:id/calculate', () => {
 		expect(response.status).toBe(404)
 	})
 })
+
 
 
 

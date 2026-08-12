@@ -14,6 +14,7 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -48,14 +49,8 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: '/roman-numerals-converter',
-				ru: '/ru/roman-numerals-converter',
-				es: '/es/roman-numerals-converter',
-				tr: '/tr/roman-numerals-converter',
-				hi: '/hi/roman-numerals-converter',
-			},
-			canonical: `/${locale}/roman-numerals-converter`,
+			languages: languageAlternates('/roman-numerals-converter', ['en', 'ru']),
+			canonical: localeUrl(locale, '/roman-numerals-converter'),
 		},
 	}
 }
@@ -123,4 +118,3 @@ export default async function RomanNumeralsConverterLandingPage({
 		</LegacyPageLayout>
 	)
 }
-
