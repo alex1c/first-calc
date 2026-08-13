@@ -281,7 +281,7 @@ export function CalculatorPage({
 
 	return (
 		<div className="min-h-screen bg-gray-50">
-			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+			<div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
 				{/* Hero Section */}
 				{isCompatibilityCalculator ? (
 					<CompatibilityHeader
@@ -326,7 +326,7 @@ export function CalculatorPage({
 				)}
 
 				{/* Calculator + Results Tool Container */}
-				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 md:p-8 mb-12">
+				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8 mb-12 min-w-0">
 					{/* Vertical layout for ALL calculators - results below form */}
 					<div className="flex flex-col gap-8">
 						{/* Calculator Form - Top */}

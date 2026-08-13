@@ -1,4 +1,5 @@
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
+import { serializeStructuredData } from '@/lib/structured-data'
 
 interface CalculatorSchemaProps {
 	calculator: CalculatorDefinitionClient
@@ -71,11 +72,10 @@ export function CalculatorSchema({
 	return (
 		<script
 			type="application/ld+json"
-			dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+			dangerouslySetInnerHTML={{ __html: serializeStructuredData(schema) }}
 		/>
 	)
 }
-
 
 
 

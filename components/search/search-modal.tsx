@@ -162,8 +162,10 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 			<div
 				role="dialog"
 				aria-modal="true"
+				aria-labelledby="search-dialog-title"
 				className="w-full max-w-2xl rounded-2xl bg-white shadow-2xl"
 			>
+				<h2 id="search-dialog-title" className="sr-only">Search First Calc</h2>
 				<div className="border-b border-slate-200 px-5 py-4">
 					<div className="flex items-center gap-3">
 						<svg
@@ -182,6 +184,7 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 							onKeyDown={handleKeyNavigation}
 							placeholder="Search calculators, articles, standards…"
 							className="flex-1 border-none text-base focus:outline-none"
+							aria-label="Search calculators, articles, and standards"
 						/>
 						<button
 							type="button"
@@ -297,4 +300,3 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 		</div>
 	)
 }
-

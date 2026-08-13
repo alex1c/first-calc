@@ -6,6 +6,7 @@ import { calculatorRegistry } from '@/lib/registry/loader'
 import { CalculatorPage } from '@/components/calculator-page'
 import { CalculatorSchema } from '@/components/schema/calculator-schema'
 import { FaqSchema } from '@/components/schema/faq-schema'
+import { BreadcrumbSchema } from '@/components/schema/breadcrumb-schema'
 import { toClientDefinition } from '@/lib/calculators/client'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { PageContainer } from '@/components/layout/page-container'
@@ -158,8 +159,9 @@ export default async function CalculatorRoutePage({
 	return (
 		<>
 			<CalculatorSchema calculator={clientCalculator} canonicalUrl={canonicalUrl} />
+			<BreadcrumbSchema items={breadcrumbs} />
 			{clientCalculator.faq && clientCalculator.faq.length > 0 && (
-				<FaqSchema faq={clientCalculator.faq} canonicalUrl={canonicalUrl} />
+				<FaqSchema faq={clientCalculator.faq} />
 			)}
 			<BreadcrumbsBar items={breadcrumbs} />
 			<PageContainer>

@@ -3,16 +3,17 @@
  * Adds structured data for FAQ sections to enable rich results
  */
 
+import { serializeStructuredData } from '@/lib/structured-data'
+
 interface FaqSchemaProps {
 	faq: Array<{ question: string; answer: string }>
-	canonicalUrl: string
 }
 
 /**
  * JSON-LD schema for FAQ sections
  * Only include if FAQ items are visible (not hidden)
  */
-export function FaqSchema({ faq, canonicalUrl }: FaqSchemaProps) {
+export function FaqSchema({ faq }: FaqSchemaProps) {
 	// Only create schema if there are FAQ items
 	if (!faq || faq.length === 0) {
 		return null
@@ -34,7 +35,7 @@ export function FaqSchema({ faq, canonicalUrl }: FaqSchemaProps) {
 	return (
 		<script
 			type="application/ld+json"
-			dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+			dangerouslySetInnerHTML={{ __html: serializeStructuredData(schema) }}
 		/>
 	)
 }
