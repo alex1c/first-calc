@@ -7,20 +7,20 @@ import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { getTelegramContactLink } from '@/lib/contact'
 
 export const metadata: Metadata = {
-	title: 'About First-Calc – Free Online Calculators',
+	title: 'About First Calc – Free Online Calculators',
 	description:
-		'Learn about First-Calc, how our calculators work, and how to use them responsibly.',
+		'Learn about First Calc, how our calculators work, and how to use them responsibly.',
 }
 
 const jsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'AboutPage',
-	name: 'About First-Calc',
+	name: 'About First Calc',
 	description:
-		'Learn about First-Calc, how our calculators work, and how to use them responsibly.',
+		'Learn about First Calc, how our calculators work, and how to use them responsibly.',
 	isPartOf: {
 		'@type': 'WebSite',
-		name: 'First-Calc',
+		name: 'First Calc',
 		url: 'https://first-calc.com',
 	},
 }
@@ -52,14 +52,14 @@ export default function AboutPage({ params }: AboutPageProps) {
 			/>
 			<BreadcrumbsBar items={breadcrumbs} />
 			<PageContainer>
-				<h1 className="text-4xl font-bold text-gray-900 mb-6">About First-Calc</h1>
+				<h1 className="text-4xl font-bold text-gray-900 mb-6">About First Calc</h1>
 				<div className="space-y-8 text-gray-700">
 					<section>
 						<h2 className="text-2xl font-semibold text-gray-900 mb-3">
-							What First-Calc Is
+							What First Calc Is
 						</h2>
 						<p>
-							First-Calc is an online portal with free calculators and tools focused on
+							First Calc is an online portal with free calculators and tools focused on
 							estimation, planning, and self-reflection. The experience is designed to be
 							lightweight, accessible on every device, and fast to use without installing
 							anything.

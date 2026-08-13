@@ -4,9 +4,9 @@ import { locales, type Locale } from '@/lib/i18n'
 import { PageContainer } from '@/components/layout/page-container'
 
 export const metadata: Metadata = {
-	title: 'Privacy Policy – First-Calc',
+	title: 'Privacy Policy – First Calc',
 	description:
-		'Learn how First-Calc handles privacy, cookies, analytics, and advertising partners.',
+		'Learn how First Calc handles privacy, cookies, analytics, and advertising partners.',
 }
 
 interface PrivacyPageProps {
@@ -24,7 +24,7 @@ export default function PrivacyPage({ params }: PrivacyPageProps) {
 			<h1 className="text-4xl font-bold text-gray-900 mb-6">Privacy Policy</h1>
 			<div className="space-y-6 text-gray-700 leading-relaxed">
 				<p>
-					First-Calc provides free calculators and tools. We respect your privacy and aim to
+					First Calc provides free calculators and tools. We respect your privacy and aim to
 					collect as little personal information as possible.
 				</p>
 				<section>
@@ -46,7 +46,7 @@ export default function PrivacyPage({ params }: PrivacyPageProps) {
 				<section>
 					<h2 className="text-2xl font-semibold text-gray-900 mb-2">Advertising Partners</h2>
 					<p>
-						First-Calc works with advertising networks such as Google Ads and Yandex Ads. These
+						First Calc works with advertising networks such as Google Ads and Yandex Ads. These
 						providers may set their own cookies or use their own tracking in compliance with
 						their policies. Please review their privacy documentation for additional details.
 					</p>

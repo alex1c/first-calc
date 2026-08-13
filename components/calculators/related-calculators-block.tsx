@@ -1,4 +1,8 @@
 import Link from 'next/link'
+import { filterLocalizedCalculators } from '@/lib/i18n/content-availability'
+import { localePath } from '@/lib/site-url'
+import { loadNamespaces } from '@/lib/i18n/loadNamespaces'
+import { createT } from '@/lib/i18n/t'
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 import { calculatorRegistry, standardRegistry } from '@/lib/registry/loader'
 import type { Locale } from '@/lib/i18n'
@@ -19,6 +23,7 @@ interface RelatedCalculatorsBlockProps {
 }
 
 type RegistryCalculator = Awaited<ReturnType<typeof calculatorRegistry.getById>>
+type AvailableRegistryCalculator = NonNullable<RegistryCalculator>
 type ScenarioLink = {
 	calculator: RegistryCalculator
 	reason: string
@@ -397,6 +402,7 @@ export async function RelatedCalculatorsBlock({
 	calculator,
 	locale,
 }: RelatedCalculatorsBlockProps) {
+	const t = createT(await loadNamespaces(locale as Locale, ['results']))
 	const scenarioLinks: ScenarioLink[] =
 		calculator.category === 'compatibility'
 			? []
@@ -506,6 +512,12 @@ export async function RelatedCalculatorsBlock({
 				standardIds.map((id) => standardRegistry.getById(id, locale)),
 			).then((stds) => stds.filter((s): s is NonNullable<typeof s> => s !== undefined))
 		: []
+	relatedCalculators = filterLocalizedCalculators<AvailableRegistryCalculator>(
+		relatedCalculators.filter(
+			(calculator): calculator is AvailableRegistryCalculator => calculator !== undefined,
+		),
+		locale as Locale,
+	)
 
 	if (
 		relatedCalculators.length === 0 &&
@@ -523,14 +535,14 @@ export async function RelatedCalculatorsBlock({
 	return (
 		<div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
 			<h2 className="text-2xl font-semibold text-gray-900 mb-4">
-				{isMathCategory ? 'Related Math Calculators' : 'Related Calculators'}
+				{isMathCategory ? t('results.relatedMath') : t('results.related')}
 			</h2>
 
 			{/* Scenario-based links */}
 			{scenarioLinks.length > 0 && (
 				<div className="mb-6 pb-6 border-b border-blue-300">
 					<h3 className="text-lg font-medium text-gray-800 mb-3">
-						You Might Also Need
+						{t('results.mightAlsoNeed')}
 					</h3>
 					<div className="space-y-3">
 						{scenarioLinks
@@ -538,7 +550,7 @@ export async function RelatedCalculatorsBlock({
 							.map(({ calculator: calc, reason }) => (
 							<div key={calc.id} className="bg-white rounded-lg p-4 border border-blue-200">
 								<Link
-									href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
+									href={localePath(locale as Locale, `/calculators/${calc.category}/${calc.slug}`)}
 									className="text-blue-600 hover:text-blue-800 underline font-medium text-base block mb-2"
 								>
 									{calc.title}
@@ -561,7 +573,7 @@ export async function RelatedCalculatorsBlock({
 							.map((calc) => (
 							<li key={calc.id}>
 								<Link
-									href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
+									href={localePath(locale as Locale, `/calculators/${calc.category}/${calc.slug}`)}
 									className="text-blue-600 hover:text-blue-800 underline"
 								>
 									{calc.title}
@@ -581,7 +593,7 @@ export async function RelatedCalculatorsBlock({
 			{legacyTools.length > 0 && (
 				<div className="mb-4">
 					<h3 className="text-lg font-medium text-gray-800 mb-2">
-						Legacy Tools
+						{t('results.legacyTools')}
 					</h3>
 					<ul className="space-y-2">
 						{legacyTools.map((tool) => (
@@ -604,7 +616,7 @@ export async function RelatedCalculatorsBlock({
 			{standards.length > 0 && (
 				<div>
 					<h3 className="text-lg font-medium text-gray-800 mb-2">
-						This calculator is based on:
+						{t('results.basedOn')}
 					</h3>
 					<ul className="space-y-2">
 						{standards.map((std) => (

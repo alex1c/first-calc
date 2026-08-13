@@ -117,7 +117,7 @@ export async function generateMetadata({
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
 	return {
-		title: `${title} - Calculator Portal`,
+		title: `${title} - First Calc`,
 		description,
 		keywords: content?.keywords[contentLocale]?.join(', ') || 'число прописью, конвертер чисел, пропись, number to words',
 		robots,

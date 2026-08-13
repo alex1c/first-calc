@@ -89,7 +89,7 @@ export function Header() {
 					<Logo locale={currentLocale} />
 
 					{/* Navigation menu */}
-					<nav className="hidden md:flex items-center gap-6">
+					<nav className="hidden lg:flex items-center gap-6">
 						{menuItems.map((item) => (
 							<Link
 								key={item.href}

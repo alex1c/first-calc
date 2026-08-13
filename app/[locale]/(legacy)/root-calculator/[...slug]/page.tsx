@@ -56,7 +56,7 @@ export async function generateMetadata({
 
 	if (slug.length < 2) {
 		return {
-			title: 'Root Calculator - Calculator Portal',
+			title: 'Root Calculator - First Calc',
 			description: 'Calculate square, cube, and other roots',
 		}
 	}
@@ -89,7 +89,7 @@ export async function generateMetadata({
 	const robots = isLandingPage ? 'index, follow' : 'noindex, follow'
 
 	return {
-		title: `${title} - Calculator Portal`,
+		title: `${title} - First Calc`,
 		description,
 		robots,
 		alternates: {

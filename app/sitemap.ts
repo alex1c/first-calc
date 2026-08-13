@@ -1,12 +1,11 @@
 import type { MetadataRoute } from 'next'
-import { existsSync } from 'fs'
-import path from 'path'
 import { articles } from '@/data/articles'
 import { standards } from '@/data/standards'
 import { calculatorRegistry } from '@/lib/registry/loader'
 import { legacyTools } from '@/lib/tools/registry'
 import { locales, type Locale } from '@/lib/i18n'
 import { isIndexingDisabled, localeUrl } from '@/lib/site-url'
+import { hasLocalizedCalculatorContent } from '@/lib/i18n/content-availability'
 
 export type SitemapGroup =
 	| 'pages'
@@ -58,13 +57,6 @@ const englishNationalStandardPages = [
 	'/standards/national/ru/sp-snip-foundations',
 ] as const
 
-function hasCalculatorContent(locale: Locale, slug: string): boolean {
-	if (locale === 'en') return true
-	return existsSync(
-		path.join(process.cwd(), 'locales', locale, 'calculators', 'items', `${slug}.json`),
-	)
-}
-
 function addEntry(
 	entries: ClassifiedSitemapEntry[],
 	seen: Set<string>,
@@ -107,7 +99,7 @@ export async function buildSitemapEntries(): Promise<ClassifiedSitemapEntry[]> {
 
 		const calculators = (await calculatorRegistry.getAll(locale)).filter(
 			(calculator) =>
-				calculator.isEnabled !== false && hasCalculatorContent(locale, calculator.slug),
+				calculator.isEnabled !== false && hasLocalizedCalculatorContent(locale, calculator.slug),
 		)
 		const categories = new Set(calculators.map((calculator) => calculator.category))
 		for (const category of categories) {

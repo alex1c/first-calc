@@ -15,6 +15,7 @@ import { SearchModal } from './search-modal'
 
 interface SearchContextValue {
 	openSearch: () => void
+	locale: Locale
 }
 
 const SearchContext = createContext<SearchContextValue | undefined>(undefined)
@@ -50,8 +51,14 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
 	}, [])
 
 	return (
-		<SearchContext.Provider value={{ openSearch }}>
-			{children}
+		<SearchContext.Provider value={{ openSearch, locale }}>
+			<div
+				className="contents"
+				aria-hidden={isOpen || undefined}
+				{...({ inert: isOpen ? '' : undefined } as Record<string, string | undefined>)}
+			>
+				{children}
+			</div>
 			<SearchModal isOpen={isOpen} locale={locale} onClose={closeSearch} />
 		</SearchContext.Provider>
 	)

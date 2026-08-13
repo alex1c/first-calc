@@ -83,7 +83,7 @@ export function LegacyToolsBlock({ locale }: LegacyToolsBlockProps) {
 								<div className="flex-1">
 									<h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
 										{title
-											.replace(' - Calculator Portal', '')
+											.replace(' - First Calc', '')
 											.replace(' – калькулятор', '')
 											.replace(' – Calculator', '')
 											.replace(' - Конвертер чисел в текст', '')}

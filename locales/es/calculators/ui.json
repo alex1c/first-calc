@@ -67,10 +67,13 @@
 		"placeholder": "Buscar calculadoras...",
 		"noResults": "No se encontraron calculadoras",
 		"results": "Se encontraron {count} calculadoras"
-	}
+	},
+	"form": {
+		"calculate": "Calcular",
+		"select": "Seleccionar..."
+	},
+	"card": { "howTo": "Cómo usar" }
 }
-
-
 
 
 

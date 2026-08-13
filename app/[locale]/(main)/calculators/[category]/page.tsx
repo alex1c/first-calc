@@ -16,17 +16,21 @@ import { ConstructionClustersBlock } from '@/components/calculators/construction
 import { compatibilityClusters } from '@/lib/navigation/compatibility-clusters'
 import type { Metadata } from 'next'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { filterLocalizedCalculators } from '@/lib/i18n/content-availability'
+import { getCategoryMeta } from '@/lib/navigation/categories'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation', 'calculators/ui'] as const
 
-export function generateMetadata({
+export async function generateMetadata({
 	params,
-}: CalculatorsCategoryPageProps): Metadata {
+}: CalculatorsCategoryPageProps): Promise<Metadata> {
 	const pathname = `/calculators/${params.category}`
+	const dict = await loadNamespaces(params.locale, namespaces)
+	const category = getCategoryMeta(params.category, params.locale, createT(dict))
 	return {
-		title: `${params.category.replace(/-/g, ' ')} Calculators`,
-		description: `Browse free ${params.category.replace(/-/g, ' ')} calculators.`,
+		title: `${category.name} Calculators | First Calc`,
+		description: category.description,
 		alternates: {
 			canonical: localeUrl(params.locale, pathname),
 			languages: languageAlternates(pathname),
@@ -50,10 +54,10 @@ export default async function CalculatorsCategoryPage({
 		notFound()
 	}
 
-	const calculators = await getCalculatorsByCategoryWithPopularity(
+	const calculators = filterLocalizedCalculators(await getCalculatorsByCategoryWithPopularity(
 		category,
 		locale,
-	)
+	), locale)
 
 	if (calculators.length === 0) {
 		notFound()

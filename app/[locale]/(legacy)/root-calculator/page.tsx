@@ -33,7 +33,7 @@ export async function generateMetadata({
 			: 'Calculate square, cube, and other roots of numbers. Supports roots of any degree. Free online root calculator.'
 
 	return {
-		title: `${title} - Calculator Portal`,
+		title: `${title} - First Calc`,
 		description,
 		openGraph: {
 			title,

@@ -43,7 +43,7 @@ export function ArticleSchema({ article, canonicalUrl }: ArticleSchemaProps) {
 		headline: article.title,
 		author: {
 			'@type': 'Organization',
-			name: article.meta?.author || 'Calculator Portal',
+			name: article.meta?.author || 'First Calc',
 		},
 		inLanguage: article.locale,
 		url: canonicalUrl,

@@ -72,7 +72,7 @@ export function getLegacyTitle(
 	dynamicValue?: string | number
 ): string {
 	const content = getLegacyContent(toolType, locale);
-	if (!content) return 'Calculator Portal';
+	if (!content) return 'First Calc';
 
 	// Use 'en' as fallback for locales that don't have translations
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en';
@@ -92,7 +92,7 @@ export function getLegacyDescription(
 	dynamicValue?: string | number
 ): string {
 	const content = getLegacyContent(toolType, locale);
-	if (!content) return 'Calculator Portal';
+	if (!content) return 'First Calc';
 
 	// Use 'en' as fallback for locales that don't have translations
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en';
@@ -112,7 +112,7 @@ export function getLegacyOgTitle(
 	dynamicValue?: string | number
 ): string {
 	const content = getLegacyContent(toolType, locale);
-	if (!content) return 'Calculator Portal';
+	if (!content) return 'First Calc';
 
 	// Use 'en' as fallback for locales that don't have translations
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en';
@@ -132,7 +132,7 @@ export function getLegacyOgDescription(
 	dynamicValue?: string | number
 ): string {
 	const content = getLegacyContent(toolType, locale);
-	if (!content) return 'Calculator Portal';
+	if (!content) return 'First Calc';
 
 	// Use 'en' as fallback for locales that don't have translations
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en';
@@ -149,7 +149,7 @@ export function getLegacyOgDescription(
 const legacyContentMap: Record<string, LegacyContent> = {
 	'chislo-propisyu': {
 		title: {
-			en: 'Number to Words Converter - Calculator Portal',
+			en: 'Number to Words Converter - First Calc',
 			ru: 'Число прописью - Конвертер чисел в текст',
 		},
 		description: {
@@ -157,7 +157,7 @@ const legacyContentMap: Record<string, LegacyContent> = {
 			ru: 'Конвертер чисел в пропись. Преобразуйте любое число от 0 до 999,999,999 в его текстовое представление. Поддерживает несколько языков и валют. Бесплатный онлайн конвертер чисел в слова.',
 		},
 		ogTitle: {
-			en: 'Number to Words Converter | Calculator Portal',
+			en: 'Number to Words Converter | First Calc',
 			ru: 'Число прописью | Конвертер чисел в текст',
 		},
 		ogDescription: {

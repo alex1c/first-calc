@@ -11,7 +11,7 @@ const indexingDisabled = isIndexingDisabled()
 
 export const metadata: Metadata = {
 	metadataBase: new URL(PRODUCTION_ORIGIN),
-	title: 'Calculator Portal',
+	title: 'First Calc',
 	description: 'Portal for various calculators and tools',
 	// Add noindex, nofollow for test environment
 	...(indexingDisabled && {

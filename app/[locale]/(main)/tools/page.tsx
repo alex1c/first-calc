@@ -30,7 +30,7 @@ export function generateMetadata({ params }: ToolsPageProps): Metadata {
 
 function cleanLegacyTitle(title: string): string {
 	return title
-		.replace(' - Calculator Portal', '')
+		.replace(' - First Calc', '')
 		.replace(' – калькулятор', '')
 		.replace(' – Calculator', '')
 		.replace(' - Конвертер чисел в текст', '')

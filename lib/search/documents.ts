@@ -9,6 +9,7 @@ import { calculatorRegistry, articleRegistry } from '@/lib/registry/loader'
 import { getStandardsByLocale } from '@/data/standards'
 import type { SearchDocument } from './types'
 import { normalizeText, buildLocalizedPath } from './utils'
+import { filterLocalizedCalculators } from '@/lib/i18n/content-availability'
 
 const documentsCache = new Map<Locale, Promise<SearchDocument[]>>()
 
@@ -147,7 +148,7 @@ export async function getDocumentsForLocale(locale: Locale): Promise<SearchDocum
 				])
 
 				return [
-					...createCalculatorDocs(locale, calculators),
+					...createCalculatorDocs(locale, filterLocalizedCalculators(calculators, locale)),
 					...createArticleDocs(locale, articles),
 					...createStandardDocs(locale, standards),
 				]

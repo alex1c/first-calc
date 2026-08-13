@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Locale } from '@/lib/i18n'
 import type { SearchResponse } from '@/lib/search'
 import { useRouter } from 'next/navigation'
+import { localePath } from '@/lib/site-url'
+import { useClientT } from '@/lib/i18n/useClientT'
 
 interface SearchModalProps {
 	isOpen: boolean
@@ -12,10 +14,11 @@ interface SearchModalProps {
 }
 
 const GROUP_META = [
-	{ key: 'calculators', label: 'Calculators' },
-	{ key: 'articles', label: 'Learn Articles' },
-	{ key: 'standards', label: 'Standards' },
+	{ key: 'calculators', labelKey: 'search.groups.calculators' },
+	{ key: 'articles', labelKey: 'search.groups.articles' },
+	{ key: 'standards', labelKey: 'search.groups.standards' },
 ] as const
+const SEARCH_NAMESPACES = ['search'] as const
 
 type GroupKey = (typeof GROUP_META)[number]['key']
 
@@ -31,7 +34,10 @@ interface FlatResult {
 
 export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 	const router = useRouter()
+	const t = useClientT(locale, SEARCH_NAMESPACES)
 	const inputRef = useRef<HTMLInputElement>(null)
+	const dialogRef = useRef<HTMLDivElement>(null)
+	const previousFocusRef = useRef<HTMLElement | null>(null)
 	const [query, setQuery] = useState('')
 	const [results, setResults] = useState<SearchResponse | null>(null)
 	const [loading, setLoading] = useState(false)
@@ -40,9 +46,11 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 
 	useEffect(() => {
 		if (isOpen) {
+			previousFocusRef.current = document.activeElement as HTMLElement | null
 			setQuery('')
 			setResults(null)
 			setTimeout(() => inputRef.current?.focus(), 50)
+			return () => previousFocusRef.current?.focus()
 		}
 	}, [isOpen])
 
@@ -86,12 +94,31 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 		function handleKey(event: KeyboardEvent) {
 			if (event.key === 'Escape') {
 				onClose()
+			} else if (event.key === 'Tab') {
+				const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+					'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])',
+				)
+				if (!focusable?.length) return
+				const first = focusable[0]
+				const last = focusable[focusable.length - 1]
+				if (event.shiftKey && document.activeElement === first) {
+					event.preventDefault()
+					last.focus()
+				} else if (!event.shiftKey && document.activeElement === last) {
+					event.preventDefault()
+					first.focus()
+				}
 			}
 		}
 
 		if (isOpen) {
+			const previousOverflow = document.body.style.overflow
+			document.body.style.overflow = 'hidden'
 			window.addEventListener('keydown', handleKey)
-			return () => window.removeEventListener('keydown', handleKey)
+			return () => {
+				document.body.style.overflow = previousOverflow
+				window.removeEventListener('keydown', handleKey)
+			}
 		}
 	}, [isOpen, onClose])
 
@@ -160,12 +187,13 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 	return (
 		<div className="fixed inset-0 z-50 flex items-start justify-center bg-black/30 px-4 py-6 backdrop-blur-sm">
 			<div
+				ref={dialogRef}
 				role="dialog"
 				aria-modal="true"
 				aria-labelledby="search-dialog-title"
 				className="w-full max-w-2xl rounded-2xl bg-white shadow-2xl"
 			>
-				<h2 id="search-dialog-title" className="sr-only">Search First Calc</h2>
+				<h2 id="search-dialog-title" className="sr-only">{t('search.title')}</h2>
 				<div className="border-b border-slate-200 px-5 py-4">
 					<div className="flex items-center gap-3">
 						<svg
@@ -182,34 +210,34 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 							value={query}
 							onChange={(event) => setQuery(event.target.value)}
 							onKeyDown={handleKeyNavigation}
-							placeholder="Search calculators, articles, standards…"
+							placeholder={t('search.placeholder')}
 							className="flex-1 border-none text-base focus:outline-none"
-							aria-label="Search calculators, articles, and standards"
+							aria-label={t('search.inputLabel')}
 						/>
 						<button
 							type="button"
 							onClick={onClose}
 							className="rounded-md bg-slate-100 px-3 py-1 text-sm text-slate-600 hover:bg-slate-200"
 						>
-							Escape
+							{t('search.close')}
 						</button>
 					</div>
-					<p className="mt-2 text-xs text-slate-500">Press Enter to open highlighted result • Ctrl / Cmd + K to search</p>
+					<p className="mt-2 text-xs text-slate-500">{t('search.keyboardHint')}</p>
 				</div>
 				<div className="max-h-[70vh] overflow-y-auto px-5 py-4">
 					{results?.fallbackLocaleUsed && (
 						<div className="mb-3 rounded-md bg-yellow-50 px-3 py-2 text-sm text-yellow-800">
-							No matches in your language. Showing results in English.
+							{t('search.fallback')}
 						</div>
 					)}
 
 					{loading && (
-						<div className="py-6 text-center text-sm text-slate-500">Searching…</div>
+						<div className="py-6 text-center text-sm text-slate-500">{t('search.loading')}</div>
 					)}
 
 					{!loading && query.trim().length >= 2 && flatResults.length === 0 && (
 						<div className="py-6 text-center text-sm text-slate-500">
-							No results found. Try another keyword.
+							{t('search.empty')}
 						</div>
 					)}
 
@@ -223,7 +251,7 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 							<div key={group.key} className="mb-6">
 								<div className="mb-2 flex items-center justify-between text-xs uppercase tracking-wide text-slate-500">
 									<span>
-										{group.label} ({data.total})
+										{t(group.labelKey)} ({data.total})
 									</span>
 									{data.total > data.items.length && (
 										<button
@@ -231,12 +259,12 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 											onClick={() => {
 												onClose()
 												router.push(
-													`/${resultsLocale}/search?q=${encodeURIComponent(query.trim())}`,
+													`${localePath(resultsLocale, '/search')}?q=${encodeURIComponent(query.trim())}`,
 												)
 											}}
 											className="text-blue-600 hover:text-blue-700"
 										>
-											View all
+											{t('search.viewAll')}
 										</button>
 									)}
 								</div>
@@ -280,7 +308,7 @@ export function SearchModal({ isOpen, onClose, locale }: SearchModalProps) {
 														{(item.isForeignLocale ||
 															results?.fallbackLocaleUsed) && (
 															<span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-medium text-amber-800">
-																Content in English
+														{t('search.contentInEnglish')}
 															</span>
 														)}
 													</div>

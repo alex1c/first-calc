@@ -4,8 +4,8 @@ import { locales, type Locale } from '@/lib/i18n'
 import { PageContainer } from '@/components/layout/page-container'
 
 export const metadata: Metadata = {
-	title: 'Disclaimer – First-Calc',
-	description: 'Understand the limitations of First-Calc calculators and learn how to use them responsibly.',
+	title: 'Disclaimer – First Calc',
+	description: 'Understand the limitations of First Calc calculators and learn how to use them responsibly.',
 }
 
 interface DisclaimerPageProps {
@@ -23,7 +23,7 @@ export default function DisclaimerPage({ params }: DisclaimerPageProps) {
 			<h1 className="text-4xl font-bold text-gray-900 mb-6">Disclaimer</h1>
 			<div className="space-y-6 text-gray-700 leading-relaxed">
 				<p>
-					First-Calc calculators are educational tools. They simplify complex topics to make
+					First Calc calculators are educational tools. They simplify complex topics to make
 					planning and self-reflection easier.
 				</p>
 				<section>

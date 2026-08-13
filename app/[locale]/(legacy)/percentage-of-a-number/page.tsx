@@ -36,7 +36,7 @@ export async function generateMetadata({
 	const ogDescription = getLegacyOgDescription('percentage-of-a-number', locale)
 
 	return {
-		title: `${title} - Calculator Portal`,
+		title: `${title} - First Calc`,
 		description,
 		openGraph: {
 			title: ogTitle,

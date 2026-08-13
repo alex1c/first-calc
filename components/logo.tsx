@@ -17,7 +17,7 @@ export function Logo({ locale, className = '' }: LogoProps) {
 		<Link
 			href={homePath}
 			className={`flex items-center gap-3 ${className}`}
-			aria-label="Calculator Portal - Home"
+			aria-label="First Calc - Home"
 		>
 			<svg
 				viewBox="0 0 120 120"
@@ -332,7 +332,7 @@ export function Logo({ locale, className = '' }: LogoProps) {
 				</g>
 			</svg>
 			<span className="text-xl md:text-2xl font-bold text-gray-900 hidden sm:inline">
-				Calculator Portal
+				First Calc
 			</span>
 		</Link>
 	)

@@ -36,7 +36,7 @@ export async function generateMetadata({
 	const ogDescription = getLegacyOgDescription('numbers-to-words', locale)
 
 	return {
-		title: `${title} - Calculator Portal`,
+		title: `${title} - First Calc`,
 		description,
 		openGraph: {
 			title: ogTitle,

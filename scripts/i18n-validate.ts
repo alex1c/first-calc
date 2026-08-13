@@ -75,7 +75,15 @@ async function validateNamespaces(): Promise<ValidationResult> {
 		warnings: [],
 	}
 
-	const namespaceFiles = ['common.json', 'navigation.json', 'errors.json']
+	const namespaceFiles = [
+		'common.json',
+		'navigation.json',
+		'errors.json',
+	'calculators/ui.json',
+	'search.json',
+	'results.json',
+	'footer.json',
+	]
 
 	for (const namespace of namespaceFiles) {
 		const defaultLocaleKeys = new Set<string>()
@@ -267,4 +275,3 @@ main().catch((error) => {
 	console.error('Validation script error:', error)
 	process.exit(1)
 })
-

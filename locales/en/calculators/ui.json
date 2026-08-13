@@ -72,8 +72,11 @@
 		"placeholder": "Search calculators...",
 		"noResults": "No calculators found",
 		"results": "Found {count} calculators"
-	}
+	},
+	"form": {
+		"calculate": "Calculate",
+		"select": "Select..."
+	},
+	"card": { "howTo": "How to" }
 }
-
-
 

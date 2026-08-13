@@ -1,10 +1,13 @@
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 import { formatOutputValue } from '@/lib/calculators/format'
 import Link from 'next/link'
+import type { Locale } from '@/lib/i18n'
+import { useClientT } from '@/lib/i18n/useClientT'
 
 interface CalculatorResultsProps {
 	calculator: CalculatorDefinitionClient
 	outputs: Record<string, number | string | null>
+	locale: Locale
 }
 
 /**
@@ -121,7 +124,9 @@ function getResultExplanation(
 export function CalculatorResults({
 	calculator,
 	outputs,
+	locale,
 }: CalculatorResultsProps) {
+	const t = useClientT(locale, ['results'])
 	if (!outputs || Object.keys(outputs).length === 0) {
 		return null
 	}
@@ -2860,7 +2865,7 @@ export function CalculatorResults({
 			{formattedMainValue && (
 				<div className="mb-6">
 					<label className="block text-sm font-medium text-gray-500 uppercase tracking-wide mb-2">
-						{mainOutput.label || 'Result'}
+						{mainOutput.label || t('results.result')}
 					</label>
 					{/* Special formatting for BMI calculator */}
 					{calculator.id === 'bmi-calculator' && mainOutput.name === 'bmi' ? (
@@ -3069,7 +3074,7 @@ export function CalculatorResults({
 							
 							{/* Formulas Table */}
 							<div className="mt-6 mb-4">
-								<h4 className="text-sm font-semibold text-gray-900 mb-3">Results by Formula</h4>
+								<h4 className="text-sm font-semibold text-gray-900 mb-3">{t('results.resultsByFormula')}</h4>
 								<div className="overflow-x-auto">
 									<table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg">
 										<thead className="bg-gray-50">
@@ -3881,7 +3886,7 @@ export function CalculatorResults({
 										)}
 										{dateResultDateFormattedValue && typeof dateResultDateFormattedValue === 'string' && (
 											<p>
-												<strong>Result Date:</strong> {dateResultDateFormattedValue}
+												<strong>{t('results.resultDate')}:</strong> {dateResultDateFormattedValue}
 											</p>
 										)}
 									</div>
@@ -3936,7 +3941,7 @@ export function CalculatorResults({
 							<p className="text-sm text-gray-500 mb-4">
 								{cookingOriginalValue !== null && cookingOriginalValue !== undefined && cookingFromUnitValue && typeof cookingFromUnitValue === 'string'
 									? `${cookingOriginalValue} ${cookingFromUnitValue} = ${cookingResultFormattedValue || (cookingResultValue !== null && cookingResultValue !== undefined && typeof cookingResultValue === 'number' ? cookingResultValue.toFixed(2) : 'N/A')} ${cookingToUnitValue || ''}`
-									: 'Conversion Result'}
+									: t('results.conversionResult')}
 							</p>
 							
 							{/* Conversion Type */}
@@ -4547,7 +4552,6 @@ export function CalculatorResults({
 		</div>
 	)
 }
-
 
 
 

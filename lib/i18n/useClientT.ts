@@ -25,9 +25,10 @@ export function useClientT(
 	const namespacesKey = useMemo(() => namespaces.join(','), [namespaces])
 
 	useEffect(() => {
+		const namespaceList = namespacesKey.split(',').filter(Boolean)
 		// Load all namespaces in parallel
 		Promise.all(
-			namespaces.map((ns) =>
+			namespaceList.map((ns) =>
 				import(`@/locales/${locale}/${ns}.json`)
 					.then((module) => ({ namespace: ns, data: module.default || module }))
 					.catch(() => {
@@ -59,11 +60,10 @@ export function useClientT(
 			}
 			setDict(merged)
 		})
-	}, [locale, namespacesKey, namespaces])
+	}, [locale, namespacesKey])
 
 	return (key: string, params?: Record<string, string | number>) => {
 		const t = createT(dict)
 		return t(key, params)
 	}
 }
-

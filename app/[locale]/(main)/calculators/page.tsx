@@ -30,6 +30,7 @@ import { categories as categoryConfigs } from '@/lib/navigation/categories'
 import { getTopUsedTags } from '@/lib/tags/usage'
 import type { Metadata } from 'next'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { filterLocalizedCalculators } from '@/lib/i18n/content-availability'
 
 /**
  * Required i18n namespaces for this page
@@ -85,6 +86,7 @@ export default async function CalculatorsPage({
 
 	// Load all calculators for the locale (disabled calculators are filtered out automatically)
 	let calculators = await calculatorRegistry.getAll(locale)
+	calculators = filterLocalizedCalculators(calculators, locale)
 	
 	// Filter by tag if tag parameter is present
 	if (tag) {
@@ -100,6 +102,9 @@ export default async function CalculatorsPage({
 	let recommendedCalculators = await getRecommendedCalculators(locale, {
 		limit: 5,
 	})
+	popularCalculators = filterLocalizedCalculators(popularCalculators, locale)
+	newCalculators = filterLocalizedCalculators(newCalculators, locale)
+	recommendedCalculators = filterLocalizedCalculators(recommendedCalculators, locale)
 	
 	// Apply tag filter to featured lists if tag is present
 	if (tag) {

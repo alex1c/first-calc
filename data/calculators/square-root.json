@@ -19,10 +19,6 @@
   "variables": {
     "number": "The number to find the square root of"
   },
-  "relatedIds": [
-    "cube-root",
-    "exponent",
-    "area-rectangle"
-  ],
+  "relatedIds": [],
   "standardIds": []
 }

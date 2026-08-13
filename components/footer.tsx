@@ -4,6 +4,8 @@ import { getTelegramContactLink, hasTelegramBot } from '@/lib/contact'
 import { headers } from 'next/headers'
 import { locales, type Locale } from '@/lib/i18n'
 import { localePath } from '@/lib/site-url'
+import { loadNamespaces } from '@/lib/i18n/loadNamespaces'
+import { createT } from '@/lib/i18n/t'
 
 const calculatorLinks = [
 	{ label: 'Math', href: '/calculators/math' },
@@ -32,13 +34,14 @@ const legalLinks = [
 	{ label: 'Disclaimer', href: '/disclaimer' },
 ]
 
-export function Footer() {
+export async function Footer() {
 	const year = new Date().getFullYear()
 	const telegramLink = getTelegramContactLink()
 	const requestedLocale = headers().get('x-first-calc-locale')
 	const locale: Locale = locales.includes(requestedLocale as Locale)
 		? (requestedLocale as Locale)
 		: 'en'
+	const t = createT(await loadNamespaces(locale, ['footer']))
 
 	return (
 		<footer className="bg-slate-950 text-slate-100 mt-16">
@@ -46,7 +49,7 @@ export function Footer() {
 				<div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
 					<div>
 						<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
-							First-Calc
+							First Calc
 						</p>
 						<p className="text-lg font-bold mb-3">
 							Free calculators for better planning.
@@ -55,9 +58,9 @@ export function Footer() {
 							Free calculators and tools for estimation, planning, and self-reflection.
 						</p>
 						<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
-							Share this page
+							{t('footer.sharePage')}
 						</p>
-						<ShareButtons />
+						<ShareButtons locale={locale} />
 					</div>
 					<div>
 						<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
@@ -134,7 +137,7 @@ export function Footer() {
 					</div>
 				</div>
 				<div className="mt-10 border-t border-slate-800 pt-6 flex flex-col gap-4 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
-					<p>© {year} First-Calc</p>
+					<p>© {year} First Calc</p>
 					<div className="flex flex-wrap gap-4">
 						{legalLinks.map((link) => (
 							<Link

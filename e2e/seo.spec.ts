@@ -3,6 +3,14 @@ import { existsSync } from 'node:fs'
 import path from 'node:path'
 
 test.describe('SEO Metadata', () => {
+	test('limited locale hub does not advertise English fallback calculators', async ({ request }) => {
+		const response = await request.get('/es/calculators')
+		expect(response.status()).toBe(200)
+		const html = await response.text()
+		expect(html).not.toContain('/es/calculators/finance/mortgage-calculator')
+		expect(html).not.toContain('/es/calculators/construction/cement-calculator')
+	})
+
 	test('standalone calculator route renders JSON-LD in final HTML', async ({ request }) => {
 		// The Docker runtime contains only .next/standalone. This assertion guards
 		// runtime-loaded calculator definitions that Next.js cannot trace from a

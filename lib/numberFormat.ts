@@ -60,3 +60,44 @@ export function formatIndianNumber(n: number): string {
 
 
 
+import type { Locale } from '@/lib/i18n'
+
+export function formatLocalizedNumber(
+	value: number,
+	locale: Locale,
+	options: Intl.NumberFormatOptions = {},
+): string {
+	if (!Number.isFinite(value)) throw new Error('Invalid number')
+	return new Intl.NumberFormat(locale, { maximumFractionDigits: 12, ...options }).format(value)
+}
+
+/**
+ * Parse a user-entered decimal without guessing ambiguous thousands grouping.
+ * Both `1.5` and `1,5` are accepted; grouped values must follow the locale.
+ */
+export function parseLocalizedNumber(input: string, locale: Locale): number | null {
+	const value = input.trim().replace(/\u00a0|\u202f|\s/g, '')
+	if (!value) return null
+
+	const parts = new Intl.NumberFormat(locale).formatToParts(12345.6)
+	const decimal = parts.find((part) => part.type === 'decimal')?.value ?? '.'
+	const group = parts.find((part) => part.type === 'group')?.value ?? ','
+	let normalized = value
+
+	if (decimal === ',') {
+		if (normalized.includes(',') && normalized.includes('.')) {
+			normalized = normalized.split('.').join('').replace(',', '.')
+		} else {
+			normalized = normalized.replace(',', '.')
+		}
+	} else if (normalized.includes('.') && normalized.includes(',')) {
+		normalized = normalized.split(group).join('')
+	} else if (!normalized.includes('.') && normalized.includes(',')) {
+		// Accept decimal comma paste in every supported locale.
+		normalized = normalized.replace(',', '.')
+	}
+
+	if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(normalized)) return null
+	const parsed = Number(normalized)
+	return Number.isFinite(parsed) ? parsed : null
+}

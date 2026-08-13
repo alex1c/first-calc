@@ -4,6 +4,9 @@
 
 import Link from 'next/link'
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
+import { loadNamespaces, createT, type Locale } from '@/lib/i18n'
+import { localePath } from '@/lib/site-url'
+import { calculatorCardTokens } from '@/lib/ui/tokens'
 
 interface CalculatorCardProps {
 	calculator: CalculatorDefinitionClient
@@ -63,30 +66,32 @@ function getCategoryColor(category: string) {
 	}
 }
 
-export function CalculatorCard({
+export async function CalculatorCard({
 	calculator,
 	locale,
 	isPopular = false,
 	isNew = false,
 	hasStandard = false,
 }: CalculatorCardProps) {
+	const activeLocale = locale as Locale
+	const t = createT(await loadNamespaces(activeLocale, ['navigation', 'calculators/ui']))
 	const categoryColor = getCategoryColor(calculator.category)
 	const categoryIcon = getCategoryIcon(calculator.category)
 	const howToPreview = calculator.howToBullets?.[0] || ''
 
 	return (
 		<Link
-			href={`/${locale}/calculators/${calculator.category}/${calculator.slug}`}
-			className="group bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all duration-200 flex flex-col h-full"
+			href={localePath(activeLocale, `/calculators/${calculator.category}/${calculator.slug}`)}
+			className={calculatorCardTokens.root}
 		>
 			{/* Header with icon and tags */}
 			<div className="flex items-start justify-between mb-3">
 				<div className="flex items-center gap-2">
-					<div className={`p-2 rounded-lg ${categoryColor}`}>
+					<div className={`${calculatorCardTokens.icon} ${categoryColor}`}>
 						{categoryIcon}
 					</div>
 					<div className="flex-1">
-						<h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+						<h3 className={calculatorCardTokens.title}>
 							{calculator.title}
 						</h3>
 					</div>
@@ -96,27 +101,27 @@ export function CalculatorCard({
 			{/* Tags */}
 			<div className="flex flex-wrap gap-2 mb-3">
 				{isPopular && (
-					<span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700 rounded-full">
-						Popular
+					<span className={`${calculatorCardTokens.badge} bg-orange-100 text-orange-700`}>
+						{t('calculators/ui.tags.popular')}
 					</span>
 				)}
 				{isNew && (
-					<span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
-						New
+					<span className={`${calculatorCardTokens.badge} bg-blue-100 text-blue-700`}>
+						{t('calculators/ui.tags.new')}
 					</span>
 				)}
 				{hasStandard && (
-					<span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700 rounded-full">
-						Based on Standard
+					<span className={`${calculatorCardTokens.badge} bg-purple-100 text-purple-700`}>
+						{t('calculators/ui.tags.basedOnStandard')}
 					</span>
 				)}
-				<span className={`px-2 py-1 text-xs font-medium rounded-full capitalize ${categoryColor}`}>
-					{calculator.category}
+				<span className={`${calculatorCardTokens.badge} capitalize ${categoryColor}`}>
+					{t(`navigation.categories.${calculator.category}`)}
 				</span>
 			</div>
 
 			{/* Description */}
-			<p className="text-gray-600 text-sm mb-3 line-clamp-2 flex-grow">
+			<p className={calculatorCardTokens.description}>
 				{calculator.shortDescription}
 			</p>
 
@@ -124,11 +129,10 @@ export function CalculatorCard({
 			{howToPreview && (
 				<div className="mt-auto pt-3 border-t border-gray-100">
 					<p className="text-xs text-gray-500 line-clamp-1">
-						<span className="font-medium">How to:</span> {howToPreview}
+						<span className="font-medium">{t('calculators/ui.card.howTo')}:</span> {howToPreview}
 					</p>
 				</div>
 			)}
 		</Link>
 	)
 }
-

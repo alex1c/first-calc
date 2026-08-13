@@ -1,4 +1,4 @@
-﻿import type { ArticleDefinition } from '@/lib/learn/types'
+import type { ArticleDefinition } from '@/lib/learn/types'
 
 /**
  * Registry of all article definitions
@@ -949,7 +949,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['area', 'perimeter-of-shapes'],
 		meta: {
 			keywords: ['area', 'geometry', 'shapes', 'circle', 'square', 'rectangle', 'triangle', 'calculation', 'math'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-01',
 		},
 	},
@@ -1077,7 +1077,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['area', 'perimeter-of-shapes'],
 		meta: {
 			keywords: ['area', 'perimeter', 'geometry', 'difference', 'shapes', 'math', 'comparison'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-02',
 		},
 	},
@@ -1178,7 +1178,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['volume-of-shapes'],
 		meta: {
 			keywords: ['volume', '3d shapes', 'cube', 'sphere', 'cylinder', 'cone', 'geometry', 'math', 'calculation'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-03',
 		},
 	},
@@ -1291,7 +1291,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['pythagorean-theorem-calculator'],
 		meta: {
 			keywords: ['pythagorean theorem', 'right triangle', 'hypotenuse', 'geometry', 'math', 'theorem', 'triangle'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-04',
 		},
 	},
@@ -1409,7 +1409,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['percentage-of-a-number', 'percentage-change-calculator'],
 		meta: {
 			keywords: ['percentage', 'calculation', 'math', 'discount', 'tip', 'tax', 'percent'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-05',
 		},
 	},
@@ -1522,7 +1522,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['percentage-change-calculator'],
 		meta: {
 			keywords: ['percentage change', 'percentage increase', 'growth', 'decrease', 'math', 'calculation', 'comparison'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-06',
 		},
 	},
@@ -1653,7 +1653,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['percentage-of-a-number', 'percentage-change-calculator'],
 		meta: {
 			keywords: ['percentage', 'mistakes', 'errors', 'calculation', 'math', 'common errors', 'tips'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-07',
 		},
 	},
@@ -1780,7 +1780,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['equation-solver'],
 		meta: {
 			keywords: ['linear equation', 'algebra', 'solving equations', 'math', 'equation solver', 'step by step'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-08',
 		},
 	},
@@ -1889,7 +1889,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['quadratic-equation-calculator', 'equation-solver'],
 		meta: {
 			keywords: ['quadratic equation', 'quadratic formula', 'discriminant', 'algebra', 'math', 'roots', 'solving equations'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-09',
 		},
 	},
@@ -2010,7 +2010,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['quadratic-equation-calculator'],
 		meta: {
 			keywords: ['quadratic equation', 'no real roots', 'discriminant', 'complex roots', 'algebra', 'math'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-10',
 		},
 	},
@@ -2160,7 +2160,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['average-calculator', 'descriptive-statistics-calculator'],
 		meta: {
 			keywords: ['mean', 'median', 'mode', 'average', 'statistics', 'central tendency', 'data analysis', 'math'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-11',
 		},
 	},
@@ -2292,7 +2292,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['standard-deviation-calculator', 'descriptive-statistics-calculator'],
 		meta: {
 			keywords: ['standard deviation', 'statistics', 'variability', 'spread', 'variance', 'data analysis', 'math'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-12',
 		},
 	},
@@ -2452,7 +2452,7 @@ export const articles: ArticleDefinition[] = [
 		relatedCalculatorIds: ['descriptive-statistics-calculator', 'average-calculator', 'standard-deviation-calculator'],
 		meta: {
 			keywords: ['data analysis', 'statistics', 'dataset', 'descriptive statistics', 'data science', 'analysis', 'math'],
-			author: 'Calculator Portal',
+			author: 'First Calc',
 			publishedDate: '2024-03-13',
 		},
 	},

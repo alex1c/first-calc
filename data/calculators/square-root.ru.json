@@ -19,11 +19,7 @@
   "variables": {
     "number": "Число, для которого нужно найти квадратный корень"
   },
-  "relatedIds": [
-    "cube-root",
-    "exponent",
-    "area-rectangle"
-  ],
+  "relatedIds": [],
   "standardIds": []
 }
 

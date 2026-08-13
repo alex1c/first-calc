@@ -13,6 +13,7 @@ import { CalculatorCard } from '@/components/calculators/calculator-card'
 import { SearchInput } from '@/components/home/search-input'
 import { PageContainer } from '@/components/layout/page-container'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { filterLocalizedCalculators } from '@/lib/i18n/content-availability'
 
 const namespaces = ['common', 'navigation', 'home'] as const
 
@@ -28,7 +29,7 @@ export async function generateMetadata({
 	const { locale } = params
 
 	const titles: Record<Locale, string> = {
-		en: 'Calculator Portal - Free Online Calculators and Tools',
+		en: 'First Calc - Free Online Calculators and Tools',
 		ru: 'Портал калькуляторов - Бесплатные онлайн калькуляторы и инструменты',
 		es: 'Portal de Calculadoras - Calculadoras y Herramientas Online Gratis',
 		tr: 'Hesap Makinesi Portalı - Ücretsiz Çevrimiçi Hesap Makineleri ve Araçlar',
@@ -76,8 +77,14 @@ export default async function HomePage({ params }: HomePageProps) {
 	const showFallbackBadge = !['en', 'ru'].includes(locale)
 
 	// Get popular calculators (6-12)
-	const popularCalculators = await getPopularCalculators(locale)
-	const allCalculators = await calculatorRegistry.getAll(locale)
+	const popularCalculators = filterLocalizedCalculators(
+		await getPopularCalculators(locale),
+		locale,
+	)
+	const allCalculators = filterLocalizedCalculators(
+		await calculatorRegistry.getAll(locale),
+		locale,
+	)
 	const additionalPopular = allCalculators
 		.filter((calc) => !popularCalculators.some((p) => p.id === calc.id))
 		.slice(0, Math.max(0, 12 - popularCalculators.length))
@@ -89,7 +96,7 @@ export default async function HomePage({ params }: HomePageProps) {
 	const categoryList = mainCategoryIds
 		.map((id) => {
 			const category = allCategoryIds.includes(id) ? getCategoryMeta(id, locale, t) : null
-			if (!category) return null
+			if (!category || !allCalculators.some((calculator) => calculator.category === id)) return null
 			return {
 				id: category.id,
 				name: category.name,
@@ -118,7 +125,7 @@ export default async function HomePage({ params }: HomePageProps) {
 		.map((tool) => {
 			const title = tool.slug ? getLegacyTitle(tool.slug, locale) : tool.title || 'Tool'
 			const cleanTitle = title
-				.replace(' - Calculator Portal', '')
+				.replace(' - First Calc', '')
 				.replace(' – калькулятор', '')
 				.replace(' – Calculator', '')
 				.trim()

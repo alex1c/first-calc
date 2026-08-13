@@ -357,6 +357,7 @@ export function CalculatorPage({
 
 							<CalculatorForm
 								calculator={calculator}
+								locale={locale}
 								onCalculate={handleCalculate}
 								errors={errors}
 							/>
@@ -364,8 +365,8 @@ export function CalculatorPage({
 
 						{/* Results - Bottom */}
 						{Object.keys(outputs).length > 0 && (
-							<div className="w-full border-t border-gray-200 pt-8">
-								<CalculatorResults calculator={calculator} outputs={outputs} />
+							<div className="w-full border-t border-gray-200 pt-8" data-calculator-results>
+								<CalculatorResults calculator={calculator} outputs={outputs} locale={locale} />
 							</div>
 						)}
 					</div>

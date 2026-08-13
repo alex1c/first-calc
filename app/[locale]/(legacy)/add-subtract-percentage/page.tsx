@@ -36,7 +36,7 @@ export async function generateMetadata({
 	const ogDescription = getLegacyOgDescription('add-subtract-percentage', locale)
 
 	return {
-		title: `${title} - Calculator Portal`,
+		title: `${title} - First Calc`,
 		description,
 		openGraph: {
 			title: ogTitle,

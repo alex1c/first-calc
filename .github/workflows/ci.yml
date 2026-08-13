@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [main, develop]
   pull_request:
@@ -30,6 +31,12 @@ jobs:
 
       - name: Validate i18n
         run: npm run i18n:validate
+
+      - name: Audit calculator metadata
+        run: npm run seo:metadata-check
+
+      - name: Audit calculator content inventory
+        run: npm run quality:calculators
 
       - name: Run unit tests with coverage
         run: npm run test:coverage

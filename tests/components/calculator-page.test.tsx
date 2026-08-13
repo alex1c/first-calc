@@ -1,8 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { CalculatorPage } from '@/components/calculator-page'
 import { createTestCalculator } from '../factories/calculator'
+
+vi.mock('@/lib/i18n/useClientT', () => ({
+	useClientT: () => (key: string) => key === 'calculators.ui.form.calculate' ? 'Calculate' : key === 'results.result' ? 'Result' : key,
+}))
 
 // Mock Next.js router
 vi.mock('next/navigation', () => ({
@@ -63,15 +67,15 @@ describe('CalculatorPage', () => {
 		render(<CalculatorPage calculator={calculator} locale="en" />)
 
 		const input = screen.getByLabelText(/value/i) as HTMLInputElement
-		await user.clear(input)
-		await user.type(input, '-5')
+		await act(async () => user.clear(input))
+		await act(async () => user.type(input, '-5'))
 		
 		// Blur the input to trigger validation if it's on blur
-		await user.tab()
+		await act(async () => user.tab())
 		
 		// Try to submit form to trigger validation
 		const calculateButton = screen.getByRole('button', { name: /calculate/i })
-		await user.click(calculateButton)
+		await act(async () => user.click(calculateButton))
 
 		// Wait for validation error - errors are displayed in red text
 		// The validation may show "Value must be at least 0" or "Value cannot be negative"
@@ -117,11 +121,11 @@ describe('CalculatorPage', () => {
 		render(<CalculatorPage calculator={calculator} locale="en" />)
 
 		const input = screen.getByLabelText(/value/i) as HTMLInputElement
-		await user.clear(input)
-		await user.type(input, '10')
+		await act(async () => user.clear(input))
+		await act(async () => user.type(input, '10'))
 
 		const calculateButton = screen.getByRole('button', { name: /calculate/i })
-		await user.click(calculateButton)
+		await act(async () => user.click(calculateButton))
 		
 		// Wait for results to appear - the result value (20 = 10 * 2) should be displayed
 		await waitFor(() => {

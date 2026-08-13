@@ -56,7 +56,7 @@ Result = (Number × Percentage) / 100
 		category: 'math',
 		relatedCalculatorIds: ['percentage-of-a-number'],
 		meta: {
-			author: 'Calculator Portal Team',
+			author: 'First Calc Team',
 			publishedDate: '2024-01-15',
 			keywords: ['percentage', 'math', 'calculation', 'guide'],
 		},
@@ -125,7 +125,7 @@ This example shows how interest significantly increases the total cost of borrow
 		category: 'finance',
 		relatedCalculatorIds: ['loan-payment', 'compound-interest'],
 		meta: {
-			author: 'Calculator Portal Team',
+			author: 'First Calc Team',
 			publishedDate: '2024-02-01',
 			keywords: ['loan', 'finance', 'interest', 'payment'],
 		},
@@ -215,7 +215,7 @@ Use our [Investment Calculator](finance/investment-calculator) to see how compou
 		category: 'finance',
 		relatedCalculatorIds: ['compound-interest', 'loan-payment'],
 		meta: {
-			author: 'Calculator Portal Team',
+			author: 'First Calc Team',
 			publishedDate: '2024-02-15',
 			keywords: ['compound interest', 'investment', 'savings', 'growth'],
 		},

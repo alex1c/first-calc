@@ -45,7 +45,7 @@ export async function generateMetadata({
 	const keywordsString = keywords.join(', ')
 
 	// Custom metadata for ISO soil-foundations
-	let title = `${standard.title} - Calculator Portal`
+	let title = `${standard.title} - First Calc`
 	let description = standard.longDescription || standard.shortDescription
 	if (standard.id === 'iso-soil-foundations') {
 		title = 'Soil and Foundation Basics – ISO Geotechnical Principles Explained'

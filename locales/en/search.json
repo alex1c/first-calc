@@ -1,0 +1,14 @@
+{
+	"open": "Search",
+	"title": "Search First Calc",
+	"placeholder": "Search calculators, articles, standards…",
+	"inputLabel": "Search calculators, articles, and standards",
+	"close": "Escape",
+	"keyboardHint": "Press Enter to open the highlighted result • Ctrl / Cmd + K to search",
+	"fallback": "No matches in your language. Showing results in English.",
+	"loading": "Searching…",
+	"empty": "No results found. Try another keyword.",
+	"viewAll": "View all",
+	"contentInEnglish": "Content in English",
+	"groups": { "calculators": "Calculators", "articles": "Learn Articles", "standards": "Standards" }
+}

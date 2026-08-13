@@ -1,23 +1,23 @@
 {
 	"site": {
-		"name": "Calculator Portal",
+		"name": "First Calc",
 		"description": "Free online calculators for math, finance, engineering, and more"
 	},
 	"pages": {
 		"home": {
-			"title": "Free Online Calculators - Calculator Portal",
+			"title": "Free Online Calculators - First Calc",
 			"description": "Calculate anything with our free online calculators. Math, finance, engineering, and everyday calculations."
 		},
 		"calculators": {
-			"title": "Calculators - Calculator Portal",
+			"title": "Calculators - First Calc",
 			"description": "Browse our collection of free online calculators"
 		},
 		"standards": {
-			"title": "Engineering Standards - Calculator Portal",
+			"title": "Engineering Standards - First Calc",
 			"description": "Browse engineering standards and formulas"
 		},
 		"learn": {
-			"title": "Learn - Calculator Portal",
+			"title": "Learn - First Calc",
 			"description": "Educational articles and guides"
 		}
 	}

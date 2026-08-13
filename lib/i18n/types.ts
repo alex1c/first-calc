@@ -15,6 +15,8 @@ export type Namespace =
 	| 'navigation'
 	| 'errors'
 	| 'home'
+	| 'footer'
+	| 'results'
 	| 'calculators/ui'
 	| 'tools/ui'
 	| 'seo/templates'
@@ -56,4 +58,3 @@ export interface LoadNamespacesOptions {
 	 */
 	logMissing?: boolean
 }
-

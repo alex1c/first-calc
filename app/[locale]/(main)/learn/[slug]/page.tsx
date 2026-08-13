@@ -45,7 +45,7 @@ export async function generateMetadata({
 	)
 
 	return {
-		title: `${article.title} - Calculator Portal`,
+		title: `${article.title} - First Calc`,
 		description: article.shortDescription || article.title,
 		keywords: keywordsString,
 		alternates: {

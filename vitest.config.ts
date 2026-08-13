@@ -11,7 +11,7 @@ export default defineConfig({
 		exclude: ['node_modules', '.next', 'e2e'],
 		coverage: {
 			provider: 'v8',
-			reporter: ['text', 'json', 'html'],
+			reporter: ['text', 'json'],
 			exclude: [
 				'node_modules/',
 				'tests/',
@@ -32,4 +32,3 @@ export default defineConfig({
 		jsx: 'automatic',
 	},
 })
-

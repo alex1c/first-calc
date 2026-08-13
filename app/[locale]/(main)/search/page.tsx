@@ -28,7 +28,7 @@ export async function generateMetadata({
 	const { q } = searchParams
 
 	return {
-		title: q ? `Search: ${q} - Calculator Portal` : 'Search - Calculator Portal',
+		title: q ? `Search: ${q} - First Calc` : 'Search - First Calc',
 		description: q
 			? `Search results for "${q}" in calculators, standards, and articles`
 			: 'Search calculators, standards, and articles',

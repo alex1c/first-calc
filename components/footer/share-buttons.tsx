@@ -1,9 +1,12 @@
 "use client"
 
 import { useEffect, useState } from 'react'
+import type { Locale } from '@/lib/i18n'
+import { useClientT } from '@/lib/i18n/useClientT'
 
 interface ShareButtonsProps {
 	className?: string
+	locale: Locale
 }
 
 const socialTargets = [
@@ -46,7 +49,8 @@ const socialTargets = [
 	},
 ]
 
-export function ShareButtons({ className }: ShareButtonsProps) {
+export function ShareButtons({ className, locale }: ShareButtonsProps) {
+	const t = useClientT(locale, ['footer'])
 	const [currentUrl, setCurrentUrl] = useState('')
 	const [copied, setCopied] = useState(false)
 	const [supportsWebShare, setSupportsWebShare] = useState(false)
@@ -76,7 +80,7 @@ export function ShareButtons({ className }: ShareButtonsProps) {
 		try {
 			await navigator.share({
 				title: document.title,
-				text: 'Check out this page on First-Calc',
+				text: t('footer.shareText'),
 				url: currentUrl,
 			})
 		} catch {
@@ -97,7 +101,7 @@ export function ShareButtons({ className }: ShareButtonsProps) {
 					<svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
 						<path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.22.09-.45.09-.69s-.04-.47-.09-.69l7.02-4.11A2.99 2.99 0 0 0 18 7.91a3 3 0 1 0-2.83-4A3 3 0 0 0 15 7.91c0 .24.04.47.09.69l-7.02 4.11a3 3 0 1 0 0 2.57l7.02 4.11c-.05.22-.09.45-.09.69a3 3 0 1 0 3-3Z" />
 					</svg>
-					{supportsWebShare ? 'Share' : copied ? 'Copied!' : 'Copy link'}
+					{supportsWebShare ? t('footer.share') : copied ? t('footer.copied') : t('footer.copyLink')}
 				</button>
 
 				{socialTargets.map((target) => (
@@ -116,4 +120,3 @@ export function ShareButtons({ className }: ShareButtonsProps) {
 		</div>
 	)
 }
-

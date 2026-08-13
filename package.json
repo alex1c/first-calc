@@ -6,6 +6,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
+		"start:standalone:test": "node scripts/start-standalone-test.mjs",
 		"lint": "next lint",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest",
@@ -23,6 +24,8 @@
 		"i18n:polish-ru": "tsx scripts/polish-ru-items.ts",
 		"smoke:legacy": "tsx scripts/smoke-legacy.ts",
 		"find:broken": "tsx scripts/find-broken-calculators.ts",
+		"seo:metadata-check": "node scripts/seo-metadata-check.mjs",
+		"quality:calculators": "node scripts/calculator-content-audit.mjs",
 		"import:calc1:batch": "tsx scripts/import-calc1-batch.ts"
 	},
 	"dependencies": {

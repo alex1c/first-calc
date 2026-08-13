@@ -3,12 +3,23 @@
 import { useState, useCallback } from 'react'
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 import { getSensibleDefault } from '@/lib/calculators/defaults'
+import type { CalculatorLocale } from '@/lib/calculators/types'
+import { parseLocalizedNumber } from '@/lib/numberFormat'
+import { useClientT } from '@/lib/i18n/useClientT'
 
 interface CalculatorFormProps {
 	calculator: CalculatorDefinitionClient
 	onCalculate: (inputs: Record<string, number | string | boolean>) => void
 	errors: Record<string, string>
+	locale: CalculatorLocale
 }
+
+const FORM_NAMESPACES = ['calculators/ui'] as const
+const LOCALE_DECIMAL_PILOT = new Set([
+	'square-root',
+	'cement-calculator',
+	'mortgage-calculator',
+])
 
 /**
  * Calculator form component
@@ -18,7 +29,10 @@ export function CalculatorForm({
 	calculator,
 	onCalculate,
 	errors,
+	locale,
 }: CalculatorFormProps) {
+	const t = useClientT(locale, FORM_NAMESPACES)
+	const usesLocaleDecimalInput = LOCALE_DECIMAL_PILOT.has(calculator.id)
 	const [inputs, setInputs] = useState<Record<string, number | string | boolean>>(() => {
 		const initial: Record<string, number | string | boolean> = {}
 		calculator.inputs.forEach((input) => {
@@ -93,9 +107,21 @@ export function CalculatorForm({
 	const handleSubmit = useCallback(
 		(e: React.FormEvent) => {
 			e.preventDefault()
-			onCalculate(inputs)
+			const normalizedInputs = { ...inputs }
+			if (usesLocaleDecimalInput) {
+				calculator.inputs
+					.filter((input) => input.type === 'number')
+					.forEach((input) => {
+						const value = normalizedInputs[input.name]
+						if (typeof value === 'string' && value.trim() !== '') {
+							const parsed = parseLocalizedNumber(value, locale)
+							if (parsed !== null) normalizedInputs[input.name] = parsed
+						}
+					})
+			}
+			onCalculate(normalizedInputs)
 		},
-		[inputs, onCalculate],
+		[calculator.inputs, inputs, locale, onCalculate, usesLocaleDecimalInput],
 	)
 
 	// Determine which inputs should be visible based on shape selection
@@ -128,7 +154,8 @@ export function CalculatorForm({
 					{input.type === 'number' && (
 						<>
 							<input
-								type="number"
+								type={usesLocaleDecimalInput ? 'text' : 'number'}
+								inputMode={usesLocaleDecimalInput ? 'decimal' : undefined}
 								id={input.name}
 								name={input.name}
 								value={(() => {
@@ -137,8 +164,12 @@ export function CalculatorForm({
 									if (typeof val === 'string') return val
 									return ''
 								})()}
-							onChange={(e) => {
+						onChange={(e) => {
 								const value = e.target.value
+								if (usesLocaleDecimalInput) {
+									handleInputChange(input.name, value)
+									return
+								}
 								// Allow empty string for clearing, or valid number
 								if (value === '' || !isNaN(parseFloat(value))) {
 									handleInputChange(
@@ -241,7 +272,7 @@ export function CalculatorForm({
 						>
 							{/* Only show placeholder if no default value and field is not required */}
 							{(!input.defaultValue && !input.validation?.required && !inputs[input.name]) && (
-								<option value="">Select...</option>
+								<option value="">{t('calculators/ui.form.select')}</option>
 							)}
 							{input.options.map((option) => (
 								<option key={option.value} value={option.value}>
@@ -265,9 +296,8 @@ export function CalculatorForm({
 				type="submit"
 				className="w-full bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 			>
-				Calculate
+				{t('calculators/ui.form.calculate')}
 			</button>
 		</form>
 	)
 }
-

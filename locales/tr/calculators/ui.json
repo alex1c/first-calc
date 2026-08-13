@@ -67,10 +67,13 @@
 		"placeholder": "Hesaplayıcı ara...",
 		"noResults": "Hesaplayıcı bulunamadı",
 		"results": "{count} hesaplayıcı bulundu"
-	}
+	},
+	"form": {
+		"calculate": "Hesapla",
+		"select": "Seçin..."
+	},
+	"card": { "howTo": "Nasıl kullanılır" }
 }
-
-
 
 
 
