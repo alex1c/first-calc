@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	experimental: {
+		// Calculator definitions are read through fs at request time. Dynamic paths
+		// cannot be discovered by Next.js output tracing automatically, so include
+		// them explicitly in the standalone runtime used by Docker.
+		outputFileTracingIncludes: {
+			'/*': ['./data/calculators/**/*.json'],
+		},
+	},
 	// Enable React strict mode
 	reactStrictMode: true,
 	// Enable standalone output for Docker
@@ -24,7 +32,6 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-
 
 
 

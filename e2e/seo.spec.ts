@@ -1,6 +1,36 @@
 import { test, expect } from '@playwright/test'
+import { existsSync } from 'node:fs'
+import path from 'node:path'
 
 test.describe('SEO Metadata', () => {
+	test('standalone calculator route renders JSON-LD in final HTML', async ({ request }) => {
+		// The Docker runtime contains only .next/standalone. This assertion guards
+		// runtime-loaded calculator definitions that Next.js cannot trace from a
+		// dynamic fs path.
+		expect(
+			existsSync(
+				path.join(
+					process.cwd(),
+					'.next',
+					'standalone',
+					'data',
+					'calculators',
+					'cement-calculator.json',
+				),
+			),
+		).toBe(true)
+
+		const response = await request.get(
+			'/ru/calculators/construction/cement-calculator',
+		)
+		expect(response.status()).toBe(200)
+
+		const html = await response.text()
+		expect(html).toContain('<script type="application/ld+json">')
+		expect(html).toContain('"@type":"BreadcrumbList"')
+		expect(html).toContain('"@type":"SoftwareApplication"')
+	})
+
 	test('should have non-empty title on calculator page', async ({ page }) => {
 		// Navigate to a calculator page
 		await page.goto('/calculators/math')
