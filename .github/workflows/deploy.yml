@@ -9,14 +9,15 @@ on:
             - main
     workflow_dispatch:
 
+permissions:
+    contents: read
+
 jobs:
     deploy:
         runs-on: ubuntu-latest
-        # Only one deployment at a time
         concurrency:
             group: deploy
             cancel-in-progress: false
-        # Only deploy if CI workflow succeeded
         if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
 
         steps:
@@ -25,128 +26,64 @@ jobs:
               with:
                   ref: ${{ github.event.workflow_run.head_branch || github.ref }}
 
-            - name: Setup SSH key
+            - name: Setup SSH
+              env:
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                  SERVER_HOST: ${{ secrets.SERVER_HOST }}
               run: |
-                  mkdir -p ~/.ssh
-                  chmod 700 ~/.ssh
-
-                  # Check if secret is set
-                  if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
-                      echo "ERROR: SSH_PRIVATE_KEY secret is not set!"
-                      echo "Please add SSH_PRIVATE_KEY secret in repository settings"
+                  set -euo pipefail
+                  if [ -z "${SSH_PRIVATE_KEY}" ] || [ -z "${SERVER_HOST}" ]; then
+                      echo "ERROR: Required deployment secrets are not configured."
                       exit 1
                   fi
 
-                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+                  install -d -m 700 ~/.ssh
+                  printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/deploy_key
                   chmod 600 ~/.ssh/deploy_key
+                  ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null
 
-                  # Verify key format
-                  echo "=== Key Format Check ==="
-                  echo "First line:"
-                  head -1 ~/.ssh/deploy_key
-                  echo "Last line:"
-                  tail -1 ~/.ssh/deploy_key
-                  echo "Key length:"
-                  wc -l ~/.ssh/deploy_key
-
-                  # Get public key from private and check fingerprint
-                  echo ""
-                  echo "=== Extracting Public Key ==="
-                  if ssh-keygen -y -f ~/.ssh/deploy_key > ~/.ssh/deploy_key.pub 2>&1; then
-                      echo "Public key extracted successfully"
-                      echo "Fingerprint:"
-                      ssh-keygen -lf ~/.ssh/deploy_key.pub
-                      echo ""
-                      echo "Expected fingerprint: SHA256:PwnqD/gRXu7Jb1OlJLX5+BjwIg98ljLfROqcYl5BPTE"
-                  else
-                      echo "ERROR: Failed to extract public key from private key"
-                      echo "This usually means the key format is incorrect"
+                  touch ~/.ssh/known_hosts
+                  chmod 600 ~/.ssh/known_hosts
+                  if ! ssh-keyscan -H "${SERVER_HOST}" >> ~/.ssh/known_hosts 2>/dev/null; then
+                      echo "ERROR: Could not obtain the deployment server host key."
                       exit 1
                   fi
-
-            - name: Add server to known hosts
-              run: |
-                  ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts || true
 
             - name: Test SSH connection
+              env:
+                  SERVER_HOST: ${{ secrets.SERVER_HOST }}
               run: |
-                  echo "=== Testing SSH Connection ==="
-                  echo "Using key: ~/.ssh/deploy_key"
-                  echo "Target: root@${{ secrets.SERVER_HOST }}"
-                  echo ""
-
-                  # Try connection with verbose output
-                  ssh -vv -i ~/.ssh/deploy_key \
-                      -o StrictHostKeyChecking=no \
+                  set -euo pipefail
+                  ssh -i ~/.ssh/deploy_key \
+                      -o BatchMode=yes \
                       -o IdentitiesOnly=yes \
                       -o PreferredAuthentications=publickey \
                       -o ConnectTimeout=10 \
-                      root@${{ secrets.SERVER_HOST }} 'echo "Connection successful"' 2>&1 | tail -30 || {
-                      echo ""
-                      echo "=== Connection failed ==="
-                      echo "Please check:"
-                      echo "1. Key fingerprint matches server"
-                      echo "2. Public key is in ~/.ssh/authorized_keys on server"
-                      echo "3. Key format is correct"
-                      exit 1
-                  }
+                      "root@${SERVER_HOST}" true
 
             - name: Deploy to server
               timeout-minutes: 15
+              env:
+                  SERVER_HOST: ${{ secrets.SERVER_HOST }}
               run: |
+                  set -euo pipefail
                   ssh -i ~/.ssh/deploy_key \
-                      -o StrictHostKeyChecking=no \
+                      -o BatchMode=yes \
                       -o IdentitiesOnly=yes \
                       -o PreferredAuthentications=publickey \
-                      root@${{ secrets.SERVER_HOST }} '
-                    set -e
-                    
-                    # Navigate to project directory
-                    PROJECT_DIR="/var/www/first-calc"
-                    mkdir -p $PROJECT_DIR
-                    cd $PROJECT_DIR
-                    
-                    # Pull latest changes from GitHub
-                    if [ -d ".git" ]; then
+                      "root@${SERVER_HOST}" 'bash -se' <<'REMOTE'
+                  PROJECT_DIR="/var/www/first-calc"
+                  mkdir -p "${PROJECT_DIR}"
+                  cd "${PROJECT_DIR}"
+
+                  if [ -d .git ]; then
                       echo "Updating repository..."
                       git fetch origin
                       git reset --hard origin/main
-                    else
+                  else
                       echo "Cloning repository..."
                       git clone https://github.com/alex1c/first-calc.git .
-                    fi
-                    
-                    # Stop existing container if running
-                    echo "Stopping existing container..."
-                    docker-compose down || true
-                    
-                    # Build and start new container
-                    echo "Building new container..."
-                    docker-compose build --no-cache
-                    
-                    echo "Starting container..."
-                    docker-compose up -d
-                    
-                    # Clean up old images
-                    echo "Cleaning up old Docker images..."
-                    docker image prune -f
-                    
-                    # Wait for container to be ready
-                    echo "Waiting for container to be ready..."
-                    sleep 15
-                    
-                    # Check if container is running
-                    if docker ps | grep -q first-calc; then
-                      echo "✓ Deployment successful!"
-                      echo "Container status:"
-                      docker ps | grep first-calc
-                      echo ""
-                      echo "Container logs (last 20 lines):"
-                      docker logs --tail 20 first-calc
-                    else
-                      echo "✗ Deployment failed - container is not running"
-                      echo "Container logs:"
-                      docker-compose logs
-                      exit 1
-                    fi
-                  '
+                  fi
+
+                  bash scripts/deploy-production.sh
+                  REMOTE
