@@ -16,7 +16,9 @@ test.describe('SEO Metadata', () => {
 		)
 		expect(html.match(/name="yandex-verification"/g)).toHaveLength(1)
 		expect(html.match(/name="google-site-verification"/g)).toHaveLength(1)
-		expect(html.match(/mc\.yandex\.ru\/watch\/48325316/g)).toHaveLength(1)
+		expect(
+			html.match(/<img[^>]*src="https:\/\/mc\.yandex\.ru\/watch\/48325316"/g),
+		).toHaveLength(1)
 	})
 
 	test('limited locale hub does not advertise English fallback calculators', async ({ request }) => {
