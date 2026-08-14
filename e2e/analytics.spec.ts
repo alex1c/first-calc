@@ -41,5 +41,5 @@ test('Metrika initializes once and tracks App Router navigation without a duplic
 	expect(initCalls).toHaveLength(1)
 	expect(hitCalls).toHaveLength(2)
 	expect(hitCalls[1][2]).toMatch(/\/calculators$/)
-	expect(hitCalls[1][3]).toMatchObject({ referer: expect.stringMatching(/first-calc/) })
+	expect(hitCalls[1][3]).toMatchObject({ referer: hitCalls[0][2] })
 })

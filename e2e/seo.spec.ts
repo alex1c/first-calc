@@ -3,7 +3,9 @@ import { existsSync } from 'node:fs'
 import path from 'node:path'
 
 test.describe('SEO Metadata', () => {
-	test('homepage renders Yandex verification and one Metrika installation', async ({ request }) => {
+	test('homepage renders webmaster verification and Metrika noscript fallback', async ({
+		request,
+	}) => {
 		const response = await request.get('/')
 		expect(response.status()).toBe(200)
 		const html = await response.text()
@@ -14,8 +16,6 @@ test.describe('SEO Metadata', () => {
 		)
 		expect(html.match(/name="yandex-verification"/g)).toHaveLength(1)
 		expect(html.match(/name="google-site-verification"/g)).toHaveLength(1)
-		expect(html.match(/id="yandex-metrika"/g)).toHaveLength(1)
-		expect(html.match(/mc\.yandex\.ru\/metrika\/tag\.js/g)).toHaveLength(1)
 		expect(html.match(/mc\.yandex\.ru\/watch\/48325316/g)).toHaveLength(1)
 	})
 
