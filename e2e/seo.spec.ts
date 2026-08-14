@@ -3,6 +3,22 @@ import { existsSync } from 'node:fs'
 import path from 'node:path'
 
 test.describe('SEO Metadata', () => {
+	test('homepage renders Yandex verification and one Metrika installation', async ({ request }) => {
+		const response = await request.get('/')
+		expect(response.status()).toBe(200)
+		const html = await response.text()
+
+		expect(html).toContain('name="yandex-verification" content="f30c8f5646bc778c"')
+		expect(html).toContain(
+			'name="google-site-verification" content="rB_ti1z-IpbQfE0HD2zpdqvV9gFwjOy167-U9BUwX7E"',
+		)
+		expect(html.match(/name="yandex-verification"/g)).toHaveLength(1)
+		expect(html.match(/name="google-site-verification"/g)).toHaveLength(1)
+		expect(html.match(/id="yandex-metrika"/g)).toHaveLength(1)
+		expect(html.match(/mc\.yandex\.ru\/metrika\/tag\.js/g)).toHaveLength(1)
+		expect(html.match(/mc\.yandex\.ru\/watch\/48325316/g)).toHaveLength(1)
+	})
+
 	test('limited locale hub does not advertise English fallback calculators', async ({ request }) => {
 		const response = await request.get('/es/calculators')
 		expect(response.status()).toBe(200)
