@@ -79,7 +79,7 @@ test.describe('SEO Metadata', () => {
 		const calculatorLink = page.getByRole('link').first()
 		if (await calculatorLink.isVisible()) {
 			await calculatorLink.click()
-			await page.waitForLoadState('networkidle')
+			await expect(page.locator('body')).toBeVisible()
 		} else {
 			// If no link, try direct navigation to a known calculator
 			// This is a fallback - adjust based on actual calculator slugs
@@ -99,7 +99,7 @@ test.describe('SEO Metadata', () => {
 		const calculatorLink = page.getByRole('link').first()
 		if (await calculatorLink.isVisible()) {
 			await calculatorLink.click()
-			await page.waitForLoadState('networkidle')
+			await expect(page.locator('body')).toBeVisible()
 		}
 		
 		// Check for canonical link
@@ -111,5 +111,4 @@ test.describe('SEO Metadata', () => {
 		}
 	})
 })
-
 
