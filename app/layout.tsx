@@ -44,6 +44,15 @@ export default function RootLayout({
 		: 'en'
 	return (
 		<html lang={locale}>
+			<head>
+				{/* Yandex Autoplacement 19853636 */}
+				<script src="https://yandex.ru/ads/system/context.js" async />
+				<script
+					data-page-id="19853636"
+					src="https://yandex.ru/ads/system/ap-loader.js"
+					async
+				/>
+			</head>
 			<body>
 				<YandexMetrika />
 				<noscript>
@@ -65,7 +74,6 @@ export default function RootLayout({
 		</html>
 	)
 }
-
 
 
 
