@@ -21,6 +21,20 @@ test.describe('SEO Metadata', () => {
 		).toHaveLength(1)
 	})
 
+	test('homepage renders Yandex Autoplacement scripts once', async ({ request }) => {
+		const response = await request.get('/')
+		expect(response.ok()).toBe(true)
+
+		const html = await response.text()
+		expect(
+			html.match(/<script[^>]*src="https:\/\/yandex\.ru\/ads\/system\/context\.js"[^>]*>/g),
+		).toHaveLength(1)
+		expect(
+			html.match(/<script[^>]*src="https:\/\/yandex\.ru\/ads\/system\/ap-loader\.js"[^>]*>/g),
+		).toHaveLength(1)
+		expect(html.match(/data-page-id="19853636"/g)).toHaveLength(1)
+	})
+
 	test('limited locale hub does not advertise English fallback calculators', async ({ request }) => {
 		const response = await request.get('/es/calculators')
 		expect(response.status()).toBe(200)
@@ -97,7 +111,5 @@ test.describe('SEO Metadata', () => {
 		}
 	})
 })
-
-
 
 
