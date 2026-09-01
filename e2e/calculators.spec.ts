@@ -31,8 +31,8 @@ test.describe('Calculators Navigation', () => {
 		if (await calculatorLink.isVisible()) {
 			await calculatorLink.click()
 			
-			// Wait for calculator page to load
-			await page.waitForLoadState('networkidle')
+			// Third-party analytics and ads may keep network requests active.
+			await expect(page.locator('body')).toBeVisible()
 			
 			// Try to find input field and calculate button
 			const input = page.locator('input[type="number"]').first()
@@ -52,7 +52,6 @@ test.describe('Calculators Navigation', () => {
 		}
 	})
 })
-
 
 
 
