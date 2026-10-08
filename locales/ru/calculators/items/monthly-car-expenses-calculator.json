@@ -1,133 +1,115 @@
 {
-	"title": "Калькулятор ежемесячных расходов на авто",
-	"shortDescription": "Посчитайте все месячные расходы на машину: страховка, топливо, ТО, кредит и прочее.",
-	"longDescription": "Калькулятор суммирует фиксированные и переменные месячные расходы на автомобиль и показывает стоимость дня и единицы пробега.",
+	"title": "Калькулятор месячных расходов на авто",
+	"shortDescription": "Сумма расходов в месяц: страховка, топливо, ТО, кредит и прочее.",
+	"longDescription": "Соберите все ежемесячные траты на автомобиль в одном месте: фиксированные (страховка, кредит, парковка, регистрация) и переменные (топливо, ТО, ремонт). Удобно для бюджета, поиска экономии и сравнения «с кредитом» и «без кредита». Показывает итог в месяц, в день и на mile.",
 	"inputs": [
 		{
 			"label": "Страховка в месяц",
 			"unitLabel": "₽",
-			"placeholder": "Введите monthly insurance cost",
-			"helpText": "Your monthly car insurance premium"
+			"placeholder": "Введите страховку",
+			"helpText": "Ежемесячный платёж по полису"
 		},
 		{
 			"label": "Парковка в месяц",
 			"unitLabel": "₽",
-			"placeholder": "Введите monthly parking cost",
-			"helpText": "Monthly parking fees (if applicable)"
+			"placeholder": "Введите парковку",
+			"helpText": "Аренда места или муниципальная парковка"
 		},
 		{
-			"label": "Платёж по кредиту в месяц",
+			"label": "Платёж по кредиту",
 			"unitLabel": "₽",
-			"placeholder": "Введите monthly loan payment",
-			"helpText": "Monthly car loan payment (if you have a loan, otherwise leave as 0)"
+			"placeholder": "Введите платёж",
+			"helpText": "Ежемесячный автокредит (0, если авто без кредита)"
 		},
 		{
 			"label": "Регистрация в месяц",
 			"unitLabel": "₽",
-			"placeholder": "Введите monthly registration cost",
-			"helpText": "Monthly portion of annual registration fees (annual fee ÷ 12)"
+			"placeholder": "Введите регистрацию",
+			"helpText": "Годовой сбор ÷ 12"
 		},
 		{
-			"label": "Способ учёта топлива",
+			"label": "Способ расчёта топлива",
 			"unitLabel": "",
-			"placeholder": "Выберите fuel cost method",
-			"helpText": "Choose to enter monthly fuel cost directly or calculate from fuel price and mileage"
+			"placeholder": "Выберите способ",
+			"helpText": "Сумма в месяц напрямую или из цены, расхода и пробега"
 		},
 		{
-			"label": "Расход на топливо в месяц",
+			"label": "Топливо в месяц",
 			"unitLabel": "₽",
-			"placeholder": "Введите monthly fuel cost",
-			"helpText": "Total amount spent on fuel per month"
+			"placeholder": "Введите сумму",
+			"helpText": "Сколько тратите на топливо за месяц"
 		},
 		{
-			"label": "Цена топлива",
+			"label": "Цена топлива за единицу",
 			"unitLabel": "₽",
-			"placeholder": "Введите fuel price per gallon/liter",
-			"helpText": "Current fuel price per gallon (US) or liter"
+			"placeholder": "Введите цену",
+			"helpText": "За литр или gallon"
 		},
 		{
 			"label": "Расход топлива",
-			"unitLabel": "units per 100 miles",
-			"placeholder": "Введите fuel consumption",
-			"helpText": "Fuel consumption (e.g., 25 MPG = 4 gallons per 100 miles)"
+			"unitLabel": "на 100 miles",
+			"placeholder": "Введите расход",
+			"helpText": "Например, 25 MPG ≈ 4 gallons на 100 miles"
 		},
 		{
 			"label": "Пробег в месяц",
 			"unitLabel": "miles",
-			"placeholder": "Введите monthly mileage",
-			"helpText": "Average miles driven per month"
+			"placeholder": "Введите пробег",
+			"helpText": "Средний пробег за месяц"
 		},
 		{
-			"label": "Обслуживание в месяц",
+			"label": "ТО в месяц",
 			"unitLabel": "₽",
-			"placeholder": "Введите monthly maintenance cost",
-			"helpText": "Average monthly maintenance costs (oil changes, tire rotations, etc.)"
+			"placeholder": "Введите ТО",
+			"helpText": "Средние плановые расходы на обслуживание"
 		},
 		{
 			"label": "Ремонт в месяц",
 			"unitLabel": "₽",
-			"placeholder": "Введите monthly repair cost",
-			"helpText": "Average monthly repair costs (optional, can be 0)"
+			"placeholder": "Введите ремонт",
+			"helpText": "Средний внеплановый ремонт (можно 0)"
 		},
 		{
-			"label": "Прочие ежемесячные расходы",
+			"label": "Прочие расходы",
 			"unitLabel": "₽",
-			"placeholder": "Введите other monthly costs",
-			"helpText": "Any other monthly car-related expenses (tolls, car washes, etc.)"
+			"placeholder": "Введите прочее",
+			"helpText": "Платные дороги, мойка и т.д."
 		}
 	],
 	"outputs": [
-		{
-			"label": "Фиксированные расходы",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Переменные расходы",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Общие расходы в месяц",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Стоимость в день",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Стоимость на единицу пробега",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Стоимость топлива",
-			"unitLabel": "₽"
-		}
+		{ "label": "Фиксированные расходы", "unitLabel": "₽" },
+		{ "label": "Переменные расходы", "unitLabel": "₽" },
+		{ "label": "Итого в месяц", "unitLabel": "₽" },
+		{ "label": "В день", "unitLabel": "₽" },
+		{ "label": "На mile", "unitLabel": "₽" },
+		{ "label": "Стоимость топлива", "unitLabel": "₽" }
 	],
 	"howTo": [
-		"Введите your monthly car insurance premium",
-		"Введите monthly parking costs (if applicable)",
-		"Введите your monthly car loan payment (if you have a loan, otherwise enter 0)",
-		"Введите monthly registration cost (divide annual registration by 12)",
-		"Выберите how to enter fuel costs:",
-		"  - Option 1: Enter your total monthly fuel cost directly",
-		"  - Option 2: Calculate from fuel price, consumption, and monthly mileage",
-		"Введите your average monthly maintenance costs",
-		"Введите average monthly repair costs (optional, can be 0)",
-		"Введите any other monthly car-related expenses",
-		"Нажмите «Рассчитать» to see your total monthly car expenses",
-		"Проверьте the breakdown to see fixed vs variable costs",
-		"Проверьте cost per day and cost per mile for budgeting insights"
+		"Введите ежемесячную страховую премию",
+		"Введите парковку в месяц (если есть)",
+		"Введите платёж по автокредиту (если нет кредита — 0)",
+		"Введите регистрацию в месяц (годовой сбор ÷ 12)",
+		"Выберите способ ввода топлива:",
+		"  — Вариант 1: сумма на топливо в месяц напрямую",
+		"  — Вариант 2: расчёт из цены, расхода и пробега за месяц",
+		"Введите средние расходы на ТО в месяц",
+		"Введите средний ремонт в месяц (необязательно, можно 0)",
+		"Введите прочие ежемесячные траты на авто",
+		"Нажмите «Рассчитать» для итога в месяц",
+		"Сравните фиксированные и переменные расходы",
+		"Смотрите стоимость в день и на mile для бюджета"
 	],
 	"examples": [
 		{
-			"title": "Пример 1: City Commuter",
-			"description": "A commuter driving 1,000 miles per month in the city with no car loan",
+			"title": "Пример 1: городской коммьютер",
+			"description": "1 000 miles/мес., без кредита",
 			"inputs": {
 				"insuranceMonthly": 120,
 				"parkingMonthly": 150,
 				"loanPaymentMonthly": 0,
 				"registrationMonthly": 20,
 				"useFuelCalculation": "true",
-				"fuelPrice": 3.5,
+				"fuelPrice": 3.50,
 				"fuelConsumption": 28,
 				"mileage": 1000,
 				"maintenanceMonthly": 50,
@@ -135,19 +117,14 @@
 				"otherMonthly": 0
 			},
 			"steps": [
-				"Fixed costs: Insurance ₽120 + Parking ₽150 + Loan ₽0 + Registration ₽20 = ₽290/month",
-				"Monthly mileage: 1,000 miles",
-				"Fuel calculation: (1,000 miles ÷ 100) × 28 MPG = 35.71 gallons needed",
-				"Fuel cost: 35.71 gallons × ₽3.50/gallon = ₽125.00/month",
-				"Variable costs: Fuel ₽125 + Maintenance ₽50 + Repairs ₽0 + Other ₽0 = ₽175/month",
-				"Total monthly cost: ₽290 (fixed) + ₽175 (variable) = ₽465.00/month",
-				"Cost per day: ₽465 ÷ 30 days = ₽15.50/day",
-				"Cost per mile: ₽465 ÷ 1,000 miles = ₽0.465/mile"
+				"Фикс.: 120 + 150 + 0 + 20 = 290 ₽",
+				"Топливо ~125 ₽; переменные ~175 ₽",
+				"Итого ~465 ₽/мес., ~15,50 ₽/день"
 			]
 		},
 		{
-			"title": "Пример 2: Car with Loan",
-			"description": "A newer car with a monthly loan payment and higher insurance",
+			"title": "Пример 2: авто в кредите",
+			"description": "Кредит 450 ₽/мес.",
 			"inputs": {
 				"insuranceMonthly": 180,
 				"parkingMonthly": 0,
@@ -160,17 +137,14 @@
 				"otherMonthly": 30
 			},
 			"steps": [
-				"Fixed costs: Insurance ₽180 + Parking ₽0 + Loan ₽450 + Registration ₽25 = ₽655/month",
-				"Variable costs: Fuel ₽250 + Maintenance ₽80 + Repairs ₽0 + Other ₽30 = ₽360/month",
-				"Total monthly cost: ₽655 (fixed) + ₽360 (variable) = ₽1,015.00/month",
-				"Cost per day: ₽1,015 ÷ 30 days = ₽33.83/day",
-				"Note: Loan payment is the largest fixed cost at ₽450/month",
-				"Comparison: Without loan, monthly cost would be ₽565 (44% reduction)"
+				"Фикс. 655 ₽, переменные 360 ₽",
+				"Итого ~1 015 ₽/мес.",
+				"Без кредита было бы ~565 ₽"
 			]
 		},
 		{
-			"title": "Пример 3: Older Car, Higher Repairs",
-			"description": "An older vehicle with no loan but higher maintenance and repair costs",
+			"title": "Пример 3: старшее авто",
+			"description": "Больше ТО и ремонта, без кредита",
 			"inputs": {
 				"insuranceMonthly": 90,
 				"parkingMonthly": 50,
@@ -185,27 +159,19 @@
 				"otherMonthly": 0
 			},
 			"steps": [
-				"Fixed costs: Insurance ₽90 + Parking ₽50 + Loan ₽0 + Registration ₽15 = ₽155/month",
-				"Monthly mileage: 1,200 miles",
-				"Fuel calculation: (1,200 miles ÷ 100) × 22 MPG = 54.55 gallons needed",
-				"Fuel cost: 54.55 gallons × ₽3.75/gallon = ₽204.55/month",
-				"Variable costs: Fuel ₽204.55 + Maintenance ₽100 + Repairs ₽75 + Other ₽0 = ₽379.55/month",
-				"Total monthly cost: ₽155 (fixed) + ₽379.55 (variable) = ₽534.55/month",
-				"Cost per day: ₽534.55 ÷ 30 days = ₽17.82/day",
-				"Cost per mile: ₽534.55 ÷ 1,200 miles = ₽0.446/mile",
-				"Note: Older cars have higher maintenance and repair costs, but no loan payment"
+				"Топливо ~205 ₽; итого ~535 ₽/мес."
 			]
 		},
 		{
-			"title": "Пример 4: High Mileage Driver",
-			"description": "Someone who drives 2,000 miles per month for work",
+			"title": "Пример 4: большой пробег",
+			"description": "2 000 miles/мес.",
 			"inputs": {
 				"insuranceMonthly": 150,
 				"parkingMonthly": 0,
 				"loanPaymentMonthly": 300,
 				"registrationMonthly": 20,
 				"useFuelCalculation": "true",
-				"fuelPrice": 3.6,
+				"fuelPrice": 3.60,
 				"fuelConsumption": 30,
 				"mileage": 2000,
 				"maintenanceMonthly": 120,
@@ -213,27 +179,19 @@
 				"otherMonthly": 50
 			},
 			"steps": [
-				"Fixed costs: Insurance ₽150 + Parking ₽0 + Loan ₽300 + Registration ₽20 = ₽470/month",
-				"Monthly mileage: 2,000 miles (high mileage driver)",
-				"Fuel calculation: (2,000 miles ÷ 100) × 30 MPG = 66.67 gallons needed",
-				"Fuel cost: 66.67 gallons × ₽3.60/gallon = ₽240.00/month",
-				"Variable costs: Fuel ₽240 + Maintenance ₽120 + Repairs ₽0 + Other ₽50 = ₽410/month",
-				"Total monthly cost: ₽470 (fixed) + ₽410 (variable) = ₽880.00/month",
-				"Cost per day: ₽880 ÷ 30 days = ₽29.33/day",
-				"Cost per mile: ₽880 ÷ 2,000 miles = ₽0.44/mile",
-				"Note: High mileage increases fuel and maintenance costs significantly"
+				"Топливо ~240 ₽; итого ~880 ₽/мес."
 			]
 		},
 		{
-			"title": "Пример 5: Minimal Expenses, Paid Off Car",
-			"description": "A paid-off car with minimal monthly expenses",
+			"title": "Пример 5: без кредита, минимум",
+			"description": "800 miles/мес.",
 			"inputs": {
 				"insuranceMonthly": 80,
 				"parkingMonthly": 0,
 				"loanPaymentMonthly": 0,
 				"registrationMonthly": 12,
 				"useFuelCalculation": "true",
-				"fuelPrice": 3.5,
+				"fuelPrice": 3.50,
 				"fuelConsumption": 32,
 				"mileage": 800,
 				"maintenanceMonthly": 40,
@@ -241,82 +199,76 @@
 				"otherMonthly": 0
 			},
 			"steps": [
-				"Fixed costs: Insurance ₽80 + Parking ₽0 + Loan ₽0 + Registration ₽12 = ₽92/month",
-				"Monthly mileage: 800 miles (low mileage driver)",
-				"Fuel calculation: (800 miles ÷ 100) × 32 MPG = 25.00 gallons needed",
-				"Fuel cost: 25.00 gallons × ₽3.50/gallon = ₽87.50/month",
-				"Variable costs: Fuel ₽87.50 + Maintenance ₽40 + Repairs ₽20 + Other ₽0 = ₽147.50/month",
-				"Total monthly cost: ₽92 (fixed) + ₽147.50 (variable) = ₽239.50/month",
-				"Cost per day: ₽239.50 ÷ 30 days = ₽7.98/day",
-				"Cost per mile: ₽239.50 ÷ 800 miles = ₽0.299/mile",
-				"Note: Paid-off cars have much lower monthly costs, especially without loan payments"
+				"Итого ~240 ₽/мес., ~8 ₽/день"
 			]
 		}
 	],
 	"faq": [
 		{
-			"question": "What counts as car expenses?",
-			"answer": "Car expenses include all costs associated with owning and operating your vehicle: insurance, fuel, maintenance, repairs, loan payments, registration fees, parking, tolls, car washes, and any other vehicle-related costs. This calculator helps you track all of these monthly expenses."
+			"question": "Что входит в расходы на авто?",
+			"answer": "Страховка, топливо, ТО, ремонт, кредит, регистрация, парковка, платные дороги и любые траты, связанные с машиной."
 		},
 		{
-			"question": "What's the difference between fuel and maintenance costs?",
-			"answer": "Fuel costs are the money you spend on gasoline or diesel to power your car. Maintenance costs are regular services to keep your car running properly, such as oil changes, tire rotations, brake pad replacements, and scheduled service visits. Repairs are separate and cover unexpected issues like engine problems or transmission failures."
+			"question": "Топливо и ТО — в чём разница?",
+			"answer": "Топливо — на поездки. ТО — регламент (масло, фильтры). Ремонт — неожиданные поломки."
 		},
 		{
-			"question": "Does this calculator include depreciation?",
-			"answer": "No, this calculator focuses on monthly cash expenses you actually pay. Depreciation is a non-cash expense that represents the loss in your car's value over time. For a complete picture including depreciation, use our Car Cost of Ownership Calculator."
+			"question": "Есть ли амортизация?",
+			"answer": "Нет — только деньги, которые вы платите каждый месяц. Амортизация — в калькуляторе полной стоимости владения."
 		},
 		{
-			"question": "How can I reduce my monthly car costs?",
-			"answer": "Several strategies can help: shop around for better insurance rates, drive less to reduce fuel costs, maintain your car well to avoid major repairs, consider refinancing your loan for a lower payment, use public transportation when possible, and eliminate unnecessary expenses like premium car washes or expensive parking."
+			"question": "Как снизить расходы?",
+			"answer": "Сравните страховки, сократите пробег, обслуживайте вовремя, рефинансируйте кредит, откажитесь от лишних трат."
 		},
 		{
-			"question": "Should I include my car loan payment?",
-			"answer": "Yes, if you have a car loan, include your monthly payment in the loan payment field. This is a fixed monthly expense that's part of your total car ownership cost. If you own your car outright, enter 0 for the loan payment."
+			"question": "Учитывать кредит?",
+			"answer": "Да, если платите автокредит — это фиксированная статья. Если машина ваша — 0."
 		},
 		{
-			"question": "How do I calculate monthly registration cost?",
-			"answer": "Divide your annual vehicle registration fee by 12. For example, if your annual registration is ₽240, your monthly cost is ₽20. Some states have different fee structures, so check your registration documents for the exact annual amount."
+			"question": "Регистрация в месяц?",
+			"answer": "Годовой транспортный налог и сборы ÷ 12."
 		},
 		{
-			"question": "Which fuel cost method should I use?",
-			"answer": "If you know your exact monthly fuel spending, use 'Enter Monthly Fuel Cost'. If you want to calculate it from your driving habits, use 'Calculate from Price & Mileage'. The calculation method is useful for budgeting or comparing different vehicles."
+			"question": "Как вводить топливо?",
+			"answer": "Если знаете факт — введите сумму. Иначе рассчитайте из цены АЗС, расхода и km/miles за месяц."
 		},
 		{
-			"question": "What if I don't drive every month?",
-			"answer": "Enter your average monthly expenses. If you drive seasonally or have мес. with no driving, you can calculate an average by adding up your annual expenses and dividing by 12. This gives you a more accurate picture of your typical monthly costs."
+			"question": "Езжу не каждый месяц?",
+			"answer": "Введите среднее: годовые траты ÷ 12."
 		},
 		{
-			"question": "How accurate is this calculator?",
-			"answer": "The calculator is as accurate as the information you provide. Actual costs will vary based on your driving habits, vehicle condition, location, and unexpected expenses. Use it as a budgeting tool and update the values regularly as your expenses change."
+			"question": "Точность?",
+			"answer": "Зависит от ваших данных. Обновляйте по мере изменения расходов."
 		},
 		{
-			"question": "What's the difference between fixed and variable costs?",
-			"answer": "Fixed costs (insurance, loan, parking, registration) stay the same each month regardless of how much you drive. Variable costs (fuel, maintenance, repairs) change based on your driving habits and vehicle condition. Understanding this helps with budgeting."
+			"question": "Фиксированные vs переменные?",
+			"answer": "Фиксированные не зависят от пробега (страховка, кредит). Переменные — топливо, ТО, ремонт."
 		},
 		{
-			"question": "Should I include car washes and detailing?",
-			"answer": "Yes, include these in 'Other Monthly Costs' if they're regular expenses. However, if they're occasional or optional, you might exclude them to see your essential monthly costs. The calculator is flexible - include what matters for your budgeting needs."
+			"question": "Мойка и детейлинг?",
+			"answer": "В «Прочие расходы», если регулярно платите."
 		},
 		{
-			"question": "How does this differ from the Cost of Ownership Calculator?",
-			"answer": "This calculator focuses on monthly cash expenses you pay each month. The Cost of Ownership Calculator looks at total costs over several лет, including depreciation. Use this calculator for monthly budgeting and the Cost of Ownership Calculator for long-term planning."
+			"question": "Отличие от TCO-калькулятора?",
+			"answer": "Здесь — ежемесячные выплаты «из кармана». Полная стоимость владения — на несколько лет с амортизацией."
 		},
 		{
-			"question": "What if my repair costs vary greatly each month?",
-			"answer": "Enter an average monthly repair cost. You can calculate this by adding up your annual repair expenses and dividing by 12. This smooths out the variability and gives you a better picture of your typical monthly costs."
+			"question": "Неровный ремонт по месяцам?",
+			"answer": "Введите среднее: годовые ремонты ÷ 12."
 		},
 		{
-			"question": "Can I use this for multiple vehicles?",
-			"answer": "Yes! Run the calculator separately for each vehicle and add the results together to see your total monthly car expenses across all vehicles. This is helpful for households with multiple cars."
+			"question": "Несколько машин?",
+			"answer": "Посчитайте каждую отдельно и сложите итоги."
 		}
 	],
 	"seo": {
-		"title": "Ежемесячные расходы на автомобиль – калькулятор",
-		"description": "Рассчитайте, сколько машина обходится в месяц: страховка, топливо, кредит, ТО и другие траты.",
+		"title": "Месячные расходы на автомобиль — калькулятор бюджета",
+		"description": "Сколько стоит содержать машину в месяц: кредит, страховка, бензин, ТО и парковка в ₽. Фиксированные и переменные траты.",
 		"keywords": [
 			"расходы на авто в месяц",
-			"сколько стоит содержать машину"
+			"сколько стоит машина в месяц",
+			"бюджет на автомобиль",
+			"калькулятор расходов на машину"
 		]
 	}
 }

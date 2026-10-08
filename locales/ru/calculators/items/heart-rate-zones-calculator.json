@@ -1,245 +1,197 @@
 {
-	"title": "Калькулятор пульсовых зон – Тренировочные зоны по возрасту",
-	"shortDescription": "Рассчитайте пульсовые зоны по возрасту. Найдите диапазоны для жиросжигания, кардио и выносливости.",
-	"longDescription": "Калькулятор пульсовых зон оценивает максимальную ЧСС и зоны 1–5 для тренировок. Можно учесть пульс в покое (метод Карвонена) для более персональной оценки.",
+	"title": "Калькулятор пульсовых зон – тренировочные зоны по возрасту",
+	"shortDescription": "Рассчитайте пульсовые зоны по возрасту. Диапазоны для жиросжигания, кардио и выносливости.",
+	"longDescription": "Калькулятор пульсовых зон помогает определить целевые диапазоны частоты сердечных сокращений для тренировок. Работа в нужной зоне поддерживает разные цели — от восстановления до пиковой нагрузки. Укажите возраст и при желании пульс покоя для метода Karvonen — вы увидите пять зон с диапазонами ударов в минуту и назначением. Понимание зон делает тренировки эффективнее и безопаснее.",
 	"inputs": [
 		{
 			"label": "Возраст",
 			"unitLabel": "лет",
 			"placeholder": "Введите возраст",
-			"helpText": "Your age in лет (used to calculate maximum heart rate)"
+			"helpText": "Возраст в годах (для расчёта максимального пульса)"
 		},
 		{
-			"label": "Пульс в покое",
-			"unitLabel": "bpm",
-			"placeholder": "Введите resting HR (optional)",
-			"helpText": "Optional: Your resting heart rate in beats per minute (required for Karvonen method). Measure when you wake up in the morning."
+			"label": "Пульс покоя",
+			"unitLabel": "уд/мин",
+			"placeholder": "Пульс покоя (необяз.)",
+			"helpText": "Необязательно: пульс в покое (нужен для метода Karvonen). Измеряйте утром после пробуждения."
 		},
 		{
 			"label": "Метод",
 			"unitLabel": "",
 			"placeholder": "Выберите метод",
-			"helpText": "Max HR Method (220 - age) or Karvonen Method (more personalized, requires resting HR)"
+			"helpText": "Max HR (220 − возраст) или Karvonen (точнее, нужен пульс покоя)"
 		}
 	],
 	"outputs": [
-		{
-			"label": "Макс. пульс",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 1 мин.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 1 макс.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 2 мин.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 2 макс.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 3 мин.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 3 макс.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 4 мин.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 4 макс.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 5 мин.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Зона 5 макс.",
-			"unitLabel": "bpm"
-		},
-		{
-			"label": "Использованный метод",
-			"unitLabel": ""
-		},
-		{
-			"label": "Пояснения",
-			"unitLabel": ""
-		}
+		{ "label": "Максимальный пульс", "unitLabel": "уд/мин" },
+		{ "label": "Зона 1 мин", "unitLabel": "уд/мин" },
+		{ "label": "Зона 1 макс", "unitLabel": "уд/мин" },
+		{ "label": "Зона 2 мин", "unitLabel": "уд/мин" },
+		{ "label": "Зона 2 макс", "unitLabel": "уд/мин" },
+		{ "label": "Зона 3 мин", "unitLabel": "уд/мин" },
+		{ "label": "Зона 3 макс", "unitLabel": "уд/мин" },
+		{ "label": "Зона 4 мин", "unitLabel": "уд/мин" },
+		{ "label": "Зона 4 макс", "unitLabel": "уд/мин" },
+		{ "label": "Зона 5 мин", "unitLabel": "уд/мин" },
+		{ "label": "Зона 5 макс", "unitLabel": "уд/мин" },
+		{ "label": "Использованный метод", "unitLabel": "" },
+		{ "label": "Пояснения", "unitLabel": "" }
 	],
 	"howTo": [
-		"Введите your age in лет",
-		"При желании enter your resting heart rate (beats per minute)",
-		"Выберите calculation method:",
-		"  - Max HR Method: Simple formula (220 - age), no resting HR needed",
-		"  - Karvonen Method: More personalized, requires resting HR",
-		"Если используете Karvonen method, ensure resting heart rate is entered",
-		"Нажмите «Рассчитать» to see your heart rate zones",
-		"Проверьте the five training zones and their heart rate ranges",
-		"Учтите the purpose of each zone (recovery, fat burn, cardio, threshold, peak)",
-		"Используйте these zones to guide your training intensity",
-		"Monitor your heart rate during exercise to stay in your target zone"
+		"Введите возраст в годах",
+		"При желании укажите пульс покоя (уд/мин)",
+		"Выберите метод расчёта:",
+		"  — Max HR: формула 220 − возраст, пульс покоя не нужен",
+		"  — Karvonen: персональнее, нужен пульс покоя",
+		"Для Karvonen обязательно заполните пульс покоя",
+		"Нажмите «Рассчитать», чтобы увидеть зоны",
+		"Изучите пять зон и их диапазоны",
+		"Учитывайте назначение зон: восстановление, жир, кардио, порог, пик",
+		"Используйте зоны для выбора интенсивности",
+		"Во время тренировки следите за пульсом, чтобы оставаться в целевой зоне"
 	],
 	"examples": [
 		{
-			"title": "Пример 1: Age 30 → Zones",
-			"description": "A 30-year-old person using the simple max HR method",
-			"inputs": {
-				"age": 30,
-				"method": "simple"
-			},
+			"title": "Пример 1: 30 лет → зоны",
+			"description": "Человек 30 лет, простой метод max HR",
+			"inputs": { "age": 30, "method": "simple" },
 			"steps": [
-				"Age: 30 лет",
-				"Method: Max HR (220 - age)",
-				"Calculate Max HR: 220 - 30 = 190 bpm",
-				"Zone 1 (50-60%): 190 × 0.50 = 95, 190 × 0.60 = 114 → 95-114 bpm",
-				"Zone 2 (60-70%): 190 × 0.60 = 114, 190 × 0.70 = 133 → 114-133 bpm",
-				"Zone 3 (70-80%): 190 × 0.70 = 133, 190 × 0.80 = 152 → 133-152 bpm",
-				"Zone 4 (80-90%): 190 × 0.80 = 152, 190 × 0.90 = 171 → 152-171 bpm",
-				"Zone 5 (90-100%): 190 × 0.90 = 171, 190 × 1.00 = 190 → 171-190 bpm"
+				"Возраст: 30 лет",
+				"Метод: max HR (220 − возраст)",
+				"Max HR: 220 − 30 = 190 уд/мин",
+				"Зона 1 (50–60%): 190 × 0,50 = 95, 190 × 0,60 = 114 → 95–114 уд/мин",
+				"Зона 2 (60–70%): 190 × 0,60 = 114, 190 × 0,70 = 133 → 114–133 уд/мин",
+				"Зона 3 (70–80%): 190 × 0,70 = 133, 190 × 0,80 = 152 → 133–152 уд/мин",
+				"Зона 4 (80–90%): 190 × 0,80 = 152, 190 × 0,90 = 171 → 152–171 уд/мин",
+				"Зона 5 (90–100%): 190 × 0,90 = 171, 190 × 1,00 = 190 → 171–190 уд/мин"
 			],
-			"result": "For a 30-year-old, the maximum heart rate is 190 bpm. Zone 1 (95-114 bpm) is for recovery, Zone 2 (114-133 bpm) is the fat-burning zone, Zone 3 (133-152 bpm) improves cardiovascular fitness, Zone 4 (152-171 bpm) is the anaerobic threshold zone, and Zone 5 (171-190 bpm) is maximum effort. Most people spend most of their training time in Zones 2 and 3."
+			"result": "При 30 годах max HR ≈ 190 уд/мин. Зона 1 (95–114) — восстановление, зона 2 (114–133) — «жиросжигание», зона 3 (133–152) — аэробное кардио, зона 4 (152–171) — порог, зона 5 (171–190) — максимум. Большую часть времени обычно проводят в зонах 2–3."
 		},
 		{
-			"title": "Пример 2: Age 45 → Zones",
-			"description": "A 45-year-old person using the simple max HR method",
-			"inputs": {
-				"age": 45,
-				"method": "simple"
-			},
+			"title": "Пример 2: 45 лет → зоны",
+			"description": "Человек 45 лет, метод max HR",
+			"inputs": { "age": 45, "method": "simple" },
 			"steps": [
-				"Age: 45 лет",
-				"Method: Max HR (220 - age)",
-				"Calculate Max HR: 220 - 45 = 175 bpm",
-				"Zone 1 (50-60%): 175 × 0.50 = 88, 175 × 0.60 = 105 → 88-105 bpm",
-				"Zone 2 (60-70%): 175 × 0.60 = 105, 175 × 0.70 = 123 → 105-123 bpm",
-				"Zone 3 (70-80%): 175 × 0.70 = 123, 175 × 0.80 = 140 → 123-140 bpm",
-				"Zone 4 (80-90%): 175 × 0.80 = 140, 175 × 0.90 = 158 → 140-158 bpm",
-				"Zone 5 (90-100%): 175 × 0.90 = 158, 175 × 1.00 = 175 → 158-175 bpm"
+				"Возраст: 45 лет",
+				"Метод: max HR (220 − возраст)",
+				"Max HR: 220 − 45 = 175 уд/мин",
+				"Зона 1 (50–60%): 175 × 0,50 = 88, 175 × 0,60 = 105 → 88–105 уд/мин",
+				"Зона 2 (60–70%): 175 × 0,60 = 105, 175 × 0,70 = 123 → 105–123 уд/мин",
+				"Зона 3 (70–80%): 175 × 0,70 = 123, 175 × 0,80 = 140 → 123–140 уд/мин",
+				"Зона 4 (80–90%): 175 × 0,80 = 140, 175 × 0,90 = 158 → 140–158 уд/мин",
+				"Зона 5 (90–100%): 175 × 0,90 = 158, 175 × 1,00 = 175 → 158–175 уд/мин"
 			],
-			"result": "For a 45-year-old, the maximum heart rate is 175 bpm (15 bpm lower than a 30-year-old). All zones are proportionally lower. Zone 2 (105-123 bpm) is still the fat-burning zone, and Zone 3 (123-140 bpm) improves cardiovascular fitness. This demonstrates how maximum heart rate decreases with age, affecting all training zones."
+			"result": "В 45 лет max HR ≈ 175 уд/мин — на 15 уд/мин ниже, чем в 30. Все зоны смещаются вниз пропорционально. Зона 2 по-прежнему 105–123 уд/мин, зона 3 — 123–140 уд/мин."
 		},
 		{
-			"title": "Пример 3: Karvonen vs Simple Comparison",
-			"description": "Same person (30 лет, resting HR 60) comparing both methods",
-			"inputs": {
-				"age": 30,
-				"restingHeartRate": 60,
-				"method": "karvonen"
-			},
+			"title": "Пример 3: Karvonen и простой метод",
+			"description": "30 лет, пульс покоя 60 — сравнение методов",
+			"inputs": { "age": 30, "restingHeartRate": 60, "method": "karvonen" },
 			"steps": [
-				"Age: 30 лет, Resting HR: 60 bpm",
-				"Max HR: 220 - 30 = 190 bpm",
-				"Heart Rate Reserve (HRR): 190 - 60 = 130 bpm",
-				"Karvonen Method: Target HR = (HRR × intensity) + RestHR",
-				"Zone 2 (60-70%):",
-				"  Min: (130 × 0.60) + 60 = 78 + 60 = 138 bpm",
-				"  Max: (130 × 0.70) + 60 = 91 + 60 = 151 bpm",
-				"Compare to Simple Method Zone 2: 114-133 bpm",
-				"Difference: Karvonen gives higher zones (138-151 vs 114-133)",
-				"This is because Karvonen accounts for resting heart rate"
+				"Возраст: 30 лет, пульс покоя: 60 уд/мин",
+				"Max HR: 220 − 30 = 190 уд/мин",
+				"Резерв пульса (HRR): 190 − 60 = 130 уд/мин",
+				"Karvonen: целевой пульс = (HRR × интенсивность) + пульс покоя",
+				"Зона 2 (60–70%):",
+				"  Мин: (130 × 0,60) + 60 = 78 + 60 = 138 уд/мин",
+				"  Макс: (130 × 0,70) + 60 = 91 + 60 = 151 уд/мин",
+				"Простой метод, зона 2: 114–133 уд/мин",
+				"Разница: Karvonen даёт более высокие значения (138–151 против 114–133)"
 			],
-			"result": "The Karvonen method gives higher heart rate zones (138-151 bpm for Zone 2) compared to the simple method (114-133 bpm) because it accounts for your resting heart rate. The Karvonen method is generally considered more accurate and personalized, especially for people with lower or higher resting heart rates. It uses your heart rate reserve (max HR - resting HR) rather than just your max HR."
+			"result": "Karvonen учитывает пульс покоя и обычно точнее: для зоны 2 получается 138–151 уд/мин против 114–133 у простого метода. Особенно заметно при низком или высоком пульсе покоя."
 		},
 		{
-			"title": "Пример 4: Training Goal Explanation Per Zone",
-			"description": "Understanding which zone to use for different training goals",
-			"inputs": {
-				"age": 35,
-				"method": "simple"
-			},
+			"title": "Пример 4: зоны под цели тренировки",
+			"description": "Какую зону выбрать под задачу",
+			"inputs": { "age": 35, "method": "simple" },
 			"steps": [
-				"Age: 35 лет",
-				"Max HR: 220 - 35 = 185 bpm",
-				"Zone 1 (93-111 bpm): Recovery - use for warm-up, cool-down, active recovery days",
-				"Zone 2 (111-130 bpm): Fat burning - use for long, steady-state cardio (60+ мин)",
-				"Zone 3 (130-148 bpm): Aerobic - use for tempo runs, improving cardiovascular fitness",
-				"Zone 4 (148-167 bpm): Threshold - use for interval training, improving lactate threshold",
-				"Zone 5 (167-185 bpm): Peak - use for short, high-intensity intervals (30 seconds to 2 мин)",
-				"Training distribution: Most training (70-80%) should be in Zones 1-2, with 20-30% in Zones 3-5"
+				"Возраст: 35 лет",
+				"Max HR: 220 − 35 = 185 уд/мин",
+				"Зона 1 (93–111 уд/мин): восстановление — разминка, заминка, лёгкие дни",
+				"Зона 2 (111–130): жиросжигание — длительное ровное кардио (60+ мин)",
+				"Зона 3 (130–148): аэробная — темповые пробежки, выносливость",
+				"Зона 4 (148–167): порог — интервалы, лактатный порог",
+				"Зона 5 (167–185): пик — короткие максимальные отрезки (30 с – 2 мин)",
+				"Распределение: 70–80% объёма в зонах 1–2, 20–30% в зонах 3–5"
 			],
-			"result": "This example shows how to use heart rate zones for different training goals. For general fitness and fat loss, spend most time in Zones 1-2. For improving cardiovascular fitness, include Zone 3. For performance gains, incorporate Zones 4-5 in interval training. The key is balancing zone training based on your goals, fitness level, and recovery needs."
+			"result": "Для здоровья и снижения веса — больше времени в зонах 1–2; для кардио — зона 3; для производительности — зоны 4–5 в интервалах. Балансируйте зоны с целями, формой и восстановлением."
 		}
 	],
 	"faq": [
 		{
-			"question": "What are heart rate zones?",
-			"answer": "Heart rate zones are ranges of heart rate (beats per minute) that correspond to different exercise intensities and training benefits. There are typically five zones: Zone 1 (50-60% max HR) for recovery, Zone 2 (60-70%) for fat burning and aerobic base, Zone 3 (70-80%) for aerobic fitness, Zone 4 (80-90%) for anaerobic threshold, and Zone 5 (90-100%) for maximum effort. Training in specific zones helps you target different fitness goals."
+			"question": "Что такое пульсовые зоны?",
+			"answer": "Это диапазоны ЧСС, соответствующие разной интенсивности. Обычно пять зон: 1 (50–60% max HR) — восстановление, 2 (60–70%) — аэробная база и «жир», 3 (70–80%) — аэробная выносливость, 4 (80–90%) — порог, 5 (90–100%) — максимум. Тренировка в нужной зоне помогает достигать конкретных адаптаций."
 		},
 		{
-			"question": "Which heart rate zone burns the most fat?",
-			"answer": "Zone 2 (60-70% of max HR) is often called the 'fat burning zone' because a higher percentage of calories burned come from fat at this intensity. However, Zone 2 burns fewer total calories than higher zones. For overall fat loss, creating a calorie deficit matters more than which zone you train in. Higher intensity zones (3-5) burn more total calories, which can be more effective for weight loss despite a lower percentage from fat."
+			"question": "В какой зоне «сгорает» больше всего жира?",
+			"answer": "В зоне 2 (60–70% max HR) доля жира в топливе выше, но суммарно калорий меньше, чем в более высоких зонах. Для похудения важнее общий дефицит калорий. Зоны 3–5 сжигают больше ккал за время, хотя доля жира может быть ниже."
 		},
 		{
-			"question": "Is the 220 - age formula accurate?",
-			"answer": "The 220 - age formula is a widely used estimate, but it's not perfectly accurate for everyone. Research shows it can be off by ±10-15 bpm for many people. Some alternative formulas exist (like 208 - 0.7 × age), but 220 - age remains the most commonly used. For the most accurate maximum heart rate, consider a graded exercise test under medical supervision. However, the 220 - age formula provides reasonable estimates for most people."
+			"question": "Насколько точна формула 220 − возраст?",
+			"answer": "Это распространённая оценка, но у многих отклонение ±10–15 уд/мин. Есть альтернативы (например, 208 − 0,7 × возраст), но 220 − age остаётся стандартом для быстрого расчёта. Точный max HR — на стресс-тесте под наблюдением врача."
 		},
 		{
-			"question": "What is resting heart rate?",
-			"answer": "Resting heart rate (RHR) is your heart rate when you're completely at rest, typically measured first thing in the morning before getting out of bed. Normal resting heart rate ranges from 60-100 bpm for adults. Lower resting heart rates (50-60 bpm) often indicate better cardiovascular fitness. Athletes may have resting heart rates as low as 40-50 bpm. The Karvonen method uses resting heart rate to provide more personalized training zones."
+			"question": "Что такое пульс покоя?",
+			"answer": "ЧСС в полном покое, чаще измеряют утром до подъёма. Норма для взрослых часто 60–100 уд/мин; у тренированных — 50–60 и ниже. Метод Karvonen использует пульс покоя для персонализации зон."
 		},
 		{
-			"question": "Should beginners use heart rate zones?",
-			"answer": "Yes, beginners can benefit from heart rate zones, but they should start conservatively. Beginners should focus primarily on Zones 1-2 (50-70% max HR) to build aerobic base and avoid overtraining. As fitness improves, they can gradually incorporate Zones 3-4. Zone 5 should be used sparingly, especially for beginners. The key is listening to your body and progressing gradually. Heart rate zones help beginners avoid going too hard too soon."
+			"question": "Нужны ли зоны новичкам?",
+			"answer": "Да, но начинать лучше с зон 1–2 (50–70% max HR), постепенно добавляя зону 3. Зону 5 — редко и осторожно. Зоны помогают не «перегореть» в первые недели."
 		},
 		{
-			"question": "How do I measure my heart rate during exercise?",
-			"answer": "You can measure heart rate using: Heart rate monitors (chest straps are most accurate), fitness trackers with HR sensors (wrist-based, less accurate but convenient), smartwatches with HR monitoring, manual pulse check (count beats for 15 seconds, multiply by 4), or fitness equipment with built-in HR sensors. For accurate zone training, a heart rate monitor is recommended. Wrist-based trackers work well for most people but may be less accurate during high-intensity exercise."
+			"question": "Как измерять пульс на тренировке?",
+			"answer": "Нагрудный пульсометр — точнее всего; браслеты и часы удобны, на высокой интенсивности могут ошибаться. Можно считать пульс на запястье 15 сек × 4. Для зон лучше иметь монитор."
 		},
 		{
-			"question": "Can I train in multiple zones in one workout?",
-			"answer": "Yes, many effective workouts incorporate multiple zones. For example: Warm-up in Zone 1, main workout in Zone 2-3, intervals in Zone 4-5, cool-down in Zone 1. Interval training alternates between high zones (4-5) and recovery zones (1-2). Fartlek training naturally varies between zones. The key is having a plan and purpose for each zone. Most training should be in lower zones (1-3), with higher zones (4-5) used strategically for specific adaptations."
+			"question": "Можно ли смешивать зоны в одной тренировке?",
+			"answer": "Да: разминка в зоне 1, основная часть 2–3, интервалы 4–5, заминка 1. Большую часть недельного объёма держите в зонах 1–3."
 		},
 		{
-			"question": "What's the difference between the simple and Karvonen methods?",
-			"answer": "The simple method calculates zones as percentages of maximum heart rate (220 - age). The Karvonen method uses heart rate reserve: Target HR = ((MaxHR - RestHR) × intensity) + RestHR. The Karvonen method is generally more accurate and personalized because it accounts for your resting heart rate. People with lower resting HR get higher training zones with Karvonen, while those with higher resting HR get lower zones. Both methods work, but Karvonen is preferred for more personalized training."
+			"question": "Чем отличаются простой метод и Karvonen?",
+			"answer": "Простой: проценты от max HR. Karvonen: ((max HR − пульс покоя) × %)+ пульс покоя. Karvonen точнее при нестандартном пульсе покоя."
 		},
 		{
-			"question": "Do heart rate zones change with fitness level?",
-			"answer": "Your maximum heart rate doesn't change significantly with fitness level (it's primarily age-related), but your ability to sustain higher zones improves. As you get fitter, you can: Stay in higher zones longer, recover faster between high-intensity efforts, and perform better at the same heart rate. However, the zone ranges themselves (based on max HR) remain relatively constant. What changes is your performance within those zones."
+			"question": "Меняются ли зоны с ростом формы?",
+			"answer": "Max HR от возраста почти не меняется, но вы дольше держите высокие зоны и быстрее восстанавливаетесь. Сами проценты зон остаются, меняется «ощущение» нагрузки."
 		},
 		{
-			"question": "What if my heart rate is higher/lower than the zones?",
-			"answer": "If your heart rate is consistently outside the calculated zones, consider: Your actual max HR may differ from 220 - age (can vary by ±10-15 bpm), you may need to adjust zones based on how you feel (perceived exertion), or you might benefit from professional fitness testing. Use zones as guidelines, but also listen to your body. If Zone 2 feels too easy or too hard, adjust accordingly. The talk test can help: Zone 2 should allow comfortable conversation."
+			"question": "Пульс не попадает в рассчитанные зоны — что делать?",
+			"answer": "Ваш реальный max HR может отличаться от формулы. Ориентируйтесь и на самочувствие (тест «могу говорить предложениями» в зоне 2). При сомнениях — функциональное тестирование у специалиста."
 		},
 		{
-			"question": "Are heart rate zones the same for everyone?",
-			"answer": "No, heart rate zones are personalized based on your maximum heart rate, which is primarily determined by age. A 20-year-old will have higher zones than a 60-year-old. Additionally, the Karvonen method personalizes zones further based on resting heart rate. Individual factors like fitness level, genetics, medications, and health conditions can also affect heart rate responses. Use calculated zones as starting points and adjust based on how you feel."
+			"question": "Зоны одинаковы у всех?",
+			"answer": "Нет: max HR в первую очередь от возраста, Karvonen добавляет пульс покоя. Лекарства, генетика и здоровье тоже влияют на ответ сердца."
 		},
 		{
-			"question": "How long should I stay in each zone?",
-			"answer": "Zone duration depends on your goals and fitness level: Zone 1-2: Can sustain for hours (long runs, endurance training). Zone 3: 20-60 мин (tempo runs, sustained efforts). Zone 4: 5-20 мин total (interval training with rest periods). Zone 5: 30 seconds to 5 мин total (short, high-intensity intervals). Most training (70-80%) should be in Zones 1-2, with 20-30% in Zones 3-5. This is the 'polarized training' approach used by many athletes."
+			"question": "Сколько времени держать каждую зону?",
+			"answer": "Зоны 1–2 — часы; зона 3 — 20–60 мин; зона 4 — минуты с отдыхом; зона 5 — секунды–минуты. Поляризованная модель: 70–80% лёгко, 20–30% тяжело."
 		},
 		{
-			"question": "Can medications affect heart rate zones?",
-			"answer": "Yes, certain medications can affect heart rate. Beta-blockers lower heart rate, making zones less relevant. Stimulants may increase heart rate. Blood pressure medications, antidepressants, and other drugs can affect heart rate responses. If you're on medications that affect heart rate, consult your healthcare provider about using heart rate zones for training. You may need to rely more on perceived exertion (how hard it feels) than heart rate."
+			"question": "Влияют ли лекарства на пульс?",
+			"answer": "Да: бета-блокаторы снижают ЧСС, стимуляторы могут повышать. При таких препаратах согласуйте тренировки по пульсу с врачом, опирайтесь на субъективную нагрузку (RPE)."
 		},
 		{
-			"question": "What about the 'fat burning zone' myth?",
-			"answer": "The 'fat burning zone' (Zone 2) does burn a higher percentage of calories from fat, but it burns fewer total calories than higher zones. For weight loss, total calories burned matters more than the percentage from fat. Higher intensity zones (3-5) burn more total calories, which can be more effective for weight loss. However, Zone 2 is excellent for building aerobic base and is more sustainable for long durations. The best approach combines both: mostly Zone 2 for sustainability, with some higher zones for calorie burn."
+			"question": "Миф о «жиросжигающей зоне»?",
+			"answer": "В зоне 2 выше доля жира в энергии, но меньше общих ккал. Для веса важнее суммарный расход. Комбинируйте длительную зону 2 и периодически более интенсивную работу."
 		},
 		{
-			"question": "Should I use heart rate zones for strength training?",
-			"answer": "Heart rate zones are primarily designed for cardiovascular exercise (running, cycling, etc.). During strength training, heart rate can spike during sets but drop during rest, making zones less applicable. However, circuit training or high-intensity interval training (HIIT) with weights can use heart rate zones. For traditional strength training, focus on load, reps, and sets rather than heart rate zones. Heart rate monitoring during strength training is more useful for tracking recovery between sets."
+			"question": "Применимы ли зоны к силовым?",
+			"answer": "Зоны задуманы для кардио. На силовой пульс скачет между подходами. Для круговых/HIIT с весами зоны могут помочь, для классической силовой важнее нагрузка, повторения и отдых."
 		}
 	],
 	"seo": {
-		"title": "Калькулятор пульсовых зон онлайн",
-		"description": "Рассчитайте зоны пульса для тренировок по возрасту и пульсу в покое: жиросжигание, кардио, интервалы.",
+		"title": "Калькулятор пульсовых зон – ЧСС для кардио и жиросжигания",
+		"description": "Рассчитайте 5 тренировочных зон по возрасту: max HR или Karvonen. Диапазоны уд/мин для бега, велосипеда и фитнеса.",
 		"keywords": [
+			"калькулятор пульсовых зон",
 			"пульсовые зоны",
-			"зоны пульса",
-			"макс пульс",
-			"калькулятор чсс"
+			"тренировочные зоны",
+			"целевой пульс",
+			"жиросжигающая зона",
+			"максимальный пульс",
+			"метод karvonen",
+			"пульс при беге",
+			"чсс тренировка"
 		]
 	}
 }

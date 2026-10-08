@@ -1,67 +1,67 @@
 {
-	"title": "Калькулятор доступности авто – Какую машину можно позволить?",
-	"shortDescription": "Оцените доступную цену автомобиля по месячному бюджету или доходу с учётом кредита, APR и фиксированных расходов.",
-	"longDescription": "Калькулятор показывает максимальную цену авто исходя из месячного бюджета или доли дохода. Учитываются срок кредита, ставка, взнос, trade-in и фиксированные расходы (страховка, парковка). Помогает не выйти за рамки бюджета.",
+	"title": "Калькулятор доступности авто – Какую машину вы можете позволить?",
+	"shortDescription": "Оцените максимальную цену автомобиля по месячному бюджету или доле дохода с учётом кредита, ставки и постоянных расходов.",
+	"longDescription": "Определите, какую машину вы реально можете позволить, с помощью калькулятора доступности. Рассчитайте максимальную цену авто от месячного бюджета или по правилам доли дохода. Учитываются срок кредита, процентная ставка, первоначальный взнос, trade-in и фиксированные расходы — страховка, парковка, регистрация. Получите рекомендации и поймите, как взнос и срок влияют на доступную сумму. Удобно для планирования покупки и сравнения предложений банков и дилеров.",
 	"inputs": [
 		{
 			"label": "Режим расчёта",
 			"unitLabel": "",
 			"placeholder": "Выберите режим расчёта",
-			"helpText": "Choose to calculate based on monthly budget or income rule"
+			"helpText": "Расчёт от месячного бюджета или от доли чистого дохода"
 		},
 		{
 			"label": "Макс. месячный бюджет на авто",
 			"unitLabel": "₽",
 			"placeholder": "Введите месячный бюджет",
-			"helpText": "Maximum amount you can spend per month on car (payment + fixed costs)"
+			"helpText": "Максимум в месяц на авто: платёж по кредиту плюс фиксированные расходы"
 		},
 		{
 			"label": "Чистый месячный доход",
 			"unitLabel": "₽",
 			"placeholder": "Введите чистый доход",
-			"helpText": "Your monthly take-home pay (after taxes)"
+			"helpText": "Доход «на руки» после налогов"
 		},
 		{
 			"label": "Правило от дохода",
 			"unitLabel": "",
-			"placeholder": "Выберите правило дохода",
-			"helpText": "Percentage of income to allocate to car expenses (conservative 10%, moderate 15%, aggressive 20%)"
+			"placeholder": "Выберите правило",
+			"helpText": "Доля дохода на авто: консервативно 10%, умеренно 15%, агрессивно 20%"
 		},
 		{
 			"label": "Первоначальный взнос",
 			"unitLabel": "₽",
 			"placeholder": "Введите первоначальный взнос",
-			"helpText": "Amount you can put down upfront (optional)"
+			"helpText": "Сумма, которую внесёте сразу (необязательно)"
 		},
 		{
-			"label": "Ставка кредита (APR)",
+			"label": "Ставка по кредиту (APR)",
 			"unitLabel": "%",
-			"placeholder": "Введите ставку кредита",
-			"helpText": "Annual percentage rate for the loan"
+			"placeholder": "Введите годовую ставку",
+			"helpText": "Годовая процентная ставка по автокредиту"
 		},
 		{
 			"label": "Срок кредита",
 			"unitLabel": "мес.",
-			"placeholder": "Введите срок кредита",
-			"helpText": "Loan term in мес. (typically 36-84 мес.)"
+			"placeholder": "Введите срок в месяцах",
+			"helpText": "Срок кредита в месяцах (обычно 36–84)"
 		},
 		{
-			"label": "Оценочные фиксированные расходы в месяц",
+			"label": "Оценка фиксированных расходов в месяц",
 			"unitLabel": "₽",
 			"placeholder": "Введите фиксированные расходы",
-			"helpText": "Monthly fixed costs (insurance, parking, registration, etc.)"
+			"helpText": "Страховка, парковка, регистрация и прочее каждый месяц"
 		},
 		{
 			"label": "Стоимость trade-in",
 			"unitLabel": "₽",
 			"placeholder": "Введите стоимость trade-in",
-			"helpText": "Value of your current vehicle to trade in (optional)"
+			"helpText": "Оценка текущего авто при сдаче в зачёт (необязательно)"
 		},
 		{
-			"label": "Налог / сборы",
+			"label": "Налог и сборы",
 			"unitLabel": "₽",
-			"placeholder": "Введите налог или сборы",
-			"helpText": "Sales tax and other fees (optional)"
+			"placeholder": "Введите налог и сборы",
+			"helpText": "Налог с продажи и прочие сборы при покупке (необязательно)"
 		}
 	],
 	"outputs": [
@@ -74,33 +74,33 @@
 			"unitLabel": "₽"
 		},
 		{
-			"label": "Допустимый ежемесячный платёж",
+			"label": "Допустимый платёж по кредиту",
 			"unitLabel": "₽"
 		},
 		{
-			"label": "Общие расходы в месяц",
+			"label": "Итого расходов в месяц",
 			"unitLabel": "₽"
 		}
 	],
 	"howTo": [
-		"Выберите calculation mode:",
-		"  - Based on Monthly Budget: Enter your maximum monthly car budget",
-		"  - Based on Income Rule: Enter your monthly net income and select a rule (10%, 15%, or 20%)",
-		"Введите your planned down payment amount (if any)",
-		"Введите the loan APR (annual percentage rate) you expect to receive",
-		"Введите the loan term in мес. (typically 36-84 мес.)",
-		"Введите your estimated monthly fixed costs (insurance, parking, registration, etc.)",
-		"При желании enter trade-in value if you have a vehicle to trade in",
-		"При желании enter sales tax and fees",
-		"Нажмите «Рассчитать» to see your maximum affordable car price",
-		"Проверьте the allowed monthly payment and total monthly cost",
-		"Проверьте insights for recommendations on down payment and loan terms",
-		"Используйте the recommended budget range to plan your purchase"
+		"Выберите режим расчёта:",
+		"  — По месячному бюджету: укажите максимум, который готовы тратить на авто в месяц",
+		"  — По правилу от дохода: введите чистый доход и выберите долю (10%, 15% или 20%)",
+		"Укажите планируемый первоначальный взнос (если есть)",
+		"Введите ожидаемую годовую ставку по кредиту (APR)",
+		"Укажите срок кредита в месяцах (обычно 36–84)",
+		"Введите оценку фиксированных расходов в месяц (страховка, парковка, регистрация и т.д.)",
+		"При необходимости укажите стоимость trade-in",
+		"При необходимости укажите налог и сборы",
+		"Нажмите «Рассчитать», чтобы увидеть максимальную доступную цену",
+		"Сравните допустимый платёж по кредиту и полные месячные расходы",
+		"Изучите подсказки по взносу и сроку кредита",
+		"Используйте рекомендуемый диапазон бюджета при выборе автомобиля"
 	],
 	"examples": [
 		{
-			"title": "Пример 1: ₽600 Budget, ₽150 Fixed Costs",
-			"description": "Monthly budget of ₽600 with ₽150 in fixed costs (insurance, parking, etc.). ₽5,000 down payment, 5.5% APR, 60-month loan.",
+			"title": "Пример 1: бюджет 600 ₽/мес., фиксированные расходы 150 ₽",
+			"description": "Месячный бюджет 600 ₽ при фиксированных расходах 150 ₽ (страховка, парковка). Взнос 5 000 ₽, ставка 5,5%, срок 60 месяцев.",
 			"inputs": {
 				"mode": "byMonthlyBudget",
 				"maxMonthlyCarBudget": 600,
@@ -112,21 +112,21 @@
 				"salesTaxOrFees": 0
 			},
 			"steps": [
-				"Monthly budget: ₽600",
-				"Fixed costs: ₽150/month (insurance, parking, registration)",
-				"Available for loan payment: ₽600 - ₽150 = ₽450/month",
-				"Down payment: ₽5,000",
-				"Loan APR: 5.5%",
-				"Loan term: 60 мес.",
-				"Calculation: With ₽450/month payment at 5.5% APR for 60 мес., maximum loan amount ≈ ₽23,000",
-				"Max affordable car price: ₽23,000 (loan) + ₽5,000 (down payment) = ₽28,000",
-				"Monthly loan payment: ~₽450",
-				"Total monthly cost: ₽450 (payment) + ₽150 (fixed) = ₽600 (within budget)"
+				"Месячный бюджет: 600 ₽",
+				"Фиксированные расходы: 150 ₽/мес. (страховка, парковка, регистрация)",
+				"На платёж по кредиту: 600 − 150 = 450 ₽/мес.",
+				"Первоначальный взнос: 5 000 ₽",
+				"Ставка: 5,5%",
+				"Срок: 60 месяцев",
+				"При платеже ~450 ₽/мес. при 5,5% на 60 мес. макс. кредит ≈ 23 000 ₽",
+				"Макс. цена авто: 23 000 (кредит) + 5 000 (взнос) = 28 000 ₽",
+				"Платёж по кредиту: ~450 ₽",
+				"Итого в месяц: 450 (кредит) + 150 (фикс.) = 600 ₽ — в пределах бюджета"
 			]
 		},
 		{
-			"title": "Пример 2: Net Income Rule (Moderate)",
-			"description": "₽5,000 monthly net income using 15% rule. 15% of income = ₽750/month car budget. ₽3,000 down, 6.0% APR, 72-month loan.",
+			"title": "Пример 2: правило от дохода (умеренное 15%)",
+			"description": "Чистый доход 5 000 ₽/мес., правило 15% → бюджет на авто 750 ₽/мес. Взнос 3 000 ₽, ставка 6,0%, срок 72 месяца.",
 			"inputs": {
 				"mode": "byIncomeRule",
 				"monthlyNetIncome": 5000,
@@ -139,23 +139,23 @@
 				"salesTaxOrFees": 0
 			},
 			"steps": [
-				"Monthly net income: ₽5,000",
-				"Income rule: 15% (moderate recommendation)",
-				"Car budget calculation: ₽5,000 × 15% = ₽750/month",
-				"Fixed costs: ₽200/month",
-				"Available for loan payment: ₽750 - ₽200 = ₽550/month",
-				"Down payment: ₽3,000",
-				"Loan APR: 6.0%",
-				"Loan term: 72 мес. (6 лет)",
-				"Calculation: With ₽550/month payment at 6.0% APR for 72 мес., maximum loan amount ≈ ₽32,000",
-				"Max affordable car price: ₽32,000 (loan) + ₽3,000 (down payment) = ₽35,000",
-				"Monthly loan payment: ~₽550",
-				"Total monthly cost: ₽550 (payment) + ₽200 (fixed) = ₽750 (15% of income)"
+				"Чистый доход: 5 000 ₽/мес.",
+				"Правило: 15% (умеренная рекомендация)",
+				"Бюджет на авто: 5 000 × 15% = 750 ₽/мес.",
+				"Фиксированные расходы: 200 ₽/мес.",
+				"На кредит: 750 − 200 = 550 ₽/мес.",
+				"Взнос: 3 000 ₽",
+				"Ставка: 6,0%",
+				"Срок: 72 месяца (6 лет)",
+				"При ~550 ₽/мес. при 6,0% на 72 мес. макс. кредит ≈ 32 000 ₽",
+				"Макс. цена: 32 000 + 3 000 = 35 000 ₽",
+				"Платёж по кредиту: ~550 ₽",
+				"Итого: 550 + 200 = 750 ₽ (15% дохода)"
 			]
 		},
 		{
-			"title": "Пример 3: Bigger Down Payment Impact",
-			"description": "Same ₽600/month budget but with ₽10,000 down payment instead of ₽5,000. Shows how larger down payment increases affordable price.",
+			"title": "Пример 3: влияние большего взноса",
+			"description": "Тот же бюджет 600 ₽/мес., но взнос 10 000 ₽ вместо 5 000 ₽ — как растёт доступная цена.",
 			"inputs": {
 				"mode": "byMonthlyBudget",
 				"maxMonthlyCarBudget": 600,
@@ -167,23 +167,22 @@
 				"salesTaxOrFees": 0
 			},
 			"steps": [
-				"Monthly budget: ₽600",
-				"Fixed costs: ₽150/month",
-				"Available for loan payment: ₽600 - ₽150 = ₽450/month",
-				"Down payment: ₽10,000 (larger than Пример 1)",
-				"Loan APR: 5.5%",
-				"Loan term: 60 мес.",
-				"Calculation: With ₽450/month payment at 5.5% APR for 60 мес., maximum loan amount ≈ ₽23,000",
-				"Max affordable car price: ₽23,000 (loan) + ₽10,000 (down payment) = ₽33,000",
-				"Comparison: With ₽5,000 down = ₽28,000 affordable. With ₽10,000 down = ₽33,000 affordable",
-				"Impact: Extra ₽5,000 down payment increases affordable price by ₽5,000",
-				"Monthly loan payment: ~₽450 (same as Пример 1)",
-				"Total monthly cost: ₽450 (payment) + ₽150 (fixed) = ₽600 (same budget, more car)"
+				"Месячный бюджет: 600 ₽",
+				"Фиксированные расходы: 150 ₽/мес.",
+				"На кредит: 450 ₽/мес.",
+				"Взнос: 10 000 ₽ (больше, чем в примере 1)",
+				"Ставка: 5,5%, срок: 60 мес.",
+				"Макс. кредит при 450 ₽/мес. ≈ 23 000 ₽",
+				"Макс. цена: 23 000 + 10 000 = 33 000 ₽",
+				"Сравнение: при взносе 5 000 ₽ — 28 000 ₽; при 10 000 ₽ — 33 000 ₽",
+				"Дополнительные 5 000 ₽ взноса увеличивают доступную цену на 5 000 ₽",
+				"Платёж по кредиту: ~450 ₽ (как в примере 1)",
+				"Итого в месяц: 600 ₽ — тот же бюджет, но дороже авто"
 			]
 		},
 		{
-			"title": "Пример 4: High APR Impact",
-			"description": "Same ₽600/month budget, ₽5,000 down, at 8% APR. Shows how higher interest rate reduces affordability.",
+			"title": "Пример 4: высокая ставка",
+			"description": "Бюджет 600 ₽/мес., взнос 5 000 ₽, ставка 8% — как процент снижает доступность.",
 			"inputs": {
 				"mode": "byMonthlyBudget",
 				"maxMonthlyCarBudget": 600,
@@ -195,23 +194,21 @@
 				"salesTaxOrFees": 0
 			},
 			"steps": [
-				"Monthly budget: ₽600",
-				"Fixed costs: ₽150/month",
-				"Available for loan payment: ₽600 - ₽150 = ₽450/month",
-				"Down payment: ₽5,000",
-				"Loan APR: 8.0% (higher than Пример 1's 5.5%)",
-				"Loan term: 60 мес.",
-				"Calculation: With ₽450/month payment at 8.0% APR for 60 мес., maximum loan amount ≈ ₽20,000",
-				"Max affordable car price: ₽20,000 (loan) + ₽5,000 (down payment) = ₽25,000",
-				"Comparison: At 5.5% APR = ₽28,000 affordable. At 8.0% APR = ₽25,000 affordable",
-				"Impact: Higher APR (8% vs 5.5%) reduces affordable price by ₽3,000",
-				"Monthly loan payment: ~₽450 (same payment, but less car)",
-				"Total monthly cost: ₽450 (payment) + ₽150 (fixed) = ₽600"
+				"Месячный бюджет: 600 ₽, фикс.: 150 ₽, на кредит: 450 ₽",
+				"Взнос: 5 000 ₽",
+				"Ставка: 8,0% (выше, чем 5,5% в примере 1)",
+				"Срок: 60 мес.",
+				"При 450 ₽/мес. при 8% макс. кредит ≈ 20 000 ₽",
+				"Макс. цена: 20 000 + 5 000 = 25 000 ₽",
+				"Сравнение: при 5,5% — 28 000 ₽; при 8% — 25 000 ₽",
+				"Более высокая ставка снижает доступную цену на 3 000 ₽",
+				"Платёж: ~450 ₽ — тот же, но меньше сумма кредита",
+				"Итого в месяц: 600 ₽"
 			]
 		},
 		{
-			"title": "Пример 5: Income Rule Conservative (10%)",
-			"description": "₽4,000 monthly net income using conservative 10% rule. ₽2,000 down, 4.5% APR, 48-month loan.",
+			"title": "Пример 5: консервативное правило 10%",
+			"description": "Доход 4 000 ₽/мес., правило 10%. Взнос 2 000 ₽, ставка 4,5%, срок 48 месяцев.",
 			"inputs": {
 				"mode": "byIncomeRule",
 				"monthlyNetIncome": 4000,
@@ -224,91 +221,90 @@
 				"salesTaxOrFees": 0
 			},
 			"steps": [
-				"Monthly net income: ₽4,000",
-				"Income rule: 10% (conservative recommendation)",
-				"Car budget calculation: ₽4,000 × 10% = ₽400/month",
-				"Fixed costs: ₽120/month",
-				"Available for loan payment: ₽400 - ₽120 = ₽280/month",
-				"Down payment: ₽2,000",
-				"Loan APR: 4.5% (good credit)",
-				"Loan term: 48 мес. (4 лет, shorter term)",
-				"Calculation: With ₽280/month payment at 4.5% APR for 48 мес., maximum loan amount ≈ ₽12,000",
-				"Max affordable car price: ₽12,000 (loan) + ₽2,000 (down payment) = ₽14,000",
-				"Monthly loan payment: ~₽280",
-				"Total monthly cost: ₽280 (payment) + ₽120 (fixed) = ₽400 (10% of income, conservative approach)"
+				"Чистый доход: 4 000 ₽/мес.",
+				"Правило: 10% (консервативно)",
+				"Бюджет на авто: 4 000 × 10% = 400 ₽/мес.",
+				"Фиксированные расходы: 120 ₽/мес.",
+				"На кредит: 400 − 120 = 280 ₽/мес.",
+				"Взнос: 2 000 ₽",
+				"Ставка: 4,5%",
+				"Срок: 48 мес. (4 года)",
+				"При 280 ₽/мес. макс. кредит ≈ 12 000 ₽",
+				"Макс. цена: 12 000 + 2 000 = 14 000 ₽",
+				"Платёж: ~280 ₽, итого: 400 ₽ (10% дохода)"
 			]
 		}
 	],
 	"faq": [
 		{
-			"question": "How much car can I afford?",
-			"answer": "The amount you can afford depends on your monthly budget, income, down payment, loan terms, and fixed costs. As a general rule, your total car expenses (payment + insurance + maintenance) should not exceed 15-20% of your monthly net income. Use this calculator to get a personalized estimate based on your specific situation."
+			"question": "Какую машину я могу себе позволить?",
+			"answer": "Зависит от месячного бюджета, дохода, взноса, условий кредита и постоянных расходов. Обычно все траты на авто (платёж, страховка, обслуживание) не должны превышать 15–20% чистого дохода. Калькулятор даёт оценку под ваши цифры."
 		},
 		{
-			"question": "What percent of income should go to a car?",
-			"answer": "Financial experts typically recommend spending 10-20% of your monthly net income on car expenses (payment, insurance, maintenance, fuel). Conservative: 10%, Moderate: 15%, Aggressive: 20%. The calculator uses these rules when you select 'Based on Income Rule' mode."
+			"question": "Какую долю дохода тратить на автомобиль?",
+			"answer": "Часто рекомендуют 10–20% чистого дохода на авто (платёж, страховка, ТО, топливо). Консервативно: 10%, умеренно: 15%, агрессивно: 20%. В режиме «по правилу от дохода» используются эти доли."
 		},
 		{
-			"question": "Should I choose a longer loan term?",
-			"answer": "Longer loan terms (72-84 мес.) lower monthly payments and increase affordability, but you pay more total interest and risk being 'upside down' (owing more than the car is worth). Shorter terms (36-48 мес.) save interest but require higher payments. Choose based on your budget and financial goals."
+			"question": "Стоит ли брать более длинный срок кредита?",
+			"answer": "Срок 72–84 месяца снижает платёж и повышает доступную цену, но увеличивает переплату и риск «минуса» (долг больше стоимости авто). Короткий срок (36–48 мес.) экономит проценты, но требует больших платежей. Выбирайте под бюджет и цели."
 		},
 		{
-			"question": "How does down payment affect affordability?",
-			"answer": "A larger down payment reduces your loan amount, which increases the car price you can afford with the same monthly payment. It also reduces total interest paid and helps you avoid being upside down on your loan. Every dollar of down payment typically increases your affordable price by ₽1-1.20 depending on loan terms."
+			"question": "Как взнос влияет на доступность?",
+			"answer": "Больший взнос уменьшает сумму кредита при том же платеже — растёт доступная цена авто, меньше процентов и ниже риск «минуса». Каждый рубль взноса обычно добавляет к цене примерно 1–1,2 ₽ в зависимости от срока."
 		},
 		{
-			"question": "Does this include insurance and fuel?",
-			"answer": "The calculator includes insurance and other fixed costs in the 'Estimated Monthly Fixed Costs' field. Fuel costs are variable and depend on your driving, so they're not included in the calculation. Make sure to budget separately for fuel based on your expected mileage."
+			"question": "Учитываются ли страховка и топливо?",
+			"answer": "Страховку и другие фиксированные расходы вносите в поле «Оценка фиксированных расходов в месяц». Топливо зависит от пробега и не входит в расчёт — заложите его отдельно."
 		},
 		{
-			"question": "Why do lenders approve more than you should spend?",
-			"answer": "Lenders approve based on your ability to make payments, not your overall financial health. They don't consider your other expenses, savings goals, or emergency fund needs. It's wise to spend less than the maximum you're approved for to maintain financial flexibility and avoid overextending yourself."
+			"question": "Почему банк одобряет больше, чем стоит тратить?",
+			"answer": "Банк смотрит на способность платить по кредиту, а не на полную финансовую картину: другие цели, подушка, расходы семьи. Разумно тратить меньше максимума одобрения."
 		},
 		{
-			"question": "What is the difference between the two calculation modes?",
-			"answer": "'Based on Monthly Budget' uses your specific monthly budget amount. 'Based on Income Rule' calculates your budget as a percentage of your net income (10%, 15%, or 20%). Both modes account for fixed costs and calculate the maximum car price you can afford."
+			"question": "Чем отличаются два режима расчёта?",
+			"answer": "«По месячному бюджету» — вы задаёте сумму в месяц. «По правилу от дохода» — бюджет как процент чистого дохода (10%, 15%, 20%). В обоих случаях учитываются фиксированные расходы и считается макс. цена."
 		},
 		{
-			"question": "How accurate is this calculator?",
-			"answer": "The calculator provides estimates based on standard loan formulas and the information you provide. Actual affordability depends on your credit score (which affects APR), lender requirements, and your complete financial picture. Use it as a planning tool and consult with lenders for actual approval amounts."
+			"question": "Насколько точен калькулятор?",
+			"answer": "Это оценка по стандартным формулам и вашим данным. Реальная доступность зависит от кредитной истории, требований банка и полной картины финансов. Используйте для планирования; точные лимиты — у кредитора."
 		},
 		{
-			"question": "What if my fixed costs are higher than my budget?",
-			"answer": "If fixed costs exceed your available budget, you won't be able to afford a car payment with the current inputs. Consider: reducing fixed costs (shop for cheaper insurance), increasing your budget, or saving for a larger down payment to reduce monthly payments."
+			"question": "Что если фиксированные расходы больше бюджета?",
+			"answer": "Платёж по кредиту при таких вводных может быть нулевым. Снизьте фиксированные расходы (например, пересмотрите страховку), увеличьте бюджет или копите на больший взнос."
 		},
 		{
-			"question": "Should I include maintenance in fixed costs?",
-			"answer": "You can include average monthly maintenance costs in fixed costs, but it's optional. Maintenance is somewhat variable - newer cars have lower maintenance, while older cars have higher. Including it gives you a more conservative (safer) affordability estimate."
+			"question": "Включать ли обслуживание в фиксированные расходы?",
+			"answer": "Можно заложить среднее ТО в месяц — необязательно, но даёт более осторожную оценку. У новых авто ТО ниже, у старых — выше."
 		},
 		{
-			"question": "How does trade-in value affect affordability?",
-			"answer": "Trade-in value acts like additional down payment - it reduces the amount you need to finance, which increases the car price you can afford. For example, a ₽5,000 trade-in increases your affordable price by approximately ₽5,000-6,000 depending on loan terms."
+			"question": "Как trade-in влияет на доступность?",
+			"answer": "Trade-in работает как дополнительный взнос: меньше сумма кредита, выше доступная цена. Например, зачёт 5 000 ₽ может добавить к цене порядка 5 000–6 000 ₽ в зависимости от срока."
 		},
 		{
-			"question": "What if I have bad credit?",
-			"answer": "Bad credit results in higher APR, which reduces your affordable price for the same monthly payment. You may need a larger down payment or need to consider less expensive vehicles. Work on improving your credit score before buying to get better rates and increase affordability."
+			"question": "Что если плохая кредитная история?",
+			"answer": "Выше ставка — при том же платеже ниже доступная цена. Может понадобиться больший взнос или более бюджетная машина. Улучшение кредитной истории до покупки часто снижает ставку."
 		},
 		{
-			"question": "Is it better to save for a larger down payment or buy now?",
-			"answer": "A larger down payment increases affordability and reduces total interest, but waiting means you're without a car or continuing to pay for your current one. Consider: your current transportation needs, the cost of waiting (current car repairs, rental costs), and your savings timeline. There's no one-size-fits-all answer."
+			"question": "Копить на взнос или покупать сейчас?",
+			"answer": "Больший взнос снижает проценты и повышает доступность, но ожидание — без авто или с расходами на текущую машину. Учитывайте потребность в транспорте, стоимость ремонта и срок накопления."
 		},
 		{
-			"question": "What about leasing instead of buying?",
-			"answer": "Leasing typically has lower monthly payments than buying, which could increase your 'affordability' in terms of monthly cost. However, you don't build equity and must return the car. Use our Lease vs Buy Calculator to compare total costs and see which option fits your situation better."
+			"question": "А если лизинг вместо покупки?",
+			"answer": "Лизинг часто даёт меньший ежемесячный платёж, но вы не накапливаете долю в авто и возвращаете машину. Сравните полную стоимость в калькуляторе «лизинг или покупка»."
 		},
 		{
-			"question": "How do I know if I'm spending too much?",
-			"answer": "Warning signs you're spending too much: car payment exceeds 20% of net income, you're struggling to make payments, you're sacrificing savings or other goals, or you're using credit cards to cover car expenses. If you're uncomfortable with the monthly payment, consider a less expensive car or saving for a larger down payment."
+			"question": "Как понять, что трачу слишком много?",
+			"answer": "Тревожные признаки: платёж больше 20% дохода, сложно платить, страдают сбережения и цели, авто оплачивается с кредитки. Если платёж вызывает дискомфорт — выберите более бюджетное авто или увеличьте взнос."
 		}
 	],
 	"seo": {
-		"title": "Калькулятор доступности автомобиля – бюджет на машину",
-		"description": "Узнайте, какую машину можно позволить по доходу или месячному бюджету с учётом кредита и расходов в ₽.",
+		"title": "Калькулятор доступности авто — какую машину позволить по бюджету",
+		"description": "Рассчитайте максимальную цену автомобиля по доходу или месячному бюджету: кредит, взнос, страховка и trade-in в ₽. Бесплатно онлайн.",
 		"keywords": [
 			"какую машину можно позволить",
-			"бюджет на авто",
-			"доступность автомобиля",
-			"калькулятор авто"
+			"калькулятор доступности авто",
+			"бюджет на автомобиль",
+			"максимальная цена авто"
 		]
 	}
 }

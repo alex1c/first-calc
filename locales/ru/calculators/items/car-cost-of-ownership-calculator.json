@@ -1,139 +1,112 @@
 {
-	"title": "Калькулятор стоимости владения авто – Реальные расходы",
-	"shortDescription": "Посчитайте полную стоимость владения: амортизация, топливо, страховка, обслуживание и другие расходы.",
-	"longDescription": "Калькулятор полной стоимости владения суммирует амортизацию, топливо, страховку, ТО, ремонт, парковку и регистрацию за выбранный период. Показывает расходы в месяц, в год и на единицу пробега.",
+	"title": "Калькулятор полной стоимости владения авто",
+	"shortDescription": "Истинная стоимость владения: амортизация, топливо, страховка, ТО и прочие расходы за весь срок.",
+	"longDescription": "Узнайте реальную цену владения автомобилем за выбранный срок. Учитываются амортизация (часто главная «скрытая» статья), топливо, страховка, регистрация, парковка, плановое и внеплановое обслуживание. Сравнивайте модели, планируйте бюджет и смотрите стоимость в месяц, в год и на km/mile.",
 	"inputs": [
 		{
 			"label": "Цена покупки",
 			"unitLabel": "₽",
-			"placeholder": "Введите purchase price",
-			"helpText": "The price you paid or will pay for the car"
+			"placeholder": "Введите цену покупки",
+			"helpText": "Сумма покупки или планируемая цена"
 		},
 		{
 			"label": "Срок владения",
 			"unitLabel": "лет",
-			"placeholder": "Введите ownership period",
-			"helpText": "How long you plan to own the car (1-10 лет)"
+			"placeholder": "Введите срок",
+			"helpText": "Сколько лет планируете владеть (1–10)"
 		},
 		{
 			"label": "Годовой пробег",
 			"unitLabel": "miles",
-			"placeholder": "Введите annual mileage",
-			"helpText": "Average miles driven per year"
+			"placeholder": "Введите пробег",
+			"helpText": "Средний пробег за год"
 		},
 		{
 			"label": "Страховка в год",
 			"unitLabel": "₽",
-			"placeholder": "Введите annual insurance cost",
-			"helpText": "Annual car insurance premium"
+			"placeholder": "Введите страховку",
+			"helpText": "Годовая премия ОСАГО/КАСКО"
 		},
 		{
 			"label": "Регистрация в год",
 			"unitLabel": "₽",
-			"placeholder": "Введите annual registration fee",
-			"helpText": "Annual vehicle registration fee"
+			"placeholder": "Введите регистрацию",
+			"helpText": "Годовые сборы за регистрацию/налоги"
 		},
 		{
 			"label": "Парковка в месяц",
 			"unitLabel": "₽",
-			"placeholder": "Введите monthly parking cost",
-			"helpText": "Monthly parking fees (if applicable)"
+			"placeholder": "Введите парковку",
+			"helpText": "Ежемесячная плата за парковку (если есть)"
 		},
 		{
 			"label": "Цена топлива за единицу",
 			"unitLabel": "₽",
-			"placeholder": "Введите fuel cost per gallon/liter",
-			"helpText": "Current fuel price per gallon (US) or liter"
+			"placeholder": "Введите цену",
+			"helpText": "Цена за литр или gallon (см. поле расхода)"
 		},
 		{
 			"label": "Расход топлива",
-			"unitLabel": "units per 100 miles",
-			"placeholder": "Введите fuel consumption",
-			"helpText": "Fuel consumption (e.g., 25 MPG = 4 gallons per 100 miles)"
+			"unitLabel": "на 100 miles",
+			"placeholder": "Введите расход",
+			"helpText": "Например, 25 MPG ≈ 4 gallons на 100 miles"
 		},
 		{
 			"label": "ТО в год",
 			"unitLabel": "₽",
-			"placeholder": "Введите annual maintenance cost",
-			"helpText": "Estimated annual maintenance costs (oil changes, tires, etc.)"
+			"placeholder": "Введите ТО",
+			"helpText": "Плановое обслуживание за год"
 		},
 		{
 			"label": "Ремонт в год",
 			"unitLabel": "₽",
-			"placeholder": "Введите annual repair cost",
-			"helpText": "Estimated annual repair costs (optional)"
+			"placeholder": "Введите ремонт",
+			"helpText": "Оценка внепланового ремонта (необязательно)"
 		},
 		{
-			"label": "Ожидаемая годовая амортизация",
+			"label": "Ожидаемая амортизация в год",
 			"unitLabel": "%",
-			"placeholder": "Введите depreciation rate",
-			"helpText": "Expected annual depreciation percentage (typically 15-20% for new cars)"
+			"placeholder": "Введите %",
+			"helpText": "Годовой % потери стоимости (новые часто 15–20%)"
 		},
 		{
-			"label": "Оценка цены перепродажи",
+			"label": "Оценка перепродажи",
 			"unitLabel": "₽",
-			"placeholder": "Введите resale value (optional)",
-			"helpText": "Optional: Override depreciation calculation with estimated resale value"
+			"placeholder": "Введите цену продажи",
+			"helpText": "Необязательно: подставить свою цену вместо расчёта по %"
 		}
 	],
 	"outputs": [
-		{
-			"label": "Затраты на топливо",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Затраты на обслуживание",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Фиксированные расходы",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Амортизация",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Полная стоимость владения",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "В месяц",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "В год",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Стоимость на единицу пробега",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Цена перепродажи",
-			"unitLabel": "₽"
-		}
+		{ "label": "Итого на топливо", "unitLabel": "₽" },
+		{ "label": "Итого на ТО", "unitLabel": "₽" },
+		{ "label": "Итого фиксированные расходы", "unitLabel": "₽" },
+		{ "label": "Амортизация", "unitLabel": "₽" },
+		{ "label": "Полная стоимость владения", "unitLabel": "₽" },
+		{ "label": "В месяц", "unitLabel": "₽" },
+		{ "label": "В год", "unitLabel": "₽" },
+		{ "label": "На mile", "unitLabel": "₽" },
+		{ "label": "Цена перепродажи", "unitLabel": "₽" }
 	],
 	"howTo": [
-		"Введите the purchase price of the car",
-		"Введите how long you plan to own the car (ownership period in лет)",
-		"Введите your estimated annual mileage",
-		"Введите your annual insurance premium",
-		"Введите annual registration fees",
-		"Введите monthly parking costs (if applicable)",
-		"Введите current fuel cost per gallon/liter",
-		"Введите your car's fuel consumption (e.g., 25 MPG = 4 gallons per 100 miles)",
-		"Введите estimated annual maintenance costs",
-		"Введите estimated annual repair costs (optional)",
-		"Введите expected annual depreciation percentage (typically 15-20% for new cars)",
-		"При желании enter an estimated resale value to override depreciation calculation",
-		"Нажмите «Рассчитать» to see your total cost of ownership breakdown",
-		"Проверьте monthly, annual, and per-mile costs to understand the true expense"
+		"Введите цену покупки автомобиля",
+		"Укажите срок владения в годах",
+		"Введите оценку годового пробега",
+		"Введите годовую страховую премию",
+		"Введите годовые сборы за регистрацию",
+		"Введите парковку в месяц (если есть)",
+		"Укажите текущую цену топлива за литр или gallon",
+		"Введите расход топлива (например, 25 MPG ≈ 4 gallons на 100 miles)",
+		"Оцените годовые расходы на плановое ТО",
+		"Оцените годовой внеплановый ремонт (необязательно)",
+		"Введите ожидаемый годовой % амортизации (для новых часто 15–20%)",
+		"При необходимости укажите цену перепродажи вместо расчёта по %",
+		"Нажмите «Рассчитать» для разбивки полной стоимости владения",
+		"Смотрите стоимость в месяц, в год и на mile — реальные траты"
 	],
 	"examples": [
 		{
-			"title": "Пример 1: Compact Car, City Driving",
-			"description": "A ₽20,000 compact car driven 10,000 miles per year in the city for 5 лет",
+			"title": "Пример 1: компакт, город",
+			"description": "20 000 ₽, 10 000 miles/год, 5 лет",
 			"inputs": {
 				"purchasePrice": 20000,
 				"ownershipPeriodYears": 5,
@@ -141,30 +114,22 @@
 				"insuranceAnnual": 1200,
 				"registrationAnnual": 150,
 				"parkingMonthly": 150,
-				"fuelCostPerUnit": 3.5,
+				"fuelCostPerUnit": 3.50,
 				"fuelConsumption": 30,
 				"maintenanceAnnual": 600,
 				"repairsAnnual": 400,
 				"expectedAnnualDepreciation": 18
 			},
 			"steps": [
-				"Purchase price: ₽20,000",
-				"Ownership period: 5 лет",
-				"Annual mileage: 10,000 miles",
-				"Fuel calculation: 10,000 miles ÷ 30 MPG = 333.33 gallons/year × 5 лет = 1,666.67 gallons total",
-				"Total fuel cost: 1,666.67 gallons × ₽3.50/gallon = ₽5,833.33",
-				"Fixed costs: Insurance (₽1,200 × 5 = ₽6,000) + Registration (₽150 × 5 = ₽750) + Parking (₽150 × 12 × 5 = ₽9,000) = ₽15,750",
-				"Maintenance: ₽600 × 5 = ₽3,000",
-				"Repairs: ₽400 × 5 = ₽2,000",
-				"Depreciation: ₽20,000 × 18% = ₽3,600 year 1, then compound for 5 лет ≈ ₽12,500 total",
-				"Total ownership cost: ₽5,833 (fuel) + ₽15,750 (fixed) + ₽3,000 (maintenance) + ₽2,000 (repairs) + ₽12,500 (depreciation) = ₽39,083",
-				"Monthly cost: ₽39,083 ÷ 60 мес. = ₽651.38",
-				"Cost per mile: ₽39,083 ÷ 50,000 miles = ₽0.78"
+				"Топливо ~5 833 ₽ за 5 лет",
+				"Фикс.: страховка + регистрация + парковка ~15 750 ₽",
+				"ТО 3 000 ₽, ремонт 2 000 ₽, амортизация ~12 500 ₽",
+				"Итого ~39 083 ₽ → ~651 ₽/мес., ~0,78/mile"
 			]
 		},
 		{
-			"title": "Пример 2: SUV, High Mileage",
-			"description": "A ₽45,000 SUV driven 20,000 miles per year for 7 лет",
+			"title": "Пример 2: SUV, большой пробег",
+			"description": "45 000 ₽, 20 000 miles/год, 7 лет",
 			"inputs": {
 				"purchasePrice": 45000,
 				"ownershipPeriodYears": 7,
@@ -179,23 +144,15 @@
 				"expectedAnnualDepreciation": 16
 			},
 			"steps": [
-				"Purchase price: ₽45,000",
-				"Ownership period: 7 лет",
-				"Annual mileage: 20,000 miles (high mileage driver)",
-				"Fuel calculation: 20,000 miles ÷ 20 MPG = 1,000 gallons/year × 7 лет = 7,000 gallons total",
-				"Total fuel cost: 7,000 gallons × ₽3.75/gallon = ₽26,250",
-				"Fixed costs: Insurance (₽2,000 × 7 = ₽14,000) + Registration (₽300 × 7 = ₽2,100) + Parking (₽0) = ₽16,100",
-				"Maintenance: ₽1,200 × 7 = ₽8,400",
-				"Repairs: ₽800 × 7 = ₽5,600",
-				"Depreciation: ₽45,000 × 16% = ₽7,200 year 1, compound over 7 лет ≈ ₽28,000 total",
-				"Total ownership cost: ₽26,250 (fuel) + ₽16,100 (fixed) + ₽8,400 (maintenance) + ₽5,600 (repairs) + ₽28,000 (depreciation) = ₽84,350",
-				"Monthly cost: ₽84,350 ÷ 84 мес. = ₽1,004.17",
-				"Cost per mile: ₽84,350 ÷ 140,000 miles = ₽0.60"
+				"Топливо ~26 250 ₽",
+				"Фикс. ~16 100 ₽, ТО 8 400 ₽, ремонт 5 600 ₽",
+				"Амортизация ~28 000 ₽",
+				"Итого ~84 350 ₽ → ~1 004 ₽/мес."
 			]
 		},
 		{
-			"title": "Пример 3: Used Car, Low Depreciation",
-			"description": "A ₽12,000 used car (3 лет old) driven 15,000 miles per year for 4 лет",
+			"title": "Пример 3: б/у, меньше амортизации",
+			"description": "12 000 ₽, 15 000 miles/год, 4 года",
 			"inputs": {
 				"purchasePrice": 12000,
 				"ownershipPeriodYears": 4,
@@ -210,23 +167,13 @@
 				"expectedAnnualDepreciation": 12
 			},
 			"steps": [
-				"Purchase price: ₽12,000 (used car, already depreciated)",
-				"Ownership period: 4 лет",
-				"Annual mileage: 15,000 miles",
-				"Fuel calculation: 15,000 miles ÷ 28 MPG = 535.71 gallons/year × 4 лет = 2,142.86 gallons total",
-				"Total fuel cost: 2,142.86 gallons × ₽3.25/gallon = ₽6,964.30",
-				"Fixed costs: Insurance (₽1,000 × 4 = ₽4,000) + Registration (₽100 × 4 = ₽400) = ₽4,400",
-				"Maintenance: ₽800 × 4 = ₽3,200",
-				"Repairs: ₽600 × 4 = ₽2,400 (higher for used car)",
-				"Depreciation: ₽12,000 × 12% = ₽1,440 year 1, compound over 4 лет ≈ ₽4,800 total (much lower than new car)",
-				"Total ownership cost: ₽6,964 (fuel) + ₽4,400 (fixed) + ₽3,200 (maintenance) + ₽2,400 (repairs) + ₽4,800 (depreciation) = ₽21,764",
-				"Monthly cost: ₽21,764 ÷ 48 мес. = ₽453.42",
-				"Cost per mile: ₽21,764 ÷ 60,000 miles = ₽0.36 (lower than new car due to reduced depreciation)"
+				"Итого ~21 764 ₽, ~453 ₽/мес.",
+				"Амортизация ниже, чем у нового — ~0,36/mile"
 			]
 		},
 		{
-			"title": "Пример 4: New Car, High Depreciation",
-			"description": "A ₽60,000 new luxury car driven 8,000 miles per year for 3 лет",
+			"title": "Пример 4: новый премиум",
+			"description": "60 000 ₽, 8 000 miles/год, 3 года",
 			"inputs": {
 				"purchasePrice": 60000,
 				"ownershipPeriodYears": 3,
@@ -234,30 +181,20 @@
 				"insuranceAnnual": 3000,
 				"registrationAnnual": 500,
 				"parkingMonthly": 200,
-				"fuelCostPerUnit": 4,
+				"fuelCostPerUnit": 4.00,
 				"fuelConsumption": 22,
 				"maintenanceAnnual": 1500,
 				"repairsAnnual": 1000,
 				"expectedAnnualDepreciation": 25
 			},
 			"steps": [
-				"Purchase price: ₽60,000 (new luxury car)",
-				"Ownership period: 3 лет (short-term ownership)",
-				"Annual mileage: 8,000 miles (low mileage)",
-				"Fuel calculation: 8,000 miles ÷ 22 MPG = 363.64 gallons/year × 3 лет = 1,090.91 gallons total",
-				"Total fuel cost: 1,090.91 gallons × ₽4.00/gallon = ₽4,363.64",
-				"Fixed costs: Insurance (₽3,000 × 3 = ₽9,000) + Registration (₽500 × 3 = ₽1,500) + Parking (₽200 × 12 × 3 = ₽7,200) = ₽17,700",
-				"Maintenance: ₽1,500 × 3 = ₽4,500",
-				"Repairs: ₽1,000 × 3 = ₽3,000",
-				"Depreciation: ₽60,000 × 25% = ₽15,000 year 1, compound over 3 лет ≈ ₽33,000 total (largest cost component)",
-				"Total ownership cost: ₽4,364 (fuel) + ₽17,700 (fixed) + ₽4,500 (maintenance) + ₽3,000 (repairs) + ₽33,000 (depreciation) = ₽62,564",
-				"Monthly cost: ₽62,564 ÷ 36 мес. = ₽1,737.89",
-				"Cost per mile: ₽62,564 ÷ 24,000 miles = ₽2.61 (very high due to low mileage and high depreciation)"
+				"Амортизация ~33 000 ₽ — главная статья",
+				"Итого ~62 564 ₽ → ~1 738 ₽/мес., ~2,61/mile"
 			]
 		},
 		{
-			"title": "Пример 5: Mid-Range Sedan, Average Use",
-			"description": "A ₽28,000 mid-range sedan driven 12,000 miles per year for 6 лет",
+			"title": "Пример 5: седан среднего класса",
+			"description": "28 000 ₽, 12 000 miles/год, 6 лет",
 			"inputs": {
 				"purchasePrice": 28000,
 				"ownershipPeriodYears": 6,
@@ -265,97 +202,88 @@
 				"insuranceAnnual": 1400,
 				"registrationAnnual": 200,
 				"parkingMonthly": 50,
-				"fuelCostPerUnit": 3.6,
+				"fuelCostPerUnit": 3.60,
 				"fuelConsumption": 26,
 				"maintenanceAnnual": 700,
 				"repairsAnnual": 500,
 				"expectedAnnualDepreciation": 17
 			},
 			"steps": [
-				"Purchase price: ₽28,000",
-				"Ownership period: 6 лет (longer ownership spreads costs)",
-				"Annual mileage: 12,000 miles (average driver)",
-				"Fuel calculation: 12,000 miles ÷ 26 MPG = 461.54 gallons/year × 6 лет = 2,769.23 gallons total",
-				"Total fuel cost: 2,769.23 gallons × ₽3.60/gallon = ₽9,969.23",
-				"Fixed costs: Insurance (₽1,400 × 6 = ₽8,400) + Registration (₽200 × 6 = ₽1,200) + Parking (₽50 × 12 × 6 = ₽3,600) = ₽13,200",
-				"Maintenance: ₽700 × 6 = ₽4,200",
-				"Repairs: ₽500 × 6 = ₽3,000",
-				"Depreciation: ₽28,000 × 17% = ₽4,760 year 1, compound over 6 лет ≈ ₽18,500 total",
-				"Total ownership cost: ₽9,969 (fuel) + ₽13,200 (fixed) + ₽4,200 (maintenance) + ₽3,000 (repairs) + ₽18,500 (depreciation) = ₽48,869",
-				"Monthly cost: ₽48,869 ÷ 72 мес. = ₽678.74",
-				"Cost per mile: ₽48,869 ÷ 72,000 miles = ₽0.68"
+				"Итого ~48 869 ₽",
+				"~679 ₽/мес., ~0,68/mile"
 			]
 		}
 	],
 	"faq": [
 		{
-			"question": "What is cost of ownership?",
-			"answer": "Cost of ownership is the total amount you'll spend on a car over the time you own it. This includes the purchase price (depreciation), fuel, insurance, maintenance, repairs, registration, parking, and all other expenses. It's the true cost beyond just the sticker price."
+			"question": "Что такое стоимость владения?",
+			"answer": "Все траты за срок владения: покупка через амортизацию, топливо, страховка, ТО, регистрация, парковка и прочее — не только цена на витрине."
 		},
 		{
-			"question": "Why does depreciation matter?",
-			"answer": "Depreciation is often the largest cost of car ownership, especially for new vehicles. A new car can lose 20-30% of its value in the first year alone. Even though you don't pay depreciation as a monthly bill, it represents real money lost when you sell or trade in your car. Understanding depreciation helps you see the true cost of ownership."
+			"question": "Почему важна амортизация?",
+			"answer": "Часто крупнейшая статья для новых авто — до 40–50% TCO. Это не платёж каждый месяц, но реальные деньги при продаже."
 		},
 		{
-			"question": "Should I buy new or used?",
-			"answer": "Used cars typically have lower depreciation rates since most of the initial value loss has already occurred. However, they may have higher maintenance and repair costs. New cars have higher depreciation but often come with warranties. The calculator helps you compare the total cost of ownership for both options."
+			"question": "Новый или б/у?",
+			"answer": "Б/у — меньше амортизации, но выше риск ремонта. Новый — больше падение цены, но часто гарантия. Сравните TCO в калькуляторе."
 		},
 		{
-			"question": "How accurate is this calculator?",
-			"answer": "The calculator provides estimates based on the inputs you provide. Actual costs will vary based on your driving habits, location, vehicle reliability, market conditions, and unexpected repairs. Use it as a planning tool to understand cost categories and make informed decisions. Update the values as you get more accurate information."
+			"question": "Точность расчёта?",
+			"answer": "Зависит от ваших вводных. Факт меняется от стиля езды, региона и поломок. Обновляйте цифры по мере накопления опыта."
 		},
 		{
-			"question": "Does fuel dominate car ownership costs?",
-			"answer": "Fuel costs are significant, especially for high-mileage drivers, but depreciation is often the largest expense for new cars. For older vehicles with low depreciation, fuel and maintenance may be the dominant costs. The calculator shows you which expense category is your biggest cost driver."
+			"question": "Топливо — главная статья?",
+			"answer": "Для большого пробега топливо значимо; у новых часто лидирует амортизация. Калькулятор покажет вашу крупнейшую категорию."
 		},
 		{
-			"question": "Can I reduce my car ownership cost?",
-			"answer": "Yes! Several strategies can reduce ownership costs: buy a used car (lower depreciation), choose a fuel-efficient vehicle, drive fewer miles, maintain your car well to avoid major repairs, shop around for insurance, and keep your car longer to spread depreciation over more лет."
+			"question": "Как снизить TCO?",
+			"answer": "Б/у или экономичная модель, меньше km, своевременное ТО, сравнение страховок, дольше владеть — размазать амортизацию."
 		},
 		{
-			"question": "What is included in maintenance costs?",
-			"answer": "Maintenance includes regular services like oil changes, tire rotations, brake pad replacements, fluid changes, and scheduled service visits. These are predictable costs that keep your car running properly. Repairs are separate and cover unexpected issues like engine problems or transmission failures."
+			"question": "Что входит в ТО?",
+			"answer": "Масло, фильтры, тормоза, регламент. Ремонт — отдельно, внеплановые поломки."
 		},
 		{
-			"question": "How do I estimate depreciation?",
-			"answer": "New cars typically depreciate 15-25% per year in the first few лет, then slower. Used cars depreciate at 10-15% annually. Luxury and high-performance cars often depreciate faster. You can also use the resale value estimate option if you have a specific value in mind from research or dealer quotes."
+			"question": "Как оценить амортизацию?",
+			"answer": "Новые 15–25% в ранние годы; б/у 10–15%. Или введите цену перепродажи из оценки рынка."
 		},
 		{
-			"question": "What if I don't know my exact costs?",
-			"answer": "Use estimates based on national averages or similar vehicles. For insurance, check quotes from insurance companies. For fuel, use current local prices. For maintenance, research typical costs for your vehicle make and model. You can always update the calculator as you get more accurate information."
+			"question": "Если цифры неизвестны?",
+			"answer": "Используйте средние по классу, котировки страховки и цены АЗС. Уточняйте позже."
 		},
 		{
-			"question": "How does mileage affect ownership cost?",
-			"answer": "Higher mileage increases fuel costs, maintenance frequency, and wear on the vehicle. It also affects resale value - high-mileage cars are worth less. The calculator shows cost per mile, which helps you understand the impact of your driving habits on total ownership cost."
+			"question": "Влияние пробега?",
+			"answer": "Больше km — больше топливо и ТО, ниже перепродажа. Смотрите стоимость на mile."
 		},
 		{
-			"question": "Should I include loan interest in ownership cost?",
-			"answer": "This calculator focuses on the cost of owning the car itself, not financing costs. If you're financing, use our Auto Loan Calculator separately to see loan payments and interest. The total cost of ownership here represents what you'd pay if you owned the car outright."
+			"question": "Проценты по кредиту?",
+			"answer": "Здесь — владение без учёта финансирования. Платежи по кредиту — в калькуляторе автокредита."
 		},
 		{
-			"question": "What about electric vehicles?",
-			"answer": "Electric vehicles have different cost structures - no fuel costs but electricity costs, potentially lower maintenance (no oil changes), but often higher purchase prices and different depreciation patterns. You can adapt this calculator by using electricity cost per kWh and your vehicle's efficiency rating."
+			"question": "Электромобили?",
+			"answer": "Вместо топлива — электроэнергия (kWh/100 km), иная амортизация и ТО. Подставьте свои единицы вручную."
 		},
 		{
-			"question": "How does the ownership period affect costs?",
-			"answer": "Longer ownership periods spread depreciation over more лет, reducing annual cost. However, maintenance and repair costs typically increase as the car ages. The calculator shows both total cost and annual/monthly costs to help you understand the impact of ownership duration."
+			"question": "Срок владения?",
+			"answer": "Дольше — ниже годовая амортизация, но выше ремонты на старости."
 		},
 		{
-			"question": "What is the biggest cost for most car owners?",
-			"answer": "For new cars, depreciation is usually the largest cost, often 40-50% of total ownership cost. For older used cars, fuel and maintenance may dominate. The calculator identifies your biggest cost driver based on your specific inputs."
+			"question": "Главная статья для большинства?",
+			"answer": "У новых — амортизация; у старых — топливо и ТО."
 		},
 		{
-			"question": "Can I compare different cars with this calculator?",
-			"answer": "Yes! Run the calculator for different vehicles and compare the total ownership costs, monthly costs, and cost per mile. This helps you make an informed decision about which car is truly more affordable over time, not just which has a lower sticker price."
+			"question": "Сравнение разных авто?",
+			"answer": "Запустите расчёт для каждой модели и сравните итог, месяц и mile."
 		}
 	],
 	"seo": {
-		"title": "Стоимость владения автомобилем – полный расчёт расходов",
-		"description": "Рассчитайте реальную стоимость владения авто: топливо, страховка, ТО, амортизация и итого в месяц/год.",
+		"title": "Стоимость владения автомобилем — калькулятор TCO",
+		"description": "Полная стоимость владения авто: амортизация, бензин, страховка, ТО и парковка в ₽ за год и за весь срок.",
 		"keywords": [
-			"стоимость владения авто",
-			"расходы на машину",
-			"полная стоимость автомобиля"
+			"стоимость владения автомобилем",
+			"TCO автомобиль",
+			"расходы на машину в год",
+			"калькулятор содержания авто"
 		]
 	}
 }

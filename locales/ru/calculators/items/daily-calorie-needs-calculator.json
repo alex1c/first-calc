@@ -1,121 +1,97 @@
 {
-	"title": "Калькулятор суточной калорийности (TDEE) – Поддержание и снижение веса",
-	"shortDescription": "Рассчитайте суточную потребность в калориях (TDEE) по возрасту, росту, весу и активности. Цели для поддержания или снижения веса.",
-	"longDescription": "Калькулятор TDEE оценивает общие суточные энергозатраты на основе BMR и уровня активности, а также предлагает целевую калорийность для поддержания, снижения или набора веса.",
+	"title": "Калькулятор суточной нормы калорий (TDEE) – поддержание, похудение, набор",
+	"shortDescription": "Рассчитайте TDEE по возрасту, росту, весу и активности. Цели для поддержания, снижения или набора веса.",
+	"longDescription": "Калькулятор помогает определить TDEE (Total Daily Energy Expenditure) — сколько калорий вы тратите в сутки с учётом активности. По полу, возрасту, росту, весу и уровню движения считается BMR (Mifflin-St Jeor), затем TDEE и целевые калории для поддержания, похудения или набора. Понимание TDEE — основа управления весом.",
 	"inputs": [
 		{
 			"label": "Пол",
 			"unitLabel": "",
 			"placeholder": "Выберите пол",
-			"helpText": "Biological sex affects BMR calculation due to differences in body composition"
+			"helpText": "Пол влияет на формулу BMR из‑за различий в составе тела"
 		},
 		{
 			"label": "Возраст",
 			"unitLabel": "лет",
 			"placeholder": "Введите возраст",
-			"helpText": "Ваш возраст в годах"
+			"helpText": "Возраст в годах"
 		},
 		{
 			"label": "Рост",
 			"unitLabel": "",
 			"placeholder": "Введите рост",
-			"helpText": "Рост в сантиметрах (если см) или суммарно в дюймах (если футы+дюймы)"
+			"helpText": "См или суммарно дюймы (фт+дюйм)"
 		},
 		{
 			"label": "Единица роста",
 			"unitLabel": "",
 			"placeholder": "Выберите единицу",
-			"helpText": "Выберите сантиметры (см) или футы и дюймы (фт+дюйм)"
+			"helpText": "См или фт+дюйм"
 		},
 		{
 			"label": "Футы",
 			"unitLabel": "фт",
 			"placeholder": "Введите футы",
-			"helpText": "Рост в футах (только при выборе фт+дюйм)"
+			"helpText": "Только при фт+дюйм"
 		},
 		{
 			"label": "Дюймы",
 			"unitLabel": "дюйм",
 			"placeholder": "Введите дюймы",
-			"helpText": "Дополнительные дюймы (только при выборе фт+дюйм)"
+			"helpText": "Доп. дюймы (фт+дюйм)"
 		},
 		{
 			"label": "Вес",
 			"unitLabel": "",
 			"placeholder": "Введите вес",
-			"helpText": "Масса вашего тела"
+			"helpText": "Масса тела"
 		},
 		{
 			"label": "Единица веса",
 			"unitLabel": "",
 			"placeholder": "Выберите единицу",
-			"helpText": "Выберите килограммы (кг) или фунты (lb)"
+			"helpText": "Кг или lb"
 		},
 		{
 			"label": "Уровень активности",
 			"unitLabel": "",
-			"placeholder": "Выберите уровень активности",
-			"helpText": "Your daily activity level determines how much your BMR is multiplied to get your TDEE"
+			"placeholder": "Выберите активность",
+			"helpText": "Множитель к BMR для расчёта TDEE"
 		},
 		{
 			"label": "Цель",
 			"unitLabel": "",
-			"placeholder": "Выберите goal",
-			"helpText": "Optional: Choose a weight goal to get adjusted calorie targets"
+			"placeholder": "Выберите цель",
+			"helpText": "Необязательно: поддержание, похудение или набор — скорректированные калории"
 		}
 	],
 	"outputs": [
-		{
-			"label": "BMR",
-			"unitLabel": "ккал/день"
-		},
-		{
-			"label": "TDEE",
-			"unitLabel": "ккал/день"
-		},
-		{
-			"label": "Калории по цели",
-			"unitLabel": "ккал/день"
-		},
-		{
-			"label": "Описание цели",
-			"unitLabel": ""
-		},
-		{
-			"label": "Описание активности",
-			"unitLabel": ""
-		},
-		{
-			"label": "Коэффициент активности",
-			"unitLabel": ""
-		},
-		{
-			"label": "Дельта цели",
-			"unitLabel": "ккал/день"
-		},
-		{
-			"label": "Пояснения",
-			"unitLabel": ""
-		}
+		{ "label": "BMR", "unitLabel": "ккал/день" },
+		{ "label": "TDEE", "unitLabel": "ккал/день" },
+		{ "label": "Калории по цели", "unitLabel": "ккал/день" },
+		{ "label": "Описание цели", "unitLabel": "" },
+		{ "label": "Описание активности", "unitLabel": "" },
+		{ "label": "Множитель активности", "unitLabel": "" },
+		{ "label": "Дельта цели", "unitLabel": "ккал/день" },
+		{ "label": "Пояснения", "unitLabel": "" }
 	],
 	"howTo": [
-		"Выберите your biological sex (male or female)",
-		"Введите your age in лет",
-		"Введите your height",
-		"Выберите your height unit (centimeters or feet+дюймов)",
-		"Если используете feet+дюймов, enter both feet and дюймов separately",
-		"Введите your weight",
-		"Выберите your weight unit (kilograms or фунтов)",
-		"Выберите your activity level based on your daily exercise and movement",
-		"При желании select a weight goal (maintain, lose, or gain)",
-		"Нажмите «Рассчитать» to see your TDEE and calorie targets",
-		"Проверьте the results to understand your daily calorie needs",
-		"Скорректируйте your activity level or goal if needed to see different scenarios"
+		"Выберите пол",
+		"Введите возраст",
+		"Введите рост и единицу",
+		"При фт+дюйм укажите футы и дюймы",
+		"Введите вес и единицу веса",
+		"Выберите уровень активности по типичной неделе",
+		"При желании выберите цель (поддержание, −0,5 кг/нед и т. д.)",
+		"Нажмите «Рассчитать»",
+		"Изучите BMR, TDEE и калории по цели",
+		"При необходимости измените активность или цель для другого сценария",
+		"Используйте результат как старт, корректируйте по прогрессу 2–3 недели",
+		"Пересчитывайте при заметном изменении веса или нагрузки"
 	],
 	"examples": [
 		{
-			"title": "Пример 1: Sedentary Office Worker",
-			"description": "A 35-year-old male office worker who exercises rarely",
+			"title": "Пример 1: сидячая работа",
+			"description": "Мужчина 35 лет, офис, мало спорта",
 			"inputs": {
 				"sex": "male",
 				"age": 35,
@@ -127,24 +103,17 @@
 				"goal": "maintain"
 			},
 			"steps": [
-				"Sex: Мужчина",
-				"Age: 35 лет",
-				"Height: 180 cm",
-				"Weight: 85 kg",
-				"Activity Level: Sedentary (1.2x multiplier)",
-				"Goal: Maintain weight",
-				"Calculate BMR using Mifflin-St Jeor:",
-				"BMR = (10 × 85) + (6.25 × 180) - (5 × 35) + 5",
-				"BMR = 850 + 1,125 - 175 + 5 = 1,805 kcal/day",
-				"Calculate TDEE: TDEE = BMR × Activity Multiplier",
-				"TDEE = 1,805 × 1.2 = 2,166 kcal/day",
-				"To maintain weight: 2,166 calories per day"
+				"Мужчина, 35 лет, 180 см, 85 кг",
+				"Активность: сидячая (×1,2)",
+				"BMR (Mifflin-St Jeor): (10×85)+(6,25×180)−(5×35)+5 = 1805 ккал/день",
+				"TDEE = 1805 × 1,2 = 2166 ккал/день",
+				"Поддержание веса: ~2166 ккал/день"
 			],
-			"result": "This sedentary office worker needs 2,166 calories per day to maintain his current weight. His BMR is 1,805 calories, which is multiplied by 1.2 (sedentary activity level) to account for minimal daily movement and desk work. This is a relatively low TDEE due to the sedentary lifestyle."
+			"result": "При малоподвижном образе жизни поддержание ~2166 ккал/день. BMR 1805 ккал — низкий TDEE из‑за сидячей работы."
 		},
 		{
-			"title": "Пример 2: Lightly Active Person",
-			"description": "A 28-year-old female who exercises 2-3 times per week",
+			"title": "Пример 2: лёгкая активность",
+			"description": "Женщина 28 лет, тренировки 2–3 раза в неделю",
 			"inputs": {
 				"sex": "female",
 				"age": 28,
@@ -156,24 +125,16 @@
 				"goal": "maintain"
 			},
 			"steps": [
-				"Sex: Женщина",
-				"Age: 28 лет",
-				"Height: 165 cm",
-				"Weight: 65 kg",
-				"Activity Level: Lightly Active (1.375x multiplier)",
-				"Goal: Maintain weight",
-				"Calculate BMR using Mifflin-St Jeor:",
-				"BMR = (10 × 65) + (6.25 × 165) - (5 × 28) - 161",
-				"BMR = 650 + 1,031.25 - 140 - 161 = 1,380.25 kcal/day",
-				"Calculate TDEE: TDEE = BMR × Activity Multiplier",
-				"TDEE = 1,380 × 1.375 = 1,897.5 ≈ 1,898 kcal/day",
-				"To maintain weight: 1,898 calories per day"
+				"Женщина, 28 лет, 165 см, 65 кг",
+				"Лёгкая активность (×1,375)",
+				"BMR ≈ 1380 ккал/день",
+				"TDEE ≈ 1380 × 1,375 = 1898 ккал/день"
 			],
-			"result": "This lightly active person needs 1,898 calories per day to maintain her current weight. Her BMR is 1,380 calories, which is multiplied by 1.375 to account for light exercise 1-3 times per week. This moderate activity level increases her calorie needs by about 518 calories compared to a sedentary lifestyle."
+			"result": "Поддержание ~1898 ккал/день — на ~518 ккал больше, чем при сидячем образе."
 		},
 		{
-			"title": "Пример 3: Moderately Active Person",
-			"description": "A 32-year-old male who exercises 4-5 times per week",
+			"title": "Пример 3: умеренная активность",
+			"description": "Мужчина 32 года, 4–5 тренировок в неделю",
 			"inputs": {
 				"sex": "male",
 				"age": 32,
@@ -185,24 +146,15 @@
 				"goal": "maintain"
 			},
 			"steps": [
-				"Sex: Мужчина",
-				"Age: 32 лет",
-				"Height: 175 cm",
-				"Weight: 75 kg",
-				"Activity Level: Moderately Active (1.55x multiplier)",
-				"Goal: Maintain weight",
-				"Calculate BMR using Mifflin-St Jeor:",
-				"BMR = (10 × 75) + (6.25 × 175) - (5 × 32) + 5",
-				"BMR = 750 + 1,093.75 - 160 + 5 = 1,688.75 ≈ 1,689 kcal/day",
-				"Calculate TDEE: TDEE = BMR × Activity Multiplier",
-				"TDEE = 1,689 × 1.55 = 2,617.95 ≈ 2,618 kcal/day",
-				"To maintain weight: 2,618 calories per day"
+				"32 года, 175 см, 75 кг, умеренная активность (×1,55)",
+				"BMR ≈ 1689 ккал/день",
+				"TDEE ≈ 1689 × 1,55 = 2618 ккал/день"
 			],
-			"result": "This moderately active person needs 2,618 calories per day to maintain his current weight. His BMR is 1,689 calories, which is multiplied by 1.55 to account for moderate exercise 3-5 times per week. This is a common activity level for people who exercise regularly but not intensely."
+			"result": "Регулярные тренировки поднимают поддержание до ~2618 ккал/день."
 		},
 		{
-			"title": "Пример 4: Weight Loss Goal (Same Person)",
-			"description": "Same person from Пример 3, but with a goal to lose 0.5 kg per week",
+			"title": "Пример 4: цель −0,5 кг/нед",
+			"description": "Тот же человек из примера 3 с целью похудения",
 			"inputs": {
 				"sex": "male",
 				"age": 32,
@@ -214,23 +166,16 @@
 				"goal": "lose_0_5kg_week"
 			},
 			"steps": [
-				"Same person: Мужчина, 32 лет, 175 cm, 75 kg, Moderately Active",
-				"BMR: 1,689 kcal/day (from previous calculation)",
-				"TDEE: 2,618 kcal/day (maintenance calories)",
-				"Goal: Lose 0.5 kg per week",
-				"Calorie deficit needed: -500 kcal/day",
-				"Goal Calories = TDEE + Goal Delta",
-				"Goal Calories = 2,618 + (-500) = 2,118 kcal/day",
-				"This creates a 500-calorie daily deficit",
-				"Weekly deficit: 500 × 7 = 3,500 calories",
-				"1 kg of fat ≈ 7,700 calories",
-				"Expected weight loss: 3,500 ÷ 7,700 ≈ 0.45 kg/week (close to 0.5 kg/week)"
+				"TDEE поддержания: 2618 ккал/день",
+				"Цель: −0,5 кг/нед → дефицит ~500 ккал/день",
+				"Калории по цели: 2618 − 500 = 2118 ккал/день",
+				"За неделю: 500×7 = 3500 ккал ≈ 0,45 кг жира"
 			],
-			"result": "To lose 0.5 kg per week, this person should aim for 2,118 calories per day instead of the maintenance 2,618 calories. This creates a 500-calorie daily deficit, which is a moderate and sustainable approach to weight loss. More aggressive deficits (greater than 500-750 calories) may lead to muscle loss and metabolic slowdown."
+			"result": "~2118 ккал/день — умеренный дефицит. Агрессивнее 500–750 ккал/день рискует мышцами и замедлением метаболизма."
 		},
 		{
-			"title": "Пример 5: Imperial Units (фунтов and Feet+дюймов)",
-			"description": "A person using imperial units: Женщина, 25 лет, 5 feet 6 дюймов, 140 фунтов, Very Active",
+			"title": "Пример 5: имперские единицы",
+			"description": "Женщина 25 лет, 5 фт 6 дюйм, 140 lb, very active",
 			"inputs": {
 				"sex": "female",
 				"age": 25,
@@ -244,105 +189,101 @@
 				"goal": "maintain"
 			},
 			"steps": [
-				"Sex: Женщина",
-				"Age: 25 лет",
-				"Height: 5 ft 6 in = 66 дюймов",
-				"Convert to cm: 66 × 2.54 = 167.64 cm",
-				"Weight: 140 lb",
-				"Convert to kg: 140 × 0.453592 = 63.5 kg",
-				"Activity Level: Very Active (1.725x multiplier)",
-				"Calculate BMR using Mifflin-St Jeor:",
-				"BMR = (10 × 63.5) + (6.25 × 167.64) - (5 × 25) - 161",
-				"BMR = 635 + 1,047.75 - 125 - 161 = 1,396.75 ≈ 1,397 kcal/day",
-				"Calculate TDEE: TDEE = BMR × Activity Multiplier",
-				"TDEE = 1,397 × 1.725 = 2,409.825 ≈ 2,410 kcal/day",
-				"To maintain weight: 2,410 calories per day"
+				"5 фт 6 дюйм = 66 дюйм → 167,64 см",
+				"140 lb → 63,5 кг",
+				"Very active (×1,725)",
+				"BMR ≈ 1397 ккал/день",
+				"TDEE ≈ 1397 × 1,725 = 2410 ккал/день"
 			],
-			"result": "This example demonstrates how the calculator automatically handles unit conversions. The person's TDEE is 2,410 calories per day. This shows that the calculator works seamlessly with both metric and imperial units, converting everything internally to metric for accurate calculations. Very active individuals have significantly higher calorie needs due to their high activity level."
+			"result": "Калькулятор переводит lb и футы+дюймы внутри. При высокой активности поддержание ~2410 ккал/день."
 		}
 	],
 	"faq": [
 		{
-			"question": "What is TDEE?",
-			"answer": "TDEE (Total Daily Energy Expenditure) is the total number of calories your body burns per day, including your BMR (Basal Metabolic Rate) plus calories burned from all activities, exercise, and daily movement. TDEE = BMR × Activity Level Multiplier. It represents the calories you need to consume to maintain your current weight."
+			"question": "Что такое TDEE?",
+			"answer": "TDEE — суммарный суточный расход: BMR плюс калории от движения и тренировок. TDEE = BMR × множитель активности. Это калории для поддержания текущего веса."
 		},
 		{
-			"question": "What's the difference between BMR and TDEE?",
-			"answer": "BMR (Basal Metabolic Rate) is the calories your body burns at complete rest — just for basic life functions like breathing and circulation. TDEE (Total Daily Energy Expenditure) is your BMR multiplied by an activity factor that accounts for all your daily movement and exercise. TDEE is always higher than BMR because it includes activity. For example, if your BMR is 1,500 calories and you're moderately active (1.55x), your TDEE would be 1,500 × 1.55 = 2,325 calories."
+			"question": "Чем BMR отличается от TDEE?",
+			"answer": "BMR — энергия в полном покое (дыхание, кровообращение). TDEE всегда выше — учитывает бытовую активность и спорт. Пример: BMR 1500, умеренная активность ×1,55 → TDEE 2325 ккал."
 		},
 		{
-			"question": "Which activity level should I choose?",
-			"answer": "Choose the activity level that best matches your typical week: Sedentary (1.2x) = little to no exercise, desk job; Lightly Active (1.375x) = light exercise 1-3 days/week; Moderately Active (1.55x) = moderate exercise 3-5 days/week; Very Active (1.725x) = hard exercise 6-7 days/week; Athlete (1.9x) = very hard exercise, physical job, or training twice/day. Be honest — overestimating activity leads to overeating."
+			"question": "Какой уровень активности выбрать?",
+			"answer": "Сидячий ×1,2 — почти нет спорта; лёгкий ×1,375 — 1–3 лёгкие тренировки; умеренный ×1,55 — 3–5; very active ×1,725 — 6–7 интенсивных; athlete ×1,9 — очень тяжёлые нагрузки. Не завышайте — иначе переедание."
 		},
 		{
-			"question": "How many calories should I eat to lose weight?",
-			"answer": "To lose weight, you need to consume fewer calories than your TDEE. A safe and sustainable deficit is typically 250-500 calories per day, which can lead to 0.25-0.5 kg (0.5-1 lb) of weight loss per week. For example, if your TDEE is 2,000 calories, eating 1,500-1,750 calories per day would create a moderate deficit. Avoid deficits greater than 500-750 calories per day, as they may lead to muscle loss and metabolic slowdown."
+			"question": "Сколько есть для похудения?",
+			"answer": "Меньше TDEE на 250–500 ккал/день — ориентир 0,25–0,5 кг/нед. При TDEE 2000 это 1500–1750 ккал. Дефicit >750 ккал/день обычно нежелателен."
 		},
 		{
-			"question": "What is a safe calorie deficit?",
-			"answer": "A safe calorie deficit is typically 250-500 calories per day, which results in 0.25-0.5 kg (0.5-1 lb) of weight loss per week. This moderate deficit allows for sustainable weight loss while preserving muscle mass and energy levels. Deficits greater than 500-750 calories per day may be too aggressive and can lead to muscle loss, metabolic slowdown, nutritional deficiencies, and difficulty maintaining the diet long-term."
+			"question": "Какой дефицит безопасен?",
+			"answer": "250–500 ккал/день — устойчивое похудение с сохранением энергии и мышц. Больше — риск дефицитов нутриентов и отката."
 		},
 		{
-			"question": "How many calories should I eat to gain weight?",
-			"answer": "To gain weight (especially muscle), you need to consume more calories than your TDEE. A moderate surplus is typically 250-500 calories per day, which can lead to 0.25-0.5 kg (0.5-1 lb) of weight gain per week. For muscle gain, combine the calorie surplus with resistance training. For example, if your TDEE is 2,000 calories, eating 2,250-2,500 calories per day would create a moderate surplus."
+			"question": "Сколько есть для набора?",
+			"answer": "TDEE + 250–500 ккал/день для набора ~0,25–0,5 кг/нед. Для мышц добавьте силовые."
 		},
 		{
-			"question": "Why do my results differ from other calorie calculators or apps?",
-			"answer": "Different calculators may use different formulas (Mifflin-St Jeor vs Harris-Benedict), different activity level definitions, or different assumptions about calorie deficits. This calculator uses the Mifflin-St Jeor formula, which is considered the most accurate for modern populations. Small differences (100-200 calories) are normal and expected. Use the results as a starting point and adjust based on your actual results over 2-3 weeks."
+			"question": "Почему цифры отличаются от других приложений?",
+			"answer": "Разные формулы (Mifflin-St Jeor vs Harris-Benedict), разные описания активности. Расхождение 100–200 ккал нормально — подстраивайте по результатам."
 		},
 		{
-			"question": "Does my metabolism change over time?",
-			"answer": "Yes, metabolism can change due to several factors: Age (metabolism generally decreases with age), muscle mass (more muscle = higher metabolism), weight loss (metabolism may slow down as you lose weight, known as metabolic adaptation), medical conditions, medications, and lifestyle changes. It's a good idea to recalculate your TDEE every few мес. or when your weight or activity level changes significantly."
+			"question": "Меняется ли метаболизм?",
+			"answer": "Да: возраст, мышечная масса, похудение (адаптация), лекарства. Пересчитывайте каждые несколько месяцев или при −5–10 кг."
 		},
 		{
-			"question": "Can I eat below my BMR to lose weight faster?",
-			"answer": "Eating below your BMR for extended periods is not recommended. BMR represents the minimum calories needed for basic bodily functions. Consistently eating below BMR can slow your metabolism, cause muscle loss, lead to nutritional deficiencies, reduce energy levels, and make it difficult to maintain the diet long-term. Instead, eat below your TDEE (which is higher than BMR) to create a safe calorie deficit."
+			"question": "Можно ли есть ниже BMR?",
+			"answer": "Длительно ниже BMR не рекомендуется — это минимум для органов. Дефicit создавайте относительно TDEE, не BMR."
 		},
 		{
-			"question": "How accurate is this calculator?",
-			"answer": "This calculator provides reasonable estimates for most people, typically within 10-15% of actual TDEE. However, individual variations exist due to genetics, body composition (muscle vs fat), medical conditions, medications, and other factors. Use the results as a starting point and adjust based on your actual results. If you're not seeing expected results after 2-3 weeks, adjust your calorie intake by 100-200 calories and monitor again."
+			"question": "Насколько точен калькулятор?",
+			"answer": "Обычно ±10–15% для большинства. Используйте как старт; через 2–3 недели корректируйте на 100–200 ккал."
 		},
 		{
-			"question": "Should I track calories every day?",
-			"answer": "Daily tracking can be helpful, especially when starting, but it's not necessary forever. Many people find success with flexible tracking (tracking most days but not obsessing), focusing on portion sizes and food quality, or using meal planning. The key is finding a sustainable approach that helps you meet your calorie goals without causing stress or disordered eating patterns."
+			"question": "Нужно ли считать калории каждый день?",
+			"answer": "Не обязательно всегда. Многим хватает учёта «большинства дней» и контроля порций. Важна устойчивость без стресса."
 		},
 		{
-			"question": "What if I'm not losing weight even with a calorie deficit?",
-			"answer": "If you're not losing weight despite a calorie deficit, consider: 1) You may be underestimating calorie intake (track more accurately), 2) You may be overestimating activity level, 3) Water retention can mask fat loss (weigh yourself at the same time daily), 4) Metabolic adaptation may have occurred, 5) Medical conditions or medications may affect metabolism. Give it 2-3 weeks, then adjust. If issues persist, consult a healthcare provider or registered dietitian."
+			"question": "Не худею при дефиците — почему?",
+			"answer": "Часто недоучёт еды, завышенная активность, задержка воды, адаптация метаболизма, медицинские факторы. Дайте 2–3 недели, уточните учёт; при стагне — врач/диетолог."
 		},
 		{
-			"question": "Do I need to recalculate if I lose weight?",
-			"answer": "Yes, you should recalculate your TDEE as you lose weight. As your weight decreases, your BMR decreases (smaller body = fewer calories needed), which means your TDEE also decreases. For example, if you lose 10 kg, your maintenance calories will be lower. Recalculate every 5-10 kg of weight change, or every few мес., to ensure you're still eating the right amount for your current body size."
+			"question": "Пересчитывать при похудении?",
+			"answer": "Да: меньший вес → ниже BMR и TDEE. Пересчёт каждые 5–10 кг или раз в несколько месяцев."
 		},
 		{
-			"question": "Can I use this calculator if I'm pregnant or breastfeeding?",
-			"answer": "This calculator is not designed for pregnancy or breastfeeding, as calorie needs during these periods are significantly different and require specialized guidance. Pregnant and breastfeeding women have increased calorie needs that vary by trimester, pre-pregnancy weight, and individual factors. Consult with a healthcare provider or registered dietitian for personalized calorie recommendations during pregnancy and breastfeeding."
+			"question": "Беременность и ГВ?",
+			"answer": "Калькулятор не для этих периодов — потребности другие. Нужен индивидуальный план у врача или диетолога."
 		},
 		{
-			"question": "What about cheat days or refeed days?",
-			"answer": "Occasional higher-calorie days (cheat days or refeed days) can be part of a sustainable diet plan, especially for long-term weight management. A single high-calorie day won't derail progress if you're consistent the rest of the week. Some people find that planned refeed days (eating at or slightly above maintenance) can help with adherence and may provide metabolic benefits. However, frequent cheat days can slow progress, so moderation is key."
+			"question": "Чит-дни и дни повышенных калорий?",
+			"answer": "Редкие дни выше калорий не ломают прогресс при дисциплине в остальные дни. Частые «читы» замедляют результат."
 		},
 		{
-			"question": "How do I know if my activity level is correct?",
-			"answer": "Monitor your results over 2-3 weeks. If you're maintaining weight while eating at your calculated TDEE, your activity level is likely correct. If you're gaining weight, you may have overestimated your activity level. If you're losing weight (and that's not your goal), you may have underestimated it. Adjust your activity level selection and recalculate. Remember that activity level includes both exercise and daily movement (walking, standing, etc.)."
+			"question": "Как понять, что активность выбрана верно?",
+			"answer": "2–3 недели на TDEE: вес стабилен — множитель вероятно верный; набор — завысили активность; нежелательная потеря — занизили."
 		},
 		{
-			"question": "What's the difference between losing 0.25 kg/week and 0.5 kg/week?",
-			"answer": "Losing 0.25 kg/week requires a 250-calorie daily deficit, while losing 0.5 kg/week requires a 500-calorie daily deficit. The 0.25 kg/week option is more gradual and may be easier to maintain long-term, with less risk of muscle loss. The 0.5 kg/week option is faster but requires a larger deficit, which may be more challenging to sustain. Choose based on your timeline, preferences, and ability to maintain the deficit. Many people find 0.25-0.5 kg/week to be a good balance."
+			"question": "−0,25 vs −0,5 кг/нед?",
+			"answer": "−0,25 кг/нед ≈ −250 ккал/день — мягче; −0,5 кг/нед ≈ −500 ккал — быстрее, но сложнее держать. Выбирайте по срокам и самочувствию."
 		},
 		{
-			"question": "Should I eat the same calories every day?",
-			"answer": "Not necessarily. Some people prefer consistent daily calories, while others use calorie cycling (eating more on active days, less on rest days). Both approaches can work. The key is that your weekly average matches your goal. For example, if your target is 2,000 calories/day, you could eat 1,800 on Monday, 2,200 on Tuesday, 2,000 on Wednesday, etc., as long as the weekly average is 14,000 calories (2,000 × 7). Find what works best for your lifestyle and preferences."
+			"question": "Одинаковые калории каждый день?",
+			"answer": "Не обязательно: можно чередовать дни (больше в тренировочные). Важна средняя за неделю под вашу цель."
 		}
 	],
 	"seo": {
-		"title": "Калькулятор TDEE – суточная норма калорий",
-		"description": "Рассчитайте TDEE и целевые калории для поддержания, похудения или набора веса по активности.",
+		"title": "Калькулятор TDEE онлайн – суточная норма калорий и BMR",
+		"description": "Рассчитайте BMR и TDEE по Mifflin-St Jeor. Калории для поддержания веса, похудения или набора с учётом активности.",
 		"keywords": [
-			"tdee",
-			"суточная калорийность",
-			"норма калорий",
-			"калькулятор калорий"
+			"калькулятор tdee",
+			"суточная норма калорий",
+			"сколько калорий в день",
+			"bmr калькулятор",
+			"калории для похудения",
+			"дефицит калорий",
+			"калории поддержание веса",
+			"расход калорий в день"
 		]
 	}
 }

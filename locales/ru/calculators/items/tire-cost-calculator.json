@@ -1,85 +1,67 @@
 {
-	"title": "Калькулятор стоимости шин – В год и на километр",
-	"shortDescription": "Оцените затраты на шины во времени: годовые расходы и стоимость на единицу пробега.",
-	"longDescription": "Калькулятор стоимости шин считает цену комплекта, срок службы в годах, годовые затраты и стоимость на милю/км с учётом монтажа и типа шин.",
+	"title": "Калькулятор стоимости шин – в год и на mile",
+	"shortDescription": "Сколько стоят шины с учётом ресурса, пробега и сезонных комплектов.",
+	"longDescription": "Оцените реальную стоимость шин: цена комплекта, монтаж, срок службы и ваш годовой пробег. Сравните бюджетные и премиум варианты, сезонную схему «лето + зима» и один круглогодичный комплект. Показывает годовые траты и стоимость на mile для планирования бюджета.",
 	"inputs": [
 		{
 			"label": "Цена одной шины",
 			"unitLabel": "₽",
-			"placeholder": "Введите tire price",
-			"helpText": "Price per tire"
+			"placeholder": "Введите цену",
+			"helpText": "Стоимость одной шины"
 		},
 		{
 			"label": "Количество шин",
-			"unitLabel": "tires",
-			"placeholder": "Введите number of tires",
-			"helpText": "Number of tires in a set (typically 4, or 5 if including spare)"
+			"unitLabel": "шт.",
+			"placeholder": "Введите количество",
+			"helpText": "Обычно 4 (или 5 с запаской)"
 		},
 		{
-			"label": "Срок службы шин",
+			"label": "Ресурс шин",
 			"unitLabel": "miles",
-			"placeholder": "Введите tire lifespan",
-			"helpText": "Expected tire lifespan in miles (check tire warranty/rating)"
+			"placeholder": "Введите ресурс",
+			"helpText": "Пробег по гарантии производителя или рейтингу"
 		},
 		{
 			"label": "Годовой пробег",
 			"unitLabel": "miles",
-			"placeholder": "Введите annual mileage",
-			"helpText": "Average miles driven per year"
+			"placeholder": "Введите пробег",
+			"helpText": "Средний пробег за год"
 		},
 		{
 			"label": "Тип шин",
 			"unitLabel": "",
-			"placeholder": "Выберите tire type",
-			"helpText": "Single set (all-season) or seasonal tires (summer + winter sets)"
+			"placeholder": "Выберите тип",
+			"helpText": "Один круглогодичный комплект или сезонные (лето + зима)"
 		},
 		{
 			"label": "Монтаж и балансировка",
 			"unitLabel": "₽",
-			"placeholder": "Введите mounting/balancing cost",
-			"helpText": "Cost for mounting and balancing per set (optional)"
+			"placeholder": "Введите стоимость",
+			"helpText": "На комплект (необязательно)"
 		}
 	],
 	"outputs": [
-		{
-			"label": "Стоимость комплекта",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Лет на комплект",
-			"unitLabel": "лет"
-		},
-		{
-			"label": "Стоимость шин в год",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Стоимость на единицу пробега",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Комплект (только шины)",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Сезонная полная стоимость",
-			"unitLabel": "₽"
-		}
+		{ "label": "Стоимость комплекта с монтажом", "unitLabel": "₽" },
+		{ "label": "Лет на комплект", "unitLabel": "лет" },
+		{ "label": "Расход на шины в год", "unitLabel": "₽" },
+		{ "label": "На mile", "unitLabel": "₽" },
+		{ "label": "Только шины (комплект)", "unitLabel": "₽" },
+		{ "label": "Сезонные: итого комплектов", "unitLabel": "₽" }
 	],
 	"howTo": [
-		"Введите the price per tire",
-		"Введите the number of tires in a set (typically 4)",
-		"Введите the expected tire lifespan in miles (check tire warranty or rating)",
-		"Введите your annual mileage",
-		"Выберите whether you use seasonal tires (summer + winter) or a single all-season set",
-		"При желании enter mounting and balancing costs per set",
-		"Нажмите «Рассчитать» to see your tire costs",
-		"Проверьте annual cost, cost per mile, and how often you'll replace tires"
+		"Введите цену одной шины",
+		"Введите число шин в комплекте (обычно 4)",
+		"Укажите заявленный ресурс в miles (гарантия/рейтинг)",
+		"Введите ваш годовой пробег",
+		"Выберите один круглогодичный комплект или сезонные (лето + зима)",
+		"При необходимости укажите монтаж и балансировку на комплект",
+		"Нажмите «Рассчитать»",
+		"Смотрите годовые траты, стоимость на mile и срок до замены"
 	],
 	"examples": [
 		{
-			"title": "Пример 1: Budget Tires",
-			"description": "Budget tires at ₽60 each with 40,000 mile lifespan",
+			"title": "Пример 1: бюджетные шины",
+			"description": "60 ₽/шт., ресурс 40 000 miles",
 			"inputs": {
 				"tirePricePerUnit": 60,
 				"tiresCount": 4,
@@ -89,22 +71,13 @@
 				"mountingAndBalancingCost": 60
 			},
 			"steps": [
-				"Tire price: ₽60 per tire",
-				"Number of tires: 4",
-				"Tire set cost (tires only): ₽60 × 4 = ₽240",
-				"Mounting and balancing: ₽60",
-				"Total tire set cost: ₽240 + ₽60 = ₽300",
-				"Tire lifespan: 40,000 miles",
-				"Annual mileage: 12,000 miles",
-				"Years per set: 40,000 miles ÷ 12,000 miles/year = 3.33 лет",
-				"Annual tire cost: ₽300 ÷ 3.33 лет = ₽90.09/year",
-				"Cost per mile: ₽90.09 ÷ 12,000 miles = ₽0.0075/mile",
-				"Note: Budget tires have shorter lifespan but lower upfront cost"
+				"Комплект 240 ₽ + монтаж 60 = 300 ₽",
+				"Ресурс ~3,33 года → ~90 ₽/год, ~0,0075/mile"
 			]
 		},
 		{
-			"title": "Пример 2: Premium Tires",
-			"description": "Premium tires at ₽180 each with 60,000 mile lifespan",
+			"title": "Пример 2: премиум",
+			"description": "180 ₽/шт., 60 000 miles",
 			"inputs": {
 				"tirePricePerUnit": 180,
 				"tiresCount": 4,
@@ -114,23 +87,13 @@
 				"mountingAndBalancingCost": 100
 			},
 			"steps": [
-				"Tire price: ₽180 per tire",
-				"Number of tires: 4",
-				"Tire set cost (tires only): ₽180 × 4 = ₽720",
-				"Mounting and balancing: ₽100",
-				"Total tire set cost: ₽720 + ₽100 = ₽820",
-				"Tire lifespan: 60,000 miles",
-				"Annual mileage: 12,000 miles",
-				"Years per set: 60,000 miles ÷ 12,000 miles/year = 5.0 лет",
-				"Annual tire cost: ₽820 ÷ 5.0 лет = ₽164.00/year",
-				"Cost per mile: ₽164.00 ÷ 12,000 miles = ₽0.0137/mile",
-				"Comparison: Premium tires cost ₽820 vs ₽300 for budget, but last 5 лет vs 3.3 лет",
-				"Cost per mile: Premium ₽0.0137 vs Budget ₽0.0075 (premium higher, but better performance and safety)"
+				"Комплект 820 ₽, ~5 лет → ~164 ₽/год",
+				"Дороже за mile, но дольше ресурс и лучше характеристики"
 			]
 		},
 		{
-			"title": "Пример 3: Seasonal Tires",
-			"description": "Separate summer and winter tire sets",
+			"title": "Пример 3: сезонные",
+			"description": "Лето + зима, 120 ₽/шт.",
 			"inputs": {
 				"tirePricePerUnit": 120,
 				"tiresCount": 4,
@@ -140,22 +103,13 @@
 				"mountingAndBalancingCost": 80
 			},
 			"steps": [
-				"Tire price: ₽120 per tire",
-				"Number of tires: 4 per set",
-				"Single set cost: (₽120 × 4) + ₽80 mounting = ₽560",
-				"Seasonal tires: Need 2 sets (summer + winter)",
-				"Total investment: ₽560 × 2 = ₽1,120",
-				"Tire lifespan: 50,000 miles per set",
-				"Annual mileage: 12,000 miles",
-				"Years per set: 50,000 miles ÷ 12,000 miles/year = 4.17 лет",
-				"Annual tire cost: ₽1,120 ÷ 4.17 лет = ₽268.59/year",
-				"Cost per mile: ₽268.59 ÷ 12,000 miles = ₽0.0224/mile",
-				"Note: Each set may last longer since used only part of the year (seasonal use)"
+				"Два комплекта ~1 120 ₽ инвестиция",
+				"~269 ₽/год, ~0,0224/mile"
 			]
 		},
 		{
-			"title": "Пример 4: High Mileage Driver",
-			"description": "Driving 25,000 miles per year",
+			"title": "Пример 4: высокий пробег",
+			"description": "25 000 miles/год",
 			"inputs": {
 				"tirePricePerUnit": 120,
 				"tiresCount": 4,
@@ -165,21 +119,12 @@
 				"mountingAndBalancingCost": 80
 			},
 			"steps": [
-				"Tire price: ₽120 per tire",
-				"Number of tires: 4",
-				"Tire set cost: (₽120 × 4) + ₽80 mounting = ₽560",
-				"Tire lifespan: 50,000 miles",
-				"Annual mileage: 25,000 miles (high mileage driver)",
-				"Years per set: 50,000 miles ÷ 25,000 miles/year = 2.0 лет",
-				"Annual tire cost: ₽560 ÷ 2.0 лет = ₽280.00/year",
-				"Cost per mile: ₽280.00 ÷ 25,000 miles = ₽0.0112/mile",
-				"Comparison: At 12,000 miles/year, same tires would last 4.17 лет with ₽134/year cost",
-				"Impact: High mileage means more frequent tire replacements, increasing annual cost"
+				"Комплект ~560 ₽, меняете каждые 2 года → ~280 ₽/год"
 			]
 		},
 		{
-			"title": "Пример 5: Mid-Range Tires, Average Use",
-			"description": "Mid-range tires at ₽100 each with 50,000 mile lifespan, 15,000 miles/year",
+			"title": "Пример 5: средний сегмент",
+			"description": "100 ₽/шт., 15 000 miles/год",
 			"inputs": {
 				"tirePricePerUnit": 100,
 				"tiresCount": 4,
@@ -189,75 +134,68 @@
 				"mountingAndBalancingCost": 80
 			},
 			"steps": [
-				"Tire price: ₽100 per tire",
-				"Number of tires: 4",
-				"Tire set cost: (₽100 × 4) + ₽80 mounting = ₽480",
-				"Tire lifespan: 50,000 miles",
-				"Annual mileage: 15,000 miles",
-				"Years per set: 50,000 miles ÷ 15,000 miles/year = 3.33 лет",
-				"Annual tire cost: ₽480 ÷ 3.33 лет = ₽144.14/year",
-				"Cost per mile: ₽144.14 ÷ 15,000 miles = ₽0.0096/mile",
-				"Note: Mid-range tires offer good balance between cost and lifespan"
+				"480 ₽ за комплект → ~144 ₽/год, ~0,0096/mile"
 			]
 		}
 	],
 	"faq": [
 		{
-			"question": "How long do tires last?",
-			"answer": "Tire lifespan varies by type, quality, driving habits, and conditions. Typical all-season tires: 40,000-60,000 miles. Premium tires: 60,000-80,000+ miles. Budget tires: 30,000-40,000 miles. High-performance tires: 20,000-40,000 miles (shorter due to softer compound). Check your tire's warranty or UTQG rating for expected lifespan."
+			"question": "Сколько служат шины?",
+			"answer": "Круглогодичные шины часто 40 000–60 000 miles; премиум дольше; бюджет короче; спорт — меньше из‑за мягкой резины. Смотрите гарантию и индекс UTQG."
 		},
 		{
-			"question": "Are premium tires worth it?",
-			"answer": "Premium tires often have longer lifespan, better performance (grip, handling, braking), better fuel economy, and better warranty. While they cost more upfront, they may have similar or lower cost per mile due to longer lifespan. They also provide better safety and driving experience. Consider your driving needs and budget."
+			"question": "Стоят ли премиум шины того?",
+			"answer": "Часто дольше ресурс, лучше сцепление и торможение. Сравнивайте стоимость на mile, а не только цену комплекта."
 		},
 		{
-			"question": "What is cost per mile and why does it matter?",
-			"answer": "Cost per mile shows how much tires add to every mile you drive. It helps compare different tire options on an equal basis. For example, a ₽60 tire that lasts 30,000 miles costs ₽0.008 per mile, while a ₽120 tire that lasts 60,000 miles also costs ₽0.008 per mile - same cost per mile despite double the price. This helps you make informed decisions."
+			"question": "Зачем стоимость на mile?",
+			"answer": "Сравнивает варианты на равных: дешёвая короткая vs дорогая длинная может дать похожий ₽/mile."
 		},
 		{
-			"question": "Does driving style matter?",
-			"answer": "Yes! Aggressive driving (hard acceleration, braking, cornering) wears tires faster. Smooth driving extends tire life. Other factors: proper inflation (underinflation wears tires faster), alignment (misalignment causes uneven wear), road conditions (rough roads wear tires faster), and climate (extreme heat or cold affects tire life)."
+			"question": "Стиль вождения?",
+			"answer": "Агрессивная езда, заниженное давление и плохой развал ускоряют износ."
 		},
 		{
-			"question": "Should I get seasonal tires?",
-			"answer": "Seasonal tires (separate summer and winter sets) provide better performance in their respective seasons. Winter tires offer superior traction in snow/ice. Summer tires offer better handling in warm weather. However, you need two sets, which doubles upfront cost. All-season tires are a compromise that work year-round but aren't optimal in extreme conditions."
+			"question": "Сезонные комплекты?",
+			"answer": "Лучше в свой сезон, но нужны два комплекта и хранение — выше годовые траты."
 		},
 		{
-			"question": "How often should I replace tires?",
-			"answer": "Replace tires when tread depth reaches 2/32\" (legal minimum in most states) or when you see signs of wear, damage, or aging. Even with good tread, replace tires that are 6-10 лет old (check sidewall date code). Tires degrade over time even if not driven. Check tread depth regularly with a penny test."
+			"question": "Когда менять?",
+			"answer": "При износе до минимума протектора, повреждениях или возрасте 6–10 лет да при хорошем рисунке."
 		},
 		{
-			"question": "What affects tire lifespan?",
-			"answer": "Factors affecting tire life: driving habits (aggressive vs smooth), tire maintenance (inflation, rotation, alignment), road conditions, climate, tire quality, vehicle weight, and load. Proper maintenance (regular rotation, correct inflation, alignment) can significantly extend tire life."
+			"question": "Что влияет на ресурс?",
+			"answer": "Стиль, давление, ротация, развал, дорога, климат, нагрузка."
 		},
 		{
-			"question": "How much does mounting and balancing cost?",
-			"answer": "Mounting and balancing typically costs ₽15-25 per tire (₽60-100 per set of 4). Some shops include it with tire purchase, others charge separately. It's usually done when installing new tires. Some shops offer free rotation and balancing for the life of the tires if purchased there."
+			"question": "Сколько стоит монтаж?",
+			"answer": "Ориентир 15–25 ₽ за шину за монтаж и баланс; иногда включено в покупку."
 		},
 		{
-			"question": "Do I need to replace all four tires at once?",
-			"answer": "Ideally, yes - replace all four tires at once for even wear and consistent performance. However, if only one or two tires are worn, you can replace them in pairs (front or rear). Never replace just one tire unless it matches the others exactly. Mismatched tires can affect handling and safety."
+			"question": "Менять все четыре?",
+			"answer": "Желательно комплектом; пары — только при сопоставимом остатке протектора."
 		},
 		{
-			"question": "What's the difference between tire types?",
-			"answer": "All-season: year-round use, compromise performance. Summer: best warm-weather performance, not for cold/snow. Winter: best snow/ice traction, not for warm weather. Performance: high-speed rated, shorter lifespan. Touring: comfort-focused, longer lifespan. Each type has different cost and lifespan characteristics."
+			"question": "Типы шин?",
+			"answer": "All-season — компромисс круглый год; летние/зимние — лучше в своём сезоне; performance — короче ресурс."
 		},
 		{
-			"question": "How accurate is this calculator?",
-			"answer": "The calculator provides estimates based on tire price, expected lifespan, and your mileage. Actual tire life varies based on driving habits, maintenance, road conditions, and tire quality. Use it as a planning tool and adjust based on your actual experience. Check tire warranties and reviews for more accurate lifespan estimates."
+			"question": "Точность калькулятора?",
+			"answer": "Оценка по заявленному ресурсу и пробегу; факт зависит от условий."
 		},
 		{
-			"question": "Can I reduce tire costs?",
-			"answer": "Ways to reduce costs: maintain proper inflation (extends life), rotate tires regularly (even wear), drive smoothly (less wear), choose tires with longer warranties, shop around for best prices, consider tire rebates, and maintain proper alignment. However, don't sacrifice safety for cost - quality tires are important for safety."
+			"question": "Как сэкономить?",
+			"answer": "Давление, ротация, плавная езда, акции — но не экономьте на безопасности."
 		}
 	],
 	"seo": {
-		"title": "Калькулятор стоимости автомобильных шин",
-		"description": "Рассчитайте стоимость комплекта шин в год и на километр пробега с учётом монтажа.",
+		"title": "Калькулятор стоимости шин — расход в год и на km",
+		"description": "Посчитайте, сколько стоят шины в год: цена комплекта, ресурс, пробег и сезонные комплекты в ₽.",
 		"keywords": [
-			"стоимость шин",
+			"стоимость шин на год",
 			"калькулятор шин",
-			"цена комплекта резины"
+			"расход на резину",
+			"цена комплекта шин"
 		]
 	}
 }

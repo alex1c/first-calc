@@ -1,7 +1,7 @@
 {
-	"title": "Калькулятор сожжённых калорий – Расход на тренировке",
-	"shortDescription": "Оцените, сколько калорий сжигается при ходьбе, беге, велосипеде и других активностях по весу и времени.",
-	"longDescription": "Калькулятор сожжённых калорий оценивает расход энергии по значениям MET. Укажите вес, тип активности, длительность и при желании интенсивность. Оценки помогают планировать тренировки и баланс калорий.",
+	"title": "Калькулятор сожжённых калорий – расход при ходьбе, беге и тренировках",
+	"shortDescription": "Оцените, сколько калорий вы сжигаете при ходьбе, беге, велосипеде и других активностях по весу и длительности.",
+	"longDescription": "Калькулятор сожжённых калорий помогает оценить энергозатраты при разных видах активности с использованием значений MET (метаболический эквивалент задачи). Укажите вес, выберите активность, длительность и при необходимости интенсивность — вы получите оценку расхода калорий по стандартизированным MET. Это удобно для планирования тренировок, отслеживания прогресса и баланса прихода и расхода калорий при управлении весом.",
 	"inputs": [
 		{
 			"label": "Вес",
@@ -19,28 +19,28 @@
 			"label": "Активность",
 			"unitLabel": "",
 			"placeholder": "Выберите активность",
-			"helpText": "Choose the type of physical activity"
+			"helpText": "Тип физической нагрузки"
 		},
 		{
 			"label": "Длительность",
 			"unitLabel": "мин",
 			"placeholder": "Введите длительность",
-			"helpText": "How long you performed the activity"
+			"helpText": "Сколько минут длилась активность"
 		},
 		{
 			"label": "Интенсивность",
 			"unitLabel": "",
 			"placeholder": "Выберите интенсивность",
-			"helpText": "Optional: Low, moderate, or high intensity level"
+			"helpText": "Необязательно: низкая, умеренная или высокая интенсивность"
 		}
 	],
 	"outputs": [
 		{
-			"label": "Сожжено калорий",
+			"label": "Сожжённые калории",
 			"unitLabel": "ккал"
 		},
 		{
-			"label": "Калорий в минуту",
+			"label": "Калории в минуту",
 			"unitLabel": "ккал/мин"
 		},
 		{
@@ -57,21 +57,21 @@
 		}
 	],
 	"howTo": [
-		"Введите your body weight",
-		"Выберите your weight unit (kilograms or фунтов)",
-		"Выберите the type of activity (walking, running, cycling, etc.)",
-		"Введите the duration of the activity in мин",
-		"При желании select the intensity level (low, moderate, or high)",
-		"Нажмите «Рассчитать» to see estimated calories burned",
-		"Проверьте the results: total calories burned and calories per minute",
-		"Проверьте the MET value used for the calculation",
-		"Учтите that these are estimates and actual values may vary",
-		"Используйте these estimates to plan workouts and track progress"
+		"Введите массу тела",
+		"Выберите единицу веса (килограммы или фунты)",
+		"Выберите тип активности (ходьба, бег, велосипед и т. д.)",
+		"Укажите длительность в минутах",
+		"При необходимости выберите интенсивность (низкая, умеренная или высокая)",
+		"Нажмите «Рассчитать», чтобы увидеть оценку сожжённых калорий",
+		"Посмотрите общий расход и калории в минуту",
+		"Обратите внимание на значение MET, использованное в расчёте",
+		"Помните: это оценки, фактический расход может отличаться",
+		"Используйте результаты для планирования нагрузки и отслеживания прогресса"
 	],
 	"examples": [
 		{
-			"title": "Пример 1: 30 Minutes Walking",
-			"description": "A 70 kg person walking for 30 мин at moderate pace",
+			"title": "Пример 1: 30 минут ходьбы",
+			"description": "Человек 70 кг идёт 30 минут в умеренном темпе",
 			"inputs": {
 				"weight": 70,
 				"weightUnit": "kg",
@@ -80,21 +80,21 @@
 				"intensity": "moderate"
 			},
 			"steps": [
-				"Weight: 70 kg",
-				"Activity: Walking",
-				"Duration: 30 мин = 0.5 hours",
-				"Intensity: Moderate",
-				"MET value for moderate walking: 3.5",
-				"Formula: Calories = MET × weight(kg) × duration(hours)",
-				"Calories = 3.5 × 70 × 0.5",
-				"Calories = 122.5 ≈ 123 kcal",
-				"Calories per minute: 123 ÷ 30 = 4.1 kcal/min"
+				"Вес: 70 кг",
+				"Активность: ходьба",
+				"Длительность: 30 мин = 0,5 ч",
+				"Интенсивность: умеренная",
+				"MET для умеренной ходьбы: 3,5",
+				"Формула: калории = MET × вес (кг) × длительность (ч)",
+				"Калории = 3,5 × 70 × 0,5",
+				"Калории = 122,5 ≈ 123 ккал",
+				"Калории в минуту: 123 ÷ 30 = 4,1 ккал/мин"
 			],
-			"result": "A 70 kg person walking at moderate pace for 30 мин burns approximately 123 calories. This is a low-to-moderate intensity activity suitable for daily exercise and general fitness. Walking is accessible, low-impact, and can be easily incorporated into daily routines."
+			"result": "При весе 70 кг умеренная ходьба 30 минут сжигает около 123 ккал. Это нагрузка низко-средней интенсивности, подходящая для ежедневной активности. Ходьба доступна, щадит суставы и легко встраивается в распорядок дня."
 		},
 		{
-			"title": "Пример 2: 45 Minutes Running",
-			"description": "A 75 kg person running for 45 мин at moderate pace",
+			"title": "Пример 2: 45 минут бега",
+			"description": "Человек 75 кг бежит 45 минут в умеренном темпе",
 			"inputs": {
 				"weight": 75,
 				"weightUnit": "kg",
@@ -103,21 +103,21 @@
 				"intensity": "moderate"
 			},
 			"steps": [
-				"Weight: 75 kg",
-				"Activity: Running",
-				"Duration: 45 мин = 0.75 hours",
-				"Intensity: Moderate",
-				"MET value for moderate running: 10.0",
-				"Formula: Calories = MET × weight(kg) × duration(hours)",
-				"Calories = 10.0 × 75 × 0.75",
-				"Calories = 562.5 ≈ 563 kcal",
-				"Calories per minute: 563 ÷ 45 = 12.5 kcal/min"
+				"Вес: 75 кг",
+				"Активность: бег",
+				"Длительность: 45 мин = 0,75 ч",
+				"Интенсивность: умеренная",
+				"MET для умеренного бега: 10,0",
+				"Формула: калории = MET × вес (кг) × длительность (ч)",
+				"Калории = 10,0 × 75 × 0,75",
+				"Калории = 562,5 ≈ 563 ккал",
+				"Калории в минуту: 563 ÷ 45 = 12,5 ккал/мин"
 			],
-			"result": "A 75 kg person running at moderate pace for 45 мин burns approximately 563 calories. Running is a high-intensity cardiovascular activity that burns significantly more calories than walking due to its higher MET value (10.0 vs 3.5). This makes running efficient for calorie burning and cardiovascular fitness."
+			"result": "При весе 75 кг умеренный бег 45 минут сжигает около 563 ккал. Бег — интенсивная кардионагрузка с гораздо более высоким MET (10,0 против 3,5 у ходьбы), поэтому калорий за то же время сгорает больше."
 		},
 		{
-			"title": "Пример 3: Cycling Moderate Intensity",
-			"description": "A 65 kg person cycling for 60 мин at moderate pace",
+			"title": "Пример 3: велосипед умеренной интенсивности",
+			"description": "Человек 65 кг крутит педали 60 минут в умеренном темпе",
 			"inputs": {
 				"weight": 65,
 				"weightUnit": "kg",
@@ -126,21 +126,21 @@
 				"intensity": "moderate"
 			},
 			"steps": [
-				"Weight: 65 kg",
-				"Activity: Cycling",
-				"Duration: 60 мин = 1.0 hour",
-				"Intensity: Moderate",
-				"MET value for moderate cycling: 8.0",
-				"Formula: Calories = MET × weight(kg) × duration(hours)",
-				"Calories = 8.0 × 65 × 1.0",
-				"Calories = 520 kcal",
-				"Calories per minute: 520 ÷ 60 = 8.7 kcal/min"
+				"Вес: 65 кг",
+				"Активность: велосипед",
+				"Длительность: 60 мин = 1,0 ч",
+				"Интенсивность: умеренная",
+				"MET для умеренного велосипеда: 8,0",
+				"Формула: калории = MET × вес (кг) × длительность (ч)",
+				"Калории = 8,0 × 65 × 1,0",
+				"Калории = 520 ккал",
+				"Калории в минуту: 520 ÷ 60 = 8,7 ккал/мин"
 			],
-			"result": "A 65 kg person cycling at moderate pace for 60 мин burns approximately 520 calories. Cycling is an excellent low-impact cardiovascular exercise that burns calories efficiently while being easier on the joints than running. The moderate intensity provides a good balance between calorie burn and sustainability."
+			"result": "При весе 65 кг умеренная езда на велосипеде 60 минут сжигает около 520 ккал. Это эффективное низкоударное кардио: много калорий при меньшей нагрузке на суставы, чем при беге."
 		},
 		{
-			"title": "Пример 4: Compare Two Activities Same Duration",
-			"description": "Comparing walking vs running for the same person and duration",
+			"title": "Пример 4: сравнение двух активностей",
+			"description": "Один и тот же человек и время: ходьба против бега",
 			"inputs": {
 				"weight": 70,
 				"weightUnit": "kg",
@@ -149,89 +149,93 @@
 				"intensity": "moderate"
 			},
 			"steps": [
-				"Same person: 70 kg, 30 мин",
-				"Walking (moderate, MET 3.5):",
-				"  Calories = 3.5 × 70 × 0.5 = 123 kcal",
-				"Running (moderate, MET 10.0):",
-				"  Calories = 10.0 × 70 × 0.5 = 350 kcal",
-				"Difference: 350 - 123 = 227 calories",
-				"Running burns 2.85x more calories than walking",
-				"Calories per minute: Walking 4.1, Running 11.7"
+				"Один человек: 70 кг, 30 мин",
+				"Ходьба (умеренная, MET 3,5):",
+				"  Калории = 3,5 × 70 × 0,5 = 123 ккал",
+				"Бег (умеренный, MET 10,0):",
+				"  Калории = 10,0 × 70 × 0,5 = 350 ккал",
+				"Разница: 350 − 123 = 227 ккал",
+				"Бег сжигает в 2,85 раза больше калорий, чем ходьба",
+				"Калории в минуту: ходьба 4,1, бег 11,7"
 			],
-			"result": "This comparison shows how activity type significantly affects calorie burn. For the same person and duration, running burns 350 calories compared to walking's 123 calories—a difference of 227 calories (2.85x more). Running has a much higher MET value (10.0 vs 3.5), making it more efficient for calorie burning. However, walking is more accessible and sustainable for many people, and consistency matters more than intensity for long-term success."
+			"result": "Тип активности сильно влияет на расход: за 30 минут бег даёт 350 ккал против 123 ккал при ходьбе (разница 227 ккал). Бег эффективнее по калориям за минуту, но ходьба доступнее многим — для долгосрочного успеха важнее регулярность, чем пиковая интенсивность."
 		}
 	],
 	"faq": [
 		{
-			"question": "How are calories burned calculated?",
-			"answer": "Calories burned are calculated using the MET (Metabolic Equivalent of Task) formula: Calories = MET × weight(kg) × duration(hours). MET values are standardized measures of energy expenditure that represent how many times your resting metabolic rate an activity requires. For example, a MET of 3.5 means the activity requires 3.5 times the energy of sitting at rest. This formula provides reasonable estimates for most people."
+			"question": "Как считаются сожжённые калории?",
+			"answer": "Используется формула MET: калории = MET × вес (кг) × длительность (ч). MET показывает, во сколько раз расход энергии выше покоя. Например, MET 3,5 означает активность в 3,5 раза интенсивнее полного покоя. Для большинства людей это даёт разумную оценку."
 		},
 		{
-			"question": "What is MET?",
-			"answer": "MET stands for Metabolic Equivalent of Task. It's a standardized measure of energy expenditure that compares the intensity of physical activities to resting metabolism. 1 MET = the energy expended while sitting quietly at rest. A MET of 3.5 means the activity requires 3.5 times the energy of resting. MET values are used in exercise science and health research to standardize activity intensity across different people and activities."
+			"question": "Что такое MET?",
+			"answer": "MET (Metabolic Equivalent of Task) — стандартизированная мера интенсивности активности относительно покоя. 1 MET — энергия в состоянии покоя. MET 3,5 — в 3,5 раза больше. Значения MET применяются в исследованиях и фитнесе для сравнения нагрузок у разных людей."
 		},
 		{
-			"question": "Does weight affect calories burned?",
-			"answer": "Yes, weight significantly affects calories burned. Heavier people burn more calories doing the same activity for the same duration because they have more body mass to move and more metabolic tissue. The formula multiplies MET by weight, so a 100 kg person burns twice as many calories as a 50 kg person doing the same activity. This is why weight is a key input in calorie burn calculations."
+			"question": "Влияет ли вес на расход калорий?",
+			"answer": "Да, сильно. Чем больше масса тела, тем больше калорий уходит на ту же активность и время: в формуле вес умножается на MET. Человек 100 кг сжигает примерно вдвое больше, чем 50 кг при той же нагрузке."
 		},
 		{
-			"question": "Are fitness trackers accurate?",
-			"answer": "Fitness trackers provide estimates that are generally reasonable but not perfectly accurate. Most trackers use heart rate, movement sensors, and algorithms to estimate calories burned. Accuracy varies by device, activity type, and individual factors. Research suggests fitness trackers are typically within 10-20% of actual calorie burn for most activities. This calculator uses standardized MET values, which may be more or less accurate than your tracker depending on the situation."
+			"question": "Насколько точны фитнес-браслеты?",
+			"answer": "Браслеты дают оценки, обычно в пределах ±10–20% от реального расхода в зависимости от устройства и типа активности. Они используют пульс, акселерометр и алгоритмы. Этот калькулятор опирается на усреднённые MET — точность может быть выше или ниже, чем у вашего трекера в конкретной ситуации."
 		},
 		{
-			"question": "How does intensity change calorie burn?",
-			"answer": "Higher intensity activities have higher MET values, which means they burn more calories per minute. For example, walking at a slow pace might have a MET of 3.0, while running might have a MET of 10.0—more than three times the calorie burn rate. Increasing intensity is one way to burn more calories in the same amount of time. However, higher intensity may not be sustainable for as long, so total calorie burn depends on both intensity and duration."
+			"question": "Как интенсивность меняет расход?",
+			"answer": "Чем выше интенсивность, тем выше MET и калорий в минуту. Медленная ходьба может иметь MET около 3,0, бег — около 10,0. Но высокую интенсивность сложнее держать долго: итог зависит и от длительности, и от темпа."
 		},
 		{
-			"question": "Why do my results differ from my fitness tracker?",
-			"answer": "Results may differ because: Fitness trackers use heart rate and movement sensors for personalized estimates, while this calculator uses standardized MET values. Individual factors (fitness level, efficiency, terrain) affect actual calorie burn. Trackers may overestimate or underestimate depending on the activity and device. Both methods are estimates—actual calorie burn can only be measured precisely in laboratory settings. Use both as general guidelines."
+			"question": "Почему результат отличается от трекера?",
+			"answer": "Трекеры персонализируют оценку по пульсу и движению, калькулятор — по стандартным MET. Влияют форма, рельеф, эффiciency. Оба подхода — оценки; лабораторная точность возможна только в исследовательских условиях. Используйте оба как ориентир."
 		},
 		{
-			"question": "Can I burn more calories by exercising longer?",
-			"answer": "Yes, exercising longer increases total calories burned because the formula multiplies by duration. For example, 30 мин of walking burns about 123 calories, while 60 мин burns about 246 calories (double the duration = double the calories). However, there are practical limits: fatigue, time constraints, and the need for recovery. Balance duration with intensity and sustainability for long-term success."
+			"question": "Можно ли сжечь больше, тренируясь дольше?",
+			"answer": "Да: в формуле есть время. 30 минут ходьбы — около 123 ккал, 60 минут — около 246 ккал. Но есть пределы усталости, времени и восстановления — балансируйте длительность и интенсивность."
 		},
 		{
-			"question": "Which activities burn the most calories?",
-			"answer": "Activities with the highest MET values burn the most calories per minute. Generally: Running (8-12 MET) burns the most per minute. Cycling (6-10 MET) and swimming (6-9 MET) are also high. Walking (3-4.5 MET) is lower but more sustainable. Strength training (3-6 MET) varies by intensity. However, the best activity is one you enjoy and can do consistently—consistency matters more than maximum calorie burn."
+			"question": "Какие активности сжигают больше всего?",
+			"answer": "Выше MET — больше калорий в минуту: бег (8–12 MET), велосипед и плавание (6–10 MET), ходьба ниже (3–4,5 MET), силовые 3–6 MET в зависимости от режима. Лучшая активность — та, которой вы занимаетесь регулярно."
 		},
 		{
-			"question": "Does fitness level affect calories burned?",
-			"answer": "Yes, fitness level can affect calories burned, but MET values are standardized averages. More fit individuals may be more efficient at activities (using less energy), potentially burning slightly fewer calories. Less fit individuals may burn slightly more due to inefficiency. However, these differences are usually small (5-15%), and MET values provide reasonable estimates for most people regardless of fitness level."
+			"question": "Влияет ли уровень подготовки?",
+			"answer": "MET — усреднённые значения. Более тренированные люди иногда расходуют чуть меньше на ту же работу из‑за экономичности движений, менее подготовленные — чуть больше. Разброс обычно 5–15%, формула всё равно полезна как база."
 		},
 		{
-			"question": "Should I trust these estimates for weight loss?",
-			"answer": "These estimates are reasonable starting points for weight loss planning, but remember: They're estimates, not exact measurements. Individual variation exists. For weight loss, focus on creating a calorie deficit (eating fewer calories than you burn). Use these estimates to understand relative calorie burn between activities, but don't rely on them as exact numbers. Track your actual results and adjust accordingly."
+			"question": "Можно ли опираться на это при похудении?",
+			"answer": "Да, как на стартовую точку, но помните про индивидуальные отличия. Для снижения веса нужен дефицит калорий. Сравнивайте активности между собой, но не считайте цифру абсолютной истиной — корректируйте по фактическому прогрессу."
 		},
 		{
-			"question": "Do I burn calories after exercise (afterburn effect)?",
-			"answer": "Yes, you may experience EPOC (Excess Post-Exercise Oxygen Consumption), also called the 'afterburn effect.' After intense exercise, your body continues to burn calories at an elevated rate for a period (typically 15 мин to several hours, depending on intensity). This calculator shows calories burned during the activity only, not the afterburn effect. High-intensity activities tend to have more significant afterburn effects."
+			"question": "Есть ли «дожигание» после тренировки (EPOC)?",
+			"answer": "После интенсивной нагрузки возможен EPOC — повышенный расход некоторое время после занятия. Калькулятор показывает только калории во время активности, не после. После тяжёлых тренировок afterburn обычно заметнее."
 		},
 		{
-			"question": "How accurate are MET values?",
-			"answer": "MET values are research-based averages from studies measuring energy expenditure. They're reasonably accurate for most people but represent averages, not individual values. Actual calorie burn can vary by ±10-20% based on individual factors like fitness level, body composition, efficiency, terrain, and environmental conditions. MET values are standardized tools used in exercise science and provide good estimates for general use."
+			"question": "Насколько точны значения MET?",
+			"answer": "MET основаны на исследованиях и подходят большинству, но это средние, не индивидуальные цифры. Отклонение ±10–20% возможно из‑за формы, состава тела, рельефа и погоды."
 		},
 		{
-			"question": "Can I use this for weight training?",
-			"answer": "Yes, this calculator includes strength training as an activity option. However, strength training calorie burn is harder to estimate accurately because it depends heavily on rest periods, exercise selection, and intensity. The MET values for strength training (3-6) are lower than cardio activities, but strength training has other benefits like muscle building and increased metabolism. For accurate strength training calorie estimates, consider using a heart rate monitor."
+			"question": "Подходит ли калькулятор для силовых?",
+			"answer": "Да, силовая тренировка есть в списке, но расход сложнее предсказать из‑за отдыха между подходами и выбора упражнений. MET для силовых ниже, чем у кардио, зато важны мышцы и метаболизм. Для точности можно использовать пульсометр."
 		},
 		{
-			"question": "What about activities not listed?",
-			"answer": "If your activity isn't listed, you can use the 'Other Activity' option and select an intensity level. This uses generic MET values (3.0 for low, 5.0 for moderate, 7.0 for high). For more accurate estimates, you can look up specific MET values for your activity online (the Compendium of Physical Activities is a comprehensive resource) and use those values as a reference."
+			"question": "Что если моей активности нет в списке?",
+			"answer": "Выберите «Другая активность» и укажите интенсивность — будут использованы типовые MET (3,0 / 5,0 / 7,0). Для конкретного вида спорта можно найти MET в справочниках (Compendium of Physical Activities)."
 		},
 		{
-			"question": "Does age affect calories burned?",
-			"answer": "Age can affect metabolism and calorie burn, but MET values are age-neutral averages. Older adults may have slightly lower resting metabolism, which could affect total calorie burn slightly. However, the MET formula (MET × weight × duration) provides reasonable estimates regardless of age. The main factor is weight—heavier people burn more calories regardless of age."
+			"question": "Влияет ли возраст?",
+			"answer": "С возрастом метаболизм может меняться, но MET в формуле не привязаны к возрасту. Главный множитель в расчёте — вес: более тяжёлый человек сжигает больше при той же активности."
 		}
 	],
 	"seo": {
-		"title": "Калькулятор сожжённых калорий – ходьба, бег, велосипед",
-		"description": "Рассчитайте калории за тренировку по MET: ходьба, бег, велосипед и другие активности.",
+		"title": "Калькулятор сожжённых калорий онлайн – расход при упражнениях",
+		"description": "Оцените калории при ходьбе, беге, велосипеде и других активностях по весу, времени и MET. Бесплатный расчёт ккал и ккал/мин.",
 		"keywords": [
-			"сожжённые калории",
-			"калории за тренировку",
-			"калькулятор калорий",
-			"MET",
-			"расход калорий"
+			"калькулятор сожжённых калорий",
+			"сколько калорий сжигается",
+			"калории при ходьбе",
+			"калории при беге",
+			"калории велосипед",
+			"калькулятор MET",
+			"расход калорий тренировка",
+			"калькулятор активности",
+			"ккал упражнения"
 		]
 	}
 }

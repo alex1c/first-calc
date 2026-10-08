@@ -1,172 +1,118 @@
 {
-	"title": "Калькулятор БЖУ – Белки, жиры и углеводы",
-	"shortDescription": "Рассчитайте суточные цели по макронутриентам из калорий. Белки, углеводы и жиры в граммах.",
-	"longDescription": "Калькулятор БЖУ распределяет суточные калории по белкам, углеводам и жирам по готовым схемам или вашим процентам. Удобно для сбалансированного питания и спортивных целей.",
+	"title": "Калькулятор макронутриентов – белки, углеводы и жиры",
+	"shortDescription": "Разбейте дневную норму калорий на белки, углеводы и жиры. Готовые схемы или свой процент.",
+	"longDescription": "Калькулятор макронутриентов переводит вашу дневную цель по калориям в граммы белка, углеводов и жира. Укажите калории и выберите пресет (сбалансированный, низкоуглеводный, высокобелковый) или задайте свои проценты. Вы увидите граммы в день, калории и доли каждого макро. Это основа планирования питания при похудении, наборе мышц или поддержании формы.",
 	"inputs": [
 		{
-			"label": "Суточные калории",
+			"label": "Калории в день",
 			"unitLabel": "ккал/день",
-			"placeholder": "Введите daily calories",
-			"helpText": "Your total daily calorie target (from TDEE calculator or your goal)"
+			"placeholder": "Введите калории",
+			"helpText": "Суточная цель по калориям (из калькулятора TDEE или вашего плана)"
 		},
 		{
-			"label": "Распределение макронутриентов",
+			"label": "Распределение макро",
 			"unitLabel": "",
-			"placeholder": "Выберите preset",
-			"helpText": "Choose a preset macro split or create a custom distribution"
+			"placeholder": "Выберите пресет",
+			"helpText": "Готовая схема или пользовательские проценты"
 		},
 		{
-			"label": "Доля белков",
+			"label": "Доля белка",
 			"unitLabel": "%",
-			"placeholder": "Введите protein %",
-			"helpText": "Percentage of calories from protein (only shown for custom preset)"
+			"placeholder": "Процент белка",
+			"helpText": "Доля калорий из белка (только для пресета «Свой»)"
 		},
 		{
 			"label": "Доля углеводов",
 			"unitLabel": "%",
-			"placeholder": "Введите carbs %",
-			"helpText": "Percentage of calories from carbohydrates (only shown for custom preset)"
+			"placeholder": "Процент углеводов",
+			"helpText": "Доля калорий из углеводов (только для пресета «Свой»)"
 		},
 		{
-			"label": "Доля жиров",
+			"label": "Доля жира",
 			"unitLabel": "%",
-			"placeholder": "Введите fat %",
-			"helpText": "Percentage of calories from fat (only shown for custom preset). Must sum to 100% with protein and carbs."
+			"placeholder": "Процент жира",
+			"helpText": "Доля калорий из жира (только для «Свой»). С белком и углеводами должно быть 100%."
 		}
 	],
 	"outputs": [
-		{
-			"label": "Белки, г",
-			"unitLabel": "g/day"
-		},
-		{
-			"label": "Углеводы, г",
-			"unitLabel": "g/day"
-		},
-		{
-			"label": "Жиры, г",
-			"unitLabel": "g/day"
-		},
-		{
-			"label": "Калории из белков",
-			"unitLabel": "ккал"
-		},
-		{
-			"label": "Калории из углеводов",
-			"unitLabel": "ккал"
-		},
-		{
-			"label": "Калории из жиров",
-			"unitLabel": "ккал"
-		},
-		{
-			"label": "Белки, %",
-			"unitLabel": "%"
-		},
-		{
-			"label": "Углеводы, %",
-			"unitLabel": "%"
-		},
-		{
-			"label": "Жиры, %",
-			"unitLabel": "%"
-		},
-		{
-			"label": "Описание пресета",
-			"unitLabel": ""
-		},
-		{
-			"label": "Пояснения",
-			"unitLabel": ""
-		}
+		{ "label": "Белок, г", "unitLabel": "г/день" },
+		{ "label": "Углеводы, г", "unitLabel": "г/день" },
+		{ "label": "Жир, г", "unitLabel": "г/день" },
+		{ "label": "Калории из белка", "unitLabel": "ккал" },
+		{ "label": "Калории из углеводов", "unitLabel": "ккал" },
+		{ "label": "Калории из жира", "unitLabel": "ккал" },
+		{ "label": "Белок, %", "unitLabel": "%" },
+		{ "label": "Углеводы, %", "unitLabel": "%" },
+		{ "label": "Жир, %", "unitLabel": "%" },
+		{ "label": "Описание пресета", "unitLabel": "" },
+		{ "label": "Пояснения", "unitLabel": "" }
 	],
 	"howTo": [
-		"Введите your daily calorie target (from TDEE calculator or your goal)",
-		"Выберите a macro distribution preset:",
-		"  - Balanced: 30% protein, 40% carbs, 30% fat (general health)",
-		"  - Low-Carb: 35% protein, 20% carbs, 45% fat (keto-friendly)",
-		"  - High-Protein: 40% protein, 30% carbs, 30% fat (muscle building)",
-		"  - Custom: Set your own percentages (must sum to 100%)",
-		"Если используете custom, enter protein, carbs, and fat percentages",
-		"Ensure custom percentages sum to exactly 100%",
-		"Нажмите «Рассчитать» to see your daily macro targets",
-		"Проверьте the grams per day for each macronutrient",
-		"Проверьте the calorie contribution and percentage breakdown",
-		"Используйте these targets to plan your meals throughout the day"
+		"Введите суточную цель по калориям",
+		"Выберите распределение макро:",
+		"  — Сбалансированное: 30% белок, 40% углеводы, 30% жир",
+		"  — Низкоуглеводное: 35% белок, 20% углеводы, 45% жир",
+		"  — Высокобелковое: 40% белок, 30% углеводы, 30% жир",
+		"  — Свой: задайте проценты вручную (сумма 100%)",
+		"Для «Свой» введите проценты белка, углеводов и жира",
+		"Убедитесь, что проценты дают ровно 100%",
+		"Нажмите «Рассчитать»",
+		"Посмотрите суточные граммы каждого макронутриента",
+		"Проверьте калории и процентное соотношение",
+		"Используйте цели для планирования приёмов пищи в течение дня"
 	],
 	"examples": [
 		{
-			"title": "Пример 1: 2,000 kcal Balanced",
-			"description": "A person aiming for 2,000 calories per day with a balanced macro split",
-			"inputs": {
-				"dailyCalories": 2000,
-				"macroPreset": "balanced"
-			},
+			"title": "Пример 1: 2000 ккал, сбалансированно",
+			"description": "2000 ккал в день, стандартное распределение",
+			"inputs": { "dailyCalories": 2000, "macroPreset": "balanced" },
 			"steps": [
-				"Daily Calories: 2,000 kcal",
-				"Preset: Balanced (30% protein, 40% carbs, 30% fat)",
-				"Calculate protein:",
-				"  Protein calories = 2,000 × 0.30 = 600 kcal",
-				"  Protein grams = 600 ÷ 4 = 150 g",
-				"Calculate carbohydrates:",
-				"  Carbs calories = 2,000 × 0.40 = 800 kcal",
-				"  Carbs grams = 800 ÷ 4 = 200 g",
-				"Calculate fat:",
-				"  Fat calories = 2,000 × 0.30 = 600 kcal",
-				"  Fat grams = 600 ÷ 9 = 66.7 g",
-				"Daily targets: 150 g protein, 200 g carbs, 66.7 g fat"
+				"Калории: 2000 ккал/день",
+				"Пресет: сбалансированный (30% белок, 40% углеводы, 30% жир)",
+				"Белок:",
+				"  Ккал = 2000 × 0,30 = 600",
+				"  Граммы = 600 ÷ 4 = 150 г",
+				"Углеводы:",
+				"  Ккал = 2000 × 0,40 = 800",
+				"  Граммы = 800 ÷ 4 = 200 г",
+				"Жир:",
+				"  Ккал = 2000 × 0,30 = 600",
+				"  Граммы = 600 ÷ 9 = 66,7 г",
+				"Цель: 150 г белка, 200 г углеводов, 66,7 г жира"
 			],
-			"result": "With a balanced macro split on 2,000 calories, you should aim for 150 g protein, 200 g carbohydrates, and 66.7 g fat per day. This provides a well-rounded distribution suitable for general health and moderate activity levels. Protein supports muscle maintenance, carbs provide energy, and fat supports hormone production and satiety."
+			"result": "При 2000 ккал и сбалансированной схеме ориентир — 150 г белка, 200 г углеводов и 66,7 г жира. Подходит для общего здоровья и умеренной активности."
 		},
 		{
-			"title": "Пример 2: 1,800 kcal High-Protein",
-			"description": "A person on a weight loss plan with 1,800 calories and high-protein macro split",
-			"inputs": {
-				"dailyCalories": 1800,
-				"macroPreset": "high-protein"
-			},
+			"title": "Пример 2: 1800 ккал, высокий белок",
+			"description": "План похудения с акцентом на белок",
+			"inputs": { "dailyCalories": 1800, "macroPreset": "high-protein" },
 			"steps": [
-				"Daily Calories: 1,800 kcal",
-				"Preset: High-Protein (40% protein, 30% carbs, 30% fat)",
-				"Calculate protein:",
-				"  Protein calories = 1,800 × 0.40 = 720 kcal",
-				"  Protein grams = 720 ÷ 4 = 180 g",
-				"Calculate carbohydrates:",
-				"  Carbs calories = 1,800 × 0.30 = 540 kcal",
-				"  Carbs grams = 540 ÷ 4 = 135 g",
-				"Calculate fat:",
-				"  Fat calories = 1,800 × 0.30 = 540 kcal",
-				"  Fat grams = 540 ÷ 9 = 60 g",
-				"Daily targets: 180 g protein, 135 g carbs, 60 g fat"
+				"Калории: 1800 ккал/день",
+				"Пресет: высокобелковый (40% / 30% / 30%)",
+				"Белок: 1800 × 0,40 = 720 ккал → 180 г",
+				"Углеводы: 1800 × 0,30 = 540 ккал → 135 г",
+				"Жир: 1800 × 0,30 = 540 ккал → 60 г",
+				"Цель: 180 г белка, 135 г углеводов, 60 г жира"
 			],
-			"result": "With a high-protein split on 1,800 calories, you should aim for 180 g protein, 135 g carbohydrates, and 60 g fat per day. This higher protein intake (40%) helps preserve muscle mass during weight loss, increases satiety, and supports recovery. The moderate carb intake (30%) provides energy while the balanced fat intake (30%) supports hormone production."
+			"result": "40% белка помогает сохранять мышцы и дольше чувствовать сытость при дефиците на 1800 ккал."
 		},
 		{
-			"title": "Пример 3: 2,500 kcal Low-Carb",
-			"description": "An active person with 2,500 calories following a low-carb approach",
-			"inputs": {
-				"dailyCalories": 2500,
-				"macroPreset": "low-carb"
-			},
+			"title": "Пример 3: 2500 ккал, низкоуглеводно",
+			"description": "Активный человек, умеренно низкие углеводы",
+			"inputs": { "dailyCalories": 2500, "macroPreset": "low-carb" },
 			"steps": [
-				"Daily Calories: 2,500 kcal",
-				"Preset: Low-Carb (35% protein, 20% carbs, 45% fat)",
-				"Calculate protein:",
-				"  Protein calories = 2,500 × 0.35 = 875 kcal",
-				"  Protein grams = 875 ÷ 4 = 218.75 g",
-				"Calculate carbohydrates:",
-				"  Carbs calories = 2,500 × 0.20 = 500 kcal",
-				"  Carbs grams = 500 ÷ 4 = 125 g",
-				"Calculate fat:",
-				"  Fat calories = 2,500 × 0.45 = 1,125 kcal",
-				"  Fat grams = 1,125 ÷ 9 = 125 g",
-				"Daily targets: 218.8 g protein, 125 g carbs, 125 g fat"
+				"Калории: 2500 ккал/день",
+				"Пресет: низкоуглеводный (35% / 20% / 45%)",
+				"Белок: 2500 × 0,35 = 875 ккал → 218,75 г",
+				"Углеводы: 2500 × 0,20 = 500 ккал → 125 г",
+				"Жир: 2500 × 0,45 = 1125 ккал → 125 г",
+				"Цель: ~219 г белка, 125 г углеводов, 125 г жира"
 			],
-			"result": "With a low-carb split on 2,500 calories, you should aim for 218.8 g protein, 125 g carbohydrates, and 125 g fat per day. This distribution (20% carbs) is suitable for ketogenic or low-carb diets. The high fat intake (45%) provides energy in the absence of carbs, while the high protein intake (35%) helps maintain muscle mass. Note: Very low-carb diets may not be suitable for everyone, especially highly active individuals."
+			"result": "20% углеводов подходит многим low-carb/keto-подходам; высокий жир компенсирует энергию. Очень низкие углеводы не всем подходят при высокой нагрузке."
 		},
 		{
-			"title": "Пример 4: Custom Macro Split",
-			"description": "A person creating a custom macro distribution: 2,200 calories, 35% protein, 35% carbs, 30% fat",
+			"title": "Пример 4: свой расклад",
+			"description": "2200 ккал: 35% белок, 35% углеводы, 30% жир",
 			"inputs": {
 				"dailyCalories": 2200,
 				"macroPreset": "custom",
@@ -175,92 +121,91 @@
 				"fatPercent": 30
 			},
 			"steps": [
-				"Daily Calories: 2,200 kcal",
-				"Preset: Custom",
-				"Verify percentages sum to 100%: 35% + 35% + 30% = 100% ✓",
-				"Calculate protein:",
-				"  Protein calories = 2,200 × 0.35 = 770 kcal",
-				"  Protein grams = 770 ÷ 4 = 192.5 g",
-				"Calculate carbohydrates:",
-				"  Carbs calories = 2,200 × 0.35 = 770 kcal",
-				"  Carbs grams = 770 ÷ 4 = 192.5 g",
-				"Calculate fat:",
-				"  Fat calories = 2,200 × 0.30 = 660 kcal",
-				"  Fat grams = 660 ÷ 9 = 73.3 g",
-				"Daily targets: 192.5 g protein, 192.5 g carbs, 73.3 g fat"
+				"Калории: 2200 ккал/день",
+				"Пресет: свой",
+				"Сумма: 35% + 35% + 30% = 100% ✓",
+				"Белок: 2200 × 0,35 = 770 ккал → 192,5 г",
+				"Углеводы: 2200 × 0,35 = 770 ккал → 192,5 г",
+				"Жир: 2200 × 0,30 = 660 ккал → 73,3 г",
+				"Цель: 192,5 г белка и углеводов, 73,3 г жира"
 			],
-			"result": "With a custom macro split (35% protein, 35% carbs, 30% fat) on 2,200 calories, you should aim for 192.5 g protein, 192.5 g carbohydrates, and 73.3 g fat per day. This custom distribution balances protein and carbs equally while maintaining moderate fat intake. Custom splits allow you to tailor macros to your specific goals, preferences, or dietary restrictions."
+			"result": "Свой расклад позволяет подстроить макро под предпочтения, спорт и ограничения в питании при сохранении суммы 100%."
 		}
 	],
 	"faq": [
 		{
-			"question": "What are macronutrients?",
-			"answer": "Macronutrients (macros) are the three main nutrients your body needs in large amounts: protein, carbohydrates, and fat. Protein provides 4 calories per gram and is essential for muscle repair and growth. Carbohydrates provide 4 calories per gram and are your body's primary energy source. Fat provides 9 calories per gram (more than twice the energy density) and is essential for hormone production and vitamin absorption."
+			"question": "Что такое макронутриенты?",
+			"answer": "Белок, углеводы и жир — основные источники калорий. Белок и углеводы дают 4 ккал/г, жир — 9 ккал/г. Белок нужен для мышц, углеводы — для энергии, жир — для гормонов и усвоения витamins A, D, E, K."
 		},
 		{
-			"question": "How much protein do I need?",
-			"answer": "Protein needs vary by activity level and goals. General recommendations: Sedentary adults: 0.8 g per kg body weight (0.36 g per lb). Active individuals: 1.2-1.7 g per kg (0.54-0.77 g per lb). Athletes/bodybuilders: 1.6-2.2 g per kg (0.73-1.0 g per lb). For weight loss, higher protein (25-35% of calories) helps preserve muscle mass and increase satiety. Most people benefit from 20-30% of calories from protein."
+			"question": "Сколько белка нужно?",
+			"answer": "Зависит от активности: сидячий образ — около 0,8 г/кг; активные — 1,2–1,7 г/кг; силовые/атлеты — 1,6–2,2 г/кг. При похудении 25–35% калорий из белка часто помогает. Для большинства разумно 20–30% калорий."
 		},
 		{
-			"question": "Is a low-carb diet safe?",
-			"answer": "Low-carb diets (typically <130g carbs/day or <20% of calories) can be safe for most people when done properly, but they're not suitable for everyone. Benefits may include improved blood sugar control and weight loss. Potential concerns include reduced energy for high-intensity exercise, nutrient deficiencies if not planned carefully, and difficulty maintaining long-term. Consult a healthcare provider before starting a very low-carb diet, especially if you have medical conditions."
+			"question": "Безопасна ли низкоуглеводная диета?",
+			"answer": "При грамотном плане многим подходит, но не всем. Может улучшать контроль сахара и вес, но снижает запас энергии для интенсивных тренировок. Перед очень низкими углеводами проконсультируйтесь с врачом при хронических заболеваниях."
 		},
 		{
-			"question": "What macros are best for weight loss?",
-			"answer": "For weight loss, the most important factor is a calorie deficit. However, macro distribution matters: Higher protein (25-35% of calories) helps preserve muscle mass and increase satiety. Moderate carbs (30-40%) provide energy for exercise and daily activities. Moderate fat (25-35%) supports hormone production and satiety. The exact split depends on your preferences, activity level, and what's sustainable for you. Focus on finding a balance you can maintain long-term."
+			"question": "Какие макро лучше для похудения?",
+			"answer": "Главное — дефицит калорий. Полезны: белок 25–35%, умеренные углеводы 30–40%, жир 25–35%. Выберите схему, которую реально соблюдать месяцами."
 		},
 		{
-			"question": "Should my macros change with activity level?",
-			"answer": "Yes, macros should adjust with activity level. Highly active individuals may benefit from: Higher carbs (40-50%) to fuel intense workouts and recovery. Moderate protein (20-30%) to support muscle repair. Moderate fat (20-30%) for energy and hormone production. Sedentary individuals may do well with: Lower carbs (30-40%). Higher protein (25-35%) for satiety. Moderate fat (25-35%). Adjust based on your energy levels, performance, and recovery."
+			"question": "Менять ли макро с активностью?",
+			"answer": "Да. При высокой нагрузке часто больше углеводов (40–50%), умеренный белок и жир. При малоподвижности — меньше углеводов, чуть больше белка для сытости."
 		},
 		{
-			"question": "Why does fat have more calories per gram?",
-			"answer": "Fat provides 9 calories per gram compared to 4 calories per gram for protein and carbs because fat molecules are more energy-dense. Fat contains more carbon-hydrogen bonds, which store more energy. This is why high-fat foods are calorie-dense. However, fat is essential for health: it supports hormone production, vitamin absorption (A, D, E, K), brain function, and provides satiety. Don't eliminate fat from your diet."
+			"question": "Почему у жира больше калорий на грамм?",
+			"answer": "Жир энергетически плотнее из‑за структуры молекул. Поэтому жирные продукты калорийнее, но полностью исключать жир нельзя — он нужен организму."
 		},
 		{
-			"question": "Can I eat more protein to build muscle?",
-			"answer": "Yes, but there's a limit. Research suggests optimal protein intake for muscle building is around 1.6-2.2 g per kg body weight (0.73-1.0 g per lb), which typically translates to 25-35% of calories for most people. Eating more protein than this doesn't necessarily build more muscle—excess protein is either used for energy or stored as fat. Focus on consistent training, adequate calories, and proper protein distribution throughout the day rather than excessive protein intake."
+			"question": "Поможет ли ещё больше белка для мышц?",
+			"answer": "После ~1,6–2,2 г/кг лишний белок не даёт пропорционального роста мышц — избыток уходит на энергию или запас. Важны тренировки, калории и распределение белка в течение дня."
 		},
 		{
-			"question": "What if my percentages don't sum to 100%?",
-			"answer": "For custom macro splits, the percentages must sum to exactly 100%. If they don't, the calculator will show an error. This is because all calories must come from one of the three macronutrients. For example, if you set 30% protein, 40% carbs, and 25% fat, that's only 95%—you're missing 5% of your calories. Adjust the percentages until they sum to 100%."
+			"question": "Проценты не дают 100% — что делать?",
+			"answer": "Для пресета «Свой» сумма белка, углеводов и жира должна быть ровно 100%. Иначе часть калорий «не распределена» — скорректируйте проценты."
 		},
 		{
-			"question": "Do I need to hit my macros exactly every day?",
-			"answer": "No, you don't need to hit your macros exactly every day. Aim to hit your targets on average over the week. Some days you might be slightly over or under on certain macros, and that's fine. The key is consistency over time. For example, if your protein target is 150g, hitting 140g one day and 160g the next averages to 150g. Focus on weekly averages rather than daily perfection."
+			"question": "Нужно ли попадать в макро каждый день?",
+			"answer": "Достаточно среднего за неделю. Небольшие отклонения в отдельные дни нормальны — смотрите на тренд, а не на идеальный день."
 		},
 		{
-			"question": "What about micronutrients?",
-			"answer": "While macronutrients (protein, carbs, fat) provide calories and energy, micronutrients (vitamins and minerals) are equally important for health. Micronutrients don't provide calories but are essential for metabolism, immune function, bone health, and many other processes. A balanced diet with variety (fruits, vegetables, whole grains, lean proteins, healthy fats) ensures adequate micronutrient intake. Consider tracking micronutrients if you have specific deficiencies or dietary restrictions."
+			"question": "А микронутриенты?",
+			"answer": "Витamins и минералы не дают калорий, но критичны для здоровья. Разнообразный рацион (овощи, цельные продукты, белок, полезные жиры) покрывает большинство потребностей."
 		},
 		{
-			"question": "Can I do a very high-protein diet?",
-			"answer": "Very high-protein diets (40%+ of calories) can be effective for weight loss and muscle building, but they're not necessary for most people. Potential concerns include: Reduced room for carbs and fats (which have important roles), possible kidney strain in individuals with existing kidney issues, and difficulty maintaining long-term. Most people do well with 25-35% protein. Consult a healthcare provider before starting a very high-protein diet."
+			"question": "Очень высокий белок — это нормально?",
+			"answer": "40%+ калорий из белка иногда используют, но не обязательно. Осторожность при проблемах с почками. Большинству хватает 25–35%."
 		},
 		{
-			"question": "What's the difference between total carbs and net carbs?",
-			"answer": "Total carbs include all carbohydrates in food. Net carbs = total carbs - fiber - sugar alcohols. Some people (especially on low-carb/keto diets) track net carbs because fiber and sugar alcohols have minimal impact on blood sugar. However, this calculator uses total carbs. If you're tracking net carbs, you'll need to adjust your targets accordingly. Most people can track total carbs for general health."
+			"question": "Чем общие углеводы отличаются от «чистых»?",
+			"answer": "Общие углеводы включают всё содержание. «Чистые» ≈ общие − клетчатка − полиолы. На кето иногда считают «чистые»; здесь используются общие углеводы."
 		},
 		{
-			"question": "How do I track my macros?",
-			"answer": "Track macros using: Food tracking apps (MyFitnessPal, Cronometer, Lose It!) that have extensive food databases, food labels (check grams of protein, carbs, fat), kitchen scale for accurate portions, and meal planning to hit targets consistently. Start by tracking for a few days to understand your current intake, then adjust gradually. Don't obsess—aim for consistency, not perfection."
+			"question": "Как отслеживать макро?",
+			"answer": "Приложения (MyFitnessPal, Cronometer и др.), этикетки, весы для порций, план меню на несколько дней. Начните с 3–5 дней учёта, затем корректируйте."
 		},
 		{
-			"question": "Are there minimum requirements for each macro?",
-			"answer": "Yes, there are minimum requirements: Protein: At least 0.8 g per kg body weight (0.36 g per lb) for basic health, but more is better for active individuals. Fat: At least 20-30% of calories for hormone production and vitamin absorption. Very low fat (<15%) can cause health issues. Carbs: No strict minimum, but very low carbs (<50g/day) may not be suitable for everyone, especially active individuals. Most people benefit from at least 100-150g carbs per day."
+			"question": "Есть ли минимумы по макро?",
+			"answer": "Белок: минимум ~0,8 г/кг для здоровья, активным нужно больше. Жир: обычно не менее 20–30% калорий. Углеводы: жёсткого минимума нет, но <50 г/день подходит не всем."
 		},
 		{
-			"question": "Can macros help with specific health conditions?",
-			"answer": "Yes, macro adjustments can help with certain conditions: Diabetes: Lower carbs, higher protein and fat may improve blood sugar control. PCOS: Lower carbs, higher protein may help with insulin resistance. High cholesterol: Focus on healthy fats, limit saturated/trans fats. However, always consult with a healthcare provider or registered dietitian before making significant dietary changes, especially if you have medical conditions. This calculator is for general guidance only."
+			"question": "Макро при заболеваниях?",
+			"answer": "При диабете, СПКЯ, дислипidemии расклад может отличаться. Любые существенные изменения — с врачом или диетологом. Калькулятор — общая справка, не лечение."
 		}
 	],
 	"seo": {
-		"title": "Калькулятор БЖУ онлайн – белки, жиры, углеводы",
-		"description": "Разбейте суточные калории на белки, жиры и углеводы в граммах по выбранной схеме питания.",
+		"title": "Калькулятор макронутриентов – белки, углеводы, жиры в граммах",
+		"description": "Разбейте суточные калории на белок, углеводы и жир. Пресеты или свой %: граммы, ккал и доли для вашего плана питания.",
 		"keywords": [
-			"калькулятор бжу",
-			"макронутриенты",
-			"белки углеводы жиры"
+			"калькулятор макронутриентов",
+			"калькулятор макро",
+			"белки углеводы жиры",
+			"сколько белка в день",
+			"распределение макро",
+			"кбжу калькулятор",
+			"процент белка",
+			"низкоуглеводное питание"
 		]
 	}
 }
