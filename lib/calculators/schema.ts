@@ -444,6 +444,18 @@ export async function schemaToDefinition(
 		if (calculationId === 'calculateRandomNumber') {
 			await import('@/lib/calculations/random-number')
 		}
+		if (calculationId === 'calculateGcd') {
+			await import('@/lib/calculations/gcd')
+		}
+		if (calculationId === 'calculateLcm') {
+			await import('@/lib/calculations/lcm')
+		}
+		if (calculationId === 'calculateAreaCircle') {
+			await import('@/lib/calculations/area-circle')
+		}
+		if (calculationId === 'calculateInflationAdjustment') {
+			await import('@/lib/calculations/inflation-adjustment')
+		}
 		// Add more imports as needed for other calculation functions
 	}
 

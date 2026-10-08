@@ -1,0 +1,32 @@
+{
+	"id": "logarithm",
+	"category": "math",
+	"slug": "logarithm",
+	"engine": "formula",
+	"formula": "Math.log(number) / Math.log(base)",
+	"inputs": [
+		{
+			"name": "number",
+			"type": "number",
+			"min": 0.0000000001,
+			"defaultValue": 100
+		},
+		{
+			"name": "base",
+			"type": "number",
+			"min": 0.0000000001,
+			"defaultValue": 10
+		}
+	],
+	"outputs": [
+		{
+			"name": "result"
+		}
+	],
+	"variables": {
+		"number": "Argument of the logarithm",
+		"base": "Logarithm base"
+	},
+	"relatedIds": ["exponent", "square-root", "cube-root"],
+	"tags": ["math", "logarithm", "algebra"]
+}

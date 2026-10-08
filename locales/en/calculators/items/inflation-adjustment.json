@@ -1,0 +1,101 @@
+{
+  "title": "Inflation Adjustment Calculator",
+  "shortDescription": "Adjust monetary values for inflation. Calculate the equivalent value of money from one year to another accounting for inflation.",
+  "longDescription": "Adjust monetary values for inflation. Calculate the equivalent value of money from one year to another accounting for inflation.",
+  "inputs": [
+    {
+      "label": "Amount",
+      "unitLabel": "$",
+      "placeholder": "Enter Amount",
+      "helpText": "Enter the monetary amount to adjust"
+    },
+    {
+      "label": "Start Year",
+      "unitLabel": "",
+      "placeholder": "Enter Start Year",
+      "helpText": "Enter the year of the original amount"
+    },
+    {
+      "label": "End Year",
+      "unitLabel": "",
+      "placeholder": "Enter End Year",
+      "helpText": "Enter the target year for adjustment"
+    },
+    {
+      "label": "Annual Inflation Rate",
+      "unitLabel": "%",
+      "placeholder": "Enter Annual Inflation Rate",
+      "helpText": "Enter the average annual inflation rate (default: 3%)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Adjusted Amount",
+      "unitLabel": "$"
+    },
+    {
+      "label": "Total Inflation",
+      "unitLabel": "%"
+    }
+  ],
+  "howTo": [
+    "Enter the monetary amount you want to adjust",
+    "Enter the start year (when the amount was from)",
+    "Enter the end year (target year for adjustment)",
+    "Enter the annual inflation rate (default is 3%)",
+    "Click \"Calculate\" to see the inflation-adjusted amount"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: $1000 from 2000 to 2024",
+      "description": "Adjust $1000 from year 2000 to 2024 with 3% annual inflation",
+      "steps": [
+        "amount: 1000",
+        "startYear: 2000",
+        "endYear: 2024",
+        "inflationRate: 3"
+      ],
+      "resultDescription": "{\"adjustedAmount\":2027.78,\"totalInflation\":102.78}"
+    },
+    {
+      "title": "Example 2: $50,000 salary adjustment",
+      "description": "Adjust a $50,000 salary from 2010 to 2024",
+      "steps": [
+        "amount: 50000",
+        "startYear: 2010",
+        "endYear: 2024",
+        "inflationRate: 2.5"
+      ],
+      "resultDescription": "{\"adjustedAmount\":69255.47,\"totalInflation\":38.51}"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is inflation adjustment?",
+      "answer": "Inflation adjustment converts a monetary value from one time period to another, accounting for the decrease in purchasing power due to inflation. It shows what an amount from the past would be worth in today's dollars."
+    },
+    {
+      "question": "How is inflation calculated?",
+      "answer": "Inflation is calculated using compound interest formula: Adjusted Amount = Original Amount ├Ч (1 + inflation rate)^years. This accounts for inflation compounding over multiple years."
+    },
+    {
+      "question": "What is a typical inflation rate?",
+      "answer": "In developed countries, a typical annual inflation rate is around 2-3%. However, inflation rates vary by country and economic conditions. You can use historical data or current economic forecasts."
+    },
+    {
+      "question": "Why adjust for inflation?",
+      "answer": "Inflation adjustment helps compare the real purchasing power of money across different time periods. It's essential for financial planning, historical analysis, and understanding the true value of investments or salaries."
+    }
+  ],
+  "seo": {
+    "title": "Inflation Adjustment Calculator",
+    "description": "Adjust monetary values for inflation. Calculate the equivalent value of money from one year to another accounting for inflation.",
+    "keywords": [
+      "inflation",
+      "inflation adjustment",
+      "purchasing power",
+      "finance",
+      "money"
+    ]
+  }
+}

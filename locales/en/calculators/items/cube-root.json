@@ -1,0 +1,80 @@
+{
+  "title": "Cube Root Calculator",
+  "shortDescription": "Calculate the cube root of any number. Find the cube root of positive and negative numbers.",
+  "longDescription": "Calculate the cube root of any number. Find the cube root of positive and negative numbers.",
+  "inputs": [
+    {
+      "label": "Number",
+      "unitLabel": "",
+      "placeholder": "Enter Number",
+      "helpText": "Enter any number (positive or negative) to find its cube root"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Cube Root",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter a number in the input field (can be positive or negative)",
+    "Click \"Calculate\" to compute the cube root",
+    "The result shows the cube root of the entered number",
+    "Unlike square roots, cube roots can be calculated for negative numbers"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Cube root of 8",
+      "description": "Calculate the cube root of 8",
+      "steps": [
+        "number: 8"
+      ],
+      "resultDescription": "{\"result\":2}"
+    },
+    {
+      "title": "Example 2: Cube root of -27",
+      "description": "Calculate the cube root of -27",
+      "steps": [
+        "number: -27"
+      ],
+      "resultDescription": "{\"result\":-3}"
+    },
+    {
+      "title": "Example 3: Cube root of 64",
+      "description": "Calculate the cube root of 64",
+      "steps": [
+        "number: 64"
+      ],
+      "resultDescription": "{\"result\":4}"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is a cube root?",
+      "answer": "A cube root of a number is a value that, when multiplied by itself three times, gives the original number. For example, the cube root of 8 is 2 because 2 ├Ч 2 ├Ч 2 = 8."
+    },
+    {
+      "question": "Can I calculate the cube root of negative numbers?",
+      "answer": "Yes! Unlike square roots, cube roots can be calculated for negative numbers. For example, the cube root of -27 is -3 because (-3) ├Ч (-3) ├Ч (-3) = -27."
+    },
+    {
+      "question": "What is the cube root of 0?",
+      "answer": "The cube root of 0 is 0, because 0 ├Ч 0 ├Ч 0 = 0."
+    },
+    {
+      "question": "How is this different from square root?",
+      "answer": "Square root finds a number that when squared (multiplied by itself once) equals the original number. Cube root finds a number that when cubed (multiplied by itself twice) equals the original number."
+    }
+  ],
+  "seo": {
+    "title": "Cube Root Calculator",
+    "description": "Calculate the cube root of any number. Find the cube root of positive and negative numbers.",
+    "keywords": [
+      "cube root",
+      "cbrt",
+      "radical",
+      "math",
+      "calculation"
+    ]
+  }
+}

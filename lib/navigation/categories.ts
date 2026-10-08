@@ -12,6 +12,7 @@
 export type CategoryId =
 	| 'finance'
 	| 'math'
+	| 'geometry'
 	| 'life'
 	| 'construction'
 	| 'auto'
@@ -52,68 +53,75 @@ export const categories: CategoryConfig[] = [
 		calcCount: 8,
 	},
 	{
-		id: 'life',
+		// Restored historical category for area-circle / area-rectangle URLs
+		id: 'geometry',
 		order: 3,
+		iconKey: '📐',
+		calcCount: 2,
+	},
+	{
+		id: 'life',
+		order: 4,
 		iconKey: '📱',
 		calcCount: 14,
 	},
 	{
 		id: 'construction',
-		order: 4,
+		order: 5,
 		iconKey: '🏗️',
 		calcCount: 20,
 	},
 	{
 		id: 'auto',
-		order: 5,
+		order: 6,
 		iconKey: '🚗',
 		calcCount: 11,
 	},
 	{
 		id: 'time',
-		order: 6,
+		order: 7,
 		iconKey: '⏰',
 		calcCount: 9,
 	},
 	{
 		id: 'health',
-		order: 7,
+		order: 8,
 		iconKey: '🏥',
 		calcCount: 8,
 	},
 	{
 		id: 'science',
-		order: 8,
+		order: 9,
 		iconKey: '🔬',
 		calcCount: 1,
 	},
 	{
 		id: 'converter',
-		order: 9,
+		order: 10,
 		iconKey: '🔄',
 		calcCount: 9,
 	},
 	{
 		id: 'fun',
-		order: 10,
+		order: 11,
 		iconKey: '🎮',
 		calcCount: 12,
 	},
 	{
 		id: 'it',
-		order: 11,
+		order: 12,
 		iconKey: '💻',
 		calcCount: 3,
 	},
 	{
 		id: 'everyday',
-		order: 12,
+		order: 13,
 		iconKey: '📅',
 		calcCount: 9,
 	},
 	{
 		id: 'compatibility',
-		order: 13,
+		order: 14,
 		iconKey: '💞',
 		calcCount: 5,
 	},

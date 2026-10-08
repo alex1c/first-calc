@@ -1,0 +1,88 @@
+{
+  "title": "Circle Area Calculator",
+  "shortDescription": "Calculate the area of a circle. Find the area by entering the radius or diameter of the circle.",
+  "longDescription": "Calculate the area of a circle. Find the area by entering the radius or diameter of the circle.",
+  "inputs": [
+    {
+      "label": "Radius",
+      "unitLabel": "m",
+      "placeholder": "Enter Radius",
+      "helpText": "Enter the radius of the circle"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Area",
+      "unitLabel": "m┬▓"
+    },
+    {
+      "label": "Circumference",
+      "unitLabel": "m"
+    }
+  ],
+  "howTo": [
+    "Enter the radius of the circle",
+    "Click \"Calculate\" to compute the area and circumference",
+    "The result shows the area in square units and circumference in linear units"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Circle with radius 5m",
+      "description": "Calculate area and circumference of a circle with radius 5 meters",
+      "steps": [
+        "radius: 5"
+      ],
+      "resultDescription": "{\"area\":78.53981633974483,\"circumference\":31.41592653589793}"
+    },
+    {
+      "title": "Example 2: Circle with radius 10m",
+      "description": "Calculate area and circumference of a circle with radius 10 meters",
+      "steps": [
+        "radius: 10"
+      ],
+      "resultDescription": "{\"area\":314.1592653589793,\"circumference\":62.83185307179586}"
+    },
+    {
+      "title": "Example 3: Circle with radius 2.5m",
+      "description": "Calculate area and circumference of a circle with radius 2.5 meters",
+      "steps": [
+        "radius: 2.5"
+      ],
+      "resultDescription": "{\"area\":19.634954084936208,\"circumference\":15.707963267948966}"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is the formula for circle area?",
+      "answer": "The area of a circle is calculated using the formula: Area = ╧А ├Ч r┬▓, where r is the radius and ╧А (pi) is approximately 3.14159."
+    },
+    {
+      "question": "What if I only have the diameter?",
+      "answer": "If you have the diameter, divide it by 2 to get the radius, then use the area formula. Alternatively, you can use: Area = ╧А ├Ч (diameter/2)┬▓."
+    },
+    {
+      "question": "What is the value of ╧А (pi)?",
+      "answer": "╧А (pi) is approximately 3.14159, but it's an irrational number with infinite decimal places. This calculator uses JavaScript's Math.PI which provides high precision."
+    },
+    {
+      "question": "What units should I use?",
+      "answer": "You can use any unit of length (meters, feet, inches, etc.). The area will be in square units, and circumference will be in the same linear units as the radius."
+    },
+    {
+      "question": "What's the relationship between area and circumference?",
+      "answer": "Circumference = 2 ├Ч ╧А ├Ч radius, and Area = ╧А ├Ч radius┬▓. The circumference is the perimeter (distance around) the circle, while area is the space inside it."
+    }
+  ],
+  "seo": {
+    "title": "Circle Area Calculator",
+    "description": "Calculate the area of a circle. Find the area by entering the radius or diameter of the circle.",
+    "keywords": [
+      "circle",
+      "area",
+      "circumference",
+      "geometry",
+      "math",
+      "pi"
+    ]
+  }
+}

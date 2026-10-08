@@ -1,0 +1,35 @@
+{
+	"id": "area-rectangle",
+	"category": "geometry",
+	"slug": "area-rectangle",
+	"engine": "formula",
+	"formula": "length * width",
+	"inputs": [
+		{
+			"name": "length",
+			"type": "number",
+			"unit": "m",
+			"min": 0,
+			"defaultValue": 4
+		},
+		{
+			"name": "width",
+			"type": "number",
+			"unit": "m",
+			"min": 0,
+			"defaultValue": 3
+		}
+	],
+	"outputs": [
+		{
+			"name": "result"
+		}
+	],
+	"variables": {
+		"length": "Rectangle length",
+		"width": "Rectangle width"
+	},
+	"relatedIds": ["area-circle", "area", "room-area-calculator"],
+	"standardIds": ["iso-80000"],
+	"tags": ["geometry", "area", "rectangle"]
+}

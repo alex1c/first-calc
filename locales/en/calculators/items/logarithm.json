@@ -1,0 +1,93 @@
+{
+  "title": "Logarithm Calculator",
+  "shortDescription": "Calculate the logarithm of a number with any base. Compute natural logarithms and common logarithms.",
+  "longDescription": "Calculate the logarithm of a number with any base. Compute natural logarithms and common logarithms.",
+  "inputs": [
+    {
+      "label": "Number",
+      "unitLabel": "",
+      "placeholder": "Enter Number",
+      "helpText": "Enter a positive number (must be greater than 0)"
+    },
+    {
+      "label": "Base",
+      "unitLabel": "",
+      "placeholder": "Enter Base",
+      "helpText": "Enter the base of the logarithm (default: 10 for common logarithm)"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Logarithm",
+      "unitLabel": ""
+    }
+  ],
+  "howTo": [
+    "Enter a positive number in the first input field",
+    "Enter the base of the logarithm (default is 10 for common logarithm)",
+    "Click \"Calculate\" to compute the logarithm",
+    "The result shows the logarithm of the number with the specified base"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: Common logarithm of 100",
+      "description": "Calculate logтВБтВА(100) = 2",
+      "steps": [
+        "number: 100",
+        "base: 10"
+      ],
+      "resultDescription": "{\"result\":2}"
+    },
+    {
+      "title": "Example 2: Binary logarithm of 8",
+      "description": "Calculate logтВВ(8) = 3",
+      "steps": [
+        "number: 8",
+        "base: 2"
+      ],
+      "resultDescription": "{\"result\":3}"
+    },
+    {
+      "title": "Example 3: Natural logarithm of e",
+      "description": "Calculate ln(e) тЙИ 1",
+      "steps": [
+        "number: 2.71828",
+        "base: 2.71828"
+      ],
+      "resultDescription": "{\"result\":1}"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is a logarithm?",
+      "answer": "A logarithm is the inverse operation of exponentiation. It answers the question: 'To what power must the base be raised to get this number?' For example, logтВБтВА(100) = 2 because 10┬▓ = 100."
+    },
+    {
+      "question": "What is a common logarithm?",
+      "answer": "A common logarithm uses base 10. It's written as logтВБтВА(x) or simply log(x). It's commonly used in science and engineering."
+    },
+    {
+      "question": "What is a natural logarithm?",
+      "answer": "A natural logarithm uses base e (approximately 2.71828). It's written as ln(x) or logтВС(x). Natural logarithms are widely used in mathematics and science."
+    },
+    {
+      "question": "Can I use any base?",
+      "answer": "Yes, you can use any positive number (except 1) as the base. Common bases include 10 (common logarithm), e (natural logarithm), and 2 (binary logarithm)."
+    },
+    {
+      "question": "Why can't I use 0 or negative numbers?",
+      "answer": "Logarithms are only defined for positive numbers. The base must also be positive and not equal to 1."
+    }
+  ],
+  "seo": {
+    "title": "Logarithm Calculator",
+    "description": "Calculate the logarithm of a number with any base. Compute natural logarithms and common logarithms.",
+    "keywords": [
+      "logarithm",
+      "log",
+      "ln",
+      "math",
+      "calculation"
+    ]
+  }
+}

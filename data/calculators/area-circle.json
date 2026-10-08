@@ -1,0 +1,27 @@
+{
+	"id": "area-circle",
+	"category": "geometry",
+	"slug": "area-circle",
+	"engine": "function",
+	"calculationId": "calculateAreaCircle",
+	"inputs": [
+		{
+			"name": "radius",
+			"type": "number",
+			"unit": "m",
+			"min": 0,
+			"defaultValue": 5
+		}
+	],
+	"outputs": [
+		{
+			"name": "area"
+		},
+		{
+			"name": "circumference"
+		}
+	],
+	"relatedIds": ["area-rectangle", "area", "square-root"],
+	"standardIds": ["iso-80000"],
+	"tags": ["geometry", "area", "circle"]
+}

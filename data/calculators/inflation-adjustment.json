@@ -1,0 +1,47 @@
+{
+	"id": "inflation-adjustment",
+	"category": "finance",
+	"slug": "inflation-adjustment",
+	"engine": "function",
+	"calculationId": "calculateInflationAdjustment",
+	"inputs": [
+		{
+			"name": "amount",
+			"type": "number",
+			"min": 0,
+			"defaultValue": 1000
+		},
+		{
+			"name": "startYear",
+			"type": "number",
+			"min": 1900,
+			"max": 2100,
+			"defaultValue": 2000
+		},
+		{
+			"name": "endYear",
+			"type": "number",
+			"min": 1900,
+			"max": 2100,
+			"defaultValue": 2024
+		},
+		{
+			"name": "inflationRate",
+			"type": "number",
+			"unit": "%",
+			"min": 0,
+			"max": 100,
+			"defaultValue": 3
+		}
+	],
+	"outputs": [
+		{
+			"name": "adjustedAmount"
+		},
+		{
+			"name": "totalInflation"
+		}
+	],
+	"relatedIds": ["roi-calculator", "savings-calculator", "investment-calculator"],
+	"tags": ["finance", "inflation", "purchasing-power"]
+}

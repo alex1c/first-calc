@@ -1,0 +1,30 @@
+{
+	"id": "exponent",
+	"category": "math",
+	"slug": "exponent",
+	"engine": "formula",
+	"formula": "Math.pow(base, exponent)",
+	"inputs": [
+		{
+			"name": "base",
+			"type": "number",
+			"defaultValue": 2
+		},
+		{
+			"name": "exponent",
+			"type": "number",
+			"defaultValue": 8
+		}
+	],
+	"outputs": [
+		{
+			"name": "result"
+		}
+	],
+	"variables": {
+		"base": "Base value",
+		"exponent": "Exponent / power"
+	},
+	"relatedIds": ["square-root", "cube-root", "logarithm"],
+	"tags": ["math", "exponent", "power"]
+}

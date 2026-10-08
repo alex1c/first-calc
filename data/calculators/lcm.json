@@ -1,0 +1,30 @@
+{
+	"id": "lcm",
+	"category": "math",
+	"slug": "lcm",
+	"engine": "function",
+	"calculationId": "calculateLcm",
+	"inputs": [
+		{
+			"name": "a",
+			"type": "number",
+			"min": 1,
+			"step": 1,
+			"defaultValue": 12
+		},
+		{
+			"name": "b",
+			"type": "number",
+			"min": 1,
+			"step": 1,
+			"defaultValue": 18
+		}
+	],
+	"outputs": [
+		{
+			"name": "result"
+		}
+	],
+	"relatedIds": ["gcd", "square-root", "exponent"],
+	"tags": ["math", "lcm", "number-theory"]
+}

@@ -1,0 +1,24 @@
+{
+	"id": "cube-root",
+	"category": "math",
+	"slug": "cube-root",
+	"engine": "formula",
+	"formula": "Math.cbrt(number)",
+	"inputs": [
+		{
+			"name": "number",
+			"type": "number",
+			"defaultValue": 27
+		}
+	],
+	"outputs": [
+		{
+			"name": "result"
+		}
+	],
+	"variables": {
+		"number": "The number to find the cube root of"
+	},
+	"relatedIds": ["square-root", "exponent", "logarithm"],
+	"tags": ["math", "root", "cube-root"]
+}

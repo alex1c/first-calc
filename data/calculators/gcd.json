@@ -1,0 +1,30 @@
+{
+	"id": "gcd",
+	"category": "math",
+	"slug": "gcd",
+	"engine": "function",
+	"calculationId": "calculateGcd",
+	"inputs": [
+		{
+			"name": "a",
+			"type": "number",
+			"min": 1,
+			"step": 1,
+			"defaultValue": 48
+		},
+		{
+			"name": "b",
+			"type": "number",
+			"min": 1,
+			"step": 1,
+			"defaultValue": 18
+		}
+	],
+	"outputs": [
+		{
+			"name": "result"
+		}
+	],
+	"relatedIds": ["lcm", "square-root", "exponent"],
+	"tags": ["math", "gcd", "number-theory"]
+}

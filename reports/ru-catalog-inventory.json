@@ -1,0 +1,5428 @@
+{
+  "summary": {
+    "baseline": {
+      "branch": "fix/ru-catalog-seo-recovery",
+      "sha": "0320ad1c3c34424088526774ad6ac28875bebe71",
+      "date": "2026-10-08"
+    },
+    "counts": {
+      "jsonSchemaFilesTotal": 92,
+      "jsonBaseSchemas": 82,
+      "jsonRuOverlays": 10,
+      "enabledBaseSchemas": 77,
+      "disabledBaseSchemas": [
+        "basic",
+        "converter",
+        "power-root",
+        "statistics",
+        "volume"
+      ],
+      "enItemFiles": 83,
+      "ruItemFiles": 79,
+      "ruItemsMatchingLiveSlug": 77,
+      "orphanRuItemFiles": 0,
+      "ruCatalogVisibleEnabled": 77,
+      "enabledMissingRuItem": 0,
+      "tsOnlyCalculators": 12,
+      "tsRuFullDefinitions": [
+        "percentage-of-a-number",
+        "loan-payment"
+      ]
+    },
+    "rootCauses": [
+      {
+        "id": "RC1",
+        "title": "content-availability filters by item file only",
+        "detail": "filterLocalizedCalculators/hasLocalizedCalculatorContent require locales/<locale>/calculators/items/<slug>.json. Used by catalog hubs, search, related block, sitemap."
+      },
+      {
+        "id": "RC2",
+        "title": "Most RU item files are orphaned after schema deletion",
+        "detail": "Commit caad87e deleted base EN schemas for area-circle, area-rectangle, cube-root, exponent, gcd, lcm, logarithm, inflation-adjustment (and others). RU item files and .ru.json overlays remained but are not registered."
+      },
+      {
+        "id": "RC3",
+        "title": ".ru.json overlays are never loaded",
+        "detail": "lib/registry/loader.ts explicitly excludes files containing .ru.json."
+      },
+      {
+        "id": "RC4",
+        "title": "TypeScript RU definitions ignored by availability filter",
+        "detail": "percentage-of-a-number and loan-payment have full RU CalculatorDefinition in data/calculators.ts but no locales/ru items file, so they are hidden from RU catalog/search/sitemap."
+      },
+      {
+        "id": "RC5",
+        "title": "Silent catch in registry loader",
+        "detail": "JSON read/parse failures in LocalCalculatorLoader.getAll/getByCategory are swallowed, masking broken schemas."
+      },
+      {
+        "id": "RC6",
+        "title": "Direct RU URLs for missing items still 200 with English fallback + noindex",
+        "detail": "Confirmed on production for mortgage-calculator; orphans like /ru/calculators/math/gcd return 404."
+      }
+    ],
+    "productionSpotCheck": {
+      "ruCatalogLinks": [
+        "calculators/construction/cement-calculator",
+        "calculators/construction/concrete-volume-calculator",
+        "calculators/construction/sand-calculator",
+        "calculators/finance/roi-calculator",
+        "calculators/math/square-root"
+      ],
+      "orphanGcd": "404",
+      "mortgageRu": "200 with EN fallback expected",
+      "percentageRu": "200 (TS RU content; not in catalog)",
+      "loanPaymentRu": "200 (TS RU content; not in catalog)",
+      "chisloPropisyu": "200",
+      "tools": "200",
+      "sitemapRuCalculators": 5
+    }
+  },
+  "liveSchemas": [
+    {
+      "id": "age-calculator",
+      "slug": "age-calculator",
+      "category": "everyday",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateAge",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 6,
+        "examples": 4,
+        "faq": 14,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 6,
+        "examples": 4,
+        "faq": 14,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "area-circle",
+      "slug": "area-circle",
+      "category": "geometry",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateAreaCircle",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 3,
+        "examples": 2,
+        "faq": 3,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 3,
+        "examples": 3,
+        "faq": 5,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "area-rectangle",
+      "slug": "area-rectangle",
+      "category": "geometry",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "formula",
+      "calculationId": null,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 2,
+        "faq": 2,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 3,
+        "faq": 4,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "area",
+      "slug": "area",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateArea",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 3,
+        "faq": 10,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 3,
+        "faq": 10,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "auto-loan-calculator",
+      "slug": "auto-loan-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_precedence_plus_json",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateAutoLoan",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 4,
+        "faq": 14,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 4,
+        "faq": 14,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "average-calculator",
+      "slug": "average-calculator",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateAverage",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 3,
+        "faq": 11,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 3,
+        "faq": 11,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "basic",
+      "slug": "basic",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": false,
+      "engine": "function",
+      "calculationId": "calculateBasicMath",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": false,
+        "howTo": 0,
+        "examples": 0,
+        "faq": 0,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": []
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": false,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "schema_disabled",
+        "missing_locales_ru_items_file"
+      ]
+    },
+    {
+      "id": "bmi-calculator",
+      "slug": "bmi-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateBMI",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "bmr-calculator",
+      "slug": "bmr-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateBMR",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "body-fat-percentage-calculator",
+      "slug": "body-fat-percentage-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateBodyFatPercentage",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 13,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 13,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "brick-calculator",
+      "slug": "brick-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateBrick",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 14,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 14,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "cable-size-calculator",
+      "slug": "cable-size-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateCableSize",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "calories-burned-calculator",
+      "slug": "calories-burned-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateCaloriesBurned",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "car-affordability-calculator",
+      "slug": "car-affordability-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateCarAffordability",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 13,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 13,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "car-cost-of-ownership-calculator",
+      "slug": "car-cost-of-ownership-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateCarCostOfOwnership",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 14,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 14,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "car-depreciation-calculator",
+      "slug": "car-depreciation-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateCarDepreciation",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "car-maintenance-cost-calculator",
+      "slug": "car-maintenance-cost-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateCarMaintenanceCost",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "car-resale-value-calculator",
+      "slug": "car-resale-value-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateCarResaleValue",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "cement-calculator",
+      "slug": "cement-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateCement",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "concrete-mix-ratio-calculator",
+      "slug": "concrete-mix-ratio-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateConcreteMixRatio",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "concrete-volume-calculator",
+      "slug": "concrete-volume-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateConcreteVolume",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 16,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 16,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "converter",
+      "slug": "converter",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": false,
+      "engine": "function",
+      "calculationId": "convertUnit",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": false,
+        "howTo": 0,
+        "examples": 0,
+        "faq": 0,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": []
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": false,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "schema_disabled",
+        "missing_locales_ru_items_file"
+      ]
+    },
+    {
+      "id": "cooking-measurement-converter",
+      "slug": "cooking-measurement-converter",
+      "category": "everyday",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateCookingMeasurement",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "cube-root",
+      "slug": "cube-root",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "formula",
+      "calculationId": null,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 2,
+        "faq": 2,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 3,
+        "faq": 4,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "daily-calorie-needs-calculator",
+      "slug": "daily-calorie-needs-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateDailyCalorieNeeds",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 18,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 18,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "date-calculator",
+      "slug": "date-calculator",
+      "category": "everyday",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateDateCalculator",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "days-between-dates-calculator",
+      "slug": "days-between-dates-calculator",
+      "category": "everyday",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateDaysBetweenDates",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "descriptive-statistics-calculator",
+      "slug": "descriptive-statistics-calculator",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateDescriptiveStatistics",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 3,
+        "faq": 11,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 3,
+        "faq": 11,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "electrical-load-calculator",
+      "slug": "electrical-load-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateElectricalLoad",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "equation-solver",
+      "slug": "equation-solver",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "solveEquation",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 6,
+        "faq": 13,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 6,
+        "faq": 13,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Calculate",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "exponent",
+      "slug": "exponent",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "formula",
+      "calculationId": null,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 2,
+        "faq": 2,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 3,
+        "faq": 4,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "foundation-volume-calculator",
+      "slug": "foundation-volume-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateFoundationVolume",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "fuel-consumption-calculator",
+      "slug": "fuel-consumption-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateFuelConsumption",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 15,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 15,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "fuel-cost-calculator",
+      "slug": "fuel-cost-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateFuelCost",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "gcd",
+      "slug": "gcd",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateGcd",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 2,
+        "faq": 2,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 3,
+        "faq": 4,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "gravel-calculator",
+      "slug": "gravel-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateGravel",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "heart-rate-zones-calculator",
+      "slug": "heart-rate-zones-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateHeartRateZones",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Example 2"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "ideal-weight-calculator",
+      "slug": "ideal-weight-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateIdealWeight",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "inflation-adjustment",
+      "slug": "inflation-adjustment",
+      "category": "finance",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateInflationAdjustment",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 5,
+        "examples": 1,
+        "faq": 2,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 5,
+        "examples": 2,
+        "faq": 4,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Example 2"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "investment-calculator",
+      "slug": "investment-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_precedence_plus_json",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateInvestment",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 5,
+        "faq": 17,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 5,
+        "faq": 17,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "laminate-calculator",
+      "slug": "laminate-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateLaminate",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "lcm",
+      "slug": "lcm",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateLcm",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 2,
+        "faq": 2,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 3,
+        "faq": 5,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "lease-vs-buy-calculator",
+      "slug": "lease-vs-buy-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateLeaseVsBuy",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 20,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 20,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "loan-overpayment-calculator",
+      "slug": "loan-overpayment-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_precedence_plus_json",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateLoanOverpayment",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 17,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 17,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "logarithm",
+      "slug": "logarithm",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "formula",
+      "calculationId": null,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 2,
+        "faq": 2,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 3,
+        "faq": 5,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "macronutrient-calculator",
+      "slug": "macronutrient-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateMacronutrient",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "monthly-car-expenses-calculator",
+      "slug": "monthly-car-expenses-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateMonthlyCarExpenses",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 13,
+        "examples": 5,
+        "faq": 14,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 13,
+        "examples": 5,
+        "faq": 14,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Example 2"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "mortgage-calculator",
+      "slug": "mortgage-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_precedence_plus_json",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateMortgage",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 5,
+        "faq": 18,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 5,
+        "faq": 18,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "numbers-to-words-calculator",
+      "slug": "numbers-to-words",
+      "category": "everyday",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateNumbersToWords",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 6,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 6,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "paint-calculator",
+      "slug": "paint-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculatePaint",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 16,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 16,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "percentage-change-calculator",
+      "slug": "percentage-change-calculator",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculatePercentageChange",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "perimeter-of-shapes",
+      "slug": "perimeter-of-shapes",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculatePerimeter",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 13,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 13,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "personal-loan-calculator",
+      "slug": "personal-loan-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_precedence_plus_json",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculatePersonalLoan",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 4,
+        "faq": 14,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 4,
+        "faq": 14,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "pile-foundation-calculator",
+      "slug": "pile-foundation-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculatePileFoundation",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "pipe-volume-calculator",
+      "slug": "pipe-volume-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculatePipeVolume",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "power-root",
+      "slug": "power-root",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": false,
+      "engine": "function",
+      "calculationId": "calculatePowerRoot",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": false,
+        "howTo": 0,
+        "examples": 0,
+        "faq": 0,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": []
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": false,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "schema_disabled",
+        "missing_locales_ru_items_file"
+      ]
+    },
+    {
+      "id": "primer-calculator",
+      "slug": "primer-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculatePrimer",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 13,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 13,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "putty-calculator",
+      "slug": "putty-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculatePutty",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "pythagorean-theorem-calculator",
+      "slug": "pythagorean-theorem-calculator",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculatePythagorean",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "quadratic-equation-calculator",
+      "slug": "quadratic-equation-calculator",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateQuadratic",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 4,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 4,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Example 2"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "random-number-generator",
+      "slug": "random-number-generator",
+      "category": "everyday",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateRandomNumber",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Click Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "rebar-calculator",
+      "slug": "rebar-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateRebar",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 14,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 14,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "rebar-weight-calculator",
+      "slug": "rebar-weight-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateRebarWeight",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "roi-calculator",
+      "slug": "roi-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_precedence_plus_json",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateROI",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 2,
+        "faq": 2,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 6,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "roman-numerals-converter",
+      "slug": "roman-numerals-converter",
+      "category": "everyday",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateRomanNumerals",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "room-area-calculator",
+      "slug": "room-area-calculator",
+      "category": "everyday",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateRoomArea",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "sand-calculator",
+      "slug": "sand-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateSand",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 10,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "savings-calculator",
+      "slug": "savings-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_precedence_plus_json",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateSavings",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 16,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 4,
+        "faq": 16,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "slab-foundation-calculator",
+      "slug": "slab-foundation-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateSlabFoundation",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "square-root",
+      "slug": "square-root",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "formula",
+      "calculationId": null,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 4,
+        "examples": 2,
+        "faq": 2,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 4,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "has_unused_ru_json_overlay"
+      ]
+    },
+    {
+      "id": "stair-calculator",
+      "slug": "stair-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateStair",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "standard-deviation-calculator",
+      "slug": "standard-deviation-calculator",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateStandardDeviation",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 3,
+        "faq": 11,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 3,
+        "faq": 11,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "statistics",
+      "slug": "statistics",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": false,
+      "engine": "function",
+      "calculationId": "calculateMean",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": false,
+        "howTo": 0,
+        "examples": 0,
+        "faq": 0,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": []
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": false,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "schema_disabled",
+        "missing_locales_ru_items_file"
+      ]
+    },
+    {
+      "id": "steps-to-calories-calculator",
+      "slug": "steps-to-calories-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateStepsToCalories",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "strip-foundation-calculator",
+      "slug": "strip-foundation-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateStripFoundation",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "tile-calculator",
+      "slug": "tile-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateTile",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "tire-cost-calculator",
+      "slug": "tire-cost-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateTireCost",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 5,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 8,
+        "examples": 5,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Example 2"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "trip-cost-calculator",
+      "slug": "trip-cost-calculator",
+      "category": "auto",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateTripCost",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 12,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "volume-of-shapes",
+      "slug": "volume-of-shapes",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateVolume",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 9,
+        "examples": 4,
+        "faq": 12,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Example 1",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "volume",
+      "slug": "volume",
+      "category": "math",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": false,
+      "engine": "function",
+      "calculationId": "convertVolume",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": false,
+        "howTo": 0,
+        "examples": 0,
+        "faq": 0,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": []
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": false,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "schema_disabled",
+        "missing_locales_ru_items_file"
+      ]
+    },
+    {
+      "id": "wall-area-calculator",
+      "slug": "wall-area-calculator",
+      "category": "construction",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateWallArea",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 14,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 14,
+        "examples": 5,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": [
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate",
+          "Calculate"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    },
+    {
+      "id": "water-intake-calculator",
+      "slug": "water-intake-calculator",
+      "category": "health",
+      "definitionSource": "json",
+      "tsLocales": [],
+      "enabled": true,
+      "engine": "function",
+      "calculationId": "calculateWaterIntake",
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "enContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 11,
+        "examples": 4,
+        "faq": 15,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": false,
+        "seoDescription": false,
+        "englishFragments": [
+          "Calculate",
+          "Example 1",
+          "Example 2",
+          "Example 3",
+          "Example 4"
+        ]
+      },
+      "hasRuOverlayUnused": false,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_in_ru_catalog"
+      ]
+    }
+  ],
+  "orphanRuItems": [],
+  "tsOnlyCalculators": [
+    {
+      "id": "percentage-of-a-number",
+      "slug": "percentage-of-a-number",
+      "category": "math",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en",
+        "ru"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 5,
+        "examples": 3,
+        "faq": 5,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "hasFullTsRu": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_if_item_exists"
+      ]
+    },
+    {
+      "id": "add-percentage",
+      "slug": "add-percentage",
+      "category": "math",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    },
+    {
+      "id": "subtract-percentage",
+      "slug": "subtract-percentage",
+      "category": "math",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    },
+    {
+      "id": "loan-payment",
+      "slug": "loan-payment",
+      "category": "finance",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en",
+        "ru"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": true,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": true,
+        "title": true,
+        "shortDescription": true,
+        "longDescription": true,
+        "howTo": 7,
+        "examples": 1,
+        "faq": 3,
+        "fields": 0,
+        "results": 0,
+        "seoTitle": true,
+        "seoDescription": true,
+        "englishFragments": []
+      },
+      "hasFullTsRu": true,
+      "inRuCatalog": true,
+      "directUrlAvailable": true,
+      "indexableRu": true,
+      "inSearchRu": true,
+      "inSitemapRu": true,
+      "absenceReasons": [
+        "ok_if_item_exists"
+      ]
+    },
+    {
+      "id": "compound-interest",
+      "slug": "compound-interest",
+      "category": "finance",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    },
+    {
+      "id": "loan-comparison-calculator",
+      "slug": "loan-comparison-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    },
+    {
+      "id": "mortgage-comparison-calculator",
+      "slug": "mortgage-comparison-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    },
+    {
+      "id": "retirement-calculator",
+      "slug": "retirement-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    },
+    {
+      "id": "investment-vs-savings-calculator",
+      "slug": "investment-vs-savings-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    },
+    {
+      "id": "take-home-pay-calculator",
+      "slug": "take-home-pay-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    },
+    {
+      "id": "emergency-fund-calculator",
+      "slug": "emergency-fund-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    },
+    {
+      "id": "net-worth-calculator",
+      "slug": "net-worth-calculator",
+      "category": "finance",
+      "definitionSource": "typescript_only",
+      "tsLocales": [
+        "en"
+      ],
+      "enabled": true,
+      "enginePresent": true,
+      "localesPresent": {
+        "en": true,
+        "ru": false,
+        "es": false,
+        "tr": false,
+        "hi": false
+      },
+      "ruContent": {
+        "exists": false
+      },
+      "hasFullTsRu": false,
+      "inRuCatalog": false,
+      "directUrlAvailable": true,
+      "indexableRu": false,
+      "inSearchRu": false,
+      "inSitemapRu": false,
+      "absenceReasons": [
+        "missing_locales_ru_items_file",
+        "no_ru_content",
+        "filtered_from_ru_catalog_search_sitemap"
+      ]
+    }
+  ],
+  "ruOverlays": [
+    "area-circle.ru.json",
+    "area-rectangle.ru.json",
+    "cube-root.ru.json",
+    "exponent.ru.json",
+    "gcd.ru.json",
+    "inflation-adjustment.ru.json",
+    "lcm.ru.json",
+    "logarithm.ru.json",
+    "roi-calculator.ru.json",
+    "square-root.ru.json"
+  ]
+}

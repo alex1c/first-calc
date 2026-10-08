@@ -1,0 +1,89 @@
+{
+  "title": "Rectangle Area Calculator",
+  "shortDescription": "Calculate the area of a rectangle. Find the area by entering length and width measurements.",
+  "longDescription": "Calculate the area of a rectangle. Find the area by entering length and width measurements.",
+  "inputs": [
+    {
+      "label": "Length",
+      "unitLabel": "m",
+      "placeholder": "Enter Length",
+      "helpText": "Enter the length of the rectangle"
+    },
+    {
+      "label": "Width",
+      "unitLabel": "m",
+      "placeholder": "Enter Width",
+      "helpText": "Enter the width of the rectangle"
+    }
+  ],
+  "outputs": [
+    {
+      "label": "Area",
+      "unitLabel": "m┬▓"
+    }
+  ],
+  "howTo": [
+    "Enter the length of the rectangle",
+    "Enter the width of the rectangle",
+    "Click \"Calculate\" to compute the area",
+    "The result shows the area in square units"
+  ],
+  "examples": [
+    {
+      "title": "Example 1: 5m ├Ч 3m rectangle",
+      "description": "Calculate area of a 5m by 3m rectangle",
+      "steps": [
+        "length: 5",
+        "width: 3"
+      ],
+      "resultDescription": "{\"area\":15}"
+    },
+    {
+      "title": "Example 2: 10m ├Ч 8m rectangle",
+      "description": "Calculate area of a 10m by 8m rectangle",
+      "steps": [
+        "length: 10",
+        "width: 8"
+      ],
+      "resultDescription": "{\"area\":80}"
+    },
+    {
+      "title": "Example 3: Decimal dimensions",
+      "description": "Calculate area with decimal measurements",
+      "steps": [
+        "length: 12.5",
+        "width: 6.5"
+      ],
+      "resultDescription": "{\"area\":81.25}"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is the formula for rectangle area?",
+      "answer": "The area of a rectangle is calculated by multiplying its length by its width: Area = Length ├Ч Width."
+    },
+    {
+      "question": "What units should I use?",
+      "answer": "You can use any unit of length (meters, feet, inches, etc.). The area will be in square units of that measurement (square meters, square feet, etc.). Just make sure both length and width use the same units."
+    },
+    {
+      "question": "Can I use this for squares?",
+      "answer": "Yes! A square is a special case of a rectangle where length equals width. You can enter the same value for both length and width."
+    },
+    {
+      "question": "What if I have the perimeter?",
+      "answer": "If you have the perimeter and one dimension, you can calculate the other dimension first: Perimeter = 2 ├Ч (Length + Width). Then use the area formula."
+    }
+  ],
+  "seo": {
+    "title": "Rectangle Area Calculator",
+    "description": "Calculate the area of a rectangle. Find the area by entering length and width measurements.",
+    "keywords": [
+      "rectangle",
+      "area",
+      "geometry",
+      "math",
+      "calculation"
+    ]
+  }
+}

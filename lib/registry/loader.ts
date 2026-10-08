@@ -156,6 +156,8 @@ class LocalCalculatorLoader implements CalculatorLoader {
 		const calculatorsDir = path.join(process.cwd(), 'data', 'calculators')
 		
 		let jsonCalculators: CalculatorDefinition[] = []
+		const seenIds = new Set<string>()
+		const seenSlugs = new Set<string>()
 		try {
 			const files = await fs.readdir(calculatorsDir)
 			const jsonFiles = files.filter((f) => f.endsWith('.json') && !f.includes('.ru.json'))
@@ -164,6 +166,20 @@ class LocalCalculatorLoader implements CalculatorLoader {
 				try {
 					const filePath = path.join(calculatorsDir, file)
 					const schema = await loadCalculatorSchema(filePath)
+
+					// Surface ID/slug collisions across schema files
+					if (seenIds.has(schema.id)) {
+						console.error(
+							`[Loader] Duplicate calculator id "${schema.id}" in ${file}`,
+						)
+					}
+					if (seenSlugs.has(schema.slug)) {
+						console.error(
+							`[Loader] Duplicate calculator slug "${schema.slug}" in ${file}`,
+						)
+					}
+					seenIds.add(schema.id)
+					seenSlugs.add(schema.slug)
 					
 					// Only load enabled calculators
 					if (schema.isEnabled !== false) {
@@ -172,12 +188,18 @@ class LocalCalculatorLoader implements CalculatorLoader {
 							jsonCalculators.push(calc)
 						}
 					}
-				} catch {
-					// Skip files that can't be loaded
+				} catch (error) {
+					console.error(
+						`[Loader] Failed to load calculator schema ${file}:`,
+						error instanceof Error ? error.message : String(error),
+					)
 				}
 			}
-		} catch {
-			// Directory doesn't exist or can't be read
+		} catch (error) {
+			console.error(
+				'[Loader] Unable to read calculators directory:',
+				error instanceof Error ? error.message : String(error),
+			)
 		}
 		
 		// Combine hardcoded and JSON calculators, removing duplicates by id
@@ -232,14 +254,17 @@ class LocalCalculatorLoader implements CalculatorLoader {
 						}
 					}
 				} catch (error) {
-					// Skip files that can't be loaded, but log in development
-					if (process.env.NODE_ENV === 'development') {
-						console.warn(`[Loader] Failed to load calculator from ${file}:`, error instanceof Error ? error.message : String(error))
-					}
+					console.error(
+						`[Loader] Failed to load calculator schema ${file}:`,
+						error instanceof Error ? error.message : String(error),
+					)
 				}
 			}
-		} catch {
-			// Directory doesn't exist or can't be read
+		} catch (error) {
+			console.error(
+				'[Loader] Unable to read calculators directory:',
+				error instanceof Error ? error.message : String(error),
+			)
 		}
 		
 		// Combine hardcoded and JSON calculators, removing duplicates by id
