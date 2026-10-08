@@ -1,163 +1,145 @@
 {
-	"title": "Лизинг или покупка авто – Сравнение полной стоимости",
-	"shortDescription": "Сравните лизинг и покупку автомобиля: итоговая стоимость, платежи, перепродажа и перепробег.",
-	"longDescription": "Калькулятор сравнивает полную стоимость покупки в кредит и лизинга за выбранный период с учётом взноса, ставки, остаточной стоимости, лимита пробега и разницы по страховке/ТО.",
+	"title": "Калькулятор лизинг или покупка – Сравнение полной стоимости авто",
+	"shortDescription": "Сравните лизинг и покупку автомобиля: итоговая стоимость, платежи, остаточная цена и штрафы за пробег.",
+	"longDescription": "Примите взвешенное решение между лизингом и покупкой: сравните полные затраты за один период с учётом взноса, платежей, процентов, стоимости при перепродаже, штрафов за пробег и комиссий. Подходит для планирования следующей машины и понимания реальной разницы в ₽.",
 	"inputs": [
 		{
 			"label": "Период сравнения",
 			"unitLabel": "лет",
-			"placeholder": "Введите comparison period",
-			"helpText": "Number of лет to compare costs (1-7 лет)"
+			"placeholder": "Введите период сравнения",
+			"helpText": "Сколько лет сравниваем (1–7)"
 		},
 		{
-			"label": "Годовой пробег",
-			"unitLabel": "miles",
-			"placeholder": "Введите annual mileage",
-			"helpText": "Average miles driven per year"
+			"label": "Пробег в год",
+			"unitLabel": "км",
+			"placeholder": "Введите годовой пробег",
+			"helpText": "Средний пробег за год (в тех же единицах, что в договоре)"
 		},
 		{
 			"label": "Цена покупки",
 			"unitLabel": "₽",
-			"placeholder": "Введите purchase price",
-			"helpText": "Price of the car if buying"
+			"placeholder": "Введите цену покупки",
+			"helpText": "Стоимость автомобиля при покупке"
 		},
 		{
 			"label": "Первоначальный взнос",
 			"unitLabel": "₽",
 			"placeholder": "Введите первоначальный взнос",
-			"helpText": "Down payment amount (if buying)"
+			"helpText": "Взнос при покупке в кредит (если есть)"
 		},
 		{
-			"label": "Ставка кредита (APR)",
+			"label": "Ставка по кредиту (ПСК)",
 			"unitLabel": "%",
-			"placeholder": "Введите ставку кредита",
-			"helpText": "Annual percentage rate for the loan"
+			"placeholder": "Введите ставку по кредиту",
+			"helpText": "Годовая процентная ставка по автокредиту"
 		},
 		{
 			"label": "Срок кредита",
 			"unitLabel": "мес.",
 			"placeholder": "Введите срок кредита",
-			"helpText": "Loan term in мес."
+			"helpText": "Срок кредита в месяцах"
 		},
 		{
-			"label": "Цена перепродажи после периода",
+			"label": "Остаточная стоимость после периода",
 			"unitLabel": "₽",
-			"placeholder": "Введите resale value",
-			"helpText": "Estimated resale value after the comparison period"
+			"placeholder": "Введите остаточную стоимость",
+			"helpText": "Оценка цены продажи по окончании периода сравнения"
 		},
 		{
-			"label": "Налог / сборы",
+			"label": "Налог и сборы",
 			"unitLabel": "₽",
-			"placeholder": "Введите налог или сборы",
-			"helpText": "Sales tax and other fees (optional)"
+			"placeholder": "Введите налог и сборы",
+			"helpText": "Налог с продажи и прочие разовые сборы (необязательно)"
 		},
 		{
 			"label": "Ежемесячный платёж по лизингу",
 			"unitLabel": "₽",
-			"placeholder": "Введите lease payment",
-			"helpText": "Monthly lease payment amount"
+			"placeholder": "Введите платёж по лизингу",
+			"helpText": "Ежемесячный лизинговый платёж"
 		},
 		{
 			"label": "Срок лизинга",
 			"unitLabel": "мес.",
-			"placeholder": "Введите lease term",
-			"helpText": "Lease term in мес."
+			"placeholder": "Введите срок лизинга",
+			"helpText": "Срок договора лизинга в месяцах"
 		},
 		{
-			"label": "К оплате при подписании",
+			"label": "Платёж при подписании",
 			"unitLabel": "₽",
-			"placeholder": "Введите due at signing",
-			"helpText": "Amount due at lease signing"
+			"placeholder": "Введите сумму при подписании",
+			"helpText": "Аванс и сборы при оформлении лизинга"
 		},
 		{
-			"label": "Остаточная стоимость",
+			"label": "Остаточная стоимость (выкуп)",
 			"unitLabel": "₽",
-			"placeholder": "Введите residual value",
-			"helpText": "Residual value at end of lease (optional, for reference)"
+			"placeholder": "Введите остаточную стоимость",
+			"helpText": "Выкупная стоимость в конце лизинга (справочно, необязательно)"
 		},
 		{
-			"label": "Комиссии лизинга",
+			"label": "Комиссии по лизингу",
 			"unitLabel": "₽",
-			"placeholder": "Введите lease fees",
-			"helpText": "Additional lease fees (optional)"
+			"placeholder": "Введите комиссии",
+			"helpText": "Дополнительные лизинговые сборы (необязательно)"
 		},
 		{
 			"label": "Лимит пробега в год",
-			"unitLabel": "miles",
-			"placeholder": "Введите mileage limit",
-			"helpText": "Annual mileage limit for lease (optional)"
+			"unitLabel": "км",
+			"placeholder": "Введите лимит пробега",
+			"helpText": "Допустимый годовой пробег по лизингу (необязательно)"
 		},
 		{
-			"label": "Плата за превышение пробега",
-			"unitLabel": "₽ per mile/km",
-			"placeholder": "Введите excess mileage fee",
-			"helpText": "Fee per mile/km over the limit (optional)"
+			"label": "Штраф за превышение пробега",
+			"unitLabel": "₽ за км",
+			"placeholder": "Введите штраф за км",
+			"helpText": "Плата за каждый км/единицу сверх лимита (необязательно)"
 		},
 		{
-			"label": "Разница по страховке (мес.)",
+			"label": "Разница в страховке (в месяц)",
 			"unitLabel": "₽",
-			"placeholder": "Введите insurance difference",
-			"helpText": "Monthly insurance cost difference (lease vs buy, optional)"
+			"placeholder": "Введите разницу в страховке",
+			"helpText": "Насколько страховка при лизинге дороже/дешевле покупки в месяц (необязательно)"
 		},
 		{
-			"label": "Разница по обслуживанию (мес.)",
+			"label": "Разница в обслуживании (в месяц)",
 			"unitLabel": "₽",
-			"placeholder": "Введите maintenance difference",
-			"helpText": "Monthly maintenance cost difference (lease vs buy, optional)"
+			"placeholder": "Введите разницу в обслуживании",
+			"helpText": "Разница затрат на ТО: лизинг vs покупка в месяц (необязательно)"
 		}
 	],
 	"outputs": [
-		{
-			"label": "Стоимость покупки (итого)",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Стоимость лизинга (итого)",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Разница",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Рекомендация",
-			"unitLabel": ""
-		},
-		{
-			"label": "Платёж по кредиту в месяц",
-			"unitLabel": "₽"
-		},
-		{
-			"label": "Штраф за пробег",
-			"unitLabel": "₽"
-		}
+		{ "label": "Полная стоимость покупки", "unitLabel": "₽" },
+		{ "label": "Полная стоимость лизинга", "unitLabel": "₽" },
+		{ "label": "Разница", "unitLabel": "₽" },
+		{ "label": "Рекомендация", "unitLabel": "" },
+		{ "label": "Ежемесячный платёж по кредиту", "unitLabel": "₽" },
+		{ "label": "Штраф за пробег", "unitLabel": "₽" }
 	],
 	"howTo": [
-		"Введите the comparison period in лет (how long you want to compare)",
-		"Введите your expected annual mileage",
-		"For BUY scenario:",
-		"  - Enter the purchase price of the car",
-		"  - Enter your down payment amount",
-		"  - Enter the loan APR (annual percentage rate)",
-		"  - Enter the loan term in мес.",
-		"  - Enter estimated resale value after the comparison period",
-		"  - Enter sales tax and fees (optional)",
-		"For LEASE scenario:",
-		"  - Enter the monthly lease payment",
-		"  - Enter the lease term in мес.",
-		"  - Enter amount due at signing",
-		"  - Enter residual value (optional, for reference)",
-		"  - Enter lease fees (optional)",
-		"  - Enter mileage limit per year and excess mileage fee (optional)",
-		"Введите insurance and maintenance cost differences if applicable (optional)",
-		"Нажмите «Рассчитать» to see the comparison",
-		"Проверьте the total costs, difference, and recommendation",
-		"Проверьте the breakdown to understand cost components"
+		"Укажите период сравнения в годах",
+		"Введите ожидаемый годовой пробег",
+		"Сценарий ПОКУПКИ:",
+		"  — цена автомобиля",
+		"  — первоначальный взнос",
+		"  — ставка по кредиту (ПСК)",
+		"  — срок кредита в месяцах",
+		"  — оценка цены продажи после периода",
+		"  — налог и сборы (необязательно)",
+		"Сценарий ЛИЗИНГА:",
+		"  — ежемесячный лизинговый платёж",
+		"  — срок лизинга в месяцах",
+		"  — сумма при подписании договора",
+		"  — остаточная стоимость (справочно)",
+		"  — комиссии по лизингу (необязательно)",
+		"  — лимит пробега и штраф за превышение (необязательно)",
+		"Укажите разницу в страховке и обслуживании, если известна (необязательно)",
+		"Нажмите «Рассчитать» и изучите сравнение",
+		"Смотрите итог, разницу и рекомендацию",
+		"Разберите состав затрат по каждому сценарию"
 	],
 	"examples": [
 		{
-			"title": "Пример 1: Moderate Mileage, Low APR → Buy Wins",
-			"description": "Buying a ₽30,000 car with ₽5,000 down at 4.5% APR vs leasing at ₽350/month. Comparison over 3 лет with 12,000 miles/year.",
+			"title": "Пример 1: умеренный пробег, низкая ставка — выгоднее покупка",
+			"description": "Покупка за ₽30 000, взнос ₽5 000, кредит 4,5% vs лизинг ₽350/мес. Сравнение 3 года, 12 000 км/год.",
 			"inputs": {
 				"comparisonYears": 3,
 				"annualMileage": 12000,
@@ -177,17 +159,17 @@
 				"insuranceDifferenceMonthly": 0,
 				"maintenanceDifferenceMonthly": 0
 			},
-			"result": "BUYING CALCULATION:\n1. Purchase price: ₽30,000\n2. Down payment: ₽5,000\n3. Loan amount: ₽30,000 - ₽5,000 = ₽25,000\n4. Loan APR: 4.5% for 60 мес.\n5. Monthly loan payment: ₽466.08 (calculated using amortization formula)\n6. Total payments over 3 лет (36 мес.): ₽466.08 × 36 = ₽16,778.88\n7. Total paid: ₽5,000 (down) + ₽16,778.88 (payments) = ₽21,778.88\n8. Resale value after 3 лет: ₽18,000\n9. Net cost to buy: ₽21,778.88 - ₽18,000 = ₽3,778.88\n\nLEASING CALCULATION:\n1. Due at signing: ₽2,000\n2. Monthly lease payment: ₽350\n3. Lease term: 36 мес.\n4. Total lease payments: ₽350 × 36 = ₽12,600\n5. Total cost to lease: ₽2,000 + ₽12,600 = ₽14,600\n6. After 3 лет: You own nothing (car is returned)\n\nRESULT: Buying costs ₽3,778.88 net vs leasing costs ₽14,600. Buying is ₽10,821.12 cheaper over 3 лет because you retain the ₽18,000 car value at the end."
+			"result": "ПОКУПКА:\n1. Цена: ₽30 000\n2. Взнос: ₽5 000\n3. Кредит: ₽25 000\n4. Ставка 4,5% на 60 мес.\n5. Платёж ≈ ₽466,08\n6. За 3 года (36 мес.): ₽16 778,88\n7. Всего уплачено: ₽21 778,88\n8. Продажа через 3 года: ₽18 000\n9. Чистые затраты: ₽3 778,88\n\nЛИЗИНГ:\n1. При подписании: ₽2 000\n2. Платёж: ₽350 × 36 = ₽12 600\n3. Итого: ₽14 600\n4. Через 3 года авто возвращаете\n\nИТОГ: покупка обходится в ₽3 778,88 против ₽14 600 за лизинг. Покупка дешевле примерно на ₽10 821 за 3 года за счёт сохранённой стоимости авто ₽18 000."
 		},
 		{
-			"title": "Пример 2: High Depreciation / Short-Term → Lease Wins",
-			"description": "Luxury car (₽50,000) with high depreciation, 2-year comparison. Car loses ₽20,000 in value over 2 лет.",
+			"title": "Пример 2: быстрая амортизация, короткий срок",
+			"description": "Премиальный автомобиль ₽50 000, сравнение 2 года, сильная потеря в цене.",
 			"inputs": {
 				"comparisonYears": 2,
 				"annualMileage": 10000,
 				"purchasePrice": 50000,
 				"downPayment": 10000,
-				"loanAPR": 6,
+				"loanAPR": 6.0,
 				"loanTermMonths": 60,
 				"resaleValueAfterYears": 30000,
 				"salesTaxOrFees": 0,
@@ -197,21 +179,21 @@
 				"residualValue": 0,
 				"leaseFees": 0,
 				"mileageLimitPerYear": 10000,
-				"excessMileageFeePerMileKm": 0.3,
+				"excessMileageFeePerMileKm": 0.30,
 				"insuranceDifferenceMonthly": 0,
 				"maintenanceDifferenceMonthly": 0
 			},
-			"result": "BUYING CALCULATION:\n1. Purchase price: ₽50,000\n2. Down payment: ₽10,000\n3. Loan amount: ₽50,000 - ₽10,000 = ₽40,000\n4. Loan APR: 6.0% for 60 мес.\n5. Monthly loan payment: ₽773.31 (calculated using amortization formula)\n6. Total payments over 2 лет (24 мес.): ₽773.31 × 24 = ₽18,559.44\n7. Total paid: ₽10,000 (down) + ₽18,559.44 (payments) = ₽28,559.44\n8. Resale value after 2 лет: ₽30,000\n9. Net cost to buy: ₽28,559.44 - ₽30,000 = -₽1,440.56 (you actually gain ₽1,440.56)\n\nLEASING CALCULATION:\n1. Due at signing: ₽3,000\n2. Monthly lease payment: ₽600\n3. Lease term: 24 мес.\n4. Total lease payments: ₽600 × 24 = ₽14,400\n5. Total cost to lease: ₽3,000 + ₽14,400 = ₽17,400\n6. After 2 лет: You own nothing (car is returned)\n\nRESULT: Buying shows a net gain of ₽1,440.56 vs leasing costs ₽17,400. However, this calculation assumes you can sell the car for ₽30,000 after 2 лет. In reality, luxury cars often depreciate faster, and selling a used luxury car can be challenging. For short-term ownership (2 лет), leasing may be more practical despite the higher cost."
+			"result": "ПОКУПКА:\n1. Цена ₽50 000, взнос ₽10 000, кредит ₽40 000\n2. Ставка 6%, платёж ≈ ₽773,31\n3. За 2 года выплат ≈ ₽18 559\n4. Всего: ₽28 559\n5. Продажа: ₽30 000 → чистый результат ≈ −₽1 441 (формально «в плюсе»)\n\nЛИЗИНГ:\n1. Подписание ₽3 000 + ₽600 × 24 = ₽17 400\n2. Авто не ваше\n\nИТОГ: на бумаге покупка выгоднее, но быстрая амортизация премиальных авто и сложность продажи делают лизинг на 2 года практичнее, даже если цифра лизинга выше."
 		},
 		{
-			"title": "Пример 3: High Mileage Penalty → Buy Wins",
-			"description": "High mileage driver (20,000 miles/year) with lease limit of 12,000 miles. Excess mileage fee: ₽0.25 per mile.",
+			"title": "Пример 3: большой пробег — выгоднее покупка",
+			"description": "20 000 км/год при лимите лизинга 12 000 км, штраф ₽0,25 за км.",
 			"inputs": {
 				"comparisonYears": 3,
 				"annualMileage": 20000,
 				"purchasePrice": 25000,
 				"downPayment": 3000,
-				"loanAPR": 5,
+				"loanAPR": 5.0,
 				"loanTermMonths": 60,
 				"resaleValueAfterYears": 12000,
 				"salesTaxOrFees": 0,
@@ -225,11 +207,11 @@
 				"insuranceDifferenceMonthly": 0,
 				"maintenanceDifferenceMonthly": 0
 			},
-			"result": "BUYING CALCULATION:\n1. Purchase price: ₽25,000\n2. Down payment: ₽3,000\n3. Loan amount: ₽25,000 - ₽3,000 = ₽22,000\n4. Loan APR: 5.0% for 60 мес.\n5. Monthly loan payment: ₽415.17 (calculated using amortization formula)\n6. Total payments over 3 лет (36 мес.): ₽415.17 × 36 = ₽14,946.12\n7. Total paid: ₽3,000 (down) + ₽14,946.12 (payments) = ₽17,946.12\n8. Resale value after 3 лет: ₽12,000\n9. Net cost to buy: ₽17,946.12 - ₽12,000 = ₽5,946.12\n\nLEASING CALCULATION:\n1. Due at signing: ₽1,500\n2. Monthly lease payment: ₽300\n3. Lease term: 36 мес.\n4. Total lease payments: ₽300 × 36 = ₽10,800\n5. Annual mileage: 20,000 miles/year\n6. Lease mileage limit: 12,000 miles/year\n7. Excess mileage per year: 20,000 - 12,000 = 8,000 miles\n8. Excess mileage over 3 лет: 8,000 × 3 = 24,000 miles\n9. Mileage penalty: 24,000 miles × ₽0.25/mile = ₽6,000\n10. Total cost to lease: ₽1,500 (signing) + ₽10,800 (payments) + ₽6,000 (penalty) = ₽18,300\n11. After 3 лет: You own nothing (car is returned)\n\nRESULT: Buying costs ₽5,946.12 net vs leasing costs ₽18,300. Buying is ₽12,353.88 cheaper over 3 лет. The ₽6,000 mileage penalty makes leasing very expensive for high-mileage drivers."
+			"result": "ПОКУПКА: чистые затраты ≈ ₽5 946 за 3 года (с учётом продажи ₽12 000).\n\nЛИЗИНГ:\n1. Платежи: ₽1 500 + ₽10 800 = ₽12 300\n2. Превышение: 8 000 км/год × 3 = 24 000 км\n3. Штраф: 24 000 × ₽0,25 = ₽6 000\n4. Итого лизинг: ₽18 300\n\nИТОГ: покупка дешевле примерно на ₽12 354. Штраф ₽6 000 делает лизинг невыгодным для «дальнобойщиков»."
 		},
 		{
-			"title": "Пример 4: Higher Down Payment Impact",
-			"description": "₽35,000 car with ₽10,000 down payment vs ₽450/month lease. Comparison over 3 лет with 15,000 miles/year.",
+			"title": "Пример 4: крупный первоначальный взнос",
+			"description": "Авто ₽35 000, взнос ₽10 000 vs лизинг ₽450/мес., 3 года, 15 000 км/год.",
 			"inputs": {
 				"comparisonYears": 3,
 				"annualMileage": 15000,
@@ -249,78 +231,80 @@
 				"insuranceDifferenceMonthly": 0,
 				"maintenanceDifferenceMonthly": 0
 			},
-			"result": "BUYING CALCULATION:\n1. Purchase price: ₽35,000\n2. Down payment: ₽10,000 (28.6% of purchase price)\n3. Loan amount: ₽35,000 - ₽10,000 = ₽25,000\n4. Loan APR: 5.5% for 60 мес.\n5. Monthly loan payment: ₽477.83 (calculated using amortization formula)\n6. Total payments over 3 лет (36 мес.): ₽477.83 × 36 = ₽17,201.88\n7. Total interest paid in 3 лет: ₽17,201.88 - (₽25,000 × 36/60) = ₽17,201.88 - ₽15,000 = ₽2,201.88\n8. Total paid: ₽10,000 (down) + ₽17,201.88 (payments) = ₽27,201.88\n9. Resale value after 3 лет: ₽20,000\n10. Net cost to buy: ₽27,201.88 - ₽20,000 = ₽7,201.88\n\nLEASING CALCULATION:\n1. Due at signing: ₽2,500\n2. Monthly lease payment: ₽450\n3. Lease term: 36 мес.\n4. Total lease payments: ₽450 × 36 = ₽16,200\n5. Annual mileage: 15,000 miles/year\n6. Lease mileage limit: 12,000 miles/year\n7. Excess mileage per year: 15,000 - 12,000 = 3,000 miles\n8. Excess mileage over 3 лет: 3,000 × 3 = 9,000 miles\n9. Mileage penalty: 9,000 miles × ₽0.25/mile = ₽2,250\n10. Total cost to lease: ₽2,500 (signing) + ₽16,200 (payments) + ₽2,250 (penalty) = ₽20,950\n11. After 3 лет: You own nothing (car is returned)\n\nRESULT: Buying costs ₽7,201.88 net vs leasing costs ₽20,950. Buying is ₽13,748.12 cheaper over 3 лет. The large ₽10,000 down payment significantly reduces the loan amount and total interest paid, making buying more cost-effective. Additionally, you retain the ₽20,000 car value at the end."
+			"result": "ПОКУПКА:\n1. Кредит ₽25 000 после взноса ₽10 000\n2. Платёж ≈ ₽477,83, за 3 года ≈ ₽17 202\n3. Всего с взносом: ₽27 202\n4. Продажа ₽20 000 → чистые затраты ≈ ₽7 202\n\nЛИЗИНГ:\n1. ₽2 500 + ₽16 200 платежей\n2. Штраф за пробег: 9 000 км × ₽0,25 = ₽2 250\n3. Итого ≈ ₽20 950\n\nИТОГ: покупка дешевле ~₽13 748. Крупный взнос снижает проценты, плюс вы сохраняете стоимость авто."
 		}
 	],
 	"faq": [
 		{
-			"question": "Is leasing cheaper than buying?",
-			"answer": "It depends on your situation. Leasing typically has lower monthly payments and upfront costs, but you don't build equity and must return the car. Buying costs more upfront but you own the car and can benefit from resale value. Use this calculator to compare total costs over the same period for your specific situation."
+			"question": "Лизинг дешевле покупки?",
+			"answer": "Зависит от пробега, срока и ставок. Лизинг часто даёт меньший ежемесячный платёж, но без права собственности. Покупка дороже на старте, но есть остаточная стоимость. Сравнивайте полную стоимость за один период."
 		},
 		{
-			"question": "What is residual value?",
-			"answer": "Residual value is the estimated value of the car at the end of the lease term. It's set by the leasing company and affects your monthly payment - higher residual value means lower monthly payments. For buying, residual value refers to the resale value when you sell the car."
+			"question": "Что такое остаточная стоимость?",
+			"answer": "В лизинге — цена выкупа или оценка авто в конце договора; от неё зависит платёж. При покупке — ожидаемая цена перепродажи."
 		},
 		{
-			"question": "How do mileage limits affect leasing?",
-			"answer": "Most leases have annual mileage limits (typically 10,000-15,000 miles). If you exceed the limit, you pay a fee per mile (usually ₽0.15-₽0.30 per mile). High-mileage drivers can face significant penalties, making buying more cost-effective. Always consider your actual driving habits when leasing."
+			"question": "Как лимит пробега влияет на лизинг?",
+			"answer": "Превышение лимита оплачивается отдельно (часто ₽0,15–0,30 за км). При большом пробеге покупка часто выгоднее."
 		},
 		{
-			"question": "Does leasing build equity?",
-			"answer": "No, leasing does not build equity. You're essentially renting the car. When the lease ends, you return the car and have nothing to show for your payments. Buying builds equity as you pay down the loan and the car retains some value."
+			"question": "Накапливается ли «капитал» в лизинге?",
+			"answer": "Нет: вы платите за пользование, в конце возвращаете авто (или выкупаете). При покупке часть платежей превращается в стоимость машины."
 		},
 		{
-			"question": "What about maintenance costs?",
-			"answer": "Leased cars are typically under warranty during the lease term, so maintenance costs may be lower. However, you're usually required to maintain the car according to manufacturer standards. When buying, you're responsible for all maintenance, especially after the warranty expires. The calculator allows you to account for maintenance cost differences."
+			"question": "А обслуживание?",
+			"answer": "На лизинге авто часто на гарантии, но требования к ТО строгие. При покупке все расходы на вас после гарантии. Можно учесть разницу в калькуляторе."
 		},
 		{
-			"question": "When does leasing make sense?",
-			"answer": "Leasing makes sense if: you want lower monthly payments, prefer driving new cars every few лет, drive within mileage limits, want warranty coverage, don't want to deal with selling a car, or can deduct lease payments for business use. It's less ideal for high-mileage drivers or those who want to build equity."
+			"question": "Когда лизинг имеет смысл?",
+			"answer": "Если нужен новый авто каждые несколько лет, укладываетесь в лимит пробега, важны предсказуемые платежи и гарантия, не хотите продавать машину или используете авто в бизнесе."
 		},
 		{
-			"question": "When does buying make sense?",
-			"answer": "Buying makes sense if: you drive many miles, want to build equity, plan to keep the car long-term, want to customize the car, prefer not having mileage restrictions, or want to avoid lease-end fees. Buying is generally better for long-term ownership."
+			"question": "Когда лучше покупать?",
+			"answer": "Большой пробег, долгое владение, желание доработок, отсутствие штрафов за км — покупка обычно выгоднее на длинном горизонте."
 		},
 		{
-			"question": "What happens at the end of a lease?",
-			"answer": "At lease end, you typically have three options: return the car and walk away (may pay for excess wear/tear), buy the car at the residual value, or lease a new car. You don't own anything unless you buy it, and you may face charges for excess wear, mileage, or damage."
+			"question": "Что в конце лизинга?",
+			"answer": "Вернуть авто, выкупить по остаточной стоимости или оформить новый лизинг. Возможны доплаты за износ и пробег."
 		},
 		{
-			"question": "How does down payment affect the comparison?",
-			"answer": "A larger down payment reduces your loan amount and total interest paid when buying, making it more cost-effective. For leasing, a larger down payment (capitalized cost reduction) lowers monthly payments but you lose that money if the car is stolen or totaled. The calculator accounts for down payment impact on total costs."
+			"question": "Как влияет первоначальный взнос?",
+			"answer": "При покупке снижает кредит и проценты. В лизинге аванс уменьшает платёж, но при угоне или полной гибели может не вернуться — учитывайте в сравнении."
 		},
 		{
-			"question": "What is included in 'due at signing'?",
-			"answer": "'Due at signing' typically includes: first month's payment, security deposit, acquisition fee, taxes, registration, and any capitalized cost reduction (down payment). This is the total amount you pay upfront when starting a lease."
+			"question": "Что входит в платёж при подписании лизинга?",
+			"answer": "Обычно первый платёж, залог, комиссия за оформление, налоги, регистрация и аванс (уменьшение базы лизинга)."
 		},
 		{
-			"question": "Can I negotiate a lease?",
-			"answer": "Yes, you can negotiate: the capitalized cost (purchase price), money factor (interest rate), residual value, mileage limit, and fees. Research the car's value and current lease deals before negotiating. A lower capitalized cost and higher residual value reduce monthly payments."
+			"question": "Можно ли торговаться по лизингу?",
+			"answer": "Да: цена авто в договоре, лизинговый коэффициент (аналог ставки), остаточная стоимость, лимит пробега и сборы. Ниже цена и выше остаток — ниже ежемесячный платёж."
 		},
 		{
-			"question": "What if I want to end a lease early?",
-			"answer": "Ending a lease early usually results in significant penalties. You're responsible for remaining payments, early termination fees, and the difference between the car's value and what you owe. Some leases allow transfers to another person, which can be a better option than early termination."
+			"question": "Досрочное расторжение лизинга",
+			"answer": "Часто с крупными штрафами: остаток платежей, комиссия, разница между рыночной ценой и обязательствами. Иногда выгоднее передать договор другому лицу."
 		},
 		{
-			"question": "How accurate is this calculator?",
-			"answer": "The calculator provides estimates based on the information you provide. Actual costs will vary based on market conditions, negotiation, vehicle condition, and unexpected expenses. Use it as a planning tool and consult with dealers for actual quotes. The comparison helps you understand cost differences, but real-world results may vary."
+			"question": "Насколько точен калькулятор?",
+			"answer": "Это оценка по вашим данным. Реальность зависит от рынка, состояния авто и переговоров. Используйте для планирования и сверяйте с предложениями дилера."
 		},
 		{
-			"question": "Should I include insurance differences?",
-			"answer": "Insurance costs can differ between leasing and buying. Leased cars often require full coverage and gap insurance, which may cost more. Some leases include insurance, while buying allows more flexibility. Include insurance differences if you know them, as they affect total cost of ownership."
+			"question": "Учитывать разницу в страховке?",
+			"answer": "Да, если знаете цифры: на лизинге часто требуют полное КАСКО и GAP-страховку, что может быть дороже, чем при покупке."
 		},
 		{
-			"question": "What about tax benefits?",
-			"answer": "If you use the vehicle for business, you may be able to deduct lease payments or depreciation. Tax benefits vary by country and situation. Consult a tax professional for advice on your specific circumstances. This calculator focuses on direct costs, not tax implications."
+			"question": "Налоговые льготы",
+			"answer": "Для бизнеса возможны вычеты по лизингу или амортизации. Зависит от страны и режима налогообложения — уточняйте у бухгалтера. Калькулятор считает прямые денежные затраты."
 		}
 	],
 	"seo": {
-		"title": "Лизинг или покупка автомобиля – сравнение затрат",
-		"description": "Сравните лизинг и покупку авто по полной стоимости, платежам и штрафам за пробег.",
+		"title": "Лизинг или покупка авто – калькулятор сравнения стоимости",
+		"description": "Сравните лизинг и покупку автомобиля: полная стоимость, платежи, пробег и остаточная цена в ₽. Рекомендация по вашим данным.",
 		"keywords": [
-			"лизинг или покупка",
-			"сравнение лизинга",
-			"купить или взять в лизинг"
+			"лизинг или покупка авто",
+			"калькулятор лизинга",
+			"сравнение лизинга и кредита",
+			"стоимость владения автомобилем",
+			"лизинг автомобиля расчёт"
 		]
 	}
 }
