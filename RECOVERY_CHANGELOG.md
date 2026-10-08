@@ -2,6 +2,7 @@
 
 **Branch:** `fix/ru-catalog-seo-recovery`  
 **Baseline SHA:** `0320ad1c3c34424088526774ad6ac28875bebe71`  
+**Stage B commit SHA:** `e97798af90e29fe7117e4328d666467e2c68308b`  
 **Date:** 2026-10-08  
 **Deploy / PR:** not performed (Stage B checkpoint only)
 
