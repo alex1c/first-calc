@@ -1,0 +1,82 @@
+name: Timeweb Stages 2-3 Prepare
+
+# Backup + build only. No cutover. No container recreate.
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_sha:
+        description: Exact full release SHA
+        required: true
+        default: '795f6ad404fd2910ec0eacb2e926b7fda810adb5'
+
+permissions:
+  contents: read
+
+jobs:
+  stage23:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    concurrency:
+      group: timeweb-first-calc-stage23
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH to OLD
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${SSH_PRIVATE_KEY}"
+          test -f .github/workflows/_known_hosts_seed.txt
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null
+          grep -E '^165\.227\.171\.143 ' .github/workflows/_known_hosts_seed.txt > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Upload script and run Stages 2-3 on Timeweb via jump
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          OLD_HOST='165.227.171.143'
+          NEW_HOST='188.225.26.192'
+          SSH_OLD=(ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey -o StrictHostKeyChecking=yes -o ConnectTimeout=15)
+
+          if [ "${#RELEASE_SHA}" -ne 40 ]; then
+            echo "ERROR: release_sha must be full 40-char hash"
+            exit 1
+          fi
+
+          chmod +x scripts/timeweb-stage2-3-prepare.sh
+          # Copy script to OLD, then to NEW via migration key (no private key leaves OLD)
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            scripts/timeweb-stage2-3-prepare.sh "root@${OLD_HOST}:/tmp/timeweb-stage2-3-prepare.sh"
+
+          "${SSH_OLD[@]}" "root@${OLD_HOST}" \
+            "env NEW_HOST='${NEW_HOST}' RELEASE_SHA='${RELEASE_SHA}' bash -se" <<'REMOTE' | tee stage23-report.txt
+          set -euo pipefail
+          # Push script to NEW without printing key material
+          scp -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
+            -i /root/.ssh/timeweb_migration \
+            /tmp/timeweb-stage2-3-prepare.sh \
+            "root@${NEW_HOST}:/tmp/timeweb-stage2-3-prepare.sh"
+          # Run on NEW; ssh -n not used because we need no stdin conflict — remote command only
+          ssh -n -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
+            -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
+            -i /root/.ssh/timeweb_migration \
+            "root@${NEW_HOST}" \
+            "chmod +x /tmp/timeweb-stage2-3-prepare.sh && RELEASE_SHA='${RELEASE_SHA}' bash /tmp/timeweb-stage2-3-prepare.sh"
+          REMOTE
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: timeweb-stage23-report
+          path: stage23-report.txt
+          if-no-files-found: warn
