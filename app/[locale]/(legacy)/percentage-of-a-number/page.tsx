@@ -14,10 +14,11 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
-import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
+const formNamespaces = ['legacy/ui', 'errors'] as const
 
 interface PercentageOfANumberLandingPageProps {
 	params: {
@@ -48,10 +49,7 @@ export async function generateMetadata({
 			title: ogTitle,
 			description: ogDescription,
 		},
-		alternates: {
-			languages: languageAlternates('/percentage-of-a-number', ['en', 'ru']),
-			canonical: localeUrl(locale, '/percentage-of-a-number'),
-		},
+		...primaryLocalePageMetadata(locale, '/percentage-of-a-number'),
 	}
 }
 
@@ -64,8 +62,9 @@ export default async function PercentageOfANumberLandingPage({
 		notFound()
 	}
 
-	// Load translations for breadcrumbs
+	// Load translations for breadcrumbs + hydrate client form
 	const dict = await loadNamespaces(locale, namespaces)
+	const formDict = await loadNamespaces(locale, formNamespaces)
 	const t = createT(dict)
 
 	// Get content
@@ -107,6 +106,7 @@ export default async function PercentageOfANumberLandingPage({
 			<PercentageForm
 				locale={locale}
 				toolSlug="percentage-of-a-number"
+				initialDict={formDict}
 				exampleLinks={[
 					{ href: '/percentage-of-a-number/100/20', label: '/percentage-of-a-number/100/20' },
 					{ href: '/percentage-of-a-number/500/15', label: '/percentage-of-a-number/500/15' },

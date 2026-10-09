@@ -1,9 +1,19 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { locales, type Locale } from '@/lib/i18n'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
 interface ContactPageProps {
 	params: {
 		locale: Locale
+	}
+}
+
+export function generateMetadata({ params }: ContactPageProps): Metadata {
+	return {
+		title: 'Contact – First Calc',
+		description: 'Contact First Calc for feedback and questions about our calculators.',
+		...primaryLocalePageMetadata(params.locale, '/contact', ['en']),
 	}
 }
 

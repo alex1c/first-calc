@@ -2,14 +2,18 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { locales, type Locale } from '@/lib/i18n'
 import { PageContainer } from '@/components/layout/page-container'
-
-export const metadata: Metadata = {
-	title: 'Terms of Use – First Calc',
-	description: 'Review the terms that govern the use of First Calc calculators and tools.',
-}
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
 interface TermsPageProps {
 	params: { locale: Locale }
+}
+
+export function generateMetadata({ params }: TermsPageProps): Metadata {
+	return {
+		title: 'Terms of Use – First Calc',
+		description: 'Review the terms that govern the use of First Calc calculators and tools.',
+		...primaryLocalePageMetadata(params.locale, '/terms', ['en']),
+	}
 }
 
 export default function TermsPage({ params }: TermsPageProps) {

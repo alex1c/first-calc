@@ -14,7 +14,7 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
-import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -48,10 +48,7 @@ export async function generateMetadata({
 			title: ogTitle,
 			description: ogDescription,
 		},
-		alternates: {
-			languages: languageAlternates('/roman-numerals-converter', ['en', 'ru']),
-			canonical: localeUrl(locale, '/roman-numerals-converter'),
-		},
+		...primaryLocalePageMetadata(locale, '/roman-numerals-converter'),
 	}
 }
 

@@ -2689,7 +2689,12 @@ export function CalculatorResults({
 		} else if (mainOutput.name === 'percentageChange') {
 			const numValue = Number(mainValue)
 			const sign = numValue >= 0 ? '+' : ''
-			formattedMainValue = `${sign}${numValue.toFixed(6)}%`
+			// Keep up to 6 fraction digits, but use locale decimal separator
+			const absFormatted = new Intl.NumberFormat(
+				locale === 'ru' ? 'ru-RU' : 'en-US',
+				{ minimumFractionDigits: 0, maximumFractionDigits: 6 },
+			).format(Math.abs(numValue))
+			formattedMainValue = `${sign}${absFormatted}%`
 		} else {
 			// Pass locale so RU currency outputs use ₽ (not default en → USD)
 			formattedMainValue = formatOutputValue(

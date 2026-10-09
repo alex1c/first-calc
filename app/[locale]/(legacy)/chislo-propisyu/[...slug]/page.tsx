@@ -153,8 +153,9 @@ export default async function ChisloPropisyuPage({
 		notFound()
 	}
 
-	// Load translations for breadcrumbs
+	// Load translations for breadcrumbs + hydrate client form (no key flash)
 	const dict = await loadNamespaces(locale, namespaces)
+	const formDict = await loadNamespaces(locale, ['legacy/ui', 'errors'])
 	const t = createT(dict)
 
 	const moneyFormat = parseMoneyFormat(slug)
@@ -279,6 +280,7 @@ export default async function ChisloPropisyuPage({
 					<NumberToWordsForm
 						locale={locale}
 						toolSlug="chislo-propisyu"
+						initialDict={formDict}
 						exampleLinks={[
 							{ href: '/chislo-propisyu/123', label: '/chislo-propisyu/123' },
 							{ href: '/chislo-propisyu/1000', label: '/chislo-propisyu/1000' },

@@ -5,11 +5,19 @@ import { locales, type Locale } from '@/lib/i18n'
 import { PageContainer } from '@/components/layout/page-container'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { getTelegramContactLink } from '@/lib/contact'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
-export const metadata: Metadata = {
-	title: 'About First Calc – Free Online Calculators',
-	description:
-		'Learn about First Calc, how our calculators work, and how to use them responsibly.',
+interface AboutPageProps {
+	params: { locale: Locale }
+}
+
+export function generateMetadata({ params }: AboutPageProps): Metadata {
+	return {
+		title: 'About First Calc – Free Online Calculators',
+		description:
+			'Learn about First Calc, how our calculators work, and how to use them responsibly.',
+		...primaryLocalePageMetadata(params.locale, '/about', ['en']),
+	}
 }
 
 const jsonLd = {
@@ -23,10 +31,6 @@ const jsonLd = {
 		name: 'First Calc',
 		url: 'https://first-calc.com',
 	},
-}
-
-interface AboutPageProps {
-	params: { locale: Locale }
 }
 
 export default function AboutPage({ params }: AboutPageProps) {

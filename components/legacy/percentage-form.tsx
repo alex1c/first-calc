@@ -8,11 +8,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
-import { useClientT } from '@/lib/i18n/useClientT'
+import { useClientT, type Dictionary } from '@/lib/i18n/useClientT'
 
 interface PercentageFormProps {
 	locale: Locale
 	toolSlug: 'percentage-of-a-number' | 'add-subtract-percentage'
+	initialDict?: Dictionary
 	exampleLinks?: Array<{ href: string; label: string }>
 }
 
@@ -23,10 +24,11 @@ interface PercentageFormProps {
 export function PercentageForm({
 	locale,
 	toolSlug,
+	initialDict,
 	exampleLinks = [],
 }: PercentageFormProps) {
 	const router = useRouter()
-	const t = useClientT(locale, ['legacy/ui', 'errors'])
+	const t = useClientT(locale, ['legacy/ui', 'errors'], initialDict)
 	const [value, setValue] = useState('')
 	const [percent, setPercent] = useState('')
 	const [operation, setOperation] = useState<'of' | 'add' | 'subtract'>(

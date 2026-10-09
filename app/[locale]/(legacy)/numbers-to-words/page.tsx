@@ -14,10 +14,11 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
-import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation', 'legacy/notices'] as const
+const formNamespaces = ['legacy/ui', 'errors'] as const
 
 interface NumbersToWordsLandingPageProps {
 	params: {
@@ -48,10 +49,7 @@ export async function generateMetadata({
 			title: ogTitle,
 			description: ogDescription,
 		},
-		alternates: {
-			languages: languageAlternates('/numbers-to-words', ['en', 'ru']),
-			canonical: localeUrl(locale, '/numbers-to-words'),
-		},
+		...primaryLocalePageMetadata(locale, '/numbers-to-words'),
 	}
 }
 
@@ -64,8 +62,8 @@ export default async function NumbersToWordsLandingPage({
 		notFound()
 	}
 
-	// Load translations for breadcrumbs
 	const dict = await loadNamespaces(locale, namespaces)
+	const formDict = await loadNamespaces(locale, formNamespaces)
 	const t = createT(dict)
 
 	// Get content
@@ -110,6 +108,7 @@ export default async function NumbersToWordsLandingPage({
 			<NumberToWordsForm
 				locale={locale}
 				toolSlug="numbers-to-words"
+				initialDict={formDict}
 				exampleLinks={[
 					{ href: '/numbers-to-words/123', label: '/numbers-to-words/123' },
 					{ href: '/numbers-to-words/1000', label: '/numbers-to-words/1000' },

@@ -2,15 +2,19 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { locales, type Locale } from '@/lib/i18n'
 import { PageContainer } from '@/components/layout/page-container'
-
-export const metadata: Metadata = {
-	title: 'Privacy Policy – First Calc',
-	description:
-		'Learn how First Calc handles privacy, cookies, analytics, and advertising partners.',
-}
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
 interface PrivacyPageProps {
 	params: { locale: Locale }
+}
+
+export function generateMetadata({ params }: PrivacyPageProps): Metadata {
+	return {
+		title: 'Privacy Policy – First Calc',
+		description:
+			'Learn how First Calc handles privacy, cookies, analytics, and advertising partners.',
+		...primaryLocalePageMetadata(params.locale, '/privacy', ['en']),
+	}
 }
 
 export default function PrivacyPage({ params }: PrivacyPageProps) {

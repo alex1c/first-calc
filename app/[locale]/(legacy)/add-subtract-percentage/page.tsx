@@ -14,10 +14,11 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
-import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
+const formNamespaces = ['legacy/ui', 'errors'] as const
 
 interface AddSubtractPercentageLandingPageProps {
 	params: {
@@ -48,10 +49,7 @@ export async function generateMetadata({
 			title: ogTitle,
 			description: ogDescription,
 		},
-		alternates: {
-			languages: languageAlternates('/add-subtract-percentage', ['en', 'ru']),
-			canonical: localeUrl(locale, '/add-subtract-percentage'),
-		},
+		...primaryLocalePageMetadata(locale, '/add-subtract-percentage'),
 	}
 }
 
@@ -64,8 +62,8 @@ export default async function AddSubtractPercentageLandingPage({
 		notFound()
 	}
 
-	// Load translations for breadcrumbs
 	const dict = await loadNamespaces(locale, namespaces)
+	const formDict = await loadNamespaces(locale, formNamespaces)
 	const t = createT(dict)
 
 	// Get content
@@ -104,6 +102,7 @@ export default async function AddSubtractPercentageLandingPage({
 			<PercentageForm
 				locale={locale}
 				toolSlug="add-subtract-percentage"
+				initialDict={formDict}
 				exampleLinks={[
 					{ href: '/add-subtract-percentage/100/20-add', label: '/add-subtract-percentage/100/20-add' },
 					{ href: '/add-subtract-percentage/500/15-subtract', label: '/add-subtract-percentage/500/15-subtract' },

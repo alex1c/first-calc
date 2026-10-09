@@ -2,14 +2,19 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { locales, type Locale } from '@/lib/i18n'
 import { PageContainer } from '@/components/layout/page-container'
-
-export const metadata: Metadata = {
-	title: 'Disclaimer – First Calc',
-	description: 'Understand the limitations of First Calc calculators and learn how to use them responsibly.',
-}
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
 interface DisclaimerPageProps {
 	params: { locale: Locale }
+}
+
+export function generateMetadata({ params }: DisclaimerPageProps): Metadata {
+	return {
+		title: 'Disclaimer – First Calc',
+		description:
+			'Understand the limitations of First Calc calculators and learn how to use them responsibly.',
+		...primaryLocalePageMetadata(params.locale, '/disclaimer', ['en']),
+	}
 }
 
 export default function DisclaimerPage({ params }: DisclaimerPageProps) {

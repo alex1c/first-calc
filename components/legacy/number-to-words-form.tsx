@@ -8,11 +8,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
-import { useClientT } from '@/lib/i18n/useClientT'
+import { useClientT, type Dictionary } from '@/lib/i18n/useClientT'
 
 interface NumberToWordsFormProps {
 	locale: Locale
 	toolSlug: 'chislo-propisyu' | 'numbers-to-words'
+	/** Server-loaded i18n dict so SSR does not flash raw keys */
+	initialDict?: Dictionary
 	exampleLinks?: Array<{ href: string; label: string }>
 }
 
@@ -23,10 +25,11 @@ interface NumberToWordsFormProps {
 export function NumberToWordsForm({
 	locale,
 	toolSlug,
+	initialDict,
 	exampleLinks = [],
 }: NumberToWordsFormProps) {
 	const router = useRouter()
-	const t = useClientT(locale, ['legacy/ui', 'errors'])
+	const t = useClientT(locale, ['legacy/ui', 'errors'], initialDict)
 	const [value, setValue] = useState('')
 	const [format, setFormat] = useState<'numeric' | 'money'>('numeric')
 	const [language, setLanguage] = useState<'ru' | 'en'>(

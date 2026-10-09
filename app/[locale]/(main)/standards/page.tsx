@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { PageContainer } from '@/components/layout/page-container'
 import { getStandardsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
-import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 import { learnArticlePath } from '@/lib/i18n/content-links'
 
 const namespaces = ['common', 'navigation'] as const
@@ -33,10 +33,7 @@ export async function generateMetadata({
 			'calculation principles',
 			'structural engineering',
 		].join(', '),
-		alternates: {
-			languages: languageAlternates('/standards'),
-			canonical: localeUrl(locale, '/standards'),
-		},
+		...primaryLocalePageMetadata(locale, '/standards'),
 	}
 }
 

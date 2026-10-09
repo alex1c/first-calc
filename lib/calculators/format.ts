@@ -125,7 +125,11 @@ export function formatOutputValue(
 			}).format(value)
 		}
 		case 'percentage':
-			return `${value.toFixed(2)}%`
+			// Locale-aware digits (RU → 5,73%; EN → 5.73%) — math value unchanged
+			return `${new Intl.NumberFormat(currencyCfg.locale, {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2,
+			}).format(value)}%`
 		case 'number':
 			return new Intl.NumberFormat(currencyCfg.locale, {
 				minimumFractionDigits: 0,

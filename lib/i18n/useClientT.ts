@@ -7,6 +7,8 @@
 
 import { useEffect, useState, useMemo } from 'react'
 import type { Locale, Dictionary } from './types'
+
+export type { Dictionary }
 import { createT } from './t'
 
 /**
@@ -15,11 +17,16 @@ import { createT } from './t'
  * @param namespaces - Array of namespace names to load
  * @returns Translation function
  */
+/**
+ * @param initialDict - Optional server-loaded dictionary (from loadNamespaces).
+ *   Prevents SSR/first-paint from flashing raw i18n keys like `legacy/ui.form…`.
+ */
 export function useClientT(
 	locale: Locale,
 	namespaces: readonly string[],
+	initialDict: Dictionary = {},
 ): (key: string, params?: Record<string, string | number>) => string {
-	const [dict, setDict] = useState<Dictionary>({})
+	const [dict, setDict] = useState<Dictionary>(initialDict)
 
 	// Memoize namespaces string to avoid complex expression in dependency array
 	const namespacesKey = useMemo(() => namespaces.join(','), [namespaces])

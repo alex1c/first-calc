@@ -7,7 +7,7 @@ import { RootCalculatorForm } from '@/components/legacy/root-calculator-form'
 import { LegacyFaqBlock } from '@/components/legacy/faq-block'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
-import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -45,10 +45,7 @@ export async function generateMetadata({
 			title,
 			description,
 		},
-		alternates: {
-			languages: languageAlternates('/root-calculator', ['en', 'ru']),
-			canonical: localeUrl(locale, '/root-calculator'),
-		},
+		...primaryLocalePageMetadata(locale, '/root-calculator'),
 	}
 }
 

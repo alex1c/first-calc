@@ -191,6 +191,17 @@ export function indexableShellLocales(): Locale[] {
 	})
 }
 
+/**
+ * Locales with real legacy-tool + learn/standards corpus (EN/RU today).
+ * Use with localizedContentMetadata so es/tr/hi get noindex + EN canonical
+ * and are omitted from hreflang on indexable pages.
+ */
+export const PRIMARY_CONTENT_LOCALES: readonly Locale[] = ['en', 'ru']
+
+export function primaryContentLocales(): readonly Locale[] {
+	return PRIMARY_CONTENT_LOCALES
+}
+
 export interface ContentAvailabilityDiagnostic {
 	slug: string
 	locale: Locale

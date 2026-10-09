@@ -6,7 +6,7 @@ import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { PageContainer } from '@/components/layout/page-container'
 import { getLearnBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import type { Metadata } from 'next'
-import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
 import { learnArticlePath } from '@/lib/i18n/content-links'
 
 const namespaces = ['common', 'navigation'] as const
@@ -15,10 +15,8 @@ export function generateMetadata({ params }: LearnPageProps): Metadata {
 	return {
 		title: 'Calculation Guides and Articles',
 		description: 'Educational guides about calculations, formulas, and standards.',
-		alternates: {
-			canonical: localeUrl(params.locale, '/learn'),
-			languages: languageAlternates('/learn'),
-		},
+		// EN/RU only — do not advertise or index incomplete es/tr/hi shells
+		...primaryLocalePageMetadata(params.locale, '/learn'),
 	}
 }
 
