@@ -16,7 +16,10 @@ import { ConstructionClustersBlock } from '@/components/calculators/construction
 import { compatibilityClusters } from '@/lib/navigation/compatibility-clusters'
 import type { Metadata } from 'next'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
-import { filterLocalizedCalculators } from '@/lib/i18n/content-availability'
+import {
+	categoryContentLocales,
+	filterLocalizedCalculators,
+} from '@/lib/i18n/content-availability'
 import { getCategoryMeta } from '@/lib/navigation/categories'
 
 // Declare required namespaces for this page
@@ -26,15 +29,21 @@ export async function generateMetadata({
 	params,
 }: CalculatorsCategoryPageProps): Promise<Metadata> {
 	const pathname = `/calculators/${params.category}`
+	const availableLocales = categoryContentLocales(params.category)
+	const hasLocalizedHub = availableLocales.includes(params.locale)
 	const dict = await loadNamespaces(params.locale, namespaces)
 	const category = getCategoryMeta(params.category, params.locale, createT(dict))
 	return {
 		title: `${category.name} Calculators | First Calc`,
 		description: category.description,
 		alternates: {
-			canonical: localeUrl(params.locale, pathname),
-			languages: languageAlternates(pathname),
+			canonical: localeUrl(
+				hasLocalizedHub ? params.locale : 'en',
+				pathname,
+			),
+			languages: languageAlternates(pathname, availableLocales),
 		},
+		...(!hasLocalizedHub && { robots: { index: false, follow: true } }),
 	}
 }
 

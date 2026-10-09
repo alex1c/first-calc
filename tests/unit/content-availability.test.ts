@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
 	calculatorContentLocales,
+	calculatorHubContentLocales,
+	categoryContentLocales,
 	diagnoseCalculatorContentAvailability,
 	filterLocalizedCalculators,
 	hasLocalizedCalculatorContent,
@@ -20,6 +22,15 @@ describe('calculator content availability', () => {
 			true,
 		)
 		expect(hasLocalizedCalculatorContent('ru', 'loan-payment')).toBe(true)
+	})
+
+	it('exposes category hub locales only where localized calculators exist', () => {
+		expect(categoryContentLocales('compatibility')).toContain('ru')
+		expect(categoryContentLocales('fun')).toEqual(['en'])
+	})
+
+	it('limits main calculators hub to EN and RU catalogs', () => {
+		expect(calculatorHubContentLocales()).toEqual(['en', 'ru'])
 	})
 
 	it('filters locale hubs without treating English fallback as localized', () => {

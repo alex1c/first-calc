@@ -10,10 +10,12 @@
  *    (secondary allowlist kept in sync with known TS locale rows)
  */
 
-import { existsSync } from 'fs'
+import { existsSync, readdirSync, readFileSync } from 'fs'
 import path from 'path'
 import { locales, type Locale } from '@/lib/i18n'
 import type { CalculatorDefinition } from '@/lib/calculators/types'
+import { getCalculatorsByCategory } from '@/data/calculators'
+import { getCategoryIds } from '@/lib/navigation/categories'
 
 /**
  * Calculators that ship full locale-specific definitions in data/calculators.ts
@@ -93,6 +95,67 @@ export function filterLocalizedCalculators<
 	return calculators.filter((calculator) =>
 		hasLocalizedCalculatorContent(locale, calculator.slug),
 	)
+}
+
+/** Enabled JSON schema slugs grouped by category (sync, for SEO metadata). */
+let enabledSchemasByCategory: Map<string, Set<string>> | null = null
+
+function getCategorySlugSet(category: string): Set<string> {
+	if (!enabledSchemasByCategory) {
+		enabledSchemasByCategory = new Map()
+		const dir = path.join(process.cwd(), 'data', 'calculators')
+		for (const file of readdirSync(dir)) {
+			if (!file.endsWith('.json') || file.includes('.ru.json')) continue
+			const schema = JSON.parse(
+				readFileSync(path.join(dir, file), 'utf8'),
+			) as { slug: string; category: string; isEnabled?: boolean }
+			if (schema.isEnabled === false) continue
+			if (!enabledSchemasByCategory.has(schema.category)) {
+				enabledSchemasByCategory.set(schema.category, new Set())
+			}
+			enabledSchemasByCategory.get(schema.category)!.add(schema.slug)
+		}
+	}
+	const slugs = new Set(enabledSchemasByCategory.get(category) ?? [])
+	for (const calc of getCalculatorsByCategory(category, 'en')) {
+		slugs.add(calc.slug)
+	}
+	for (const locale of locales) {
+		if (locale === 'en') continue
+		for (const calc of getCalculatorsByCategory(category, locale)) {
+			slugs.add(calc.slug)
+		}
+	}
+	return slugs
+}
+
+/**
+ * Locales that should appear in hreflang for `/calculators/[category]`.
+ * Omits locales where the category hub would 404 (no localized calculators).
+ */
+export function categoryContentLocales(category: string): Locale[] {
+	const slugs = getCategorySlugSet(category)
+	if (slugs.size === 0) {
+		return ['en']
+	}
+	return locales.filter((locale) => {
+		if (locale === 'en') return true
+		return [...slugs].some((slug) =>
+			hasLocalizedCalculatorContent(locale, slug),
+		)
+	})
+}
+
+/**
+ * Locales for the main `/calculators` hub based on real catalog availability.
+ */
+export function calculatorHubContentLocales(): Locale[] {
+	return locales.filter((locale) => {
+		if (locale === 'en') return true
+		return getCategoryIds().some((category) =>
+			categoryContentLocales(category).includes(locale),
+		)
+	})
 }
 
 export interface ContentAvailabilityDiagnostic {

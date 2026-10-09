@@ -30,7 +30,10 @@ import { categories as categoryConfigs } from '@/lib/navigation/categories'
 import { getTopUsedTags } from '@/lib/tags/usage'
 import type { Metadata } from 'next'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
-import { filterLocalizedCalculators } from '@/lib/i18n/content-availability'
+import {
+	calculatorHubContentLocales,
+	filterLocalizedCalculators,
+} from '@/lib/i18n/content-availability'
 
 /**
  * Required i18n namespaces for this page
@@ -41,13 +44,19 @@ import { filterLocalizedCalculators } from '@/lib/i18n/content-availability'
 const namespaces = ['common', 'navigation', 'calculators/ui'] as const
 
 export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
+	const availableLocales = calculatorHubContentLocales()
+	const hasLocalizedHub = availableLocales.includes(params.locale)
 	return {
 		title: 'Online Calculators',
 		description: 'Browse free online calculators by category.',
 		alternates: {
-			canonical: localeUrl(params.locale, '/calculators'),
-			languages: languageAlternates('/calculators'),
+			canonical: localeUrl(
+				hasLocalizedHub ? params.locale : 'en',
+				'/calculators',
+			),
+			languages: languageAlternates('/calculators', availableLocales),
 		},
+		...(!hasLocalizedHub && { robots: { index: false, follow: true } }),
 	}
 }
 
