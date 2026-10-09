@@ -1,0 +1,124 @@
+{
+  "title": "Калькулятор финансовой подушки",
+  "shortDescription": "Рассчитайте размер финансовой подушки и срок её накопления.",
+  "longDescription": "Рассчитайте размер финансовой подушки и срок её накопления.",
+  "inputs": [
+    {
+      "name": "monthlyExpenses",
+      "label": "Ежемесячные расходы",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "targetMonths",
+      "label": "Target Months",
+      "helpText": "How many months of expenses to save (6 months is recommended)",
+      "options": [
+        {
+          "value": "3",
+          "label": "3 months"
+        },
+        {
+          "value": "6",
+          "label": "6 months (recommended)"
+        },
+        {
+          "value": "9",
+          "label": "9 months"
+        },
+        {
+          "value": "12",
+          "label": "12 months"
+        }
+      ]
+    },
+    {
+      "name": "currentSavings",
+      "label": "Текущие накопления",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "monthlyContribution",
+      "label": "Ежемесячный взнос",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "How much you plan to save each month"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "targetEmergencyFund",
+      "label": "Target Emergency Fund",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "remainingAmount",
+      "label": "Remaining Amount",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "monthsToGoal",
+      "label": "Months to Reach Goal"
+    },
+    {
+      "name": "progressPercentage",
+      "label": "Progress Percentage",
+      "unitLabel": "%"
+    },
+    {
+      "name": "formulaExplanation",
+      "label": "Пояснение формулы"
+    }
+  ],
+  "howTo": [
+    "Заполните поля формы",
+    "Проверьте единицы измерения (₽, %, годы)",
+    "Нажмите «Рассчитать»",
+    "Сверьте основные и дополнительные результаты"
+  ],
+  "examples": [
+    {
+      "title": "Пример 1",
+      "description": "$2,500 monthly expenses, 6 months target, $5,000 saved, $300/month contribution",
+      "steps": [
+        "Monthly expenses: $2,500",
+        "Target months: 6 months",
+        "Target emergency fund: $15,000",
+        "Current savings: $5,000"
+      ],
+      "resultDescription": "With $2,500 in monthly expenses, a 6-month emergency fund target is $15,000. If you have $5,000 saved and contribute $300/month, you'll reach your goal in approximately 33 months. This demonstrates the importance of consistent savings and starting early."
+    },
+    {
+      "title": "Пример 2",
+      "description": "$3,000 monthly expenses, 9 months target, $0 saved, $500/month contribution",
+      "steps": [
+        "Monthly expenses: $3,000",
+        "Target months: 9 months",
+        "Target emergency fund: $27,000",
+        "Current savings: $0"
+      ],
+      "resultDescription": "For a single-income household with $3,000 monthly expenses, a 9-month emergency fund ($27,000) provides extra security. Starting from zero and saving $500/month, it takes 4.5 years to reach the goal. Single-income households may need larger emergency funds due to less financial flexibility."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Насколько точен расчёт?",
+      "answer": "Калькулятор использует стандартные финансовые формулы. Реальные условия банка или брокера могут отличаться."
+    },
+    {
+      "question": "В какой валюте считаются суммы?",
+      "answer": "Подписи показывают рубли (₽); формула универсальна для любой валюты при согласованных единицах."
+    }
+  ],
+  "seo": {
+    "title": "Калькулятор финансовой подушки – First Calc",
+    "description": "Рассчитайте размер финансовой подушки и срок её накопления.",
+    "keywords": [
+      "Калькулятор финансовой подушки",
+      "калькулятор",
+      "финансы",
+      "emergency-fund-calculator"
+    ]
+  }
+}

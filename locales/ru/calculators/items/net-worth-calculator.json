@@ -1,0 +1,171 @@
+{
+  "title": "Калькулятор чистого капитала",
+  "shortDescription": "Посчитайте чистый капитал: активы минус обязательства.",
+  "longDescription": "Посчитайте чистый капитал: активы минус обязательства.",
+  "inputs": [
+    {
+      "name": "cashSavings",
+      "label": "Cash & Savings",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Checking accounts, savings accounts, cash on hand"
+    },
+    {
+      "name": "investments",
+      "label": "Инвестиции",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Stocks, bonds, mutual funds, ETFs (current market value)"
+    },
+    {
+      "name": "retirementAccounts",
+      "label": "Retirement Accounts",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "401(k), IRA, pension plans (current balance)"
+    },
+    {
+      "name": "realEstate",
+      "label": "Недвижимость",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Home value, rental properties (current market value)"
+    },
+    {
+      "name": "vehicles",
+      "label": "Vehicles",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Cars, motorcycles, boats (current market value)"
+    },
+    {
+      "name": "otherAssets",
+      "label": "Прочие активы",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Jewelry, collectibles, business equity, etc."
+    },
+    {
+      "name": "mortgage",
+      "label": "Mortgage",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Outstanding mortgage balance on your home"
+    },
+    {
+      "name": "personalLoans",
+      "label": "Personal Loans",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Outstanding balance on personal loans"
+    },
+    {
+      "name": "autoLoans",
+      "label": "Auto Loans",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Outstanding balance on car loans"
+    },
+    {
+      "name": "creditCardDebt",
+      "label": "Credit Card Debt",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Total outstanding credit card balances"
+    },
+    {
+      "name": "studentLoans",
+      "label": "Student Loans",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Outstanding balance on student loans"
+    },
+    {
+      "name": "otherDebts",
+      "label": "Прочие долги",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽",
+      "helpText": "Medical debt, tax debt, other obligations"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "totalAssets",
+      "label": "Сумма активов",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "totalLiabilities",
+      "label": "Сумма обязательств",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "netWorth",
+      "label": "Net Worth",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "debtToAssetRatio",
+      "label": "Debt-to-Asset Ratio",
+      "unitLabel": "%"
+    },
+    {
+      "name": "netWorthStatus",
+      "label": "Net Worth Status"
+    },
+    {
+      "name": "formulaExplanation",
+      "label": "Пояснение формулы"
+    }
+  ],
+  "howTo": [
+    "Заполните поля формы",
+    "Проверьте единицы измерения (₽, %, годы)",
+    "Нажмите «Рассчитать»",
+    "Сверьте основные и дополнительные результаты"
+  ],
+  "examples": [
+    {
+      "title": "Пример 1",
+      "description": "Young professional with savings, investments, and some debt",
+      "steps": [
+        "Cash & Savings: $15,000",
+        "Investments: $25,000",
+        "Retirement Accounts: $30,000",
+        "Real Estate: $0"
+      ],
+      "resultDescription": "A young professional with $82,000 in assets and $35,000 in liabilities has a positive net worth of $47,000. This is a healthy financial position for someone early in their career. The debt-to-asset ratio of 42.7% is reasonable, with most debt being student loans and manageable consumer debt."
+    },
+    {
+      "title": "Пример 2",
+      "description": "Homeowner with significant assets but also a large mortgage",
+      "steps": [
+        "Cash & Savings: $50,000",
+        "Investments: $150,000",
+        "Retirement Accounts: $200,000",
+        "Real Estate: $400,000"
+      ],
+      "resultDescription": "A homeowner with $850,000 in assets and $300,000 in liabilities (primarily mortgage) has a net worth of $550,000. This demonstrates how real estate can significantly impact net worth. The debt-to-asset ratio of 35.3% is healthy, with most debt being mortgage debt, which is typically considered \"good debt\" as it builds equity."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Насколько точен расчёт?",
+      "answer": "Калькулятор использует стандартные финансовые формулы. Реальные условия банка или брокера могут отличаться."
+    },
+    {
+      "question": "В какой валюте считаются суммы?",
+      "answer": "Подписи показывают рубли (₽); формула универсальна для любой валюты при согласованных единицах."
+    }
+  ],
+  "seo": {
+    "title": "Калькулятор чистого капитала – First Calc",
+    "description": "Посчитайте чистый капитал: активы минус обязательства.",
+    "keywords": [
+      "Калькулятор чистого капитала",
+      "калькулятор",
+      "финансы",
+      "net-worth-calculator"
+    ]
+  }
+}

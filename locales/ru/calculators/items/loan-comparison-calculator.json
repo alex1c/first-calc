@@ -1,0 +1,179 @@
+{
+  "title": "Сравнение кредитов",
+  "shortDescription": "Сравните предложения кредитов рядом: платёж, проценты, комиссии и полную стоимость.",
+  "longDescription": "Сравните предложения кредитов рядом: платёж, проценты, комиссии и полную стоимость.",
+  "inputs": [
+    {
+      "name": "comparisonMetric",
+      "label": "Критерий сравнения",
+      "helpText": "Select which metric to use for determining the best loan",
+      "options": [
+        {
+          "value": "lowest-monthly-payment",
+          "label": "Минимальный ежемесячный платёж"
+        },
+        {
+          "value": "lowest-total-interest",
+          "label": "Минимальные проценты"
+        },
+        {
+          "value": "lowest-total-cost",
+          "label": "Минимальная полная стоимость"
+        }
+      ]
+    },
+    {
+      "name": "paymentFrequency",
+      "label": "Частота платежей",
+      "helpText": "How often payments are made",
+      "options": [
+        {
+          "value": "monthly",
+          "label": "Ежемесячно"
+        },
+        {
+          "value": "bi-weekly",
+          "label": "Раз в две недели"
+        }
+      ]
+    },
+    {
+      "name": "loan1Name",
+      "label": "Кредит A: Название",
+      "placeholder": "Введите значение"
+    },
+    {
+      "name": "loan1Amount",
+      "label": "Кредит A: Сумма",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "loan1AnnualInterestRate",
+      "label": "Кредит A: Годовая ставка (APR)",
+      "placeholder": "Введите значение",
+      "unitLabel": "%"
+    },
+    {
+      "name": "loan1TermYears",
+      "label": "Кредит A: Срок",
+      "placeholder": "Введите значение",
+      "unitLabel": "лет"
+    },
+    {
+      "name": "loan1Fees",
+      "label": "Loan A Fees (Optional)",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "loan1ExtraMonthlyPayment",
+      "label": "Loan A Extra Payment (Optional)",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "loan2Name",
+      "label": "Кредит B: Название",
+      "placeholder": "Введите значение"
+    },
+    {
+      "name": "loan2Amount",
+      "label": "Кредит B: Сумма",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "loan2AnnualInterestRate",
+      "label": "Кредит B: Годовая ставка (APR)",
+      "placeholder": "Введите значение",
+      "unitLabel": "%"
+    },
+    {
+      "name": "loan2TermYears",
+      "label": "Кредит B: Срок",
+      "placeholder": "Введите значение",
+      "unitLabel": "лет"
+    },
+    {
+      "name": "loan2Fees",
+      "label": "Loan B Fees (Optional)",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "loan2ExtraMonthlyPayment",
+      "label": "Loan B Extra Payment (Optional)",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "comparisonTable",
+      "label": "Comparison Table"
+    },
+    {
+      "name": "winner",
+      "label": "Winner"
+    },
+    {
+      "name": "bestLoanByMetric",
+      "label": "Best Loan by Metric"
+    },
+    {
+      "name": "formulaExplanation",
+      "label": "Пояснение формулы"
+    }
+  ],
+  "howTo": [
+    "Заполните поля формы",
+    "Проверьте единицы измерения (₽, %, годы)",
+    "Нажмите «Рассчитать»",
+    "Сверьте основные и дополнительные результаты"
+  ],
+  "examples": [
+    {
+      "title": "Пример 1",
+      "description": "$20,000 loan at 7% APR for 5 years vs $20,000 loan at 9% APR for 5 years",
+      "steps": [
+        "Loan A: $20,000, 7% APR, 5 years",
+        "Loan B: $20,000, 9% APR, 5 years",
+        "Comparison metric: Lowest Total Interest",
+        "Loan A monthly payment: $396.36"
+      ],
+      "resultDescription": "Comparing two $20,000 loans with different APRs (7% vs 9%) over 5 years shows that Loan A with 7% APR has a lower monthly payment ($396.36 vs $415.17) and significantly less total interest ($3,781.60 vs $4,910.20). The 2% APR difference saves over $1,100 in interest, demonstrating why APR matters more than loan amount when comparing loans."
+    },
+    {
+      "title": "Пример 2",
+      "description": "$20,000 loan at 8% APR for 3 years vs $20,000 loan at 8% APR for 5 years",
+      "steps": [
+        "Loan A: $20,000, 8% APR, 3 years",
+        "Loan B: $20,000, 8% APR, 5 years",
+        "Comparison metric: Lowest Total Interest",
+        "Loan A monthly payment: $626.73"
+      ],
+      "resultDescription": "Comparing two $20,000 loans at 8% APR with different terms (3 years vs 5 years) shows the trade-off: Loan A has a higher monthly payment ($626.73 vs $405.53) but significantly less total interest ($2,562.28 vs $4,331.80). The shorter term saves nearly $1,800 in interest, demonstrating that longer terms reduce monthly payments but increase total cost."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Насколько точен расчёт?",
+      "answer": "Калькулятор использует стандартные финансовые формулы. Реальные условия банка или брокера могут отличаться."
+    },
+    {
+      "question": "В какой валюте считаются суммы?",
+      "answer": "Подписи показывают рубли (₽); формула универсальна для любой валюты при согласованных единицах."
+    }
+  ],
+  "seo": {
+    "title": "Сравнение кредитов – First Calc",
+    "description": "Сравните предложения кредитов рядом: платёж, проценты, комиссии и полную стоимость.",
+    "keywords": [
+      "Сравнение кредитов",
+      "калькулятор",
+      "финансы",
+      "loan-comparison-calculator"
+    ]
+  }
+}

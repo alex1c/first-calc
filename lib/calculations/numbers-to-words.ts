@@ -1,22 +1,28 @@
 /**
- * Convert numbers to words
- * Inputs: number, language (optional), currencyMode (optional)
+ * Convert numbers to words (English or Russian).
+ * Inputs: number, language (optional), locale (injected by API), currencyMode (optional)
  * Outputs: words, breakdown, currencyWords, explanation
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+import { numberToWordsRu } from '@/lib/numberToWordsRu'
+import { numberToWordsRuDecimal } from '@/lib/legacy/decimalToWords'
+import { numberToWordsEn } from '@/lib/numberToWordsEn'
 
 /**
- * Convert a number less than 1000 to words
+ * Convert a number less than 1000 to English words
  */
 function convertHundreds(num: number): string {
 	const ones = [
 		'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
-		'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'
+		'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+		'seventeen', 'eighteen', 'nineteen',
 	]
 	const tens = [
-		'', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'
+		'', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty',
+		'ninety',
 	]
 
 	if (num === 0) return ''
@@ -38,9 +44,9 @@ function convertHundreds(num: number): string {
 }
 
 /**
- * Convert number to words
+ * Convert number to English words
  */
-function numberToWords(num: number): string {
+function numberToWordsEnglish(num: number): string {
 	if (num === 0) return 'zero'
 
 	const isNegative = num < 0
@@ -48,9 +54,10 @@ function numberToWords(num: number): string {
 	const integerPart = Math.floor(absNum)
 	const decimalPart = absNum - integerPart
 
-	// Handle very large numbers (limit to reasonable size)
 	if (integerPart > 999999999999999) {
-		throw new Error('Number is too large. Maximum supported: 999,999,999,999,999')
+		throw new CalculationDomainError(
+			'Number is too large. Maximum supported: 999,999,999,999,999',
+		)
 	}
 
 	const scales = ['', 'thousand', 'million', 'billion', 'trillion']
@@ -79,18 +86,22 @@ function numberToWords(num: number): string {
 
 	let result = parts.join(' ')
 
-	// Handle negative
 	if (isNegative) {
 		result = `negative ${result}`
 	}
 
-	// Handle decimal part
 	if (decimalPart > 0) {
-		const decimalStr = decimalPart.toString().substring(2) // Remove "0."
-		const decimalWords = decimalStr.split('').map(digit => {
-			const d = parseInt(digit, 10)
-			return ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'][d]
-		}).join(' ')
+		const decimalStr = decimalPart.toString().substring(2)
+		const decimalWords = decimalStr
+			.split('')
+			.map((digit) => {
+				const d = parseInt(digit, 10)
+				return [
+					'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
+					'eight', 'nine',
+				][d]
+			})
+			.join(' ')
 		result = `${result} point ${decimalWords}`
 	}
 
@@ -98,24 +109,56 @@ function numberToWords(num: number): string {
 }
 
 /**
- * Convert number to currency words
+ * Convert number to English currency words (USD)
  */
-function numberToCurrencyWords(num: number): string {
+function numberToCurrencyWordsEn(num: number): string {
 	const integerPart = Math.floor(Math.abs(num))
 	const decimalPart = Math.abs(num) - integerPart
 	const cents = Math.round(decimalPart * 100)
 
-	const dollars = numberToWords(integerPart)
+	const dollars = numberToWordsEnglish(integerPart)
 	const dollarsText = integerPart === 1 ? 'dollar' : 'dollars'
 
 	if (cents === 0) {
 		return `${dollars} ${dollarsText}`
 	}
 
-	const centsWords = numberToWords(cents)
+	const centsWords = numberToWordsEnglish(cents)
 	const centsText = cents === 1 ? 'cent' : 'cents'
 
 	return `${dollars} ${dollarsText} and ${centsWords} ${centsText}`
+}
+
+/**
+ * Convert number to Russian words (reuses legacy converters)
+ */
+function numberToWordsRussian(num: number): string {
+	const isNegative = num < 0
+	const absNum = Math.abs(num)
+	const integerPart = Math.floor(absNum)
+	const hasFraction = absNum - integerPart > 1e-9
+
+	if (integerPart > 999_999_999) {
+		throw new CalculationDomainError(
+			'Для русского языка поддерживаются числа до 999 999 999',
+		)
+	}
+
+	let words: string
+	if (hasFraction) {
+		words = numberToWordsRuDecimal(absNum, { format: 'numeric' })
+	} else {
+		words = numberToWordsRu(integerPart)
+	}
+
+	return isNegative ? `минус ${words}` : words
+}
+
+/**
+ * Convert number to Russian currency words (RUB)
+ */
+function numberToCurrencyWordsRu(num: number): string {
+	return numberToWordsRuDecimal(Math.abs(num), { format: 'money', currency: 'rub' })
 }
 
 /**
@@ -138,61 +181,119 @@ function getBreakdown(num: number): {
  * Calculate numbers to words
  */
 export const calculateNumbersToWords: CalculationFunction = (inputs) => {
-	// Extract inputs
 	const numberStr = String(inputs.number || '')
-	const currencyMode = inputs.currencyMode === true || (typeof inputs.currencyMode === 'string' && inputs.currencyMode.toLowerCase() === 'true') || inputs.currencyMode === 'true' || String(inputs.currencyMode).toLowerCase() === 'true'
-	const language = String(inputs.language || 'en').toLowerCase()
+	const currencyMode =
+		inputs.currencyMode === true ||
+		(typeof inputs.currencyMode === 'string' &&
+			inputs.currencyMode.toLowerCase() === 'true') ||
+		inputs.currencyMode === 'true' ||
+		String(inputs.currencyMode).toLowerCase() === 'true'
+	// Prefer explicit language; fall back to request locale injected by the API
+	const language = String(
+		inputs.language || inputs.locale || 'en',
+	).toLowerCase()
+	const isRu = language === 'ru' || language.startsWith('ru')
 
-	// Validation
 	if (!numberStr || numberStr.trim() === '') {
-		throw new Error('Number is required.')
+		throw new CalculationDomainError(
+			isRu ? 'Число обязательно.' : 'Number is required.',
+		)
 	}
 
-	// Parse number
 	const number = parseFloat(numberStr)
 	if (isNaN(number) || !Number.isFinite(number)) {
-		throw new Error('Invalid number. Please enter a valid number.')
+		throw new CalculationDomainError(
+			isRu
+				? 'Некорректное число. Введите допустимое значение.'
+				: 'Invalid number. Please enter a valid number.',
+		)
 	}
 
-	// Reasonable length limit (prevent extremely long conversions)
 	if (Math.abs(number) > 999999999999999) {
-		throw new Error('Number is too large. Maximum supported: 999,999,999,999,999')
+		throw new CalculationDomainError(
+			isRu
+				? 'Число слишком большое.'
+				: 'Number is too large. Maximum supported: 999,999,999,999,999',
+		)
 	}
 
-	// Convert to words
 	let words = ''
 	let currencyWords = ''
-	
-	if (currencyMode) {
-		currencyWords = numberToCurrencyWords(number)
-		words = numberToWords(number) // Also provide non-currency version
+
+	if (isRu) {
+		if (currencyMode) {
+			currencyWords = numberToCurrencyWordsRu(number)
+			words = numberToWordsRussian(number)
+		} else {
+			words = numberToWordsRussian(number)
+		}
+	} else if (currencyMode) {
+		currencyWords = numberToCurrencyWordsEn(number)
+		words = numberToWordsEnglish(number)
 	} else {
-		words = numberToWords(number)
+		// Prefer shared EN helper when available for integer paths
+		const integerPart = Math.floor(Math.abs(number))
+		const hasFraction = Math.abs(number) - integerPart > 1e-9
+		if (!hasFraction && integerPart <= 999_999_999 && number >= 0) {
+			try {
+				words = numberToWordsEn(integerPart)
+			} catch {
+				words = numberToWordsEnglish(number)
+			}
+		} else {
+			words = numberToWordsEnglish(number)
+		}
 	}
 
-	// Get breakdown
 	const breakdown = getBreakdown(number)
 
-	// Create explanation
 	let explanation = ''
-	if (currencyMode) {
+	if (isRu) {
+		explanation = currencyMode
+			? `Число ${number.toLocaleString('ru-RU')} прописью (валюта): «${currencyWords}».`
+			: `Число ${number.toLocaleString('ru-RU')} прописью: «${words}».`
+	} else if (currencyMode) {
 		explanation = `The number ${number.toLocaleString()} is written as "${currencyWords}" in currency format.`
 	} else {
 		explanation = `The number ${number.toLocaleString()} is written as "${words}" in words.`
 	}
 
-	// Format breakdown text
 	const breakdownParts: string[] = []
-	if (breakdown.millions > 0) {
-		breakdownParts.push(`${breakdown.millions.toLocaleString()} million${breakdown.millions !== 1 ? 's' : ''}`)
+	if (isRu) {
+		if (breakdown.millions > 0) {
+			breakdownParts.push(`${breakdown.millions.toLocaleString('ru-RU')} млн`)
+		}
+		if (breakdown.thousands > 0) {
+			breakdownParts.push(`${breakdown.thousands.toLocaleString('ru-RU')} тыс`)
+		}
+		if (breakdown.hundreds > 0) {
+			breakdownParts.push(`${breakdown.hundreds.toLocaleString('ru-RU')}`)
+		}
+	} else {
+		if (breakdown.millions > 0) {
+			breakdownParts.push(
+				`${breakdown.millions.toLocaleString()} million${breakdown.millions !== 1 ? 's' : ''}`,
+			)
+		}
+		if (breakdown.thousands > 0) {
+			breakdownParts.push(
+				`${breakdown.thousands.toLocaleString()} thousand${breakdown.thousands !== 1 ? 's' : ''}`,
+			)
+		}
+		if (breakdown.hundreds > 0) {
+			breakdownParts.push(
+				`${breakdown.hundreds.toLocaleString()} hundred${breakdown.hundreds !== 1 ? 's' : ''}`,
+			)
+		}
 	}
-	if (breakdown.thousands > 0) {
-		breakdownParts.push(`${breakdown.thousands.toLocaleString()} thousand${breakdown.thousands !== 1 ? 's' : ''}`)
-	}
-	if (breakdown.hundreds > 0) {
-		breakdownParts.push(`${breakdown.hundreds.toLocaleString()} hundred${breakdown.hundreds !== 1 ? 's' : ''}`)
-	}
-	const breakdownText = breakdownParts.length > 0 ? breakdownParts.join(', ') : (Math.abs(number) < 1 ? 'Less than 1' : '0')
+	const breakdownText =
+		breakdownParts.length > 0
+			? breakdownParts.join(', ')
+			: Math.abs(number) < 1
+				? isRu
+					? 'Меньше 1'
+					: 'Less than 1'
+				: '0'
 
 	return {
 		words,
@@ -202,11 +303,11 @@ export const calculateNumbersToWords: CalculationFunction = (inputs) => {
 		thousands: breakdown.thousands,
 		hundreds: breakdown.hundreds,
 		explanation,
-		originalNumber: number.toLocaleString(),
-		language: language,
+		originalNumber: isRu
+			? number.toLocaleString('ru-RU')
+			: number.toLocaleString(),
+		language: isRu ? 'ru' : 'en',
 	}
 }
 
-// Register the calculation function
 registerCalculation('calculateNumbersToWords', calculateNumbersToWords)
-

@@ -1,0 +1,134 @@
+{
+  "title": "Калькулятор сложных процентов",
+  "shortDescription": "Рассчитайте рост вложений со сложными процентами: итоговая сумма, взносы и начисленные проценты.",
+  "longDescription": "Рассчитайте рост вложений со сложными процентами: итоговая сумма, взносы и начисленные проценты.",
+  "inputs": [
+    {
+      "name": "initialAmount",
+      "label": "Начальная сумма",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "monthlyContribution",
+      "label": "Ежемесячный взнос",
+      "placeholder": "Введите значение",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "annualInterestRate",
+      "label": "Годовая процентная ставка",
+      "placeholder": "Введите значение",
+      "unitLabel": "%"
+    },
+    {
+      "name": "investmentPeriod",
+      "label": "Срок инвестирования",
+      "placeholder": "Введите значение",
+      "unitLabel": "лет"
+    },
+    {
+      "name": "compoundingFrequency",
+      "label": "Частота капитализации",
+      "helpText": "How often interest is calculated and added to your investment",
+      "options": [
+        {
+          "value": "annually",
+          "label": "Ежегодно"
+        },
+        {
+          "value": "quarterly",
+          "label": "Ежеквартально"
+        },
+        {
+          "value": "monthly",
+          "label": "Ежемесячно"
+        },
+        {
+          "value": "daily",
+          "label": "Ежедневно"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "name": "finalAmount",
+      "label": "Итоговая сумма",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "totalContributions",
+      "label": "Всего взносов",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "totalInterestEarned",
+      "label": "Начисленные проценты",
+      "unitLabel": "₽"
+    },
+    {
+      "name": "effectiveAnnualRate",
+      "label": "Эффективная годовая ставка",
+      "unitLabel": "%"
+    },
+    {
+      "name": "yearBreakdown",
+      "label": "Разбивка по годам"
+    },
+    {
+      "name": "formulaExplanation",
+      "label": "Пояснение формулы"
+    }
+  ],
+  "howTo": [
+    "Заполните поля формы",
+    "Проверьте единицы измерения (₽, %, годы)",
+    "Нажмите «Рассчитать»",
+    "Сверьте основные и дополнительные результаты"
+  ],
+  "examples": [
+    {
+      "title": "Пример 1",
+      "description": "$10,000 initial investment, $200 monthly contributions, 7% annual interest rate, 20 years, monthly compounding",
+      "steps": [
+        "Initial investment: $10,000",
+        "Monthly contribution: $200",
+        "Annual interest rate: 7%",
+        "Investment period: 20 years"
+      ],
+      "resultDescription": "After 20 years of investing $10,000 initially and $200 monthly at 7% annual interest with monthly compounding, your investment grows to approximately $128,000. You contributed $58,000 total and earned about $70,000 in interest, demonstrating the power of compound interest over time. For more detailed investment analysis, try the Investment Calculator."
+    },
+    {
+      "title": "Пример 2",
+      "description": "$0 initial investment, $300 monthly contributions, 5% annual interest rate, 10 years, monthly compounding",
+      "steps": [
+        "Initial investment: $0",
+        "Monthly contribution: $300",
+        "Annual interest rate: 5%",
+        "Investment period: 10 years"
+      ],
+      "resultDescription": "Starting with $0 and contributing $300 monthly for 10 years at 5% annual interest with monthly compounding results in approximately $46,500. You contributed $36,000 and earned about $10,500 in interest, showing how consistent small contributions can grow significantly over time."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Насколько точен расчёт?",
+      "answer": "Калькулятор использует стандартные финансовые формулы. Реальные условия банка или брокера могут отличаться."
+    },
+    {
+      "question": "В какой валюте считаются суммы?",
+      "answer": "Подписи показывают рубли (₽); формула универсальна для любой валюты при согласованных единицах."
+    }
+  ],
+  "seo": {
+    "title": "Калькулятор сложных процентов – First Calc",
+    "description": "Рассчитайте рост вложений со сложными процентами: итоговая сумма, взносы и начисленные проценты.",
+    "keywords": [
+      "Калькулятор сложных процентов",
+      "калькулятор",
+      "финансы",
+      "compound-interest"
+    ]
+  }
+}

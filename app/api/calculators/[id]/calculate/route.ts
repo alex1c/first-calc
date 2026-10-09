@@ -174,7 +174,12 @@ export async function POST(
 				)
 			}
 
-			const results = calculator.calculate(processedInputs)
+			// Inject request locale so locale-aware engines (e.g. numbers-to-words)
+			// can produce native output when the form omits an explicit language field.
+			const results = calculator.calculate({
+				...processedInputs,
+				locale,
+			})
 
 			// Reject Infinity/NaN before JSON serialization (which would coerce them to null)
 			assertFiniteResults(results, 'results')

@@ -30,6 +30,7 @@ import {
 import { loadNamespaces, createT } from '@/lib/i18n'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { NumberToWordsForm } from '@/components/legacy/number-to-words-form'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -132,14 +133,13 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: `/en/chislo-propisyu/${slug.join('/')}`,
-				ru: `/ru/chislo-propisyu/${slug.join('/')}`,
-				es: `/es/chislo-propisyu/${slug.join('/')}`,
-				tr: `/tr/chislo-propisyu/${slug.join('/')}`,
-				hi: `/hi/chislo-propisyu/${slug.join('/')}`,
-			},
-			canonical: `/${locale}/chislo-propisyu/${slug.join('/')}`,
+			// Only en/ru have real chislo-propisyu content; do not advertise empty locales.
+			// Dynamic numeric routes stay noindex; canonical must use production origin rules.
+			languages: languageAlternates(
+				`/chislo-propisyu/${slug.join('/')}`,
+				['en', 'ru'],
+			),
+			canonical: localeUrl(locale, `/chislo-propisyu/${slug.join('/')}`),
 		},
 	}
 }

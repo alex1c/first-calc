@@ -40,6 +40,15 @@ const TYPESCRIPT_LOCALIZED_SLUGS: Partial<Record<Locale, readonly string[]>> = {
 		'friendship-compatibility',
 		'work-compatibility',
 		'birth-date-compatibility',
+		// Finance cluster restored via RU item overlays on EN TS engines
+		'compound-interest',
+		'loan-comparison-calculator',
+		'mortgage-comparison-calculator',
+		'retirement-calculator',
+		'investment-vs-savings-calculator',
+		'take-home-pay-calculator',
+		'emergency-fund-calculator',
+		'net-worth-calculator',
 	],
 }
 

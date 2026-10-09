@@ -22,6 +22,18 @@ const TEN_TS_ONLY_RU: Array<{ category: string; slug: string }> = [
 	{ category: 'compatibility', slug: 'birth-date-compatibility' },
 ]
 
+/** Eight EN-only finance tools restored with RU item overlays + shared engines */
+const EIGHT_FINANCE_RU: Array<{ category: string; slug: string }> = [
+	{ category: 'finance', slug: 'compound-interest' },
+	{ category: 'finance', slug: 'loan-comparison-calculator' },
+	{ category: 'finance', slug: 'mortgage-comparison-calculator' },
+	{ category: 'finance', slug: 'retirement-calculator' },
+	{ category: 'finance', slug: 'investment-vs-savings-calculator' },
+	{ category: 'finance', slug: 'take-home-pay-calculator' },
+	{ category: 'finance', slug: 'emergency-fund-calculator' },
+	{ category: 'finance', slug: 'net-worth-calculator' },
+]
+
 describe('TS-only RU calculator restore', () => {
 	it('marks all ten as localized RU content', () => {
 		for (const { slug } of TEN_TS_ONLY_RU) {
@@ -31,6 +43,18 @@ describe('TS-only RU calculator restore', () => {
 
 	it('resolves all ten via getCalculatorBySlug with RU titles', async () => {
 		for (const { category, slug } of TEN_TS_ONLY_RU) {
+			const calc = await getCalculatorBySlug(category, slug, 'ru')
+			expect(calc, `${category}/${slug}`).toBeDefined()
+			expect(calc!.locale).toBe('ru')
+			expect(calc!.contentLocale).toBe('ru')
+			expect(/[А-Яа-яЁё]/.test(calc!.title), `${slug} title`).toBe(true)
+			expect(typeof calc!.calculate).toBe('function')
+		}
+	})
+
+	it('restores eight finance RU overlays with working engines', async () => {
+		for (const { category, slug } of EIGHT_FINANCE_RU) {
+			expect(hasLocalizedCalculatorContent('ru', slug), slug).toBe(true)
 			const calc = await getCalculatorBySlug(category, slug, 'ru')
 			expect(calc, `${category}/${slug}`).toBeDefined()
 			expect(calc!.locale).toBe('ru')
