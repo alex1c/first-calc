@@ -140,8 +140,9 @@ jobs:
             echo "OLD_HAS_NO_KNOWN_HOSTS_FILE"
           fi
 
+          # IMPORTANT: bash -se reads this script from stdin; ssh must not inherit it.
           set +e
-          OUT=$(ssh -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
+          OUT=$(ssh -n -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
             -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
             -i /root/.ssh/timeweb_migration \
             "root@${NEW_HOST}" 'hostname; whoami; echo NEW_OK' 2>&1)
@@ -155,6 +156,7 @@ jobs:
           echo "OLD_TO_NEW_SSH=OK"
 
           echo "=== 5) Stage 1 via jump ==="
+          # stdin for this ssh comes from the pipe only (not the outer script stream)
           printf '%s' "${STAGE1_B64}" | base64 -d | \
             ssh -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
               -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
