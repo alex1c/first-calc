@@ -133,12 +133,11 @@ New regression coverage:
 | Severity | Issue |
 |----------|--------|
 | Low | Residual English prose in specialized `calculator-results.tsx` blocks on some RU pages |
-| Low | es/tr/hi missing `results.json` / `footer.json` / `search.json` (i18n warnings; hubs noindex / not in calculator sitemap) |
-| Low | Tools hub still advertises hreflang for es/tr/hi shell locales |
+| Low | es/tr/hi missing `results.json` / `footer.json` / `search.json` / `home.json` (see §11 i18n breakdown) |
 | Info | Advanced tax/withdrawal UI still not exposed on Investment/Savings public forms (engine supports via API when schema allows) |
 | Info | Do not start standalone with `HOSTNAME=127.0.0.1` — prefer default Playwright/`start:standalone:test` bind |
 
-None of the above block a release decision for the UI/SEO scope of this brief.
+None of the above block a release decision for the **EN/RU** UI/SEO scope of this brief.
 
 ---
 
@@ -146,7 +145,7 @@ None of the above block a release decision for the UI/SEO scope of this brief.
 
 - No new 1000+ financial scenario matrix was run (out of scope; prior Investment/Savings matrix stands).  
 - Crawl covers sitemap seeds + discovered internal `href`s up to the crawl cap (450 pages); it is not a claim over every dynamic legacy number variant on the open web.  
-- es/tr/hi remain intentionally thin; incomplete catalog content must stay out of the sitemap and must not masquerade as full localization.
+- es/tr/hi remain intentionally thin; incomplete catalog content must stay out of the sitemap and must not masquerade as full localization (see §11).
 
 ---
 
@@ -157,7 +156,73 @@ None of the above block a release decision for the UI/SEO scope of this brief.
 3. Confirm `NEXT_PUBLIC_ENV` is not `test`/`staging` (indexing must stay enabled).  
 4. Post-deploy smoke: `/`, `/ru`, `/chislo-propisyu`, `/ru/chislo-propisyu`, `/tools`, RU Investment/Savings (₽ + `12.5` rate), `/sitemap.xml`, `/robots.txt`.  
 5. Spot-check `/factors` → 308 → example page; no redirect loops on EN unprefixed URLs.  
-6. Do **not** merge/PR/deploy from this agent pass — human release decision required.
+6. Spot-check `/es`, `/tr`, `/hi` return `noindex` and are **absent** from sitemap; category/calculator paths 308 → EN.  
+7. Do **not** merge/PR/deploy from this agent pass — human release decision required.
+
+---
+
+## 11. ES / TR / HI compact locale audit
+
+**Goal:** readiness for public launch — not a new localization project.  
+**Corpus:** `0` calculator item files per locale (`en` 82, `ru` 95). Shell namespaces only: `common`, `errors`, `navigation`, `tools`, `calculators/ui` (partial), `legacy/notices`, `seo/templates`. Missing: `home.json`, `tools/ui.json`, `results.json`, `footer.json`, `search.json`.
+
+### Per-locale status
+
+| Locale | Status | Index? | Notes |
+|--------|--------|--------|-------|
+| **ES** | **LIMITED** | No (shells + empty catalog `noindex`; calculators 308→EN) | Home/tools reachable; hero falls back to English `home.json`; empty catalog; no native calculator corpus |
+| **TR** | **LIMITED** | No (same) | Same shape as ES |
+| **HI** | **LIMITED** | No (same) | Same shape as ES |
+
+**READY** is not applicable until each locale has `home.json` + non-empty item corpus + results/footer/search chrome.
+
+### Live checks (standalone production build)
+
+| Surface | ES / TR / HI result |
+|---------|---------------------|
+| Home `/{locale}` | 200, `noindex, follow`, canonical → EN home, fallback badge, **English hero copy**, 0 calculator cards |
+| Catalog `/{locale}/calculators` | 200, `noindex`, 0 detail links |
+| Category `/{locale}/calculators/finance` | **308** → `/calculators/finance` (EN) |
+| Calculator `/{locale}/calculators/finance/mortgage-calculator` | **308** → EN mortgage (form works; USD labels on EN page) |
+| Tools `/{locale}/tools` | 200, `noindex`, canonical → EN `/tools`, English tools title |
+| Sitemap | **0** URLs under `/es`, `/tr`, `/hi` path prefixes |
+| EN home hreflang | `en`, `ru`, `x-default` only (es/tr/hi removed) |
+| 500 errors | None observed |
+
+Currency/units on incomplete-locale calculator URLs are not evaluated as native locales — users are sent to **EN** pages (correct temporary policy).
+
+### i18n: 66 warnings — user impact
+
+| Class | Count | Affects user pages? |
+|-------|------:|---------------------|
+| Missing `validation.*` keys in `errors.json` (×3 locales) | 42 | Low today — legacy validation strings; pages mostly redirect or are empty shells |
+| Missing tag-filter keys in `calculators/ui.json` (×3) | 15 | None on es/tr/hi — catalog has no calculators to filter |
+| Missing namespace files `search` / `results` / `footer` (×3) | 9 | **Would** hit search modal, result chrome, footer if users stay on shell; EN fallback via `loadNamespaces` |
+| *(not in the 66)* Missing `home.json` / `tools/ui.json` | — | **High UX** — English hero / tools chrome on “localized” shells |
+
+**Conclusion:** of the 66 validator warnings, ~9 namespace gaps matter if someone browses es/tr/hi shells; the rest are latent. The blocking readiness gap is **missing item corpus + home namespace**, not the 42 validation keys.
+
+### Indexation containment (applied this pass)
+
+1. `indexableShellLocales()` → currently `en`, `ru` only (`home.json` + catalog).  
+2. Home + tools metadata: `noindex` for other locales; canonical → EN; hreflang limited to indexable shells.  
+3. Sitemap omits `/`, `/tools` for non-indexable shells (already omitted empty calculator hubs).  
+4. Empty category hubs and missing-locale calculator routes **308** to EN (URLs stay usable).  
+5. Calculate API falls back to EN definition when locale has no corpus (avoids hard 404 for valid locale codes).
+
+### Temporary policy (do not delay EN/RU)
+
+- **Publish and index EN + RU.**  
+- **Keep ES/TR/HI URLs alive** for language switcher / bookmarks, but **do not index** and **do not list** them in sitemap/hreflang until a real localization tranche lands.  
+- **Do not** ship mass machine-translated item files or empty stub calculators.
+
+### Follow-up (separate project)
+
+1. Add `home.json` + `tools/ui.json` + `results.json` + `footer.json` + `search.json` per locale.  
+2. Localize a prioritized calculator set (items + QA), then flip `indexableShellLocales` / catalog gates.  
+3. Only then move a locale from LIMITED → READY.
+
+Audit scripts: `scripts/audit-limited-locales.mjs`, `scripts/smoke-limited-locale-meta.mjs`.
 
 ---
 

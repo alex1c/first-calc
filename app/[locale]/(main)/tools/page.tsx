@@ -8,6 +8,7 @@ import { getToolsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { toolGroups, legacyTools } from '@/lib/tools/registry'
 import type { Metadata } from 'next'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { indexableShellLocales } from '@/lib/i18n/content-availability'
 
 interface ToolsPageProps {
 	params: {
@@ -18,13 +19,20 @@ interface ToolsPageProps {
 const namespaces = ['common', 'navigation', 'tools/ui'] as const
 
 export function generateMetadata({ params }: ToolsPageProps): Metadata {
+	const shellLocales = indexableShellLocales()
+	const isIndexableShell = shellLocales.includes(params.locale)
+
 	return {
 		title: 'Online Tools and Converters',
 		description: 'Browse number, percentage, conversion, and utility tools.',
 		alternates: {
-			canonical: localeUrl(params.locale, '/tools'),
-			languages: languageAlternates('/tools'),
+			canonical: localeUrl(
+				isIndexableShell ? params.locale : 'en',
+				'/tools',
+			),
+			languages: languageAlternates('/tools', shellLocales),
 		},
+		...(!isIndexableShell && { robots: { index: false, follow: true } }),
 	}
 }
 

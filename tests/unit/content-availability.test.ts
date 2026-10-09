@@ -6,6 +6,7 @@ import {
 	diagnoseCalculatorContentAvailability,
 	filterLocalizedCalculators,
 	hasLocalizedCalculatorContent,
+	indexableShellLocales,
 } from '@/lib/i18n/content-availability'
 
 describe('calculator content availability', () => {
@@ -31,6 +32,10 @@ describe('calculator content availability', () => {
 
 	it('limits main calculators hub to EN and RU catalogs', () => {
 		expect(calculatorHubContentLocales()).toEqual(['en', 'ru'])
+	})
+
+	it('limits indexable marketing shells to locales with home.json + catalog', () => {
+		expect(indexableShellLocales()).toEqual(['en', 'ru'])
 	})
 
 	it('filters locale hubs without treating English fallback as localized', () => {

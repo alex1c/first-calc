@@ -13,7 +13,10 @@ import { CalculatorCard } from '@/components/calculators/calculator-card'
 import { SearchInput } from '@/components/home/search-input'
 import { PageContainer } from '@/components/layout/page-container'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
-import { filterLocalizedCalculators } from '@/lib/i18n/content-availability'
+import {
+	filterLocalizedCalculators,
+	indexableShellLocales,
+} from '@/lib/i18n/content-availability'
 
 const namespaces = ['common', 'navigation', 'home'] as const
 
@@ -44,13 +47,22 @@ export async function generateMetadata({
 		hi: 'गणित, वित्त और अधिक के लिए मुफ्त ऑनलाइन कैलकुलेटर। हमारे उपयोग में आसान उपकरणों के साथ प्रतिशत, ऋण, चक्रवृद्धि ब्याज और बहुत कुछ की गणना करें।',
 	}
 
+	// Incomplete shells (es/tr/hi) stay reachable but must not index as
+	// full locales — they fall back to English home copy + empty catalogs.
+	const shellLocales = indexableShellLocales()
+	const isIndexableShell = shellLocales.includes(locale)
+
 	return {
 		title: titles[locale],
 		description: descriptions[locale],
 		alternates: {
-			languages: languageAlternates('/'),
-			canonical: localeUrl(locale, '/'),
+			languages: languageAlternates('/', shellLocales),
+			canonical: localeUrl(
+				isIndexableShell ? locale : 'en',
+				'/',
+			),
 		},
+		...(!isIndexableShell && { robots: { index: false, follow: true } }),
 		openGraph: {
 			title: titles[locale],
 			description: descriptions[locale],

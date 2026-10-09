@@ -89,6 +89,13 @@ describe('B3.3 sitemap excludes empty-locale calculator hubs', () => {
 			expect(urls).not.toContain('https://first-calc.com/es/calculators')
 			expect(urls).not.toContain('https://first-calc.com/tr/calculators')
 			expect(urls).not.toContain('https://first-calc.com/hi/calculators')
+			// Incomplete locale shells must not appear as indexable destinations
+			expect(urls).not.toContain('https://first-calc.com/es')
+			expect(urls).not.toContain('https://first-calc.com/tr')
+			expect(urls).not.toContain('https://first-calc.com/hi')
+			expect(urls).not.toContain('https://first-calc.com/es/tools')
+			expect(urls).not.toContain('https://first-calc.com/tr/tools')
+			expect(urls).not.toContain('https://first-calc.com/hi/tools')
 		} finally {
 			if (previousEnv === undefined) delete process.env.NEXT_PUBLIC_ENV
 			else process.env.NEXT_PUBLIC_ENV = previousEnv

@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { getCalculatorBySlug } from '@/lib/calculators/loader'
@@ -38,7 +38,11 @@ export async function generateMetadata({
 }: CalculatorRoutePageProps): Promise<Metadata> {
 	const { locale, category, slug } = params
 
-	const calculator = await getCalculatorBySlug(category, slug, locale)
+	const calculator =
+		(await getCalculatorBySlug(category, slug, locale)) ||
+		(locale !== 'en'
+			? await getCalculatorBySlug(category, slug, 'en')
+			: undefined)
 
 	if (!calculator) {
 		return {
@@ -107,10 +111,21 @@ export default async function CalculatorRoutePage({
 		notFound()
 	}
 
-	// Get calculator definition
+	// Get calculator definition. Incomplete locales (es/tr/hi) have no item
+	// corpus — redirect to the English page instead of a hard 404 so language
+	// switching and old links stay usable.
 	const calculator = await calculatorRegistry.getBySlug(category, slug, locale)
-
 	if (!calculator) {
+		if (locale !== 'en') {
+			const enCalculator = await calculatorRegistry.getBySlug(
+				category,
+				slug,
+				'en',
+			)
+			if (enCalculator) {
+				permanentRedirect(`/calculators/${category}/${slug}`)
+			}
+		}
 		notFound()
 	}
 

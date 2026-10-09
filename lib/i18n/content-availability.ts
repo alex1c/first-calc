@@ -175,6 +175,22 @@ export function calculatorHubContentLocales(): Locale[] {
 	})
 }
 
+/**
+ * Locales whose marketing shells (home, tools) are ready to index.
+ * Requires a locale-native `home.json` plus a non-empty calculator catalog.
+ * es/tr/hi currently fall back to English home copy with empty catalogs —
+ * keep those URLs working but exclude them from sitemap / hreflang / index.
+ */
+export function indexableShellLocales(): Locale[] {
+	return locales.filter((locale) => {
+		if (locale === 'en') return true
+		const hasHomeNamespace = existsSync(
+			path.join(process.cwd(), 'locales', locale, 'home.json'),
+		)
+		return hasHomeNamespace && calculatorHubContentLocales().includes(locale)
+	})
+}
+
 export interface ContentAvailabilityDiagnostic {
 	slug: string
 	locale: Locale

@@ -62,7 +62,14 @@ export async function POST(
 
 		const locale = resolveRequestLocale(bodyLocale, queryLocale)
 
-		const calculator = await calculatorRegistry.getById(params.id, locale)
+		// Incomplete locales may have no item corpus; use the EN definition for
+		// the math engine while keeping the request locale for any locale-aware
+		// outputs (e.g. numbers-to-words).
+		const calculator =
+			(await calculatorRegistry.getById(params.id, locale)) ||
+			(locale !== 'en'
+				? await calculatorRegistry.getById(params.id, 'en')
+				: undefined)
 
 		if (!calculator) {
 			return NextResponse.json(

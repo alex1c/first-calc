@@ -8,6 +8,7 @@ import { isIndexingDisabled, localeUrl } from '@/lib/site-url'
 import {
 	calculatorHubContentLocales,
 	hasLocalizedCalculatorContent,
+	indexableShellLocales,
 } from '@/lib/i18n/content-availability'
 
 export type SitemapGroup =
@@ -84,10 +85,19 @@ export async function buildSitemapEntries(): Promise<ClassifiedSitemapEntry[]> {
 	// Empty shells (/es/calculators, /tr/calculators, /hi/calculators) are
 	// noindex and must not appear in the sitemap.
 	const calculatorHubLocales = new Set(calculatorHubContentLocales())
+	// Home/tools shells are indexable only when home.json + catalog exist
+	// (currently en/ru). Incomplete locales stay reachable but out of sitemap.
+	const shellLocales = new Set(indexableShellLocales())
 
 	for (const locale of locales) {
 		for (const pathname of publicPages) {
 			if (pathname === '/calculators' && !calculatorHubLocales.has(locale)) {
+				continue
+			}
+			if (
+				(pathname === '/' || pathname === '/tools') &&
+				!shellLocales.has(locale)
+			) {
 				continue
 			}
 			addEntry(entries, seen, locale, pathname, 'pages')
