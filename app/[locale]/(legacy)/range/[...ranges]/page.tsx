@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { locales, type Locale } from '@/lib/i18n'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 import { parseRangeFromString, parseNestedRanges } from '@/lib/legacy/slugParser'
 import { generateRange, validateRange } from '@/lib/legacy/parsers'
 import { numberToWordsRu } from '@/lib/numberToWordsRu'
@@ -47,9 +48,9 @@ export async function generateMetadata({
 	const rangeSize = parsed ? parsed.end - parsed.start + 1 : 0
 	const isLargeRange = rangeSize > 500
 
-	// Build canonical URL (without /en prefix for default locale)
-	// For old format URLs (without /range/), use the same format
-	const canonicalPath = locale === 'en' ? `/${rangeString}` : `/${locale}/${rangeString}`
+	// Public URL shape preserved by middleware (/10000-19999, /ru/10000-19999).
+	const pathname = `/${rangeString}`
+	const rangeLocales = ['en', 'ru'] as const
 
 	// Legacy dynamic range pages should NOT be indexed
 	// Only the landing pages should be indexed
@@ -62,14 +63,8 @@ export async function generateMetadata({
 		keywords: 'range, calculator, numbers, words, russian, english',
 		robots,
 		alternates: {
-			languages: {
-				en: `/${rangeString}`,
-				ru: `/ru/${rangeString}`,
-				es: `/es/${rangeString}`,
-				tr: `/tr/${rangeString}`,
-				hi: `/hi/${rangeString}`,
-			},
-			canonical: canonicalPath,
+			languages: languageAlternates(pathname, rangeLocales),
+			canonical: localeUrl(locale, pathname),
 		},
 	}
 }

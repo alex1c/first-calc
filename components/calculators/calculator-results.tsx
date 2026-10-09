@@ -18,8 +18,19 @@ function getResultExplanation(
 	calculator: CalculatorDefinitionClient,
 	outputName: string,
 	value: number | string | null,
+	locale: Locale,
+	translate: (key: string) => string,
 ): string | null {
 	if (value === null || value === undefined) {
+		return null
+	}
+
+	const localizedKey = `results.explanations.${calculator.category}.${outputName}`
+	const localized = translate(localizedKey)
+	if (localized !== localizedKey) {
+		return localized
+	}
+	if (locale !== 'en') {
 		return null
 	}
 
@@ -4240,7 +4251,13 @@ export function CalculatorResults({
 					)}
 					{/* Result explanation */}
 					{(() => {
-						const explanation = getResultExplanation(calculator, mainOutput.name, mainValue)
+						const explanation = getResultExplanation(
+							calculator,
+							mainOutput.name,
+							mainValue,
+							locale,
+							t,
+						)
 						return explanation ? (
 							<div className="mt-4 pt-4 border-t border-gray-200">
 								<p className="text-sm text-gray-600 leading-relaxed">{explanation}</p>

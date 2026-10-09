@@ -1,4 +1,16 @@
 {
+	"explanations": {
+		"finance": {
+			"monthlyPayment": "This is your monthly payment amount. Use this to budget monthly expenses and confirm the loan fits your budget for the full term.",
+			"payment": "This is your periodic loan payment. Use it when planning recurring expenses.",
+			"totalInterest": "Total interest paid over the life of the loan — the cost of borrowing. Reduce it with a larger down payment, shorter term, or extra payments.",
+			"totalPayment": "Total amount paid over the loan term, including principal and interest. Shows the true cost beyond the monthly payment."
+		},
+		"math": {
+			"result": "This is the calculated result. Use it in further work or to verify your solution.",
+			"answer": "This is the calculated result. Use it in further work or to verify your solution."
+		}
+	},
 	"result": "Result",
 	"resultsByFormula": "Results by Formula",
 	"resultDate": "Result Date",
