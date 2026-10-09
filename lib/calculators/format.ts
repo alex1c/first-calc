@@ -11,9 +11,24 @@ const LOCALE_CURRENCY: Record<string, { locale: string; currency: string }> = {
 	hi: { locale: 'en-IN', currency: 'INR' },
 }
 
+/** Bare currency symbols / codes — never append these after en-US number text. */
+const CURRENCY_UNIT_LABELS = new Set([
+	'$',
+	'₽',
+	'€',
+	'£',
+	'₹',
+	'₺',
+	'USD',
+	'RUB',
+	'EUR',
+	'TRY',
+	'INR',
+])
+
 /**
  * Format a monetary amount for the active site locale.
- * Used by specialized result renderers that previously hard-coded `$` + en-US.
+ * Uses Intl currency style so RU gets spaced thousands and decimal comma.
  */
 export function formatMoney(
 	value: number | null | undefined,
@@ -23,6 +38,36 @@ export function formatMoney(
 		return '—'
 	}
 	return formatOutputValue(Number(value), 'currency', undefined, locale)
+}
+
+/**
+ * Localized year count with Russian plural forms (1 год / 2 года / 5 лет).
+ */
+export function formatYearsCount(
+	years: number,
+	locale: string = 'en',
+): string {
+	const n = Math.abs(Number(years))
+	if (!Number.isFinite(n)) return String(years)
+	const rounded = Math.round(n * 10) / 10
+	if (locale === 'ru') {
+		const whole = Math.floor(Math.abs(rounded))
+		const mod10 = whole % 10
+		const mod100 = whole % 100
+		let word = 'лет'
+		if (mod10 === 1 && mod100 !== 11) word = 'год'
+		else if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) {
+			word = 'года'
+		}
+		const num = Number.isInteger(rounded)
+			? String(whole)
+			: new Intl.NumberFormat('ru-RU', {
+					maximumFractionDigits: 1,
+				}).format(rounded)
+		return `${num} ${word}`
+	}
+	const label = Math.abs(rounded) === 1 ? 'year' : 'years'
+	return `${rounded} ${label}`
 }
 
 /**
@@ -63,18 +108,22 @@ export function formatOutputValue(
 	const currencyCfg = LOCALE_CURRENCY[locale] || LOCALE_CURRENCY.en
 
 	switch (formatType) {
-		case 'currency':
-			// Prefer explicit unitLabel (e.g. ₽) when provided by the schema/item
-			if (unitLabel && unitLabel.trim() && unitLabel !== '$') {
+		case 'currency': {
+			const label = (unitLabel || '').trim()
+			// Currency symbols/codes must not force en-style digits + "₽".
+			// Locale map selects the real currency; non-currency units (e.g. $/year
+			// as a rate label) still append after locale number formatting.
+			if (label && !CURRENCY_UNIT_LABELS.has(label) && label !== '$') {
 				return `${new Intl.NumberFormat(currencyCfg.locale, {
 					minimumFractionDigits: 2,
 					maximumFractionDigits: 2,
-				}).format(value)} ${unitLabel}`
+				}).format(value)} ${label}`
 			}
 			return new Intl.NumberFormat(currencyCfg.locale, {
 				style: 'currency',
 				currency: currencyCfg.currency,
 			}).format(value)
+		}
 		case 'percentage':
 			return `${value.toFixed(2)}%`
 		case 'number':

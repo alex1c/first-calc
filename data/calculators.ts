@@ -2510,9 +2510,10 @@ export const calculators: CalculatorDefinition[] = [
 				placeholder: 'Enter expected annual return',
 				validation: {
 					required: true,
-					min: 0.01,
+					// 0% is a valid what-if (contributions only); engine allows 0–100
+					min: 0,
 					max: 30,
-					message: 'Expected annual return must be greater than 0 and less than or equal to 30',
+					message: 'Expected annual return must be between 0 and 30',
 				},
 			},
 			{

@@ -4,7 +4,8 @@
 			"monthlyPayment": "This is your monthly payment amount. Use this to budget monthly expenses and confirm the loan fits your budget for the full term.",
 			"payment": "This is your periodic loan payment. Use it when planning recurring expenses.",
 			"totalInterest": "Total interest paid over the life of the loan — the cost of borrowing. Reduce it with a larger down payment, shorter term, or extra payments.",
-			"totalPayment": "Total amount paid over the loan term, including principal and interest. Shows the true cost beyond the monthly payment."
+			"totalPayment": "Total amount paid over the loan term, including principal and interest. Shows the true cost beyond the monthly payment.",
+			"modelNote": "Interest uses the nominal annual rate. Each month a 1/12 share accrues on principal only; interest is capitalized only on your selected compounding dates (monthly, quarterly, or annually). Uncapitalized interest does not earn interest. Regular deposits are added at month-end and start earning from the next month — they never receive interest for time before they were made. The headline result matches the last year in the table."
 		},
 		"math": {
 			"result": "This is the calculated result. Use it in further work or to verify your solution.",

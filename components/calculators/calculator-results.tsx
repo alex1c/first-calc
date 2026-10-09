@@ -1,5 +1,10 @@
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
-import { formatOutputValue, formatMoney, formatLocaleDate } from '@/lib/calculators/format'
+import {
+	formatOutputValue,
+	formatMoney,
+	formatLocaleDate,
+	formatYearsCount,
+} from '@/lib/calculators/format'
 import Link from 'next/link'
 import type { Locale } from '@/lib/i18n'
 import { useClientT } from '@/lib/i18n/useClientT'
@@ -143,7 +148,12 @@ export function CalculatorResults({
 		const translated = t(`results.labels.${key}`)
 		return translated === `results.labels.${key}` ? fallback : translated
 	}
-	// Long engine formulaExplanation strings are English prose — show only for en
+	// Localized finance model note (all locales); English engine prose only as extra on en
+	const financeModelNote = (() => {
+		const key = 'results.explanations.finance.modelNote'
+		const translated = t(key)
+		return translated !== key ? translated : null
+	})()
 	const showEngineExplanation = locale === 'en'
 	if (!outputs || Object.keys(outputs).length === 0) {
 		return null
@@ -206,13 +216,21 @@ export function CalculatorResults({
 						)}
 					</div>
 
-					{/* Formula Explanation — English engine prose only */}
-					{formulaExplanation && showEngineExplanation && (
+					{(financeModelNote || (formulaExplanation && showEngineExplanation)) && (
 						<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-							<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
-							<div className="overflow-x-auto">
-								<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
-							</div>
+							<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('howCalculationWorks', 'How the Calculation Works')}</h4>
+							{financeModelNote && (
+								<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full mb-3">
+									{financeModelNote}
+								</p>
+							)}
+							{formulaExplanation && showEngineExplanation && (
+								<div className="overflow-x-auto">
+									<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full font-mono">
+										{formulaExplanation}
+									</p>
+								</div>
+							)}
 						</div>
 					)}
 				</div>
@@ -392,10 +410,12 @@ export function CalculatorResults({
 								<strong>Interest Saved:</strong> {formatMoney(extraPaymentImpact.interestSaved, locale)}
 							</div>
 							<div className="text-base text-green-700">
-								<strong>Loan Term Reduced:</strong> {extraPaymentImpact.monthsReduced} months ({extraPaymentImpact.yearsReduced} years)
+								<strong>{L('loanTermReduced', 'Loan Term Reduced')}:</strong> {extraPaymentImpact.monthsReduced} {L('months', 'months')} ({formatYearsCount(extraPaymentImpact.yearsReduced, locale)})
 							</div>
 							<div className="text-sm text-green-600 mt-3">
-								You save {formatMoney(extraPaymentImpact.interestSaved, locale)} and finish {extraPaymentImpact.yearsReduced} years earlier!
+								{locale === 'en'
+									? `You save ${formatMoney(extraPaymentImpact.interestSaved, locale)} and finish ${formatYearsCount(extraPaymentImpact.yearsReduced, locale)} earlier!`
+									: `Экономия ${formatMoney(extraPaymentImpact.interestSaved, locale)}, срок короче на ${formatYearsCount(extraPaymentImpact.yearsReduced, locale)}`}
 							</div>
 						</div>
 					</div>
@@ -1094,14 +1114,16 @@ export function CalculatorResults({
 													{formatMoney(mortgage.totalCost, locale)}
 												</td>
 												<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
-													{mortgage.loanTermYears} years
+													{formatYearsCount(mortgage.loanTermYears, locale)}
 												</td>
 												<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
 													{mortgage.interestRateAPR}%
 												</td>
 												{(comparisonTable.some((m: any) => m.payoffMonths) || bestScenarioByMetric?.metric === 'fastest-payoff') && (
 													<td className={`px-2 md:px-4 py-3 text-right font-medium whitespace-nowrap ${bestScenarioByMetric?.metric === 'fastest-payoff' && isWinner ? 'bg-yellow-200 font-bold' : ''}`}>
-														{mortgage.payoffDate ? new Date(mortgage.payoffDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : `${mortgage.loanTermYears * 12} months`}
+														{mortgage.payoffDate
+															? formatLocaleDate(mortgage.payoffDate, locale)
+															: `${mortgage.loanTermYears * 12} ${L('months', 'months')}`}
 													</td>
 												)}
 											</tr>
@@ -1202,7 +1224,7 @@ export function CalculatorResults({
 													{loan.annualInterestRate}%
 												</td>
 												<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
-													{loan.loanTermYears} years
+													{formatYearsCount(loan.loanTermYears, locale)}
 												</td>
 												<td className={`px-2 md:px-4 py-3 text-right font-medium whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-monthly-payment' && isWinner ? 'bg-yellow-200 font-bold' : ''}`}>
 													{formatMoney(loan.monthlyPayment, locale)}
@@ -1215,7 +1237,9 @@ export function CalculatorResults({
 												</td>
 												{comparisonTable.some((l: any) => l.payoffMonths) && (
 													<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
-														{loan.payoffMonths ? `${loan.payoffMonths} months` : `${loan.loanTermYears * 12} months`}
+														{loan.payoffMonths
+															? `${loan.payoffMonths} ${L('months', 'months')}`
+															: `${loan.loanTermYears * 12} ${L('months', 'months')}`}
 													</td>
 												)}
 											</tr>
@@ -4368,13 +4392,25 @@ export function CalculatorResults({
 				</div>
 			)}
 
-			{/* Formula Explanation (for compound interest and loan payment calculators) */}
-			{formulaExplanationValue && typeof formulaExplanationValue === 'string' && showEngineExplanation && (
+			{/* Formula / model explanation (investment, savings, compound interest, loans) */}
+			{(financeModelNote ||
+				(formulaExplanationValue &&
+					typeof formulaExplanationValue === 'string' &&
+					showEngineExplanation)) && (
 				<div className="mb-6 pt-6 border-t border-gray-200">
 					<p className="text-sm font-medium text-gray-700 mb-3">{L('howCalculationWorks', 'How the Calculation Works')}</p>
-					<p className="text-base text-gray-700 leading-relaxed whitespace-pre-line font-mono text-sm bg-gray-50 p-4 rounded-lg">
-						{formulaExplanationValue}
-					</p>
+					{financeModelNote && (
+						<p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line mb-3">
+							{financeModelNote}
+						</p>
+					)}
+					{formulaExplanationValue &&
+						typeof formulaExplanationValue === 'string' &&
+						showEngineExplanation && (
+							<p className="text-base text-gray-700 leading-relaxed whitespace-pre-line font-mono text-sm bg-gray-50 p-4 rounded-lg">
+								{formulaExplanationValue}
+							</p>
+						)}
 				</div>
 			)}
 
