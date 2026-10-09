@@ -2,7 +2,7 @@
 
 **Branch:** `fix/ru-catalog-seo-recovery`  
 **Starting tip (user brief):** `eed0e64aeb05bac45710aebec8b2f0edf027999e`  
-**Final tip SHA:** *(set after follow-up commit; see `git rev-parse HEAD`)*  
+**Final tip SHA:** `bd92741e485b71559efeced9f35fab7ea4cff62b`  
 **Status:** `READY FOR FINAL CODEX AUDIT`
 
 **Not done (by design):** merge to `main`, PR without approval, production deploy, Timeweb infra changes.
