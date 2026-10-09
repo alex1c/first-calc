@@ -2,7 +2,7 @@
 
 **Branch:** `fix/ru-catalog-seo-recovery`  
 **Base audit SHA:** `8fe74cf6618e2ae8500f07d534ca8d26cb87e04f`  
-**Remediation tip SHA:** *(see `git rev-parse HEAD` after push)*  
+**Remediation tip SHA:** de7a1a61b11d6f0d91a4b9e506b4162ab8d9a1cf  
 **Status:** `READY FOR RELEASE RECHECK`
 
 No merge, PR, or production deploy performed.
