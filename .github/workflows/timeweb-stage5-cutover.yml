@@ -1,0 +1,74 @@
+name: Timeweb Stage 5 Cutover
+
+# Recreate ONLY first-calc with the prepared release image. Auto-rollback on failure.
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_sha:
+        description: Exact full release SHA
+        required: true
+        default: '795f6ad404fd2910ec0eacb2e926b7fda810adb5'
+
+permissions:
+  contents: read
+
+jobs:
+  cutover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: timeweb-first-calc-cutover
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH to OLD
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${SSH_PRIVATE_KEY}"
+          test -f .github/workflows/_known_hosts_seed.txt
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null
+          grep -E '^165\.227\.171\.143 ' .github/workflows/_known_hosts_seed.txt > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Cutover via OLD jump
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          OLD_HOST='165.227.171.143'
+          NEW_HOST='188.225.26.192'
+          test "${#RELEASE_SHA}" -eq 40
+          chmod +x scripts/timeweb-stage5-cutover.sh
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            scripts/timeweb-stage5-cutover.sh "root@${OLD_HOST}:/tmp/timeweb-stage5-cutover.sh"
+          ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
+            -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "root@${OLD_HOST}" \
+            "env NEW_HOST='${NEW_HOST}' RELEASE_SHA='${RELEASE_SHA}' bash -se" <<'REMOTE' | tee stage5-report.txt
+          set -euo pipefail
+          scp -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
+            -i /root/.ssh/timeweb_migration \
+            /tmp/timeweb-stage5-cutover.sh \
+            "root@${NEW_HOST}:/tmp/timeweb-stage5-cutover.sh"
+          ssh -n -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
+            -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
+            -i /root/.ssh/timeweb_migration \
+            "root@${NEW_HOST}" \
+            "chmod +x /tmp/timeweb-stage5-cutover.sh && RELEASE_SHA='${RELEASE_SHA}' bash /tmp/timeweb-stage5-cutover.sh"
+          REMOTE
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: timeweb-stage5-report
+          path: stage5-report.txt
+          if-no-files-found: warn
