@@ -79,11 +79,11 @@ function getNextStepCalculators(calculatorId: string, cluster: EverydayCluster):
 	}
 
 	// Flow B — Numbers & text: Numbers to Words → Roman Numerals → Percentage Calculator
-	if (calculatorId === 'numbers-to-words-calculator') {
+	if (calculatorId === 'numbers-to-words') {
 		return ['roman-numerals-converter', 'random-number-generator']
 	}
 	if (calculatorId === 'roman-numerals-converter') {
-		return ['numbers-to-words-calculator', 'random-number-generator']
+		return ['numbers-to-words', 'random-number-generator']
 	}
 
 	// Flow C — Home tasks: Room Area → Paint → Wallpaper
@@ -99,7 +99,7 @@ function getNextStepCalculators(calculatorId: string, cluster: EverydayCluster):
 
 	// Flow D — Light interaction: Random Number → Lucky Number → Numbers to Words
 	if (calculatorId === 'random-number-generator') {
-		return ['numbers-to-words-calculator', 'roman-numerals-converter']
+		return ['numbers-to-words', 'roman-numerals-converter']
 	}
 
 	return []

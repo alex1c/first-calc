@@ -345,7 +345,7 @@ async function getScenarioBasedLinks(
 				})
 			}
 		}
-		if (calculator.id === 'numbers-to-words-calculator') {
+		if (calculator.id === 'numbers-to-words') {
 			const romanCalc = await calculatorRegistry.getById('roman-numerals-converter', locale)
 			if (romanCalc) {
 				scenarios.push({
@@ -355,7 +355,7 @@ async function getScenarioBasedLinks(
 			}
 		}
 		if (calculator.id === 'roman-numerals-converter') {
-			const numbersToWordsCalc = await calculatorRegistry.getById('numbers-to-words-calculator', locale)
+			const numbersToWordsCalc = await calculatorRegistry.getById('numbers-to-words', locale)
 			if (numbersToWordsCalc) {
 				scenarios.push({
 					calculator: numbersToWordsCalc,
@@ -373,7 +373,7 @@ async function getScenarioBasedLinks(
 			}
 		}
 		if (calculator.id === 'random-number-generator') {
-			const numbersToWordsCalc = await calculatorRegistry.getById('numbers-to-words-calculator', locale)
+			const numbersToWordsCalc = await calculatorRegistry.getById('numbers-to-words', locale)
 			if (numbersToWordsCalc) {
 				scenarios.push({
 					calculator: numbersToWordsCalc,

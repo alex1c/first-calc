@@ -69,7 +69,7 @@
     "quantity": 1,
     "allowDuplicates": false
   },
-  "relatedIds": ["roman-numerals-converter", "numbers-to-words-calculator"],
+  "relatedIds": ["roman-numerals-converter", "numbers-to-words"],
   "isEnabled": true,
   "seo": {
     "title": "Random Number Generator – Generate Random Numbers Online",

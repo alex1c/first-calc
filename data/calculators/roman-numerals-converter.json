@@ -44,7 +44,7 @@
     "mode": "number-to-roman",
     "value": "2024"
   },
-  "relatedIds": ["numbers-to-words-calculator", "random-number-generator"],
+  "relatedIds": ["numbers-to-words", "random-number-generator"],
   "isEnabled": true,
   "seo": {
     "title": "Roman Numerals Converter – Convert Numbers to Roman Numerals",

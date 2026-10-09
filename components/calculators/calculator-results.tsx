@@ -2761,14 +2761,14 @@ export function CalculatorResults({
 	const daysIncludeEndDateValue = calculator.id === 'days-between-dates-calculator' ? outputs.includeEndDate : null
 
 	// Special handling for Numbers to Words calculator
-	const numbersToWordsWordsValue = calculator.id === 'numbers-to-words-calculator' ? outputs.words : null
-	const numbersToWordsCurrencyValue = calculator.id === 'numbers-to-words-calculator' ? outputs.currencyWords : null
-	const numbersToWordsBreakdownValue = calculator.id === 'numbers-to-words-calculator' ? outputs.breakdown : null
-	const numbersToWordsMillionsValue = calculator.id === 'numbers-to-words-calculator' ? outputs.millions : null
-	const numbersToWordsThousandsValue = calculator.id === 'numbers-to-words-calculator' ? outputs.thousands : null
-	const numbersToWordsHundredsValue = calculator.id === 'numbers-to-words-calculator' ? outputs.hundreds : null
-	const numbersToWordsExplanationValue = calculator.id === 'numbers-to-words-calculator' ? outputs.explanation : null
-	const numbersToWordsOriginalValue = calculator.id === 'numbers-to-words-calculator' ? outputs.originalNumber : null
+	const numbersToWordsWordsValue = calculator.id === 'numbers-to-words' ? outputs.words : null
+	const numbersToWordsCurrencyValue = calculator.id === 'numbers-to-words' ? outputs.currencyWords : null
+	const numbersToWordsBreakdownValue = calculator.id === 'numbers-to-words' ? outputs.breakdown : null
+	const numbersToWordsMillionsValue = calculator.id === 'numbers-to-words' ? outputs.millions : null
+	const numbersToWordsThousandsValue = calculator.id === 'numbers-to-words' ? outputs.thousands : null
+	const numbersToWordsHundredsValue = calculator.id === 'numbers-to-words' ? outputs.hundreds : null
+	const numbersToWordsExplanationValue = calculator.id === 'numbers-to-words' ? outputs.explanation : null
+	const numbersToWordsOriginalValue = calculator.id === 'numbers-to-words' ? outputs.originalNumber : null
 
 	// Special handling for Roman Numerals calculator
 	const romanResultValue = calculator.id === 'roman-numerals-converter' ? outputs.result : null
@@ -3713,7 +3713,7 @@ export function CalculatorResults({
 								</div>
 							)}
 						</div>
-					) : calculator.id === 'numbers-to-words-calculator' && mainOutput.name === 'words' ? (
+					) : calculator.id === 'numbers-to-words' && mainOutput.name === 'words' ? (
 						<div>
 							<div className="text-3xl md:text-4xl font-bold text-blue-600 mb-3 break-words">
 								{numbersToWordsCurrencyValue && typeof numbersToWordsCurrencyValue === 'string' && numbersToWordsCurrencyValue.trim() !== ''

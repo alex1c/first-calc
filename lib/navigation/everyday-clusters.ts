@@ -17,7 +17,7 @@ export const everydayClusters: Record<EverydayCluster, string[]> = {
 		// 'countdown-calculator', // If exists
 	],
 	numbers: [
-		'numbers-to-words-calculator',
+		'numbers-to-words',
 		'roman-numerals-converter',
 		'random-number-generator',
 		// 'percentage-calculator', // Simple version if exists
