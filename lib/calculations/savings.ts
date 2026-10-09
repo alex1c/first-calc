@@ -1,5 +1,9 @@
 /**
  * Savings growth with compound/simple interest, tax on gains, and optional withdrawals.
+ *
+ * Same month-calendar model as investment.ts: compounding and contribution
+ * schedules are independent; yearly deposits are not smeared monthly;
+ * finalSavings === last yearlyBreakdown.endingBalance.
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
@@ -48,14 +52,22 @@ function round2(value: number): number {
 	return Math.round(value * 100) / 100
 }
 
-/**
- * Month-by-month projection matching ordinary annuity (end-of-period deposits).
- * Interest accrues on the opening balance first; the contribution is added
- * afterward so the year table agrees with the closed-form FV formula.
- */
-function simulateSavingsMonths(options: {
+function compoundingMonths(periodsPerYear: number): Set<number> {
+	if (periodsPerYear <= 1) return new Set([12])
+	if (periodsPerYear === 4) return new Set([3, 6, 9, 12])
+	return new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+}
+
+function contributionMonths(contributionsPerYear: number): Set<number> {
+	if (contributionsPerYear <= 1) return new Set([12])
+	return new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+}
+
+function simulateSavingsProjection(options: {
 	initialSavings: number
-	monthlyContribution: number
+	contributionAmount: number
+	contributionsPerYear: number
+	compoundingFrequency: number
 	annualRatePercent: number
 	years: number
 	interestType: string
@@ -66,12 +78,18 @@ function simulateSavingsMonths(options: {
 	totalWithdrawals: number
 	yearlyBreakdown: YearBreakdown[]
 } {
-	const months = assertBoundedIterations(
+	assertBoundedIterations(
 		options.years * 12,
 		MAX_HORIZON_YEARS * 12,
 		'Savings horizon (months)',
 	)
-	const monthlyRate = options.annualRatePercent / 100 / 12
+
+	const compoundSet = compoundingMonths(options.compoundingFrequency)
+	const contribSet = contributionMonths(options.contributionsPerYear)
+	const periodicRate =
+		options.annualRatePercent / 100 / options.compoundingFrequency
+	const simpleMonthlyRate = options.annualRatePercent / 100 / 12
+
 	let balance = options.initialSavings
 	let simpleInterestPool = 0
 	let totalWithdrawals = 0
@@ -86,16 +104,16 @@ function simulateSavingsMonths(options: {
 		let yearWithdrawals = 0
 
 		for (let month = 1; month <= 12; month++) {
-			// Ordinary annuity: interest first, then end-of-period contribution.
 			if (options.interestType === 'simple') {
-				// Accrue simple interest on principal before the new deposit.
-				simpleInterestPool += balance * monthlyRate
-			} else {
-				balance *= 1 + monthlyRate
+				simpleInterestPool += balance * simpleMonthlyRate
+			} else if (compoundSet.has(month)) {
+				balance *= 1 + periodicRate
 			}
 
-			balance += options.monthlyContribution
-			yearContributions += options.monthlyContribution
+			if (contribSet.has(month) && options.contributionAmount !== 0) {
+				balance += options.contributionAmount
+				yearContributions += options.contributionAmount
+			}
 
 			const gross =
 				options.interestType === 'simple'
@@ -136,7 +154,8 @@ function simulateSavingsMonths(options: {
 			? balance + simpleInterestPool
 			: balance
 	const totalContributions =
-		options.initialSavings + options.monthlyContribution * months
+		options.initialSavings +
+		options.contributionAmount * options.contributionsPerYear * options.years
 
 	return {
 		finalSavings: round2(finalSavings),
@@ -197,91 +216,31 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 	)
 
 	const contributionsPerYear = getContributionsPerYear(contributionFrequencyStr)
-	const monthlyContribution =
-		contributionsPerYear === 12
-			? regularContribution
-			: regularContribution / 12
+	const compoundingFrequency = getCompoundingFrequency(
+		compoundingFrequencyStr,
+	)
 
-	const useMonthlySimulation =
-		interestType === 'simple' ||
-		monthlyWithdrawal > 0 ||
-		contributionsPerYear !== 12
+	const simulated = simulateSavingsProjection({
+		initialSavings,
+		contributionAmount: regularContribution,
+		contributionsPerYear,
+		compoundingFrequency:
+			interestType === 'simple' ? 12 : compoundingFrequency,
+		annualRatePercent: annualInterestRate,
+		years: savingsPeriod,
+		interestType,
+		monthlyWithdrawal,
+	})
 
-	let finalSavings = 0
-	let totalContributions = 0
-	let totalWithdrawals = 0
-	let yearlyBreakdown: YearBreakdown[] = []
+	const finalSavings = simulated.finalSavings
+	const totalContributions = simulated.totalContributions
+	const totalWithdrawals = simulated.totalWithdrawals
+	const yearlyBreakdown = simulated.yearlyBreakdown
 
-	if (useMonthlySimulation) {
-		const simulated = simulateSavingsMonths({
-			initialSavings,
-			monthlyContribution,
-			annualRatePercent: annualInterestRate,
-			years: savingsPeriod,
-			interestType,
-			monthlyWithdrawal,
-		})
-		finalSavings = simulated.finalSavings
-		totalContributions = simulated.totalContributions
-		totalWithdrawals = simulated.totalWithdrawals
-		yearlyBreakdown = simulated.yearlyBreakdown
-	} else {
-		const compoundingFrequency = getCompoundingFrequency(
-			compoundingFrequencyStr,
-		)
-		const annualRate = annualInterestRate / 100
-		const periodicRate = annualRate / compoundingFrequency
-		const totalPeriods = savingsPeriod * compoundingFrequency
-		const totalContributionsCount = savingsPeriod * contributionsPerYear
-
-		let futureValueInitial = 0
-		if (initialSavings > 0) {
-			futureValueInitial =
-				periodicRate === 0
-					? initialSavings
-					: initialSavings * Math.pow(1 + periodicRate, totalPeriods)
-		}
-
-		let futureValueContributions = 0
-		if (regularContribution > 0) {
-			const contributionPerPeriod =
-				regularContribution *
-				(contributionsPerYear / compoundingFrequency)
-			if (periodicRate === 0) {
-				futureValueContributions = contributionPerPeriod * totalPeriods
-			} else {
-				const rateFactor = Math.pow(1 + periodicRate, totalPeriods)
-				futureValueContributions =
-					contributionPerPeriod * ((rateFactor - 1) / periodicRate)
-			}
-		}
-
-		// Closed-form ordinary annuity, then overwrite from monthly simulation
-		// so finalSavings === last yearlyBreakdown.endingBalance.
-		finalSavings = round2(futureValueInitial + futureValueContributions)
-		totalContributions =
-			initialSavings + regularContribution * totalContributionsCount
-
-		const simulated = simulateSavingsMonths({
-			initialSavings,
-			monthlyContribution,
-			annualRatePercent: annualInterestRate,
-			years: savingsPeriod,
-			interestType: 'compound',
-			monthlyWithdrawal: 0,
-		})
-		yearlyBreakdown = simulated.yearlyBreakdown
-		finalSavings = simulated.finalSavings
-		totalContributions = simulated.totalContributions
-		totalWithdrawals = simulated.totalWithdrawals
-	}
-
-	// Economic interest includes cash withdrawn during the period
 	const totalInterestEarned = round2(
 		finalSavings + totalWithdrawals - totalContributions,
 	)
 
-	// When inflation is 0, real value equals nominal savings (never null)
 	let inflationAdjustedSavings = finalSavings
 	if (inflationRate > 0) {
 		const inflationFactor = Math.pow(1 + inflationRate / 100, savingsPeriod)
@@ -290,8 +249,18 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 
 	let timeToTarget: number | null = null
 	if (targetAmount > 0 && finalSavings < targetAmount) {
-		const monthlyRate = annualInterestRate / 100 / 12
+		// Search with the same calendar rules as the main projection
+		const compoundSet = compoundingMonths(
+			interestType === 'simple' ? 12 : compoundingFrequency,
+		)
+		const contribSet = contributionMonths(contributionsPerYear)
+		const periodicRate =
+			annualInterestRate /
+			100 /
+			(interestType === 'simple' ? 12 : compoundingFrequency)
+		const simpleMonthlyRate = annualInterestRate / 100 / 12
 		let currentBalance = initialSavings
+		let simplePool = 0
 		let months = 0
 		const maxMonths = assertBoundedIterations(
 			savingsPeriod * 12 * 2,
@@ -299,13 +268,22 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 			'Target search months',
 		)
 
-		// Same ordinary-annuity order as simulateSavingsMonths (interest, then deposit).
-		while (currentBalance < targetAmount && months < maxMonths) {
-			if (monthlyRate > 0 && interestType === 'compound') {
-				currentBalance *= 1 + monthlyRate
-			}
-			currentBalance += monthlyContribution
+		while (
+			(interestType === 'simple'
+				? currentBalance + simplePool
+				: currentBalance) < targetAmount &&
+			months < maxMonths
+		) {
 			months++
+			const month = ((months - 1) % 12) + 1
+			if (interestType === 'simple') {
+				simplePool += currentBalance * simpleMonthlyRate
+			} else if (compoundSet.has(month)) {
+				currentBalance *= 1 + periodicRate
+			}
+			if (contribSet.has(month)) {
+				currentBalance += regularContribution
+			}
 		}
 
 		if (months < maxMonths) {

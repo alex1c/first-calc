@@ -143,6 +143,8 @@ export function CalculatorResults({
 		const translated = t(`results.labels.${key}`)
 		return translated === `results.labels.${key}` ? fallback : translated
 	}
+	// Long engine formulaExplanation strings are English prose — show only for en
+	const showEngineExplanation = locale === 'en'
 	if (!outputs || Object.keys(outputs).length === 0) {
 		return null
 	}
@@ -188,7 +190,7 @@ export function CalculatorResults({
 						</div>
 						{inflationAdjustedBalance && (
 							<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
-								<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Inflation-Adjusted Balance</div>
+								<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">{L('inflationAdjustedBalance', 'Inflation-Adjusted Balance')}</div>
 								<div className="text-2xl font-bold text-orange-900">
 									{formatMoney(inflationAdjustedBalance, locale)}
 								</div>
@@ -196,7 +198,7 @@ export function CalculatorResults({
 						)}
 						{monthlyRetirementIncome && (
 							<div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
-								<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">Monthly Income (4% withdrawal)</div>
+								<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">{L('monthlyRetirementIncome', 'Monthly Income (4% withdrawal)')}</div>
 								<div className="text-2xl font-bold text-indigo-900">
 									{formatMoney(monthlyRetirementIncome, locale)}
 								</div>
@@ -204,10 +206,10 @@ export function CalculatorResults({
 						)}
 					</div>
 
-					{/* Formula Explanation */}
-					{formulaExplanation && (
+					{/* Formula Explanation — English engine prose only */}
+					{formulaExplanation && showEngineExplanation && (
 						<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-							<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">Calculation Details</h4>
+							<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
 							<div className="overflow-x-auto">
 								<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
 							</div>
@@ -232,7 +234,7 @@ export function CalculatorResults({
 					{/* Key Numbers Cards */}
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 						<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-							<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Required Retirement Fund</div>
+							<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">{L('requiredRetirementFund', 'Required Retirement Fund')}</div>
 							<div className="text-2xl font-bold text-blue-900">
 								{formatMoney(requiredRetirementFund, locale)}
 							</div>
@@ -240,17 +242,17 @@ export function CalculatorResults({
 						{savingsGap !== null && savingsGap !== undefined && (
 							<div className={`rounded-lg p-4 border ${savingsGap > 0 ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
 								<div className={`text-xs font-medium uppercase tracking-wide mb-1 ${savingsGap > 0 ? 'text-red-600' : 'text-green-600'}`}>
-									Savings Gap
+									{L('savingsGap', 'Savings Gap')}
 								</div>
 								<div className={`text-2xl font-bold ${savingsGap > 0 ? 'text-red-900' : 'text-green-900'}`}>
 									{formatMoney(Math.abs(savingsGap), locale)}
-									{savingsGap <= 0 && ' (You have enough!)'}
+									{savingsGap <= 0 && ` ${L('youHaveEnough', '(You have enough!)')}`}
 								</div>
 							</div>
 						)}
 						{requiredMonthlyContribution !== null && requiredMonthlyContribution !== undefined && requiredMonthlyContribution > 0 && (
 							<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-								<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Required Monthly Contribution</div>
+								<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">{L('requiredMonthlyContribution', 'Required Monthly Contribution')}</div>
 								<div className="text-2xl font-bold text-purple-900">
 									{formatMoney(requiredMonthlyContribution, locale)}
 								</div>
@@ -258,7 +260,7 @@ export function CalculatorResults({
 						)}
 						{monthlyIncomeAchievable !== null && monthlyIncomeAchievable !== undefined && (
 							<div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
-								<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">Monthly Income Achievable</div>
+								<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">{L('monthlyIncomeAchievable', 'Monthly Income Achievable')}</div>
 								<div className="text-2xl font-bold text-indigo-900">
 									{formatMoney(monthlyIncomeAchievable, locale)}
 								</div>
@@ -266,10 +268,9 @@ export function CalculatorResults({
 						)}
 					</div>
 
-					{/* Formula Explanation */}
-					{formulaExplanation && (
+					{formulaExplanation && showEngineExplanation && (
 						<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-							<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">Calculation Details</h4>
+							<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
 							<div className="overflow-x-auto">
 								<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
 							</div>
@@ -401,9 +402,9 @@ export function CalculatorResults({
 				)}
 
 				{/* Formula Explanation */}
-				{formulaExplanation && (
+				{formulaExplanation && showEngineExplanation && (
 					<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">Calculation Details</h4>
+						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
 						<div className="overflow-x-auto">
 							<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
 						</div>
@@ -587,9 +588,9 @@ export function CalculatorResults({
 				</div>
 
 				{/* Formula Explanation */}
-				{formulaExplanation && (
+				{formulaExplanation && showEngineExplanation && (
 					<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">Calculation Details</h4>
+						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
 						<div className="overflow-x-auto">
 							<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
 						</div>
@@ -714,9 +715,9 @@ export function CalculatorResults({
 				</div>
 
 				{/* Formula Explanation */}
-				{formulaExplanation && (
+				{formulaExplanation && showEngineExplanation && (
 					<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">Calculation Details</h4>
+						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
 						<div className="overflow-x-auto">
 							<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
 						</div>
@@ -830,9 +831,9 @@ export function CalculatorResults({
 				</div>
 
 				{/* Formula Explanation */}
-				{formulaExplanation && (
+				{formulaExplanation && showEngineExplanation && (
 					<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">Calculation Details</h4>
+						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
 						<div className="overflow-x-auto">
 							<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
 						</div>
@@ -947,7 +948,7 @@ export function CalculatorResults({
 								</tr>
 								{(savingsInflationAdjustedBalance || investmentInflationAdjustedBalance) && (
 									<tr>
-										<td className="px-4 py-3 font-medium text-gray-900">Real Value (Inflation-Adjusted)</td>
+										<td className="px-4 py-3 font-medium text-gray-900">{L('inflationAdjustedBalance', 'Inflation-Adjusted Balance')}</td>
 										<td className="px-4 py-3 text-right text-gray-700">
 											{savingsInflationAdjustedBalance ? `${formatMoney(savingsInflationAdjustedBalance, locale)}` : '—'}
 										</td>
@@ -990,9 +991,9 @@ export function CalculatorResults({
 				</div>
 
 				{/* Formula Explanation */}
-				{formulaExplanation && (
+				{formulaExplanation && showEngineExplanation && (
 					<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">Calculation Details</h4>
+						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
 						<div className="overflow-x-auto">
 							<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
 						</div>
@@ -1013,10 +1014,13 @@ export function CalculatorResults({
 			return null
 		}
 
-		const metricLabel = bestScenarioByMetric?.metric === 'lowest-total-monthly-payment' ? 'Lowest Total Monthly Payment' :
-			bestScenarioByMetric?.metric === 'lowest-total-interest' ? 'Lowest Total Interest' :
-			bestScenarioByMetric?.metric === 'lowest-total-cost' ? 'Lowest Total Cost' :
-			'Fastest Payoff'
+		const metricLabel = bestScenarioByMetric?.metric === 'lowest-total-monthly-payment'
+			? L('lowestTotalMonthlyPayment', 'Lowest Total Monthly Payment')
+			: bestScenarioByMetric?.metric === 'lowest-total-interest'
+				? L('lowestTotalInterest', 'Lowest Total Interest')
+				: bestScenarioByMetric?.metric === 'lowest-total-cost'
+					? L('lowestTotalCost', 'Lowest Total Cost')
+					: L('fastestPayoff', 'Fastest Payoff')
 
 		return (
 			<div className="w-full max-w-full space-y-6">
@@ -1025,21 +1029,21 @@ export function CalculatorResults({
 					<div className="bg-green-50 border-2 border-green-500 rounded-lg p-4 md:p-6 mb-6 w-full">
 						<div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
 							<span className="text-xl md:text-2xl">🏆</span>
-							<h3 className="text-lg md:text-xl font-bold text-green-800 break-words">Best Mortgage by: {metricLabel}</h3>
+							<h3 className="text-lg md:text-xl font-bold text-green-800 break-words">{L('bestMortgageBy', 'Best Mortgage by')}: {metricLabel}</h3>
 						</div>
 						<div className="text-2xl md:text-3xl font-bold text-green-700 mb-2 break-words">{winner.scenarioName}</div>
 						<div className="text-base md:text-lg text-green-600 break-words">
 							{bestScenarioByMetric.metric === 'lowest-total-monthly-payment' && (
-								<>Total Monthly Payment: {formatMoney(winner.totalMonthly, locale)}</>
+								<>{L('totalMonthlyPayment', 'Total Monthly Payment')}: {formatMoney(winner.totalMonthly, locale)}</>
 							)}
 							{bestScenarioByMetric.metric === 'lowest-total-interest' && (
-								<>Total Interest: {formatMoney(winner.totalInterest, locale)}</>
+								<>{L('totalInterest', 'Total Interest')}: {formatMoney(winner.totalInterest, locale)}</>
 							)}
 							{bestScenarioByMetric.metric === 'lowest-total-cost' && (
-								<>Total Cost: {formatMoney(winner.totalCost, locale)}</>
+								<>{L('totalCost', 'Total Cost')}: {formatMoney(winner.totalCost, locale)}</>
 							)}
 							{bestScenarioByMetric.metric === 'fastest-payoff' && (
-								<>Payoff Time: {winner.payoffMonths ? `${winner.payoffMonths} months` : `${winner.loanTermYears * 12} months`}</>
+								<>{L('payoffTime', 'Payoff Time')}: {winner.payoffMonths ? `${winner.payoffMonths} ${L('months', 'months')}` : `${winner.loanTermYears * 12} ${L('months', 'months')}`}</>
 							)}
 						</div>
 					</div>
@@ -1052,16 +1056,16 @@ export function CalculatorResults({
 							<table className="min-w-full text-sm divide-y divide-gray-200">
 								<thead className="bg-gray-100">
 									<tr>
-										<th className="px-2 md:px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">Mortgage</th>
-										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">Loan Amount</th>
-										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">P&I Monthly</th>
-										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestScenarioByMetric?.metric === 'lowest-total-monthly-payment' ? 'bg-yellow-100' : ''}`}>Total Monthly</th>
-										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestScenarioByMetric?.metric === 'lowest-total-interest' ? 'bg-yellow-100' : ''}`}>Total Interest</th>
-										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestScenarioByMetric?.metric === 'lowest-total-cost' ? 'bg-yellow-100' : ''}`}>Total Cost</th>
-										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">Term</th>
-										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">APR</th>
+										<th className="px-2 md:px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('mortgage', 'Mortgage')}</th>
+										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('loanAmount', 'Loan Amount')}</th>
+										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('pandIMonthly', 'P&I Monthly')}</th>
+										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestScenarioByMetric?.metric === 'lowest-total-monthly-payment' ? 'bg-yellow-100' : ''}`}>{L('totalMonthly', 'Total Monthly')}</th>
+										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestScenarioByMetric?.metric === 'lowest-total-interest' ? 'bg-yellow-100' : ''}`}>{L('totalInterest', 'Total Interest')}</th>
+										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestScenarioByMetric?.metric === 'lowest-total-cost' ? 'bg-yellow-100' : ''}`}>{L('totalCost', 'Total Cost')}</th>
+										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('term', 'Term')}</th>
+										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('apr', 'APR')}</th>
 										{(comparisonTable.some((mortgage: any) => mortgage.payoffMonths) || bestScenarioByMetric?.metric === 'fastest-payoff') && (
-											<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestScenarioByMetric?.metric === 'fastest-payoff' ? 'bg-yellow-100' : ''}`}>Payoff Date</th>
+											<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestScenarioByMetric?.metric === 'fastest-payoff' ? 'bg-yellow-100' : ''}`}>{L('payoffDate', 'Payoff Date')}</th>
 										)}
 									</tr>
 								</thead>
@@ -1110,9 +1114,9 @@ export function CalculatorResults({
 				</div>
 
 				{/* Formula Explanation */}
-				{formulaExplanation && (
+				{formulaExplanation && showEngineExplanation && (
 					<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">Calculation Details</h4>
+						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
 						<div className="overflow-x-auto">
 							<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
 						</div>
@@ -1224,9 +1228,9 @@ export function CalculatorResults({
 				</div>
 
 				{/* Formula Explanation */}
-				{formulaExplanation && (
+				{formulaExplanation && showEngineExplanation && (
 					<div className="bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200 w-full max-w-full overflow-hidden">
-						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">Calculation Details</h4>
+						<h4 className="text-base md:text-lg font-semibold text-gray-800 mb-3">{L('calculationDetails', 'Calculation Details')}</h4>
 						<div className="overflow-x-auto">
 							<p className="text-xs md:text-sm text-gray-700 whitespace-pre-line break-words max-w-full">{formulaExplanation}</p>
 						</div>
@@ -4365,9 +4369,9 @@ export function CalculatorResults({
 			)}
 
 			{/* Formula Explanation (for compound interest and loan payment calculators) */}
-			{formulaExplanationValue && typeof formulaExplanationValue === 'string' && (
+			{formulaExplanationValue && typeof formulaExplanationValue === 'string' && showEngineExplanation && (
 				<div className="mb-6 pt-6 border-t border-gray-200">
-					<p className="text-sm font-medium text-gray-700 mb-3">How the Calculation Works</p>
+					<p className="text-sm font-medium text-gray-700 mb-3">{L('howCalculationWorks', 'How the Calculation Works')}</p>
 					<p className="text-base text-gray-700 leading-relaxed whitespace-pre-line font-mono text-sm bg-gray-50 p-4 rounded-lg">
 						{formulaExplanationValue}
 					</p>

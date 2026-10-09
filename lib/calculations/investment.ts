@@ -1,5 +1,12 @@
 /**
  * Investment growth with compound/simple interest, tax on gains, and optional withdrawals.
+ *
+ * Single cash-flow model (month calendar):
+ * - Compounding applies only on months that match compoundingFrequency.
+ * - Contributions apply only on months that match contributionFrequency
+ *   (yearly deposits are NOT smeared across months).
+ * - Ordinary annuity order within a month: interest → contribution → withdrawal.
+ * Headline finalValue and yearlyBreakdown always come from this same simulation.
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
@@ -45,20 +52,27 @@ function round2(value: number): number {
 	return Math.round(value * 100) / 100
 }
 
+/** Months (1–12) when discrete compound interest is applied. */
+function compoundingMonths(periodsPerYear: number): Set<number> {
+	if (periodsPerYear <= 1) return new Set([12])
+	if (periodsPerYear === 4) return new Set([3, 6, 9, 12])
+	return new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+}
+
+/** Months (1–12) when a contribution event occurs. */
+function contributionMonths(contributionsPerYear: number): Set<number> {
+	if (contributionsPerYear <= 1) return new Set([12])
+	return new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+}
+
 /**
- * Month-by-month projection (compound or simple interest, optional withdrawal).
- *
- * Uses ordinary annuity (end-of-period) cash-flow order so the year table
- * matches the closed-form FV of an ordinary annuity:
- *   1) accrue interest on the opening balance
- *   2) add the period contribution
- *   3) take any withdrawal
- * Annuity-due (contribute then interest) would overstate ending values
- * relative to the standard FV formula used in the closed-form path.
+ * Month-calendar projection. One source of truth for finals and the year table.
  */
-function simulateInvestmentMonths(options: {
+function simulateInvestmentProjection(options: {
 	initialInvestment: number
-	monthlyContribution: number
+	contributionAmount: number
+	contributionsPerYear: number
+	compoundingFrequency: number
 	annualRatePercent: number
 	years: number
 	interestType: string
@@ -69,12 +83,19 @@ function simulateInvestmentMonths(options: {
 	totalWithdrawals: number
 	yearlyBreakdown: YearBreakdown[]
 } {
-	const months = assertBoundedIterations(
+	assertBoundedIterations(
 		options.years * 12,
 		MAX_HORIZON_YEARS * 12,
 		'Investment horizon (months)',
 	)
-	const monthlyRate = options.annualRatePercent / 100 / 12
+
+	const compoundSet = compoundingMonths(options.compoundingFrequency)
+	const contribSet = contributionMonths(options.contributionsPerYear)
+	const periodicRate =
+		options.annualRatePercent / 100 / options.compoundingFrequency
+	// Simple interest accrues monthly on principal (legacy advanced path)
+	const simpleMonthlyRate = options.annualRatePercent / 100 / 12
+
 	let balance = options.initialInvestment
 	let simpleInterestPool = 0
 	let totalWithdrawals = 0
@@ -89,18 +110,20 @@ function simulateInvestmentMonths(options: {
 		let yearWithdrawals = 0
 
 		for (let month = 1; month <= 12; month++) {
-			// Ordinary annuity: interest on existing balance first, then deposit.
+			// 1) Accrue interest only on compounding months (compound path)
 			if (options.interestType === 'simple') {
-				// Simple interest accrues only on principal balance (not on
-				// the contribution that lands at period end).
-				simpleInterestPool += balance * monthlyRate
-			} else {
-				balance *= 1 + monthlyRate
+				simpleInterestPool += balance * simpleMonthlyRate
+			} else if (compoundSet.has(month)) {
+				balance *= 1 + periodicRate
 			}
 
-			balance += options.monthlyContribution
-			yearContributions += options.monthlyContribution
+			// 2) Contribution only on contribution-schedule months
+			if (contribSet.has(month) && options.contributionAmount !== 0) {
+				balance += options.contributionAmount
+				yearContributions += options.contributionAmount
+			}
 
+			// 3) Optional monthly withdrawal
 			const gross =
 				options.interestType === 'simple'
 					? balance + simpleInterestPool
@@ -109,7 +132,6 @@ function simulateInvestmentMonths(options: {
 			yearWithdrawals += withdrawal
 			totalWithdrawals += withdrawal
 			if (options.interestType === 'simple') {
-				// Withdraw from cash balance first, then accrued simple interest
 				let remaining = withdrawal
 				const fromBalance = Math.min(balance, remaining)
 				balance -= fromBalance
@@ -124,7 +146,6 @@ function simulateInvestmentMonths(options: {
 			options.interestType === 'simple'
 				? round2(balance + simpleInterestPool)
 				: round2(balance)
-		// Profit includes withdrawn cash that left the account during the year
 		const returnEarned = round2(
 			endingValue - startingValue - yearContributions + yearWithdrawals,
 		)
@@ -142,7 +163,8 @@ function simulateInvestmentMonths(options: {
 			? balance + simpleInterestPool
 			: balance
 	const totalContributions =
-		options.initialInvestment + options.monthlyContribution * months
+		options.initialInvestment +
+		options.contributionAmount * options.contributionsPerYear * options.years
 
 	return {
 		finalValue: round2(finalValue),
@@ -202,94 +224,34 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 	const contributionsPerYear = getContributionsPerYear(
 		contributionFrequencyStr as string,
 	)
-	const monthlyContribution =
-		contributionsPerYear === 12
-			? periodicContribution
-			: periodicContribution / 12
+	const compoundingFrequency = getCompoundingFrequency(
+		compoundingFrequencyStr,
+	)
 
-	const useMonthlySimulation =
-		interestType === 'simple' ||
-		monthlyWithdrawal > 0 ||
-		contributionsPerYear !== 12
+	// Always simulate — never overwrite a closed-form with a monthly-only path
+	const simulated = simulateInvestmentProjection({
+		initialInvestment,
+		contributionAmount: periodicContribution,
+		contributionsPerYear,
+		compoundingFrequency:
+			interestType === 'simple' ? 12 : compoundingFrequency,
+		annualRatePercent: expectedAnnualReturn,
+		years: investmentPeriod,
+		interestType,
+		monthlyWithdrawal,
+	})
 
-	let finalValue = 0
-	let totalContributions = 0
-	let totalWithdrawals = 0
-	let yearlyBreakdown: YearBreakdown[] = []
+	const finalValue = simulated.finalValue
+	const totalContributions = simulated.totalContributions
+	const totalWithdrawals = simulated.totalWithdrawals
+	const yearlyBreakdown = simulated.yearlyBreakdown
 
-	if (useMonthlySimulation) {
-		const simulated = simulateInvestmentMonths({
-			initialInvestment,
-			monthlyContribution,
-			annualRatePercent: expectedAnnualReturn,
-			years: investmentPeriod,
-			interestType,
-			monthlyWithdrawal,
-		})
-		finalValue = simulated.finalValue
-		totalContributions = simulated.totalContributions
-		totalWithdrawals = simulated.totalWithdrawals
-		yearlyBreakdown = simulated.yearlyBreakdown
-	} else {
-		const compoundingFrequency = getCompoundingFrequency(
-			compoundingFrequencyStr,
-		)
-		const annualRate = expectedAnnualReturn / 100
-		const periodicRate = annualRate / compoundingFrequency
-		const totalPeriods = investmentPeriod * compoundingFrequency
-		const totalContributionsCount = investmentPeriod * contributionsPerYear
-
-		let futureValueInitial = 0
-		if (initialInvestment > 0) {
-			futureValueInitial =
-				periodicRate === 0
-					? initialInvestment
-					: initialInvestment * Math.pow(1 + periodicRate, totalPeriods)
-		}
-
-		let futureValueContributions = 0
-		if (periodicContribution > 0) {
-			const contributionPerPeriod =
-				periodicContribution *
-				(contributionsPerYear / compoundingFrequency)
-			if (periodicRate === 0) {
-				futureValueContributions = contributionPerPeriod * totalPeriods
-			} else {
-				const rateFactor = Math.pow(1 + periodicRate, totalPeriods)
-				futureValueContributions =
-					contributionPerPeriod * ((rateFactor - 1) / periodicRate)
-			}
-		}
-
-		// Closed-form ordinary annuity (same convention as the month loop).
-		// Assigned then overwritten by simulation so the year table and
-		// headline finalValue share one source of truth.
-		finalValue = round2(futureValueInitial + futureValueContributions)
-		totalContributions =
-			initialInvestment + periodicContribution * totalContributionsCount
-
-		const simulated = simulateInvestmentMonths({
-			initialInvestment,
-			monthlyContribution,
-			annualRatePercent: expectedAnnualReturn,
-			years: investmentPeriod,
-			interestType: 'compound',
-			monthlyWithdrawal: 0,
-		})
-		yearlyBreakdown = simulated.yearlyBreakdown
-		finalValue = simulated.finalValue
-		totalContributions = simulated.totalContributions
-		totalWithdrawals = simulated.totalWithdrawals
-	}
-
-	// Economic profit = ending balance + cash withdrawn − net contributions
 	const totalReturn = round2(finalValue + totalWithdrawals - totalContributions)
 	const returnPercentage =
 		totalContributions > 0
 			? round2((totalReturn / totalContributions) * 100)
 			: 0
 
-	// When inflation is 0, real value equals nominal final value (never null)
 	let inflationAdjustedValue = finalValue
 	if (inflationRate > 0) {
 		const inflationFactor = Math.pow(
@@ -300,17 +262,15 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 	}
 
 	const taxableGain = Math.max(0, totalReturn)
-	// Tax is paid on economic gain; after-tax wealth = end balance − tax
 	const afterTaxValue = round2(finalValue - (taxableGain * taxRate) / 100)
 
+	// Currency-agnostic machine summary (UI localizes presentation)
 	const steps = [
 		`Final value: ${finalValue}`,
 		`Total contributions: ${round2(totalContributions)}`,
 		`Profit: ${totalReturn}`,
 		`After tax (${taxRate}%): ${afterTaxValue}`,
 	].join('; ')
-
-	const formulaExplanation = steps
 
 	return {
 		finalValue,
@@ -319,7 +279,7 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 		returnPercentage,
 		inflationAdjustedValue,
 		yearlyBreakdown,
-		formulaExplanation,
+		formulaExplanation: steps,
 		totalProfit: totalReturn,
 		profitPercentage: returnPercentage,
 		realValue: inflationAdjustedValue,
