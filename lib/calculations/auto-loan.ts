@@ -1,31 +1,40 @@
 /**
- * Calculate auto loan payment with comprehensive breakdown
- * Inputs: vehiclePrice, downPayment, tradeInValue, salesTaxRate, annualInterestRate, loanTerm, fees
- * Outputs: loanAmount, monthlyPayment, totalPayment, totalInterest, overpayment, formulaExplanation
+ * Auto loan payment with annuity or differentiated schedules.
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+import {
+	MAX_SIMULATION_MONTHS,
+	assertBoundedIterations,
+} from '@/lib/calculations/computation-bounds'
+import {
+	calculateAnnuitySchedule,
+	calculateDifferentiatedPayment,
+} from '@/lib/calculations/payment-types'
 
-/**
- * Calculate auto loan payment with comprehensive breakdown
- */
+function round2(value: number): number {
+	return Math.round(value * 100) / 100
+}
+
 export const calculateAutoLoan: CalculationFunction = (inputs) => {
-	// Support both old and new input names for backward compatibility
 	const vehiclePrice = Number(inputs.vehiclePrice || inputs.carPrice || 0)
 	const downPayment = Number(inputs.downPayment || 0)
 	const tradeInValue = Number(inputs.tradeInValue || 0)
 	const salesTaxRate = Number(inputs.salesTaxRate || inputs.salesTax || 0)
-	const annualInterestRate = Number(inputs.annualInterestRate || inputs.interestRate || 0)
-	const loanTerm = Math.floor(Number(inputs.loanTerm || 1)) // Must be integer >= 1
+	const annualInterestRate = Number(
+		inputs.annualInterestRate || inputs.interestRate || 0,
+	)
+	const loanTerm = Math.floor(Number(inputs.loanTerm || 1))
 	const fees = Number(inputs.fees || 0)
-	// Also support individual fee components for backward compatibility
 	const registrationFees = Number(inputs.registrationFees || 0)
 	const extendedWarranty = Number(inputs.extendedWarranty || 0)
 	const gapInsurance = Number(inputs.gapInsurance || 0)
-	const totalFees = fees > 0 ? fees : (registrationFees + extendedWarranty + gapInsurance)
+	const totalFees =
+		fees > 0 ? fees : registrationFees + extendedWarranty + gapInsurance
+	const paymentType = String(inputs.paymentType || 'annuity').toLowerCase()
 
-	// Validation
 	if (
 		isNaN(vehiclePrice) ||
 		isNaN(downPayment) ||
@@ -37,31 +46,18 @@ export const calculateAutoLoan: CalculationFunction = (inputs) => {
 		downPayment < 0 ||
 		tradeInValue < 0 ||
 		salesTaxRate < 0 ||
-		annualInterestRate <= 0 ||
+		annualInterestRate < 0 ||
+		annualInterestRate > 100 ||
 		loanTerm < 1 ||
 		loanTerm > 10 ||
 		downPayment + tradeInValue > vehiclePrice
 	) {
-		return {
-			loanAmount: null,
-			monthlyPayment: null,
-			totalPayment: null,
-			totalInterest: null,
-			overpayment: null,
-			formulaExplanation: null,
-		}
+		throw new CalculationDomainError('Auto loan inputs are out of valid range')
 	}
 
-	// Calculate taxable amount (vehicle price - trade-in, as trade-in is typically not taxed)
 	const taxableAmount = vehiclePrice - tradeInValue
-	
-	// Calculate sales tax
 	const salesTaxAmount = (taxableAmount * salesTaxRate) / 100
-	
-	// Calculate total vehicle cost (price + tax + fees)
 	const totalVehicleCost = vehiclePrice + salesTaxAmount + totalFees
-	
-	// Calculate loan amount (total cost - down payment - trade-in)
 	const loanAmount = totalVehicleCost - downPayment - tradeInValue
 
 	if (loanAmount <= 0) {
@@ -71,60 +67,61 @@ export const calculateAutoLoan: CalculationFunction = (inputs) => {
 			totalPayment: 0,
 			totalInterest: 0,
 			overpayment: 0,
-			formulaExplanation: null,
+			totalCostOfVehicle: downPayment + tradeInValue,
+			totalCost: downPayment + tradeInValue,
+			totalFees: round2(totalFees),
+			formulaExplanation: 'No financing required.',
+			steps: 'No loan balance.',
 		}
 	}
 
-	// Convert annual rate to monthly rate
-	const monthlyRate = annualInterestRate / 100 / 12
+	const numberOfPayments = assertBoundedIterations(
+		loanTerm * 12,
+		MAX_SIMULATION_MONTHS,
+		'Auto loan payments',
+	)
 
-	// Number of monthly payments
-	const numberOfPayments = loanTerm * 12
+	let monthlyPayment = 0
+	let totalPayment = 0
+	let totalInterest = 0
 
-	// Calculate monthly payment using standard loan formula
-	// M = P * [r(1+r)^n] / [(1+r)^n - 1]
-	let monthlyPayment: number
-
-	if (monthlyRate === 0) {
-		// If interest rate is 0, payment is simply loan amount divided by months
-		monthlyPayment = loanAmount / numberOfPayments
+	if (paymentType === 'differentiated') {
+		const diff = calculateDifferentiatedPayment(
+			loanAmount,
+			annualInterestRate,
+			numberOfPayments,
+			12,
+		)
+		monthlyPayment = diff.firstPayment
+		totalPayment = diff.totalPayment
+		totalInterest = diff.totalInterest
 	} else {
-		const rateFactor = Math.pow(1 + monthlyRate, numberOfPayments)
-		monthlyPayment = (loanAmount * monthlyRate * rateFactor) / (rateFactor - 1)
+		const annuity = calculateAnnuitySchedule(
+			loanAmount,
+			annualInterestRate,
+			numberOfPayments,
+			12,
+		)
+		monthlyPayment = annuity.periodicPayment
+		totalPayment = annuity.totalPayment
+		totalInterest = annuity.totalInterest
 	}
 
-	// Round to 2 decimal places
-	monthlyPayment = Math.round(monthlyPayment * 100) / 100
-
-	// Calculate total payment and interest
-	const totalPayment = monthlyPayment * numberOfPayments
-	const totalInterest = totalPayment - loanAmount
-	const overpayment = totalInterest // Overpayment is the total interest paid
-
-	// Calculate total cost of vehicle (what you actually pay)
+	const overpayment = totalInterest
 	const totalCostOfVehicle = downPayment + tradeInValue + totalPayment
-
-	// Build formula explanation
-	let formulaExplanation = ''
-	
-	formulaExplanation = `Auto Loan Payment Calculation:\n\n1. Calculate Vehicle Cost Breakdown:\n   Vehicle Price: $${vehiclePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   ${tradeInValue > 0 ? `Trade-in Value: -$${tradeInValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Taxable Amount: $${taxableAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   ` : ''}Sales Tax (${salesTaxRate}%): +$${salesTaxAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   ${totalFees > 0 ? `Fees: +$${totalFees.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   ` : ''}Total Vehicle Cost: $${totalVehicleCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Calculate Loan Amount:\n   Loan Amount = Total Vehicle Cost - Down Payment - Trade-in\n   Loan Amount = $${totalVehicleCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${downPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}${tradeInValue > 0 ? ` - $${tradeInValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}\n   Loan Amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Calculate Monthly Payment (Annuity Formula):\n   P = L × [r(1+r)^n] / [(1+r)^n - 1]\n\n   Where:\n   - P = Monthly payment\n   - L = Loan amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Monthly interest rate = Annual rate / 12 = ${annualInterestRate}% / 12 = ${(monthlyRate * 100).toFixed(6)}%\n   - n = Number of payments = ${loanTerm} years × 12 = ${numberOfPayments}\n\n   Substituting:\n   (1 + r)^n = (1 + ${monthlyRate.toFixed(6)})^${numberOfPayments} = ${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)}\n\n   P = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [${(monthlyRate * 100).toFixed(6)}% × ${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)}] / [${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)} - 1]\n   P = $${monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n4. Total Costs:\n   Total Payment (loan + interest): $${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Interest Paid: $${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Cost of Vehicle: $${totalCostOfVehicle.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\nYour monthly payment includes both principal and interest. The interest portion is higher at the beginning of the loan and decreases over time as you pay down the principal. The APR (Annual Percentage Rate) directly affects your monthly payment - a higher APR means higher payments and more total interest paid over the life of the loan.`
-
-	const roundedLoanAmount = Math.round(loanAmount * 100) / 100
-	const roundedTotalPayment = Math.round(totalPayment * 100) / 100
-	const roundedTotalInterest = Math.round(totalInterest * 100) / 100
-	const roundedTotalCost = Math.round(totalCostOfVehicle * 100) / 100
+	const steps = `Loan ${round2(loanAmount)}; payment ${round2(monthlyPayment)} (${paymentType})`
 
 	return {
-		loanAmount: roundedLoanAmount,
-		monthlyPayment,
-		totalPayment: roundedTotalPayment,
-		totalInterest: roundedTotalInterest,
-		overpayment: Math.round(overpayment * 100) / 100,
-		totalCostOfVehicle: roundedTotalCost,
-		// Aliases for JSON schema output names
-		totalCost: roundedTotalCost,
-		totalFees: Math.round(totalFees * 100) / 100,
-		formulaExplanation,
+		loanAmount: round2(loanAmount),
+		monthlyPayment: round2(monthlyPayment),
+		totalPayment: round2(totalPayment),
+		totalInterest: round2(totalInterest),
+		overpayment: round2(overpayment),
+		totalCostOfVehicle: round2(totalCostOfVehicle),
+		totalCost: round2(totalCostOfVehicle),
+		totalFees: round2(totalFees),
+		formulaExplanation: steps,
+		steps,
 	}
 }
 
