@@ -13,7 +13,7 @@ Repository: `alex1c/first-calc`
 | Starting tip | `905a7447926811e69e66224608371212d7d9a012` |
 | Fix commit | `5858ec403c243065cab6a5f5a0598785ab948335` |
 
-Verify tip: `git rev-parse HEAD` в‰Ў `git ls-remote origin refs/heads/fix/ru-catalog-seo-recovery`. Working tree clean.
+Verify tip with `git rev-parse HEAD` and `git ls-remote origin refs/heads/fix/ru-catalog-seo-recovery` (must match; working tree clean).
 
 ---
 
@@ -27,54 +27,54 @@ Input `r` is a **nominal annual rate**. The month share is always `r/12`, applie
 ### Accrual vs capitalization
 | Step | Rule |
 |---|---|
-| Accrual | Each calendar month: `accrued += principal Г— (r/12)` |
+| Accrual | Each calendar month: `accrued += principal * (r/12)` |
 | Capitalization | Only on compounding-boundary months: `principal += accrued; accrued = 0` |
 | Uncapitalized interest | Does **not** earn further interest until capitalized |
 
 Compounding boundaries:
-- Monthly в†’ every month  
-- Quarterly в†’ months 3, 6, 9, 12  
-- Annually в†’ month 12  
+- Monthly → every month
+- Quarterly → months 3, 6, 9, 12
+- Annually → month 12
 
 This is **not** a hidden switch to monthly compounding when the user selects annual: under annual mode, accrued interest sits idle until December.
 
 ### Contributions
 Ordinary / end-of-month order within each month:
 
-1. Accrue on current principal  
-2. Capitalize if boundary month  
-3. Add contribution  
+1. Accrue on current principal
+2. Capitalize if boundary month
+3. Add contribution
 4. Apply optional monthly withdrawal (principal first, then accrued)
 
-A deposit therefore earns starting the **next** month вЂ” never for time before it arrived.
+A deposit therefore earns starting the **next** month — never for time before it arrived.
 
-### Why not вЂњГ—(1+r) once on year-end balanceвЂќ?
-That credited full-year interest to mid-year deposits в†’ **1332** for 12Г—100 @ 12% annual. Rejected.
+### Why not multiply by `(1+r)` once on year-end balance?
+That credited full-year interest to mid-year deposits → **1332** for 12×100 @ 12% annual. Rejected.
 
 ### Why not `(1+r)^(t)` per deposit (1264.65)?
-That embeds continuous intra-year compounding. We chose linear month-shares of the **nominal** rate with discrete capitalization dates вЂ” consistent with вЂњannual capitalizationвЂќ without inventing continuous compounding.
+That embeds continuous intra-year compounding. We chose linear month-shares of the **nominal** rate with discrete capitalization dates — consistent with annual capitalization without inventing continuous compounding.
 
 ### Withdrawals / tax
 Public TS schemas omit withdrawal/tax fields; engine still supports them for advanced/API use with the same month order. Tax applied after the cash-flow projection on economic gain.
 
 ### Table vs headline
-`yearlyBreakdown` and `finalValue` / `finalSavings` are produced by the **same** simulation. Last row ending balance в‰Ў headline.
+`yearlyBreakdown` and `finalValue` / `finalSavings` are produced by the **same** simulation. Last row ending balance equals headline.
 
 ---
 
 ## 2. Independent controls
 
-### No contributions вЂ” preserved
+### No contributions — preserved
 | Compounding | Result |
 |---|---:|
-| Annual | **11200.00** = 10000Г—(1.12) |
-| Quarterly | **11255.09** = 10000Г—(1.03)вЃґ |
-| Monthly | **11268.25** = 10000Г—(1.01)В№ВІ |
+| Annual | **11200.00** = 10000×(1.12) |
+| Quarterly | **11255.09** = 10000×(1.03)^4 |
+| Monthly | **11268.25** = 10000×(1.01)^12 |
 
 ### Mixed: 0 start, 100/mo, 12%, annual compound, 1 year
 Independent sum of month-shares on growing principal after each prior deposit:
 
-`interest = ОЈ_{k=0}^{11} 100 Г— (0.12/12) Г— k = 66`  
+`interest = sum_{k=0}^{11} 100 * (0.12/12) * k = 66`  
 `final = 1200 + 66 = **1266.00**`
 
 | | Value |
@@ -86,10 +86,10 @@ Independent sum of month-shares on growing principal after each prior deposit:
 ### Other mixes (independent simulator in tests)
 | Scenario | Result |
 |---|---:|
-| Monthly compound + 1200 yearly Г— 2y from 10000 | **15249.54** |
-| Annual compound + 1200 yearly Г— 2y from 10000 | **15088.00** |
-| Monthly 10k+500/mo @5% Г—10y | **94111.23** (preserved) |
-| Zero rate, 1000 + 100/mo Г—1y | **2200.00** |
+| Monthly compound + 1200 yearly × 2y from 10000 | **15249.54** |
+| Annual compound + 1200 yearly × 2y from 10000 | **15088.00** |
+| Monthly 10k+500/mo @5% ×10y | **94111.23** (preserved) |
+| Zero rate, 1000 + 100/mo ×1y | **2200.00** |
 
 Investment and savings match on identical inputs.
 
@@ -97,8 +97,8 @@ Investment and savings match on identical inputs.
 
 ## 3. RU polish
 
-- `formatMoney` / currency formatting: ignore bare `в‚Ѕ`/`$` unitLabels; use Intl locale currency в†’ `1 266,00 в‚Ѕ`, `94 111,23 в‚Ѕ`.
-- `formatYearsCount`: `1 РіРѕРґ` / `2 РіРѕРґР°` / `5 Р»РµС‚` / `30 Р»РµС‚`.
+- `formatMoney` / currency formatting: ignore bare `₽`/`$` unitLabels; use Intl locale currency → `1 266,00 ₽`, `94 111,23 ₽`.
+- `formatYearsCount`: `1 год` / `2 года` / `5 лет` / `30 лет`.
 - Loan/mortgage comparison term columns use declined years; months localized.
 - Restored RU `results.explanations.finance.modelNote` describing the actual accrual model (not merely hiding EN prose).
 - Investment schema `expectedAnnualReturn` min **0** (0% what-if allowed).
@@ -114,7 +114,7 @@ EN chrome and USD currency style preserved.
 | `tests/unit/finance-model-mixed-frequency.test.ts` | PASS (independent expectations) |
 | R1/R3/interest-only + prior R4 monthly | PASS via high-blockers / final-audit |
 | Full unit/integration | **218/218 PASS** |
-| API mixed в†’ 1266; annual 11200; 0% в†’ 10000 | PASS |
+| API mixed → 1266; annual 11200; 0% → 10000 | PASS |
 | Chromium `verify-finance-model-browser.mjs` | ok true |
 | Playwright e2e | **31/31 PASS** |
 | lint / tsc / i18n / production build | exit 0 |
