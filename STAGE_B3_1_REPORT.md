@@ -2,7 +2,7 @@
 
 **Branch:** `fix/ru-catalog-seo-recovery`  
 **Base (pre–B3.1 tip):** `9d39845bc6327f3da418a78c478a83db2e4a4dd6`  
-**Final tip SHA:** `52373f966b40519ab7599ae73ec29cab875ad20d`  
+**Final tip SHA:** `734f9a09347f2f3b32e77a0db53fd904d7ad8b7c` (verification; docs tip follows)  
 **Status:** `READY FOR CODEX B3.1 AUDIT`  
 **Out of scope (not done):** Stage B3.2, deploy, merge, mass i18n/SEO/redesign
 
