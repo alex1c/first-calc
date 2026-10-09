@@ -254,7 +254,8 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 
 	const totalInterestEarned = round2(finalSavings - totalContributions)
 
-	let inflationAdjustedSavings: number | null = null
+	// When inflation is 0, real value equals nominal savings (never null)
+	let inflationAdjustedSavings = finalSavings
 	if (inflationRate > 0) {
 		const inflationFactor = Math.pow(1 + inflationRate / 100, savingsPeriod)
 		inflationAdjustedSavings = round2(finalSavings / inflationFactor)
@@ -292,7 +293,7 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 	const growthPercentage =
 		totalContributions > 0
 			? round2((totalInterestEarned / totalContributions) * 100)
-			: null
+			: 0
 
 	const steps = [
 		`Final savings: ${finalSavings}`,

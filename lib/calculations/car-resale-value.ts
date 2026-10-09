@@ -8,6 +8,11 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+import {
+	MAX_OWNERSHIP_YEARS,
+	assertBoundedIterations,
+} from '@/lib/calculations/computation-bounds'
 
 /**
  * Estimate car resale value after a number of years
@@ -15,7 +20,7 @@ import type { CalculationFunction } from '@/lib/calculations/registry'
 export const calculateCarResaleValue: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const currentCarValue = Number(inputs.currentCarValue || inputs.purchasePrice || 0)
-	const yearsUntilSale = Math.floor(Number(inputs.yearsUntilSale || 1))
+	const yearsUntilSaleRaw = Number(inputs.yearsUntilSale || 1)
 	const condition = String(inputs.condition || 'good').toLowerCase()
 	const annualMileage = Number(inputs.annualMileage || 0)
 	const baselineDepreciationRate = Number(inputs.baselineDepreciationRate || 0)
@@ -24,23 +29,28 @@ export const calculateCarResaleValue: CalculationFunction = (inputs) => {
 	const mileageBaselinePerYear = Number(inputs.mileageBaselinePerYear || 12000)
 	const mileagePenaltyPerExtraUnit = Number(inputs.mileagePenaltyPerExtraUnit || 0.01)
 
+	// Hard cap independent of form validation — prevents unbounded yearByYearTable allocation
+	const yearsUntilSale = assertBoundedIterations(
+		yearsUntilSaleRaw,
+		MAX_OWNERSHIP_YEARS,
+		'Years until sale',
+	)
+
 	// Set default depreciation rate if not provided
 	let effectiveDepreciationRate = baselineDepreciationRate
 	if (effectiveDepreciationRate === 0) {
 		effectiveDepreciationRate = purchaseType === 'new' ? 18 : 12
 	}
 
-	// Validation
+	// Validation — throw domain errors instead of null bags (API must not return 200/null)
 	if (
 		isNaN(currentCarValue) ||
-		isNaN(yearsUntilSale) ||
 		isNaN(annualMileage) ||
 		isNaN(effectiveDepreciationRate) ||
 		isNaN(mileageBaselinePerYear) ||
 		isNaN(mileagePenaltyPerExtraUnit) ||
 		currentCarValue <= 0 ||
 		yearsUntilSale < 1 ||
-		yearsUntilSale > 15 ||
 		annualMileage < 0 ||
 		effectiveDepreciationRate < 0 ||
 		effectiveDepreciationRate > 40 ||
@@ -49,13 +59,9 @@ export const calculateCarResaleValue: CalculationFunction = (inputs) => {
 		!['excellent', 'good', 'fair', 'poor'].includes(condition) ||
 		!['new', 'used'].includes(purchaseType)
 	) {
-		return {
-			estimatedResaleValue: null,
-			valueLossAmount: null,
-			valueLossPercent: null,
-			yearByYearTable: null,
-			insights: null,
-		}
+		throw new CalculationDomainError(
+			'Invalid car resale inputs: check value, years, rates, and condition',
+		)
 	}
 
 	// Calculate base resale value using compound depreciation

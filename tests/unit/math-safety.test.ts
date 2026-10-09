@@ -155,7 +155,7 @@ describe('POST calculate API — no false numeric success', () => {
 		expect(String(data.error || '')).toMatch(/base/i)
 	})
 
-	it('returns 400 for empty required fields instead of inventing defaults', async () => {
+	it('applies schema defaultValues server-side when inputs are omitted', async () => {
 		const request = new Request(
 			'http://localhost:3000/api/calculators/area-rectangle/calculate?locale=en',
 			{
@@ -168,13 +168,9 @@ describe('POST calculate API — no false numeric success', () => {
 			},
 		)
 		const response = await POST(request, { params: { id: 'area-rectangle' } })
-		// Empty optional mins may pass schema validation if fields are not required;
-		// ensure we never return a fabricated non-zero area from missing inputs.
 		const data = await response.json()
-		if (response.status === 200) {
-			expect(data.results.result).toBe(0)
-		} else {
-			expect(response.status).toBeGreaterThanOrEqual(400)
-		}
+		// B3.1: server merges defaultValue (length=4, width=3) before calculate
+		expect(response.status).toBe(200)
+		expect(data.results.result).toBe(12)
 	})
 })

@@ -1,5 +1,10 @@
 import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+import {
+	MAX_HORIZON_YEARS,
+	assertBoundedIterations,
+} from '@/lib/calculations/computation-bounds'
 
 /**
  * Step interface for loan payment calculation
@@ -36,27 +41,28 @@ function getPaymentsPerYear(frequency: string | number | boolean): number {
 export const calculateLoanPayment: CalculationFunction = (inputs) => {
 	const loanAmount = Number(inputs.loanAmount || inputs.principal || 0)
 	const annualInterestRate = Number(inputs.annualInterestRate || inputs.annualRate || 0)
-	const loanTerm = Math.floor(Number(inputs.loanTerm || inputs.years || 0)) // Must be integer >= 1
+	const loanTermRaw = Number(inputs.loanTerm || inputs.years || 0)
 	const paymentFrequencyStr = inputs.paymentFrequency || 'monthly'
 	const loanType = String(inputs.loanType || 'annuity').toLowerCase()
 
-	// Validation
+	// Hard cap independent of form validation
+	const loanTerm = assertBoundedIterations(
+		loanTermRaw,
+		MAX_HORIZON_YEARS,
+		'Loan term',
+	)
+
+	// Validation — throw instead of null bags (API must not return 200/null)
 	if (
 		isNaN(loanAmount) ||
 		isNaN(annualInterestRate) ||
-		isNaN(loanTerm) ||
 		loanAmount <= 0 ||
 		annualInterestRate <= 0 ||
-		loanTerm < 1 ||
-		loanTerm > 50
+		loanTerm < 1
 	) {
-		return {
-			periodicPayment: null,
-			totalPayment: null,
-			totalInterest: null,
-			overpayment: null,
-			formulaExplanation: null,
-		}
+		throw new CalculationDomainError(
+			'Invalid loan payment inputs: check amount, rate, and term',
+		)
 	}
 
 	const paymentsPerYear = getPaymentsPerYear(paymentFrequencyStr)

@@ -3,6 +3,8 @@
  * Form validation is not trusted — every engine must enforce these limits itself.
  */
 
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+
 /** Maximum years for year-by-year depreciation / ownership tables */
 export const MAX_OWNERSHIP_YEARS = 50
 
@@ -15,6 +17,9 @@ export const MAX_SCHEDULE_ROWS = 360
 /** Maximum inner simulation months (extra-payment loops, etc.) */
 export const MAX_SIMULATION_MONTHS = 1200
 
+/** Maximum random numbers generated in one request */
+export const MAX_RANDOM_QUANTITY = 10_000
+
 /**
  * Clamp a requested period count and throw if it exceeds the hard ceiling.
  * Prefer throwing over silently truncating when the input is clearly hostile.
@@ -25,11 +30,13 @@ export function assertBoundedIterations(
 	label: string,
 ): number {
 	if (!Number.isFinite(count) || count < 0) {
-		throw new Error(`${label} must be a non-negative finite number`)
+		throw new CalculationDomainError(
+			`${label} must be a non-negative finite number`,
+		)
 	}
 	const rounded = Math.floor(count)
 	if (rounded > max) {
-		throw new Error(
+		throw new CalculationDomainError(
 			`${label} exceeds the maximum allowed value of ${max}`,
 		)
 	}

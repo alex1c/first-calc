@@ -7,6 +7,11 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+import {
+	MAX_OWNERSHIP_YEARS,
+	assertBoundedIterations,
+} from '@/lib/calculations/computation-bounds'
 
 /**
  * Calculate car depreciation and resale value over time
@@ -15,7 +20,7 @@ export const calculateCarDepreciation: CalculationFunction = (inputs) => {
 	// Extract and parse inputs
 	const purchasePrice = Number(inputs.purchasePrice || 0)
 	const purchaseType = String(inputs.purchaseType || 'new').toLowerCase()
-	const yearsOwned = Math.floor(Number(inputs.yearsOwned || 1))
+	const yearsOwnedRaw = Number(inputs.yearsOwned || 1)
 	const depreciationModel = String(inputs.depreciationModel || 'simpleAnnualPercent').toLowerCase()
 	const annualDepreciationRate = Number(inputs.annualDepreciationRate || 0)
 	const firstYearDropRate = Number(inputs.firstYearDropRate || 0)
@@ -25,6 +30,13 @@ export const calculateCarDepreciation: CalculationFunction = (inputs) => {
 		? Number(inputs.fixedResaleValue)
 		: null
 
+	// Hard cap independent of form validation — prevents unbounded yearByYearTable allocation
+	const yearsOwned = assertBoundedIterations(
+		yearsOwnedRaw,
+		MAX_OWNERSHIP_YEARS,
+		'Years owned',
+	)
+
 	// Set default first year drop rate if not provided
 	let effectiveFirstYearDrop = firstYearDropRate
 	if (effectiveFirstYearDrop === 0 && purchaseType === 'new') {
@@ -33,10 +45,9 @@ export const calculateCarDepreciation: CalculationFunction = (inputs) => {
 		effectiveFirstYearDrop = 10 // Default 10% for used cars
 	}
 
-	// Validation
+	// Validation — throw domain errors instead of null bags (API must not return 200/null)
 	if (
 		isNaN(purchasePrice) ||
-		isNaN(yearsOwned) ||
 		isNaN(annualDepreciationRate) ||
 		isNaN(effectiveFirstYearDrop) ||
 		isNaN(mileagePerYear) ||
@@ -49,14 +60,9 @@ export const calculateCarDepreciation: CalculationFunction = (inputs) => {
 		!['simpleannualpercent', 'firstyeardropplusannual', 'fixedresalevalue'].includes(depreciationModel) ||
 		(fixedResaleValue !== null && (isNaN(fixedResaleValue) || fixedResaleValue < 0 || fixedResaleValue > purchasePrice))
 	) {
-		return {
-			estimatedResaleValue: null,
-			totalDepreciationAmount: null,
-			depreciationPerYearAvg: null,
-			depreciationPercentTotal: null,
-			yearByYearTable: null,
-			insights: null,
-		}
+		throw new CalculationDomainError(
+			'Invalid car depreciation inputs: check price, years, rates, and model',
+		)
 	}
 
 	let estimatedResaleValue: number

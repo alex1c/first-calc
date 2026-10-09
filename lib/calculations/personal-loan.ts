@@ -153,8 +153,9 @@ export const calculatePersonalLoan: CalculationFunction = (inputs) => {
 		totalPayment: round2(totalPayment),
 		totalInterest: round2(totalInterest),
 		overpayment: round2(overpayment),
-		effectiveAPR: feeAmount > 0 ? round2(effectiveAPR) : null,
-		apr: feeAmount > 0 ? round2(effectiveAPR) : null,
+		// Without fees, effective APR equals the stated annual rate
+		effectiveAPR: round2(effectiveAPR),
+		apr: round2(effectiveAPR),
 		totalFees: round2(feeAmount),
 		formulaExplanation: steps,
 		steps,

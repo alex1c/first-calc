@@ -20,6 +20,8 @@
 		},
 		{
 			"name": "yearsUntilSale",
+			"min": 1,
+			"max": 50,
 			"type": "number",
 			"step": 1,
 			"defaultValue": 3

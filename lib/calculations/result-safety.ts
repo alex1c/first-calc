@@ -4,6 +4,8 @@
  * successful empty result over HTTP 200 — reject those before responding.
  */
 
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+
 /**
  * Walk arrays and plain objects; throw if any numeric leaf is not finite.
  */
@@ -13,7 +15,7 @@ export function assertFiniteResults(
 ): void {
 	if (typeof value === 'number') {
 		if (!Number.isFinite(value)) {
-			throw new Error(
+			throw new CalculationDomainError(
 				`Calculation produced a non-finite number at ${path}`,
 			)
 		}

@@ -1585,9 +1585,12 @@ export const calculators: CalculatorDefinition[] = [
 				type: 'number',
 				unitLabel: '$',
 				placeholder: 'Enter loan amount',
+				// step must align with min 0.01 to avoid HTML5 stepMismatch
+				step: 0.01,
 				validation: {
 					required: true,
 					min: 0.01,
+					max: 100_000_000,
 					message: 'Loan amount must be greater than 0',
 				},
 			},
@@ -1597,6 +1600,7 @@ export const calculators: CalculatorDefinition[] = [
 				type: 'number',
 				unitLabel: '%',
 				placeholder: 'Enter annual interest rate',
+				step: 0.01,
 				validation: {
 					required: true,
 					min: 0.01,
@@ -1610,6 +1614,7 @@ export const calculators: CalculatorDefinition[] = [
 				type: 'number',
 				unitLabel: 'years',
 				placeholder: 'Enter loan term in years',
+				step: 1,
 				validation: {
 					required: true,
 					min: 1,
@@ -5609,9 +5614,12 @@ export const calculators: CalculatorDefinition[] = [
 				type: 'number',
 				unitLabel: '₽',
 				placeholder: 'Введите сумму кредита',
+				// step must align with min 0.01 to avoid HTML5 stepMismatch
+				step: 0.01,
 				validation: {
 					required: true,
 					min: 0.01,
+					max: 100_000_000,
 					message: 'Сумма кредита должна быть больше 0',
 				},
 			},
@@ -5621,6 +5629,7 @@ export const calculators: CalculatorDefinition[] = [
 				type: 'number',
 				unitLabel: '%',
 				placeholder: 'Введите годовую процентную ставку',
+				step: 0.01,
 				validation: {
 					required: true,
 					min: 0.01,

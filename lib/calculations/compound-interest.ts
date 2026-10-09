@@ -1,4 +1,9 @@
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+import {
+	MAX_HORIZON_YEARS,
+	assertBoundedIterations,
+} from '@/lib/calculations/computation-bounds'
 
 /**
  * Step interface for compound interest calculation
@@ -48,31 +53,31 @@ export const calculateCompoundInterest: CalculationFunction = (inputs) => {
 	const initialAmount = Number(inputs.initialAmount || 0)
 	const monthlyContribution = Number(inputs.monthlyContribution || 0)
 	const annualInterestRate = Number(inputs.annualInterestRate)
-	const investmentPeriod = Math.floor(Number(inputs.investmentPeriod)) // Must be integer >= 1
+	const investmentPeriodRaw = Number(inputs.investmentPeriod)
 	const compoundingFrequencyStr = inputs.compoundingFrequency || 'monthly'
 	const compoundingFrequency = getCompoundingFrequency(compoundingFrequencyStr)
 
-	// Validation
+	// Hard cap independent of form validation — bounds yearBreakdown allocation
+	const investmentPeriod = assertBoundedIterations(
+		investmentPeriodRaw,
+		MAX_HORIZON_YEARS,
+		'Investment period',
+	)
+
+	// Validation — throw instead of null bags (API must not return 200/null)
 	if (
 		isNaN(initialAmount) ||
 		isNaN(monthlyContribution) ||
 		isNaN(annualInterestRate) ||
-		isNaN(investmentPeriod) ||
 		initialAmount < 0 ||
 		monthlyContribution < 0 ||
 		annualInterestRate <= 0 ||
 		investmentPeriod < 1 ||
-		investmentPeriod > 50 ||
 		compoundingFrequency <= 0
 	) {
-		return {
-			finalAmount: null,
-			totalContributions: null,
-			totalInterestEarned: null,
-			effectiveAnnualRate: null,
-			yearBreakdown: null,
-			formulaExplanation: null,
-		}
+		throw new CalculationDomainError(
+			'Invalid compound interest inputs: check amounts, rate, and period',
+		)
 	}
 
 	// Convert annual rate to decimal

@@ -259,7 +259,8 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 			? round2((totalReturn / totalContributions) * 100)
 			: 0
 
-	let inflationAdjustedValue: number | null = null
+	// When inflation is 0, real value equals nominal final value (never null)
+	let inflationAdjustedValue = finalValue
 	if (inflationRate > 0) {
 		const inflationFactor = Math.pow(
 			1 + inflationRate / 100,

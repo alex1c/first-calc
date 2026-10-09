@@ -181,7 +181,25 @@ export function CalculatorForm({
 							placeholder={input.placeholder}
 							min={input.validation?.min !== undefined ? input.validation.min : (input.min !== undefined ? input.min : undefined)}
 							max={input.validation?.max !== undefined ? input.validation.max : (input.max !== undefined ? input.max : undefined)}
-							step={input.step === 'any' ? 'any' : (input.step ?? 1)}
+							step={(() => {
+								// Explicit step wins; 'any' disables HTML5 stepMismatch
+								if (input.step === 'any') return 'any'
+								if (input.step !== undefined) return input.step
+								// When min is fractional (e.g. 0.01) and step defaults to 1,
+								// integers like 5 fail (5 - 0.01) / 1 — match min precision
+								const minBound =
+									input.validation?.min !== undefined
+										? input.validation.min
+										: input.min
+								if (
+									typeof minBound === 'number' &&
+									!Number.isInteger(minBound)
+								) {
+									const decimals = String(minBound).split('.')[1]?.length ?? 2
+									return Number(`0.${'0'.repeat(Math.max(0, decimals - 1))}1`)
+								}
+								return 1
+							})()}
 							className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
 								errors[input.name]
 									? 'border-red-500 bg-red-50'

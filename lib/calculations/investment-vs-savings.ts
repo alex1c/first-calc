@@ -4,6 +4,11 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+import {
+	MAX_HORIZON_YEARS,
+	assertBoundedIterations,
+} from '@/lib/calculations/computation-bounds'
 
 /**
  * Calculate savings vs investment comparison
@@ -11,7 +16,7 @@ import type { CalculationFunction } from '@/lib/calculations/registry'
 export const calculateInvestmentVsSavings: CalculationFunction = (inputs) => {
 	const initialAmount = Number(inputs.initialAmount || 0)
 	const monthlyContribution = Number(inputs.monthlyContribution || 0)
-	const timeHorizonYears = Math.floor(Number(inputs.timeHorizonYears || 0))
+	const timeHorizonYearsRaw = Number(inputs.timeHorizonYears || 0)
 	const inflationRate = Number(inputs.inflationRate || 0)
 
 	// Savings strategy inputs
@@ -22,18 +27,23 @@ export const calculateInvestmentVsSavings: CalculationFunction = (inputs) => {
 	const expectedInvestmentReturn = Number(inputs.expectedInvestmentReturn || 0)
 	const investmentCompoundingFrequency = String(inputs.investmentCompoundingFrequency || 'monthly').toLowerCase()
 
-	// Validation
+	// Hard cap independent of form validation
+	const timeHorizonYears = assertBoundedIterations(
+		timeHorizonYearsRaw,
+		MAX_HORIZON_YEARS,
+		'Time horizon years',
+	)
+
+	// Validation — throw instead of null bags (API must not return 200/null)
 	if (
 		isNaN(initialAmount) ||
 		isNaN(monthlyContribution) ||
-		isNaN(timeHorizonYears) ||
 		isNaN(inflationRate) ||
 		isNaN(savingsInterestRate) ||
 		isNaN(expectedInvestmentReturn) ||
 		initialAmount < 0 ||
 		monthlyContribution < 0 ||
 		timeHorizonYears < 1 ||
-		timeHorizonYears > 50 ||
 		inflationRate < 0 ||
 		inflationRate > 20 ||
 		savingsInterestRate < 0 ||
@@ -41,20 +51,9 @@ export const calculateInvestmentVsSavings: CalculationFunction = (inputs) => {
 		expectedInvestmentReturn < 0 ||
 		expectedInvestmentReturn > 50
 	) {
-		return {
-			savingsFinalBalance: null,
-			savingsTotalContributions: null,
-			savingsTotalEarnings: null,
-			savingsInflationAdjustedBalance: null,
-			investmentFinalBalance: null,
-			investmentTotalContributions: null,
-			investmentTotalEarnings: null,
-			investmentInflationAdjustedBalance: null,
-			differenceInFinalBalance: null,
-			percentageAdvantage: null,
-			breakevenYear: null,
-			formulaExplanation: null,
-		}
+		throw new CalculationDomainError(
+			'Invalid investment vs savings inputs: check amounts, rates, and horizon',
+		)
 	}
 
 	// Calculate savings strategy

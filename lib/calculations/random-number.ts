@@ -6,6 +6,11 @@
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+import {
+	MAX_RANDOM_QUANTITY,
+	assertBoundedIterations,
+} from '@/lib/calculations/computation-bounds'
 
 /**
  * Generate random integer between min and max (inclusive)
@@ -24,39 +29,48 @@ export const calculateRandomNumber: CalculationFunction = (inputs) => {
 	const quantityStr = String(inputs.quantity || '1').trim()
 	const allowDuplicates = inputs.allowDuplicates === true || (typeof inputs.allowDuplicates === 'string' && inputs.allowDuplicates.toLowerCase() === 'true') || inputs.allowDuplicates === 'true' || String(inputs.allowDuplicates).toLowerCase() === 'true'
 
-	// Validation
+	// Validation — domain errors map to HTTP 400
 	if (!minValueStr || minValueStr.trim() === '') {
-		throw new Error('Minimum value is required.')
+		throw new CalculationDomainError('Minimum value is required.')
 	}
 
 	if (!maxValueStr || maxValueStr.trim() === '') {
-		throw new Error('Maximum value is required.')
+		throw new CalculationDomainError('Maximum value is required.')
 	}
 
 	const minValue = parseInt(minValueStr, 10)
 	const maxValue = parseInt(maxValueStr, 10)
 
 	if (isNaN(minValue) || isNaN(maxValue) || !Number.isInteger(minValue) || !Number.isInteger(maxValue)) {
-		throw new Error('Minimum and maximum values must be valid integers.')
+		throw new CalculationDomainError('Minimum and maximum values must be valid integers.')
 	}
 
 	if (minValue >= maxValue) {
-		throw new Error('Minimum value must be less than maximum value.')
+		throw new CalculationDomainError('Minimum value must be less than maximum value.')
 	}
 
-	const quantity = parseInt(quantityStr, 10)
-	if (isNaN(quantity) || !Number.isInteger(quantity)) {
-		throw new Error('Quantity must be a valid integer.')
+	const quantityParsed = parseInt(quantityStr, 10)
+	if (isNaN(quantityParsed) || !Number.isInteger(quantityParsed)) {
+		throw new CalculationDomainError('Quantity must be a valid integer.')
 	}
 
-	if (quantity <= 0) {
-		throw new Error('Quantity must be at least 1.')
+	if (quantityParsed <= 0) {
+		throw new CalculationDomainError('Quantity must be at least 1.')
 	}
+
+	// Hard cap independent of form validation — prevents unbounded array allocation
+	const quantity = assertBoundedIterations(
+		quantityParsed,
+		MAX_RANDOM_QUANTITY,
+		'Quantity',
+	)
 
 	// Check if duplicates are possible
 	const rangeSize = maxValue - minValue + 1
 	if (!allowDuplicates && quantity > rangeSize) {
-		throw new Error(`Cannot generate ${quantity} unique numbers from a range of ${rangeSize} numbers. Maximum unique numbers: ${rangeSize}.`)
+		throw new CalculationDomainError(
+			`Cannot generate ${quantity} unique numbers from a range of ${rangeSize} numbers. Maximum unique numbers: ${rangeSize}.`,
+		)
 	}
 
 	// Generate random numbers
@@ -83,7 +97,9 @@ export const calculateRandomNumber: CalculationFunction = (inputs) => {
 		}
 
 		if (numbers.length < quantity) {
-			throw new Error('Failed to generate enough unique numbers. Try allowing duplicates or reducing quantity.')
+			throw new CalculationDomainError(
+				'Failed to generate enough unique numbers. Try allowing duplicates or reducing quantity.',
+			)
 		}
 
 		// Shuffle the array for better randomness

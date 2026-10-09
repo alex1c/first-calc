@@ -158,15 +158,15 @@ export const calculateLoanOverpayment: CalculationFunction = (inputs) => {
 		totalPayment: round2(totalPayment),
 		regularPayment,
 		monthlyPayment: regularPayment,
-		interestSaved:
-			extraMonthlyPayment > 0 ? interestSaved : null,
+		// Zero extra payment → zero savings (never null for required outputs)
+		interestSaved: extraMonthlyPayment > 0 ? interestSaved : 0,
 		loanDurationReduced:
 			extraMonthlyPayment > 0
 				? round2(loanDurationReduced / paymentsPerYear)
-				: null,
+				: 0,
 		totalInterestWithExtra:
 			extraMonthlyPayment > 0 ? totalInterestWithExtra : round2(totalInterest),
-		timeSaved: extraMonthlyPayment > 0 ? timeSaved : null,
+		timeSaved: extraMonthlyPayment > 0 ? timeSaved : 0,
 		formulaExplanation: steps,
 		steps,
 	}
