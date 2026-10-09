@@ -1,5 +1,7 @@
 /**
- * Smart related links system for legacy tools
+ * Smart related links system for legacy tools.
+ * Dynamic legacy utilities require a concrete number path segment —
+ * bare /factors and /number-format/in landings do not exist.
  */
 
 export interface RelatedTool {
@@ -7,6 +9,10 @@ export interface RelatedTool {
 	href: string
 	description?: string
 }
+
+/** Example paths that resolve to real pages (noindex examples OK for internal nav). */
+export const LEGACY_FACTORS_EXAMPLE = '/factors/12'
+export const LEGACY_NUMBER_FORMAT_IN_EXAMPLE = '/number-format/in/1234567'
 
 /**
  * Get related legacy tools based on tool type
@@ -23,7 +29,7 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 			},
 			{
 				title: 'Indian Number Format',
-				href: '/number-format/in',
+				href: LEGACY_NUMBER_FORMAT_IN_EXAMPLE,
 				description: 'Format numbers in Indian numbering system',
 			},
 			{
@@ -50,7 +56,7 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 			},
 			{
 				title: 'Number Factors',
-				href: '/factors',
+				href: LEGACY_FACTORS_EXAMPLE,
 				description: 'Find all factors of a number',
 			},
 		],
@@ -62,7 +68,7 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 			},
 			{
 				title: 'Number Factors',
-				href: '/factors',
+				href: LEGACY_FACTORS_EXAMPLE,
 				description: 'Find all factors of a number',
 			},
 			{
@@ -98,7 +104,7 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 		factors: [
 			{
 				title: 'Indian Number Format',
-				href: '/number-format/in',
+				href: LEGACY_NUMBER_FORMAT_IN_EXAMPLE,
 				description: 'Format numbers in Indian numbering system',
 			},
 			{
@@ -115,7 +121,7 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 		'number-format-in': [
 			{
 				title: 'Number Factors',
-				href: '/factors',
+				href: LEGACY_FACTORS_EXAMPLE,
 				description: 'Find all factors of a number',
 			},
 			{
@@ -140,12 +146,3 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 
 	return toolMap[type] || []
 }
-
-
-
-
-
-
-
-
-

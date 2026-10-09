@@ -6,6 +6,10 @@ import { locales, type Locale } from '@/lib/i18n'
 import { localePath } from '@/lib/site-url'
 import { loadNamespaces } from '@/lib/i18n/loadNamespaces'
 import { createT } from '@/lib/i18n/t'
+import {
+	calculatorHubContentLocales,
+	categoryContentLocales,
+} from '@/lib/i18n/content-availability'
 
 const calculatorLinks = [
 	{ label: 'Math', href: '/calculators/math' },
@@ -42,6 +46,10 @@ export async function Footer() {
 		? (requestedLocale as Locale)
 		: 'en'
 	const t = createT(await loadNamespaces(locale, ['footer']))
+	// Footer category links must land on hubs that exist for this locale;
+	// incomplete locales (es/tr/hi) fall back to English category URLs.
+	const hubLocales = calculatorHubContentLocales()
+	const footerCalcLocale: Locale = hubLocales.includes(locale) ? locale : 'en'
 
 	return (
 		<footer className="bg-slate-950 text-slate-100 mt-16">
@@ -67,10 +75,17 @@ export async function Footer() {
 							Calculators
 						</p>
 						<ul className="space-y-2 text-sm">
-							{calculatorLinks.map((link) => (
+							{calculatorLinks
+								.filter((link) => {
+									const category = link.href.replace('/calculators/', '')
+									return categoryContentLocales(category).includes(
+										footerCalcLocale,
+									)
+								})
+								.map((link) => (
 								<li key={link.href}>
 									<Link
-									href={localePath(locale, link.href)}
+									href={localePath(footerCalcLocale, link.href)}
 										className="text-slate-300 hover:text-white transition-colors"
 									>
 										{link.label}
@@ -102,7 +117,12 @@ export async function Footer() {
 							{toolLinks.map((link) => (
 								<li key={link.href}>
 									<Link
-									href={localePath(locale, link.href)}
+									href={localePath(
+										link.href.startsWith('/calculators')
+											? footerCalcLocale
+											: locale,
+										link.href,
+									)}
 										className="text-slate-300 hover:text-white transition-colors"
 									>
 										{link.label}

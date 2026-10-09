@@ -148,8 +148,15 @@ export function CalculatorResults({
 		const translated = t(`results.labels.${key}`)
 		return translated === `results.labels.${key}` ? fallback : translated
 	}
-	// Localized finance model note (all locales); English engine prose only as extra on en
+	// End-of-period contribution wording matches Investment/Savings engines only.
+	// Retirement accrues differently; non-finance calculators must not show this note.
 	const financeModelNote = (() => {
+		if (
+			calculator.id !== 'investment-calculator' &&
+			calculator.id !== 'savings-calculator'
+		) {
+			return null
+		}
 		const key = 'results.explanations.finance.modelNote'
 		const translated = t(key)
 		return translated !== key ? translated : null
@@ -2684,10 +2691,12 @@ export function CalculatorResults({
 			const sign = numValue >= 0 ? '+' : ''
 			formattedMainValue = `${sign}${numValue.toFixed(6)}%`
 		} else {
+			// Pass locale so RU currency outputs use ₽ (not default en → USD)
 			formattedMainValue = formatOutputValue(
 				mainValue,
 				mainOutput.formatType,
 				mainOutput.unitLabel,
+				locale,
 			)
 		}
 	}
@@ -4501,6 +4510,7 @@ export function CalculatorResults({
 											value,
 											output.formatType,
 											output.unitLabel,
+											locale,
 										)
 									}
 
@@ -4606,6 +4616,7 @@ export function CalculatorResults({
 							value,
 							output.formatType,
 							output.unitLabel,
+							locale,
 						)
 
 						return (

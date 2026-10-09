@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { calculatorRegistry } from '@/lib/registry/loader'
 import { getCalculatorsByCategoryWithPopularity } from '@/lib/navigation/structure'
@@ -68,7 +68,12 @@ export default async function CalculatorsCategoryPage({
 		locale,
 	), locale)
 
+	// Incomplete locales (es/tr/hi) have empty category hubs — redirect to EN
+	// rather than 404 so language-switcher and old links stay usable.
 	if (calculators.length === 0) {
+		if (locale !== 'en') {
+			permanentRedirect(`/calculators/${category}`)
+		}
 		notFound()
 	}
 

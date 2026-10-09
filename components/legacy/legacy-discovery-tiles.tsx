@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { calculatorRegistry } from '@/lib/registry/loader'
 import type { Locale } from '@/lib/i18n'
+import { hasLocalizedCalculatorContent } from '@/lib/i18n/content-availability'
+import { localePath } from '@/lib/site-url'
 
 const candidateCalculators = [
 	{
@@ -43,29 +45,25 @@ interface DiscoveryItem {
 	url: string
 }
 
-function buildCalculatorUrl(
-	locale: Locale,
-	category: string,
-	slug: string,
-): string {
-	const base = locale === 'en' ? '' : `/${locale}`
-	return `${base}/calculators/${category}/${slug}`
-}
-
 async function loadCalculator(
 	id: string,
 	locale: Locale,
 ): Promise<DiscoveryItem | null> {
-	const calculator =
-		(await calculatorRegistry.getById(id, locale)) ??
-		(locale !== 'en' ? await calculatorRegistry.getById(id, 'en') : null)
-
-	if (!calculator) {
-		return null
-	}
-
 	const candidate = candidateCalculators.find((c) => c.id === id)
 	if (!candidate) return null
+
+	const enCalculator = await calculatorRegistry.getById(id, 'en')
+	if (!enCalculator) return null
+
+	const slug = enCalculator.slug
+	const hasLocaleContent = hasLocalizedCalculatorContent(locale, slug)
+	const calculator = hasLocaleContent
+		? (await calculatorRegistry.getById(id, locale)) || enCalculator
+		: enCalculator
+
+	// Incomplete locales (es/tr/hi) must not get /es/calculators/... that 404 —
+	// point discovery tiles at the English page that actually exists.
+	const linkLocale: Locale = hasLocaleContent ? locale : 'en'
 
 	return {
 		id,
@@ -74,7 +72,10 @@ async function loadCalculator(
 			calculator.shortDescription?.slice(0, 120) ||
 			candidate.fallbackDescription,
 		icon: candidate.icon,
-		url: buildCalculatorUrl(locale, calculator.category, calculator.slug),
+		url: localePath(
+			linkLocale,
+			`/calculators/${calculator.category}/${calculator.slug}`,
+		),
 	}
 }
 
@@ -134,4 +135,3 @@ export async function LegacyDiscoveryTiles({ locale }: { locale: Locale }) {
 		</div>
 	)
 }
-

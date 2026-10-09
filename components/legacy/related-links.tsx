@@ -2,6 +2,9 @@ import Link from 'next/link'
 import { getRelatedLegacyTools } from '@/lib/legacy/related'
 import { getCalculatorsForLegacyTool } from '@/lib/links/legacyToCalculators'
 import { getCalculatorById } from '@/data/calculators'
+import { localePath } from '@/lib/site-url'
+import type { Locale } from '@/lib/i18n'
+import { hasLocalizedCalculatorContent } from '@/lib/i18n/content-availability'
 
 interface LegacyRelatedLinksProps {
 	locale: string
@@ -16,11 +19,26 @@ export function LegacyRelatedLinks({
 	locale,
 	toolType,
 }: LegacyRelatedLinksProps) {
+	const siteLocale = locale as Locale
 	const relatedTools = getRelatedLegacyTools(toolType)
 	const calculatorIds = getCalculatorsForLegacyTool(toolType)
+	// Prefer localized calculators; otherwise link to EN pages that exist
 	const calculators = calculatorIds
-		.map((id) => getCalculatorById(id, locale))
-		.filter((calc): calc is NonNullable<typeof calc> => calc !== undefined)
+		.map((id) => {
+			const localized = getCalculatorById(id, locale)
+			if (
+				localized &&
+				hasLocalizedCalculatorContent(siteLocale, localized.slug)
+			) {
+				return { calc: localized, linkLocale: siteLocale }
+			}
+			const en = getCalculatorById(id, 'en')
+			return en ? { calc: en, linkLocale: 'en' as Locale } : null
+		})
+		.filter(
+			(entry): entry is { calc: NonNullable<ReturnType<typeof getCalculatorById>>; linkLocale: Locale } =>
+				entry !== null,
+		)
 
 	if (relatedTools.length === 0 && calculators.length === 0) {
 		return null
@@ -41,8 +59,9 @@ export function LegacyRelatedLinks({
 					<ul className="space-y-2">
 						{relatedTools.map((tool) => (
 							<li key={tool.href}>
+								{/* localePath omits /en so English URLs stay clean */}
 								<Link
-									href={`/${locale}${tool.href}`}
+									href={localePath(siteLocale, tool.href)}
 									className="text-blue-600 hover:text-blue-800 underline"
 								>
 									{tool.title}
@@ -65,10 +84,13 @@ export function LegacyRelatedLinks({
 						New Calculators
 					</h3>
 					<ul className="space-y-2">
-						{calculators.map((calc) => (
+						{calculators.map(({ calc, linkLocale }) => (
 							<li key={calc.id}>
 								<Link
-									href={`/${locale}/calculators/${calc.category}/${calc.slug}`}
+									href={localePath(
+										linkLocale,
+										`/calculators/${calc.category}/${calc.slug}`,
+									)}
 									className="text-blue-600 hover:text-blue-800 underline"
 								>
 									{calc.title}

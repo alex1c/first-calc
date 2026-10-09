@@ -254,6 +254,16 @@ export function CalculatorForm({
 									const decimals = String(minBound).split('.')[1]?.length ?? 2
 									return Number(`0.${'0'.repeat(Math.max(0, decimals - 1))}1`)
 								}
+								// Rate/% fields often have integer min=0 but API accepts 12.5;
+								// step=1 causes browser stepMismatch on fractional rates.
+								const unit = String(input.unitLabel || '').toLowerCase()
+								const rateLikeName =
+									/rate|return|interest|inflation|percent|apr|apy/i.test(
+										input.name,
+									)
+								if (unit.includes('%') || rateLikeName) {
+									return 0.01
+								}
 								return 1
 							})()}
 							className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
