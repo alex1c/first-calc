@@ -2,7 +2,7 @@
 
 **Branch:** `fix/ru-catalog-seo-recovery`  
 **Starting tip (user brief):** `eed0e64aeb05bac45710aebec8b2f0edf027999e`  
-**Code tip (this report commit parent):** see git history below; **b7a146d599f81fbb94e5ed7c1af6209d4669933c**  
+**Final tip SHA:** `a6605ea95afcb0d0678a9a6210aaffa5a66019c9`  
 **Status:** `READY FOR FINAL CODEX AUDIT`
 
 **Not done (by design):** merge to `main`, PR without approval, production deploy, Timeweb infra changes.
