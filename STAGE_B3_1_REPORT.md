@@ -2,7 +2,7 @@
 
 **Branch:** `fix/ru-catalog-seo-recovery`  
 **Base (pre–B3.1 tip):** `9d39845bc6327f3da418a78c478a83db2e4a4dd6`  
-**Final tip SHA:** _(filled after documentation commit)_  
+**Final tip SHA:** `734f9a09347f2f3b32e77a0db53fd904d7ad8b7c`  
 **Status:** `READY FOR CODEX B3.1 AUDIT`  
 **Out of scope (not done):** Stage B3.2, deploy, merge, mass i18n/SEO/redesign
 
@@ -114,7 +114,7 @@ Expected values in finance tests are computed independently of the engines under
 | `0ed949f` | fix(finance): investment savings roi options |
 | `1743b13` | fix(finance): auto personal overpayment payment types |
 | `b087d7e` | test(finance): B3.1 Codex finance scenarios |
-| _(tip)_ | C1 bounds, API defaults/required outputs, loan-payment HTML, B3.1 tests + this report |
+| `734f9a0` | fix(b3.1): harden computation bounds, API contracts, and loan-payment HTML |
 
 ---
 
