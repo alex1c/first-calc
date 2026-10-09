@@ -11,7 +11,8 @@ Repository: `alex1c/first-calc`
 | | SHA |
 |---|---|
 | Starting tip (Release Recheck FAIL) | `c00c80b60a7dafe6386a0249688eecb152895cc3` |
-| Ending tip (this fix) | `68a487472308e84ec1ecbfa6495edb95e827931b` |
+| Fix commit (R1–R4) | `68a487472308e84ec1ecbfa6495edb95e827931b` |
+| Branch tip after docs pin | `32fe6a2cce1ea51c8a2fcb6479466c2f9b7586eb` |
 
 ## Scope
 
