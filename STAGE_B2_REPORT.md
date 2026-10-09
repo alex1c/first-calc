@@ -2,7 +2,7 @@
 
 **Status:** `READY FOR CODEX RE-AUDIT`  
 **Branch:** `fix/ru-catalog-seo-recovery`  
-**Final SHA:** `656cf97ab667a6b7fe02b6005591c41c6c9fad19`  
+**Final SHA:** `5fa1f5ec979a21f1fcc07c8b811ad47207eee0c9`  
 **Codex audited SHA (baseline of this stage):** `d5ffd0036385989f2cd8c9f0c7e4892358551093`  
 **Base:** `0320ad1c3c34424088526774ad6ac28875bebe71`  
 
@@ -27,6 +27,7 @@ No production deploy. No merge to `main`. Stage C not started.
 | `bf56f48` | fix(seo): range hreflang and localized result explanations |
 | `20b59de` | test(b2): regression suite, production smoke, and Stage B2 report |
 | `656cf97` | docs(b2): record final Stage B2 verification SHA |
+| `5fa1f5e` | docs(b2): rewrite Stage B2 report with final SHA and clean encoding |
 
 ---
 
