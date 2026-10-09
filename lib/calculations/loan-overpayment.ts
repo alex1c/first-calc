@@ -5,6 +5,7 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Map payment frequency string to payments per year
@@ -134,8 +135,12 @@ export const calculateLoanOverpayment: CalculationFunction = (inputs) => {
 		totalInterest: Math.round(totalInterest * 100) / 100,
 		totalPayment: Math.round(totalPayment * 100) / 100,
 		regularPayment,
+		// Alias for JSON schema output name
+		monthlyPayment: regularPayment,
 		interestSaved: extraMonthlyPayment > 0 ? Math.round(interestSaved * 100) / 100 : null,
 		loanDurationReduced: extraMonthlyPayment > 0 ? Math.round(loanDurationReduced / paymentsPerYear * 10) / 10 : null, // In years
 		formulaExplanation,
 	}
 }
+
+registerCalculation('calculateLoanOverpayment', calculateLoanOverpayment)

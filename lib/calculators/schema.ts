@@ -641,8 +641,11 @@ export async function schemaToDefinition(
 export async function loadCalculatorSchema(
         filePath: string,
 ): Promise<CalculatorSchema> {
-	// Check if we're on the server side
-	if (typeof window !== 'undefined') {
+	// Require a Node runtime (fs). Do not use `typeof window` alone —
+	// Vitest happy-dom defines window while still running on Node.
+	const isNodeRuntime =
+		typeof process !== 'undefined' && Boolean(process.versions?.node)
+	if (!isNodeRuntime) {
 		throw new Error(
 			'loadCalculatorSchema can only be used on the server side',
 		)

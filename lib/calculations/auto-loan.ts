@@ -5,6 +5,7 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Calculate auto loan payment with comprehensive breakdown
@@ -108,13 +109,23 @@ export const calculateAutoLoan: CalculationFunction = (inputs) => {
 	
 	formulaExplanation = `Auto Loan Payment Calculation:\n\n1. Calculate Vehicle Cost Breakdown:\n   Vehicle Price: $${vehiclePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   ${tradeInValue > 0 ? `Trade-in Value: -$${tradeInValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Taxable Amount: $${taxableAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   ` : ''}Sales Tax (${salesTaxRate}%): +$${salesTaxAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   ${totalFees > 0 ? `Fees: +$${totalFees.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   ` : ''}Total Vehicle Cost: $${totalVehicleCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Calculate Loan Amount:\n   Loan Amount = Total Vehicle Cost - Down Payment - Trade-in\n   Loan Amount = $${totalVehicleCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${downPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}${tradeInValue > 0 ? ` - $${tradeInValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}\n   Loan Amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Calculate Monthly Payment (Annuity Formula):\n   P = L × [r(1+r)^n] / [(1+r)^n - 1]\n\n   Where:\n   - P = Monthly payment\n   - L = Loan amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Monthly interest rate = Annual rate / 12 = ${annualInterestRate}% / 12 = ${(monthlyRate * 100).toFixed(6)}%\n   - n = Number of payments = ${loanTerm} years × 12 = ${numberOfPayments}\n\n   Substituting:\n   (1 + r)^n = (1 + ${monthlyRate.toFixed(6)})^${numberOfPayments} = ${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)}\n\n   P = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [${(monthlyRate * 100).toFixed(6)}% × ${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)}] / [${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)} - 1]\n   P = $${monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n4. Total Costs:\n   Total Payment (loan + interest): $${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Interest Paid: $${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Cost of Vehicle: $${totalCostOfVehicle.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\nYour monthly payment includes both principal and interest. The interest portion is higher at the beginning of the loan and decreases over time as you pay down the principal. The APR (Annual Percentage Rate) directly affects your monthly payment - a higher APR means higher payments and more total interest paid over the life of the loan.`
 
+	const roundedLoanAmount = Math.round(loanAmount * 100) / 100
+	const roundedTotalPayment = Math.round(totalPayment * 100) / 100
+	const roundedTotalInterest = Math.round(totalInterest * 100) / 100
+	const roundedTotalCost = Math.round(totalCostOfVehicle * 100) / 100
+
 	return {
-		loanAmount: Math.round(loanAmount * 100) / 100,
+		loanAmount: roundedLoanAmount,
 		monthlyPayment,
-		totalPayment: Math.round(totalPayment * 100) / 100,
-		totalInterest: Math.round(totalInterest * 100) / 100,
+		totalPayment: roundedTotalPayment,
+		totalInterest: roundedTotalInterest,
 		overpayment: Math.round(overpayment * 100) / 100,
-		totalCostOfVehicle: Math.round(totalCostOfVehicle * 100) / 100,
+		totalCostOfVehicle: roundedTotalCost,
+		// Aliases for JSON schema output names
+		totalCost: roundedTotalCost,
+		totalFees: Math.round(totalFees * 100) / 100,
 		formulaExplanation,
 	}
 }
+
+registerCalculation('calculateAutoLoan', calculateAutoLoan)

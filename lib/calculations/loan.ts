@@ -1,4 +1,5 @@
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Step interface for loan payment calculation
@@ -112,10 +113,14 @@ export const calculateLoanPayment: CalculationFunction = (inputs) => {
 
 	return {
 		periodicPayment,
+		// Alias for RU TS loan-payment output name (same annuity engine)
+		monthlyPayment: periodicPayment,
 		totalPayment,
 		totalInterest,
 		overpayment,
 		formulaExplanation,
 	}
 }
+
+registerCalculation('calculateLoanPayment', calculateLoanPayment)
 

@@ -5,6 +5,7 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Year-by-year breakdown interface
@@ -189,13 +190,25 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 	
 	formulaExplanation = `Investment Growth Calculation:\n\n1. Future Value of Initial Investment:\n   FV₁ = P × (1 + r/n)^(nt)\n\n   Where:\n   - P = Initial investment = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Annual return rate = ${expectedAnnualReturn}% = ${annualRate}\n   - n = Compounding frequency = ${compoundingFrequency} times per year (${compoundingLabel})\n   - t = Investment period = ${investmentPeriod} years\n\n   Substituting:\n   FV₁ = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × (1 + ${periodicRate.toFixed(6)})^(${totalPeriods})\n   FV₁ = $${initialInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${Math.pow(1 + periodicRate, totalPeriods).toFixed(6)}\n   FV₁ = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Future Value of ${contributionLabel.charAt(0).toUpperCase() + contributionLabel.slice(1)} Contributions:\n   FV₂ = PMT × [((1 + r/n)^(nt) - 1) / (r/n)]\n\n   Where:\n   - PMT = ${contributionLabel} contribution = $${periodicContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r, n, t = Same as above\n\n   Substituting:\n   FV₂ = $${periodicContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [((1 + ${periodicRate.toFixed(6)})^(${totalPeriods}) - 1) / (${periodicRate.toFixed(6)})]\n   FV₂ = $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Total Final Value:\n   FV = FV₁ + FV₂\n   FV = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   FV = $${roundedFinalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n4. Investment Returns:\n   Total Contributions: $${totalContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Return (Profit): $${totalReturn.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Return Percentage: ${returnPercentage.toFixed(2)}%\n\n${inflationRate > 0 ? `5. Inflation Adjustment:\n   Inflation Factor = (1 + ${inflationRate}%)^${investmentPeriod} = ${Math.pow(1 + inflationRate / 100, investmentPeriod).toFixed(6)}\n   Real Value (Today's Dollars) = $${roundedFinalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / ${Math.pow(1 + inflationRate / 100, investmentPeriod).toFixed(6)}\n   Real Value = $${inflationAdjustedValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n` : ''}Your investment grows through compound returns - each period's returns earn returns in future periods. The difference between your total contributions and final value represents your profit. ${inflationRate > 0 ? 'The inflation-adjusted value shows your purchasing power in today\'s dollars, accounting for the eroding effect of inflation over time. ' : ''}Regular contributions combined with compound returns create exponential growth over long investment periods.`
 
+	const roundedReturn = Math.round(totalReturn * 100) / 100
+	const roundedReturnPct = Math.round(returnPercentage * 100) / 100
+	const roundedInflationAdjusted =
+		inflationRate > 0 ? Math.round(inflationAdjustedValue * 100) / 100 : null
+
 	return {
 		finalValue: roundedFinalValue,
 		totalContributions: Math.round(totalContributions * 100) / 100,
-		totalReturn: Math.round(totalReturn * 100) / 100,
-		returnPercentage: Math.round(returnPercentage * 10000) / 100, // Round to 2 decimal places
-		inflationAdjustedValue: inflationRate > 0 ? Math.round(inflationAdjustedValue * 100) / 100 : null,
+		totalReturn: roundedReturn,
+		returnPercentage: roundedReturnPct,
+		inflationAdjustedValue: roundedInflationAdjusted,
 		yearlyBreakdown,
 		formulaExplanation,
+		// Aliases for JSON schema output names
+		totalProfit: roundedReturn,
+		profitPercentage: roundedReturnPct,
+		realValue: roundedInflationAdjusted,
+		afterTaxValue: roundedFinalValue,
 	}
 }
+
+registerCalculation('calculateInvestment', calculateInvestment)

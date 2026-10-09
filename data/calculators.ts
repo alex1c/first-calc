@@ -5451,7 +5451,7 @@ export const calculators: CalculatorDefinition[] = [
 				placeholder: 'Введите сумму кредита',
 				validation: {
 					required: true,
-					min: 0,
+					min: 0.01,
 					message: 'Сумма кредита должна быть больше 0',
 				},
 			},
@@ -5463,9 +5463,9 @@ export const calculators: CalculatorDefinition[] = [
 				placeholder: 'Введите годовую процентную ставку',
 				validation: {
 					required: true,
-					min: 0,
+					min: 0.01,
 					max: 100,
-					message: 'Процентная ставка должна быть от 0 до 100',
+					message: 'Процентная ставка должна быть от 0.01 до 100',
 				},
 			},
 			{
@@ -5474,12 +5474,14 @@ export const calculators: CalculatorDefinition[] = [
 				type: 'number',
 				unitLabel: 'лет',
 				placeholder: 'Введите срок кредита в годах',
-				step: 0.5,
+				// HTML5 (value - min) / step must be integral; min 0.1 + step 0.5
+				// rejected whole years like 5. Align with annuity engine (integer years).
+				step: 1,
 				validation: {
 					required: true,
-					min: 0.1,
-					max: 100,
-					message: 'Срок кредита должен быть от 0.1 до 100 лет',
+					min: 1,
+					max: 50,
+					message: 'Срок кредита должен быть от 1 до 50 лет',
 				},
 			},
 		],

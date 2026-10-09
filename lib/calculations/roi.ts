@@ -5,6 +5,7 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Calculate ROI with comprehensive breakdown
@@ -64,11 +65,20 @@ export const calculateROI: CalculationFunction = (inputs) => {
 	
 	formulaExplanation = `ROI Calculation:\n\n1. Calculate Total Investment:\n   Total Investment = Investment Cost + Additional Costs\n   Total Investment = $${investmentCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}${additionalCosts > 0 ? ` + $${additionalCosts.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}\n   Total Investment = $${totalInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Calculate Net Profit:\n   Net Profit = Return Value - Total Investment\n   Net Profit = $${returnValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${totalInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Net Profit = $${netProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Calculate ROI Percentage:\n   ROI = (Net Profit / Total Investment) × 100\n   ROI = ($${netProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / $${totalInvestment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}) × 100\n   ROI = ${roiPercentage.toFixed(2)}%\n\n${profitMargin !== null && returnValue > 0 ? `4. Calculate Profit Margin:\n   Profit Margin = (Net Profit / Return Value) × 100\n   Profit Margin = ($${netProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / $${returnValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}) × 100\n   Profit Margin = ${profitMargin.toFixed(2)}%\n\n` : ''}Interpretation:\n${interpretation}\n\nROI measures the efficiency and profitability of an investment. A positive ROI indicates profit, while a negative ROI indicates loss. The higher the ROI, the more profitable the investment relative to the amount invested.`
 
+	// Round percentages to two decimal places (not *10000/100, which scaled 20% → 2000)
+	const roundedRoi = Math.round(roiPercentage * 100) / 100
+	const roundedMargin =
+		returnValue > 0 ? Math.round(profitMargin * 100) / 100 : null
+
 	return {
-		roiPercentage: Math.round(roiPercentage * 10000) / 100, // Round to 2 decimal places
+		roiPercentage: roundedRoi,
+		// JSON schema output name
+		roi: roundedRoi,
 		netProfit: Math.round(netProfit * 100) / 100,
 		totalInvestment: Math.round(totalInvestment * 100) / 100,
-		profitMargin: returnValue > 0 ? Math.round(profitMargin * 10000) / 100 : null,
+		profitMargin: roundedMargin,
 		formulaExplanation,
 	}
 }
+
+registerCalculation('calculateROI', calculateROI)

@@ -5,6 +5,7 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Amortization schedule entry
@@ -30,6 +31,9 @@ function getPaymentsPerYear(frequency: string | number | boolean): number {
 	const frequencyMap: Record<string, number> = {
 		'monthly': 12,
 		'bi-weekly': 26,
+		// JSON schema uses "biweekly" / "weekly" without hyphens
+		'biweekly': 26,
+		'weekly': 52,
 	}
 	return frequencyMap[frequency.toLowerCase()] || 12
 }
@@ -38,7 +42,9 @@ function getPaymentsPerYear(frequency: string | number | boolean): number {
  * Calculate mortgage payment with comprehensive breakdown
  */
 export const calculateMortgage: CalculationFunction = (inputs) => {
-	const homePrice = Number(inputs.homePrice || 0)
+	// JSON finance schemas use loanAmount for the home/loan base price;
+	// EN TS definitions use homePrice. Accept both without duplicating engines.
+	const homePrice = Number(inputs.homePrice || inputs.loanAmount || 0)
 	const downPayment = Number(inputs.downPayment || 0)
 	const downPaymentType = String(inputs.downPaymentType || 'amount').toLowerCase()
 	const loanTermYears = Math.floor(Number(inputs.loanTermYears || inputs.loanTerm || 30))
@@ -52,8 +58,8 @@ export const calculateMortgage: CalculationFunction = (inputs) => {
 	// Home insurance (annual amount)
 	const homeInsurance = Number(inputs.homeInsurance || 0)
 	
-	// HOA (monthly amount)
-	const HOA = Number(inputs.HOA || inputs.hoa || 0)
+	// HOA (monthly amount) — JSON schema uses hoaFees
+	const HOA = Number(inputs.HOA || inputs.hoa || inputs.hoaFees || 0)
 	
 	// Extra monthly payment
 	const extraMonthlyPayment = Number(inputs.extraMonthlyPayment || inputs.extraPayment || 0)
@@ -84,7 +90,7 @@ export const calculateMortgage: CalculationFunction = (inputs) => {
 		downPaymentAmount < 0 ||
 		downPaymentAmount >= homePrice ||
 		loanTermYears < 1 ||
-		loanTermYears > 40 ||
+		loanTermYears > 50 ||
 		interestRateAPR <= 0 ||
 		interestRateAPR > 30 ||
 		propertyTax < 0 ||
@@ -254,16 +260,33 @@ export const calculateMortgage: CalculationFunction = (inputs) => {
 	
 	formulaExplanation = `Mortgage Payment Calculation:\n\n1. Calculate Down Payment and Loan Amount:\n   ${downPaymentType === 'percentage' ? `Down Payment = Home Price × ${downPayment}%\n   Down Payment = $${homePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${downPayment}% = $${downPaymentAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}Loan Amount = Home Price - Down Payment\n   Loan Amount = $${homePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${downPaymentAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Loan Amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Calculate Monthly Mortgage Payment (Principal + Interest):\n   M = L × [r(1+r)^n] / [(1+r)^n - 1]\n\n   Where:\n   - M = Monthly mortgage payment\n   - L = Loan amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Monthly interest rate = Annual rate / 12 = ${interestRateAPR}% / 12 = ${(monthlyRate * 100).toFixed(6)}%\n   - n = Number of payments = ${loanTermYears} years × 12 = ${numberOfPayments}\n\n   Substituting:\n   (1 + r)^n = (1 + ${monthlyRate.toFixed(6)})^${numberOfPayments} = ${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)}\n\n   M = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [${(monthlyRate * 100).toFixed(6)}% × ${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)}] / [${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)} - 1]\n   M = $${monthlyMortgagePayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Calculate Additional Monthly Costs:\n   ${monthlyPropertyTax > 0 ? `Monthly Property Tax = ${propertyTaxType === 'percentage' ? `Home Price × ${propertyTax}% / 12` : `$${propertyTax} / 12`}\n   Monthly Property Tax = $${monthlyPropertyTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}${monthlyInsurance > 0 ? `Monthly Insurance = Annual Insurance / 12\n   Monthly Insurance = $${homeInsurance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / 12 = $${monthlyInsurance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}${HOA > 0 ? `Monthly HOA = $${HOA.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}4. Calculate Total Monthly Payment (PITI + HOA):\n   Total Monthly Payment = Mortgage Payment + Property Tax + Insurance + HOA\n   Total Monthly Payment = $${monthlyMortgagePayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}${monthlyPropertyTax > 0 ? ` + $${monthlyPropertyTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}${monthlyInsurance > 0 ? ` + $${monthlyInsurance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}${HOA > 0 ? ` + $${HOA.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}\n   Total Monthly Payment = $${totalMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n5. Calculate Total Costs:\n   Total Payment (loan + interest): $${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Interest Paid: $${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Cost (including taxes, insurance, HOA): $${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n${extraMonthlyPayment > 0 ? `6. Extra Payment Impact:\n   Extra Monthly Payment: $${extraMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Interest Saved: $${interestSaved.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Loan Term Reduced: ${monthsReduced} months (${(monthsReduced / 12).toFixed(1)} years)\n   New Payoff Date: ${payoffDate ? payoffDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}\n\n` : ''}Your mortgage payment includes principal and interest. The down payment reduces your loan amount, which lowers your monthly payment and total interest. ${monthlyPropertyTax > 0 || monthlyInsurance > 0 || HOA > 0 ? 'Property taxes, insurance, and HOA fees are additional monthly costs that increase your total payment but don\'t reduce your loan balance. ' : ''}Longer loan terms result in lower monthly payments but significantly higher total interest paid over the life of the loan. ${extraMonthlyPayment > 0 ? 'Making extra payments reduces your loan term and total interest, saving you money over time.' : ''}`
 
+	const roundedMonthly = Math.round(monthlyMortgagePayment * 100) / 100
+	const roundedTotalMonthly = Math.round(totalMonthlyPayment * 100) / 100
+	const roundedLoanAmount = Math.round(loanAmount * 100) / 100
+	const roundedTotalInterest = Math.round(totalInterest * 100) / 100
+	const roundedTotalCost = Math.round(totalCost * 100) / 100
+
 	return {
-		monthlyMortgagePayment: Math.round(monthlyMortgagePayment * 100) / 100,
-		totalMonthlyPayment: Math.round(totalMonthlyPayment * 100) / 100,
-		loanAmount: Math.round(loanAmount * 100) / 100,
-		totalInterest: Math.round(totalInterest * 100) / 100,
-		totalCost: Math.round(totalCost * 100) / 100,
+		monthlyMortgagePayment: roundedMonthly,
+		totalMonthlyPayment: roundedTotalMonthly,
+		loanAmount: roundedLoanAmount,
+		totalInterest: roundedTotalInterest,
+		totalCost: roundedTotalCost,
 		payoffDate: payoffDate ? payoffDate.toISOString().split('T')[0] : null,
 		paymentBreakdown,
 		extraPaymentImpact,
 		amortizationSchedule: amortizationSchedule, // Already limited to 360 months
 		formulaExplanation,
+		// Aliases for JSON schema output names (same engine for EN TS + RU JSON)
+		monthlyPayment: roundedMonthly,
+		totalPayment: Math.round(totalPayment * 100) / 100,
+		overpayment: roundedTotalInterest,
+		monthlyPITI: roundedTotalMonthly,
+		totalCostOfOwnership: roundedTotalCost,
+		pmiPayment: 0,
+		pmiMonths: 0,
 	}
 }
+
+// Register so JSON schema engine="function" can resolve this calculator for all locales
+registerCalculation('calculateMortgage', calculateMortgage)

@@ -5,6 +5,7 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Map payment frequency string to payments per year
@@ -134,12 +135,19 @@ export const calculatePersonalLoan: CalculationFunction = (inputs) => {
 	
 	formulaExplanation = `Personal Loan Payment Calculation:\n\n1. Calculate Origination Fee:\n   ${feeType === 'percentage' ? `Fee = Loan Amount × ${originationFee}%\n   Fee = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${originationFee}%\n   Fee = $${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}Net Loan Amount = Loan Amount - Fee\n   Net Loan Amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Net Loan Amount = $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Calculate Monthly Payment (Principal + Interest):\n   M = L × [r(1+r)^n] / [(1+r)^n - 1]\n\n   Where:\n   - M = ${frequencyLabel.toLowerCase()} payment\n   - L = Net loan amount = $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Periodic interest rate = Annual rate / Payments per year = ${annualInterestRate}% / ${paymentsPerYear} = ${(periodicRate * 100).toFixed(6)}%\n   - n = Number of payments = ${loanTerm} years × ${paymentsPerYear} = ${numberOfPayments}\n\n   Substituting:\n   (1 + r)^n = (1 + ${periodicRate.toFixed(6)})^${numberOfPayments} = ${Math.pow(1 + periodicRate, numberOfPayments).toFixed(6)}\n\n   M = $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [${(periodicRate * 100).toFixed(6)}% × ${Math.pow(1 + periodicRate, numberOfPayments).toFixed(6)}] / [${Math.pow(1 + periodicRate, numberOfPayments).toFixed(6)} - 1]\n   M = $${monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Calculate Total Costs:\n   Total Payment: $${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Interest: $${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Origination Fee: $${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Overpayment: $${overpayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n${feeAmount > 0 ? `4. Effective APR (includes fees):\n   Effective APR = ((Total Interest + Fee) / Net Loan Amount) / Years × 100\n   Effective APR = (($${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${feeAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}) / $${netLoanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}) / ${loanTerm} × 100\n   Effective APR = ${effectiveAPR.toFixed(2)}%\n\n   The effective APR is higher than the nominal APR (${annualInterestRate}%) because the origination fee reduces the net loan amount you receive, effectively increasing your borrowing cost.\n\n` : ''}${extraMonthlyPayment > 0 ? `5. Impact of Extra Payments:\n   Payment with Extra = Regular Payment + Extra Payment\n   Payment with Extra = $${monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${extraMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Payment with Extra = $${(monthlyPayment + extraMonthlyPayment).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   By making extra payments, you reduce the loan term and total interest paid.\n\n` : ''}Personal loans are unsecured loans, meaning they don't require collateral. This makes them riskier for lenders, resulting in higher interest rates than secured loans (like mortgages or auto loans). The origination fee is deducted upfront, reducing the amount you actually receive. ${feeAmount > 0 ? `The effective APR accounts for this fee and shows the true annual cost of borrowing. ` : ''}Shorter loan terms result in higher monthly payments but significantly less total interest paid.`
 
+	const roundedEffectiveApr = feeAmount > 0 ? Math.round(effectiveAPR * 100) / 100 : null
+
 	return {
 		monthlyPayment: Math.round(monthlyPayment * 100) / 100,
 		totalPayment: Math.round(totalPayment * 100) / 100,
 		totalInterest: Math.round(totalInterest * 100) / 100,
 		overpayment: Math.round(overpayment * 100) / 100,
-		effectiveAPR: feeAmount > 0 ? Math.round(effectiveAPR * 10000) / 100 : null,
+		effectiveAPR: roundedEffectiveApr,
+		// Aliases for JSON schema output names
+		apr: roundedEffectiveApr,
+		totalFees: Math.round(feeAmount * 100) / 100,
 		formulaExplanation,
 	}
 }
+
+registerCalculation('calculatePersonalLoan', calculatePersonalLoan)

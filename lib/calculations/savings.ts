@@ -5,6 +5,7 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { registerCalculation } from '@/lib/calculations/registry'
 
 /**
  * Year-by-year breakdown interface
@@ -213,13 +214,29 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 	
 	formulaExplanation = `Savings Growth Calculation:\n\n1. Future Value of Initial Savings:\n   FV₁ = P × (1 + r/n)^(nt)\n\n   Where:\n   - P = Initial savings = $${initialSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Annual interest rate = ${annualInterestRate}% = ${annualRate}\n   - n = Compounding frequency = ${compoundingFrequency} times per year (${compoundingLabel})\n   - t = Savings period = ${savingsPeriod} years\n\n   Substituting:\n   FV₁ = $${initialSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × (1 + ${periodicRate.toFixed(6)})^(${totalPeriods})\n   FV₁ = $${initialSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${Math.pow(1 + periodicRate, totalPeriods).toFixed(6)}\n   FV₁ = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Future Value of ${contributionLabel.charAt(0).toUpperCase() + contributionLabel.slice(1)} Contributions:\n   FV₂ = PMT × [((1 + r/n)^(nt) - 1) / (r/n)]\n\n   Where:\n   - PMT = ${contributionLabel} contribution = $${regularContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r, n, t = Same as above\n\n   Substituting:\n   FV₂ = $${regularContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [((1 + ${periodicRate.toFixed(6)})^(${totalPeriods}) - 1) / (${periodicRate.toFixed(6)})]\n   FV₂ = $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Total Final Savings:\n   FV = FV₁ + FV₂\n   FV = $${futureValueInitial.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} + $${futureValueContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   FV = $${roundedFinalSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n4. Savings Breakdown:\n   Total Contributions: $${totalContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Interest Earned: $${totalInterestEarned.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n${inflationRate > 0 ? `5. Inflation Adjustment:\n   Inflation Factor = (1 + ${inflationRate}%)^${savingsPeriod} = ${Math.pow(1 + inflationRate / 100, savingsPeriod).toFixed(6)}\n   Real Value (Today's Dollars) = $${roundedFinalSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / ${Math.pow(1 + inflationRate / 100, savingsPeriod).toFixed(6)}\n   Real Value = $${inflationAdjustedSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n` : ''}${targetAmount > 0 ? `6. Target Amount Analysis:\n   Target Amount: $${targetAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   ${roundedFinalSavings >= targetAmount ? `Final Savings: $${roundedFinalSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (Target reached!)\n   ` : timeToTarget ? `Estimated Time to Reach Target: ${timeToTarget} years\n   ` : `Final Savings: $${roundedFinalSavings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (Target not reached in ${savingsPeriod} years)\n   `}\n\n` : ''}Your savings grow through compound interest - each period's interest earns interest in future periods. The difference between your total contributions and final savings represents the interest you earned. ${inflationRate > 0 ? 'The inflation-adjusted value shows your purchasing power in today\'s dollars, accounting for the eroding effect of inflation over time. ' : ''}Regular contributions combined with compound interest create steady growth over long savings periods.`
 
+	const roundedInterest = Math.round(totalInterestEarned * 100) / 100
+	const roundedInflationAdjusted =
+		inflationRate > 0 ? Math.round(inflationAdjustedSavings * 100) / 100 : null
+	const growthPercentage =
+		totalContributions > 0
+			? Math.round((roundedInterest / totalContributions) * 10000) / 100
+			: null
+
 	return {
 		finalSavings: roundedFinalSavings,
 		totalContributions: Math.round(totalContributions * 100) / 100,
-		totalInterestEarned: Math.round(totalInterestEarned * 100) / 100,
+		totalInterestEarned: roundedInterest,
 		timeToTarget: timeToTarget,
-		inflationAdjustedSavings: inflationRate > 0 ? Math.round(inflationAdjustedSavings * 100) / 100 : null,
+		inflationAdjustedSavings: roundedInflationAdjusted,
 		yearlyBreakdown,
 		formulaExplanation,
+		// Aliases for JSON schema output names
+		finalValue: roundedFinalSavings,
+		totalInterest: roundedInterest,
+		realValue: roundedInflationAdjusted,
+		growthPercentage,
+		afterTaxValue: roundedFinalSavings,
 	}
 }
+
+registerCalculation('calculateSavings', calculateSavings)
