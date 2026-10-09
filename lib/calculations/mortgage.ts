@@ -1,15 +1,22 @@
 /**
- * Calculate mortgage payment with comprehensive breakdown and amortization
- * Inputs: homePrice, downPayment, downPaymentType, loanTermYears, interestRateAPR, paymentFrequency, propertyTax, homeInsurance, HOA, extraMonthlyPayment, startDate
- * Outputs: monthlyMortgagePayment, totalMonthlyPayment, loanAmount, totalInterest, totalCost, payoffDate, paymentBreakdown, extraPaymentImpact, amortizationSchedule, formulaExplanation
+ * Mortgage payment engine (EN homePrice path + JSON/RU loanAmount-as-principal path).
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
 import { registerCalculation } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+import {
+	MAX_HORIZON_YEARS,
+	MAX_SCHEDULE_ROWS,
+	MAX_SIMULATION_MONTHS,
+	assertBoundedIterations,
+	capScheduleRows,
+} from '@/lib/calculations/computation-bounds'
+import {
+	calculateAnnuitySchedule,
+	calculateDifferentiatedPayment,
+} from '@/lib/calculations/payment-types'
 
-/**
- * Amortization schedule entry
- */
 interface AmortizationEntry {
 	month: number
 	payment: number
@@ -18,275 +25,361 @@ interface AmortizationEntry {
 	remainingBalance: number
 }
 
-/**
- * Map payment frequency string to payments per year
- */
 function getPaymentsPerYear(frequency: string | number | boolean): number {
 	if (typeof frequency === 'number') {
 		return frequency
 	}
 	if (typeof frequency === 'boolean') {
-		return frequency ? 12 : 1 // Default to monthly if true, annually if false
+		return frequency ? 12 : 1
 	}
 	const frequencyMap: Record<string, number> = {
-		'monthly': 12,
+		monthly: 12,
 		'bi-weekly': 26,
-		// JSON schema uses "biweekly" / "weekly" without hyphens
-		'biweekly': 26,
-		'weekly': 52,
+		biweekly: 26,
+		weekly: 52,
 	}
-	return frequencyMap[frequency.toLowerCase()] || 12
+	return frequencyMap[String(frequency).toLowerCase()] || 12
+}
+
+function round2(value: number): number {
+	return Math.round(value * 100) / 100
+}
+
+function resolveDownPaymentAmount(
+	baseForPercent: number,
+	downPayment: number,
+	downPaymentType: string,
+): number {
+	if (downPaymentType === 'percentage') {
+		return (baseForPercent * downPayment) / 100
+	}
+	return downPayment
 }
 
 /**
- * Calculate mortgage payment with comprehensive breakdown
+ * Whether PMI applies at a given remaining balance (equity below threshold).
  */
-export const calculateMortgage: CalculationFunction = (inputs) => {
-	// JSON finance schemas use loanAmount for the home/loan base price;
-	// EN TS definitions use homePrice. Accept both without duplicating engines.
-	const homePrice = Number(inputs.homePrice || inputs.loanAmount || 0)
-	const downPayment = Number(inputs.downPayment || 0)
-	const downPaymentType = String(inputs.downPaymentType || 'amount').toLowerCase()
-	const loanTermYears = Math.floor(Number(inputs.loanTermYears || inputs.loanTerm || 30))
-	const interestRateAPR = Number(inputs.interestRateAPR || inputs.annualInterestRate || inputs.interestRate || 0)
-	const paymentFrequencyStr = inputs.paymentFrequency || 'monthly'
-	
-	// Property tax can be percentage or annual amount
-	const propertyTax = Number(inputs.propertyTax || inputs.propertyTaxRate || 0)
-	const propertyTaxType = String(inputs.propertyTaxType || 'percentage').toLowerCase()
-	
-	// Home insurance (annual amount)
-	const homeInsurance = Number(inputs.homeInsurance || 0)
-	
-	// HOA (monthly amount) — JSON schema uses hoaFees
-	const HOA = Number(inputs.HOA || inputs.hoa || inputs.hoaFees || 0)
-	
-	// Extra monthly payment
-	const extraMonthlyPayment = Number(inputs.extraMonthlyPayment || inputs.extraPayment || 0)
-	
-	// Start date (optional, for payoff date calculation)
-	const startDateValue = inputs.startDate
-	const startDate = startDateValue && typeof startDateValue !== 'boolean' ? new Date(startDateValue) : new Date()
+function requiresPmi(
+	remainingBalance: number,
+	propertyValue: number,
+	pmiThresholdEquityPercent: number,
+): boolean {
+	if (propertyValue <= 0) {
+		return false
+	}
+	const equityPercent =
+		((propertyValue - remainingBalance) / propertyValue) * 100
+	return equityPercent < pmiThresholdEquityPercent
+}
 
-	// Calculate down payment amount
+export const calculateMortgage: CalculationFunction = (inputs) => {
+	const usesHomePrice =
+		inputs.homePrice !== undefined &&
+		inputs.homePrice !== '' &&
+		Number.isFinite(Number(inputs.homePrice))
+
+	const homePrice = usesHomePrice ? Number(inputs.homePrice) : 0
+	const loanAmountInput = Number(inputs.loanAmount || 0)
+	const downPayment = Number(inputs.downPayment || 0)
+	const downPaymentType = String(
+		inputs.downPaymentType || 'amount',
+	).toLowerCase()
+	const loanTermYears = Math.floor(
+		Number(inputs.loanTermYears || inputs.loanTerm || 30),
+	)
+	const interestRateAPR = Number(
+		inputs.interestRateAPR ||
+			inputs.annualInterestRate ||
+			inputs.interestRate ||
+			0,
+	)
+	const paymentFrequencyStr = inputs.paymentFrequency || 'monthly'
+	const paymentType = String(
+		inputs.paymentType || 'annuity',
+	).toLowerCase()
+
+	const propertyTax = Number(inputs.propertyTax || inputs.propertyTaxRate || 0)
+	// RU JSON treats propertyTax as annual currency when type is omitted
+	const propertyTaxType = String(
+		inputs.propertyTaxType || 'amount',
+	).toLowerCase()
+
+	const homeInsurance = Number(inputs.homeInsurance || 0)
+	const HOA = Number(inputs.HOA || inputs.hoa || inputs.hoaFees || 0)
+	const extraMonthlyPayment = Number(
+		inputs.extraMonthlyPayment || inputs.extraPayment || 0,
+	)
+	const pmiRate = Number(inputs.pmiRate || 0)
+	const pmiThreshold = Number(inputs.pmiThreshold ?? 20)
+
+	const startDateValue = inputs.startDate
+	const startDate =
+		startDateValue && typeof startDateValue !== 'boolean'
+			? new Date(startDateValue)
+			: new Date()
+
 	let downPaymentAmount = 0
-	if (downPaymentType === 'percentage') {
-		downPaymentAmount = (homePrice * downPayment) / 100
+	let loanAmount = 0
+	let propertyValue = 0
+
+	if (usesHomePrice) {
+		if (
+			!Number.isFinite(homePrice) ||
+			homePrice <= 0 ||
+			!Number.isFinite(downPayment) ||
+			downPayment < 0
+		) {
+			throw new CalculationDomainError('Home price must be a positive number')
+		}
+		downPaymentAmount = resolveDownPaymentAmount(
+			homePrice,
+			downPayment,
+			downPaymentType,
+		)
+		if (downPaymentAmount >= homePrice) {
+			throw new CalculationDomainError(
+				'Down payment must be less than home price',
+			)
+		}
+		loanAmount = homePrice - downPaymentAmount
+		propertyValue = homePrice
 	} else {
-		downPaymentAmount = downPayment
+		if (!Number.isFinite(loanAmountInput) || loanAmountInput <= 0) {
+			throw new CalculationDomainError('Loan amount must be a positive number')
+		}
+		loanAmount = loanAmountInput
+		downPaymentAmount = resolveDownPaymentAmount(
+			loanAmount + downPayment,
+			downPayment,
+			downPaymentType,
+		)
+		propertyValue =
+			downPaymentAmount > 0 ? loanAmount + downPaymentAmount : loanAmount
 	}
 
-	// Validation
 	if (
-		isNaN(homePrice) ||
-		isNaN(downPaymentAmount) ||
-		isNaN(loanTermYears) ||
-		isNaN(interestRateAPR) ||
-		isNaN(propertyTax) ||
-		isNaN(homeInsurance) ||
-		isNaN(HOA) ||
-		isNaN(extraMonthlyPayment) ||
-		homePrice <= 0 ||
-		downPaymentAmount < 0 ||
-		downPaymentAmount >= homePrice ||
+		!Number.isFinite(loanTermYears) ||
 		loanTermYears < 1 ||
-		loanTermYears > 50 ||
-		interestRateAPR <= 0 ||
+		loanTermYears > MAX_HORIZON_YEARS ||
+		!Number.isFinite(interestRateAPR) ||
+		interestRateAPR < 0 ||
 		interestRateAPR > 30 ||
 		propertyTax < 0 ||
 		homeInsurance < 0 ||
 		HOA < 0 ||
-		extraMonthlyPayment < 0
+		extraMonthlyPayment < 0 ||
+		pmiRate < 0 ||
+		pmiRate > 100 ||
+		pmiThreshold < 0 ||
+		pmiThreshold > 100
 	) {
-		return {
-			monthlyMortgagePayment: null,
-			totalMonthlyPayment: null,
-			loanAmount: null,
-			totalInterest: null,
-			totalCost: null,
-			payoffDate: null,
-			paymentBreakdown: null,
-			extraPaymentImpact: null,
-			amortizationSchedule: null,
-			formulaExplanation: null,
-		}
+		throw new CalculationDomainError('Mortgage inputs are out of valid range')
 	}
 
-	const loanAmount = homePrice - downPaymentAmount
 	const paymentsPerYear = getPaymentsPerYear(paymentFrequencyStr)
-	const monthlyRate = interestRateAPR / 100 / 12
-	const numberOfPayments = loanTermYears * 12
+	const numberOfPayments = assertBoundedIterations(
+		loanTermYears * paymentsPerYear,
+		MAX_SIMULATION_MONTHS,
+		'Number of payments',
+	)
+	const periodicRate = interestRateAPR / 100 / paymentsPerYear
 
-	// Calculate monthly mortgage payment (principal + interest)
-	let monthlyMortgagePayment: number
-	if (monthlyRate === 0) {
-		monthlyMortgagePayment = loanAmount / numberOfPayments
+	let periodicMortgagePayment = 0
+	let totalPayment = 0
+	let totalInterest = 0
+	let amortizationSchedule: AmortizationEntry[] = []
+
+	if (paymentType === 'differentiated') {
+		const diff = calculateDifferentiatedPayment(
+			loanAmount,
+			interestRateAPR,
+			numberOfPayments,
+			paymentsPerYear,
+		)
+		periodicMortgagePayment = diff.firstPayment
+		totalPayment = diff.totalPayment
+		totalInterest = diff.totalInterest
+		amortizationSchedule = diff.paymentSchedule.map((row) => ({
+			month: row.month,
+			payment: row.totalPayment,
+			principal: row.principalPayment,
+			interest: row.interestPayment,
+			remainingBalance: row.remainingBalance,
+		}))
 	} else {
-		const rateFactor = Math.pow(1 + monthlyRate, numberOfPayments)
-		monthlyMortgagePayment = (loanAmount * monthlyRate * rateFactor) / (rateFactor - 1)
+		const annuity = calculateAnnuitySchedule(
+			loanAmount,
+			interestRateAPR,
+			numberOfPayments,
+			paymentsPerYear,
+		)
+		periodicMortgagePayment = annuity.periodicPayment
+		totalPayment = annuity.totalPayment
+		totalInterest = annuity.totalInterest
+		amortizationSchedule = annuity.schedule.map((row) => ({
+			month: row.month,
+			payment: row.totalPayment,
+			principal: row.principalPayment,
+			interest: row.interestPayment,
+			remainingBalance: row.remainingBalance,
+		}))
 	}
 
-	monthlyMortgagePayment = Math.round(monthlyMortgagePayment * 100) / 100
+	amortizationSchedule = capScheduleRows(amortizationSchedule, MAX_SCHEDULE_ROWS)
 
-	// Calculate property tax (monthly)
+	// Property tax: monthly share of annual amount or percentage of property value
 	let monthlyPropertyTax = 0
 	if (propertyTax > 0) {
 		if (propertyTaxType === 'percentage') {
-			const annualPropertyTax = (homePrice * propertyTax) / 100
-			monthlyPropertyTax = annualPropertyTax / 12
+			monthlyPropertyTax = (propertyValue * propertyTax) / 100 / 12
 		} else {
-			// Annual amount
 			monthlyPropertyTax = propertyTax / 12
 		}
-		monthlyPropertyTax = Math.round(monthlyPropertyTax * 100) / 100
+		monthlyPropertyTax = round2(monthlyPropertyTax)
 	}
 
-	// Calculate monthly insurance
-	const monthlyInsurance = homeInsurance > 0 ? Math.round((homeInsurance / 12) * 100) / 100 : 0
+	const monthlyInsurance =
+		homeInsurance > 0 ? round2(homeInsurance / 12) : 0
 
-	// Calculate total monthly payment (PITI + HOA)
-	const totalMonthlyPayment = monthlyMortgagePayment + monthlyPropertyTax + monthlyInsurance + HOA
+	// PMI: walk full payment schedule (not capped) for totals and pmiMonths
+	let pmiMonths = 0
+	let totalPmiPaid = 0
+	let currentPmiMonthly = 0
+	{
+		let remainingBalance = loanAmount
+		const principalSlice =
+			paymentType === 'differentiated'
+				? loanAmount / numberOfPayments
+				: 0
 
-	// Calculate standard totals (without extra payments)
-	const totalPayment = monthlyMortgagePayment * numberOfPayments
-	const totalInterest = totalPayment - loanAmount
-	const totalCost = totalPayment + (monthlyPropertyTax * numberOfPayments) + (monthlyInsurance * numberOfPayments) + (HOA * numberOfPayments)
+		for (let period = 1; period <= numberOfPayments; period++) {
+			const interestPayment = remainingBalance * periodicRate
+			let principalPayment = 0
+			let periodPayment = periodicMortgagePayment
 
-	// Payment breakdown
-	const paymentBreakdown = {
-		principal: monthlyMortgagePayment,
-		interest: 0, // Will be calculated in amortization
-		taxes: monthlyPropertyTax,
-		insurance: monthlyInsurance,
-		hoa: HOA,
-		total: totalMonthlyPayment,
+			if (paymentType === 'differentiated') {
+				principalPayment = principalSlice
+				periodPayment = principalPayment + interestPayment
+			} else {
+				principalPayment = periodicMortgagePayment - interestPayment
+			}
+
+			if (
+				pmiRate > 0 &&
+				requiresPmi(remainingBalance, propertyValue, pmiThreshold)
+			) {
+				const pmiThisPeriod = (remainingBalance * pmiRate) / 100 / 12
+				totalPmiPaid += pmiThisPeriod
+				pmiMonths++
+				if (period === 1) {
+					currentPmiMonthly = pmiThisPeriod
+				}
+			}
+
+			remainingBalance = Math.max(0, remainingBalance - principalPayment)
+		}
 	}
 
-	// Calculate amortization schedule and extra payment impact
-	let amortizationSchedule: AmortizationEntry[] = []
+	const pmiPayment = round2(currentPmiMonthly)
+	const monthlyMortgagePayment = round2(periodicMortgagePayment)
+	const totalMonthlyPayment = round2(
+		monthlyMortgagePayment +
+			monthlyPropertyTax +
+			monthlyInsurance +
+			HOA +
+			pmiPayment,
+	)
+
+	const totalCost =
+		totalPayment +
+		totalPmiPaid +
+		monthlyPropertyTax * numberOfPayments +
+		monthlyInsurance * numberOfPayments +
+		HOA * numberOfPayments
+
+	// Extra payment simulation (annuity only; differentiated uses average extra path)
 	let interestSaved = 0
 	let monthsReduced = 0
 	let payoffDate: Date | null = null
-	let totalInterestWithExtra = 0
+	let totalInterestWithExtra = totalInterest
 
-	let remainingBalance = loanAmount
-	let month = 0
-	const paymentWithExtra = monthlyMortgagePayment + extraMonthlyPayment
-	const maxMonths = numberOfPayments * 2 // Safety limit
+	if (extraMonthlyPayment > 0 && paymentType === 'annuity') {
+		let remainingBalance = loanAmount
+		let periodsPaid = 0
+		let interestAccum = 0
+		const paymentWithExtra = periodicMortgagePayment + extraMonthlyPayment
+		const maxPeriods = assertBoundedIterations(
+			numberOfPayments * 2,
+			MAX_SIMULATION_MONTHS,
+			'Extra payment simulation periods',
+		)
 
-	// First payment breakdown (for display)
-	if (monthlyRate > 0) {
-		const firstInterest = remainingBalance * monthlyRate
-		paymentBreakdown.interest = Math.round(firstInterest * 100) / 100
-	}
-
-	if (extraMonthlyPayment > 0) {
-		// With extra payments - simulate early payoff
-		while (remainingBalance > 0.01 && month < maxMonths) {
-			month++
-			const interestPayment = remainingBalance * monthlyRate
+		while (remainingBalance > 0.01 && periodsPaid < maxPeriods) {
+			periodsPaid++
+			const interestPayment = remainingBalance * periodicRate
+			interestAccum += interestPayment
 			const principalPayment = paymentWithExtra - interestPayment
-			
-			remainingBalance = remainingBalance - principalPayment
-			
-			if (remainingBalance < 0) {
-				remainingBalance = 0
-			}
-
-			// Store amortization entry (limit to first 360 months for performance)
-			if (month <= 360) {
-				amortizationSchedule.push({
-					month,
-					payment: Math.round(paymentWithExtra * 100) / 100,
-					principal: Math.round(principalPayment * 100) / 100,
-					interest: Math.round(interestPayment * 100) / 100,
-					remainingBalance: Math.round(remainingBalance * 100) / 100,
-				})
-			}
-
-			totalInterestWithExtra += interestPayment
-
-			if (remainingBalance <= 0.01) {
-				// Calculate payoff date
-				payoffDate = new Date(startDate)
-				payoffDate.setMonth(payoffDate.getMonth() + month)
-				break
-			}
+			remainingBalance = Math.max(0, remainingBalance - principalPayment)
 		}
 
-		// Calculate extra payment impact
-		interestSaved = totalInterest - totalInterestWithExtra
-		monthsReduced = numberOfPayments - month
+		totalInterestWithExtra = round2(interestAccum)
+		interestSaved = round2(totalInterest - totalInterestWithExtra)
+		monthsReduced = numberOfPayments - periodsPaid
+		payoffDate = new Date(startDate)
+		payoffDate.setMonth(payoffDate.getMonth() + periodsPaid)
 	} else {
-		// Without extra payments, calculate standard amortization
-		remainingBalance = loanAmount
-		amortizationSchedule = []
-		for (let m = 1; m <= numberOfPayments && m <= 360; m++) {
-			const interestPayment = remainingBalance * monthlyRate
-			const principalPayment = monthlyMortgagePayment - interestPayment
-			remainingBalance = remainingBalance - principalPayment
-			
-			if (remainingBalance < 0) {
-				remainingBalance = 0
-			}
-
-			amortizationSchedule.push({
-				month: m,
-				payment: monthlyMortgagePayment,
-				principal: Math.round(principalPayment * 100) / 100,
-				interest: Math.round(interestPayment * 100) / 100,
-				remainingBalance: Math.round(remainingBalance * 100) / 100,
-			})
-		}
-
-		// Calculate payoff date without extra payments
 		payoffDate = new Date(startDate)
 		payoffDate.setMonth(payoffDate.getMonth() + numberOfPayments)
 	}
 
-	// Extra payment impact summary
-	const extraPaymentImpact = extraMonthlyPayment > 0 ? {
-		interestSaved: Math.round(interestSaved * 100) / 100,
-		monthsReduced: monthsReduced,
-		yearsReduced: Math.round((monthsReduced / 12) * 10) / 10,
-	} : null
+	const paymentBreakdown = {
+		principal: monthlyMortgagePayment,
+		interest: round2(loanAmount * periodicRate),
+		taxes: monthlyPropertyTax,
+		insurance: monthlyInsurance,
+		hoa: HOA,
+		pmi: pmiPayment,
+		total: totalMonthlyPayment,
+	}
 
-	// Build formula explanation
-	const downPaymentLabel = downPaymentType === 'percentage' 
-		? `${downPayment}% ($${downPaymentAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})`
-		: `$${downPaymentAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-	
-	let formulaExplanation = ''
-	
-	formulaExplanation = `Mortgage Payment Calculation:\n\n1. Calculate Down Payment and Loan Amount:\n   ${downPaymentType === 'percentage' ? `Down Payment = Home Price × ${downPayment}%\n   Down Payment = $${homePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × ${downPayment}% = $${downPaymentAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}Loan Amount = Home Price - Down Payment\n   Loan Amount = $${homePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - $${downPaymentAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Loan Amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n2. Calculate Monthly Mortgage Payment (Principal + Interest):\n   M = L × [r(1+r)^n] / [(1+r)^n - 1]\n\n   Where:\n   - M = Monthly mortgage payment\n   - L = Loan amount = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   - r = Monthly interest rate = Annual rate / 12 = ${interestRateAPR}% / 12 = ${(monthlyRate * 100).toFixed(6)}%\n   - n = Number of payments = ${loanTermYears} years × 12 = ${numberOfPayments}\n\n   Substituting:\n   (1 + r)^n = (1 + ${monthlyRate.toFixed(6)})^${numberOfPayments} = ${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)}\n\n   M = $${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} × [${(monthlyRate * 100).toFixed(6)}% × ${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)}] / [${Math.pow(1 + monthlyRate, numberOfPayments).toFixed(6)} - 1]\n   M = $${monthlyMortgagePayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n3. Calculate Additional Monthly Costs:\n   ${monthlyPropertyTax > 0 ? `Monthly Property Tax = ${propertyTaxType === 'percentage' ? `Home Price × ${propertyTax}% / 12` : `$${propertyTax} / 12`}\n   Monthly Property Tax = $${monthlyPropertyTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}${monthlyInsurance > 0 ? `Monthly Insurance = Annual Insurance / 12\n   Monthly Insurance = $${homeInsurance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / 12 = $${monthlyInsurance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}${HOA > 0 ? `Monthly HOA = $${HOA.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n   ` : ''}4. Calculate Total Monthly Payment (PITI + HOA):\n   Total Monthly Payment = Mortgage Payment + Property Tax + Insurance + HOA\n   Total Monthly Payment = $${monthlyMortgagePayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}${monthlyPropertyTax > 0 ? ` + $${monthlyPropertyTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}${monthlyInsurance > 0 ? ` + $${monthlyInsurance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}${HOA > 0 ? ` + $${HOA.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}\n   Total Monthly Payment = $${totalMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n5. Calculate Total Costs:\n   Total Payment (loan + interest): $${totalPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Interest Paid: $${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Total Cost (including taxes, insurance, HOA): $${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n${extraMonthlyPayment > 0 ? `6. Extra Payment Impact:\n   Extra Monthly Payment: $${extraMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Interest Saved: $${interestSaved.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n   Loan Term Reduced: ${monthsReduced} months (${(monthsReduced / 12).toFixed(1)} years)\n   New Payoff Date: ${payoffDate ? payoffDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}\n\n` : ''}Your mortgage payment includes principal and interest. The down payment reduces your loan amount, which lowers your monthly payment and total interest. ${monthlyPropertyTax > 0 || monthlyInsurance > 0 || HOA > 0 ? 'Property taxes, insurance, and HOA fees are additional monthly costs that increase your total payment but don\'t reduce your loan balance. ' : ''}Longer loan terms result in lower monthly payments but significantly higher total interest paid over the life of the loan. ${extraMonthlyPayment > 0 ? 'Making extra payments reduces your loan term and total interest, saving you money over time.' : ''}`
+	const extraPaymentImpact =
+		extraMonthlyPayment > 0 && paymentType === 'annuity'
+			? {
+					interestSaved,
+					monthsReduced,
+					yearsReduced: round2(monthsReduced / 12),
+				}
+			: null
 
-	const roundedMonthly = Math.round(monthlyMortgagePayment * 100) / 100
-	const roundedTotalMonthly = Math.round(totalMonthlyPayment * 100) / 100
-	const roundedLoanAmount = Math.round(loanAmount * 100) / 100
-	const roundedTotalInterest = Math.round(totalInterest * 100) / 100
-	const roundedTotalCost = Math.round(totalCost * 100) / 100
+	const steps = [
+		`Principal: ${round2(loanAmount)}`,
+		`Periodic payment (${paymentType}): ${monthlyMortgagePayment}`,
+		`Total interest: ${round2(totalInterest)}`,
+		`PMI months: ${pmiMonths}`,
+	].join('; ')
+
+	const formulaExplanation = steps
 
 	return {
-		monthlyMortgagePayment: roundedMonthly,
-		totalMonthlyPayment: roundedTotalMonthly,
-		loanAmount: roundedLoanAmount,
-		totalInterest: roundedTotalInterest,
-		totalCost: roundedTotalCost,
+		monthlyMortgagePayment,
+		totalMonthlyPayment,
+		loanAmount: round2(loanAmount),
+		totalInterest: round2(totalInterest),
+		totalCost: round2(totalCost),
 		payoffDate: payoffDate ? payoffDate.toISOString().split('T')[0] : null,
 		paymentBreakdown,
 		extraPaymentImpact,
-		amortizationSchedule: amortizationSchedule, // Already limited to 360 months
+		amortizationSchedule,
 		formulaExplanation,
-		// Aliases for JSON schema output names (same engine for EN TS + RU JSON)
-		monthlyPayment: roundedMonthly,
-		totalPayment: Math.round(totalPayment * 100) / 100,
-		overpayment: roundedTotalInterest,
-		monthlyPITI: roundedTotalMonthly,
-		totalCostOfOwnership: roundedTotalCost,
-		pmiPayment: 0,
-		pmiMonths: 0,
+		monthlyPayment: monthlyMortgagePayment,
+		totalPayment: round2(totalPayment),
+		overpayment: round2(totalInterest),
+		monthlyPITI: totalMonthlyPayment,
+		totalCostOfOwnership: round2(totalCost),
+		pmiPayment,
+		pmiMonths,
+		steps,
 	}
 }
 
-// Register so JSON schema engine="function" can resolve this calculator for all locales
 registerCalculation('calculateMortgage', calculateMortgage)

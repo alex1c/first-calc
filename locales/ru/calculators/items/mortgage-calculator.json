@@ -74,7 +74,7 @@
 		{ "label": "Ежемесячный платёж", "unitLabel": "₽" },
 		{ "label": "Общая сумма выплат", "unitLabel": "₽" },
 		{ "label": "Общие проценты", "unitLabel": "₽" },
-		{ "label": "Переплата", "unitLabel": "%" },
+		{ "label": "Переплата", "unitLabel": "₽" },
 		{ "label": "Ежемесячный PITI", "unitLabel": "₽" },
 		{ "label": "Общий ежемесячный платёж", "unitLabel": "₽" },
 		{ "label": "Платёж PMI", "unitLabel": "₽" },
