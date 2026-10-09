@@ -2,7 +2,7 @@
 
 **Branch:** `fix/ru-catalog-seo-recovery`  
 **Starting tip (user brief):** `617a5b4b81a2617283ca661676fb078a8132a192`  
-**Final tip SHA:** *(filled after push — see §1)*  
+**Final tip SHA:** `2c690158c635787537aac4de02d7e958133e3d4d` (docs pin may trail)  
 **Status:** `READY FOR RELEASE DECISION`
 
 **Not done (by design):** merge to `main`, PR, production deploy, Timeweb infra changes.
@@ -14,7 +14,7 @@
 | Item | SHA |
 |------|-----|
 | Brief starting tip | `617a5b4b81a2617283ca661676fb078a8132a192` |
-| Final tip | See git tip of `fix/ru-catalog-seo-recovery` after the release-prep commits (updated in §1 pin below when available) |
+| Final tip (code) | `2c690158c635787537aac4de02d7e958133e3d4d` |
 
 Investment/Savings calculation engines were **not** modified in this pass.
 
