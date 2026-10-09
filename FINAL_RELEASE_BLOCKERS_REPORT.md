@@ -11,7 +11,7 @@ Repository: `alex1c/first-calc`
 | | SHA |
 |---|---|
 | Starting tip (Codex RELEASE NO-GO) | `18a65d50882a600adc292159027df174cf74ee1d` |
-| Final tip (this gate) | *(see `git rev-parse HEAD` after push; must equal `origin/fix/ru-catalog-seo-recovery`)* |
+| Final tip (this gate) | `fa34138bf571357d20b24c8ffc7a94ccbf2697a3` |
 
 Verify tip with:
 
