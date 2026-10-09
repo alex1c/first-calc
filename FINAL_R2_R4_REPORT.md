@@ -11,9 +11,9 @@ Repository: `alex1c/first-calc`
 | | SHA |
 |---|---|
 | Starting tip | `8e9640fbf41aa82504e77d25342d8ce4a9c94232` |
-| Fix commit | *(see git log after push)* |
+| Fix commit | `a116c1c97372100614ae7224b7ca451879ade97f` |
 
-Verify tip: `git rev-parse HEAD` must equal `git ls-remote origin refs/heads/fix/ru-catalog-seo-recovery`. Working tree clean.
+Verify tip with `git rev-parse HEAD` and `git ls-remote origin refs/heads/fix/ru-catalog-seo-recovery` (must match; working tree clean).
 
 ## Scope
 
