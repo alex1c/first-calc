@@ -1,8 +1,8 @@
-# First Calc Recovery — Final Report (B3.2 + B3.3 + Stage C)
+﻿# First Calc Recovery — Final Report (B3.2 + B3.3 + Stage C)
 
 **Branch:** `fix/ru-catalog-seo-recovery`  
 **Starting tip (user brief):** `eed0e64aeb05bac45710aebec8b2f0edf027999e`  
-**Code tip (this report commit parent):** see git history below; **final tip SHA filled after docs commit**  
+**Code tip (this report commit parent):** see git history below; **b7a146d599f81fbb94e5ed7c1af6209d4669933c**  
 **Status:** `READY FOR FINAL CODEX AUDIT`
 
 **Not done (by design):** merge to `main`, PR without approval, production deploy, Timeweb infra changes.
