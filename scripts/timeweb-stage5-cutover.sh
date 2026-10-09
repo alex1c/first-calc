@@ -95,9 +95,14 @@ log "rollback_image_id=${ROLLBACK_ID}"
 	log "ERROR: ROLLBACK.sh not executable. STOP."
 	exit 2
 }
-# Sanity: ROLLBACK.sh must not mention peer containers
-if grep -Eiq 'calc1|pipetka' "${BACKUP_DIR}/ROLLBACK.sh"; then
-	log "ERROR: ROLLBACK.sh references peer sites. STOP."
+# Sanity: ROLLBACK.sh must only act on first-calc (ignore comments)
+if grep -Eiv '^[[:space:]]*#' "${BACKUP_DIR}/ROLLBACK.sh" | grep -Eiq \
+	'(docker[[:space:]]+(rm|stop|kill|restart|compose).*calc1|docker[[:space:]]+(rm|stop|kill|restart|compose).*pipetka|calc1-app|pipetkaonline)'; then
+	log "ERROR: ROLLBACK.sh contains peer-site docker actions. STOP."
+	exit 2
+fi
+if ! grep -Eq 'first-calc|ROLLBACK_TAG' "${BACKUP_DIR}/ROLLBACK.sh"; then
+	log "ERROR: ROLLBACK.sh does not clearly target first-calc. STOP."
 	exit 2
 fi
 log "backup_dir_ok=${BACKUP_DIR}"
