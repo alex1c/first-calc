@@ -129,10 +129,12 @@ export async function buildSitemapEntries(): Promise<ClassifiedSitemapEntry[]> {
 		}
 	}
 
-	// Legacy pages have substantial locale-specific content only in English/Russian.
+	// Legacy landings have substantial locale-specific content only in English/Russian.
+	// Skip slug-less historical example paths (/range/1-100, /factors/360,
+	// /number-format/in/...) — those dynamic routes are noindex-only and must
+	// not appear in the sitemap.
 	for (const locale of ['en', 'ru'] as const) {
 		for (const tool of legacyTools) {
-			// Do not enumerate arbitrary numeric/range variants from example tool URLs.
 			if (!tool.slug) continue
 			addEntry(entries, seen, locale, tool.path, 'other')
 		}

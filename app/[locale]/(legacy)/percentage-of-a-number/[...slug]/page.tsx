@@ -21,6 +21,7 @@ import {
 	getLegacyOgDescription,
 	getLegacyContent,
 } from '@/lib/legacy/content'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 interface PercentageOfANumberPageProps {
 	params: {
@@ -78,14 +79,12 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: `/en/percentage-of-a-number/${slug.join('/')}`,
-				ru: `/ru/percentage-of-a-number/${slug.join('/')}`,
-				es: `/es/percentage-of-a-number/${slug.join('/')}`,
-				tr: `/tr/percentage-of-a-number/${slug.join('/')}`,
-				hi: `/hi/percentage-of-a-number/${slug.join('/')}`,
-			},
-			canonical: `/${locale}/percentage-of-a-number/${slug.join('/')}`,
+			// Only en/ru have real percentage-of-a-number content; do not advertise empty locales.
+			languages: languageAlternates(
+				`/percentage-of-a-number/${slug.join('/')}`,
+				['en', 'ru'],
+			),
+			canonical: localeUrl(locale, `/percentage-of-a-number/${slug.join('/')}`),
 		},
 	}
 }

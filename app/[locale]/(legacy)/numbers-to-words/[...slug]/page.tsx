@@ -24,6 +24,7 @@ import {
 	getLegacyOgDescription,
 	getLegacyContent,
 } from '@/lib/legacy/content'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 interface NumbersToWordsPageProps {
 	params: {
@@ -100,14 +101,12 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: `/en/numbers-to-words/${slug.join('/')}`,
-				ru: `/ru/numbers-to-words/${slug.join('/')}`,
-				es: `/es/numbers-to-words/${slug.join('/')}`,
-				tr: `/tr/numbers-to-words/${slug.join('/')}`,
-				hi: `/hi/numbers-to-words/${slug.join('/')}`,
-			},
-			canonical: `/${locale}/numbers-to-words/${slug.join('/')}`,
+			// Only en/ru have real numbers-to-words content; do not advertise empty locales.
+			languages: languageAlternates(
+				`/numbers-to-words/${slug.join('/')}`,
+				['en', 'ru'],
+			),
+			canonical: localeUrl(locale, `/numbers-to-words/${slug.join('/')}`),
 		},
 	}
 }

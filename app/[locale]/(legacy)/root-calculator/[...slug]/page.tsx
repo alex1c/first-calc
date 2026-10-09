@@ -9,6 +9,7 @@ import { RootCalculatorForm } from '@/components/legacy/root-calculator-form'
 import { loadNamespaces, createT } from '@/lib/i18n'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Helper to decode URL segments
 function decodeURIComponentSafe(str: string): string {
@@ -93,14 +94,12 @@ export async function generateMetadata({
 		description,
 		robots,
 		alternates: {
-			languages: {
-				en: `/root-calculator/${slug.join('/')}`,
-				ru: `/ru/root-calculator/${slug.join('/')}`,
-				es: `/es/root-calculator/${slug.join('/')}`,
-				tr: `/tr/root-calculator/${slug.join('/')}`,
-				hi: `/hi/root-calculator/${slug.join('/')}`,
-			},
-			canonical: `/${locale}/root-calculator/${slug.join('/')}`,
+			// Only en/ru have real root-calculator content; do not advertise empty locales.
+			languages: languageAlternates(
+				`/root-calculator/${slug.join('/')}`,
+				['en', 'ru'],
+			),
+			canonical: localeUrl(locale, `/root-calculator/${slug.join('/')}`),
 		},
 	}
 }

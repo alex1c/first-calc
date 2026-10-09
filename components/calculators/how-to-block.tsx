@@ -6,8 +6,9 @@ interface HowToBlockProps {
 }
 
 /**
- * How to calculate block component
- * Displays step-by-step instructions
+ * How to calculate block component.
+ * Bullets must come from calculator.howToBullets (already localized via items);
+ * the heading is passed by the parent so it can use common.label.howTo.
  */
 export function HowToBlock({
 	calculator,

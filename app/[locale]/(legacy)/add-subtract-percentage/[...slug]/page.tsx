@@ -21,6 +21,7 @@ import {
 	getLegacyOgDescription,
 	getLegacyContent,
 } from '@/lib/legacy/content'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 interface AddSubtractPercentagePageProps {
 	params: {
@@ -77,14 +78,12 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: `/en/add-subtract-percentage/${slug.join('/')}`,
-				ru: `/ru/add-subtract-percentage/${slug.join('/')}`,
-				es: `/es/add-subtract-percentage/${slug.join('/')}`,
-				tr: `/tr/add-subtract-percentage/${slug.join('/')}`,
-				hi: `/hi/add-subtract-percentage/${slug.join('/')}`,
-			},
-			canonical: `/${locale}/add-subtract-percentage/${slug.join('/')}`,
+			// Only en/ru have real add-subtract-percentage content; do not advertise empty locales.
+			languages: languageAlternates(
+				`/add-subtract-percentage/${slug.join('/')}`,
+				['en', 'ru'],
+			),
+			canonical: localeUrl(locale, `/add-subtract-percentage/${slug.join('/')}`),
 		},
 	}
 }

@@ -20,6 +20,7 @@ import {
 	getLegacyOgDescription,
 	getLegacyContent,
 } from '@/lib/legacy/content'
+import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 interface RomanNumeralsConverterPageProps {
 	params: {
@@ -94,14 +95,12 @@ export async function generateMetadata({
 			description: ogDescription,
 		},
 		alternates: {
-			languages: {
-				en: `/en/roman-numerals-converter/${slug.join('/')}`,
-				ru: `/ru/roman-numerals-converter/${slug.join('/')}`,
-				es: `/es/roman-numerals-converter/${slug.join('/')}`,
-				tr: `/tr/roman-numerals-converter/${slug.join('/')}`,
-				hi: `/hi/roman-numerals-converter/${slug.join('/')}`,
-			},
-			canonical: `/${locale}/roman-numerals-converter/${slug.join('/')}`,
+			// Only en/ru have real roman-numerals content; do not advertise empty locales.
+			languages: languageAlternates(
+				`/roman-numerals-converter/${slug.join('/')}`,
+				['en', 'ru'],
+			),
+			canonical: localeUrl(locale, `/roman-numerals-converter/${slug.join('/')}`),
 		},
 	}
 }

@@ -1,315 +1,296 @@
 {
-  "title": "Сравнение ипотечных предложений",
-  "shortDescription": "Сравните варианты ипотеки и выберите лучший по платежу, процентам или общей стоимости.",
-  "longDescription": "Сравните варианты ипотеки и выберите лучший по платежу, процентам или общей стоимости.",
-  "inputs": [
-    {
-      "name": "comparisonMetric",
-      "label": "Критерий сравнения",
-      "helpText": "Select which metric to use for determining the best mortgage",
-      "options": [
-        {
-          "value": "lowest-total-monthly-payment",
-          "label": "Lowest Total Monthly Payment"
-        },
-        {
-          "value": "lowest-total-interest",
-          "label": "Минимальные проценты"
-        },
-        {
-          "value": "lowest-total-cost",
-          "label": "Минимальная полная стоимость"
-        },
-        {
-          "value": "fastest-payoff",
-          "label": "Fastest Payoff"
-        }
-      ]
-    },
-    {
-      "name": "includeTaxesInsurance",
-      "label": "Include Taxes & Insurance",
-      "helpText": "Include property taxes and insurance in total monthly payment"
-    },
-    {
-      "name": "scenario1Name",
-      "label": "Вариант 1: Название",
-      "placeholder": "Введите значение"
-    },
-    {
-      "name": "scenario1HomePrice",
-      "label": "Вариант 1: Цена жилья",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    },
-    {
-      "name": "scenario1DownPayment",
-      "label": "Вариант 1: Первоначальный взнос",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    },
-    {
-      "name": "scenario1DownPaymentType",
-      "label": "Mortgage A Down Payment Type",
-      "helpText": "Choose whether down payment is amount or percentage",
-      "options": [
-        {
-          "value": "amount",
-          "label": "Amount ($)"
-        },
-        {
-          "value": "percentage",
-          "label": "Percentage (%)"
-        }
-      ]
-    },
-    {
-      "name": "scenario1InterestRateAPR",
-      "label": "Mortgage A APR",
-      "placeholder": "Введите значение",
-      "unitLabel": "%"
-    },
-    {
-      "name": "scenario1LoanTermYears",
-      "label": "Mortgage A Term",
-      "helpText": "Loan term in years",
-      "options": [
-        {
-          "value": "15",
-          "label": "15 years"
-        },
-        {
-          "value": "20",
-          "label": "20 years"
-        },
-        {
-          "value": "25",
-          "label": "25 years"
-        },
-        {
-          "value": "30",
-          "label": "30 years"
-        }
-      ]
-    },
-    {
-      "name": "scenario1PropertyTaxAnnual",
-      "label": "Mortgage A Property Tax (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    },
-    {
-      "name": "scenario1PropertyTaxType",
-      "label": "Mortgage A Property Tax Type",
-      "helpText": "Choose whether property tax is amount or percentage",
-      "options": [
-        {
-          "value": "amount",
-          "label": "Annual Amount ($)"
-        },
-        {
-          "value": "percentage",
-          "label": "Percentage (%)"
-        }
-      ]
-    },
-    {
-      "name": "scenario1HomeInsuranceAnnual",
-      "label": "Mortgage A Home Insurance (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽/year"
-    },
-    {
-      "name": "scenario1HOAmonthly",
-      "label": "Mortgage A HOA Fees (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽/month"
-    },
-    {
-      "name": "scenario1ExtraMonthlyPayment",
-      "label": "Mortgage A Extra Payment (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    },
-    {
-      "name": "scenario1ClosingCosts",
-      "label": "Mortgage A Closing Costs (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    },
-    {
-      "name": "scenario2Name",
-      "label": "Вариант 2: Название",
-      "placeholder": "Введите значение"
-    },
-    {
-      "name": "scenario2HomePrice",
-      "label": "Вариант 2: Цена жилья",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    },
-    {
-      "name": "scenario2DownPayment",
-      "label": "Вариант 2: Первоначальный взнос",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    },
-    {
-      "name": "scenario2DownPaymentType",
-      "label": "Mortgage B Down Payment Type",
-      "helpText": "Choose whether down payment is amount or percentage",
-      "options": [
-        {
-          "value": "amount",
-          "label": "Amount ($)"
-        },
-        {
-          "value": "percentage",
-          "label": "Percentage (%)"
-        }
-      ]
-    },
-    {
-      "name": "scenario2InterestRateAPR",
-      "label": "Mortgage B APR",
-      "placeholder": "Введите значение",
-      "unitLabel": "%"
-    },
-    {
-      "name": "scenario2LoanTermYears",
-      "label": "Mortgage B Term",
-      "helpText": "Loan term in years",
-      "options": [
-        {
-          "value": "15",
-          "label": "15 years"
-        },
-        {
-          "value": "20",
-          "label": "20 years"
-        },
-        {
-          "value": "25",
-          "label": "25 years"
-        },
-        {
-          "value": "30",
-          "label": "30 years"
-        }
-      ]
-    },
-    {
-      "name": "scenario2PropertyTaxAnnual",
-      "label": "Mortgage B Property Tax (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    },
-    {
-      "name": "scenario2PropertyTaxType",
-      "label": "Mortgage B Property Tax Type",
-      "helpText": "Choose whether property tax is amount or percentage",
-      "options": [
-        {
-          "value": "amount",
-          "label": "Annual Amount ($)"
-        },
-        {
-          "value": "percentage",
-          "label": "Percentage (%)"
-        }
-      ]
-    },
-    {
-      "name": "scenario2HomeInsuranceAnnual",
-      "label": "Mortgage B Home Insurance (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽/year"
-    },
-    {
-      "name": "scenario2HOAmonthly",
-      "label": "Mortgage B HOA Fees (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽/month"
-    },
-    {
-      "name": "scenario2ExtraMonthlyPayment",
-      "label": "Mortgage B Extra Payment (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    },
-    {
-      "name": "scenario2ClosingCosts",
-      "label": "Mortgage B Closing Costs (Optional)",
-      "placeholder": "Введите значение",
-      "unitLabel": "₽"
-    }
-  ],
-  "outputs": [
-    {
-      "name": "comparisonTable",
-      "label": "Comparison Table"
-    },
-    {
-      "name": "winner",
-      "label": "Winner"
-    },
-    {
-      "name": "bestScenarioByMetric",
-      "label": "Best Mortgage by Metric"
-    },
-    {
-      "name": "formulaExplanation",
-      "label": "Пояснение формулы"
-    }
-  ],
-  "howTo": [
-    "Заполните поля формы",
-    "Проверьте единицы измерения (₽, %, годы)",
-    "Нажмите «Рассчитать»",
-    "Сверьте основные и дополнительные результаты"
-  ],
-  "examples": [
-    {
-      "title": "Пример 1",
-      "description": "$300,000 home, 20% down, 30 years, comparing 6% APR vs 6.5% APR",
-      "steps": [
-        "Mortgage A: $300,000 home, 20% down, 6% APR, 30 years",
-        "Mortgage B: $300,000 home, 20% down, 6.5% APR, 30 years",
-        "Comparison metric: Lowest Total Interest",
-        "Mortgage A monthly P&I: $1,438.92"
-      ],
-      "resultDescription": "Comparing two $300,000 mortgages with 20% down payment and different APRs (6% vs 6.5%) over 30 years shows that Mortgage A with 6% APR has a lower monthly payment ($1,438.92 vs $1,515.84) and significantly less total interest ($277,611 vs $305,702). The 0.5% APR difference saves over $28,000 in interest, demonstrating why APR matters more than loan amount when comparing mortgages."
-    },
-    {
-      "title": "Пример 2",
-      "description": "$300,000 home, 20% down, 6% APR, comparing 15-year vs 30-year term",
-      "steps": [
-        "Mortgage A: $300,000 home, 20% down, 6% APR, 15 years",
-        "Mortgage B: $300,000 home, 20% down, 6% APR, 30 years",
-        "Comparison metric: Lowest Total Interest",
-        "Mortgage A monthly P&I: $2,025.28"
-      ],
-      "resultDescription": "Comparing a 15-year mortgage to a 30-year mortgage on the same $240,000 loan at 6% APR shows the trade-off: the 15-year loan has a $586.36 higher monthly payment ($2,025.28 vs $1,438.92) but saves $153,060.80 in total interest ($124,550 vs $277,611). The shorter term saves over $150,000 in interest, demonstrating that longer terms reduce monthly payments but significantly increase total cost."
-    }
-  ],
-  "faq": [
-    {
-      "question": "Насколько точен расчёт?",
-      "answer": "Калькулятор использует стандартные финансовые формулы. Реальные условия банка или брокера могут отличаться."
-    },
-    {
-      "question": "В какой валюте считаются суммы?",
-      "answer": "Подписи показывают рубли (₽); формула универсальна для любой валюты при согласованных единицах."
-    }
-  ],
-  "seo": {
-    "title": "Сравнение ипотечных предложений – First Calc",
-    "description": "Сравните варианты ипотеки и выберите лучший по платежу, процентам или общей стоимости.",
-    "keywords": [
-      "Сравнение ипотечных предложений",
-      "калькулятор",
-      "финансы",
-      "mortgage-comparison-calculator"
-    ]
-  }
+	"title": "Калькулятор сравнения ипотеки",
+	"shortDescription": "Сравните ипотечные предложения: платёжи, проценты, налоги, страховку и полную стоимость — чтобы выбрать лучший вариант.",
+	"longDescription": "Сравните ипотечные предложения бок о бок: ежемесячные платежи, переплату, налоги, страховку и полную стоимость. Калькулятор помогает оценить несколько сценариев сразу и понять, какая ипотека лучше по минимальному платежу, минимальным процентам, минимальной полной стоимости или самому быстрому погашению. Удобно сравнивать ставки, сроки, первоначальный взнос и сопутствующие расходы.",
+	"inputs": [
+		{
+			"name": "comparisonMetric",
+			"label": "Критерий сравнения",
+			"helpText": "По какому показателю определять лучшую ипотеку",
+			"options": [
+				{ "value": "lowest-total-monthly-payment", "label": "Минимальный общий ежемесячный платёж" },
+				{ "value": "lowest-total-interest", "label": "Минимальная переплата по процентам" },
+				{ "value": "lowest-total-cost", "label": "Минимальная полная стоимость" },
+				{ "value": "fastest-payoff", "label": "Самое быстрое погашение" }
+			]
+		},
+		{
+			"name": "includeTaxesInsurance",
+			"label": "Учитывать налоги и страховку",
+			"helpText": "Включать налог на имущество и страховку в общий ежемесячный платёж"
+		},
+		{
+			"name": "scenario1Name",
+			"label": "Название ипотеки A",
+			"placeholder": "Введите название ипотеки"
+		},
+		{
+			"name": "scenario1HomePrice",
+			"label": "Цена жилья (ипотека A)",
+			"unitLabel": "₽",
+			"placeholder": "Введите цену жилья"
+		},
+		{
+			"name": "scenario1DownPayment",
+			"label": "Первоначальный взнос (ипотека A)",
+			"unitLabel": "₽",
+			"placeholder": "Введите первоначальный взнос"
+		},
+		{
+			"name": "scenario1DownPaymentType",
+			"label": "Тип первоначального взноса (ипотека A)",
+			"helpText": "Взнос задан суммой или процентом",
+			"options": [
+				{ "value": "amount", "label": "Сумма (₽)" },
+				{ "value": "percentage", "label": "Процент (%)" }
+			]
+		},
+		{
+			"name": "scenario1InterestRateAPR",
+			"label": "Годовая ставка APR (ипотека A)",
+			"unitLabel": "%",
+			"placeholder": "Введите годовую ставку"
+		},
+		{
+			"name": "scenario1LoanTermYears",
+			"label": "Срок (ипотека A)",
+			"helpText": "Срок кредита в годах",
+			"options": [
+				{ "value": "15", "label": "15 лет" },
+				{ "value": "20", "label": "20 лет" },
+				{ "value": "25", "label": "25 лет" },
+				{ "value": "30", "label": "30 лет" }
+			]
+		},
+		{
+			"name": "scenario1PropertyTaxAnnual",
+			"label": "Налог на имущество (ипотека A, необязательно)",
+			"unitLabel": "₽",
+			"placeholder": "Введите налог на имущество"
+		},
+		{
+			"name": "scenario1PropertyTaxType",
+			"label": "Тип налога на имущество (ипотека A)",
+			"helpText": "Налог задан суммой или процентом",
+			"options": [
+				{ "value": "amount", "label": "Годовая сумма (₽)" },
+				{ "value": "percentage", "label": "Процент (%)" }
+			]
+		},
+		{
+			"name": "scenario1HomeInsuranceAnnual",
+			"label": "Страховка жилья (ипотека A, необязательно)",
+			"unitLabel": "₽/год",
+			"placeholder": "Введите годовую страховку"
+		},
+		{
+			"name": "scenario1HOAmonthly",
+			"label": "Взносы ТСЖ / ЖКХ (ипотека A, необязательно)",
+			"unitLabel": "₽/мес",
+			"placeholder": "Введите ежемесячный взнос"
+		},
+		{
+			"name": "scenario1ExtraMonthlyPayment",
+			"label": "Доп. платёж (ипотека A, необязательно)",
+			"unitLabel": "₽",
+			"placeholder": "Введите доп. платёж"
+		},
+		{
+			"name": "scenario1ClosingCosts",
+			"label": "Расходы на оформление (ипотека A, необязательно)",
+			"unitLabel": "₽",
+			"placeholder": "Введите расходы на оформление"
+		},
+		{
+			"name": "scenario2Name",
+			"label": "Название ипотеки B",
+			"placeholder": "Введите название ипотеки"
+		},
+		{
+			"name": "scenario2HomePrice",
+			"label": "Цена жилья (ипотека B)",
+			"unitLabel": "₽",
+			"placeholder": "Введите цену жилья"
+		},
+		{
+			"name": "scenario2DownPayment",
+			 "label": "Первоначальный взнос (ипотека B)",
+			"unitLabel": "₽",
+			"placeholder": "Введите первоначальный взнос"
+		},
+		{
+			"name": "scenario2DownPaymentType",
+			"label": "Тип первоначального взноса (ипотека B)",
+			"helpText": "Взнос задан суммой или процентом",
+			"options": [
+				{ "value": "amount", "label": "Сумма (₽)" },
+				{ "value": "percentage", "label": "Процент (%)" }
+			]
+		},
+		{
+			"name": "scenario2InterestRateAPR",
+			"label": "Годовая ставка APR (ипотека B)",
+			"unitLabel": "%",
+			"placeholder": "Введите годовую ставку"
+		},
+		{
+			"name": "scenario2LoanTermYears",
+			"label": "Срок (ипотека B)",
+			"helpText": "Срок кредита в годах",
+			"options": [
+				{ "value": "15", "label": "15 лет" },
+				{ "value": "20", "label": "20 лет" },
+				{ "value": "25", "label": "25 лет" },
+				{ "value": "30", "label": "30 лет" }
+			]
+		},
+		{
+			"name": "scenario2PropertyTaxAnnual",
+			"label": "Налог на имущество (ипотека B, необязательно)",
+			"unitLabel": "₽",
+			"placeholder": "Введите налог на имущество"
+		},
+		{
+			"name": "scenario2PropertyTaxType",
+			"label": "Тип налога на имущество (ипотека B)",
+			"helpText": "Налог задан суммой или процентом",
+			"options": [
+				{ "value": "amount", "label": "Годовая сумма (₽)" },
+				{ "value": "percentage", "label": "Процент (%)" }
+			]
+		},
+		{
+			"name": "scenario2HomeInsuranceAnnual",
+			"label": "Страховка жилья (ипотека B, необязательно)",
+			"unitLabel": "₽/год",
+			"placeholder": "Введите годовую страховку"
+		},
+		{
+			"name": "scenario2HOAmonthly",
+			"label": "Взносы ТСЖ / ЖКХ (ипотека B, необязательно)",
+			"unitLabel": "₽/мес",
+			"placeholder": "Введите ежемесячный взнос"
+		},
+		{
+			"name": "scenario2ExtraMonthlyPayment",
+			"label": "Доп. платёж (ипотека B, необязательно)",
+			"unitLabel": "₽",
+			"placeholder": "Введите доп. платёж"
+		},
+		{
+			"name": "scenario2ClosingCosts",
+			"label": "Расходы на оформление (ипотека B, необязательно)",
+			"unitLabel": "₽",
+			"placeholder": "Введите расходы на оформление"
+		}
+	],
+	"outputs": [
+		{ "name": "comparisonTable", "label": "Таблица сравнения" },
+		{ "name": "winner", "label": "Победитель" },
+		{ "name": "bestScenarioByMetric", "label": "Лучшая ипотека по критерию" },
+		{ "name": "formulaExplanation", "label": "Пояснение формулы" }
+	],
+	"howTo": [
+		"Выберите критерий: минимальный платёж, проценты, полная стоимость или самое быстрое погашение",
+		"Решите, учитывать ли налоги и страховку в общем платеже",
+		"Заполните ипотеку A: цена, взнос, ставка, срок, налоги, страховка, ТСЖ, доп. платежи и оформление",
+		"Заполните те же поля для ипотеки B",
+		"Нажмите «Рассчитать»",
+		"Сравните сумму кредита, платёж (P&I), общий платёж, проценты, полную стоимость и срок",
+		"Посмотрите победителя по выбранному критерию",
+		"Учтите, что низкий платёж не всегда означает меньшую переплату"
+	],
+	"examples": [
+		{
+			"title": "Пример 1: Одна цена жилья, разные ставки",
+			"description": "Жильё 12 000 000 ₽, взнос 20%, 30 лет: 6% vs 6,5%",
+			"steps": [
+				"Ипотека A: 12 000 000 ₽, 20% взнос, 6%, 30 лет",
+				"Ипотека B: 12 000 000 ₽, 20% взнос, 6,5%, 30 лет",
+				"Критерий: минимальная переплата",
+				"Ниже ставка — ниже платёж и заметно меньше процентов"
+			],
+			"resultDescription": "Разница в 0,5 п. п. ставки на 30 годах экономит сотни тысяч рублей процентов — ставка часто важнее мелких отличий в сумме."
+		},
+		{
+			"title": "Пример 2: 15 лет vs 30 лет",
+			"description": "Жильё 12 000 000 ₽, взнос 20%, ставка 6%",
+			"steps": [
+				"15 лет: выше платёж, меньше процентов",
+				"30 лет: ниже платёж, больше переплата",
+				"Выбор — между комфортом бюджета и полной стоимостью"
+			],
+			"resultDescription": "Короткий срок сильно снижает переплату, но требует более высокого ежемесячного платежа."
+		},
+		{
+			"title": "Пример 3: Взнос 10% vs 20%",
+			"description": "Жильё 12 000 000 ₽, ставка 6,5%, 30 лет",
+			"steps": [
+				"Больший взнос уменьшает сумму кредита",
+				"Ниже платёж и меньше процентов",
+				"Часто улучшаются условия банка"
+			],
+			"resultDescription": "Больший первоначальный взнос уменьшает и платёж, и переплату; кроме того, при 20% часто не нужна доп. страховка/надбавка за низкий взнос."
+		},
+		{
+			"title": "Пример 4: Расходы на оформление vs более высокая ставка",
+			"description": "Сравните 6% с расходами на оформление и 6,3% без них",
+			"steps": [
+				"Считайте полную стоимость, включая оформление",
+				"Низкая ставка с комиссиями может всё равно выиграть",
+				"Или наоборот — зависит от сумм и срока владения"
+			],
+			"resultDescription": "Сравнивайте полную стоимость: разовые расходы на оформление и разница ставок вместе определяют, что выгоднее."
+		}
+	],
+	"faq": [
+		{
+			"question": "Как сравнивать ипотечные предложения?",
+			"answer": "Соберите одинаковые данные: цена жилья, взнос, ставка, срок, налоги, страховка, взносы ТСЖ, оформление и план доп. платежей. Выберите критерий и сравните результаты в таблице."
+		},
+		{
+			"question": "Чем APR отличается от процентной ставки?",
+			"answer": "Ставка — цена займа в процентах. APR может включать дополнительные расходы и лучше отражает полную стоимость. Для сравнения предложений ориентируйтесь на сопоставимые показатели от банков."
+		},
+		{
+			"question": "Что выбрать: 15 или 30 лет?",
+			"answer": "15 лет — выше платёж, заметно меньше процентов. 30 лет — ниже платёж, больше переплата и гибкость. Выбирайте исходя из бюджета и цели минимизации стоимости."
+		},
+		{
+			"question": "Какой первоначальный взнос достаточен?",
+			"answer": "Часто ориентир — 15–20%: меньше сумма кредита и иногда лучше ставка. Меньший взнос тоже возможен, но платёж и переплата выше. Калькулятор покажет разницу сценариев."
+		},
+		{
+			"question": "Важны ли налоги и страховка при сравнении?",
+			"answer": "Да. Они увеличивают реальный ежемесячный платёж за жильё. Ипотека с меньшим платежом по телу/процентам может оказаться дороже с учётом налога и страховки."
+		},
+		{
+			"question": "Стоит ли вносить доп. платежи?",
+			"answer": "Да: они сокращают основной долг, проценты и срок. Даже небольшая сумма ежемесячно на длинной ипотеке даёт заметную экономию."
+		},
+		{
+			"question": "Что включать в расходы на оформление?",
+			"answer": "Комиссии банка, оценку, страховки на старте, нотариальные и регистрационные расходы и прочие разовые платежи. Учитывайте их в полной стоимости сравнения."
+		},
+		{
+			"question": "Какой критерий сравнения выбрать?",
+			"answer": "Минимальный платёж — если важен бюджет. Минимальные проценты — если хотите меньше переплатить. Минимальная полная стоимость — с учётом всех расходов. Самое быстрое погашение — если цель выйти из долга скорее."
+		},
+		{
+			"question": "Насколько точен калькулятор?",
+			"answer": "Точен для стандартной фиксированной ипотеки с аннуитетными платежами. Реальные условия банка, страховки и график могут отличаться — всегда сверяйтесь с официальным расчётом кредитора."
+		}
+	],
+	"seo": {
+		"title": "Сравнение ипотеки — калькулятор платежей и переплаты",
+		"description": "Сравните ипотечные предложения онлайн: платёж, проценты, налоги, страховку и полную стоимость. Выберите выгодный вариант.",
+		"keywords": [
+			"сравнение ипотеки",
+			"калькулятор ипотеки",
+			"сравнить ипотечные ставки",
+			"переплата по ипотеке",
+			"первоначальный взнос",
+			"ипотечный калькулятор"
+		]
+	}
 }

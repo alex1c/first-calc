@@ -27,4 +27,14 @@ describe('category and hub hreflang availability', () => {
 	it('declares geometry category for RU after orphan restore', () => {
 		expect(categoryContentLocales('geometry')).toContain('ru')
 	})
+
+	it('does not advertise empty shell locales for legacy tool landings', () => {
+		const legacyLanding = languageAlternates('/chislo-propisyu', ['en', 'ru'])
+		expect(Object.keys(legacyLanding)).toEqual(
+			expect.arrayContaining(['en', 'ru', 'x-default']),
+		)
+		expect(legacyLanding).not.toHaveProperty('es')
+		expect(legacyLanding).not.toHaveProperty('tr')
+		expect(legacyLanding).not.toHaveProperty('hi')
+	})
 })
