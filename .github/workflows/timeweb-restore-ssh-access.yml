@@ -1,0 +1,161 @@
+name: Timeweb Restore SSH Access Check
+
+# Read-only: OLD DigitalOcean -> Timeweb migration key probe + Stage 1.
+# No deploy, no cutover, no SSH config changes, no private key exfiltration.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  restore-check:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: timeweb-first-calc-access-check
+      cancel-in-progress: false
+    steps:
+      - name: Checkout host-key seed
+        uses: actions/checkout@v4
+
+      - name: Setup SSH client (OLD host only)
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SSH_PRIVATE_KEY}" ]; then
+            echo "ERROR: SSH_PRIVATE_KEY secret missing"
+            exit 1
+          fi
+          if [ ! -f .github/workflows/_known_hosts_seed.txt ]; then
+            echo "ERROR: verified known_hosts seed missing from repo checkout"
+            exit 1
+          fi
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null
+          # Use only pre-verified host keys. No ssh-keyscan / AcceptNew.
+          grep -E '^165\.227\.171\.143 ' .github/workflows/_known_hosts_seed.txt > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          echo "Seeded known_hosts for OLD:"
+          awk '{print $1, $2}' ~/.ssh/known_hosts
+
+      - name: Probe migration path and Stage 1
+        run: |
+          set -euo pipefail
+          OLD_HOST='165.227.171.143'
+          NEW_HOST='188.225.26.192'
+          SSH=(ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey -o StrictHostKeyChecking=yes -o ConnectTimeout=15)
+
+          echo "=== 1) Connect to OLD ${OLD_HOST} ==="
+          "${SSH[@]}" "root@${OLD_HOST}" 'echo OLD_OK; hostname; whoami'
+
+          # Upload Stage-1 script to OLD (no secrets); OLD will run it on NEW via migration key.
+          # Avoid nested heredocs over a single SSH stdin.
+          STAGE1=$(cat <<'EOS'
+          set -euo pipefail
+          echo "=== STAGE 1 DIAGNOSTICS (Timeweb) ==="
+          echo "hostname=$(hostname)"
+          echo "whoami=$(whoami)"
+          echo "date_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          PROJECT_DIR=/var/www/first-calc
+          if [ -d "${PROJECT_DIR}/.git" ]; then
+            cd "${PROJECT_DIR}"
+            echo "current_production_sha=$(git rev-parse HEAD 2>/dev/null || echo unknown)"
+            echo "current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)"
+            echo "dirty_lines=$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')"
+          else
+            echo "project_git=missing"
+            ls -la /var/www || true
+          fi
+          echo "-- docker ps --"
+          docker ps -a --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}' || true
+          echo "-- first-calc inspect --"
+          if docker inspect first-calc >/dev/null 2>&1; then
+            docker inspect first-calc --format 'id={{.Id}} image={{.Config.Image}} status={{.State.Status}} health={{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}} started={{.State.StartedAt}}'
+            docker inspect first-calc --format '{{range .Config.Env}}{{println .}}{{end}}' | sed -E 's/^([^=]+)=.*/\1=***/'
+          else
+            echo "first-calc container not found by exact name"
+          fi
+          echo "-- compose --"
+          if [ -f "${PROJECT_DIR}/docker-compose.yml" ]; then
+            sed -E 's/(PASSWORD|SECRET|TOKEN|KEY|PRIVATE)=.*/\1=***REDACTED***/I' "${PROJECT_DIR}/docker-compose.yml"
+          fi
+          echo "-- apache first-calc / :3003 --"
+          grep -RIn -E 'first-calc|3003' /etc/apache2/sites-enabled/ 2>/dev/null | head -n 60 || true
+          echo "-- listen 3003 --"
+          ss -lnt | grep -E ':3003\b' || echo 'nothing on 3003'
+          echo "-- disk/memory --"
+          df -h / /var/www 2>/dev/null || df -h | head -n 15
+          free -h || true
+          echo "-- HTTPS / peer sites --"
+          curl -sS -o /dev/null -w 'local_3003 status=%{http_code}\n' http://127.0.0.1:3003/ || echo 'local_3003 failed'
+          curl -sS -o /dev/null -w 'https_first_calc status=%{http_code}\n' https://first-calc.com/ || echo 'https failed'
+          curl -sS -o /dev/null -w 'calc1 status=%{http_code}\n' -L --max-redirs 5 https://calc1.ru/ || echo 'calc1 failed'
+          curl -sS -o /dev/null -w 'pipetka status=%{http_code}\n' https://pipetkaonline.ru/ || echo 'pipetka failed'
+          echo "-- /var/www --"
+          ls -la /var/www || true
+          echo "STAGE1_DONE"
+          EOS
+          )
+          STAGE1_B64=$(printf '%s' "$STAGE1" | base64 -w 0)
+
+          echo "=== 2–5) Remote probe on OLD ==="
+          "${SSH[@]}" "root@${OLD_HOST}" \
+            "env NEW_HOST='${NEW_HOST}' STAGE1_B64='${STAGE1_B64}' bash -se" <<'REMOTE'
+          set -euo pipefail
+          KEY=/root/.ssh/timeweb_migration
+          PUB=/root/.ssh/timeweb_migration.pub
+
+          echo "=== 2) Migration key metadata ==="
+          if [ ! -e "$KEY" ]; then
+            echo "MIGRATION_KEY_EXISTS=no"
+            echo "-- /root/.ssh listing (names/perms only) --"
+            ls -la /root/.ssh/ | awk '{print $1, $3, $4, $5, $9}'
+            exit 2
+          fi
+          echo "MIGRATION_KEY_EXISTS=yes"
+          stat -c 'path=%n mode=%a uid=%u gid=%g size=%s' "$KEY"
+          if [ -e "$PUB" ]; then
+            stat -c 'path=%n mode=%a uid=%u gid=%g size=%s' "$PUB"
+            ssh-keygen -lf "$PUB"
+          else
+            echo "MIGRATION_PUB_EXISTS=no"
+            tmp=$(mktemp)
+            ssh-keygen -y -f "$KEY" > "$tmp"
+            ssh-keygen -lf "$tmp"
+            rm -f "$tmp"
+          fi
+
+          echo "=== 3) OLD -> NEW SSH (StrictHostKeyChecking=yes, no auto-add) ==="
+          if [ -f /root/.ssh/known_hosts ]; then
+            echo "-- known_hosts entries for NEW (algo only) --"
+            grep -E "^${NEW_HOST} |^\[${NEW_HOST}\]" /root/.ssh/known_hosts | awk '{print $1, $2}' \
+              || echo "NO_KNOWN_HOSTS_ENTRY_FOR_NEW"
+          else
+            echo "OLD_HAS_NO_KNOWN_HOSTS_FILE"
+          fi
+
+          set +e
+          OUT=$(ssh -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
+            -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
+            -i /root/.ssh/timeweb_migration \
+            "root@${NEW_HOST}" 'hostname; whoami; echo NEW_OK' 2>&1)
+          RC=$?
+          set -e
+          echo "$OUT"
+          if [ "$RC" -ne 0 ]; then
+            echo "OLD_TO_NEW_SSH=FAILED exit=${RC}"
+            exit 1
+          fi
+          echo "OLD_TO_NEW_SSH=OK"
+
+          echo "=== 5) Stage 1 via jump ==="
+          printf '%s' "${STAGE1_B64}" | base64 -d | \
+            ssh -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
+              -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
+              -i /root/.ssh/timeweb_migration \
+              "root@${NEW_HOST}" 'bash -se'
+          REMOTE
