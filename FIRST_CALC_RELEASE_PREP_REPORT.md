@@ -2,7 +2,7 @@
 
 **Branch:** `fix/ru-catalog-seo-recovery`  
 **Starting tip (user brief):** `617a5b4b81a2617283ca661676fb078a8132a192`  
-**Final tip SHA:** `2c690158c635787537aac4de02d7e958133e3d4d` (docs pin may trail)  
+**Final tip SHA:** `e1fce45378390d54d4eafa46c9c6feabbb692098` (docs pin may trail)  
 **Status:** `READY FOR RELEASE DECISION`
 
 **Not done (by design):** merge to `main`, PR, production deploy, Timeweb infra changes.
@@ -14,7 +14,7 @@
 | Item | SHA |
 |------|-----|
 | Brief starting tip | `617a5b4b81a2617283ca661676fb078a8132a192` |
-| Final tip (code) | `2c690158c635787537aac4de02d7e958133e3d4d` |
+| Final tip (code) | `e1fce45378390d54d4eafa46c9c6feabbb692098` |
 
 Investment/Savings calculation engines were **not** modified in this pass.
 
