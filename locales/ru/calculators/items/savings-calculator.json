@@ -4,67 +4,122 @@
 	"longDescription": "Калькулятор сбережений показывает будущий баланс по текущей сумме, ежемесячным пополнениям, ставке и сроку. Увидите начисленные проценты и темп роста накоплений.",
 	"inputs": [
 		{
+			"name": "initialSavings",
 			"label": "Начальные сбережения",
 			"unitLabel": "₽",
 			"placeholder": "Введите начальную сумму",
 			"helpText": "Текущий остаток на счёте"
 		},
 		{
-			"label": "Ежемесячное пополнение",
+			"name": "regularContribution",
+			"label": "Регулярный взнос",
 			"unitLabel": "₽",
-			"placeholder": "Введите ежемесячное пополнение",
-			"helpText": "Сколько планируете откладывать каждый месяц"
+			"placeholder": "Введите значение",
+			"helpText": ""
 		},
 		{
-			"label": "Процентная ставка",
+			"name": "contributionFrequency",
+			"label": "Частота взносов",
+			"unitLabel": "",
+			"placeholder": "Выберите вариант",
+			"helpText": "Как часто вы делаете взносы",
+			"options": [
+				{
+					"value": "monthly",
+					"label": "Ежемесячно"
+				},
+				{
+					"value": "yearly",
+					"label": "Ежегодно"
+				}
+			]
+		},
+		{
+			"name": "annualInterestRate",
+			"label": "Годовая процентная ставка",
 			"unitLabel": "%",
-			"placeholder": "Введите процентную ставку",
-			"helpText": "Годовая ставка (эффективная доходность / APY)"
+			"placeholder": "Введите значение",
+			"helpText": ""
 		},
 		{
-			"label": "Срок",
+			"name": "savingsPeriod",
+			"label": "Срок накоплений",
 			"unitLabel": "лет",
-			"placeholder": "Введите число лет",
-			"helpText": "На сколько лет планируете копить"
+			"placeholder": "Введите значение",
+			"helpText": ""
 		},
 		{
+			"name": "compoundingFrequency",
 			"label": "Частота капитализации",
 			"unitLabel": "",
 			"placeholder": "Выберите частоту",
-			"helpText": "Как часто начисляются проценты"
+			"helpText": "Как часто начисляются проценты",
+			"options": [
+				{
+					"value": "annually",
+					"label": "Ежегодно"
+				},
+				{
+					"value": "quarterly",
+					"label": "Ежеквартально"
+				},
+				{
+					"value": "monthly",
+					"label": "Ежемесячно"
+				}
+			]
 		},
 		{
-			"label": "Тип начисления",
-			"unitLabel": "",
-			"placeholder": "Выберите тип",
-			"helpText": "Сложный: процент на процент. Простой: только на основную сумму"
+			"name": "targetAmount",
+			"label": "Целевая сумма",
+			"unitLabel": "₽",
+			"placeholder": "Введите значение",
+			"helpText": "Цель по накоплениям (необязательно)"
 		},
 		{
+			"name": "inflationRate",
 			"label": "Инфляция",
 			"unitLabel": "%/год",
 			"placeholder": "Введите уровень инфляции",
 			"helpText": "Ожидаемая годовая инфляция для реальной стоимости (необязательно)"
-		},
-		{
-			"label": "Налоговая ставка",
-			"unitLabel": "%",
-			"placeholder": "Введите налоговую ставку",
-			"helpText": "Налог на процентный доход (необязательно)"
-		},
-		{
-			"label": "Ежемесячное снятие",
-			"unitLabel": "₽",
-			"placeholder": "Введите сумму снятия",
-			"helpText": "Регулярные ежемесячные снятия со счёта (необязательно)"
 		}
 	],
 	"outputs": [
-		{ "label": "Итоговая сумма", "unitLabel": "₽" },
-		{ "label": "Всего внесено", "unitLabel": "₽" },
-		{ "label": "Всего процентов", "unitLabel": "₽" },
-		{ "label": "Процент роста", "unitLabel": "%" },
-		{ "label": "Реальная стоимость (с учётом инфляции)", "unitLabel": "₽" },
-		{ "label": "Сумма после налогов", "unitLabel": "₽" }
+		{
+			"name": "finalSavings",
+			"label": "Итоговая сумма накоплений",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "totalContributions",
+			"label": "Сумма взносов",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "totalInterestEarned",
+			"label": "Начисленные проценты",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "timeToTarget",
+			"label": "Время до цели",
+			"unitLabel": "лет"
+		},
+		{
+			"name": "inflationAdjustedSavings",
+			"label": "Накопления с учётом инфляции",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "yearlyBreakdown",
+			"label": "Разбивка по годам",
+			"unitLabel": ""
+		},
+		{
+			"name": "formulaExplanation",
+			"label": "Пояснение формулы",
+			"unitLabel": ""
+		}
 	],
 	"howTo": [
 		"Введите текущий остаток на счёте",

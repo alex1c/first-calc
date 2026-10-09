@@ -61,8 +61,7 @@ export async function getCalculatorById(
 	id: string,
 	locale: string = 'en',
 ): Promise<CalculatorDefinition | undefined> {
-	// First try to find in existing hardcoded calculators (data/calculators.ts)
-	// These have higher priority than JSON schemas
+	// 1) Native TypeScript row for this locale (e.g. full RU loan-payment defs)
 	const existing = calculators.find(
 		(calc) => calc.id === id && calc.locale === locale,
 	)
@@ -70,26 +69,32 @@ export async function getCalculatorById(
 		return existing
 	}
 
-	// Try to load from JSON schema file (data/calculators/{id}.json)
+	// 2) English TypeScript definitions take precedence over orphan JSON schemas
+	// (AGENTS.md). Non-EN locales overlay locales/<locale>/items onto the EN engine
+	// so RU finance pages cannot silently diverge onto a different schema formula.
+	const enTs = calculators.find(
+		(calc) =>
+			calc.locale === 'en' && (calc.id === id || calc.slug === id),
+	)
+	if (enTs) {
+		if (locale === 'en') return enTs
+		const localized = await localizeTypescriptCalculator(id, undefined, locale)
+		if (localized) return localized
+		// No native item overlay — do not fall through to a conflicting JSON schema.
+		return undefined
+	}
+
+	// 3) JSON-schema-only calculators (no TypeScript owner)
 	try {
 		const schemaPath = `data/calculators/${id}.json`
 		const definition = await loadCalculatorFromSchema(schemaPath, locale)
-		// Filter out disabled calculators
 		if (!definition || definition.isEnabled === false) {
 			return undefined
 		}
 		return definition
 	} catch {
-		// Schema file doesn't exist or failed to load — try EN TS + locale item overlay
+		return undefined
 	}
-
-	// Shared-engine path: EN TypeScript definition + locales/<locale>/items overlay
-	if (locale !== 'en') {
-		const localized = await localizeTypescriptCalculator(id, undefined, locale)
-		if (localized) return localized
-	}
-
-	return undefined
 }
 
 /**
@@ -111,7 +116,7 @@ export async function getCalculatorBySlug(
 	slug: string,
 	locale: string = 'en',
 ): Promise<CalculatorDefinition | undefined> {
-	// First try to find in existing hardcoded calculators
+	// 1) Native TypeScript row for this locale
 	const existing = calculators.find(
 		(calc) =>
 			calc.category === category &&
@@ -122,16 +127,27 @@ export async function getCalculatorBySlug(
 		return existing
 	}
 
-	// Try to load from JSON schema file (slug-based lookup)
-	// File name is based on slug: data/calculators/{slug}.json
+	// 2) English TypeScript owner wins over JSON schemas for every locale
+	const enTs = calculators.find(
+		(calc) =>
+			calc.locale === 'en' &&
+			calc.category === category &&
+			calc.slug === slug,
+	)
+	if (enTs) {
+		if (locale === 'en') return enTs
+		const localized = await localizeTypescriptCalculator(slug, category, locale)
+		if (localized) return localized
+		return undefined
+	}
+
+	// 3) JSON-schema-only calculators
 	try {
 		const schemaPath = `data/calculators/${slug}.json`
 		const definition = await loadCalculatorFromSchema(schemaPath, locale)
-		// Filter out disabled calculators
 		if (!definition || definition.isEnabled === false) {
 			return undefined
 		}
-		// Verify that the loaded calculator matches the requested category and slug
 		if (
 			definition.category === category &&
 			definition.slug === slug &&
@@ -141,12 +157,6 @@ export async function getCalculatorBySlug(
 		}
 	} catch {
 		// Schema file doesn't exist or failed to load
-	}
-
-	// Shared-engine path: EN TypeScript definition + locales/<locale>/items overlay
-	if (locale !== 'en') {
-		const localized = await localizeTypescriptCalculator(slug, category, locale)
-		if (localized) return localized
 	}
 
 	return undefined

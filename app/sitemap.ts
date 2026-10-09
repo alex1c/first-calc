@@ -5,7 +5,10 @@ import { calculatorRegistry } from '@/lib/registry/loader'
 import { legacyTools } from '@/lib/tools/registry'
 import { locales, type Locale } from '@/lib/i18n'
 import { isIndexingDisabled, localeUrl } from '@/lib/site-url'
-import { hasLocalizedCalculatorContent } from '@/lib/i18n/content-availability'
+import {
+	calculatorHubContentLocales,
+	hasLocalizedCalculatorContent,
+} from '@/lib/i18n/content-availability'
 
 export type SitemapGroup =
 	| 'pages'
@@ -77,8 +80,16 @@ export async function buildSitemapEntries(): Promise<ClassifiedSitemapEntry[]> {
 	const entries: ClassifiedSitemapEntry[] = []
 	const seen = new Set<string>()
 
+	// Hub locales that actually have localized calculator catalog content.
+	// Empty shells (/es/calculators, /tr/calculators, /hi/calculators) are
+	// noindex and must not appear in the sitemap.
+	const calculatorHubLocales = new Set(calculatorHubContentLocales())
+
 	for (const locale of locales) {
 		for (const pathname of publicPages) {
+			if (pathname === '/calculators' && !calculatorHubLocales.has(locale)) {
+				continue
+			}
 			addEntry(entries, seen, locale, pathname, 'pages')
 		}
 		if (locale === 'en') {

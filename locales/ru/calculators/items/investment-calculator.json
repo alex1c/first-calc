@@ -4,67 +4,115 @@
 	"longDescription": "Инвестиционный калькулятор прогнозирует стоимость портфеля по начальной сумме, ежемесячным взносам, доходности и сроку. Показывает эффект сложного процента — для накоплений на пенсию, крупные цели и долгосрочное планирование.",
 	"inputs": [
 		{
+			"name": "initialInvestment",
 			"label": "Начальная сумма",
 			"unitLabel": "₽",
 			"placeholder": "Введите начальную сумму",
 			"helpText": "Разовый стартовый взнос"
 		},
 		{
-			"label": "Ежемесячное пополнение",
+			"name": "periodicContribution",
+			"label": "Регулярный взнос",
 			"unitLabel": "₽",
-			"placeholder": "Введите ежемесячное пополнение",
-			"helpText": "Сколько добавляете каждый месяц (если есть)"
+			"placeholder": "Введите значение",
+			"helpText": ""
 		},
 		{
-			"label": "Доходность",
+			"name": "contributionFrequency",
+			"label": "Частота взносов",
+			"unitLabel": "",
+			"placeholder": "Выберите вариант",
+			"helpText": "Как часто вы делаете взносы",
+			"options": [
+				{
+					"value": "monthly",
+					"label": "Ежемесячно"
+				},
+				{
+					"value": "yearly",
+					"label": "Ежегодно"
+				}
+			]
+		},
+		{
+			"name": "expectedAnnualReturn",
+			"label": "Ожидаемая годовая доходность",
 			"unitLabel": "%",
-			"placeholder": "Введите доходность",
-			"helpText": "Ожидаемая годовая доходность"
+			"placeholder": "Введите значение",
+			"helpText": ""
 		},
 		{
+			"name": "investmentPeriod",
 			"label": "Срок инвестирования",
 			"unitLabel": "лет",
 			"placeholder": "Введите срок",
 			"helpText": "На сколько лет планируете инвестировать"
 		},
 		{
+			"name": "compoundingFrequency",
 			"label": "Частота капитализации",
 			"unitLabel": "",
 			"placeholder": "Выберите частоту",
-			"helpText": "Как часто начисляется и реинвестируется доход"
+			"helpText": "Как часто начисляется и реинвестируется доход",
+			"options": [
+				{
+					"value": "annually",
+					"label": "Ежегодно"
+				},
+				{
+					"value": "quarterly",
+					"label": "Ежеквартально"
+				},
+				{
+					"value": "monthly",
+					"label": "Ежемесячно"
+				}
+			]
 		},
 		{
-			"label": "Тип начисления",
-			"unitLabel": "",
-			"placeholder": "Выберите тип",
-			"helpText": "Сложный: процент на процент. Простой: только на основную сумму"
-		},
-		{
+			"name": "inflationRate",
 			"label": "Инфляция",
 			"unitLabel": "%/год",
 			"placeholder": "Введите уровень инфляции",
 			"helpText": "Ожидаемая годовая инфляция для расчёта реальной стоимости (необязательно)"
-		},
-		{
-			"label": "Налоговая ставка",
-			"unitLabel": "%",
-			"placeholder": "Введите налоговую ставку",
-			"helpText": "Ставка налога на инвестиционный доход (необязательно)"
-		},
-		{
-			"label": "Ежемесячное снятие",
-			"unitLabel": "₽",
-			"placeholder": "Введите сумму снятия",
-			"helpText": "Регулярные ежемесячные выводы (необязательно)"
 		}
 	],
 	"outputs": [
-		{ "label": "Итоговая стоимость", "unitLabel": "₽" },
-		{ "label": "Всего внесено", "unitLabel": "₽" },
-		{ "label": "Общая прибыль", "unitLabel": "₽" },
-		{ "label": "Доля прибыли", "unitLabel": "%" },
-		{ "label": "Реальная стоимость (с учётом инфляции)", "unitLabel": "₽" },
-		{ "label": "Стоимость после налогов", "unitLabel": "₽" }
+		{
+			"name": "finalValue",
+			"label": "Итоговая стоимость инвестиций",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "totalContributions",
+			"label": "Сумма взносов",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "totalReturn",
+			"label": "Общая прибыль",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "returnPercentage",
+			"label": "Доходность (%)",
+			"unitLabel": "%"
+		},
+		{
+			"name": "inflationAdjustedValue",
+			"label": "С учётом инфляции",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "yearlyBreakdown",
+			"label": "Разбивка по годам",
+			"unitLabel": ""
+		},
+		{
+			"name": "formulaExplanation",
+			"label": "Пояснение формулы",
+			"unitLabel": ""
+		}
 	],
 	"howTo": [
 		"Введите начальную сумму (разовый взнос)",

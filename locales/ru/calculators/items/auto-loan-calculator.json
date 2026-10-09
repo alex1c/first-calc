@@ -4,73 +4,86 @@
 	"longDescription": "Калькулятор автокредита помогает оценить ежемесячный платёж, суммарные проценты и то, как первоначальный взнос, trade-in и срок влияют на стоимость финансирования. Учитывайте налог, регистрацию и доп. услуги — удобно для планирования покупки и сравнения условий банков и дилеров.",
 	"inputs": [
 		{
+			"name": "vehiclePrice",
 			"label": "Цена автомобиля",
 			"unitLabel": "₽",
-			"placeholder": "Введите цену автомобиля",
-			"helpText": "Полная стоимость автомобиля"
+			"placeholder": "Введите значение",
+			"helpText": ""
 		},
 		{
+			"name": "downPayment",
 			"label": "Первоначальный взнос",
 			"unitLabel": "₽",
 			"placeholder": "Введите первоначальный взнос",
 			"helpText": "Сумма первоначального взноса (если есть)"
 		},
 		{
-			"label": "Процентная ставка",
-			"unitLabel": "%",
-			"placeholder": "Введите процентную ставку",
-			"helpText": "Годовая процентная ставка (APR)"
-		},
-		{
-			"label": "Срок кредита",
-			"unitLabel": "лет",
-			"placeholder": "Введите срок кредита",
-			"helpText": "Срок кредита в годах (обычно 3–7 лет для автокредита)"
-		},
-		{
+			"name": "tradeInValue",
 			"label": "Стоимость trade-in",
 			"unitLabel": "₽",
 			"placeholder": "Введите стоимость trade-in",
 			"helpText": "Оценочная стоимость вашего текущего автомобиля (если сдаёте в зачёт)"
 		},
 		{
-			"label": "Тип платежа",
-			"unitLabel": "",
-			"placeholder": "Выберите тип платежа",
-			"helpText": "Аннуитет: фиксированный платёж. Дифференцированный: снижающийся платёж (экономия на процентах)"
-		},
-		{
-			"label": "Налог с продаж",
+			"name": "salesTaxRate",
+			"label": "Ставка налога с продажи",
 			"unitLabel": "%",
-			"placeholder": "Введите ставку налога",
-			"helpText": "Ставка налога / сборов при покупке (необязательно)"
+			"placeholder": "Введите значение",
+			"helpText": ""
 		},
 		{
-			"label": "Регистрационные сборы",
-			"unitLabel": "₽",
-			"placeholder": "Введите регистрационные сборы",
-			"helpText": "Разовые сборы за регистрацию автомобиля (необязательно)"
+			"name": "annualInterestRate",
+			"label": "Годовая процентная ставка (APR)",
+			"unitLabel": "%",
+			"placeholder": "Введите значение",
+			"helpText": ""
 		},
 		{
-			"label": "Расширенная гарантия",
-			"unitLabel": "₽",
-			"placeholder": "Введите стоимость гарантии",
-			"helpText": "Стоимость расширенной гарантии (необязательно)"
+			"name": "loanTerm",
+			"label": "Срок кредита",
+			"unitLabel": "лет",
+			"placeholder": "Введите срок кредита",
+			"helpText": "Срок кредита в годах (обычно 3–7 лет для автокредита)"
 		},
 		{
-			"label": "GAP-страховка",
+			"name": "fees",
+			"label": "Комиссии",
 			"unitLabel": "₽",
-			"placeholder": "Введите стоимость GAP",
-			"helpText": "Стоимость GAP-страховки (необязательно)"
+			"placeholder": "Введите значение",
+			"helpText": "Регистрационные, дилерские и другие разовые комиссии"
 		}
 	],
 	"outputs": [
-		{ "label": "Сумма кредита", "unitLabel": "₽" },
-		{ "label": "Ежемесячный платёж", "unitLabel": "₽" },
-		{ "label": "Общая сумма выплат", "unitLabel": "₽" },
-		{ "label": "Общие проценты", "unitLabel": "₽" },
-		{ "label": "Общая стоимость", "unitLabel": "₽" },
-		{ "label": "Общие комиссии", "unitLabel": "₽" }
+		{
+			"name": "monthlyPayment",
+			"label": "Ежемесячный платёж",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "loanAmount",
+			"label": "Сумма кредита",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "totalInterest",
+			"label": "Общие проценты",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "totalCostOfVehicle",
+			"label": "Полная стоимость автомобиля",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "overpayment",
+			"label": "Переплата",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "formulaExplanation",
+			"label": "Пояснение формулы",
+			"unitLabel": ""
+		}
 	],
 	"howTo": [
 		"Введите цену автомобиля (полную стоимость)",
@@ -166,7 +179,7 @@
 			"inputs": {
 				"carPrice": 28000,
 				"downPayment": 5000,
-				"interestRate": 6.0,
+				"interestRate": 6,
 				"loanTerm": 5,
 				"tradeInValue": 0,
 				"paymentType": "annuity",

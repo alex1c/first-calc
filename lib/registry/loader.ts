@@ -143,29 +143,49 @@ class LocalCalculatorLoader implements CalculatorLoader {
 	 * @returns Array of enabled CalculatorDefinitions
 	 */
 	async getAll(locale: string): Promise<CalculatorDefinition[]> {
-		const { getCalculatorsByLocale } = await import('@/data/calculators')
+		const { getCalculatorsByLocale, calculators: allTs } = await import(
+			'@/data/calculators'
+		)
 		const { getCalculatorById } = await import('@/lib/calculators/loader')
-		
-		// Get hardcoded calculators
+
+		// English TypeScript owners — JSON schemas with the same id/slug are orphans
+		// and must not win for any locale (AGENTS.md precedence).
+		const tsOwnedIds = new Set(
+			allTs.filter((calc) => calc.locale === 'en').map((calc) => calc.id),
+		)
+		const tsOwnedSlugs = new Set(
+			allTs.filter((calc) => calc.locale === 'en').map((calc) => calc.slug),
+		)
+
+		// Get hardcoded calculators for this locale
 		const hardcoded = getCalculatorsByLocale(locale)
-		
-		// Load JSON schema files
+
+		// Load JSON schema files (skip TS-owned ids/slugs)
 		const fs = await import('fs/promises')
 		const path = await import('path')
-		const { loadCalculatorSchema, schemaToDefinition } = await import('@/lib/calculators/schema')
+		const { loadCalculatorSchema, schemaToDefinition } = await import(
+			'@/lib/calculators/schema'
+		)
 		const calculatorsDir = path.join(process.cwd(), 'data', 'calculators')
-		
+
 		let jsonCalculators: CalculatorDefinition[] = []
 		const seenIds = new Set<string>()
 		const seenSlugs = new Set<string>()
 		try {
 			const files = await fs.readdir(calculatorsDir)
-			const jsonFiles = files.filter((f) => f.endsWith('.json') && !f.includes('.ru.json'))
-			
+			const jsonFiles = files.filter(
+				(f) => f.endsWith('.json') && !f.includes('.ru.json'),
+			)
+
 			for (const file of jsonFiles) {
 				try {
 					const filePath = path.join(calculatorsDir, file)
 					const schema = await loadCalculatorSchema(filePath)
+
+					if (tsOwnedIds.has(schema.id) || tsOwnedSlugs.has(schema.slug)) {
+						// Orphan schema shadowed by data/calculators.ts — skip.
+						continue
+					}
 
 					// Surface ID/slug collisions across schema files
 					if (seenIds.has(schema.id)) {
@@ -180,7 +200,7 @@ class LocalCalculatorLoader implements CalculatorLoader {
 					}
 					seenIds.add(schema.id)
 					seenSlugs.add(schema.slug)
-					
+
 					// Only load enabled calculators
 					if (schema.isEnabled !== false) {
 						const calc = await schemaToDefinition(schema, locale)
@@ -201,16 +221,17 @@ class LocalCalculatorLoader implements CalculatorLoader {
 				error instanceof Error ? error.message : String(error),
 			)
 		}
-		
+
 		// Combine hardcoded and JSON calculators, removing duplicates by id
 		const all = [...hardcoded, ...jsonCalculators]
-		const unique = all.filter((calc, index, self) => 
-			index === self.findIndex((c) => c.id === calc.id && c.locale === calc.locale)
+		const unique = all.filter(
+			(calc, index, self) =>
+				index ===
+				self.findIndex((c) => c.id === calc.id && c.locale === calc.locale),
 		)
 
 		// Include EN TypeScript calculators restored for this locale via item overlays
 		if (locale !== 'en') {
-			const { calculators: allTs } = await import('@/data/calculators')
 			const { hasLocalizedCalculatorContent } = await import(
 				'@/lib/i18n/content-availability'
 			)
@@ -225,7 +246,7 @@ class LocalCalculatorLoader implements CalculatorLoader {
 				}
 			}
 		}
-		
+
 		// Filter out disabled calculators (soft disable feature)
 		return unique.filter((calc) => calc.isEnabled !== false)
 	}
@@ -241,33 +262,53 @@ class LocalCalculatorLoader implements CalculatorLoader {
 		category: string,
 		locale: string,
 	): Promise<CalculatorDefinition[]> {
-		const { getCalculatorsByCategory } = await import('@/data/calculators')
+		const { getCalculatorsByCategory, calculators: allTs } = await import(
+			'@/data/calculators'
+		)
 		const { getCalculatorBySlug } = await import('@/lib/calculators/loader')
-		
+
+		const tsOwnedIds = new Set(
+			allTs.filter((calc) => calc.locale === 'en').map((calc) => calc.id),
+		)
+		const tsOwnedSlugs = new Set(
+			allTs.filter((calc) => calc.locale === 'en').map((calc) => calc.slug),
+		)
+
 		// Get hardcoded calculators
 		const hardcoded = getCalculatorsByCategory(category, locale)
-		
-		// Load JSON schema files for this category
-		// We need to scan data/calculators/*.json files
+
+		// Load JSON schema files for this category (skip TS-owned orphans)
 		const fs = await import('fs/promises')
 		const path = await import('path')
-		const { loadCalculatorSchema, schemaToDefinition } = await import('@/lib/calculators/schema')
+		const { loadCalculatorSchema, schemaToDefinition } = await import(
+			'@/lib/calculators/schema'
+		)
 		const calculatorsDir = path.join(process.cwd(), 'data', 'calculators')
-		
+
 		let jsonCalculators: CalculatorDefinition[] = []
 		try {
 			const files = await fs.readdir(calculatorsDir)
-			const jsonFiles = files.filter((f) => f.endsWith('.json') && !f.includes('.ru.json'))
-			
+			const jsonFiles = files.filter(
+				(f) => f.endsWith('.json') && !f.includes('.ru.json'),
+			)
+
 			for (const file of jsonFiles) {
 				try {
 					const filePath = path.join(calculatorsDir, file)
 					const schema = await loadCalculatorSchema(filePath)
-					
+
+					if (tsOwnedIds.has(schema.id) || tsOwnedSlugs.has(schema.slug)) {
+						continue
+					}
+
 					// Only load calculators for the requested category
 					if (schema.category === category && schema.isEnabled !== false) {
 						const calc = await schemaToDefinition(schema, locale)
-						if (calc && calc.category === category && calc.locale === locale) {
+						if (
+							calc &&
+							calc.category === category &&
+							calc.locale === locale
+						) {
 							jsonCalculators.push(calc)
 						}
 					}
@@ -284,16 +325,17 @@ class LocalCalculatorLoader implements CalculatorLoader {
 				error instanceof Error ? error.message : String(error),
 			)
 		}
-		
+
 		// Combine hardcoded and JSON calculators, removing duplicates by id
 		const all = [...hardcoded, ...jsonCalculators]
-		const unique = all.filter((calc, index, self) => 
-			index === self.findIndex((c) => c.id === calc.id && c.locale === calc.locale)
+		const unique = all.filter(
+			(calc, index, self) =>
+				index ===
+				self.findIndex((c) => c.id === calc.id && c.locale === calc.locale),
 		)
 
 		// Include EN TypeScript calculators restored for this locale via item overlays
 		if (locale !== 'en') {
-			const { calculators: allTs } = await import('@/data/calculators')
 			const { hasLocalizedCalculatorContent } = await import(
 				'@/lib/i18n/content-availability'
 			)

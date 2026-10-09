@@ -53,24 +53,76 @@
 	},
 	"inputs": [
 		{
+			"name": "investmentCost",
 			"label": "Начальные инвестиции",
-			"helpText": "Введите сумму начальных инвестиций",
-			"unitLabel": "₽"
+			"unitLabel": "₽",
+			"placeholder": "Введите значение",
+			"helpText": "Введите сумму начальных инвестиций"
 		},
 		{
+			"name": "returnValue",
 			"label": "Конечная стоимость",
-			"helpText": "Введите текущую или конечную стоимость инвестиций",
-			"unitLabel": "₽"
+			"unitLabel": "₽",
+			"placeholder": "Введите значение",
+			"helpText": "Введите текущую или конечную стоимость инвестиций"
+		},
+		{
+			"name": "additionalCosts",
+			"label": "Дополнительные расходы",
+			"unitLabel": "₽",
+			"placeholder": "Введите значение",
+			"helpText": "Дополнительные расходы сверх первоначальных инвестиций (комиссии, обслуживание и т.п.)"
+		},
+		{
+			"name": "timePeriod",
+			"label": "Срок (лет)",
+			"unitLabel": "лет",
+			"placeholder": "Введите значение",
+			"helpText": "Срок инвестиций в годах (справочно; в базовом ROI не используется)"
+		},
+		{
+			"name": "revenueType",
+			"label": "Тип дохода",
+			"unitLabel": "",
+			"placeholder": "Выберите вариант",
+			"helpText": "Возврат — разовый платёж или регулярный доход",
+			"options": [
+				{
+					"value": "one-time",
+					"label": "Разовый"
+				},
+				{
+					"value": "recurring",
+					"label": "Регулярный"
+				}
+			]
 		}
 	],
 	"outputs": [
 		{
-			"label": "ROI",
+			"name": "roiPercentage",
+			"label": "ROI (%)",
 			"unitLabel": "%"
 		},
 		{
-			"label": "Прибыль/Убыток",
+			"name": "netProfit",
+			"label": "Чистая прибыль",
 			"unitLabel": "₽"
+		},
+		{
+			"name": "totalInvestment",
+			"label": "Всего вложено",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "profitMargin",
+			"label": "Маржа прибыли",
+			"unitLabel": "%"
+		},
+		{
+			"name": "formulaExplanation",
+			"label": "Пояснение формулы",
+			"unitLabel": ""
 		}
 	]
 }

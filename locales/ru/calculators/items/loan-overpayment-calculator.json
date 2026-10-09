@@ -4,42 +4,104 @@
 	"longDescription": "Калькулятор досрочного погашения показывает, как дополнительные взносы уменьшают переплату и сокращают срок. Сравните обычный график с доплатами — для ипотеки, автокредита и потребительского займа.",
 	"inputs": [
 		{
+			"name": "loanAmount",
 			"label": "Сумма кредита",
 			"unitLabel": "₽",
 			"placeholder": "Введите сумму кредита",
 			"helpText": "Общая сумма займа"
 		},
 		{
-			"label": "Процентная ставка",
+			"name": "annualInterestRate",
+			"label": "Годовая процентная ставка (APR)",
 			"unitLabel": "%",
-			"placeholder": "Введите процентную ставку",
-			"helpText": "Годовая процентная ставка"
+			"placeholder": "Введите значение",
+			"helpText": ""
 		},
 		{
+			"name": "loanTerm",
 			"label": "Срок кредита",
 			"unitLabel": "лет",
 			"placeholder": "Введите срок кредита",
 			"helpText": "Исходный срок кредита в годах"
 		},
 		{
-			"label": "Дополнительный платёж",
-			"unitLabel": "₽",
-			"placeholder": "Введите дополнительный платёж",
-			"helpText": "Сумма сверх обязательного платежа"
-		},
-		{
+			"name": "paymentFrequency",
 			"label": "Периодичность доплат",
 			"unitLabel": "",
 			"placeholder": "Выберите периодичность",
-			"helpText": "Как часто вы вносите дополнительные платежи"
+			"helpText": "Как часто вы вносите дополнительные платежи",
+			"options": [
+				{
+					"value": "monthly",
+					"label": "Ежемесячно"
+				},
+				{
+					"value": "bi-weekly",
+					"label": "Раз в две недели"
+				}
+			]
+		},
+		{
+			"name": "extraMonthlyPayment",
+			"label": "Дополнительный ежемесячный платёж",
+			"unitLabel": "₽",
+			"placeholder": "Введите значение",
+			"helpText": "Дополнительная сумма каждый месяц для снижения процентов"
+		},
+		{
+			"name": "loanType",
+			"label": "Тип кредита",
+			"unitLabel": "",
+			"placeholder": "Выберите вариант",
+			"helpText": "Annuity loans have fixed payments. Interest-only loans only pay interest.",
+			"options": [
+				{
+					"value": "annuity",
+					"label": "Аннуитет (фиксированный платёж)"
+				},
+				{
+					"value": "interest-only",
+					"label": "Только проценты"
+				}
+			]
 		}
 	],
 	"outputs": [
-		{ "label": "Ежемесячный платёж", "unitLabel": "₽" },
-		{ "label": "Проценты (без доплат)", "unitLabel": "₽" },
-		{ "label": "Проценты (с доплатами)", "unitLabel": "₽" },
-		{ "label": "Сэкономленные проценты", "unitLabel": "₽" },
-		{ "label": "Сэкономленное время", "unitLabel": "мес." }
+		{
+			"name": "overpayment",
+			"label": "Переплата по кредиту",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "totalInterest",
+			"label": "Общие проценты",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "totalPayment",
+			"label": "Общая сумма выплат",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "regularPayment",
+			"label": "Обычный ежемесячный платёж",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "interestSaved",
+			"label": "Сэкономленные проценты",
+			"unitLabel": "₽"
+		},
+		{
+			"name": "loanDurationReduced",
+			"label": "Сокращение срока кредита",
+			"unitLabel": "лет"
+		},
+		{
+			"name": "formulaExplanation",
+			"label": "Пояснение формулы",
+			"unitLabel": ""
+		}
 	],
 	"howTo": [
 		"Введите сумму кредита",

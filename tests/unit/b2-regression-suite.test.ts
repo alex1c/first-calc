@@ -49,15 +49,20 @@ describe('B2 regression — RU finance forms with expected values', () => {
 	})
 
 	it('mortgage-calculator RU matches canonical amortization sample', async () => {
+		// TS-owned mortgage engine: homePrice path (loanAmount JSON schema is orphaned).
 		const { response, data } = await calculate('mortgage-calculator', {
-			loanAmount: 300000,
-			downPayment: 60000,
-			interestRate: 4.5,
-			loanTerm: 30,
+			homePrice: 300000,
+			downPayment: 0,
+			downPaymentType: 'amount',
+			loanTermYears: '30',
+			interestRateAPR: 4.5,
 			paymentFrequency: 'monthly',
 		})
 		expect(response.status).toBe(200)
-		expect(data.results.monthlyPayment).toBeCloseTo(1520.06, 2)
+		expect(data.results.monthlyMortgagePayment ?? data.results.monthlyPayment).toBeCloseTo(
+			1520.06,
+			2,
+		)
 		expect(data.results.loanAmount).toBe(300000)
 	})
 })

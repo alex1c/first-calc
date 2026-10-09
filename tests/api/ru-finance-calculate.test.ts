@@ -104,17 +104,21 @@ describe('POST /api/calculators/:id/calculate — RU finance forms', () => {
 		expect(data.results.totalInterest).toBeGreaterThan(0)
 	})
 
-	it('mortgage-calculator RU JSON fields resolve the shared mortgage engine', async () => {
+	it('mortgage-calculator RU uses TS field names on the shared mortgage engine', async () => {
+		// TS-owned definition (homePrice path). Orphan JSON loanAmount schema is skipped.
 		const { response, data } = await postCalculate('mortgage-calculator', {
-			loanAmount: 300000,
-			downPayment: 60000,
-			interestRate: 4.5,
-			loanTerm: 30,
+			homePrice: 300000,
+			downPayment: 0,
+			downPaymentType: 'amount',
+			loanTermYears: '30',
+			interestRateAPR: 4.5,
 			paymentFrequency: 'monthly',
 		})
 		expect(response.status).toBe(200)
 		expect(data.locale).toBe('ru')
-		expect(data.results.monthlyPayment).toBeCloseTo(1520.06, 2)
+		expect(
+			data.results.monthlyMortgagePayment ?? data.results.monthlyPayment,
+		).toBeCloseTo(1520.06, 2)
 		expect(data.results.loanAmount).toBe(300000)
 	})
 
@@ -123,33 +127,41 @@ describe('POST /api/calculators/:id/calculate — RU finance forms', () => {
 			investmentCost: 10000,
 			returnValue: 12000,
 			timePeriod: 1,
+			revenueType: 'one-time',
 		})
 		expect(response.status).toBe(200)
-		expect(data.results.roi).toBeCloseTo(20, 1)
+		expect(
+			data.results.roiPercentage ?? data.results.roi,
+		).toBeCloseTo(20, 1)
 		expect(data.results.netProfit).toBeCloseTo(2000, 1)
 	})
 
 	it('investment-calculator RU form returns growth', async () => {
 		const { response, data } = await postCalculate('investment-calculator', {
 			initialInvestment: 10000,
-			monthlyContribution: 100,
-			interestRate: 7,
+			periodicContribution: 100,
+			contributionFrequency: 'monthly',
+			expectedAnnualReturn: 7,
 			investmentPeriod: 10,
 			compoundingFrequency: 'monthly',
+			inflationRate: 0,
 		})
 		expect(response.status).toBe(200)
 		expect(data.results.finalValue).toBeGreaterThan(10000)
-		expect(Number.isFinite(data.results.totalProfit)).toBe(true)
+		expect(
+			Number.isFinite(data.results.totalReturn ?? data.results.totalProfit),
+		).toBe(true)
 	})
 
 	it('auto-loan-calculator RU form returns monthly payment', async () => {
 		const { response, data } = await postCalculate('auto-loan-calculator', {
-			carPrice: 30000,
+			vehiclePrice: 30000,
 			downPayment: 5000,
-			interestRate: 6,
-			loanTerm: 5,
 			tradeInValue: 0,
-			salesTax: 0,
+			salesTaxRate: 0,
+			annualInterestRate: 6,
+			loanTerm: 5,
+			fees: 0,
 		})
 		expect(response.status).toBe(200)
 		expect(data.results.monthlyPayment).toBeCloseTo(483.32, 2)
@@ -158,9 +170,12 @@ describe('POST /api/calculators/:id/calculate — RU finance forms', () => {
 	it('personal-loan-calculator RU form returns monthly payment', async () => {
 		const { response, data } = await postCalculate('personal-loan-calculator', {
 			loanAmount: 10000,
-			interestRate: 10,
+			annualInterestRate: 10,
 			loanTerm: 3,
+			paymentFrequency: 'monthly',
 			originationFee: 0,
+			feeType: 'percentage',
+			extraMonthlyPayment: 0,
 		})
 		expect(response.status).toBe(200)
 		expect(data.results.monthlyPayment).toBeGreaterThan(0)
@@ -170,26 +185,38 @@ describe('POST /api/calculators/:id/calculate — RU finance forms', () => {
 	it('savings-calculator RU form returns final value', async () => {
 		const { response, data } = await postCalculate('savings-calculator', {
 			initialSavings: 5000,
-			monthlyContribution: 200,
-			interestRate: 5,
-			years: 10,
+			regularContribution: 200,
+			contributionFrequency: 'monthly',
+			annualInterestRate: 5,
+			savingsPeriod: 10,
 			compoundingFrequency: 'monthly',
+			targetAmount: 0,
+			inflationRate: 0,
 		})
 		expect(response.status).toBe(200)
-		expect(data.results.finalValue).toBeGreaterThan(5000)
-		expect(Number.isFinite(data.results.totalInterest)).toBe(true)
+		expect(
+			data.results.finalSavings ?? data.results.finalValue,
+		).toBeGreaterThan(5000)
+		expect(
+			Number.isFinite(
+				data.results.totalInterestEarned ?? data.results.totalInterest,
+			),
+		).toBe(true)
 	})
 
 	it('loan-overpayment-calculator RU form returns payment and overpayment', async () => {
 		const { response, data } = await postCalculate('loan-overpayment-calculator', {
 			loanAmount: 200000,
-			interestRate: 5,
+			annualInterestRate: 5,
 			loanTerm: 20,
-			extraPayment: 0,
 			paymentFrequency: 'monthly',
+			extraMonthlyPayment: 0,
+			loanType: 'annuity',
 		})
 		expect(response.status).toBe(200)
-		expect(data.results.monthlyPayment).toBeGreaterThan(0)
+		expect(
+			data.results.regularPayment ?? data.results.monthlyPayment,
+		).toBeGreaterThan(0)
 		expect(data.results.overpayment).toBeGreaterThan(0)
 	})
 })

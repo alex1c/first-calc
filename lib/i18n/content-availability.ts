@@ -49,6 +49,14 @@ const TYPESCRIPT_LOCALIZED_SLUGS: Partial<Record<Locale, readonly string[]>> = {
 		'take-home-pay-calculator',
 		'emergency-fund-calculator',
 		'net-worth-calculator',
+		// Additional finance engines with RU item overlays (TS-owned)
+		'mortgage-calculator',
+		'auto-loan-calculator',
+		'personal-loan-calculator',
+		'loan-overpayment-calculator',
+		'savings-calculator',
+		'investment-calculator',
+		'roi-calculator',
 	],
 }
 
