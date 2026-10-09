@@ -453,6 +453,15 @@ export async function schemaToDefinition(
 		if (calculationId === 'calculateAreaCircle') {
 			await import('@/lib/calculations/area-circle')
 		}
+		if (calculationId === 'calculateAreaRectangle') {
+			await import('@/lib/calculations/area-rectangle')
+		}
+		if (calculationId === 'calculateLogarithm') {
+			await import('@/lib/calculations/logarithm')
+		}
+		if (calculationId === 'calculateExponent') {
+			await import('@/lib/calculations/exponent')
+		}
 		if (calculationId === 'calculateInflationAdjustment') {
 			await import('@/lib/calculations/inflation-adjustment')
 		}
@@ -506,32 +515,16 @@ export async function schemaToDefinition(
 				!formula.startsWith('{') &&
 				!formula.includes('\r\n *')
 
-			// Execute formula for each output
+			if (!isValidFormula) {
+				throw new Error(
+					'Calculator formula is missing or invalid; refusing to invent a result',
+				)
+			}
+
+			// Execute formula for each output — never fall back to a fake input value
 			const results: Record<string, number | string> = {}
 			for (const output of schema.outputs) {
-				try {
-					if (isValidFormula) {
-						// Use the formula
-						const result = executeFormula(formula, numericInputs)
-						results[output.name] = result
-					} else {
-						// Fallback: use first input value or 0
-						const firstInputName = schema.inputs[0]?.name
-						if (firstInputName && numericInputs[firstInputName] !== undefined) {
-							results[output.name] = numericInputs[firstInputName]
-						} else {
-							results[output.name] = 0
-						}
-					}
-				} catch (error) {
-					// Fallback to first input value
-					const firstInputName = schema.inputs[0]?.name
-					if (firstInputName && numericInputs[firstInputName] !== undefined) {
-						results[output.name] = numericInputs[firstInputName]
-					} else {
-						results[output.name] = 0
-					}
-				}
+				results[output.name] = executeFormula(formula, numericInputs)
 			}
 
 			return results

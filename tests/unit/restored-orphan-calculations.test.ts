@@ -9,7 +9,7 @@ describe('restored orphan calculator engines', () => {
 	it('computes GCD with Euclidean algorithm', () => {
 		expect(calculateGcd({ a: 48, b: 18 }).result).toBe(6)
 		expect(calculateGcd({ a: 100, b: 25 }).result).toBe(25)
-		expect(calculateGcd({ a: 0, b: 10 }).result).toBeNull()
+		expect(() => calculateGcd({ a: 0, b: 10 })).toThrow(/positive integer/)
 	})
 
 	it('computes LCM from GCD', () => {
@@ -34,15 +34,15 @@ describe('restored orphan calculator engines', () => {
 		expect(result.totalInflation).toBeCloseTo(10, 8)
 	})
 
-	it('supports restored single-output formulas', () => {
+	it('supports restored single-output formulas and function engines', async () => {
 		expect(executeFormula('Math.cbrt(number)', { number: 27 })).toBe(3)
-		expect(executeFormula('Math.pow(base, exponent)', { base: 2, exponent: 8 })).toBe(256)
-		expect(
-			executeFormula('Math.log(number) / Math.log(base)', {
-				number: 100,
-				base: 10,
-			}),
-		).toBeCloseTo(2, 10)
-		expect(executeFormula('length * width', { length: 4, width: 3 })).toBe(12)
+		const { calculateExponent } = await import('@/lib/calculations/exponent')
+		const { calculateLogarithm } = await import('@/lib/calculations/logarithm')
+		const { calculateAreaRectangle } = await import(
+			'@/lib/calculations/area-rectangle'
+		)
+		expect(calculateExponent({ base: 2, exponent: 8 }).result).toBe(256)
+		expect(calculateLogarithm({ number: 100, base: 10 }).result).toBeCloseTo(2, 10)
+		expect(calculateAreaRectangle({ length: 4, width: 3 }).result).toBe(12)
 	})
 })

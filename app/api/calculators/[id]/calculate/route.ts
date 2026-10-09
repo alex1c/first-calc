@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { calculatorRegistry } from '@/lib/registry/loader'
 import { isLocale, resolveRequestLocale } from '@/lib/i18n'
+import { assertFiniteResults } from '@/lib/calculations/result-safety'
 
 interface RouteParams {
 	params: {
@@ -151,6 +152,9 @@ export async function POST(
 			}
 
 			const results = calculator.calculate(processedInputs)
+
+			// Reject Infinity/NaN before JSON serialization (which would coerce them to null)
+			assertFiniteResults(results, 'results')
 
 			// Format results
 			const { formatOutputValue } = await import('@/lib/calculators/format')

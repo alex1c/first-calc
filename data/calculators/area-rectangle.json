@@ -2,8 +2,8 @@
 	"id": "area-rectangle",
 	"category": "geometry",
 	"slug": "area-rectangle",
-	"engine": "formula",
-	"formula": "length * width",
+	"engine": "function",
+	"calculationId": "calculateAreaRectangle",
 	"inputs": [
 		{
 			"name": "length",

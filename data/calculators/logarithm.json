@@ -2,8 +2,8 @@
 	"id": "logarithm",
 	"category": "math",
 	"slug": "logarithm",
-	"engine": "formula",
-	"formula": "Math.log(number) / Math.log(base)",
+	"engine": "function",
+	"calculationId": "calculateLogarithm",
 	"inputs": [
 		{
 			"name": "number",

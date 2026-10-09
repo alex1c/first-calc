@@ -2,8 +2,8 @@
 	"id": "exponent",
 	"category": "math",
 	"slug": "exponent",
-	"engine": "formula",
-	"formula": "Math.pow(base, exponent)",
+	"engine": "function",
+	"calculationId": "calculateExponent",
 	"inputs": [
 		{
 			"name": "base",
