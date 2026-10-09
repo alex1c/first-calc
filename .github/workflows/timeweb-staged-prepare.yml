@@ -1,0 +1,80 @@
+name: Timeweb Staged Prepare
+
+# Stages 1–3 only: diagnose, backup, build new image.
+# Does NOT switch the live first-calc container.
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_sha:
+        description: Exact release commit SHA
+        required: true
+        default: '795f6ad404fd2910ec0eacb2e926b7fda810adb5'
+      phase:
+        description: diagnose | prepare
+        required: true
+        default: prepare
+        type: choice
+        options:
+          - diagnose
+          - prepare
+
+permissions:
+  contents: read
+
+jobs:
+  staged:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: timeweb-first-calc-staged
+      cancel-in-progress: false
+    steps:
+      - name: Checkout scripts
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SSH_PRIVATE_KEY}" ] || [ -z "${SERVER_HOST}" ]; then
+            echo "ERROR: Required deployment secrets are not configured."
+            exit 1
+          fi
+          if [ "${SERVER_HOST}" != "188.225.26.192" ]; then
+            echo "ERROR: SERVER_HOST secret is not Timeweb 188.225.26.192. STOP."
+            exit 1
+          fi
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null
+          touch ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          ssh-keyscan -H "${SERVER_HOST}" >> ~/.ssh/known_hosts
+          echo "SERVER_HOST matches Timeweb 188.225.26.192"
+
+      - name: Upload and run staged prepare
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+          PHASE: ${{ inputs.phase }}
+        run: |
+          set -euo pipefail
+          chmod +x scripts/timeweb-staged-prepare.sh
+          scp -i ~/.ssh/deploy_key \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o PreferredAuthentications=publickey \
+            scripts/timeweb-staged-prepare.sh \
+            "root@${SERVER_HOST}:/tmp/timeweb-staged-prepare.sh"
+          ssh -i ~/.ssh/deploy_key \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o PreferredAuthentications=publickey \
+            -o ConnectTimeout=15 \
+            "root@${SERVER_HOST}" \
+            "chmod +x /tmp/timeweb-staged-prepare.sh && RELEASE_SHA='${RELEASE_SHA}' PHASE='${PHASE}' bash /tmp/timeweb-staged-prepare.sh"
