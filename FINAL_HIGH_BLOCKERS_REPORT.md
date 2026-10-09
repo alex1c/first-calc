@@ -12,7 +12,8 @@ Repository: `alex1c/first-calc`
 |---|---|
 | Starting tip (Release Recheck FAIL) | `c00c80b60a7dafe6386a0249688eecb152895cc3` |
 | Fix commit (R1–R4) | `68a487472308e84ec1ecbfa6495edb95e827931b` |
-| Verified local/remote HEAD | `eb39a3ae49b1a3f82964f69bab29e024f9873a9a` |
+
+Verify tip with `git rev-parse HEAD` and `git ls-remote origin refs/heads/fix/ru-catalog-seo-recovery` (must match; working tree clean).
 
 ## Scope
 
