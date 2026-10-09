@@ -176,6 +176,17 @@ async function localizeTypescriptCalculator(
 			(category === undefined || calc.category === category),
 	)
 	if (!enBase) return undefined
+
+	// Prefer a full native TypeScript row (e.g. RU percentage / loan-payment defs).
+	const nativeTs = calculators.find(
+		(calc) =>
+			calc.locale === locale &&
+			calc.slug === enBase.slug &&
+			(category === undefined || calc.category === category),
+	)
+	if (nativeTs) {
+		return nativeTs
+	}
 	if (!hasLocalizedCalculatorContent(locale as any, enBase.slug)) {
 		return undefined
 	}

@@ -16,7 +16,10 @@ import { getCalculatorsByCategoryWithPopularity } from '@/lib/navigation/structu
 import { RelatedCalculatorsWrapper } from '@/components/calculators/related-calculators-wrapper'
 import { RelatedArticlesBlock } from '@/components/calculators/related-articles-block'
 import { EngineeringContextBlock } from '@/components/calculators/engineering-context-block'
-import { calculatorContentLocales } from '@/lib/i18n/content-availability'
+import {
+	calculatorContentLocales,
+	hasLocalizedCalculatorContent,
+} from '@/lib/i18n/content-availability'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
 
 // Declare required namespaces for this page
@@ -114,8 +117,9 @@ export default async function CalculatorRoutePage({
 	// Build canonical URL - EN locale should not have /en prefix
 	const pathname = `/calculators/${category}/${slug}`
 	const availableLocales = calculatorContentLocales(slug)
+	const hasNativeContent = hasLocalizedCalculatorContent(locale, slug)
 	const canonicalUrl = localeUrl(
-		availableLocales.includes(locale) ? locale : 'en',
+		hasNativeContent ? locale : 'en',
 		pathname,
 	)
 
@@ -166,7 +170,7 @@ export default async function CalculatorRoutePage({
 			<BreadcrumbsBar items={breadcrumbs} />
 			<PageContainer>
 				{/* Content language badge */}
-				{calculator.contentLocale !== locale && (
+				{!hasNativeContent && (
 					<div className="mb-4">
 						<span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800 border border-yellow-300">
 							{t('common.label.contentInEnglish')}
