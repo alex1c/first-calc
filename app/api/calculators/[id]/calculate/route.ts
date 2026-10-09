@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { calculatorRegistry } from '@/lib/registry/loader'
 import { isLocale, resolveRequestLocale } from '@/lib/i18n'
 import { assertFiniteResults } from '@/lib/calculations/result-safety'
+import { isCalculationDomainError } from '@/lib/calculations/domain-error'
 
 interface RouteParams {
 	params: {
@@ -188,6 +189,12 @@ export async function POST(
 				},
 			})
 		} catch (error) {
+			if (isCalculationDomainError(error)) {
+				return NextResponse.json(
+					{ error: error.message },
+					{ status: error.statusCode },
+				)
+			}
 			return NextResponse.json(
 				{
 					error:

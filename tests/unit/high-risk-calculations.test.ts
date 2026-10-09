@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { calculateMortgage } from '@/lib/calculations/mortgage'
 import { calculateAutoLoan } from '@/lib/calculations/auto-loan'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
 import { calculateBMI } from '@/lib/calculations/bmi'
 import { calculateBodyFatPercentage } from '@/lib/calculations/body-fat-percentage'
 import { calculateElectricalLoad } from '@/lib/calculations/electrical-load'
@@ -13,14 +14,18 @@ describe('risk-prioritized calculator behavior', () => {
 		const result = calculateMortgage({ homePrice: 300000, downPayment: 60000, loanTerm: 30, interestRate: 4.5, paymentFrequency: 'monthly' })
 		expect(result.loanAmount).toBe(240000)
 		expect(result.monthlyMortgagePayment).toBeCloseTo(1216.04, 2)
-		expect(calculateMortgage({ homePrice: 0, loanTerm: 30, interestRate: 4.5 }).monthlyMortgagePayment).toBeNull()
+		expect(() =>
+			calculateMortgage({ homePrice: 0, loanTerm: 30, interestRate: 4.5 }),
+		).toThrow(CalculationDomainError)
 	})
 
 	it('auto-loan-calculator rounds a known loan and rejects negative values', () => {
 		const result = calculateAutoLoan({ vehiclePrice: 30000, downPayment: 5000, tradeInValue: 0, salesTaxRate: 0, annualInterestRate: 6, loanTerm: 5 })
 		expect(result.loanAmount).toBe(25000)
 		expect(result.monthlyPayment).toBeCloseTo(483.32, 2)
-		expect(calculateAutoLoan({ vehiclePrice: -1, annualInterestRate: 6, loanTerm: 5 }).monthlyPayment).toBeNull()
+		expect(() =>
+			calculateAutoLoan({ vehiclePrice: -1, annualInterestRate: 6, loanTerm: 5 }),
+		).toThrow(CalculationDomainError)
 	})
 
 	it('bmi-calculator handles metric/imperial units and zero height', () => {

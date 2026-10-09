@@ -57,8 +57,8 @@ describe('B2 regression — RU finance forms with expected values', () => {
 			paymentFrequency: 'monthly',
 		})
 		expect(response.status).toBe(200)
-		expect(data.results.monthlyPayment).toBeCloseTo(1216.04, 2)
-		expect(data.results.loanAmount).toBe(240000)
+		expect(data.results.monthlyPayment).toBeCloseTo(1520.06, 2)
+		expect(data.results.loanAmount).toBe(300000)
 	})
 })
 

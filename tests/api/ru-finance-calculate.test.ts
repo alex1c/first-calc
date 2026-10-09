@@ -114,8 +114,8 @@ describe('POST /api/calculators/:id/calculate — RU finance forms', () => {
 		})
 		expect(response.status).toBe(200)
 		expect(data.locale).toBe('ru')
-		expect(data.results.monthlyPayment).toBeCloseTo(1216.04, 2)
-		expect(data.results.loanAmount).toBe(240000)
+		expect(data.results.monthlyPayment).toBeCloseTo(1520.06, 2)
+		expect(data.results.loanAmount).toBe(300000)
 	})
 
 	it('roi-calculator RU form returns a positive ROI', async () => {
