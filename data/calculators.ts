@@ -27,7 +27,10 @@ import {
 	calculateWorkCompatibility,
 } from '@/lib/calculations/compatibility'
 
-const compatibilityLocales: CalculatorLocale[] = ['en', 'ru', 'es', 'tr', 'hi']
+// Compatibility calculators ship as English TypeScript definitions.
+// Other locales are restored via locales/<locale>/calculators/items overlays
+// (see lib/calculators/localize-definition.ts) — no duplicated engines.
+const compatibilityLocales: CalculatorLocale[] = ['en']
 
 type CompatibilityCalculatorBase = Omit<CalculatorDefinition, 'locale' | 'contentLocale'> & {
 	contentLocale?: CalculatorLocale
@@ -5342,6 +5345,7 @@ export const calculators: CalculatorDefinition[] = [
 		longDescription:
 			'Этот калькулятор помогает определить, сколько составляет определенный процент от любого числа. Просто введите базовое число и процент, который хотите рассчитать. Идеально подходит для расчета скидок, чаевых, налогов, комиссий и любых других процентных вычислений.',
 		locale: 'ru',
+		contentLocale: 'ru',
 		inputs: [
 			{
 				name: 'value',
@@ -5426,9 +5430,164 @@ export const calculators: CalculatorDefinition[] = [
 					'Введите сумму счета как число и процент чаевых (например, 15 для 15% чаевых). Результат покажет сумму чаевых.',
 			},
 		],
-		relatedIds: ['loan-payment'],
+		relatedIds: ['add-percentage', 'subtract-percentage', 'loan-payment'],
 		meta: {
 			keywords: ['процент', 'расчет', 'математика', 'скидка', 'чаевые', 'налог'],
+		},
+	},
+	// Add Percentage (RU) — same engine as EN
+	{
+		id: 'add-percentage',
+		slug: 'add-percentage',
+		category: 'math',
+		title: 'Прибавить процент к числу',
+		shortDescription:
+			'Увеличьте число на заданный процент. Полезно для наценок, роста зарплаты и расчёта прироста.',
+		longDescription:
+			'Этот калькулятор прибавляет процент к числу. Введите исходное значение и процент увеличения — результат будет равен исходному числу плюс процентный прирост. Подходит для наценок, индексации зарплат, роста показателей и надбавок.',
+		locale: 'ru',
+		contentLocale: 'ru',
+		inputs: [
+			{
+				name: 'value',
+				label: 'Число',
+				type: 'number',
+				placeholder: 'Введите число',
+				validation: {
+					required: true,
+					min: 0,
+					message: 'Число должно быть больше или равно 0',
+				},
+			},
+			{
+				name: 'percent',
+				label: 'Процент для прибавления',
+				type: 'number',
+				unitLabel: '%',
+				placeholder: 'Введите процент',
+				validation: {
+					required: true,
+					min: 0,
+					message: 'Процент должен быть больше или равен 0',
+				},
+			},
+		],
+		outputs: [
+			{
+				name: 'result',
+				label: 'Результат',
+				formatType: 'number',
+			},
+		],
+		calculate: calculateAddPercentage,
+		howToBullets: [
+			'Введите исходное число',
+			'Введите процент увеличения (например, 20 для 20%)',
+			'Нажмите «Рассчитать»',
+			'Результат = число × (1 + процент / 100)',
+		],
+		examples: [
+			{
+				id: 'example-1',
+				title: 'Пример 1: Прибавить 20% к 100',
+				inputDescription: 'Прибавить 20% к 100',
+				steps: [
+					'Число: 100',
+					'Процент: 20%',
+					'Расчёт: 100 × (1 + 20/100)',
+					'Результат: 120',
+				],
+				resultDescription: '100, увеличенное на 20%, равно 120',
+			},
+		],
+		faq: [
+			{
+				question: 'Как прибавить процент к числу?',
+				answer:
+					'Умножьте число на (1 + процент/100). Например, 100 + 20% = 100 × 1,20 = 120.',
+			},
+		],
+		relatedIds: ['percentage-of-a-number', 'subtract-percentage'],
+		meta: {
+			keywords: ['прибавить процент', 'наценка', 'рост', 'увеличение'],
+		},
+	},
+	// Subtract Percentage (RU) — same engine as EN
+	{
+		id: 'subtract-percentage',
+		slug: 'subtract-percentage',
+		category: 'math',
+		title: 'Вычесть процент из числа',
+		shortDescription:
+			'Уменьшите число на заданный процент. Полезно для скидок, уценок и расчёта снижения.',
+		longDescription:
+			'Этот калькулятор вычитает процент из числа. Введите исходное значение и процент уменьшения — результат будет равен исходному числу минус процентное снижение. Подходит для скидок, уценок и снижения показателей.',
+		locale: 'ru',
+		contentLocale: 'ru',
+		inputs: [
+			{
+				name: 'value',
+				label: 'Число',
+				type: 'number',
+				placeholder: 'Введите число',
+				validation: {
+					required: true,
+					min: 0,
+					message: 'Число должно быть больше или равно 0',
+				},
+			},
+			{
+				name: 'percent',
+				label: 'Процент для вычитания',
+				type: 'number',
+				unitLabel: '%',
+				placeholder: 'Введите процент',
+				validation: {
+					required: true,
+					min: 0,
+					max: 100,
+					message: 'Процент должен быть от 0 до 100',
+				},
+			},
+		],
+		outputs: [
+			{
+				name: 'result',
+				label: 'Результат',
+				formatType: 'number',
+			},
+		],
+		calculate: calculateSubtractPercentage,
+		howToBullets: [
+			'Введите исходное число',
+			'Введите процент уменьшения (например, 20 для 20%)',
+			'Нажмите «Рассчитать»',
+			'Результат = число × (1 - процент / 100)',
+		],
+		examples: [
+			{
+				id: 'example-1',
+				title: 'Пример 1: Вычесть 20% из 100',
+				inputDescription: 'Вычесть 20% из 100',
+				steps: [
+					'Число: 100',
+					'Процент: 20%',
+					'Расчёт: 100 × (1 - 20/100)',
+					'Результат: 80',
+				],
+				resultDescription: '100, уменьшенное на 20%, равно 80',
+			},
+		],
+		faq: [
+			{
+				question: 'Как вычесть процент из числа?',
+				answer:
+					'Умножьте число на (1 - процент/100). Например, 100 − 20% = 100 × 0,80 = 80.',
+			},
+		],
+		relatedIds: ['percentage-of-a-number', 'add-percentage'],
+		meta: {
+			keywords: ['вычесть процент', 'скидка', 'уменьшение', 'уценка'],
 		},
 	},
 	// Loan Payment (RU)
@@ -5442,6 +5601,7 @@ export const calculators: CalculatorDefinition[] = [
 		longDescription:
 			'Этот калькулятор помогает определить ежемесячный платеж по кредиту, используя стандартную формулу кредита. Введите сумму кредита, годовую процентную ставку и срок кредита в годах. Калькулятор покажет ежемесячный платеж, общую сумму выплат за весь срок кредита и общую сумму процентов. Работает для ипотеки, автокредитов, потребительских кредитов и любых кредитов с фиксированной ставкой.',
 		locale: 'ru',
+		contentLocale: 'ru',
 		inputs: [
 			{
 				name: 'principal',

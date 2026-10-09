@@ -80,9 +80,16 @@ export async function getCalculatorById(
 		}
 		return definition
 	} catch {
-		// Schema file doesn't exist or failed to load, return undefined
-		return undefined
+		// Schema file doesn't exist or failed to load — try EN TS + locale item overlay
 	}
+
+	// Shared-engine path: EN TypeScript definition + locales/<locale>/items overlay
+	if (locale !== 'en') {
+		const localized = await localizeTypescriptCalculator(id, undefined, locale)
+		if (localized) return localized
+	}
+
+	return undefined
 }
 
 /**
@@ -136,7 +143,58 @@ export async function getCalculatorBySlug(
 		// Schema file doesn't exist or failed to load
 	}
 
+	// Shared-engine path: EN TypeScript definition + locales/<locale>/items overlay
+	if (locale !== 'en') {
+		const localized = await localizeTypescriptCalculator(slug, category, locale)
+		if (localized) return localized
+	}
+
 	return undefined
+}
+
+/**
+ * Build a locale-specific definition from the English TS registry entry when a
+ * native item file exists. Reuses the same calculate() function.
+ */
+async function localizeTypescriptCalculator(
+	idOrSlug: string,
+	category: string | undefined,
+	locale: string,
+): Promise<CalculatorDefinition | undefined> {
+	const { hasLocalizedCalculatorContent } = await import(
+		'@/lib/i18n/content-availability'
+	)
+	const { loadCalculatorContent } = await import('@/lib/i18n/loadItemContent')
+	const { applyCalculatorItemContent } = await import(
+		'@/lib/calculators/localize-definition'
+	)
+
+	const enBase = calculators.find(
+		(calc) =>
+			calc.locale === 'en' &&
+			(calc.id === idOrSlug || calc.slug === idOrSlug) &&
+			(category === undefined || calc.category === category),
+	)
+	if (!enBase) return undefined
+	if (!hasLocalizedCalculatorContent(locale as any, enBase.slug)) {
+		return undefined
+	}
+
+	const { content, contentLocale } = await loadCalculatorContent(
+		locale as any,
+		enBase.slug,
+	)
+	// Only promote to the requested locale when native item content exists
+	if (!content || contentLocale !== locale) {
+		return undefined
+	}
+
+	return applyCalculatorItemContent(
+		enBase,
+		locale as any,
+		content,
+		contentLocale as any,
+	)
 }
 
 /**

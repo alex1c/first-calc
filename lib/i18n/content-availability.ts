@@ -20,8 +20,25 @@ import type { CalculatorDefinition } from '@/lib/calculators/types'
  * without (or in addition to) an items JSON file. Keep this list explicit so the
  * availability gate does not need to parse the large TS module on every call.
  */
+/**
+ * TS-only calculators restored for RU via item overlays and/or full RU
+ * CalculatorDefinition rows. Keep in sync with data/calculators.ts + items.
+ */
 const TYPESCRIPT_LOCALIZED_SLUGS: Partial<Record<Locale, readonly string[]>> = {
-	ru: ['percentage-of-a-number', 'loan-payment'],
+	ru: [
+		// Percentage cluster (full RU TS definitions + items)
+		'percentage-of-a-number',
+		'add-percentage',
+		'subtract-percentage',
+		'loan-payment',
+		// Compatibility cluster (EN TS engine + RU item overlays)
+		'love-compatibility',
+		'zodiac-compatibility',
+		'numerology-compatibility',
+		'friendship-compatibility',
+		'work-compatibility',
+		'birth-date-compatibility',
+	],
 }
 
 function hasItemFile(locale: Locale, slug: string): boolean {

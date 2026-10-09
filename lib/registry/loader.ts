@@ -207,6 +207,24 @@ class LocalCalculatorLoader implements CalculatorLoader {
 		const unique = all.filter((calc, index, self) => 
 			index === self.findIndex((c) => c.id === calc.id && c.locale === calc.locale)
 		)
+
+		// Include EN TypeScript calculators restored for this locale via item overlays
+		if (locale !== 'en') {
+			const { calculators: allTs } = await import('@/data/calculators')
+			const { hasLocalizedCalculatorContent } = await import(
+				'@/lib/i18n/content-availability'
+			)
+			const presentIds = new Set(unique.map((calc) => calc.id))
+			for (const enCalc of allTs.filter((calc) => calc.locale === 'en')) {
+				if (presentIds.has(enCalc.id)) continue
+				if (!hasLocalizedCalculatorContent(locale as any, enCalc.slug)) continue
+				const localized = await getCalculatorById(enCalc.id, locale)
+				if (localized && localized.isEnabled !== false) {
+					unique.push(localized)
+					presentIds.add(localized.id)
+				}
+			}
+		}
 		
 		// Filter out disabled calculators (soft disable feature)
 		return unique.filter((calc) => calc.isEnabled !== false)
@@ -272,6 +290,26 @@ class LocalCalculatorLoader implements CalculatorLoader {
 		const unique = all.filter((calc, index, self) => 
 			index === self.findIndex((c) => c.id === calc.id && c.locale === calc.locale)
 		)
+
+		// Include EN TypeScript calculators restored for this locale via item overlays
+		if (locale !== 'en') {
+			const { calculators: allTs } = await import('@/data/calculators')
+			const { hasLocalizedCalculatorContent } = await import(
+				'@/lib/i18n/content-availability'
+			)
+			const presentIds = new Set(unique.map((calc) => calc.id))
+			for (const enCalc of allTs.filter(
+				(calc) => calc.locale === 'en' && calc.category === category,
+			)) {
+				if (presentIds.has(enCalc.id)) continue
+				if (!hasLocalizedCalculatorContent(locale as any, enCalc.slug)) continue
+				const localized = await getCalculatorBySlug(category, enCalc.slug, locale)
+				if (localized && localized.isEnabled !== false) {
+					unique.push(localized)
+					presentIds.add(localized.id)
+				}
+			}
+		}
 		
 		// Filter out disabled calculators (soft disable feature)
 		return unique.filter((calc) => calc.isEnabled !== false)
