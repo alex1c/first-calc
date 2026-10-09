@@ -12,7 +12,7 @@ Repository: `alex1c/first-calc`
 |---|---|
 | Starting tip (Release Recheck FAIL) | `c00c80b60a7dafe6386a0249688eecb152895cc3` |
 | Fix commit (R1–R4) | `68a487472308e84ec1ecbfa6495edb95e827931b` |
-| Branch tip after docs pin | `32fe6a2cce1ea51c8a2fcb6479466c2f9b7586eb` |
+| Verified local/remote HEAD | `eb39a3ae49b1a3f82964f69bab29e024f9873a9a` |
 
 ## Scope
 
