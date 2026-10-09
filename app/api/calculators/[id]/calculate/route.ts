@@ -201,6 +201,7 @@ export async function POST(
 						value,
 						output.formatType,
 						output.unitLabel,
+						locale,
 					)
 				}
 			})

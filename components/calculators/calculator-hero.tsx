@@ -12,12 +12,29 @@ interface CalculatorHeroProps {
 /**
  * Get category badge text based on category
  */
-function getCategoryBadge(category: string): string {
+function getCategoryBadge(category: string, locale?: string): string {
+	if (locale === 'ru') {
+		const ruBadges: Record<string, string> = {
+			math: 'МАТЕМАТИКА',
+			finance: 'ФИНАНСЫ',
+			health: 'ЗДОРОВЬЕ',
+			everyday: 'ПОВСЕДНЕВНОЕ',
+			auto: 'АВТО',
+			construction: 'СТРОИТЕЛЬСТВО',
+			compatibility: 'СОВМЕСТИМОСТЬ',
+			engineering: 'ИНЖЕНЕРИЯ',
+			business: 'БИЗНЕС',
+		}
+		return ruBadges[category] || 'КАЛЬКУЛЯТОР'
+	}
 	const badges: Record<string, string> = {
-		math: 'GEOMETRY CALCULATOR',
+		math: 'MATH CALCULATOR',
 		finance: 'FINANCE CALCULATOR',
 		health: 'HEALTH CALCULATOR',
 		everyday: 'EVERYDAY CALCULATOR',
+		auto: 'AUTO CALCULATOR',
+		construction: 'CONSTRUCTION CALCULATOR',
+		compatibility: 'COMPATIBILITY CALCULATOR',
 		engineering: 'ENGINEERING CALCULATOR',
 		business: 'BUSINESS CALCULATOR',
 	}
@@ -502,7 +519,9 @@ export function CalculatorHero({ calculator }: CalculatorHeroProps) {
 						</div>
 					</div>
 					<p className="text-sm text-gray-600 font-medium">
-						Money • Growth • Credit • Bank
+						{calculator.locale === 'ru' || calculator.contentLocale === 'ru'
+							? 'Деньги • Рост • Кредит • Банк'
+							: 'Money • Growth • Credit • Bank'}
 					</p>
 				</div>
 			)
@@ -3288,7 +3307,10 @@ export function CalculatorHero({ calculator }: CalculatorHeroProps) {
 				<div className="flex-1">
 					{/* Category Badge */}
 					<span className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-blue-700 uppercase bg-blue-100 rounded-md">
-						{getCategoryBadge(calculator.category)}
+						{getCategoryBadge(
+							calculator.category,
+							calculator.locale || calculator.contentLocale,
+						)}
 					</span>
 					<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
 						{calculator.title}

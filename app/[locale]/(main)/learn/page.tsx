@@ -7,6 +7,7 @@ import { PageContainer } from '@/components/layout/page-container'
 import { getLearnBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import type { Metadata } from 'next'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { learnArticlePath } from '@/lib/i18n/content-links'
 
 const namespaces = ['common', 'navigation'] as const
 
@@ -120,7 +121,7 @@ export default async function LearnPage({ params }: LearnPageProps) {
 									{geometryArticles.map((article) => (
 										<Link
 											key={article.id}
-											href={`/${locale}/learn/${article.slug}`}
+											href={learnArticlePath(article)}
 											className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
 										>
 											<h4 className="text-lg font-semibold text-gray-900 mb-2">
@@ -144,7 +145,7 @@ export default async function LearnPage({ params }: LearnPageProps) {
 									{algebraArticles.map((article) => (
 										<Link
 											key={article.id}
-											href={`/${locale}/learn/${article.slug}`}
+											href={learnArticlePath(article)}
 											className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
 										>
 											<h4 className="text-lg font-semibold text-gray-900 mb-2">
@@ -168,7 +169,7 @@ export default async function LearnPage({ params }: LearnPageProps) {
 									{statisticsArticles.map((article) => (
 										<Link
 											key={article.id}
-											href={`/${locale}/learn/${article.slug}`}
+											href={learnArticlePath(article)}
 											className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
 										>
 											<h4 className="text-lg font-semibold text-gray-900 mb-2">
@@ -192,7 +193,7 @@ export default async function LearnPage({ params }: LearnPageProps) {
 									{percentageArticles.map((article) => (
 										<Link
 											key={article.id}
-											href={`/${locale}/learn/${article.slug}`}
+											href={learnArticlePath(article)}
 											className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
 										>
 											<h4 className="text-lg font-semibold text-gray-900 mb-2">
@@ -219,7 +220,7 @@ export default async function LearnPage({ params }: LearnPageProps) {
 							{articles.filter((a) => !mathArticles.includes(a)).map((article) => (
 								<Link
 									key={article.id}
-									href={`/${locale}/learn/${article.slug}`}
+									href={learnArticlePath(article)}
 									className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
 								>
 									<h3 className="text-xl font-semibold text-gray-900 mb-2">

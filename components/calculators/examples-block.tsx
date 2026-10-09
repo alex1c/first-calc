@@ -270,7 +270,11 @@ export function ExamplesBlock({ calculator }: ExamplesBlockProps) {
 	if (useDetailedFormat) {
 		return (
 			<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 md:p-8 mb-12">
-				<h2 className="text-2xl font-semibold text-gray-900 mb-6">Calculation Examples</h2>
+				<h2 className="text-2xl font-semibold text-gray-900 mb-6">
+					{calculator.locale === 'ru' || calculator.contentLocale === 'ru'
+						? 'Примеры расчётов'
+						: 'Calculation Examples'}
+				</h2>
 				<div className="space-y-6">
 					{calculator.examples.map((example) => {
 						const exampleInputs = (example as any).inputs || {}
@@ -512,7 +516,9 @@ function ExampleCardWithCalculation({
 			{hasInputs && (
 				<div className="pt-4 border-t border-gray-200">
 					<p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">
-						Calculated Results
+						{calculator.locale === 'ru' || calculator.contentLocale === 'ru'
+							? 'Результаты расчёта'
+							: 'Calculated Results'}
 					</p>
 					{isCalculating ? (
 						<div className="text-sm text-gray-500 italic">Calculating...</div>

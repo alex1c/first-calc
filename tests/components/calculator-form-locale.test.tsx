@@ -1,12 +1,16 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { CalculatorForm } from '@/components/calculators/calculator-form'
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
 
 vi.mock('@/lib/i18n/useClientT', () => ({
 	useClientT: () => (key: string) => key === 'calculators.ui.form.calculate' ? 'Calculate' : key,
 }))
+
+afterEach(() => {
+	cleanup()
+})
 
 function calculator(id: string, inputNames: string[]): CalculatorDefinitionClient {
 	return {

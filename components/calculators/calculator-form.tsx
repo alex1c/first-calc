@@ -185,6 +185,18 @@ export function CalculatorForm({
 								// Explicit step wins; 'any' disables HTML5 stepMismatch
 								if (input.step === 'any') return 'any'
 								if (input.step !== undefined) return input.step
+								// Fractional default (e.g. inflationRate=2.5) must not use step=1
+								const defaultValue = input.defaultValue
+								if (
+									typeof defaultValue === 'number' &&
+									!Number.isInteger(defaultValue)
+								) {
+									const decimals =
+										String(defaultValue).split('.')[1]?.length ?? 1
+									return Number(
+										`0.${'0'.repeat(Math.max(0, decimals - 1))}1`,
+									)
+								}
 								// When min is fractional (e.g. 0.01) and step defaults to 1,
 								// integers like 5 fail (5 - 0.01) / 1 — match min precision
 								const minBound =

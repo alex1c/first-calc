@@ -43,7 +43,8 @@ export async function LegacyPageLayout({
 			},
 			{
 				label: title,
-				href: toolType ? `${basePath}/${toolType}` : '#',
+				// Prefer tools hub: bare /factors and /number-format/in landings 404
+				href: `${basePath}/tools`,
 			},
 		]
 

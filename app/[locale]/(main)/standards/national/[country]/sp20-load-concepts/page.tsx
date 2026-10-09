@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { localizedContentMetadata } from '@/lib/site-url'
+import { learnArticlePath } from '@/lib/i18n/content-links'
 import Link from 'next/link'
 import { locales, type Locale, loadNamespaces, createT } from '@/lib/i18n'
 import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
@@ -415,7 +416,7 @@ export default async function Sp20Page({ params }: Sp20PageProps) {
 									)}
 									<Link
 										className="text-blue-600 hover:text-blue-800 underline text-sm font-medium"
-										href={`/${locale}/learn/${article.slug}`}
+										href={learnArticlePath(article)}
 									>
 										{c.section7Read} →
 									</Link>

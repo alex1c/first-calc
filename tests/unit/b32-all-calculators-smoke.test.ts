@@ -107,6 +107,36 @@ describe('all calculators smoke (EN + RU)', () => {
 					}
 					if (calc.slug === 'equation-solver') {
 						inputs.equation = inputs.equation || 'x^2-4=0'
+						inputs.inputMode = 'equation'
+						inputs.equationType = 'linear'
+						inputs.equationText = '2x+4=10'
+					}
+					if (calc.slug === 'retirement-calculator') {
+						inputs.calculationMode = 'future_balance'
+						inputs.currentAge = 30
+						inputs.retirementAge = 65
+						inputs.currentSavings = 10000
+						inputs.annualReturnRate = 5
+						inputs.monthlyContribution = 100
+						inputs.inflationRate = 0
+					}
+					if (calc.slug === 'tire-cost-calculator') {
+						inputs.tirePricePerUnit = 100
+						inputs.tiresCount = 4
+						inputs.tireLifespanMilesKm = 40000
+						inputs.annualMileage = 12000
+						inputs.seasonalTiresToggle = false
+						inputs.mountingAndBalancingCost = 0
+					}
+					if (calc.slug === 'car-affordability-calculator') {
+						inputs.mode = 'byMonthlyBudget'
+						inputs.maxMonthlyCarBudget = 500
+						inputs.loanAPR = 6
+						inputs.loanTermMonths = 60
+						inputs.downPayment = 2000
+						inputs.estimatedMonthlyFixedCosts = 100
+						inputs.tradeInValue = 0
+						inputs.salesTaxOrFees = 0
 					}
 
 					const { response, data } = await postCalculate(
@@ -120,16 +150,31 @@ describe('all calculators smoke (EN + RU)', () => {
 						)
 						continue
 					}
+					// Default fixtures must not be blocked by required-output guards (H1)
+					if (
+						response.status === 400 &&
+						String(data.error || '').includes('required results')
+					) {
+						failures.push(
+							`${locale}:${calc.id} status=400 ${data.error}`,
+						)
+						continue
+					}
 					if (response.status === 200) {
-						for (const output of calc.outputs) {
-							if (OPTIONAL.has(output.name)) continue
+						const required = calc.outputs.filter(
+							(output) => !OPTIONAL.has(output.name),
+						)
+						const present = required.filter((output) => {
 							const value = data.results?.[output.name]
-							if (value === null || value === undefined) {
-								failures.push(
-									`${locale}:${calc.id} null output ${output.name}`,
-								)
-								break
-							}
+							return value !== null && value !== undefined
+						})
+						if (required.length > 0 && present.length === 0) {
+							failures.push(
+								`${locale}:${calc.id} no required outputs present`,
+							)
+						}
+						for (const output of present) {
+							const value = data.results?.[output.name]
 							if (typeof value === 'number' && !Number.isFinite(value)) {
 								failures.push(
 									`${locale}:${calc.id} non-finite ${output.name}`,

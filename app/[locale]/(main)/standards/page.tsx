@@ -11,6 +11,7 @@ import { BreadcrumbsBar } from '@/components/layout/breadcrumbs-bar'
 import { PageContainer } from '@/components/layout/page-container'
 import { getStandardsBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { learnArticlePath } from '@/lib/i18n/content-links'
 
 const namespaces = ['common', 'navigation'] as const
 
@@ -291,7 +292,7 @@ export default async function StandardsPage({ params }: { params: { locale: Loca
 							{standardsArticles.map((article) => (
 								<Link
 									key={article.id}
-									href={`/${locale}/learn/${article.slug}`}
+									href={learnArticlePath(article)}
 									className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
 								>
 									<h3 className="text-lg font-semibold text-gray-900 mb-2">

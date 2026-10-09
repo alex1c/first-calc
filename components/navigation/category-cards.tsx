@@ -5,6 +5,7 @@
 
 import Link from 'next/link'
 import type { Locale } from '@/lib/i18n'
+import { localePath } from '@/lib/site-url'
 import { getCategoryIcon } from '@/lib/navigation/categories'
 
 interface CategoryCardsProps {
@@ -22,12 +23,14 @@ interface CategoryCardsProps {
  * Shows categories as cards with descriptions and counts
  */
 export function CategoryCards({ locale, categories }: CategoryCardsProps) {
+	// Skip empty categories — empty locale hubs must not advertise 404 paths
+	const visible = categories.filter((category) => category.count > 0)
 	return (
 		<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-			{categories.map((category) => (
+			{visible.map((category) => (
 				<Link
 					key={category.slug}
-					href={`/${locale}/calculators/${category.slug}`}
+					href={localePath(locale, `/calculators/${category.slug}`)}
 					className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all group"
 				>
 					<div className="flex items-start">
@@ -42,7 +45,14 @@ export function CategoryCards({ locale, categories }: CategoryCardsProps) {
 								{category.description}
 							</p>
 							<div className="text-sm text-blue-600 font-medium">
-								{category.count} {category.count === 1 ? 'calculator' : 'calculators'}
+								{category.count}{' '}
+								{locale === 'ru'
+									? category.count === 1
+										? 'калькулятор'
+										: 'калькуляторов'
+									: category.count === 1
+										? 'calculator'
+										: 'calculators'}
 							</div>
 						</div>
 					</div>
@@ -51,4 +61,3 @@ export function CategoryCards({ locale, categories }: CategoryCardsProps) {
 		</div>
 	)
 }
-

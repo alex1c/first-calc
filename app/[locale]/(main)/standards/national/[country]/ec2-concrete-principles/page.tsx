@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { localizedContentMetadata } from '@/lib/site-url'
+import { learnArticlePath } from '@/lib/i18n/content-links'
 import Link from 'next/link'
 import {
 	locales,
@@ -287,7 +288,7 @@ export default async function Ec2ConcretePrinciplesPage({
 								<li key={article.id}>
 									<Link
 										className="text-blue-600 hover:text-blue-800 underline"
-										href={`/${locale}/learn/${article.slug}`}
+										href={learnArticlePath(article)}
 									>
 										{article.title}
 									</Link>

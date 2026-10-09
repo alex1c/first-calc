@@ -181,7 +181,8 @@ export const calculateCompoundInterest: CalculationFunction = (inputs) => {
 		finalAmount: roundedFinalAmount,
 		totalContributions: Math.round(totalContributions * 100) / 100,
 		totalInterestEarned: Math.round(totalInterestEarned * 100) / 100,
-		effectiveAnnualRate: Math.round(effectiveAnnualRate * 10000) / 100, // Round to 2 decimal places
+		// effectiveAnnualRate is already a percent (e.g. 5.12); round to 2 dp only
+		effectiveAnnualRate: Math.round(effectiveAnnualRate * 100) / 100,
 		yearBreakdown,
 		formulaExplanation,
 	}

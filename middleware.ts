@@ -120,39 +120,44 @@ export function middleware(request: NextRequest) {
 		return NextResponse.redirect(newUrl, { status: 301 })
 	}
 
-	// Case 2: Path starts with other locale (ru, es, tr, hi) - allow through
-	// These locales require prefix for clarity
-	// Example: /ru/calculators → allowed as-is
+	// Case 2: Locale-prefixed path (ru/es/tr/hi). Still rewrite historical
+	// numeric-range URLs that live under the locale prefix, otherwise
+	// /ru/10000-19999 falls through as a missing page (final-audit M4).
 	if (detectedLocale && detectedLocale !== 'en') {
+		const pathWithoutLocale = pathname.replace(
+			new RegExp(`^/${detectedLocale}`),
+			'',
+		) || '/'
+		const rangeRegexPrefixed = /^\/\d+-\d+(\/\d+-\d+)*\/?$/
+		if (rangeRegexPrefixed.test(pathWithoutLocale)) {
+			const cleanPath = pathWithoutLocale.replace(/^\/|\/$/g, '')
+			const segments = cleanPath.split('/')
+			const isValidRange = segments.every((segment) => /^\d+-\d+$/.test(segment))
+			if (isValidRange) {
+				const rewritePath = `/${detectedLocale}/range${pathWithoutLocale}`
+				const url = request.nextUrl.clone()
+				url.pathname = rewritePath
+				return NextResponse.rewrite(url, {
+					request: { headers: requestHeaders },
+				})
+			}
+		}
 		return NextResponse.next({ request: { headers: requestHeaders } })
 	}
 
-	// Case 3: Check if pathname matches numeric range pattern (e.g., /10000-19999)
-	// Rewrite to /<locale>/range/... (or with current locale if detected)
+	// Case 3: Unprefixed numeric range pattern (e.g., /10000-19999)
+	// Rewrite to /<locale>/range/... (default EN)
 	// Note: (legacy) is a route group and should NOT be in the URL
-	// Example: /10000-19999 → /en/range/10000-19999
-	// Example: /ru/10000-19999 → /ru/range/10000-19999
-	// Example: /210000-219999/213500-213549 → /en/range/210000-219999/213500-213549
-	// IMPORTANT: Only match pure numeric ranges, exclude any paths with non-numeric segments
-	// Regex: ^/\d+-\d+(/\d+-\d+)*/?$ - matches ONLY numeric ranges
 	const rangeRegex = /^\/\d+-\d+(\/\d+-\d+)*\/?$/
-	// Additional check: ensure path doesn't contain any non-numeric segments
-	// This prevents false matches like /numbers-to-words or /chislo-propisyu
 	if (rangeRegex.test(pathname)) {
-		// Double-check: path should only contain digits, dashes, and slashes
-		// Remove leading/trailing slashes and check each segment
 		const cleanPath = pathname.replace(/^\/|\/$/g, '')
 		const segments = cleanPath.split('/')
 		const isValidRange = segments.every((segment) => {
-			// Each segment should match: digits-digits
 			return /^\d+-\d+$/.test(segment)
 		})
-		
+
 		if (isValidRange) {
-			// If locale is detected (ru, es, tr, hi), use it; otherwise use default (en)
-			// But keep the original URL without /en prefix
 			const locale = detectedLocale || defaultLocale
-			// Route group (legacy) is not part of the URL, so we use /range directly
 			const rewritePath = `/${locale}/range${pathname}`
 			const url = request.nextUrl.clone()
 			url.pathname = rewritePath

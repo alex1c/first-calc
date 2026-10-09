@@ -10,6 +10,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import type { Locale } from '@/lib/i18n'
+import { localePath } from '@/lib/site-url'
 
 interface CategoryMenuProps {
 	locale: Locale
@@ -57,7 +58,7 @@ export function CategoryMenu({
 					<div className="mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
 						<div className="py-2">
 							<Link
-								href={`/${locale}/calculators`}
+								href={localePath(locale, '/calculators')}
 								className={`block px-4 py-2 hover:bg-gray-50 transition-colors ${
 									!currentCategory
 										? 'bg-blue-50 text-blue-700 font-medium'
@@ -70,7 +71,7 @@ export function CategoryMenu({
 							{categories.map((category) => (
 								<Link
 									key={category}
-									href={`/${locale}/calculators/${category}`}
+									href={localePath(locale, `/calculators/${category}`)}
 									className={`block px-4 py-2 hover:bg-gray-50 transition-colors ${
 										currentCategory === category
 											? 'bg-blue-50 text-blue-700 font-medium'
@@ -94,7 +95,7 @@ export function CategoryMenu({
 					</h3>
 					<nav className="space-y-1">
 						<Link
-							href={`/${locale}/calculators`}
+							href={localePath(locale, '/calculators')}
 							className={`block px-3 py-2 rounded-md transition-colors ${
 								!currentCategory
 									? 'bg-blue-50 text-blue-700 font-medium'
@@ -106,7 +107,7 @@ export function CategoryMenu({
 						{categories.map((category) => (
 							<Link
 								key={category}
-								href={`/${locale}/calculators/${category}`}
+								href={localePath(locale, `/calculators/${category}`)}
 								className={`block px-3 py-2 rounded-md transition-colors ${
 									currentCategory === category
 										? 'bg-blue-50 text-blue-700 font-medium'

@@ -158,18 +158,23 @@ function numberToWordsRussian(num: number): string {
  * Convert number to Russian currency words (RUB)
  */
 function numberToCurrencyWordsRu(num: number): string {
-	return numberToWordsRuDecimal(Math.abs(num), { format: 'money', currency: 'rub' })
+	const absWords = numberToWordsRuDecimal(Math.abs(num), {
+		format: 'money',
+		currency: 'rub',
+	})
+	// Preserve sign so currency mode agrees with plain words output
+	return num < 0 ? `минус ${absWords}` : absWords
 }
 
 /**
- * Get breakdown by scale
+ * Get breakdown by scale (integer absolute value of the whole part).
  */
 function getBreakdown(num: number): {
 	millions: number
 	thousands: number
 	hundreds: number
 } {
-	const absNum = Math.abs(Math.floor(num))
+	const absNum = Math.abs(Math.trunc(num))
 	return {
 		millions: Math.floor(absNum / 1000000) % 1000,
 		thousands: Math.floor(absNum / 1000) % 1000,
@@ -181,7 +186,11 @@ function getBreakdown(num: number): {
  * Calculate numbers to words
  */
 export const calculateNumbersToWords: CalculationFunction = (inputs) => {
-	const numberStr = String(inputs.number || '')
+	// Nullish coalescing: numeric 0 must not become '' (H5 audit failure)
+	const numberStr =
+		inputs.number === undefined || inputs.number === null
+			? ''
+			: String(inputs.number)
 	const currencyMode =
 		inputs.currencyMode === true ||
 		(typeof inputs.currencyMode === 'string' &&

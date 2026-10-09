@@ -43,7 +43,9 @@ export function mergeCalculatorInputDefaults(
 }
 
 /**
- * Narrative / schedule fields that may legitimately be null or empty strings.
+ * Narrative / schedule / mode-conditional fields that may legitimately be
+ * null or omitted. Zero is always a valid numeric result and must never be
+ * treated as missing (see investment-vs-savings inflationAdjustedBalance=0).
  */
 const OPTIONAL_OUTPUT_NAMES = new Set([
 	'formulaExplanation',
@@ -62,32 +64,65 @@ const OPTIONAL_OUTPUT_NAMES = new Set([
 	'insight',
 	'timeToTarget',
 	'payoffDate',
-	// Conditionally meaningful — null when the related option is unused
+	// Conditionally meaningful — null when the related option/mode is unused
 	'interestSaved',
 	'timeSaved',
 	'monthsSaved',
 	'paybackPeriod',
 	'breakevenYear',
+	'cagr',
+	'annualizedROI',
+	// Mode-specific math / auto outputs
+	'discriminant',
+	'convertedValue',
+	'totalFuelCost',
+	'seasonalTotalCost',
+	'costPerPerson',
+	// Mode-specific finance outputs (future_balance vs required_savings, etc.)
+	'requiredRetirementFund',
+	'monthlyIncomeAchievable',
+	'savingsGap',
+	'requiredMonthlyContribution',
+	'monthsToGoal',
+	'profitMargin',
+	'inflationAdjustedBalance',
+	'savingsInflationAdjustedBalance',
+	'investmentInflationAdjustedBalance',
+	'finalBalance',
+	'totalContributed',
+	'totalEarnings',
+	'monthlyRetirementIncome',
+	'comparisonTable',
+	'winner',
+	'bestLoanByMetric',
 ])
 
 /**
- * Ensure declared calculator outputs are present (not null/undefined) unless optional.
+ * Ensure the calculation produced at least one meaningful required output.
+ *
+ * Multi-mode calculators intentionally leave other declared outputs null
+ * (discriminant for linear equations, costPerPerson when split is off, etc.).
+ * Numeric zero is a successful result, never a missing output.
  */
 export function assertRequiredOutputsPresent(
 	calculator: CalculatorDefinition,
 	results: Record<string, unknown>,
 ): void {
-	const missing: string[] = []
-	for (const output of calculator.outputs) {
-		if (OPTIONAL_OUTPUT_NAMES.has(output.name)) continue
+	const required = calculator.outputs.filter(
+		(output) => !OPTIONAL_OUTPUT_NAMES.has(output.name),
+	)
+	if (required.length === 0) return
+
+	const present = required.filter((output) => {
 		const value = results[output.name]
-		if (value === null || value === undefined) {
-			missing.push(output.name)
-		}
-	}
-	if (missing.length > 0) {
+		return value !== null && value !== undefined
+	})
+
+	if (present.length === 0) {
 		throw new CalculationDomainError(
-			`Calculation did not produce required results: ${missing.join(', ')}`,
+			`Calculation did not produce required results: ${required
+				.map((output) => output.name)
+				.join(', ')}`,
 		)
 	}
 }

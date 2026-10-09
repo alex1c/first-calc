@@ -3174,7 +3174,8 @@ export const calculators: CalculatorDefinition[] = [
 					{ value: 'percentage', label: 'Percentage (%)' },
 					{ value: 'amount', label: 'Annual Amount ($)' },
 				],
-				defaultValue: 'percentage',
+				// Default to annual amount so a value like 3600 matches ₽/год / $/year labels
+				defaultValue: 'amount',
 				helpText: 'Choose whether property tax is percentage or annual amount',
 			},
 			{
@@ -5833,6 +5834,7 @@ export const calculators: CalculatorDefinition[] = [
 				unitLabel: '%',
 				placeholder: 'Enter inflation rate',
 				defaultValue: 2.5,
+				step: 0.1,
 				helpText: 'Annual inflation rate (typically 2-3%)',
 				validation: {
 					required: true,
@@ -6231,6 +6233,7 @@ export const calculators: CalculatorDefinition[] = [
 				unitLabel: '%',
 				placeholder: 'Enter inflation rate',
 				defaultValue: 2.5,
+				step: 0.1,
 				helpText: 'Annual inflation rate (typically 2-3%)',
 				validation: {
 					required: true,

@@ -120,11 +120,18 @@ export const calculateInvestmentVsSavings: CalculationFunction = (inputs) => {
 		savingsFinalBalance: Math.round(savingsResult.finalBalance * 100) / 100,
 		savingsTotalContributions: Math.round(savingsResult.totalContributions * 100) / 100,
 		savingsTotalEarnings: Math.round(savingsResult.totalEarnings * 100) / 100,
-		savingsInflationAdjustedBalance: savingsResult.inflationAdjustedBalance ? Math.round(savingsResult.inflationAdjustedBalance * 100) / 100 : null,
+		// Preserve numeric zero — do not coerce with truthiness (H1 boundary)
+		savingsInflationAdjustedBalance:
+			savingsResult.inflationAdjustedBalance == null
+				? null
+				: Math.round(savingsResult.inflationAdjustedBalance * 100) / 100,
 		investmentFinalBalance: Math.round(investmentResult.finalBalance * 100) / 100,
 		investmentTotalContributions: Math.round(investmentResult.totalContributions * 100) / 100,
 		investmentTotalEarnings: Math.round(investmentResult.totalEarnings * 100) / 100,
-		investmentInflationAdjustedBalance: investmentResult.inflationAdjustedBalance ? Math.round(investmentResult.inflationAdjustedBalance * 100) / 100 : null,
+		investmentInflationAdjustedBalance:
+			investmentResult.inflationAdjustedBalance == null
+				? null
+				: Math.round(investmentResult.inflationAdjustedBalance * 100) / 100,
 		differenceInFinalBalance: Math.round(differenceInFinalBalance * 100) / 100,
 		percentageAdvantage: Math.round(percentageAdvantage * 100) / 100,
 		breakevenYear,

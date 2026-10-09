@@ -7,6 +7,7 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
 
 /**
  * Calculate tire costs over time and per mile
@@ -34,13 +35,7 @@ export const calculateTireCost: CalculationFunction = (inputs) => {
 		annualMileage < 0 ||
 		mountingAndBalancingCost < 0
 	) {
-		return {
-			totalTireSetCost: null,
-			yearsPerSet: null,
-			annualTireCost: null,
-			costPerMile: null,
-			insights: null,
-		}
+		throw new CalculationDomainError('Tire cost inputs are out of valid range')
 	}
 
 	// Calculate total tire set cost

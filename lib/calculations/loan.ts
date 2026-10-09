@@ -76,11 +76,12 @@ export const calculateLoanPayment: CalculationFunction = (inputs) => {
 	let overpayment: number
 
 	if (loanType === 'interest-only') {
-		// Interest-only loan: payment is just the interest
-		periodicPayment = loanAmount * periodicRate
-		totalPayment = periodicPayment * numberOfPayments
-		totalInterest = totalPayment
-		overpayment = totalInterest // For interest-only, overpayment equals total interest
+		// Interest-only: periodic payment is interest only; principal is repaid at term end.
+		periodicPayment = Math.round(loanAmount * periodicRate * 100) / 100
+		totalInterest = Math.round(periodicPayment * numberOfPayments * 100) / 100
+		// Full amount paid over the life of the loan includes returning principal.
+		totalPayment = Math.round((totalInterest + loanAmount) * 100) / 100
+		overpayment = totalInterest
 	} else {
 		// Annuity loan (standard amortizing loan)
 		if (periodicRate === 0) {

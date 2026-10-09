@@ -45,6 +45,16 @@ describe('B3.3 legacy hreflang availability', () => {
 	})
 })
 
+describe('languageAlternates x-default safety', () => {
+	it('points x-default at an available locale when English is missing', async () => {
+		const { languageAlternates } = await import('@/lib/site-url')
+		const alternates = languageAlternates('/standards/RU/sp-20-13330', ['ru'])
+		expect(alternates.ru).toContain('/ru/standards/RU/sp-20-13330')
+		expect(alternates['x-default']).toBe(alternates.ru)
+		expect(alternates).not.toHaveProperty('en')
+	})
+})
+
 describe('B3.3 sitemap excludes noindex-only historical routes', () => {
 	it('registers only slug-backed legacy landings (not range/factors examples)', () => {
 		const slugTools = legacyTools.filter((tool) => tool.slug)

@@ -49,7 +49,12 @@ export function languageAlternates(
 	for (const locale of availableLocales) {
 		languages[locale] = localeUrl(locale, pathname)
 	}
-	languages['x-default'] = localeUrl(defaultLocale, pathname)
+	// x-default must resolve to an existing language alternate — never point at
+	// a missing English URL when the page is only published for other locales.
+	const xDefaultLocale = availableLocales.includes(defaultLocale)
+		? defaultLocale
+		: availableLocales[0] || defaultLocale
+	languages['x-default'] = localeUrl(xDefaultLocale, pathname)
 	return languages
 }
 

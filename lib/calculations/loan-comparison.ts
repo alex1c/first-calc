@@ -174,7 +174,8 @@ export const calculateLoanComparison: CalculationFunction = (inputs) => {
 		comparisonResults.push({
 			loanName,
 			loanAmount: Math.round(loanAmount * 100) / 100,
-			annualInterestRate: Math.round(annualInterestRate * 10000) / 100,
+			// annualInterestRate is already a percent (e.g. 5); do not ×100 again
+			annualInterestRate: Math.round(annualInterestRate * 100) / 100,
 			loanTermYears,
 			fees: Math.round(fees * 100) / 100,
 			extraMonthlyPayment: Math.round(extraMonthlyPayment * 100) / 100,

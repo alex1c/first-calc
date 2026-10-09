@@ -46,11 +46,14 @@ export function FaqBlock({ calculator, locale }: FaqBlockProps) {
 				</div>
 				<div className="flex-1">
 					<h2 className="text-2xl font-semibold text-gray-900 mb-3">
-						Frequently Asked Questions
+						{locale === 'ru'
+							? 'Часто задаваемые вопросы'
+							: 'Frequently Asked Questions'}
 					</h2>
 					<p className="text-gray-600 leading-relaxed">
-						Find answers to common questions about using this calculator. 
-						If you have additional questions, feel free to explore the examples above or contact our support team.
+						{locale === 'ru'
+							? 'Ответы на типичные вопросы по этому калькулятору. Дополнительные примеры — в блоке выше.'
+							: 'Find answers to common questions about using this calculator. If you have additional questions, feel free to explore the examples above or contact our support team.'}
 					</p>
 				</div>
 			</div>

@@ -17,24 +17,29 @@ export const calculateROI: CalculationFunction = (inputs) => {
 	const returnValue = Number(
 		inputs.returnValue || inputs.finalValue || inputs.return || 0,
 	)
-	const timePeriod = Number(inputs.timePeriod ?? 1)
+	// timePeriod is optional/reference: default 0 must not block basic ROI.
+	const rawTimePeriod = Number(inputs.timePeriod ?? 0)
 	const timeUnit = String(inputs.timeUnit || 'years').toLowerCase()
 	const additionalCosts = Number(inputs.additionalCosts || 0)
 	if (
 		isNaN(investmentCost) ||
 		isNaN(returnValue) ||
 		isNaN(additionalCosts) ||
-		isNaN(timePeriod) ||
+		isNaN(rawTimePeriod) ||
 		investmentCost <= 0 ||
 		returnValue < 0 ||
 		additionalCosts < 0 ||
-		timePeriod <= 0
+		rawTimePeriod < 0
 	) {
 		throw new CalculationDomainError('ROI inputs are out of valid range')
 	}
 
 	const years =
-		timeUnit === 'months' ? timePeriod / 12 : timePeriod
+		rawTimePeriod > 0
+			? timeUnit === 'months'
+				? rawTimePeriod / 12
+				: rawTimePeriod
+			: 0
 
 	const totalInvestment = investmentCost + additionalCosts
 	const netProfit = returnValue - totalInvestment
@@ -42,6 +47,7 @@ export const calculateROI: CalculationFunction = (inputs) => {
 	const profitMargin = returnValue > 0 ? (netProfit / returnValue) * 100 : 0
 
 	// Lump-sum model: CAGR equals annualized ROI (same closed form).
+	// Only computed when a positive holding period was provided.
 	let cagr: number | null = null
 	let annualizedROI: number | null = null
 	if (years > 0 && totalInvestment > 0 && returnValue > 0) {
@@ -60,8 +66,10 @@ export const calculateROI: CalculationFunction = (inputs) => {
 	let interpretation = ''
 	if (roiPercentage < 0) {
 		interpretation = `Negative ROI (${round2(roiPercentage)}%).`
-	} else {
+	} else if (years > 0) {
 		interpretation = `ROI ${round2(roiPercentage)}% over ${round2(years)} year(s).`
+	} else {
+		interpretation = `ROI ${round2(roiPercentage)}%.`
 	}
 
 	const formulaExplanation = [

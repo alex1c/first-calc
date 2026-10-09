@@ -55,7 +55,12 @@ function simulateSavingsMonths(options: {
 	years: number
 	interestType: string
 	monthlyWithdrawal: number
-}): { finalSavings: number; totalContributions: number; yearlyBreakdown: YearBreakdown[] } {
+}): {
+	finalSavings: number
+	totalContributions: number
+	totalWithdrawals: number
+	yearlyBreakdown: YearBreakdown[]
+} {
 	const months = assertBoundedIterations(
 		options.years * 12,
 		MAX_HORIZON_YEARS * 12,
@@ -64,6 +69,7 @@ function simulateSavingsMonths(options: {
 	const monthlyRate = options.annualRatePercent / 100 / 12
 	let balance = options.initialSavings
 	let simpleInterestPool = 0
+	let totalWithdrawals = 0
 	const yearlyBreakdown: YearBreakdown[] = []
 
 	for (let year = 1; year <= options.years; year++) {
@@ -72,6 +78,7 @@ function simulateSavingsMonths(options: {
 				? balance + simpleInterestPool
 				: balance
 		let yearContributions = 0
+		let yearWithdrawals = 0
 
 		for (let month = 1; month <= 12; month++) {
 			balance += options.monthlyContribution
@@ -88,6 +95,8 @@ function simulateSavingsMonths(options: {
 					? balance + simpleInterestPool
 					: balance
 			const withdrawal = Math.min(options.monthlyWithdrawal, gross)
+			yearWithdrawals += withdrawal
+			totalWithdrawals += withdrawal
 			if (options.interestType === 'simple') {
 				let remaining = withdrawal
 				const fromBalance = Math.min(balance, remaining)
@@ -104,7 +113,7 @@ function simulateSavingsMonths(options: {
 				? round2(balance + simpleInterestPool)
 				: round2(balance)
 		const interestEarned = round2(
-			endingBalance - startingBalance - yearContributions,
+			endingBalance - startingBalance - yearContributions + yearWithdrawals,
 		)
 		yearlyBreakdown.push({
 			year,
@@ -125,6 +134,7 @@ function simulateSavingsMonths(options: {
 	return {
 		finalSavings: round2(finalSavings),
 		totalContributions: round2(totalContributions),
+		totalWithdrawals: round2(totalWithdrawals),
 		yearlyBreakdown,
 	}
 }
@@ -192,6 +202,7 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 
 	let finalSavings = 0
 	let totalContributions = 0
+	let totalWithdrawals = 0
 	let yearlyBreakdown: YearBreakdown[] = []
 
 	if (useMonthlySimulation) {
@@ -205,6 +216,7 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 		})
 		finalSavings = simulated.finalSavings
 		totalContributions = simulated.totalContributions
+		totalWithdrawals = simulated.totalWithdrawals
 		yearlyBreakdown = simulated.yearlyBreakdown
 	} else {
 		const compoundingFrequency = getCompoundingFrequency(
@@ -252,7 +264,10 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 		yearlyBreakdown = simulated.yearlyBreakdown
 	}
 
-	const totalInterestEarned = round2(finalSavings - totalContributions)
+	// Economic interest includes cash withdrawn during the period
+	const totalInterestEarned = round2(
+		finalSavings + totalWithdrawals - totalContributions,
+	)
 
 	// When inflation is 0, real value equals nominal savings (never null)
 	let inflationAdjustedSavings = finalSavings
@@ -286,9 +301,7 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 	}
 
 	const taxableGain = Math.max(0, totalInterestEarned)
-	const afterTaxValue = round2(
-		finalSavings - (taxableGain * taxRate) / 100,
-	)
+	const afterTaxValue = round2(finalSavings - (taxableGain * taxRate) / 100)
 
 	const growthPercentage =
 		totalContributions > 0

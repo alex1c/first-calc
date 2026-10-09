@@ -55,7 +55,12 @@ function simulateInvestmentMonths(options: {
 	years: number
 	interestType: string
 	monthlyWithdrawal: number
-}): { finalValue: number; totalContributions: number; yearlyBreakdown: YearBreakdown[] } {
+}): {
+	finalValue: number
+	totalContributions: number
+	totalWithdrawals: number
+	yearlyBreakdown: YearBreakdown[]
+} {
 	const months = assertBoundedIterations(
 		options.years * 12,
 		MAX_HORIZON_YEARS * 12,
@@ -64,6 +69,7 @@ function simulateInvestmentMonths(options: {
 	const monthlyRate = options.annualRatePercent / 100 / 12
 	let balance = options.initialInvestment
 	let simpleInterestPool = 0
+	let totalWithdrawals = 0
 	const yearlyBreakdown: YearBreakdown[] = []
 
 	for (let year = 1; year <= options.years; year++) {
@@ -72,6 +78,7 @@ function simulateInvestmentMonths(options: {
 				? balance + simpleInterestPool
 				: balance
 		let yearContributions = 0
+		let yearWithdrawals = 0
 
 		for (let month = 1; month <= 12; month++) {
 			balance += options.monthlyContribution
@@ -88,6 +95,8 @@ function simulateInvestmentMonths(options: {
 					? balance + simpleInterestPool
 					: balance
 			const withdrawal = Math.min(options.monthlyWithdrawal, gross)
+			yearWithdrawals += withdrawal
+			totalWithdrawals += withdrawal
 			if (options.interestType === 'simple') {
 				// Withdraw from cash balance first, then accrued simple interest
 				let remaining = withdrawal
@@ -104,8 +113,9 @@ function simulateInvestmentMonths(options: {
 			options.interestType === 'simple'
 				? round2(balance + simpleInterestPool)
 				: round2(balance)
+		// Profit includes withdrawn cash that left the account during the year
 		const returnEarned = round2(
-			endingValue - startingValue - yearContributions,
+			endingValue - startingValue - yearContributions + yearWithdrawals,
 		)
 		yearlyBreakdown.push({
 			year,
@@ -126,6 +136,7 @@ function simulateInvestmentMonths(options: {
 	return {
 		finalValue: round2(finalValue),
 		totalContributions: round2(totalContributions),
+		totalWithdrawals: round2(totalWithdrawals),
 		yearlyBreakdown,
 	}
 }
@@ -192,6 +203,7 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 
 	let finalValue = 0
 	let totalContributions = 0
+	let totalWithdrawals = 0
 	let yearlyBreakdown: YearBreakdown[] = []
 
 	if (useMonthlySimulation) {
@@ -205,6 +217,7 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 		})
 		finalValue = simulated.finalValue
 		totalContributions = simulated.totalContributions
+		totalWithdrawals = simulated.totalWithdrawals
 		yearlyBreakdown = simulated.yearlyBreakdown
 	} else {
 		const compoundingFrequency = getCompoundingFrequency(
@@ -253,7 +266,8 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 		yearlyBreakdown = simulated.yearlyBreakdown
 	}
 
-	const totalReturn = round2(finalValue - totalContributions)
+	// Economic profit = ending balance + cash withdrawn − net contributions
+	const totalReturn = round2(finalValue + totalWithdrawals - totalContributions)
 	const returnPercentage =
 		totalContributions > 0
 			? round2((totalReturn / totalContributions) * 100)
@@ -270,9 +284,8 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 	}
 
 	const taxableGain = Math.max(0, totalReturn)
-	const afterTaxValue = round2(
-		finalValue - (taxableGain * taxRate) / 100,
-	)
+	// Tax is paid on economic gain; after-tax wealth = end balance − tax
+	const afterTaxValue = round2(finalValue - (taxableGain * taxRate) / 100)
 
 	const steps = [
 		`Final value: ${finalValue}`,

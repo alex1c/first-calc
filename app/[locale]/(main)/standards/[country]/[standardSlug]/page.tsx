@@ -15,6 +15,7 @@ import {
 	type CalculatorGroup,
 } from '@/lib/standards/calculator-grouping'
 import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { learnArticlePath } from '@/lib/i18n/content-links'
 import { standards } from '@/data/standards'
 
 // Declare required namespaces for this page
@@ -462,7 +463,7 @@ export default async function StandardPage({ params }: StandardPageProps) {
 							{relatedArticles.map((article) => (
 								<li key={article.id}>
 									<Link
-										href={`/${locale}/learn/${article.slug}`}
+										href={learnArticlePath(article)}
 										className="text-blue-600 hover:text-blue-800 underline font-medium"
 									>
 										{article.title}

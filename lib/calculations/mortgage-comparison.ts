@@ -241,7 +241,8 @@ export const calculateMortgageComparison: CalculationFunction = (inputs) => {
 			homePrice: Math.round(homePrice * 100) / 100,
 			downPaymentAmount: Math.round(downPaymentAmount * 100) / 100,
 			loanAmount: Math.round(loanAmount * 100) / 100,
-			interestRateAPR: Math.round(interestRateAPR * 10000) / 100,
+			// interestRateAPR is already a percent (e.g. 5); do not ×100 again
+			interestRateAPR: Math.round(interestRateAPR * 100) / 100,
 			loanTermYears,
 			propertyTaxAnnual: Math.round(propertyTaxAnnual * 100) / 100,
 			homeInsuranceAnnual: Math.round(homeInsuranceAnnual * 100) / 100,

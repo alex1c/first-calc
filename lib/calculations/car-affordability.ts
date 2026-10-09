@@ -7,6 +7,7 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
 
 /**
  * Calculate maximum loan amount from monthly payment using inverse amortization
@@ -66,13 +67,9 @@ export const calculateCarAffordability: CalculationFunction = (inputs) => {
 		tradeInValue < 0 ||
 		salesTaxOrFees < 0
 	) {
-		return {
-			maxAffordableCarPrice: null,
-			maxAffordableLoanAmount: null,
-			allowedMonthlyPayment: null,
-			recommendedBudgetRange: null,
-			insights: null,
-		}
+		throw new CalculationDomainError(
+			'Car affordability inputs are out of valid range',
+		)
 	}
 
 	// Calculate allowed monthly payment based on mode

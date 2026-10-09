@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { localizedContentMetadata } from '@/lib/site-url'
+import { learnArticlePath } from '@/lib/i18n/content-links'
 import Link from 'next/link'
 import {
 	locales,
@@ -331,7 +332,7 @@ export default async function SpSnipFoundationsPage({
 						{c.section1Text}
 						<Link
 							className="text-blue-600 hover:text-blue-800 underline"
-							href={`/${locale}/standards/ISO/soil-and-foundations`}
+							href="/standards/ISO/soil-and-foundations"
 						>
 							ISO Soil & Foundations hub
 						</Link>
@@ -412,7 +413,7 @@ export default async function SpSnipFoundationsPage({
 									)}
 									<Link
 										className="text-blue-600 hover:text-blue-800 underline text-sm font-medium"
-										href={`/${locale}/learn/${article.slug}`}
+										href={learnArticlePath(article)}
 									>
 										{c.section4Read} →
 									</Link>
