@@ -12,6 +12,7 @@ import { CompatibilityHeader } from '@/components/compatibility/compatibility-he
 import type { CompatibilityHeaderVariant } from '@/components/compatibility/compatibility-header'
 import { HowResultsCalculatedBlock } from './calculators/how-results-calculated-block'
 import type { Locale } from '@/lib/i18n'
+import { useClientT } from '@/lib/i18n/useClientT'
 
 interface CalculatorPageProps {
 	calculator: CalculatorDefinitionClient
@@ -61,6 +62,24 @@ export function CalculatorPage({
 		{},
 	)
 	const [errors, setErrors] = useState<Record<string, string>>({})
+	// Load errors + common so validation messages and HowTo heading follow locale.
+	const t = useClientT(locale as Locale, ['errors', 'common'])
+
+	/**
+	 * Resolve a localized validation template from locales/<locale>/errors.json.
+	 * Returns null when the key is missing so callers can fall back to English.
+	 */
+	const formatValidation = useCallback(
+		(key: string, params: Record<string, string | number>) => {
+			const message = t(`errors.validation.${key}`, params)
+			// If key missing, t may return the key path — fall back to EN-shaped text
+			if (message.startsWith('errors.validation.')) {
+				return null
+			}
+			return message
+		},
+		[t],
+	)
 
 	// Validate input field
 	const validateInput = useCallback(
@@ -69,6 +88,7 @@ export function CalculatorPage({
 			if (!inputDef || !inputDef.validation) return null
 
 			const validation = inputDef.validation
+			const field = inputDef.label
 
 			// Required check
 			if (validation.required) {
@@ -78,7 +98,11 @@ export function CalculatorPage({
 					value === undefined ||
 					(typeof value === 'string' && value.trim() === '')
 				) {
-					return validation.message || `${inputDef.label} is required`
+					return (
+						validation.message ||
+						formatValidation('required', { field }) ||
+						`${field} is required`
+					)
 				}
 			}
 
@@ -93,34 +117,48 @@ export function CalculatorPage({
 				
 				// Only check if value is a valid number
 				if (isNaN(numValue) || !Number.isFinite(numValue)) {
-					return validation.message || `${inputDef.label} must be a valid number`
+					return (
+						validation.message ||
+						formatValidation('invalidNumber', { field }) ||
+						`${field} must be a valid number`
+					)
 				}
 
 				// Only prevent negative if explicitly required (min >= 0 in validation)
 				// This allows negative values for calculations that need them (e.g., percentage change)
 				if (validation.min !== undefined && typeof validation.min === 'number' && validation.min >= 0 && numValue < 0) {
-					return validation.message || `${inputDef.label} cannot be negative`
+					return (
+						validation.message ||
+						formatValidation('negative', { field }) ||
+						`${field} cannot be negative`
+					)
 				}
 
 				// Only check min/max if explicitly set in validation
 				if (validation.min !== undefined && typeof validation.min === 'number' && numValue < validation.min) {
 					return (
 						validation.message ||
-						`${inputDef.label} must be at least ${validation.min}`
+						formatValidation('min', { field, min: validation.min }) ||
+						`${field} must be at least ${validation.min}`
 					)
 				}
 
 				if (validation.max !== undefined && typeof validation.max === 'number' && numValue > validation.max) {
 					return (
 						validation.message ||
-						`${inputDef.label} must be at most ${validation.max}`
+						formatValidation('max', { field, max: validation.max }) ||
+						`${field} must be at most ${validation.max}`
 					)
 				}
 
 				// Only require > 0 if explicitly required AND zero would break the calculation
 				// Most fields should allow 0 as a valid input
 				if (validation.required && validation.min !== undefined && typeof validation.min === 'number' && validation.min > 0 && numValue <= 0) {
-					return validation.message || `${inputDef.label} must be greater than 0`
+					return (
+						validation.message ||
+						formatValidation('min', { field, min: validation.min }) ||
+						`${field} must be greater than 0`
+					)
 				}
 			}
 
@@ -129,7 +167,11 @@ export function CalculatorPage({
 				if (typeof value === 'string' && value.trim() !== '') {
 					const dateValue = new Date(value)
 					if (isNaN(dateValue.getTime())) {
-						return validation.message || `${inputDef.label} must be a valid date`
+						return (
+							validation.message ||
+							formatValidation('invalidValue', { field }) ||
+							`${field} must be a valid date`
+						)
 					}
 					// Date validation is handled in the calculation function for age calculator
 				}
@@ -139,13 +181,15 @@ export function CalculatorPage({
 			if (validation.custom) {
 				const result = validation.custom(value)
 				if (result !== true) {
-					return typeof result === 'string' ? result : 'Invalid value'
+					return typeof result === 'string'
+						? result
+						: formatValidation('invalidValue', { field }) || 'Invalid value'
 				}
 			}
 
 			return null
 		},
-		[calculator],
+		[calculator, formatValidation],
 	)
 
 	// Handle calculation
@@ -377,9 +421,17 @@ export function CalculatorPage({
 					</div>
 				</div>
 
-				{/* How to Calculate */}
+				{/* How to Calculate — bullets come from localized item content */}
 				<div className="mb-12">
-					<HowToBlock calculator={calculator} howToLabel="How to Calculate" />
+					<HowToBlock
+						calculator={calculator}
+						howToLabel={
+							// Until common.json loads, useClientT returns the key path.
+							t('common.label.howTo').startsWith('common.')
+								? 'How to Calculate'
+								: t('common.label.howTo')
+						}
+					/>
 				</div>
 
 				{/* How results are calculated - Universal info block (shown when results exist) */}

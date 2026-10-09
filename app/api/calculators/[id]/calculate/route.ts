@@ -174,12 +174,13 @@ export async function POST(
 				)
 			}
 
-			// Inject request locale so locale-aware engines (e.g. numbers-to-words)
-			// can produce native output when the form omits an explicit language field.
-			const results = calculator.calculate({
-				...processedInputs,
-				locale,
-			})
+			// Inject request locale only for engines that need it (avoid polluting
+			// formula variable scopes with an unused `locale` key).
+			const localeAwareIds = new Set(['numbers-to-words'])
+			const calcInputs = localeAwareIds.has(calculator.id) || localeAwareIds.has(calculator.slug)
+				? { ...processedInputs, locale }
+				: processedInputs
+			const results = calculator.calculate(calcInputs)
 
 			// Reject Infinity/NaN before JSON serialization (which would coerce them to null)
 			assertFiniteResults(results, 'results')
@@ -219,6 +220,18 @@ export async function POST(
 					{ error: error.message },
 					{ status: error.statusCode },
 				)
+			}
+			// Legacy engines still throw plain Error for user/domain validation.
+			// Map those to 400 without treating unexpected failures as client errors.
+			if (error instanceof Error) {
+				const message = error.message || ''
+				const looksLikeDomain =
+					/required|invalid|must be|must not|out of range|cannot|unsupported|too large|too small|не |обязательн|некоррект|недопустим/i.test(
+						message,
+					) && !/ENOENT|ECONN|Cannot find module|Unexpected token/i.test(message)
+				if (looksLikeDomain) {
+					return NextResponse.json({ error: message }, { status: 400 })
+				}
 			}
 			return publicServerError()
 		}
