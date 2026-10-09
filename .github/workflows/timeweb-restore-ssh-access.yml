@@ -102,10 +102,12 @@ jobs:
           )
           STAGE1_B64=$(printf '%s' "$STAGE1" | base64 -w 0)
 
-          echo "=== 2–5) Remote probe on OLD ==="
+          echo "=== 2-5) Remote probe on OLD ==="
+          REPORT=/tmp/first-calc-access-report.txt
           "${SSH[@]}" "root@${OLD_HOST}" \
-            "env NEW_HOST='${NEW_HOST}' STAGE1_B64='${STAGE1_B64}' bash -se" <<'REMOTE'
+            "env NEW_HOST='${NEW_HOST}' STAGE1_B64='${STAGE1_B64}' REPORT='${REPORT}' bash -se" <<'REMOTE' | tee access-report.txt
           set -euo pipefail
+          exec > >(tee "$REPORT") 2>&1
           KEY=/root/.ssh/timeweb_migration
           PUB=/root/.ssh/timeweb_migration.pub
 
@@ -145,7 +147,7 @@ jobs:
             "root@${NEW_HOST}" 'hostname; whoami; echo NEW_OK' 2>&1)
           RC=$?
           set -e
-          echo "$OUT"
+          printf '%s\n' "$OUT"
           if [ "$RC" -ne 0 ]; then
             echo "OLD_TO_NEW_SSH=FAILED exit=${RC}"
             exit 1
@@ -158,4 +160,13 @@ jobs:
               -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
               -i /root/.ssh/timeweb_migration \
               "root@${NEW_HOST}" 'bash -se'
+          echo "REPORT_SAVED_ON_OLD=${REPORT}"
           REMOTE
+
+      - name: Upload access report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: timeweb-access-report
+          path: access-report.txt
+          if-no-files-found: warn
