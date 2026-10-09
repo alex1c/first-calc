@@ -132,11 +132,55 @@ export function CalculatorForm({
 		return String(fieldValue) === String(value)
 	}
 
+	/**
+	 * Resolve display unit / help for fields whose meaning depends on a sibling select.
+	 * Mortgage propertyTax switches between annual currency amount and percent of home value.
+	 */
+	const resolveDynamicFieldChrome = (
+		input: typeof calculator.inputs[0],
+	): { unitLabel?: string; placeholder?: string; helpText?: string } => {
+		if (input.name !== 'propertyTax') {
+			return {
+				unitLabel: input.unitLabel,
+				placeholder: input.placeholder,
+				helpText: input.helpText,
+			}
+		}
+		const taxType = String(inputs.propertyTaxType || 'amount')
+		if (taxType === 'percentage') {
+			return {
+				unitLabel: '%',
+				placeholder:
+					locale === 'ru'
+						? 'Введите процент налога'
+						: 'Enter property tax rate',
+				helpText:
+					locale === 'ru'
+						? 'Годовая ставка налога на имущество в процентах от стоимости жилья'
+						: 'Annual property tax as a percentage of home value',
+			}
+		}
+		// Amount mode: keep schema/item unit (₽/год, $/year, etc.)
+		return {
+			unitLabel: input.unitLabel || (locale === 'ru' ? '₽/год' : '$/year'),
+			placeholder:
+				input.placeholder ||
+				(locale === 'ru' ? 'Введите годовой налог' : 'Enter annual property tax'),
+			helpText:
+				input.helpText ||
+				(locale === 'ru'
+					? 'Годовая сумма налога на имущество (необязательно)'
+					: 'Annual property tax amount (optional)'),
+		}
+	}
+
 	return (
 		<form onSubmit={handleSubmit} className="space-y-6">
 			{calculator.inputs
 				.filter(shouldShowInput)
-				.map((input) => (
+				.map((input) => {
+				const chrome = resolveDynamicFieldChrome(input)
+				return (
 				<div key={input.name}>
 					<label
 						htmlFor={input.name}
@@ -146,8 +190,8 @@ export function CalculatorForm({
 						{input.validation?.required && (
 							<span className="text-red-500 ml-1">*</span>
 						)}
-						{input.unitLabel && (
-							<span className="text-gray-500 ml-1">({input.unitLabel})</span>
+						{chrome.unitLabel && (
+							<span className="text-gray-500 ml-1">({chrome.unitLabel})</span>
 						)}
 					</label>
 
@@ -178,7 +222,7 @@ export function CalculatorForm({
 									)
 								}
 							}}
-							placeholder={input.placeholder}
+							placeholder={chrome.placeholder}
 							min={input.validation?.min !== undefined ? input.validation.min : (input.min !== undefined ? input.min : undefined)}
 							max={input.validation?.max !== undefined ? input.validation.max : (input.max !== undefined ? input.max : undefined)}
 							step={(() => {
@@ -312,15 +356,16 @@ export function CalculatorForm({
 						</select>
 					)}
 
-					{input.helpText && (
-						<p className="mt-1 text-sm text-gray-500">{input.helpText}</p>
+					{chrome.helpText && (
+						<p className="mt-1 text-sm text-gray-500">{chrome.helpText}</p>
 					)}
 
 					{errors[input.name] && (
 						<p className="mt-1 text-sm text-red-600">{errors[input.name]}</p>
 					)}
 				</div>
-			))}
+				)
+			})}
 
 			<button
 				type="submit"

@@ -76,9 +76,13 @@ export const calculateLoanPayment: CalculationFunction = (inputs) => {
 	let overpayment: number
 
 	if (loanType === 'interest-only') {
-		// Interest-only: periodic payment is interest only; principal is repaid at term end.
+		// Interest-only: display payment is rounded per period, but lifetime
+		// interest must use principal × annual rate × years. Summing rounded
+		// periodals (e.g. 83.33 × 12) understates exact interest (1000 → 999.96).
 		periodicPayment = Math.round(loanAmount * periodicRate * 100) / 100
-		totalInterest = Math.round(periodicPayment * numberOfPayments * 100) / 100
+		totalInterest =
+			Math.round(loanAmount * (annualInterestRate / 100) * loanTerm * 100) /
+			100
 		// Full amount paid over the life of the loan includes returning principal.
 		totalPayment = Math.round((totalInterest + loanAmount) * 100) / 100
 		overpayment = totalInterest

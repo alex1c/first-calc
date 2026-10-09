@@ -3156,10 +3156,12 @@ export const calculators: CalculatorDefinition[] = [
 				name: 'propertyTax',
 				label: 'Property Tax (Optional)',
 				type: 'number',
-				unitLabel: '$',
+				// Default chrome for amount mode; form switches to % when type=percentage
+				unitLabel: '$/year',
 				placeholder: 'Enter property tax',
 				defaultValue: 0,
-				helpText: 'Annual property tax (as percentage or amount)',
+				helpText:
+					'Annual amount ($/year) or rate (%) depending on Property Tax Type below',
 				validation: {
 					required: true,
 					min: 0,

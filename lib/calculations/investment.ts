@@ -47,6 +47,14 @@ function round2(value: number): number {
 
 /**
  * Month-by-month projection (compound or simple interest, optional withdrawal).
+ *
+ * Uses ordinary annuity (end-of-period) cash-flow order so the year table
+ * matches the closed-form FV of an ordinary annuity:
+ *   1) accrue interest on the opening balance
+ *   2) add the period contribution
+ *   3) take any withdrawal
+ * Annuity-due (contribute then interest) would overstate ending values
+ * relative to the standard FV formula used in the closed-form path.
  */
 function simulateInvestmentMonths(options: {
 	initialInvestment: number
@@ -81,14 +89,17 @@ function simulateInvestmentMonths(options: {
 		let yearWithdrawals = 0
 
 		for (let month = 1; month <= 12; month++) {
-			balance += options.monthlyContribution
-			yearContributions += options.monthlyContribution
-
+			// Ordinary annuity: interest on existing balance first, then deposit.
 			if (options.interestType === 'simple') {
+				// Simple interest accrues only on principal balance (not on
+				// the contribution that lands at period end).
 				simpleInterestPool += balance * monthlyRate
 			} else {
 				balance *= 1 + monthlyRate
 			}
+
+			balance += options.monthlyContribution
+			yearContributions += options.monthlyContribution
 
 			const gross =
 				options.interestType === 'simple'
@@ -250,11 +261,13 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 			}
 		}
 
+		// Closed-form ordinary annuity (same convention as the month loop).
+		// Assigned then overwritten by simulation so the year table and
+		// headline finalValue share one source of truth.
 		finalValue = round2(futureValueInitial + futureValueContributions)
 		totalContributions =
 			initialInvestment + periodicContribution * totalContributionsCount
 
-		// Year breakdown via monthly compound path for UI consistency
 		const simulated = simulateInvestmentMonths({
 			initialInvestment,
 			monthlyContribution,
@@ -264,6 +277,9 @@ export const calculateInvestment: CalculationFunction = (inputs) => {
 			monthlyWithdrawal: 0,
 		})
 		yearlyBreakdown = simulated.yearlyBreakdown
+		finalValue = simulated.finalValue
+		totalContributions = simulated.totalContributions
+		totalWithdrawals = simulated.totalWithdrawals
 	}
 
 	// Economic profit = ending balance + cash withdrawn − net contributions

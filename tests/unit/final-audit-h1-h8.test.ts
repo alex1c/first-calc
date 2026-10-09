@@ -262,6 +262,43 @@ describe('H5 — numbers-to-words zero and negative currency', () => {
 	})
 })
 
+describe('investment/savings ordinary annuity: final equals last year row', () => {
+	it('investment: finalValue ≈ 94111.23 and equals last year endingValue', () => {
+		const result = calculateInvestment({
+			initialInvestment: 10000,
+			periodicContribution: 500,
+			contributionFrequency: 'monthly',
+			expectedAnnualReturn: 5,
+			investmentPeriod: 10,
+			compoundingFrequency: 'monthly',
+			inflationRate: 0,
+		})
+		expect(result.finalValue).toBeCloseTo(94111.23, 2)
+		const breakdown = result.yearlyBreakdown as Array<{ endingValue: number }>
+		expect(breakdown[breakdown.length - 1].endingValue).toBe(
+			result.finalValue,
+		)
+	})
+
+	it('savings: finalSavings ≈ 39291.50 and equals last year endingBalance', () => {
+		const result = calculateSavings({
+			initialSavings: 5000,
+			regularContribution: 200,
+			contributionFrequency: 'monthly',
+			annualInterestRate: 5,
+			savingsPeriod: 10,
+			compoundingFrequency: 'monthly',
+			targetAmount: 0,
+			inflationRate: 0,
+		})
+		expect(result.finalSavings).toBeCloseTo(39291.5, 2)
+		const breakdown = result.yearlyBreakdown as Array<{ endingBalance: number }>
+		expect(breakdown[breakdown.length - 1].endingBalance).toBe(
+			result.finalSavings,
+		)
+	})
+})
+
 describe('H6 — investment/savings withdrawals and tax', () => {
 	it('investment: 10000 @10% 2y withdraw 100/mo tax 50%', () => {
 		const result = calculateInvestment({
@@ -310,8 +347,9 @@ describe('H7 — interest-only totalPayment includes principal', () => {
 			paymentFrequency: 'monthly',
 			loanType: 'interest-only',
 		})
-		expect(result.totalInterest).toBeCloseTo(1000, 1)
-		expect(result.totalPayment).toBeCloseTo(11000, 1)
+		expect(result.periodicPayment).toBeCloseTo(83.33, 2)
+		expect(result.totalInterest).toBe(1000)
+		expect(result.totalPayment).toBe(11000)
 	})
 })
 

@@ -12,6 +12,37 @@ const LOCALE_CURRENCY: Record<string, { locale: string; currency: string }> = {
 }
 
 /**
+ * Format a monetary amount for the active site locale.
+ * Used by specialized result renderers that previously hard-coded `$` + en-US.
+ */
+export function formatMoney(
+	value: number | null | undefined,
+	locale: string = 'en',
+): string {
+	if (value === null || value === undefined || Number.isNaN(Number(value))) {
+		return '—'
+	}
+	return formatOutputValue(Number(value), 'currency', undefined, locale)
+}
+
+/**
+ * Format a calendar date using the active site locale.
+ */
+export function formatLocaleDate(
+	value: string | Date,
+	locale: string = 'en',
+): string {
+	const date = value instanceof Date ? value : new Date(value)
+	if (Number.isNaN(date.getTime())) return '—'
+	const currencyCfg = LOCALE_CURRENCY[locale] || LOCALE_CURRENCY.en
+	return date.toLocaleDateString(currencyCfg.locale, {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	})
+}
+
+/**
  * Format a value based on format type.
  * Optional `locale` selects currency/number Intl locale (defaults to en).
  */

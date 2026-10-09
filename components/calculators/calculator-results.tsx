@@ -1,5 +1,5 @@
 import type { CalculatorDefinitionClient } from '@/lib/calculators/types'
-import { formatOutputValue } from '@/lib/calculators/format'
+import { formatOutputValue, formatMoney, formatLocaleDate } from '@/lib/calculators/format'
 import Link from 'next/link'
 import type { Locale } from '@/lib/i18n'
 import { useClientT } from '@/lib/i18n/useClientT'
@@ -138,6 +138,11 @@ export function CalculatorResults({
 	locale,
 }: CalculatorResultsProps) {
 	const t = useClientT(locale, ['results'])
+	// Localized finance chrome labels; fall back to English when key missing
+	const L = (key: string, fallback: string): string => {
+		const translated = t(`results.labels.${key}`)
+		return translated === `results.labels.${key}` ? fallback : translated
+	}
 	if (!outputs || Object.keys(outputs).length === 0) {
 		return null
 	}
@@ -164,28 +169,28 @@ export function CalculatorResults({
 					{/* Key Numbers Cards */}
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 						<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-							<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Retirement Balance</div>
+							<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">{L('retirementBalance', 'Retirement Balance')}</div>
 							<div className="text-2xl font-bold text-blue-900">
-								${finalBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(finalBalance, locale)}
 							</div>
 						</div>
 						<div className="bg-green-50 rounded-lg p-4 border border-green-200">
-							<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Total Contributed</div>
+							<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">{L('totalContributed', 'Total Contributed')}</div>
 							<div className="text-2xl font-bold text-green-900">
-								${totalContributed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(totalContributed, locale)}
 							</div>
 						</div>
 						<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-							<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Total Earnings</div>
+							<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">{L('totalEarnings', 'Total Earnings')}</div>
 							<div className="text-2xl font-bold text-purple-900">
-								${totalEarnings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(totalEarnings, locale)}
 							</div>
 						</div>
 						{inflationAdjustedBalance && (
 							<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 								<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Inflation-Adjusted Balance</div>
 								<div className="text-2xl font-bold text-orange-900">
-									${inflationAdjustedBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(inflationAdjustedBalance, locale)}
 								</div>
 							</div>
 						)}
@@ -193,7 +198,7 @@ export function CalculatorResults({
 							<div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
 								<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">Monthly Income (4% withdrawal)</div>
 								<div className="text-2xl font-bold text-indigo-900">
-									${monthlyRetirementIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(monthlyRetirementIncome, locale)}
 								</div>
 							</div>
 						)}
@@ -229,7 +234,7 @@ export function CalculatorResults({
 						<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 							<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Required Retirement Fund</div>
 							<div className="text-2xl font-bold text-blue-900">
-								${requiredRetirementFund.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(requiredRetirementFund, locale)}
 							</div>
 						</div>
 						{savingsGap !== null && savingsGap !== undefined && (
@@ -238,7 +243,7 @@ export function CalculatorResults({
 									Savings Gap
 								</div>
 								<div className={`text-2xl font-bold ${savingsGap > 0 ? 'text-red-900' : 'text-green-900'}`}>
-									${Math.abs(savingsGap).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(Math.abs(savingsGap), locale)}
 									{savingsGap <= 0 && ' (You have enough!)'}
 								</div>
 							</div>
@@ -247,7 +252,7 @@ export function CalculatorResults({
 							<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
 								<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Required Monthly Contribution</div>
 								<div className="text-2xl font-bold text-purple-900">
-									${requiredMonthlyContribution.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(requiredMonthlyContribution, locale)}
 								</div>
 							</div>
 						)}
@@ -255,7 +260,7 @@ export function CalculatorResults({
 							<div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
 								<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">Monthly Income Achievable</div>
 								<div className="text-2xl font-bold text-indigo-900">
-									${monthlyIncomeAchievable.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(monthlyIncomeAchievable, locale)}
 								</div>
 							</div>
 						)}
@@ -297,34 +302,34 @@ export function CalculatorResults({
 				{/* Key Numbers Cards */}
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Monthly Payment</div>
+						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">{L('monthlyPayment', 'Monthly Payment')}</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${totalMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalMonthlyPayment, locale)}
 						</div>
 					</div>
 					<div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-						<div className="text-xs font-medium text-gray-600 uppercase tracking-wide mb-1">Loan Amount</div>
+						<div className="text-xs font-medium text-gray-600 uppercase tracking-wide mb-1">{L('loanAmount', 'Loan Amount')}</div>
 						<div className="text-2xl font-bold text-gray-900">
-							${loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(loanAmount, locale)}
 						</div>
 					</div>
 					<div className="bg-red-50 rounded-lg p-4 border border-red-200">
-						<div className="text-xs font-medium text-red-600 uppercase tracking-wide mb-1">Total Interest</div>
+						<div className="text-xs font-medium text-red-600 uppercase tracking-wide mb-1">{L('totalInterest', 'Total Interest')}</div>
 						<div className="text-2xl font-bold text-red-900">
-							${totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalInterest, locale)}
 						</div>
 					</div>
 					<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-						<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Total Cost</div>
+						<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">{L('totalCost', 'Total Cost')}</div>
 						<div className="text-2xl font-bold text-purple-900">
-							${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalCost, locale)}
 						</div>
 					</div>
 					{payoffDate && (
 						<div className="bg-green-50 rounded-lg p-4 border border-green-200">
-							<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Payoff Date</div>
+							<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">{L('payoffDate', 'Payoff Date')}</div>
 							<div className="text-lg font-bold text-green-900">
-								{new Date(payoffDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+								{formatLocaleDate(payoffDate, locale)}
 							</div>
 						</div>
 					)}
@@ -333,43 +338,43 @@ export function CalculatorResults({
 				{/* Payment Breakdown */}
 				{paymentBreakdown && (
 					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-						<h3 className="text-lg font-semibold text-gray-800 mb-4">Payment Breakdown</h3>
+						<h3 className="text-lg font-semibold text-gray-800 mb-4">{L('paymentBreakdown', 'Payment Breakdown')}</h3>
 						<div className="space-y-3">
 							<div className="flex justify-between items-center">
-								<span className="text-gray-600">Principal & Interest</span>
+								<span className="text-gray-600">{L('principalAndInterest', 'Principal & Interest')}</span>
 								<span className="font-semibold text-gray-900">
-									${paymentBreakdown.principal?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+									{formatMoney(paymentBreakdown.principal ?? 0, locale)}
 								</span>
 							</div>
 							{paymentBreakdown.taxes > 0 && (
 								<div className="flex justify-between items-center">
-									<span className="text-gray-600">Property Taxes</span>
+									<span className="text-gray-600">{L('propertyTaxes', 'Property Taxes')}</span>
 									<span className="font-semibold text-gray-900">
-										${paymentBreakdown.taxes.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(paymentBreakdown.taxes, locale)}
 									</span>
 								</div>
 							)}
 							{paymentBreakdown.insurance > 0 && (
 								<div className="flex justify-between items-center">
-									<span className="text-gray-600">Insurance</span>
+									<span className="text-gray-600">{L('insurance', 'Insurance')}</span>
 									<span className="font-semibold text-gray-900">
-										${paymentBreakdown.insurance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(paymentBreakdown.insurance, locale)}
 									</span>
 								</div>
 							)}
 							{paymentBreakdown.hoa > 0 && (
 								<div className="flex justify-between items-center">
-									<span className="text-gray-600">HOA Fees</span>
+									<span className="text-gray-600">{L('hoaFees', 'HOA Fees')}</span>
 									<span className="font-semibold text-gray-900">
-										${paymentBreakdown.hoa.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(paymentBreakdown.hoa, locale)}
 									</span>
 								</div>
 							)}
 							<div className="border-t border-gray-200 pt-3 mt-3">
 								<div className="flex justify-between items-center">
-									<span className="text-lg font-semibold text-gray-900">Total Monthly Payment</span>
+									<span className="text-lg font-semibold text-gray-900">{L('totalMonthlyPayment', 'Total Monthly Payment')}</span>
 									<span className="text-lg font-bold text-blue-600">
-										${paymentBreakdown.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(paymentBreakdown.total, locale)}
 									</span>
 								</div>
 							</div>
@@ -383,13 +388,13 @@ export function CalculatorResults({
 						<h3 className="text-lg font-semibold text-green-800 mb-3">Extra Payment Impact</h3>
 						<div className="space-y-2">
 							<div className="text-base text-green-700">
-								<strong>Interest Saved:</strong> ${extraPaymentImpact.interestSaved.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								<strong>Interest Saved:</strong> {formatMoney(extraPaymentImpact.interestSaved, locale)}
 							</div>
 							<div className="text-base text-green-700">
 								<strong>Loan Term Reduced:</strong> {extraPaymentImpact.monthsReduced} months ({extraPaymentImpact.yearsReduced} years)
 							</div>
 							<div className="text-sm text-green-600 mt-3">
-								You save ${extraPaymentImpact.interestSaved.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} and finish {extraPaymentImpact.yearsReduced} years earlier!
+								You save {formatMoney(extraPaymentImpact.interestSaved, locale)} and finish {extraPaymentImpact.yearsReduced} years earlier!
 							</div>
 						</div>
 					</div>
@@ -452,7 +457,7 @@ export function CalculatorResults({
 					<div className={`${colors.bg} rounded-lg p-4 border-2 ${colors.border}`}>
 						<div className={`text-xs font-medium ${colors.label} uppercase tracking-wide mb-1`}>Net Worth</div>
 						<div className={`text-3xl font-bold ${colors.text}`}>
-							${netWorth.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(netWorth, locale)}
 						</div>
 						<div className="text-sm text-gray-600 mt-1">
 							{netWorthStatus === 'negative' && 'Liabilities exceed assets'}
@@ -463,13 +468,13 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Total Assets</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${totalAssets.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalAssets, locale)}
 						</div>
 					</div>
 					<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 						<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Total Liabilities</div>
 						<div className="text-2xl font-bold text-orange-900">
-							${totalLiabilities.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalLiabilities, locale)}
 						</div>
 					</div>
 					<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
@@ -498,7 +503,7 @@ export function CalculatorResults({
 							<div className="flex items-center justify-between mb-2">
 								<span className="text-sm font-medium text-gray-700">Assets</span>
 								<span className="text-sm font-semibold text-blue-600">
-									${totalAssets.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(totalAssets, locale)}
 								</span>
 							</div>
 							<div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
@@ -513,7 +518,7 @@ export function CalculatorResults({
 							<div className="flex items-center justify-between mb-2">
 								<span className="text-sm font-medium text-gray-700">Liabilities</span>
 								<span className="text-sm font-semibold text-orange-600">
-									${totalLiabilities.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(totalLiabilities, locale)}
 								</span>
 							</div>
 							<div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
@@ -616,13 +621,13 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Target Emergency Fund</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${targetEmergencyFund.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(targetEmergencyFund, locale)}
 						</div>
 					</div>
 					<div className="bg-green-50 rounded-lg p-4 border border-green-200">
 						<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Current Savings</div>
 						<div className="text-2xl font-bold text-green-900">
-							${currentSavingsValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(currentSavingsValue, locale)}
 						</div>
 					</div>
 					{hasReachedGoal ? (
@@ -636,7 +641,7 @@ export function CalculatorResults({
 						<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 							<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Remaining Amount</div>
 							<div className="text-2xl font-bold text-orange-900">
-								${remainingAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(remainingAmount, locale)}
 							</div>
 						</div>
 					)}
@@ -694,7 +699,7 @@ export function CalculatorResults({
 							</>
 						) : (
 							<>
-								<li>• Your target emergency fund is ${targetEmergencyFund.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ({progressPercentage.toFixed(1)}% complete)</li>
+								<li>• Your target emergency fund is {formatMoney(targetEmergencyFund, locale)} ({progressPercentage.toFixed(1)}% complete)</li>
 								{monthsToGoal !== null && monthsToGoal > 0 && (
 									<li>• At your current savings rate, you will reach your goal in {monthsToGoal} months ({(monthsToGoal / 12).toFixed(1)} years)</li>
 								)}
@@ -742,30 +747,30 @@ export function CalculatorResults({
 					<div className="bg-green-50 rounded-lg p-4 border border-green-200">
 						<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Take-Home Pay</div>
 						<div className="text-2xl font-bold text-green-900">
-							${netIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(netIncome, locale)}
 						</div>
 						{netIncomePerMonth && (
 							<div className="text-sm text-green-700 mt-1">
-								${netIncomePerMonth.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/month
+								{formatMoney(netIncomePerMonth, locale)}/month
 							</div>
 						)}
 					</div>
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Gross Income</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${grossIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(grossIncome, locale)}
 						</div>
 					</div>
 					<div className="bg-red-50 rounded-lg p-4 border border-red-200">
 						<div className="text-xs font-medium text-red-600 uppercase tracking-wide mb-1">Total Taxes</div>
 						<div className="text-2xl font-bold text-red-900">
-							${totalTaxes.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalTaxes, locale)}
 						</div>
 					</div>
 					<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 						<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Total Deductions</div>
 						<div className="text-2xl font-bold text-orange-900">
-							${totalDeductions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalDeductions, locale)}
 						</div>
 					</div>
 					<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
@@ -784,20 +789,20 @@ export function CalculatorResults({
 						<div className="flex items-center justify-between">
 							<span className="text-gray-600">Gross Income</span>
 							<span className="font-semibold text-gray-900">
-								${grossIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(grossIncome, locale)}
 							</span>
 						</div>
 						<div className="flex items-center justify-between text-red-600">
 							<span>− Taxes</span>
 							<span className="font-semibold">
-								${totalTaxes.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(totalTaxes, locale)}
 							</span>
 						</div>
 						{totalDeductions > 0 && (
 							<div className="flex items-center justify-between text-orange-600">
 								<span>− Deductions</span>
 								<span className="font-semibold">
-									${totalDeductions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(totalDeductions, locale)}
 								</span>
 							</div>
 						)}
@@ -805,7 +810,7 @@ export function CalculatorResults({
 							<div className="flex items-center justify-between">
 								<span className="text-lg font-semibold text-green-600">= Take-Home Pay (Net Income)</span>
 								<span className="text-lg font-bold text-green-700">
-									${netIncome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(netIncome, locale)}
 								</span>
 							</div>
 						</div>
@@ -865,13 +870,13 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Savings Final Balance</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${savingsFinalBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(savingsFinalBalance, locale)}
 						</div>
 					</div>
 					<div className="bg-green-50 rounded-lg p-4 border border-green-200">
 						<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Investment Final Balance</div>
 						<div className="text-2xl font-bold text-green-900">
-							${investmentFinalBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(investmentFinalBalance, locale)}
 						</div>
 					</div>
 					<div className={`rounded-lg p-4 border ${investmentWins ? 'bg-green-50 border-green-200' : 'bg-blue-50 border-blue-200'}`}>
@@ -879,7 +884,7 @@ export function CalculatorResults({
 							Difference
 						</div>
 						<div className={`text-2xl font-bold ${investmentWins ? 'text-green-900' : 'text-blue-900'}`}>
-							${Math.abs(differenceInFinalBalance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(Math.abs(differenceInFinalBalance), locale)}
 							<div className="text-sm mt-1">
 								{investmentWins ? '(Investment advantage)' : '(Savings advantage)'}
 							</div>
@@ -920,38 +925,38 @@ export function CalculatorResults({
 							<tbody className="divide-y divide-gray-200">
 								<tr>
 									<td className="px-4 py-3 font-medium text-gray-900">Final Balance</td>
-									<td className="px-4 py-3 text-right text-gray-700">${savingsFinalBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-									<td className="px-4 py-3 text-right text-gray-700">${investmentFinalBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+									<td className="px-4 py-3 text-right text-gray-700">{formatMoney(savingsFinalBalance, locale)}</td>
+									<td className="px-4 py-3 text-right text-gray-700">{formatMoney(investmentFinalBalance, locale)}</td>
 									<td className={`px-4 py-3 text-right font-medium ${investmentWins ? 'text-green-600' : 'text-blue-600'}`}>
-										${Math.abs(differenceInFinalBalance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(Math.abs(differenceInFinalBalance), locale)}
 									</td>
 								</tr>
 								<tr>
 									<td className="px-4 py-3 font-medium text-gray-900">Total Contributions</td>
-									<td className="px-4 py-3 text-right text-gray-700">${savingsTotalContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-									<td className="px-4 py-3 text-right text-gray-700">${investmentTotalContributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+									<td className="px-4 py-3 text-right text-gray-700">{formatMoney(savingsTotalContributions, locale)}</td>
+									<td className="px-4 py-3 text-right text-gray-700">{formatMoney(investmentTotalContributions, locale)}</td>
 									<td className="px-4 py-3 text-right text-gray-500">—</td>
 								</tr>
 								<tr>
 									<td className="px-4 py-3 font-medium text-gray-900">Total Earnings</td>
-									<td className="px-4 py-3 text-right text-gray-700">${savingsTotalEarnings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-									<td className="px-4 py-3 text-right text-gray-700">${investmentTotalEarnings.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+									<td className="px-4 py-3 text-right text-gray-700">{formatMoney(savingsTotalEarnings, locale)}</td>
+									<td className="px-4 py-3 text-right text-gray-700">{formatMoney(investmentTotalEarnings, locale)}</td>
 									<td className={`px-4 py-3 text-right font-medium ${investmentWins ? 'text-green-600' : 'text-blue-600'}`}>
-										${(investmentTotalEarnings - savingsTotalEarnings).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney((investmentTotalEarnings - savingsTotalEarnings), locale)}
 									</td>
 								</tr>
 								{(savingsInflationAdjustedBalance || investmentInflationAdjustedBalance) && (
 									<tr>
 										<td className="px-4 py-3 font-medium text-gray-900">Real Value (Inflation-Adjusted)</td>
 										<td className="px-4 py-3 text-right text-gray-700">
-											{savingsInflationAdjustedBalance ? `$${savingsInflationAdjustedBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '—'}
+											{savingsInflationAdjustedBalance ? `${formatMoney(savingsInflationAdjustedBalance, locale)}` : '—'}
 										</td>
 										<td className="px-4 py-3 text-right text-gray-700">
-											{investmentInflationAdjustedBalance ? `$${investmentInflationAdjustedBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '—'}
+											{investmentInflationAdjustedBalance ? `${formatMoney(investmentInflationAdjustedBalance, locale)}` : '—'}
 										</td>
 										<td className={`px-4 py-3 text-right font-medium ${investmentInflationAdjustedBalance && savingsInflationAdjustedBalance && (investmentInflationAdjustedBalance > savingsInflationAdjustedBalance) ? 'text-green-600' : 'text-blue-600'}`}>
 											{savingsInflationAdjustedBalance && investmentInflationAdjustedBalance
-												? `$${Math.abs(investmentInflationAdjustedBalance - savingsInflationAdjustedBalance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+												? `${formatMoney(Math.abs(investmentInflationAdjustedBalance - savingsInflationAdjustedBalance), locale)}`
 												: '—'}
 										</td>
 									</tr>
@@ -967,7 +972,7 @@ export function CalculatorResults({
 					<ul className="space-y-2 text-sm text-yellow-700">
 						{investmentWins ? (
 							<>
-								<li>• Investment strategy yields ${Math.abs(differenceInFinalBalance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} more over the time horizon</li>
+								<li>• Investment strategy yields {formatMoney(Math.abs(differenceInFinalBalance), locale)} more over the time horizon</li>
 								<li>• Investment provides a {Math.abs(percentageAdvantage).toFixed(2)}% advantage over savings</li>
 								{breakevenYear && <li>• Investment strategy surpasses savings after {breakevenYear} years</li>}
 								<li>• Higher returns come with higher risk and volatility</li>
@@ -975,7 +980,7 @@ export function CalculatorResults({
 							</>
 						) : (
 							<>
-								<li>• Savings strategy yields ${Math.abs(differenceInFinalBalance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} more over the time horizon</li>
+								<li>• Savings strategy yields {formatMoney(Math.abs(differenceInFinalBalance), locale)} more over the time horizon</li>
 								<li>• Savings provide stability and lower risk</li>
 								<li>• Savings are better suited for short-term goals and emergency funds</li>
 								<li>• Savings accounts are FDIC-insured and provide guaranteed returns</li>
@@ -1025,13 +1030,13 @@ export function CalculatorResults({
 						<div className="text-2xl md:text-3xl font-bold text-green-700 mb-2 break-words">{winner.scenarioName}</div>
 						<div className="text-base md:text-lg text-green-600 break-words">
 							{bestScenarioByMetric.metric === 'lowest-total-monthly-payment' && (
-								<>Total Monthly Payment: ${winner.totalMonthly.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</>
+								<>Total Monthly Payment: {formatMoney(winner.totalMonthly, locale)}</>
 							)}
 							{bestScenarioByMetric.metric === 'lowest-total-interest' && (
-								<>Total Interest: ${winner.totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</>
+								<>Total Interest: {formatMoney(winner.totalInterest, locale)}</>
 							)}
 							{bestScenarioByMetric.metric === 'lowest-total-cost' && (
-								<>Total Cost: ${winner.totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</>
+								<>Total Cost: {formatMoney(winner.totalCost, locale)}</>
 							)}
 							{bestScenarioByMetric.metric === 'fastest-payoff' && (
 								<>Payoff Time: {winner.payoffMonths ? `${winner.payoffMonths} months` : `${winner.loanTermYears * 12} months`}</>
@@ -1070,19 +1075,19 @@ export function CalculatorResults({
 													{isWinner && <span className="ml-2">🏆</span>}
 												</td>
 												<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
-													${mortgage.loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(mortgage.loanAmount, locale)}
 												</td>
 												<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
-													${mortgage.monthlyPandI.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(mortgage.monthlyPandI, locale)}
 												</td>
 												<td className={`px-2 md:px-4 py-3 text-right font-medium whitespace-nowrap ${bestScenarioByMetric?.metric === 'lowest-total-monthly-payment' && isWinner ? 'bg-yellow-200 font-bold' : ''}`}>
-													${mortgage.totalMonthly.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(mortgage.totalMonthly, locale)}
 												</td>
 												<td className={`px-2 md:px-4 py-3 text-right font-medium whitespace-nowrap ${bestScenarioByMetric?.metric === 'lowest-total-interest' && isWinner ? 'bg-yellow-200 font-bold' : ''}`}>
-													${mortgage.totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(mortgage.totalInterest, locale)}
 												</td>
 												<td className={`px-2 md:px-4 py-3 text-right font-medium whitespace-nowrap ${bestScenarioByMetric?.metric === 'lowest-total-cost' && isWinner ? 'bg-yellow-200 font-bold' : ''}`}>
-													${mortgage.totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(mortgage.totalCost, locale)}
 												</td>
 												<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
 													{mortgage.loanTermYears} years
@@ -1128,9 +1133,11 @@ export function CalculatorResults({
 			return null
 		}
 
-		const metricLabel = bestLoanByMetric?.metric === 'lowest-monthly-payment' ? 'Lowest Monthly Payment' :
-			bestLoanByMetric?.metric === 'lowest-total-interest' ? 'Lowest Total Interest' :
-			'Lowest Total Cost'
+		const metricLabel = bestLoanByMetric?.metric === 'lowest-monthly-payment'
+			? L('lowestMonthlyPayment', 'Lowest Monthly Payment')
+			: bestLoanByMetric?.metric === 'lowest-total-interest'
+				? L('lowestTotalInterest', 'Lowest Total Interest')
+				: L('lowestTotalCost', 'Lowest Total Cost')
 
 		return (
 			<div className="w-full max-w-full space-y-6">
@@ -1139,18 +1146,18 @@ export function CalculatorResults({
 					<div className="bg-green-50 border-2 border-green-500 rounded-lg p-4 md:p-6 mb-6 w-full">
 						<div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
 							<span className="text-xl md:text-2xl">🏆</span>
-							<h3 className="text-lg md:text-xl font-bold text-green-800 break-words">Best Choice by: {metricLabel}</h3>
+							<h3 className="text-lg md:text-xl font-bold text-green-800 break-words">{L('bestChoiceBy', 'Best Choice by')}: {metricLabel}</h3>
 						</div>
 						<div className="text-2xl md:text-3xl font-bold text-green-700 mb-2 break-words">{winner.loanName}</div>
 						<div className="text-base md:text-lg text-green-600 break-words">
 							{bestLoanByMetric.metric === 'lowest-monthly-payment' && (
-								<>Monthly Payment: ${winner.monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</>
+								<>{L('monthlyPayment', 'Monthly Payment')}: {formatMoney(winner.monthlyPayment, locale)}</>
 							)}
 							{bestLoanByMetric.metric === 'lowest-total-interest' && (
-								<>Total Interest: ${winner.totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</>
+								<>{L('totalInterest', 'Total Interest')}: {formatMoney(winner.totalInterest, locale)}</>
 							)}
 							{bestLoanByMetric.metric === 'lowest-total-cost' && (
-								<>Total Cost: ${winner.totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</>
+								<>{L('totalCost', 'Total Cost')}: {formatMoney(winner.totalCost, locale)}</>
 							)}
 						</div>
 					</div>
@@ -1163,15 +1170,15 @@ export function CalculatorResults({
 							<table className="min-w-full text-sm divide-y divide-gray-200">
 								<thead className="bg-gray-100">
 									<tr>
-										<th className="px-2 md:px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">Loan</th>
-										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">Amount</th>
-										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">APR</th>
-										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">Term</th>
-										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-monthly-payment' ? 'bg-yellow-100' : ''}`}>Monthly Payment</th>
-										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-total-interest' ? 'bg-yellow-100' : ''}`}>Total Interest</th>
-										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-total-cost' ? 'bg-yellow-100' : ''}`}>Total Cost</th>
+										<th className="px-2 md:px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('loan', 'Loan')}</th>
+										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('amount', 'Amount')}</th>
+										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('apr', 'APR')}</th>
+										<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('term', 'Term')}</th>
+										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-monthly-payment' ? 'bg-yellow-100' : ''}`}>{L('monthlyPayment', 'Monthly Payment')}</th>
+										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-total-interest' ? 'bg-yellow-100' : ''}`}>{L('totalInterest', 'Total Interest')}</th>
+										<th className={`px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-total-cost' ? 'bg-yellow-100' : ''}`}>{L('totalCost', 'Total Cost')}</th>
 										{comparisonTable.some((loan: any) => loan.payoffMonths) && (
-											<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">Payoff Time</th>
+											<th className="px-2 md:px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider whitespace-nowrap">{L('payoffTime', 'Payoff Time')}</th>
 										)}
 									</tr>
 								</thead>
@@ -1185,7 +1192,7 @@ export function CalculatorResults({
 													{isWinner && <span className="ml-2">🏆</span>}
 												</td>
 												<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
-													${loan.loanAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(loan.loanAmount, locale)}
 												</td>
 												<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
 													{loan.annualInterestRate}%
@@ -1194,13 +1201,13 @@ export function CalculatorResults({
 													{loan.loanTermYears} years
 												</td>
 												<td className={`px-2 md:px-4 py-3 text-right font-medium whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-monthly-payment' && isWinner ? 'bg-yellow-200 font-bold' : ''}`}>
-													${loan.monthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(loan.monthlyPayment, locale)}
 												</td>
 												<td className={`px-2 md:px-4 py-3 text-right font-medium whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-total-interest' && isWinner ? 'bg-yellow-200 font-bold' : ''}`}>
-													${loan.totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(loan.totalInterest, locale)}
 												</td>
 												<td className={`px-2 md:px-4 py-3 text-right font-medium whitespace-nowrap ${bestLoanByMetric?.metric === 'lowest-total-cost' && isWinner ? 'bg-yellow-200 font-bold' : ''}`}>
-													${loan.totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(loan.totalCost, locale)}
 												</td>
 												{comparisonTable.some((l: any) => l.payoffMonths) && (
 													<td className="px-2 md:px-4 py-3 text-right text-gray-700 whitespace-nowrap">
@@ -1248,7 +1255,7 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Fuel Cost</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${fuelCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(fuelCost, locale)}
 						</div>
 					</div>
 					{fuelUsed !== null && fuelUsed !== undefined && fuelUsed > 0 && (
@@ -1263,7 +1270,7 @@ export function CalculatorResults({
 						<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
 							<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Cost Per Distance</div>
 							<div className="text-2xl font-bold text-purple-900">
-								${costPerDistance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(costPerDistance, locale)}
 							</div>
 						</div>
 					)}
@@ -1271,7 +1278,7 @@ export function CalculatorResults({
 						<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 							<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Total Fuel Cost</div>
 							<div className="text-2xl font-bold text-orange-900">
-								${totalFuelCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(totalFuelCost, locale)}
 							</div>
 						</div>
 					)}
@@ -1312,7 +1319,7 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Affordable Price</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${affordablePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(affordablePrice, locale)}
 						</div>
 					</div>
 					{recommendedBudgetRange && (
@@ -1368,26 +1375,26 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Total Trip Cost</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${totalTripCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalTripCost, locale)}
 						</div>
 					</div>
 					<div className="bg-green-50 rounded-lg p-4 border border-green-200">
 						<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Fuel Cost</div>
 						<div className="text-2xl font-bold text-green-900">
-							${fuelCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(fuelCost, locale)}
 						</div>
 					</div>
 					<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
 						<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Cost Per Distance</div>
 						<div className="text-2xl font-bold text-purple-900">
-							${costPerDistance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(costPerDistance, locale)}
 						</div>
 					</div>
 					{costPerPerson !== null && costPerPerson !== undefined && (
 						<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 							<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Cost Per Person</div>
 							<div className="text-2xl font-bold text-orange-900">
-								${costPerPerson.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(costPerPerson, locale)}
 							</div>
 						</div>
 					)}
@@ -1420,7 +1427,7 @@ export function CalculatorResults({
 								<div className="flex justify-between items-center py-2 border-b border-gray-100">
 									<span className="text-sm text-gray-600">Fuel</span>
 									<span className="text-sm font-semibold text-gray-900">
-										${fuelCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(fuelCost, locale)}
 									</span>
 								</div>
 							)}
@@ -1428,7 +1435,7 @@ export function CalculatorResults({
 								<div className="flex justify-between items-center py-2 border-b border-gray-100">
 									<span className="text-sm text-gray-600">Tolls</span>
 									<span className="text-sm font-semibold text-gray-900">
-										${tollsCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(tollsCost, locale)}
 									</span>
 								</div>
 							)}
@@ -1436,7 +1443,7 @@ export function CalculatorResults({
 								<div className="flex justify-between items-center py-2 border-b border-gray-100">
 									<span className="text-sm text-gray-600">Parking</span>
 									<span className="text-sm font-semibold text-gray-900">
-										${parkingCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(parkingCost, locale)}
 									</span>
 								</div>
 							)}
@@ -1444,7 +1451,7 @@ export function CalculatorResults({
 								<div className="flex justify-between items-center py-2 border-b border-gray-100">
 									<span className="text-sm text-gray-600">Meals</span>
 									<span className="text-sm font-semibold text-gray-900">
-										${mealsCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(mealsCost, locale)}
 									</span>
 								</div>
 							)}
@@ -1452,14 +1459,14 @@ export function CalculatorResults({
 								<div className="flex justify-between items-center py-2 border-b border-gray-100">
 									<span className="text-sm text-gray-600">Accommodation</span>
 									<span className="text-sm font-semibold text-gray-900">
-										${accommodationCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(accommodationCost, locale)}
 									</span>
 								</div>
 							)}
 							<div className="flex justify-between items-center py-2 pt-3 border-t border-gray-200 mt-2">
 								<span className="text-sm font-semibold text-gray-900">Total</span>
 								<span className="text-base font-bold text-blue-900">
-									${totalTripCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+									{formatMoney(totalTripCost, locale)}
 								</span>
 							</div>
 						</div>
@@ -1505,7 +1512,7 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Total Tire Set Cost</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${totalTireSetCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalTireSetCost, locale)}
 						</div>
 					</div>
 					<div className="bg-green-50 rounded-lg p-4 border border-green-200">
@@ -1517,20 +1524,20 @@ export function CalculatorResults({
 					<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
 						<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Annual Tire Cost</div>
 						<div className="text-2xl font-bold text-purple-900">
-							${annualTireCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(annualTireCost, locale)}
 						</div>
 					</div>
 					<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 						<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Cost Per Mile</div>
 						<div className="text-2xl font-bold text-orange-900">
-							${costPerMile.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
+							{formatMoney(costPerMile, locale)}
 						</div>
 					</div>
 					{tireSetCost !== null && tireSetCost !== undefined && (
 						<div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
 							<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">Tire Set Cost (Tires Only)</div>
 							<div className="text-2xl font-bold text-indigo-900">
-								${tireSetCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(tireSetCost, locale)}
 							</div>
 						</div>
 					)}
@@ -1538,7 +1545,7 @@ export function CalculatorResults({
 						<div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
 							<div className="text-xs font-medium text-yellow-600 uppercase tracking-wide mb-1">Seasonal Total Cost</div>
 							<div className="text-2xl font-bold text-yellow-900">
-								${seasonalTotalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(seasonalTotalCost, locale)}
 							</div>
 						</div>
 					)}
@@ -1591,13 +1598,13 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Estimated Resale Value</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${estimatedResaleValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(estimatedResaleValue, locale)}
 						</div>
 					</div>
 					<div className="bg-red-50 rounded-lg p-4 border border-red-200">
 						<div className="text-xs font-medium text-red-600 uppercase tracking-wide mb-1">Total Value Loss</div>
 						<div className="text-2xl font-bold text-red-900">
-							${valueLossAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(valueLossAmount, locale)}
 						</div>
 					</div>
 					<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
@@ -1610,7 +1617,7 @@ export function CalculatorResults({
 						<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
 							<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Average Loss Per Year</div>
 							<div className="text-2xl font-bold text-purple-900">
-								${averageLossPerYear.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(averageLossPerYear, locale)}
 							</div>
 						</div>
 					)}
@@ -1636,10 +1643,10 @@ export function CalculatorResults({
 										<tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 											<td className="px-4 py-3 font-medium text-gray-900">{entry.year}</td>
 											<td className="px-4 py-3 text-right text-gray-700">
-												${entry.value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(entry.value, locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-red-600 font-semibold">
-												${entry.loss.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(entry.loss, locale)}
 											</td>
 										</tr>
 									))}
@@ -1696,19 +1703,19 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Estimated Resale Value</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${estimatedResaleValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(estimatedResaleValue, locale)}
 						</div>
 					</div>
 					<div className="bg-red-50 rounded-lg p-4 border border-red-200">
 						<div className="text-xs font-medium text-red-600 uppercase tracking-wide mb-1">Total Depreciation</div>
 						<div className="text-2xl font-bold text-red-900">
-							${totalDepreciationAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalDepreciationAmount, locale)}
 						</div>
 					</div>
 					<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
 						<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Avg Per Year</div>
 						<div className="text-2xl font-bold text-purple-900">
-							${depreciationPerYearAvg.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(depreciationPerYearAvg, locale)}
 						</div>
 					</div>
 					<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
@@ -1739,10 +1746,10 @@ export function CalculatorResults({
 										<tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 											<td className="px-4 py-3 font-medium text-gray-900">{entry.year}</td>
 											<td className="px-4 py-3 text-right text-gray-700">
-												${entry.value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(entry.value, locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-red-600 font-semibold">
-												${entry.depreciation.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(entry.depreciation, locale)}
 											</td>
 										</tr>
 									))}
@@ -1802,32 +1809,32 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Total Monthly Cost</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${totalMonthlyCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalMonthlyCost, locale)}
 						</div>
 					</div>
 					<div className="bg-green-50 rounded-lg p-4 border border-green-200">
 						<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Fixed Costs</div>
 						<div className="text-2xl font-bold text-green-900">
-							${totalFixedCosts.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalFixedCosts, locale)}
 						</div>
 					</div>
 					<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
 						<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Variable Costs</div>
 						<div className="text-2xl font-bold text-purple-900">
-							${totalVariableCosts.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalVariableCosts, locale)}
 						</div>
 					</div>
 					<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 						<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Cost Per Day</div>
 						<div className="text-2xl font-bold text-orange-900">
-							${costPerDay.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(costPerDay, locale)}
 						</div>
 					</div>
 					{costPerMile !== null && costPerMile !== undefined && costPerMile > 0 && (
 						<div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
 							<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">Cost Per Mile</div>
 							<div className="text-2xl font-bold text-indigo-900">
-								${costPerMile.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
+								{formatMoney(costPerMile, locale)}
 							</div>
 						</div>
 					)}
@@ -1835,7 +1842,7 @@ export function CalculatorResults({
 						<div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
 							<div className="text-xs font-medium text-yellow-600 uppercase tracking-wide mb-1">Fuel Cost</div>
 							<div className="text-2xl font-bold text-yellow-900">
-								${fuelCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(fuelCost, locale)}
 							</div>
 						</div>
 					)}
@@ -1857,7 +1864,7 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Insurance</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.fixed.insurance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.fixed.insurance, locale)}
 												</span>
 											</div>
 										)}
@@ -1865,7 +1872,7 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Parking</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.fixed.parking.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.fixed.parking, locale)}
 												</span>
 											</div>
 										)}
@@ -1873,7 +1880,7 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Loan Payment</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.fixed.loan.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.fixed.loan, locale)}
 												</span>
 											</div>
 										)}
@@ -1881,14 +1888,14 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Registration</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.fixed.registration.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.fixed.registration, locale)}
 												</span>
 											</div>
 										)}
 										<div className="flex justify-between items-center py-2 pt-3 border-t border-gray-200 mt-2">
 											<span className="text-sm font-semibold text-gray-900">Fixed Total</span>
 											<span className="text-base font-bold text-green-900">
-												${breakdown.fixed.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.fixed.total, locale)}
 											</span>
 										</div>
 									</div>
@@ -1904,7 +1911,7 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Fuel</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.variable.fuel.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.variable.fuel, locale)}
 												</span>
 											</div>
 										)}
@@ -1912,7 +1919,7 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Maintenance</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.variable.maintenance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.variable.maintenance, locale)}
 												</span>
 											</div>
 										)}
@@ -1920,7 +1927,7 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Repairs</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.variable.repairs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.variable.repairs, locale)}
 												</span>
 											</div>
 										)}
@@ -1928,14 +1935,14 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Other</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.variable.other.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.variable.other, locale)}
 												</span>
 											</div>
 										)}
 										<div className="flex justify-between items-center py-2 pt-3 border-t border-gray-200 mt-2">
 											<span className="text-sm font-semibold text-gray-900">Variable Total</span>
 											<span className="text-base font-bold text-purple-900">
-												${breakdown.variable.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.variable.total, locale)}
 											</span>
 										</div>
 									</div>
@@ -1947,7 +1954,7 @@ export function CalculatorResults({
 								<div className="flex justify-between items-center">
 									<span className="text-lg font-bold text-gray-900">Total Monthly Cost</span>
 									<span className="text-xl font-bold text-blue-900">
-										${breakdown.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(breakdown.total, locale)}
 									</span>
 								</div>
 							</div>
@@ -2011,26 +2018,26 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Total Annual Maintenance</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${totalAnnualMaintenanceCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalAnnualMaintenanceCost, locale)}
 						</div>
 					</div>
 					<div className="bg-green-50 rounded-lg p-4 border border-green-200">
 						<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Monthly Maintenance Cost</div>
 						<div className="text-2xl font-bold text-green-900">
-							${monthlyMaintenanceCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(monthlyMaintenanceCost, locale)}
 						</div>
 					</div>
 					<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
 						<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Cost Per Mile</div>
 						<div className="text-2xl font-bold text-purple-900">
-							${costPerMile.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 })}
+							{formatMoney(costPerMile, locale)}
 						</div>
 					</div>
 					{routineMaintenanceAnnual !== null && routineMaintenanceAnnual !== undefined && (
 						<div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
 							<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">Routine Maintenance Annual</div>
 							<div className="text-2xl font-bold text-indigo-900">
-								${routineMaintenanceAnnual.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(routineMaintenanceAnnual, locale)}
 							</div>
 						</div>
 					)}
@@ -2038,7 +2045,7 @@ export function CalculatorResults({
 						<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 							<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Unexpected Repairs Annual</div>
 							<div className="text-2xl font-bold text-orange-900">
-								${unexpectedRepairsAnnual.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(unexpectedRepairsAnnual, locale)}
 							</div>
 						</div>
 					)}
@@ -2060,7 +2067,7 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Oil Changes</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.routine.oilChanges.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.routine.oilChanges, locale)}
 												</span>
 											</div>
 										)}
@@ -2068,7 +2075,7 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Tire Service</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.routine.tireService.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.routine.tireService, locale)}
 												</span>
 											</div>
 										)}
@@ -2076,7 +2083,7 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Brake Service</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.routine.brakeService.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.routine.brakeService, locale)}
 												</span>
 											</div>
 										)}
@@ -2084,14 +2091,14 @@ export function CalculatorResults({
 											<div className="flex justify-between items-center py-2 border-b border-gray-100">
 												<span className="text-sm text-gray-600">Scheduled Service</span>
 												<span className="text-sm font-semibold text-gray-900">
-													${breakdown.routine.scheduledService.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(breakdown.routine.scheduledService, locale)}
 												</span>
 											</div>
 										)}
 										<div className="flex justify-between items-center py-2 pt-3 border-t border-gray-200 mt-2">
 											<span className="text-sm font-semibold text-gray-900">Routine Total</span>
 											<span className="text-base font-bold text-indigo-900">
-												${breakdown.routine.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.routine.total, locale)}
 											</span>
 										</div>
 									</div>
@@ -2106,7 +2113,7 @@ export function CalculatorResults({
 										<div className="flex justify-between items-center py-2 border-b border-gray-100">
 											<span className="text-sm text-gray-600">Base Annual Cost</span>
 											<span className="text-sm font-semibold text-gray-900">
-												${breakdown.unexpected.base.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.unexpected.base, locale)}
 											</span>
 										</div>
 										{breakdown.unexpected.ageMultiplier && breakdown.unexpected.ageMultiplier > 1 && (
@@ -2120,7 +2127,7 @@ export function CalculatorResults({
 										<div className="flex justify-between items-center py-2 pt-3 border-t border-gray-200 mt-2">
 											<span className="text-sm font-semibold text-gray-900">Adjusted Annual Cost</span>
 											<span className="text-base font-bold text-orange-900">
-												${breakdown.unexpected.adjusted.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.unexpected.adjusted, locale)}
 											</span>
 										</div>
 									</div>
@@ -2132,7 +2139,7 @@ export function CalculatorResults({
 								<div className="flex justify-between items-center">
 									<span className="text-lg font-bold text-gray-900">Total Annual Maintenance</span>
 									<span className="text-xl font-bold text-blue-900">
-										${breakdown.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+										{formatMoney(breakdown.total, locale)}
 									</span>
 								</div>
 							</div>
@@ -2193,32 +2200,32 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Total Ownership Cost</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${totalOwnershipCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalOwnershipCost, locale)}
 						</div>
 					</div>
 					<div className="bg-green-50 rounded-lg p-4 border border-green-200">
 						<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Monthly Cost</div>
 						<div className="text-2xl font-bold text-green-900">
-							${monthlyCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(monthlyCost, locale)}
 						</div>
 					</div>
 					<div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
 						<div className="text-xs font-medium text-purple-600 uppercase tracking-wide mb-1">Annual Cost</div>
 						<div className="text-2xl font-bold text-purple-900">
-							${annualCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(annualCost, locale)}
 						</div>
 					</div>
 					<div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
 						<div className="text-xs font-medium text-orange-600 uppercase tracking-wide mb-1">Cost Per Mile</div>
 						<div className="text-2xl font-bold text-orange-900">
-							${costPerMile.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(costPerMile, locale)}
 						</div>
 					</div>
 					{resaleValue !== null && resaleValue !== undefined && (
 						<div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
 							<div className="text-xs font-medium text-indigo-600 uppercase tracking-wide mb-1">Resale Value</div>
 							<div className="text-2xl font-bold text-indigo-900">
-								${resaleValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+								{formatMoney(resaleValue, locale)}
 							</div>
 						</div>
 					)}
@@ -2244,7 +2251,7 @@ export function CalculatorResults({
 										<tr>
 											<td className="px-4 py-3 font-medium text-gray-700">Fuel</td>
 											<td className="px-4 py-3 text-right text-gray-900">
-												${breakdown.fuel.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.fuel, locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-gray-600">
 												{totalOwnershipCost > 0 ? ((breakdown.fuel / totalOwnershipCost) * 100).toFixed(1) : '0.0'}%
@@ -2255,7 +2262,7 @@ export function CalculatorResults({
 										<tr>
 											<td className="px-4 py-3 font-medium text-gray-700">Maintenance & Repairs</td>
 											<td className="px-4 py-3 text-right text-gray-900">
-												${breakdown.maintenance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.maintenance, locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-gray-600">
 												{totalOwnershipCost > 0 ? ((breakdown.maintenance / totalOwnershipCost) * 100).toFixed(1) : '0.0'}%
@@ -2266,7 +2273,7 @@ export function CalculatorResults({
 										<tr>
 											<td className="px-4 py-3 font-medium text-gray-700">Insurance</td>
 											<td className="px-4 py-3 text-right text-gray-900">
-												${breakdown.insurance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.insurance, locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-gray-600">
 												{totalOwnershipCost > 0 ? ((breakdown.insurance / totalOwnershipCost) * 100).toFixed(1) : '0.0'}%
@@ -2277,7 +2284,7 @@ export function CalculatorResults({
 										<tr>
 											<td className="px-4 py-3 font-medium text-gray-700">Registration</td>
 											<td className="px-4 py-3 text-right text-gray-900">
-												${breakdown.registration.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.registration, locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-gray-600">
 												{totalOwnershipCost > 0 ? ((breakdown.registration / totalOwnershipCost) * 100).toFixed(1) : '0.0'}%
@@ -2288,7 +2295,7 @@ export function CalculatorResults({
 										<tr>
 											<td className="px-4 py-3 font-medium text-gray-700">Parking</td>
 											<td className="px-4 py-3 text-right text-gray-900">
-												${breakdown.parking.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.parking, locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-gray-600">
 												{totalOwnershipCost > 0 ? ((breakdown.parking / totalOwnershipCost) * 100).toFixed(1) : '0.0'}%
@@ -2299,7 +2306,7 @@ export function CalculatorResults({
 										<tr>
 											<td className="px-4 py-3 font-medium text-gray-700">Depreciation</td>
 											<td className="px-4 py-3 text-right text-gray-900">
-												${breakdown.depreciation.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.depreciation, locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-gray-600">
 												{totalOwnershipCost > 0 ? ((breakdown.depreciation / totalOwnershipCost) * 100).toFixed(1) : '0.0'}%
@@ -2309,7 +2316,7 @@ export function CalculatorResults({
 									<tr className="bg-gray-50 font-bold">
 										<td className="px-4 py-3 text-gray-900">Total</td>
 										<td className="px-4 py-3 text-right text-blue-900">
-											${totalOwnershipCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+											{formatMoney(totalOwnershipCost, locale)}
 										</td>
 										<td className="px-4 py-3 text-right text-blue-900">100.0%</td>
 									</tr>
@@ -2376,13 +2383,13 @@ export function CalculatorResults({
 					<div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
 						<div className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">Total Cost to Buy</div>
 						<div className="text-2xl font-bold text-blue-900">
-							${totalCostBuy.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalCostBuy, locale)}
 						</div>
 					</div>
 					<div className="bg-green-50 rounded-lg p-4 border border-green-200">
 						<div className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">Total Cost to Lease</div>
 						<div className="text-2xl font-bold text-green-900">
-							${totalCostLease.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+							{formatMoney(totalCostLease, locale)}
 						</div>
 					</div>
 				</div>
@@ -2406,7 +2413,7 @@ export function CalculatorResults({
 					<div className="text-xl md:text-2xl font-bold mb-3">
 						{difference !== 0 && (
 							<span className={difference > 0 ? 'text-blue-700' : 'text-green-700'}>
-								${Math.abs(difference).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} difference
+								{formatMoney(Math.abs(difference), locale)} difference
 							</span>
 						)}
 					</div>
@@ -2436,26 +2443,26 @@ export function CalculatorResults({
 									<tr>
 										<td className="px-4 py-3 font-medium text-gray-700">Upfront Costs</td>
 										<td className="px-4 py-3 text-right text-gray-900">
-											${breakdown.buy?.upfront?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+											{formatMoney(breakdown.buy?.upfront ?? 0, locale)}
 										</td>
 										<td className="px-4 py-3 text-right text-gray-900">
-											${breakdown.lease?.upfront?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+											{formatMoney(breakdown.lease?.upfront ?? 0, locale)}
 										</td>
 									</tr>
 									<tr>
 										<td className="px-4 py-3 font-medium text-gray-700">Monthly Payments</td>
 										<td className="px-4 py-3 text-right text-gray-900">
-											${breakdown.buy?.monthlyPayments?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+											{formatMoney(breakdown.buy?.monthlyPayments ?? 0, locale)}
 										</td>
 										<td className="px-4 py-3 text-right text-gray-900">
-											${breakdown.lease?.monthlyPayments?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+											{formatMoney(breakdown.lease?.monthlyPayments ?? 0, locale)}
 										</td>
 									</tr>
 									{breakdown.buy?.resaleCredit && breakdown.buy.resaleCredit < 0 && (
 										<tr>
 											<td className="px-4 py-3 font-medium text-gray-700">Resale Value Credit</td>
 											<td className="px-4 py-3 text-right text-green-600 font-semibold">
-												${Math.abs(breakdown.buy.resaleCredit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(Math.abs(breakdown.buy.resaleCredit), locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-gray-500">—</td>
 										</tr>
@@ -2465,7 +2472,7 @@ export function CalculatorResults({
 											<td className="px-4 py-3 font-medium text-gray-700">Mileage Penalty</td>
 											<td className="px-4 py-3 text-right text-gray-500">—</td>
 											<td className="px-4 py-3 text-right text-red-600 font-semibold">
-												${breakdown.lease.mileagePenalty.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+												{formatMoney(breakdown.lease.mileagePenalty, locale)}
 											</td>
 										</tr>
 									)}
@@ -2473,20 +2480,25 @@ export function CalculatorResults({
 										<tr>
 											<td className="px-4 py-3 font-medium text-gray-700">Insurance & Maintenance</td>
 											<td className="px-4 py-3 text-right text-gray-900">
-												${breakdown.buy?.insuranceMaintenance?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+												{formatMoney(breakdown.buy?.insuranceMaintenance ?? 0, locale)}
 											</td>
 											<td className="px-4 py-3 text-right text-gray-900">
-												${breakdown.lease?.insuranceMaintenance ? Math.abs(breakdown.lease.insuranceMaintenance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00'}
+												{formatMoney(
+													breakdown.lease?.insuranceMaintenance
+														? Math.abs(breakdown.lease.insuranceMaintenance)
+														: 0,
+													locale,
+												)}
 											</td>
 										</tr>
 									)}
 									<tr className="bg-gray-50 font-bold">
 										<td className="px-4 py-3 text-gray-900">Total Cost</td>
 										<td className="px-4 py-3 text-right text-blue-900">
-											${breakdown.buy?.total?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+											{formatMoney(breakdown.buy?.total ?? 0, locale)}
 										</td>
 										<td className="px-4 py-3 text-right text-green-900">
-											${breakdown.lease?.total?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+											{formatMoney(breakdown.lease?.total ?? 0, locale)}
 										</td>
 									</tr>
 								</tbody>
@@ -2503,13 +2515,13 @@ export function CalculatorResults({
 							{monthlyLoanPayment && monthlyLoanPayment > 0 && (
 								<div>
 									<span className="font-medium">Monthly Loan Payment:</span>{' '}
-									<span className="text-gray-900">${monthlyLoanPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+									<span className="text-gray-900">{formatMoney(monthlyLoanPayment, locale)}</span>
 								</div>
 							)}
 							{mileagePenalty && mileagePenalty > 0 && (
 								<div>
 									<span className="font-medium">Mileage Penalty:</span>{' '}
-									<span className="text-red-600">${mileagePenalty.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+									<span className="text-red-600">{formatMoney(mileagePenalty, locale)}</span>
 								</div>
 							)}
 						</div>
@@ -4365,22 +4377,28 @@ export function CalculatorResults({
 			{/* Year-by-Year Breakdown (for compound interest, investment, and savings calculators) */}
 			{yearBreakdownValue && Array.isArray(yearBreakdownValue) && yearBreakdownValue.length > 0 && (
 				<div className="mb-6 pt-6 border-t border-gray-200">
-					<p className="text-sm font-medium text-gray-700 mb-4">Year-by-Year Growth</p>
+					<p className="text-sm font-medium text-gray-700 mb-4">{L('yearByYearGrowth', 'Year-by-Year Growth')}</p>
 					<div className="bg-gray-50 rounded-lg overflow-hidden">
 						<div className="overflow-x-auto">
 							<table className="w-full text-sm">
 								<thead className="bg-gray-100">
 									<tr>
-										<th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Year</th>
+										<th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{L('year', 'Year')}</th>
 										<th className="px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">
-											{calculator.id === 'investment-calculator' ? 'Starting Value' : calculator.id === 'savings-calculator' ? 'Starting Balance' : 'Starting Balance'}
+											{calculator.id === 'investment-calculator'
+												? L('startingValue', 'Starting Value')
+												: L('startingBalance', 'Starting Balance')}
 										</th>
-										<th className="px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">Contributions</th>
+										<th className="px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">{L('contributions', 'Contributions')}</th>
 										<th className="px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">
-											{calculator.id === 'investment-calculator' ? 'Return Earned' : calculator.id === 'savings-calculator' ? 'Interest Earned' : 'Interest Earned'}
+											{calculator.id === 'investment-calculator'
+												? L('returnEarned', 'Return Earned')
+												: L('interestEarned', 'Interest Earned')}
 										</th>
 										<th className="px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">
-											{calculator.id === 'investment-calculator' ? 'Ending Value' : calculator.id === 'savings-calculator' ? 'Ending Balance' : 'Ending Balance'}
+											{calculator.id === 'investment-calculator'
+												? L('endingValue', 'Ending Value')
+												: L('endingBalance', 'Ending Balance')}
 										</th>
 									</tr>
 								</thead>
@@ -4396,16 +4414,16 @@ export function CalculatorResults({
 											<tr key={year.year || index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 												<td className="px-4 py-3 font-medium text-gray-900">{year.year}</td>
 												<td className="px-4 py-3 text-right text-gray-700">
-													${startingValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(startingValue, locale)}
 												</td>
 												<td className="px-4 py-3 text-right text-gray-700">
-													${contributions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(contributions, locale)}
 												</td>
 												<td className="px-4 py-3 text-right text-green-600 font-semibold">
-													${returnEarned.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(returnEarned, locale)}
 												</td>
 												<td className="px-4 py-3 text-right text-gray-900 font-semibold">
-													${endingValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+													{formatMoney(endingValue, locale)}
 												</td>
 											</tr>
 										)

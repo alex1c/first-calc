@@ -48,6 +48,11 @@ function round2(value: number): number {
 	return Math.round(value * 100) / 100
 }
 
+/**
+ * Month-by-month projection matching ordinary annuity (end-of-period deposits).
+ * Interest accrues on the opening balance first; the contribution is added
+ * afterward so the year table agrees with the closed-form FV formula.
+ */
 function simulateSavingsMonths(options: {
 	initialSavings: number
 	monthlyContribution: number
@@ -81,14 +86,16 @@ function simulateSavingsMonths(options: {
 		let yearWithdrawals = 0
 
 		for (let month = 1; month <= 12; month++) {
-			balance += options.monthlyContribution
-			yearContributions += options.monthlyContribution
-
+			// Ordinary annuity: interest first, then end-of-period contribution.
 			if (options.interestType === 'simple') {
+				// Accrue simple interest on principal before the new deposit.
 				simpleInterestPool += balance * monthlyRate
 			} else {
 				balance *= 1 + monthlyRate
 			}
+
+			balance += options.monthlyContribution
+			yearContributions += options.monthlyContribution
 
 			const gross =
 				options.interestType === 'simple'
@@ -249,6 +256,8 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 			}
 		}
 
+		// Closed-form ordinary annuity, then overwrite from monthly simulation
+		// so finalSavings === last yearlyBreakdown.endingBalance.
 		finalSavings = round2(futureValueInitial + futureValueContributions)
 		totalContributions =
 			initialSavings + regularContribution * totalContributionsCount
@@ -262,6 +271,9 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 			monthlyWithdrawal: 0,
 		})
 		yearlyBreakdown = simulated.yearlyBreakdown
+		finalSavings = simulated.finalSavings
+		totalContributions = simulated.totalContributions
+		totalWithdrawals = simulated.totalWithdrawals
 	}
 
 	// Economic interest includes cash withdrawn during the period
@@ -287,11 +299,12 @@ export const calculateSavings: CalculationFunction = (inputs) => {
 			'Target search months',
 		)
 
+		// Same ordinary-annuity order as simulateSavingsMonths (interest, then deposit).
 		while (currentBalance < targetAmount && months < maxMonths) {
-			currentBalance += monthlyContribution
 			if (monthlyRate > 0 && interestType === 'compound') {
 				currentBalance *= 1 + monthlyRate
 			}
+			currentBalance += monthlyContribution
 			months++
 		}
 

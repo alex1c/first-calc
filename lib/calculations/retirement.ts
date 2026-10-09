@@ -6,6 +6,32 @@
  */
 
 import type { CalculationFunction } from '@/lib/calculations/registry'
+import { CalculationDomainError } from '@/lib/calculations/domain-error'
+
+/**
+ * Shared age-window checks for both retirement modes.
+ * Invalid relationships must yield HTTP 4xx, never a success payload of nulls.
+ */
+function assertRetirementAgeWindow(
+	currentAge: number,
+	retirementAge: number,
+): void {
+	if (
+		Number.isNaN(currentAge) ||
+		Number.isNaN(retirementAge) ||
+		currentAge < 18 ||
+		retirementAge > 75
+	) {
+		throw new CalculationDomainError(
+			'Current age must be at least 18 and retirement age at most 75',
+		)
+	}
+	if (currentAge >= retirementAge) {
+		throw new CalculationDomainError(
+			'Retirement age must be greater than current age',
+		)
+	}
+}
 
 /**
  * Calculate retirement based on selected mode
@@ -19,19 +45,9 @@ export const calculateRetirement: CalculationFunction = (inputs) => {
 		return calculateRequiredSavings(inputs)
 	}
 
-	return {
-		calculationMode: 'future_balance',
-		finalBalance: null,
-		totalContributed: null,
-		totalEarnings: null,
-		inflationAdjustedBalance: null,
-		monthlyRetirementIncome: null,
-		requiredRetirementFund: null,
-		monthlyIncomeAchievable: null,
-		savingsGap: null,
-		requiredMonthlyContribution: null,
-		formulaExplanation: null,
-	}
+	throw new CalculationDomainError(
+		`Unknown retirement calculation mode: ${calculationMode}`,
+	)
 }
 
 /**
@@ -47,18 +63,15 @@ function calculateFutureBalance(inputs: Record<string, any>) {
 	const inflationRate = Number(inputs.inflationRate || 0)
 	const compoundFrequency = String(inputs.compoundFrequency || 'monthly').toLowerCase()
 
-	// Validation
+	assertRetirementAgeWindow(currentAge, retirementAge)
+
+	// Validation — reject with domain error instead of null success
 	if (
-		isNaN(currentAge) ||
-		isNaN(retirementAge) ||
 		isNaN(currentSavings) ||
 		isNaN(monthlyContribution) ||
 		isNaN(annualReturnRate) ||
 		isNaN(contributionGrowthRate) ||
 		isNaN(inflationRate) ||
-		currentAge < 18 ||
-		currentAge >= retirementAge ||
-		retirementAge > 75 ||
 		currentSavings < 0 ||
 		monthlyContribution < 0 ||
 		annualReturnRate < 0 ||
@@ -68,14 +81,9 @@ function calculateFutureBalance(inputs: Record<string, any>) {
 		inflationRate < 0 ||
 		inflationRate > 20
 	) {
-		return {
-			finalBalance: null,
-			totalContributed: null,
-			totalEarnings: null,
-			inflationAdjustedBalance: null,
-			monthlyRetirementIncome: null,
-			formulaExplanation: null,
-		}
+		throw new CalculationDomainError(
+			'Invalid retirement savings inputs: check savings, contributions, return, growth, and inflation ranges',
+		)
 	}
 
 	const yearsToRetirement = retirementAge - currentAge
@@ -188,10 +196,10 @@ function calculateRequiredSavings(inputs: Record<string, any>) {
 	const currentSavings = Number(inputs.currentSavings || 0)
 	const annualReturnRate = Number(inputs.annualReturnRate || inputs.expectedReturnRate || 0)
 
-	// Validation
+	assertRetirementAgeWindow(currentAge, retirementAge)
+
+	// Validation — reject with domain error instead of null success
 	if (
-		isNaN(currentAge) ||
-		isNaN(retirementAge) ||
 		isNaN(lifeExpectancy) ||
 		isNaN(desiredMonthlyIncome) ||
 		isNaN(expectedReturnRate) ||
@@ -199,9 +207,6 @@ function calculateRequiredSavings(inputs: Record<string, any>) {
 		isNaN(withdrawalRate) ||
 		isNaN(currentSavings) ||
 		isNaN(annualReturnRate) ||
-		currentAge < 18 ||
-		currentAge >= retirementAge ||
-		retirementAge > 75 ||
 		lifeExpectancy <= retirementAge ||
 		desiredMonthlyIncome < 0 ||
 		expectedReturnRate < 0 ||
@@ -214,14 +219,9 @@ function calculateRequiredSavings(inputs: Record<string, any>) {
 		annualReturnRate < 0 ||
 		annualReturnRate > 50
 	) {
-	return {
-		calculationMode: 'required_savings',
-		requiredRetirementFund: null,
-		monthlyIncomeAchievable: null,
-		savingsGap: null,
-		requiredMonthlyContribution: null,
-		formulaExplanation: null,
-	}
+		throw new CalculationDomainError(
+			'Invalid required-savings inputs: check income, rates, life expectancy, and savings ranges',
+		)
 	}
 
 	const yearsToRetirement = retirementAge - currentAge
