@@ -15,6 +15,8 @@ export interface CalculatorContentI18n {
 		description: string
 		steps?: string[]
 		resultDescription?: string
+		inputs?: Record<string, number | string>
+		result?: string | number
 	}>
 	faq?: Array<{
 		question: string
@@ -26,12 +28,15 @@ export interface CalculatorContentI18n {
 		keywords?: string[]
 	}
 	inputs?: Array<{
+		name?: string
 		label: string
 		placeholder?: string
 		helpText?: string
 		unitLabel?: string
+		options?: Array<{ value: string; label: string }>
 	}>
 	outputs?: Array<{
+		name?: string
 		label: string
 		unitLabel?: string
 	}>

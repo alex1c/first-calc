@@ -35,12 +35,24 @@ export function applyCalculatorItemContent(
 			)
 			const contentInput = byName || contentInputs[index]
 			if (!contentInput) return input
+			const localizedOptions =
+				contentInput.options?.length && input.options
+					? input.options.map((option) => {
+							const match = contentInput.options?.find(
+								(entry) => entry.value === option.value,
+							)
+							return match ?? option
+						})
+					: contentInput.options?.length
+						? contentInput.options
+						: input.options
 			return {
 				...input,
 				label: contentInput.label || input.label,
 				placeholder: contentInput.placeholder || input.placeholder,
 				helpText: contentInput.helpText || input.helpText,
 				unitLabel: contentInput.unitLabel || input.unitLabel,
+				options: localizedOptions,
 			}
 		}),
 		outputs: base.outputs.map((output, index) => {

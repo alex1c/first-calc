@@ -531,10 +531,30 @@ export async function schemaToDefinition(
 		}
 	}
 
+	// Resolve localized field copy by stable schema name, then legacy index.
+	const resolveContentInput = (
+		input: { name: string },
+		index: number,
+	) => {
+		const entries = content?.inputs ?? []
+		return (
+			entries.find((entry) => entry.name === input.name) ?? entries[index]
+		)
+	}
+	const resolveContentOutput = (
+		output: { name: string },
+		index: number,
+	) => {
+		const entries = content?.outputs ?? []
+		return (
+			entries.find((entry) => entry.name === output.name) ?? entries[index]
+		)
+	}
+
 	// Convert inputs - use labels from content if available
 	const calculatorInputs: import('@/lib/calculators/types').CalculatorInput[] =
 		schema.inputs.map((input, index) => {
-			const contentInput = content?.inputs?.[index]
+			const contentInput = resolveContentInput(input, index)
 			// Preserve input type: 'select', 'text', 'date', or 'number'
 			let inputType: 'select' | 'text' | 'number' | 'date'
 			if (input.type === 'select') {
@@ -552,7 +572,14 @@ export async function schemaToDefinition(
 				type: inputType,
 				unitLabel: contentInput?.unitLabel || input.unit,
 				placeholder: contentInput?.placeholder || `Enter ${input.name}`,
-				options: input.options,
+				options: contentInput?.options?.length
+					? input.options?.map((option) => {
+							const localized = contentInput.options?.find(
+								(entry) => entry.value === option.value,
+							)
+							return localized ?? option
+						}) ?? contentInput.options
+					: input.options,
 				min: input.min,
 				max: input.max,
 				step: input.step,
@@ -572,7 +599,7 @@ export async function schemaToDefinition(
 	// Convert outputs - use labels from content if available
 	const calculatorOutputs: import('@/lib/calculators/types').CalculatorOutput[] =
 		schema.outputs.map((output, index) => {
-			const contentOutput = content?.outputs?.[index]
+			const contentOutput = resolveContentOutput(output, index)
 			return {
 				name: output.name,
 				label: contentOutput?.label || output.name,
@@ -588,10 +615,12 @@ export async function schemaToDefinition(
 			title: example.title || `Example ${index + 1}`,
 			inputDescription: example.description || 'Calculation example',
 			steps: example.steps || [],
-			resultDescription: (example as any).result || example.resultDescription || '',
-			// Preserve original example data for special handling (e.g., inputs, result)
-			...(example as any).inputs && { inputs: (example as any).inputs },
-			...(example as any).result && { result: (example as any).result },
+			resultDescription:
+				example.resultDescription ||
+				(example.result !== undefined ? String(example.result) : '') ||
+				'',
+			...(example.inputs && { inputs: example.inputs }),
+			...(example.result !== undefined && { result: example.result }),
 		}))
 
 	// Convert FAQ from content
