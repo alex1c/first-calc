@@ -228,16 +228,21 @@ export function CalculatorPage({
 				setErrors({_calculation: 'Calculator ID is not defined'})
 				return
 			}
-			fetch(`/api/calculators/${calculatorId}/calculate`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
+			// Locale contract: send locale in both query and body so the API
+			// cannot silently fall back to English when only one channel is read.
+			fetch(
+				`/api/calculators/${calculatorId}/calculate?locale=${encodeURIComponent(locale)}`,
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						inputs: processedInputs,
+						locale,
+					}),
 				},
-				body: JSON.stringify({
-					inputs: processedInputs,
-					locale,
-				}),
-			})
+			)
 				.then(async (response) => {
 					const data = await response.json()
 					if (!response.ok) {

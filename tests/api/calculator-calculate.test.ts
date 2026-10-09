@@ -83,6 +83,43 @@ describe('POST /api/calculators/:id/calculate', () => {
 
 		expect(response.status).toBe(404)
 	})
+
+	it('should resolve locale from JSON body when query is missing', async () => {
+		const calculator = {
+			...createTestCalculator({ id: 'test-calc', locale: 'ru' }),
+			calculate: (inputs: Record<string, number | string | boolean>) => ({
+				result: Number(inputs.value) * 2,
+			}),
+		}
+
+		vi.mocked(calculatorRegistry.getById).mockResolvedValue(calculator as any)
+
+		const request = new Request('http://localhost:3000/api/calculators/test-calc/calculate', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ locale: 'ru', inputs: { value: 10 } }),
+		})
+
+		const response = await POST(request, { params: { id: 'test-calc' } })
+		const data = await response.json()
+
+		expect(response.status).toBe(200)
+		expect(calculatorRegistry.getById).toHaveBeenCalledWith('test-calc', 'ru')
+		expect(data.locale).toBe('ru')
+		expect(data.results.result).toBe(20)
+	})
+
+	it('should reject an unsupported locale instead of defaulting to en', async () => {
+		const request = new Request('http://localhost:3000/api/calculators/test-calc/calculate', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ locale: 'de', inputs: { value: 1 } }),
+		})
+
+		const response = await POST(request, { params: { id: 'test-calc' } })
+		expect(response.status).toBe(400)
+		expect(calculatorRegistry.getById).not.toHaveBeenCalled()
+	})
 })
 
 

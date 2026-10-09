@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { calculatorRegistry } from '@/lib/registry/loader'
+import { isLocale, resolveRequestLocale } from '@/lib/i18n'
 
 interface RouteParams {
 	params: {
@@ -9,7 +10,13 @@ interface RouteParams {
 
 /**
  * POST /api/calculators/[id]/calculate
- * Perform calculation on the server
+ * Perform calculation on the server.
+ *
+ * Locale contract (must stay in sync with calculator-page.tsx):
+ * - Preferred: JSON body `{ locale, inputs }`
+ * - Also accepted: `?locale=` query (defense in depth / non-UI clients)
+ * - Body wins when both are present and valid
+ * - Invalid locale values are rejected (400), never silently remapped
  */
 export async function POST(
 	request: Request,
@@ -17,7 +24,27 @@ export async function POST(
 ): Promise<NextResponse> {
 	try {
 		const { searchParams } = new URL(request.url)
-		const locale = searchParams.get('locale') || 'en'
+		const queryLocale = searchParams.get('locale')
+
+		// Parse body once so locale and inputs share the same payload
+		const body = await request.json().catch(() => ({}))
+		const bodyLocale = body?.locale
+
+		// Reject explicitly invalid locale strings (do not fall through to "en")
+		if (bodyLocale !== undefined && bodyLocale !== null && bodyLocale !== '' && !isLocale(bodyLocale)) {
+			return NextResponse.json(
+				{ error: `Unsupported locale: ${String(bodyLocale)}` },
+				{ status: 400 },
+			)
+		}
+		if (queryLocale !== null && queryLocale !== '' && !isLocale(queryLocale)) {
+			return NextResponse.json(
+				{ error: `Unsupported locale: ${queryLocale}` },
+				{ status: 400 },
+			)
+		}
+
+		const locale = resolveRequestLocale(bodyLocale, queryLocale)
 
 		const calculator = await calculatorRegistry.getById(params.id, locale)
 
@@ -28,8 +55,6 @@ export async function POST(
 			)
 		}
 
-		// Parse request body
-		const body = await request.json()
 		const inputs = body.inputs || {}
 
 		// Determine which inputs should be visible based on visibleIf conditions
@@ -152,6 +177,7 @@ export async function POST(
 			return NextResponse.json({
 				results,
 				formattedResults,
+				locale,
 				calculator: {
 					id: calculator.id,
 					title: calculator.title,
@@ -177,7 +203,3 @@ export async function POST(
 		)
 	}
 }
-
-
-
-
