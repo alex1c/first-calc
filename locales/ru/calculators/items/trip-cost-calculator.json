@@ -4,42 +4,62 @@
 	"longDescription": "Калькулятор стоимости поездки собирает основные статьи бюджета автомобильного путешествия: топливо по расстоянию и расходу, платные дороги, парковку, питание и проживание. Можно разделить итог на пассажиров.",
 	"inputs": [
 		{
+			"name": "tripDistance",
 			"label": "Дистанция поездки",
 			"unitLabel": "",
 			"placeholder": "Введите дистанцию",
 			"helpText": "Общий путь"
 		},
 		{
+			"name": "distanceUnit",
 			"label": "Единица дистанции",
 			"unitLabel": "",
 			"placeholder": "Выберите единицу",
-			"helpText": "Рекомендуются км"
+			"helpText": "Рекомендуются км",
+			"options": [
+				{ "value": "km", "label": "Километры (км)" },
+				{ "value": "miles", "label": "Мили" }
+			]
 		},
 		{
+			"name": "roundTrip",
 			"label": "Тип поездки",
 			"unitLabel": "",
 			"placeholder": "Выберите тип",
-			"helpText": "Туда / туда-обратно"
+			"helpText": "Туда / туда-обратно",
+			"options": [
+				{ "value": "false", "label": "В одну сторону" },
+				{ "value": "true", "label": "Туда и обратно" }
+			]
 		},
 		{
+			"name": "fuelConsumption",
 			"label": "Расход топлива",
 			"unitLabel": "",
 			"placeholder": "Введите расход",
 			"helpText": "Средний расход"
 		},
 		{
+			"name": "consumptionUnit",
 			"label": "Единица расхода",
 			"unitLabel": "",
 			"placeholder": "Выберите единицу",
-			"helpText": "Обычно л/100 км"
+			"helpText": "Обычно л/100 км",
+			"options": [
+				{ "value": "L/100km", "label": "Литры на 100 км (л/100 км)" },
+				{ "value": "MPG US", "label": "Миль на галлон (США)" },
+				{ "value": "MPG UK", "label": "Миль на галлон (Великобритания)" }
+			]
 		},
 		{
+			"name": "fuelPricePerUnit",
 			"label": "Цена топлива",
-			"unitLabel": "",
+			"unitLabel": "₽/л",
 			"placeholder": "Введите цену",
 			"helpText": "Цена за литр"
 		},
 		{
+			"name": "tolls",
 			"label": "Платные дороги",
 			"unitLabel": "₽",
 			"placeholder": "Введите сумму",
