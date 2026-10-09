@@ -40,7 +40,8 @@ export interface CalculatorExample {
 	resultDescription: string
 	// Optional fields for special handling (e.g., lease-vs-buy calculator)
 	inputs?: Record<string, string | number | boolean>
-	result?: string
+	// Verified example payloads may be numeric JSON or a display string
+	result?: string | number
 }
 
 /**
