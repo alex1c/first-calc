@@ -1,0 +1,73 @@
+name: Timeweb Stub Sites Setup
+
+# Create static Apache stubs for otatu.ru, qr-pr.ru, receptvmeste.ru.
+# Access: GHA -> OLD 165.227.171.143 -> timeweb_migration -> Timeweb.
+# No Docker changes. No DNS changes. SSL only if DNS already points to Timeweb.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stub-sites:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: timeweb-stub-sites
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH to OLD
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${SSH_PRIVATE_KEY}"
+          test -f .github/workflows/_known_hosts_seed.txt
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null
+          # Seed both OLD (jump) and NEW (Timeweb) host keys; no ssh-keyscan.
+          grep -E '^(165\.227\.171\.143|188\.225\.26\.192) ' \
+            .github/workflows/_known_hosts_seed.txt > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Upload script and run on Timeweb via jump
+        run: |
+          set -euo pipefail
+          OLD_HOST='165.227.171.143'
+          NEW_HOST='188.225.26.192'
+          SSH_OLD=(ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey -o StrictHostKeyChecking=yes -o ConnectTimeout=15)
+
+          chmod +x scripts/timeweb-stub-sites-setup.sh
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            scripts/timeweb-stub-sites-setup.sh \
+            "root@${OLD_HOST}:/tmp/timeweb-stub-sites-setup.sh"
+
+          "${SSH_OLD[@]}" "root@${OLD_HOST}" \
+            "env NEW_HOST='${NEW_HOST}' bash -se" <<'REMOTE' | tee stub-sites-report.txt
+          set -euo pipefail
+          scp -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
+            -i /root/.ssh/timeweb_migration \
+            /tmp/timeweb-stub-sites-setup.sh \
+            "root@${NEW_HOST}:/tmp/timeweb-stub-sites-setup.sh"
+          ssh -n -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
+            -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            -i /root/.ssh/timeweb_migration \
+            "root@${NEW_HOST}" \
+            "chmod +x /tmp/timeweb-stub-sites-setup.sh && TARGET_IP='188.225.26.192' bash /tmp/timeweb-stub-sites-setup.sh"
+          REMOTE
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: timeweb-stub-sites-report
+          path: stub-sites-report.txt
+          if-no-files-found: warn
+)
