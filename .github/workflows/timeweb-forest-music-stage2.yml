@@ -1,0 +1,148 @@
+name: Timeweb ForestMusic Stage 2
+
+# Build ForestMusicLanding and place static site on Timeweb.
+# Access: GHA -> OLD 165.227.171.143 -> timeweb_migration -> Timeweb.
+# No DNS changes. No Docker changes. No peer Apache edits.
+# HTTPS uses temporary self-signed cert for SNI only (not production LE).
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_sha:
+        description: Exact ForestMusicLanding commit SHA (40 chars)
+        required: true
+        default: '1168191f3c7c59ea1a8d226b874b6668ad0dc5e9'
+
+permissions:
+  contents: read
+
+jobs:
+  stage2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    concurrency:
+      group: timeweb-forest-music-stage2
+      cancel-in-progress: false
+    steps:
+      - name: Checkout first-calc ops scripts
+        uses: actions/checkout@v4
+
+      - name: Validate release SHA + script syntax
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          if [ "${#RELEASE_SHA}" -ne 40 ]; then
+            echo "ERROR: release_sha must be full 40-char hash"
+            exit 1
+          fi
+          bash -n scripts/timeweb-forest-music-stage2.sh
+          if grep -q $'\r' scripts/timeweb-forest-music-stage2.sh; then
+            echo "ERROR: CRLF in setup script"
+            exit 1
+          fi
+          echo "script_syntax=OK sha=${RELEASE_SHA}"
+
+      - name: Checkout ForestMusicLanding at exact SHA
+        uses: actions/checkout@v4
+        with:
+          repository: alex1c/ForestMusicLanding
+          ref: ${{ inputs.release_sha }}
+          path: forest-music-src
+
+      - name: Verify ForestMusicLanding SHA
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          cd forest-music-src
+          actual="$(git rev-parse HEAD)"
+          echo "actual=${actual}"
+          test "${actual}" = "${RELEASE_SHA}"
+          test -z "$(git status --porcelain)"
+
+      - name: npm ci, lint, typecheck, build
+        working-directory: forest-music-src
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run lint
+          npm run typecheck
+          npm run build
+          test -f dist/index.html
+          grep -q '42579109' dist/index.html
+          test -f dist/robots.txt
+          test -f dist/sitemap.xml
+          ls dist/assets/index-*.js
+          tar -czf ../forest-music-dist.tgz -C dist .
+          ls -la ../forest-music-dist.tgz
+
+      - name: Setup SSH to OLD
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${SSH_PRIVATE_KEY}"
+          test -f .github/workflows/_known_hosts_seed.txt
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null
+          grep -E '^(165\.227\.171\.143|188\.225\.26\.192) ' \
+            .github/workflows/_known_hosts_seed.txt > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Upload dist + script and run Stage 2 via jump
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          OLD_HOST='165.227.171.143'
+          NEW_HOST='188.225.26.192'
+          SSH_OLD=(ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey -o StrictHostKeyChecking=yes -o ConnectTimeout=15)
+
+          chmod +x scripts/timeweb-forest-music-stage2.sh
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            scripts/timeweb-forest-music-stage2.sh \
+            forest-music-dist.tgz \
+            "root@${OLD_HOST}:/tmp/"
+
+          set +e
+          "${SSH_OLD[@]}" "root@${OLD_HOST}" \
+            "env NEW_HOST='${NEW_HOST}' RELEASE_SHA='${RELEASE_SHA}' bash -se" <<'REMOTE' | tee forest-music-stage2-report.txt
+          set -euo pipefail
+          scp -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
+            -i /root/.ssh/timeweb_migration \
+            /tmp/timeweb-forest-music-stage2.sh \
+            /tmp/forest-music-dist.tgz \
+            "root@${NEW_HOST}:/tmp/"
+          ssh -n -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
+            -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            -i /root/.ssh/timeweb_migration \
+            "root@${NEW_HOST}" \
+            "bash -n /tmp/timeweb-forest-music-stage2.sh && chmod +x /tmp/timeweb-forest-music-stage2.sh && TARGET_IP='188.225.26.192' DIST_TGZ='/tmp/forest-music-dist.tgz' RELEASE_SHA='${RELEASE_SHA}' bash /tmp/timeweb-forest-music-stage2.sh"
+          REMOTE
+          jump_rc=${PIPESTATUS[0]}
+          set -e
+
+          if ! grep -q 'FOREST_MUSIC_STAGE2_DONE' forest-music-stage2-report.txt; then
+            echo "ERROR: Stage 2 marker missing (jump_rc=${jump_rc})"
+            exit 1
+          fi
+          if ! grep -q 'configtest_rc=0' forest-music-stage2-report.txt; then
+            echo "ERROR: apache configtest did not report rc=0"
+            exit 1
+          fi
+          if grep -q 'NEXT_LOCALE_LEAK' forest-music-stage2-report.txt; then
+            echo "ERROR: HTTPS still leaking to Next.js catch-all"
+            exit 1
+          fi
+          echo "Stage 2 completed (jump_rc=${jump_rc})."
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: forest-music-stage2-report
+          path: forest-music-stage2-report.txt
+          if-no-files-found: warn
