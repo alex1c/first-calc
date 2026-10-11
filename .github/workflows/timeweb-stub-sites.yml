@@ -21,6 +21,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate setup script syntax
+        run: |
+          set -euo pipefail
+          # Fail the job on Bash syntax errors before any server changes.
+          bash -n scripts/timeweb-stub-sites-setup.sh
+          # Reject accidental CRLF corruption before upload.
+          if grep -q $'\r' scripts/timeweb-stub-sites-setup.sh; then
+            echo "ERROR: CRLF line endings in setup script"
+            exit 1
+          fi
+          # Reject a trailing stray ')' that previously broke remote bash -n.
+          if [ "$(tail -n 1 scripts/timeweb-stub-sites-setup.sh | tr -d '[:space:]')" = ")" ]; then
+            echo "ERROR: trailing ')' in setup script"
+            exit 1
+          fi
+          tail -c 32 scripts/timeweb-stub-sites-setup.sh | od -An -tx1
+          echo "bash -n OK"
+
       - name: Setup SSH to OLD
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -57,17 +75,29 @@ jobs:
             -i /root/.ssh/timeweb_migration \
             /tmp/timeweb-stub-sites-setup.sh \
             "root@${NEW_HOST}:/tmp/timeweb-stub-sites-setup.sh"
+          # Re-validate on the target host before applying changes.
           ssh -n -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
             -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
             -i /root/.ssh/timeweb_migration \
             "root@${NEW_HOST}" \
-            "chmod +x /tmp/timeweb-stub-sites-setup.sh && TARGET_IP='188.225.26.192' bash /tmp/timeweb-stub-sites-setup.sh"
+            "bash -n /tmp/timeweb-stub-sites-setup.sh && chmod +x /tmp/timeweb-stub-sites-setup.sh && TARGET_IP='188.225.26.192' bash /tmp/timeweb-stub-sites-setup.sh"
           REMOTE
           jump_rc=${PIPESTATUS[0]}
           set -e
+
+          if grep -q 'syntax error' stub-sites-report.txt; then
+            echo "ERROR: Bash syntax error reported from server"
+            exit 1
+          fi
           if ! grep -q 'STUB_SITES_SETUP_DONE' stub-sites-report.txt; then
             echo "ERROR: stub setup marker missing (jump_rc=${jump_rc})"
             exit 1
+          fi
+          if grep -q 'WAITING_FOR_DNS' stub-sites-report.txt; then
+            echo "WAITING_FOR_DNS: HTTP stubs are live; SSL intentionally skipped."
+          fi
+          if grep -q 'certbot_.*_rc=0' stub-sites-report.txt; then
+            echo "SSL certificates issued for one or more domains."
           fi
           echo "Stub setup completed on Timeweb (jump_rc=${jump_rc})."
 
