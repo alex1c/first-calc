@@ -1,0 +1,154 @@
+name: Timeweb ForestMusic Stage 3
+
+# Complete ForestMusic cutover on Timeweb after DNS points to 188.225.26.192.
+# Access: GHA -> OLD 165.227.171.143 -> timeweb_migration -> Timeweb.
+# - Does NOT change DNS / CDN / DigitalOcean / MX / NS / TXT
+# - Does NOT run Docker
+# - Certbot HTTP-01 only when apex + www resolve to Timeweb
+# - On CDN/ lag: exits successfully with WAITING_FOR_DNS (re-run later)
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_sha:
+        description: Exact ForestMusicLanding commit SHA deployed in Stage 2
+        required: true
+        default: '1168191f3c7c59ea1a8d226b874b6668ad0dc5e9'
+
+permissions:
+  contents: read
+
+jobs:
+  stage3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    concurrency:
+      group: timeweb-forest-music-stage3
+      cancel-in-progress: false
+    steps:
+      - name: Checkout first-calc ops scripts
+        uses: actions/checkout@v4
+
+      - name: Validate release SHA + script syntax
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          if [ "${#RELEASE_SHA}" -ne 40 ]; then
+            echo "ERROR: release_sha must be full 40-char hash"
+            exit 1
+          fi
+          bash -n scripts/timeweb-forest-music-stage3.sh
+          if grep -q $'\r' scripts/timeweb-forest-music-stage3.sh; then
+            echo "ERROR: CRLF in Stage 3 script"
+            exit 1
+          fi
+          echo "script_syntax=OK sha=${RELEASE_SHA}"
+
+      - name: Public DNS preflight (informational)
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          TARGET_IP='188.225.26.192'
+          DOMAIN='forest-music.ru'
+          echo "=== GHA DNS preflight (does not change DNS) ==="
+          for name in "${DOMAIN}" "www.${DOMAIN}"; do
+            echo "-- ${name} --"
+            dig +time=3 +tries=1 +short A "${name}" @1.1.1.1 || true
+            dig +time=3 +tries=1 +short A "${name}" @8.8.8.8 || true
+          done
+          echo "-- NS ${DOMAIN} --"
+          dig +time=3 +tries=1 +short NS "${DOMAIN}" || true
+          while read -r ns; do
+            [ -z "${ns}" ] && continue
+            ns="${ns%.}"
+            echo "-- auth ${DOMAIN} via ${ns} --"
+            dig +time=3 +tries=1 +short A "${DOMAIN}" "@${ns}" || true
+            dig +time=3 +tries=1 +short A "www.${DOMAIN}" "@${ns}" || true
+          done < <(dig +time=3 +tries=1 +short NS "${DOMAIN}" | sed 's/\.$//')
+          apex_cf="$(dig +time=3 +tries=1 +short A "${DOMAIN}" @1.1.1.1 | awk '/^[0-9.]+$/{print; exit}')"
+          apex_gg="$(dig +time=3 +tries=1 +short A "${DOMAIN}" @8.8.8.8 | awk '/^[0-9.]+$/{print; exit}')"
+          www_cf="$(dig +time=3 +tries=1 +short A "www.${DOMAIN}" @1.1.1.1 | awk '/^[0-9.]+$/{print; exit}')"
+          www_gg="$(dig +time=3 +tries=1 +short A "www.${DOMAIN}" @8.8.8.8 | awk '/^[0-9.]+$/{print; exit}')"
+          echo "gha_dns apex_cf=${apex_cf:-UNRESOLVED} apex_gg=${apex_gg:-UNRESOLVED} www_cf=${www_cf:-UNRESOLVED} www_gg=${www_gg:-UNRESOLVED} want=${TARGET_IP}"
+          if [ "${apex_cf}" = "${TARGET_IP}" ] && [ "${apex_gg}" = "${TARGET_IP}" ] \
+            && [ "${www_cf}" = "${TARGET_IP}" ] && [ "${www_gg}" = "${TARGET_IP}" ]; then
+            echo "gha_dns_ready=yes (Timeweb will still re-check before Certbot)"
+          else
+            echo "gha_dns_ready=no (script may return WAITING_FOR_DNS without Certbot)"
+          fi
+
+      - name: Setup SSH to OLD
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${SSH_PRIVATE_KEY}"
+          test -f .github/workflows/_known_hosts_seed.txt
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null
+          grep -E '^(165\.227\.171\.143|188\.225\.26\.192) ' \
+            .github/workflows/_known_hosts_seed.txt > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Upload script and run Stage 3 via jump
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          OLD_HOST='165.227.171.143'
+          NEW_HOST='188.225.26.192'
+          SSH_OLD=(ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey -o StrictHostKeyChecking=yes -o ConnectTimeout=15)
+
+          chmod +x scripts/timeweb-forest-music-stage3.sh
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            scripts/timeweb-forest-music-stage3.sh \
+            "root@${OLD_HOST}:/tmp/timeweb-forest-music-stage3.sh"
+
+          set +e
+          "${SSH_OLD[@]}" "root@${OLD_HOST}" \
+            "env NEW_HOST='${NEW_HOST}' RELEASE_SHA='${RELEASE_SHA}' bash -se" <<'REMOTE' | tee forest-music-stage3-report.txt
+          set -euo pipefail
+          scp -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=10 \
+            -i /root/.ssh/timeweb_migration \
+            /tmp/timeweb-forest-music-stage3.sh \
+            "root@${NEW_HOST}:/tmp/timeweb-forest-music-stage3.sh"
+          ssh -n -o BatchMode=yes -o IdentitiesOnly=yes -o PreferredAuthentications=publickey \
+            -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            -i /root/.ssh/timeweb_migration \
+            "root@${NEW_HOST}" \
+            "bash -n /tmp/timeweb-forest-music-stage3.sh && chmod +x /tmp/timeweb-forest-music-stage3.sh && TARGET_IP='188.225.26.192' RELEASE_SHA='${RELEASE_SHA}' bash /tmp/timeweb-forest-music-stage3.sh"
+          REMOTE
+          jump_rc=${PIPESTATUS[0]}
+          set -e
+
+          echo "jump_rc=${jump_rc}"
+          if grep -q 'FOREST_MUSIC_STAGE3_SUCCESS' forest-music-stage3-report.txt; then
+            echo "Stage 3 SUCCESS: Let's Encrypt active, redirects verified."
+            exit 0
+          fi
+          if grep -q 'WAITING_FOR_DNS\|FOREST_MUSIC_STAGE3_WAITING' forest-music-stage3-report.txt; then
+            echo "WAITING_FOR_DNS: Certbot was NOT started. Switch DNS to ${NEW_HOST}, then re-run."
+            exit 0
+          fi
+          if grep -q 'FOREST_MUSIC_STAGE3_CERT_FAILED' forest-music-stage3-report.txt; then
+            echo "ERROR: Certbot/ACME failed. Cutover NOT declared successful."
+            exit 1
+          fi
+          if grep -q 'FOREST_MUSIC_STAGE3_VERIFY_FAILED' forest-music-stage3-report.txt; then
+            echo "ERROR: Post-cert verification failed. Cutover NOT declared successful."
+            exit 1
+          fi
+          echo "ERROR: Stage 3 marker missing or failed (jump_rc=${jump_rc})"
+          exit 1
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: forest-music-stage3-report
+          path: forest-music-stage3-report.txt
+          if-no-files-found: warn
