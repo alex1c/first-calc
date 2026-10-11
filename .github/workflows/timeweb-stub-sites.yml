@@ -70,4 +70,3 @@ jobs:
           name: timeweb-stub-sites-report
           path: stub-sites-report.txt
           if-no-files-found: warn
-)
