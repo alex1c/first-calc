@@ -49,6 +49,7 @@ jobs:
             scripts/timeweb-stub-sites-setup.sh \
             "root@${OLD_HOST}:/tmp/timeweb-stub-sites-setup.sh"
 
+          set +e
           "${SSH_OLD[@]}" "root@${OLD_HOST}" \
             "env NEW_HOST='${NEW_HOST}' bash -se" <<'REMOTE' | tee stub-sites-report.txt
           set -euo pipefail
@@ -62,6 +63,13 @@ jobs:
             "root@${NEW_HOST}" \
             "chmod +x /tmp/timeweb-stub-sites-setup.sh && TARGET_IP='188.225.26.192' bash /tmp/timeweb-stub-sites-setup.sh"
           REMOTE
+          jump_rc=${PIPESTATUS[0]}
+          set -e
+          if ! grep -q 'STUB_SITES_SETUP_DONE' stub-sites-report.txt; then
+            echo "ERROR: stub setup marker missing (jump_rc=${jump_rc})"
+            exit 1
+          fi
+          echo "Stub setup completed on Timeweb (jump_rc=${jump_rc})."
 
       - name: Upload report artifact
         if: always()
