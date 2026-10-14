@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
 import { useClientT, type Dictionary } from '@/lib/i18n/useClientT'
+import { isValidMoneyFractionalInput } from '@/lib/propisyu/money-input'
 
 interface NumberToWordsFormProps {
 	locale: Locale
@@ -41,28 +42,43 @@ export function NumberToWordsForm({
 	const validateInput = (): boolean => {
 		setError('')
 
-		if (!value.trim()) {
+		const raw = value.trim()
+		if (!raw) {
 			setError(t('errors.validation.enterNumber'))
 			return false
 		}
 
-		const num = parseFloat(value.trim())
-		if (isNaN(num) || !Number.isFinite(num)) {
+		// Normalize decimal comma for validation (RU users often type 1,50).
+		const normalized = raw.replace(',', '.')
+		const num = Number.parseFloat(normalized)
+		if (Number.isNaN(num) || !Number.isFinite(num)) {
+			setError(t('errors.validation.enterValidNumber'))
+			return false
+		}
+
+		if (num < 0) {
 			setError(t('errors.validation.enterValidNumber'))
 			return false
 		}
 
 		// Validate range based on language
 		if (language === 'ru') {
-			if (num < 0 || num > 999_999_999) {
+			if (num > 999_999_999) {
 				setError(t('errors.validation.numberRangeRu'))
 				return false
 			}
 		} else {
-			if (num < 0 || num > 999_999_999_999) {
+			if (num > 999_999_999_999) {
 				setError(t('errors.validation.numberRangeEn'))
 				return false
 			}
+		}
+
+		// Money format: reject more than two fractional digits explicitly
+		// (never silently truncate 123.456 → 123.45).
+		if (format === 'money' && !isValidMoneyFractionalInput(raw)) {
+			setError(t('errors.validation.moneyMaxTwoDecimals'))
+			return false
 		}
 
 		return true
@@ -86,20 +102,22 @@ export function NumberToWordsForm({
 			if (isChisloPropisyu && language === 'ru') {
 				const raw = value.trim().replace(',', '.')
 				const parts = raw.split('.')
-				const rubles = parts[0] || '0'
-				const kopecksRaw = (parts[1] || '0').slice(0, 2).padEnd(2, '0')
+				// Strip leading zeros from rubles except a lone "0".
+				const rublesNum = Number.parseInt(parts[0] || '0', 10)
+				const rubles = String(Number.isFinite(rublesNum) ? rublesNum : 0)
+				const frac = parts[1] || '0'
+				// Validated ≤2 digits above; pad to exactly two kopeck digits.
+				const kopecksRaw = frac.padEnd(2, '0')
 				url = `${basePath}/${toolSlug}/${rubles}-${kopecksRaw}`
 			} else {
 				const currencySuffix = language === 'ru' ? 'rub' : 'usd'
-				const valueStr = value.trim().replace(/\./g, '.')
+				const valueStr = value.trim().replace(',', '.')
 				url = `${basePath}/${toolSlug}/${valueStr}-money-${currencySuffix}`
 			}
 		} else {
-			// For numeric format, append language suffix for chislo-propisyu
-			// Format: /toolSlug/value or /toolSlug/value-lang
-			const valueStr = value.trim()
+			// Numeric format: keep decimals; append -en when English output is selected.
+			const valueStr = value.trim().replace(',', '.')
 			if (isChisloPropisyu && language === 'en') {
-				// Add language suffix for English (Russian is default, no suffix needed)
 				url = `${basePath}/${toolSlug}/${valueStr}-en`
 			} else {
 				url = `${basePath}/${toolSlug}/${valueStr}`

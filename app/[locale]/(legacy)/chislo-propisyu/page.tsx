@@ -109,7 +109,7 @@ export default async function ChisloPropisyuLandingPage({
 				]}
 			/>
 
-			{/* Historical «База чисел» — 100 decade hubs (E2) */}
+			{/* Historical number base — 100 decade hubs */}
 			<div className="mt-10">
 				<NumberBaseNav locale={locale} />
 			</div>

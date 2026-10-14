@@ -163,11 +163,10 @@ export async function buildSitemapEntries(): Promise<ClassifiedSitemapEntry[]> {
 		}
 	}
 
-	// E2: historical «База чисел» decade hubs (exactly 100 × 10_000).
-	// Canonical family = /chislo-propisyu/{start}-{end} (GSC / archive «База
-	// чисел»), emitted once via default-locale (unprefixed) URLs to match the
-	// 2024 sitemap cardinality. Root `/0-9999/` duplicates and E3 chunks are
-	// not added. Money allowlist pages stay out of sitemap in E1.
+	// Historical «База чисел» decade hubs (exactly 100 × 10_000).
+	// Canonical family = /chislo-propisyu/{start}-{end}, emitted once via
+	// default-locale (unprefixed) URLs. Root `/0-9999/` duplicates and chunk
+	// tables are not added. Money allowlist pages stay out of the sitemap.
 	for (const hub of DECADE_HUBS) {
 		addEntry(entries, seen, 'en', hub.pathname, 'propisyu-decades')
 	}

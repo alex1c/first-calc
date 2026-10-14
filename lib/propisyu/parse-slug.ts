@@ -6,7 +6,12 @@
  * two digits (historical `{N}-{KK}` URLs).
  */
 
-import { findDecadeHub, isDecadeHubRange, PROPISYU_MAX_INTEGER } from './decades'
+import {
+	findDecadeHub,
+	isDecadeHubRange,
+	PROPISYU_CONVERTER_MAX,
+	PROPISYU_DECADE_MAX,
+} from './decades'
 
 export type PropisyuSlugKind =
 	| 'plain-number'
@@ -18,8 +23,15 @@ export type PropisyuSlugKind =
 
 export interface PropisyuPlainNumber {
 	kind: 'plain-number'
-	/** Non-negative integer amount (no currency). */
+	/** Non-negative amount (integer or historical decimal). */
 	value: number
+	/** True when the slug had no fractional part. */
+	isInteger: boolean
+	/**
+	 * Canonical path segment (preserves decimals and optional -en/-ru).
+	 * Used for self-canonical URLs so `123-en` does not collapse to `123`.
+	 */
+	canonicalSlug: string
 	/** Optional language suffix from historical URLs (`-en` / `-ru`). */
 	language?: 'ru' | 'en'
 }
@@ -99,9 +111,9 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 		return { kind: 'invalid', reason: 'empty-slug' }
 	}
 
-	// Nested paths are reserved for E3 chunks under root ranges — not under chislo.
+	// Nested paths under chislo are not supported (future chunk routes live elsewhere).
 	if (slug.length > 1) {
-		return { kind: 'invalid', reason: 'nested-slug-not-supported-in-e2' }
+		return { kind: 'invalid', reason: 'nested-slug-not-supported' }
 	}
 
 	const segment = decodeSegment(slug[0]).trim()
@@ -129,13 +141,16 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 	const languageMatch = segment.match(/^(\d+)-(en|ru)$/i)
 	if (languageMatch) {
 		const value = parseUnsignedInt(languageMatch[1])
-		if (value === null || value > PROPISYU_MAX_INTEGER) {
+		const language = languageMatch[2].toLowerCase() as 'ru' | 'en'
+		if (value === null || value > PROPISYU_CONVERTER_MAX) {
 			return { kind: 'invalid', reason: 'plain-number-out-of-range' }
 		}
 		return {
 			kind: 'plain-number',
 			value,
-			language: languageMatch[2].toLowerCase() as 'ru' | 'en',
+			isInteger: true,
+			canonicalSlug: `${value}-${language}`,
+			language,
 		}
 	}
 
@@ -147,7 +162,7 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 		if (rubles === null) {
 			return { kind: 'invalid', reason: 'money-rubles-invalid' }
 		}
-		if (rubles > PROPISYU_MAX_INTEGER) {
+		if (rubles > PROPISYU_CONVERTER_MAX) {
 			return { kind: 'invalid', reason: 'money-rubles-out-of-range' }
 		}
 		if (!Number.isInteger(kopecks) || kopecks < 0 || kopecks > 99) {
@@ -174,7 +189,8 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 		if (start > end) {
 			return { kind: 'invalid', reason: 'range-start-after-end' }
 		}
-		if (start < 0 || end > PROPISYU_MAX_INTEGER) {
+		// Decade / small-range tables stay within the 0…999999 number-base ceiling.
+		if (start < 0 || end > PROPISYU_DECADE_MAX) {
 			return { kind: 'invalid', reason: 'range-out-of-bounds' }
 		}
 		if (isDecadeHubRange(start, end)) {
@@ -190,13 +206,43 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 		return { kind: 'small-range', start, end }
 	}
 
-	// Plain integer
-	const plain = parseUnsignedInt(segment)
-	if (plain !== null) {
-		if (plain > PROPISYU_MAX_INTEGER) {
+	// Historical plain decimals: 123.45 or 123,45 (converter range, not decade).
+	const decimalMatch = segment.match(/^(\d+)[.,](\d+)$/)
+	if (decimalMatch) {
+		const wholeRaw = decimalMatch[1]
+		const fracRaw = decimalMatch[2]
+		const whole = parseUnsignedInt(wholeRaw)
+		if (whole === null) {
+			return { kind: 'invalid', reason: 'plain-decimal-invalid' }
+		}
+		if (!/^\d+$/.test(fracRaw) || fracRaw.length === 0) {
+			return { kind: 'invalid', reason: 'plain-decimal-invalid' }
+		}
+		const value = Number(`${whole}.${fracRaw}`)
+		if (!Number.isFinite(value) || value < 0 || value > PROPISYU_CONVERTER_MAX) {
 			return { kind: 'invalid', reason: 'plain-number-out-of-range' }
 		}
-		return { kind: 'plain-number', value: plain }
+		return {
+			kind: 'plain-number',
+			value,
+			isInteger: false,
+			// Dot canonical matches Wayback fractional URLs.
+			canonicalSlug: `${whole}.${fracRaw}`,
+		}
+	}
+
+	// Plain integer within converter range (includes 1_000_000…999_999_999).
+	const plain = parseUnsignedInt(segment)
+	if (plain !== null) {
+		if (plain > PROPISYU_CONVERTER_MAX) {
+			return { kind: 'invalid', reason: 'plain-number-out-of-range' }
+		}
+		return {
+			kind: 'plain-number',
+			value: plain,
+			isInteger: true,
+			canonicalSlug: String(plain),
+		}
 	}
 
 	return { kind: 'invalid', reason: 'unrecognized-slug' }

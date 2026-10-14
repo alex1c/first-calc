@@ -1,6 +1,9 @@
 /**
  * Historical «База чисел» decade hubs from the pre-Next first-calc.com sitemap
  * (Wayback 2024-11-06): 100 ranges of 10_000 covering 0…999_999.
+ *
+ * Decade ceiling and converter ceiling are separate: hubs stay 0…999_999 while
+ * plain / money conversion still supports up to 999_999_999.
  */
 
 export interface DecadeHub {
@@ -14,14 +17,17 @@ export interface DecadeHub {
 	pathname: string
 	/**
 	 * Legacy root pathname from the archived sitemap (`/0-9999/`).
-	 * Kept for documentation and future redirect decisions — not mass-redirected in E2.
+	 * Documented only — not mass-redirected.
 	 */
 	rootPathname: string
 }
 
 const DECADE_SIZE = 10_000
 const DECADE_COUNT = 100
-const MAX_NUMBER = 999_999
+/** Ceiling for «База чисел» decade hubs and small-range tables. */
+const DECADE_MAX = 999_999
+/** Ceiling for plain-number / money conversion (pre-E1 RU converter). */
+const CONVERTER_MAX = 999_999_999
 
 /**
  * Build the exact historical set of 100 non-overlapping decade hubs.
@@ -82,6 +88,17 @@ export function getAdjacentDecadeHubs(start: number, end: number): {
 	}
 }
 
-export const PROPISYU_MAX_INTEGER = MAX_NUMBER
+/** @deprecated Prefer PROPISYU_DECADE_MAX — historically meant the decade ceiling. */
+export const PROPISYU_MAX_INTEGER = DECADE_MAX
+export const PROPISYU_DECADE_MAX = DECADE_MAX
+export const PROPISYU_CONVERTER_MAX = CONVERTER_MAX
 export const PROPISYU_DECADE_SIZE = DECADE_SIZE
 export const PROPISYU_DECADE_COUNT = DECADE_COUNT
+
+/**
+ * Locales that may receive index,follow for full propisyu money / decade pages.
+ * ES/TR/HI stay reachable but noindex until localization is complete.
+ */
+export function isPropisyuIndexableLocale(locale: string): boolean {
+	return locale === 'en' || locale === 'ru'
+}

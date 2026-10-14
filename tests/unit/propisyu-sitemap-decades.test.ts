@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { buildSitemapEntries } from '@/app/sitemap'
 import { DECADE_HUBS, PROPISYU_DECADE_COUNT } from '@/lib/propisyu/decades'
 
-describe('propisyu decade sitemap segment (E2)', () => {
+describe('propisyu decade sitemap segment', () => {
 	it('exposes exactly 100 decade hubs', () => {
 		expect(DECADE_HUBS).toHaveLength(PROPISYU_DECADE_COUNT)
 		expect(DECADE_HUBS[0]).toMatchObject({
@@ -17,7 +17,7 @@ describe('propisyu decade sitemap segment (E2)', () => {
 		})
 	})
 
-	it('adds decade hubs to sitemap without money or E3 chunks', async () => {
+	it('adds decade hubs to sitemap without money or chunk tables', async () => {
 		const previousEnv = process.env.NEXT_PUBLIC_ENV
 		process.env.NEXT_PUBLIC_ENV = 'production'
 		try {

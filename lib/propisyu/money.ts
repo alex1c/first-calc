@@ -84,7 +84,9 @@ export function kopeckNoun(kopecks: number): string {
 }
 
 /**
- * Convert 0…99 for feminine kopeck context ("одна", "две").
+ * Convert 0…99 for feminine kopeck context.
+ * 1 → «одна», 2 → «две», 21 → «двадцать одна», 22 → «двадцать две».
+ * Teens (11–19) stay the standard forms from numberToWordsRu.
  */
 export function numberToWordsRuKopecks(kopecks: number): string {
 	if (kopecks < 0 || kopecks > 99 || !Number.isInteger(kopecks)) {
@@ -93,7 +95,24 @@ export function numberToWordsRuKopecks(kopecks: number): string {
 	if (kopecks === 0) return 'ноль'
 	if (kopecks === 1) return 'одна'
 	if (kopecks === 2) return 'две'
-	return numberToWordsRu(kopecks)
+	if (kopecks >= 3 && kopecks <= 19) {
+		return numberToWordsRu(kopecks)
+	}
+	const tens = Math.floor(kopecks / 10) * 10
+	const ones = kopecks % 10
+	const tensWord = numberToWordsRu(tens)
+	if (ones === 0) return tensWord
+	if (ones === 1) return `${tensWord} одна`
+	if (ones === 2) return `${tensWord} две`
+	return `${tensWord} ${numberToWordsRu(ones)}`
+}
+
+/**
+ * Display amount with a Russian decimal comma so numeric and verbal
+ * sides stay consistent (e.g. «1,50 руб.» for 1-50).
+ */
+export function formatMoneyAmountComma(amount: MoneyAmount): string {
+	return `${amount.rubles},${String(amount.kopecks).padStart(2, '0')}`
 }
 
 /**
@@ -177,8 +196,10 @@ export function buildMoneyCopyVariants(amount: MoneyAmount): MoneyCopyVariant[] 
 	const withDigits = `${words.rublesWords} ${words.rubleNoun} ${kopDigits} ${words.kopeckNoun}`
 	const withVat = `${capitalized}, в т.ч. НДС (20%) ${vat.vatDisplay} руб.`
 	const withVatWords = `${withVat} (${vat.vatWordsLower})`
-	const amountLower = `${amount.rubles} руб. (${lower}), в т.ч. НДС (20%) ${vat.vatDisplay} руб. (${vat.vatWordsLower})`
-	const amountCap = `${amount.rubles} руб. (${capitalized}, в т.ч. НДС (20%) ${vat.vatDisplay} руб. ${capitalizeFirst(vat.vatWordsLower)})`
+	// Variants 6–7: keep kopecks in the numeric prefix («1,50 руб.» not «1 руб.»).
+	const amountDisplay = formatMoneyAmountComma(amount)
+	const amountLower = `${amountDisplay} руб. (${lower}), в т.ч. НДС (20%) ${vat.vatDisplay} руб. (${vat.vatWordsLower})`
+	const amountCap = `${amountDisplay} руб. (${capitalized}, в т.ч. НДС (20%) ${vat.vatDisplay} руб. ${capitalizeFirst(vat.vatWordsLower)})`
 
 	return [
 		{ id: 'lower', label: 'Строчными', text: lower },

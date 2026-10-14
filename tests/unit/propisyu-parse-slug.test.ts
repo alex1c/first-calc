@@ -1,28 +1,84 @@
 import { describe, expect, it } from 'vitest'
 import { parsePropisyuSlug } from '@/lib/propisyu/parse-slug'
-import { DECADE_HUBS, PROPISYU_DECADE_COUNT } from '@/lib/propisyu/decades'
+import {
+	DECADE_HUBS,
+	PROPISYU_CONVERTER_MAX,
+	PROPISYU_DECADE_COUNT,
+	PROPISYU_DECADE_MAX,
+} from '@/lib/propisyu/decades'
 
 describe('parsePropisyuSlug', () => {
 	it('parses plain integers without parseFloat range confusion', () => {
 		expect(parsePropisyuSlug(['0'])).toEqual({
 			kind: 'plain-number',
 			value: 0,
+			isInteger: true,
+			canonicalSlug: '0',
 		})
 		expect(parsePropisyuSlug(['101'])).toEqual({
 			kind: 'plain-number',
 			value: 101,
+			isInteger: true,
+			canonicalSlug: '101',
 		})
 		expect(parsePropisyuSlug(['999999'])).toEqual({
 			kind: 'plain-number',
 			value: 999999,
+			isInteger: true,
+			canonicalSlug: '999999',
 		})
 	})
 
-	it('parses language suffixes on plain numbers', () => {
+	it('parses converter-range integers above the decade ceiling', () => {
+		expect(parsePropisyuSlug(['1000000'])).toMatchObject({
+			kind: 'plain-number',
+			value: 1_000_000,
+			isInteger: true,
+			canonicalSlug: '1000000',
+		})
+		expect(parsePropisyuSlug(['999999999'])).toMatchObject({
+			kind: 'plain-number',
+			value: PROPISYU_CONVERTER_MAX,
+			isInteger: true,
+		})
+		expect(parsePropisyuSlug(['1000000000']).kind).toBe('invalid')
+	})
+
+	it('parses historical plain decimals (dot and comma)', () => {
+		expect(parsePropisyuSlug(['123.45'])).toEqual({
+			kind: 'plain-number',
+			value: 123.45,
+			isInteger: false,
+			canonicalSlug: '123.45',
+		})
+		expect(parsePropisyuSlug(['0.01'])).toEqual({
+			kind: 'plain-number',
+			value: 0.01,
+			isInteger: false,
+			canonicalSlug: '0.01',
+		})
+		expect(parsePropisyuSlug(['123,45'])).toEqual({
+			kind: 'plain-number',
+			value: 123.45,
+			isInteger: false,
+			canonicalSlug: '123.45',
+		})
+	})
+
+	it('parses language suffixes on plain numbers with self-canonical slug', () => {
 		expect(parsePropisyuSlug(['21-en'])).toEqual({
 			kind: 'plain-number',
 			value: 21,
+			isInteger: true,
+			canonicalSlug: '21-en',
 			language: 'en',
+		})
+		expect(parsePropisyuSlug(['123-ru'])).toEqual({
+			kind: 'plain-number',
+			value: 123,
+			isInteger: true,
+			canonicalSlug: '123-ru',
+			language: 'ru',
 		})
 	})
 
@@ -70,6 +126,11 @@ describe('parsePropisyuSlug', () => {
 			rubles: 11,
 			kopecks: 11,
 		})
+		expect(parsePropisyuSlug(['21-21'])).toMatchObject({
+			kind: 'money',
+			rubles: 21,
+			kopecks: 21,
+		})
 	})
 
 	it('treats 0-9999 as a decade hub, never as number 0', () => {
@@ -83,6 +144,7 @@ describe('parsePropisyuSlug', () => {
 
 	it('recognizes all 100 historical decade hubs', () => {
 		expect(DECADE_HUBS).toHaveLength(PROPISYU_DECADE_COUNT)
+		expect(PROPISYU_DECADE_MAX).toBe(999_999)
 		for (const hub of DECADE_HUBS) {
 			const parsed = parsePropisyuSlug([hub.slug])
 			expect(parsed.kind).toBe('decade-hub')

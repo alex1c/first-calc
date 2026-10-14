@@ -1,6 +1,6 @@
 /**
  * Decade hub body: purpose, adjacent navigation, sample entry points.
- * Does not emit 10_000 per-number links (E2 constraint). Chunks of 50 are E3.
+ * Does not emit 10_000 per-number links. Full chunk tables are out of scope.
  */
 
 import Link from 'next/link'
@@ -36,35 +36,64 @@ export function DecadeHubContent({ locale, hub }: DecadeHubContentProps) {
 	const { previous, next } = getAdjacentDecadeHubs(hub.start, hub.end)
 	const samples = sampleMoneySlugs(hub)
 	const converterHref = localePath(locale, '/chislo-propisyu')
+	const isRu = locale === 'ru'
 
 	return (
 		<div className="space-y-10">
 			<section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
 				<p className="mb-4 text-slate-700">
-					Страница диапазона <strong>{hub.slug}</strong> — часть исторической
-					«Базы чисел». Здесь собрана навигация по соседним диапазонам и примеры
-					сумм прописью внутри этого интервала. Полные таблицы по 50 чисел
-					(исторические chunk-страницы) появятся на этапе E3.
+					{isRu ? (
+						<>
+							Страница диапазона <strong>{hub.slug}</strong> — часть
+							исторической «Базы чисел». Здесь собрана навигация по соседним
+							диапазонам и примеры сумм прописью внутри этого интервала.
+						</>
+					) : (
+						<>
+							Range page <strong>{hub.slug}</strong> is part of the historical
+							number base. Use neighbouring ranges and sample amounts in words
+							inside this interval.
+						</>
+					)}
 				</p>
 				<p className="text-sm text-slate-600">
-					Любую сумму в диапазоне можно открыть как{' '}
-					<code className="rounded bg-slate-100 px-1">
-						/chislo-propisyu/N-00
-					</code>{' '}
-					или через{' '}
-					<Link
-						href={converterHref}
-						className="font-medium text-blue-700 hover:underline"
-					>
-						основной конвертер
-					</Link>
-					.
+					{isRu ? (
+						<>
+							Любую сумму в диапазоне можно открыть как{' '}
+							<code className="rounded bg-slate-100 px-1">
+								/chislo-propisyu/N-00
+							</code>{' '}
+							или через{' '}
+							<Link
+								href={converterHref}
+								className="font-medium text-blue-700 hover:underline"
+							>
+								основной конвертер
+							</Link>
+							.
+						</>
+					) : (
+						<>
+							Any amount in the range can be opened as{' '}
+							<code className="rounded bg-slate-100 px-1">
+								/chislo-propisyu/N-00
+							</code>{' '}
+							or via the{' '}
+							<Link
+								href={converterHref}
+								className="font-medium text-blue-700 hover:underline"
+							>
+								main converter
+							</Link>
+							.
+						</>
+					)}
 				</p>
 			</section>
 
 			<nav
 				className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
-				aria-label="Соседние диапазоны"
+				aria-label={isRu ? 'Соседние диапазоны' : 'Adjacent ranges'}
 			>
 				{previous ? (
 					<Link
@@ -74,7 +103,9 @@ export function DecadeHubContent({ locale, hub }: DecadeHubContentProps) {
 						← {previous.slug}
 					</Link>
 				) : (
-					<span className="text-sm text-slate-400">Начало базы</span>
+					<span className="text-sm text-slate-400">
+						{isRu ? 'Начало базы' : 'Start of base'}
+					</span>
 				)}
 				{next ? (
 					<Link
@@ -84,17 +115,20 @@ export function DecadeHubContent({ locale, hub }: DecadeHubContentProps) {
 						{next.slug} →
 					</Link>
 				) : (
-					<span className="text-sm text-slate-400">Конец базы</span>
+					<span className="text-sm text-slate-400">
+						{isRu ? 'Конец базы' : 'End of base'}
+					</span>
 				)}
 			</nav>
 
 			<section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
 				<h2 className="mb-3 text-lg font-semibold text-slate-900">
-					Примеры сумм в диапазоне
+					{isRu ? 'Примеры сумм в диапазоне' : 'Sample amounts in this range'}
 				</h2>
 				<p className="mb-4 text-sm text-slate-600">
-					Неполный список (до 10 точек) для перехода к денежным страницам без
-					генерации тысяч ссылок.
+					{isRu
+						? 'Неполный список (до 10 точек) для перехода к денежным страницам без генерации тысяч ссылок.'
+						: 'A short list (up to 10 points) linking to money pages without generating thousands of URLs.'}
 				</p>
 				<ul className="flex flex-wrap gap-2">
 					{samples.map((slug) => (
