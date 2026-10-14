@@ -1,6 +1,6 @@
 /**
- * Decade hub body: purpose, adjacent navigation, sample entry points.
- * Does not emit 10_000 per-number links. Full chunk tables are out of scope.
+ * Decade hub body: purpose, adjacent navigation, and server-rendered
+ * sample spellings inside the range (not 10_000 links, not E3 chunks).
  */
 
 import Link from 'next/link'
@@ -11,30 +11,48 @@ import {
 import { NumberBaseNav } from '@/components/propisyu/number-base-nav'
 import { localePath } from '@/lib/site-url'
 import type { Locale } from '@/lib/i18n'
+import { numberToWordsRu } from '@/lib/numberToWordsRu'
 
 interface DecadeHubContentProps {
 	locale: Locale
 	hub: DecadeHub
 }
 
+interface HubExample {
+	value: number
+	words: string
+	href: string
+}
+
 /**
- * Build up to 10 evenly spaced sample money URLs inside the decade.
- * These are discovery links only — not a full enumeration.
+ * Pick a small set of useful integers inside [start, end]:
+ * start, mid-ish points, and end — then spell them in Russian (content language
+ * of the historical number base).
  */
-function sampleMoneySlugs(hub: DecadeHub): string[] {
-	const samples: string[] = []
+function buildHubExamples(hub: DecadeHub, locale: Locale): HubExample[] {
 	const span = hub.end - hub.start
-	const steps = 9
-	for (let i = 0; i <= steps; i++) {
-		const value = hub.start + Math.floor((span * i) / steps)
-		samples.push(`${value}-00`)
-	}
-	return [...new Set(samples)]
+	const candidates = [
+		hub.start,
+		hub.start + Math.min(1, span),
+		hub.start + Math.floor(span * 0.25),
+		hub.start + Math.floor(span * 0.5),
+		hub.start + Math.floor(span * 0.75),
+		hub.end,
+	]
+	const unique = [...new Set(candidates)].filter(
+		(n) => n >= hub.start && n <= hub.end,
+	)
+
+	return unique.map((value) => ({
+		value,
+		words: numberToWordsRu(value),
+		href: localePath(locale, `/chislo-propisyu/${value}`),
+	}))
 }
 
 export function DecadeHubContent({ locale, hub }: DecadeHubContentProps) {
 	const { previous, next } = getAdjacentDecadeHubs(hub.start, hub.end)
-	const samples = sampleMoneySlugs(hub)
+	const examples = buildHubExamples(hub, locale)
 	const converterHref = localePath(locale, '/chislo-propisyu')
 	const isRu = locale === 'ru'
 
@@ -45,45 +63,38 @@ export function DecadeHubContent({ locale, hub }: DecadeHubContentProps) {
 					{isRu ? (
 						<>
 							Страница диапазона <strong>{hub.slug}</strong> — часть
-							исторической «Базы чисел». Здесь собрана навигация по соседним
-							диапазонам и примеры сумм прописью внутри этого интервала.
+							исторической «Базы чисел». Ниже — несколько чисел из этого
+							интервала с правильным написанием прописью и ссылками на их
+							страницы, плюс переход к соседним диапазонам.
 						</>
 					) : (
 						<>
 							Range page <strong>{hub.slug}</strong> is part of the historical
-							number base. Use neighbouring ranges and sample amounts in words
-							inside this interval.
+							Russian number base. Below are sample integers from this interval
+							with Russian spellings and links, plus neighbouring ranges.
 						</>
 					)}
 				</p>
 				<p className="text-sm text-slate-600">
 					{isRu ? (
 						<>
-							Любую сумму в диапазоне можно открыть как{' '}
-							<code className="rounded bg-slate-100 px-1">
-								/chislo-propisyu/N-00
-							</code>{' '}
-							или через{' '}
+							Полный конвертер:{' '}
 							<Link
 								href={converterHref}
 								className="font-medium text-blue-700 hover:underline"
 							>
-								основной конвертер
+								число прописью
 							</Link>
 							.
 						</>
 					) : (
 						<>
-							Any amount in the range can be opened as{' '}
-							<code className="rounded bg-slate-100 px-1">
-								/chislo-propisyu/N-00
-							</code>{' '}
-							or via the{' '}
+							Full converter:{' '}
 							<Link
 								href={converterHref}
 								className="font-medium text-blue-700 hover:underline"
 							>
-								main converter
+								number to words
 							</Link>
 							.
 						</>
@@ -121,24 +132,33 @@ export function DecadeHubContent({ locale, hub }: DecadeHubContentProps) {
 				)}
 			</nav>
 
-			<section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+			<section
+				className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
+				lang="ru"
+			>
 				<h2 className="mb-3 text-lg font-semibold text-slate-900">
-					{isRu ? 'Примеры сумм в диапазоне' : 'Sample amounts in this range'}
+					{isRu
+						? 'Примеры написания чисел в диапазоне'
+						: 'Sample spellings in this range'}
 				</h2>
 				<p className="mb-4 text-sm text-slate-600">
 					{isRu
-						? 'Неполный список (до 10 точек) для перехода к денежным страницам без генерации тысяч ссылок.'
-						: 'A short list (up to 10 points) linking to money pages without generating thousands of URLs.'}
+						? 'Серверно сформированные примеры (не полный перечень). Каждая строка ведёт на страницу числа.'
+						: 'Server-rendered samples (not a full list). Each row links to that number’s page.'}
 				</p>
-				<ul className="flex flex-wrap gap-2">
-					{samples.map((slug) => (
-						<li key={slug}>
+				<ul className="divide-y divide-slate-100">
+					{examples.map((example) => (
+						<li
+							key={example.value}
+							className="flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:justify-between"
+						>
 							<Link
-								href={localePath(locale, `/chislo-propisyu/${slug}`)}
-								className="inline-block rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-800 hover:border-blue-400 hover:text-blue-700"
+								href={example.href}
+								className="font-medium text-blue-700 hover:underline"
 							>
-								{slug}
+								{example.value.toLocaleString('ru-RU')}
 							</Link>
+							<span className="text-slate-800">{example.words}</span>
 						</li>
 					))}
 				</ul>

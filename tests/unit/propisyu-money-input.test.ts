@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
 	isValidMoneyFractionalInput,
 	moneyFractionalDigitCount,
+	validatePropisyuFormInput,
 } from '@/lib/propisyu/money-input'
 
 describe('propisyu money input validation', () => {
@@ -20,10 +21,43 @@ describe('propisyu money input validation', () => {
 		expect(moneyFractionalDigitCount('123.456')).toBe(3)
 	})
 
-	it('rejects empty, negative, and non-numeric input', () => {
+	it('rejects empty, negative, exponent, and non-numeric input', () => {
 		expect(isValidMoneyFractionalInput('')).toBe(false)
 		expect(isValidMoneyFractionalInput('-1')).toBe(false)
+		expect(isValidMoneyFractionalInput('1e3')).toBe(false)
 		expect(isValidMoneyFractionalInput('abc')).toBe(false)
 		expect(moneyFractionalDigitCount('')).toBe(null)
+	})
+
+	it('builds normalized URL segments shared with the router', () => {
+		expect(
+			validatePropisyuFormInput('1,50', { format: 'money', language: 'ru' }),
+		).toEqual({
+			ok: true,
+			normalized: '1.50',
+			urlSegment: '1-50',
+		})
+		expect(
+			validatePropisyuFormInput('00021.05', {
+				format: 'numeric',
+				language: 'en',
+			}),
+		).toEqual({
+			ok: true,
+			normalized: '21.05',
+			urlSegment: '21.05-en',
+		})
+		expect(
+			validatePropisyuFormInput('123.456', {
+				format: 'money',
+				language: 'ru',
+			}).ok,
+		).toBe(false)
+		expect(
+			validatePropisyuFormInput('1e3', {
+				format: 'numeric',
+				language: 'ru',
+			}).ok,
+		).toBe(false)
 	})
 })

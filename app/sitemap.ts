@@ -164,11 +164,12 @@ export async function buildSitemapEntries(): Promise<ClassifiedSitemapEntry[]> {
 	}
 
 	// Historical «База чисел» decade hubs (exactly 100 × 10_000).
-	// Canonical family = /chislo-propisyu/{start}-{end}, emitted once via
-	// default-locale (unprefixed) URLs. Root `/0-9999/` duplicates and chunk
-	// tables are not added. Money allowlist pages stay out of the sitemap.
+	// Indexable owner is the Russian URL family (/ru/chislo-propisyu/...),
+	// matching Russian content language. Unprefixed shells stay reachable but
+	// noindex. Root `/0-9999/` duplicates and chunk tables are not added.
+	// Money allowlist pages stay out of the sitemap (controlled robots only).
 	for (const hub of DECADE_HUBS) {
-		addEntry(entries, seen, 'en', hub.pathname, 'propisyu-decades')
+		addEntry(entries, seen, 'ru', hub.pathname, 'propisyu-decades')
 	}
 
 	return entries

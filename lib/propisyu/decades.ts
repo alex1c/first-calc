@@ -26,8 +26,10 @@ const DECADE_SIZE = 10_000
 const DECADE_COUNT = 100
 /** Ceiling for «База чисел» decade hubs and small-range tables. */
 const DECADE_MAX = 999_999
-/** Ceiling for plain-number / money conversion (pre-E1 RU converter). */
+/** RU converter ceiling (matches numberToWordsRu). */
 const CONVERTER_MAX = 999_999_999
+/** EN converter ceiling (matches numberToWordsEn). */
+const CONVERTER_MAX_EN = 999_999_999_999
 
 /**
  * Build the exact historical set of 100 non-overlapping decade hubs.
@@ -92,12 +94,13 @@ export function getAdjacentDecadeHubs(start: number, end: number): {
 export const PROPISYU_MAX_INTEGER = DECADE_MAX
 export const PROPISYU_DECADE_MAX = DECADE_MAX
 export const PROPISYU_CONVERTER_MAX = CONVERTER_MAX
+export const PROPISYU_CONVERTER_MAX_EN = CONVERTER_MAX_EN
 export const PROPISYU_DECADE_SIZE = DECADE_SIZE
 export const PROPISYU_DECADE_COUNT = DECADE_COUNT
 
 /**
- * Locales that may receive index,follow for full propisyu money / decade pages.
- * ES/TR/HI stay reachable but noindex until localization is complete.
+ * @deprecated Prefer resolvePropisyuSeo — money/hubs index on RU only.
+ * Kept for older tests that treated en|ru as "supported" shells.
  */
 export function isPropisyuIndexableLocale(locale: string): boolean {
 	return locale === 'en' || locale === 'ru'

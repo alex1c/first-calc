@@ -1,17 +1,25 @@
 /**
  * Explicit typed slug parser for /chislo-propisyu/{slug} routes.
  *
- * Does NOT use parseFloat for route classification — that incorrectly treated
- * "0-9999" as the number 0. Money is detected only when kopecks are exactly
- * two digits (historical `{N}-{KK}` URLs).
+ * Uses shared strict-number helpers so UI validation, URL building, and
+ * server conversion share one full-string policy (no parseFloat prefix tricks).
  */
 
 import {
 	findDecadeHub,
 	isDecadeHubRange,
-	PROPISYU_CONVERTER_MAX,
 	PROPISYU_DECADE_MAX,
 } from './decades'
+import {
+	converterMaxForLanguage,
+	decodeSlugSegment,
+	parseStrictLanguageSuffixedNumber,
+	parseStrictLegacyMoneySegment,
+	parseStrictNonNegativeNumber,
+	PROPISYU_RU_MAX,
+	type PropisyuMoneyCurrency,
+	type PropisyuWordLanguage,
+} from './strict-number'
 
 export type PropisyuSlugKind =
 	| 'plain-number'
@@ -23,28 +31,17 @@ export type PropisyuSlugKind =
 
 export interface PropisyuPlainNumber {
 	kind: 'plain-number'
-	/** Non-negative amount (integer or historical decimal). */
 	value: number
-	/** True when the slug had no fractional part. */
 	isInteger: boolean
-	/**
-	 * Canonical path segment (preserves decimals and optional -en/-ru).
-	 * Used for self-canonical URLs so `123-en` does not collapse to `123`.
-	 */
 	canonicalSlug: string
-	/** Optional language suffix from historical URLs (`-en` / `-ru`). */
-	language?: 'ru' | 'en'
+	language?: PropisyuWordLanguage
 }
 
 export interface PropisyuMoney {
 	kind: 'money'
-	/** Whole rubles (integer). */
 	rubles: number
-	/** Kopecks 0…99 (exactly two digits in the URL). */
 	kopecks: number
-	/** Total amount in integer kopecks (avoids float money math). */
 	totalKopecks: number
-	/** Canonical slug without trailing slash, e.g. "420-00". */
 	canonicalSlug: string
 }
 
@@ -61,13 +58,14 @@ export interface PropisyuSmallRange {
 	end: number
 }
 
-/** Existing Next money format: `555.23-money-usd` (kept for compatibility). */
 export interface PropisyuLegacyMoneyCurrency {
 	kind: 'legacy-money-currency'
-	/** Original segment for downstream legacy converters. */
 	segment: string
+	/** Strict-normalized amount label (dot decimal). */
 	numberLabel: string
-	currency: 'rub' | 'usd' | 'eur'
+	value: number
+	isInteger: boolean
+	currency: PropisyuMoneyCurrency
 }
 
 export interface PropisyuInvalid {
@@ -83,23 +81,15 @@ export type PropisyuSlugParseResult =
 	| PropisyuLegacyMoneyCurrency
 	| PropisyuInvalid
 
-function decodeSegment(raw: string): string {
-	try {
-		return decodeURIComponent(raw)
-	} catch {
-		return raw
-	}
-}
-
 /**
- * Parse a digits-only unsigned integer string (no leading sign, no decimals).
+ * Digits-only unsigned integer for range / money-ruble fields.
+ * Leading zeros other than a lone "0" are rejected for URL stability.
  */
-function parseUnsignedInt(raw: string): number | null {
+function parseUnsignedIntStrict(raw: string): number | null {
 	if (!/^\d+$/.test(raw)) return null
-	// Reject absurd leading zeros except a lone "0"
 	if (raw.length > 1 && raw.startsWith('0')) return null
 	const value = Number(raw)
-	if (!Number.isSafeInteger(value)) return null
+	if (!Number.isSafeInteger(value) || value < 0) return null
 	return value
 }
 
@@ -111,58 +101,58 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 		return { kind: 'invalid', reason: 'empty-slug' }
 	}
 
-	// Nested paths under chislo are not supported (future chunk routes live elsewhere).
 	if (slug.length > 1) {
 		return { kind: 'invalid', reason: 'nested-slug-not-supported' }
 	}
 
-	const segment = decodeSegment(slug[0]).trim()
+	const segment = decodeSlugSegment(slug[0]).trim()
 	if (!segment) {
 		return { kind: 'invalid', reason: 'empty-segment' }
 	}
 
-	// Legacy Next format: 555.23-money-usd (keep working, separate from historical money)
-	if (segment.includes('-money')) {
-		const numberPart = segment.split('-money')[0]
-		const after = segment.split('-money')[1]?.replace(/^-/, '').toLowerCase()
-		let currency: 'rub' | 'usd' | 'eur' = 'rub'
-		if (after === 'usd' || after === 'eur' || after === 'rub') {
-			currency = after
+	// Legacy Next format: 555.23-money-usd (strict amount + exact currency).
+	if (/-money/i.test(segment)) {
+		const legacy = parseStrictLegacyMoneySegment(segment, {
+			max: PROPISYU_RU_MAX,
+		})
+		if (!legacy.ok) {
+			return { kind: 'invalid', reason: legacy.reason }
 		}
 		return {
 			kind: 'legacy-money-currency',
-			segment,
-			numberLabel: numberPart,
-			currency,
+			segment: legacy.segment,
+			numberLabel: legacy.normalized,
+			value: legacy.value,
+			isInteger: legacy.isInteger,
+			currency: legacy.currency,
 		}
 	}
 
-	// Language suffix on a plain integer: 123-en / 123-ru
-	const languageMatch = segment.match(/^(\d+)-(en|ru)$/i)
-	if (languageMatch) {
-		const value = parseUnsignedInt(languageMatch[1])
-		const language = languageMatch[2].toLowerCase() as 'ru' | 'en'
-		if (value === null || value > PROPISYU_CONVERTER_MAX) {
-			return { kind: 'invalid', reason: 'plain-number-out-of-range' }
-		}
+	// Language suffix: 123-en / 123.45-en / 1000000000-en (EN ceiling).
+	const withLang = parseStrictLanguageSuffixedNumber(segment)
+	if (withLang.ok) {
 		return {
 			kind: 'plain-number',
-			value,
-			isInteger: true,
-			canonicalSlug: `${value}-${language}`,
-			language,
+			value: withLang.value,
+			isInteger: withLang.isInteger,
+			canonicalSlug: withLang.canonicalSlug,
+			language: withLang.language,
 		}
 	}
+	// Distinguish "looks like suffix but invalid amount" from "not a suffix".
+	if (segment.match(/-(en|ru)$/i) && !withLang.ok) {
+		return { kind: 'invalid', reason: withLang.reason }
+	}
 
-	// Historical money: {N}-{KK} where KK is exactly two digits (00–99)
+	// Historical money: {N}-{KK} with exactly two kopeck digits.
 	const moneyMatch = segment.match(/^(\d+)-(\d{2})$/)
 	if (moneyMatch) {
-		const rubles = parseUnsignedInt(moneyMatch[1])
+		const rubles = parseUnsignedIntStrict(moneyMatch[1])
 		const kopecks = Number(moneyMatch[2])
 		if (rubles === null) {
 			return { kind: 'invalid', reason: 'money-rubles-invalid' }
 		}
-		if (rubles > PROPISYU_CONVERTER_MAX) {
+		if (rubles > PROPISYU_RU_MAX) {
 			return { kind: 'invalid', reason: 'money-rubles-out-of-range' }
 		}
 		if (!Number.isInteger(kopecks) || kopecks < 0 || kopecks > 99) {
@@ -178,18 +168,17 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 		}
 	}
 
-	// Decade hub or other a-b range (kopecks already handled above)
+	// Decade hub or other a-b range.
 	const rangeMatch = segment.match(/^(\d+)-(\d+)$/)
 	if (rangeMatch) {
-		const start = parseUnsignedInt(rangeMatch[1])
-		const end = parseUnsignedInt(rangeMatch[2])
+		const start = parseUnsignedIntStrict(rangeMatch[1])
+		const end = parseUnsignedIntStrict(rangeMatch[2])
 		if (start === null || end === null) {
 			return { kind: 'invalid', reason: 'range-bounds-invalid' }
 		}
 		if (start > end) {
 			return { kind: 'invalid', reason: 'range-start-after-end' }
 		}
-		// Decade / small-range tables stay within the 0…999999 number-base ceiling.
 		if (start < 0 || end > PROPISYU_DECADE_MAX) {
 			return { kind: 'invalid', reason: 'range-out-of-bounds' }
 		}
@@ -202,48 +191,22 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 				slug: hub.slug,
 			}
 		}
-		// Non-decade dash pairs with a 3+ digit end (e.g. 100-199) stay small ranges.
 		return { kind: 'small-range', start, end }
 	}
 
-	// Historical plain decimals: 123.45 or 123,45 (converter range, not decade).
-	const decimalMatch = segment.match(/^(\d+)[.,](\d+)$/)
-	if (decimalMatch) {
-		const wholeRaw = decimalMatch[1]
-		const fracRaw = decimalMatch[2]
-		const whole = parseUnsignedInt(wholeRaw)
-		if (whole === null) {
-			return { kind: 'invalid', reason: 'plain-decimal-invalid' }
-		}
-		if (!/^\d+$/.test(fracRaw) || fracRaw.length === 0) {
-			return { kind: 'invalid', reason: 'plain-decimal-invalid' }
-		}
-		const value = Number(`${whole}.${fracRaw}`)
-		if (!Number.isFinite(value) || value < 0 || value > PROPISYU_CONVERTER_MAX) {
-			return { kind: 'invalid', reason: 'plain-number-out-of-range' }
-		}
+	// Plain number (default language = Russian ceiling unless -en was used).
+	const plain = parseStrictNonNegativeNumber(segment, {
+		max: converterMaxForLanguage('ru'),
+		rejectExponent: true,
+	})
+	if (plain.ok) {
 		return {
 			kind: 'plain-number',
-			value,
-			isInteger: false,
-			// Dot canonical matches Wayback fractional URLs.
-			canonicalSlug: `${whole}.${fracRaw}`,
+			value: plain.value,
+			isInteger: plain.isInteger,
+			canonicalSlug: plain.normalized,
 		}
 	}
 
-	// Plain integer within converter range (includes 1_000_000…999_999_999).
-	const plain = parseUnsignedInt(segment)
-	if (plain !== null) {
-		if (plain > PROPISYU_CONVERTER_MAX) {
-			return { kind: 'invalid', reason: 'plain-number-out-of-range' }
-		}
-		return {
-			kind: 'plain-number',
-			value: plain,
-			isInteger: true,
-			canonicalSlug: String(plain),
-		}
-	}
-
-	return { kind: 'invalid', reason: 'unrecognized-slug' }
+	return { kind: 'invalid', reason: plain.reason || 'unrecognized-slug' }
 }

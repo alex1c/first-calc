@@ -30,18 +30,17 @@ import {
 import { loadNamespaces, createT } from '@/lib/i18n'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { NumberToWordsForm } from '@/components/legacy/number-to-words-form'
-import { languageAlternates, localePath, localeUrl } from '@/lib/site-url'
+import { localePath } from '@/lib/site-url'
 import {
 	parsePropisyuSlug,
 	buildMoneySeoTitle,
 	buildMoneySeoH1,
 	buildMoneySeoDescription,
 	moneyAmountFromParts,
-	isMoneySlugIndexable,
-	moneyCanonicalPath,
 	findDecadeHub,
-	isPropisyuIndexableLocale,
 	PROPISYU_DECADE_MAX,
+	resolvePropisyuSeo,
+	propisyuAlternates,
 } from '@/lib/propisyu'
 import { MoneyResult } from '@/components/propisyu/money-result'
 import { DecadeHubContent } from '@/components/propisyu/decade-hub-content'
@@ -53,28 +52,6 @@ interface ChisloPropisyuPageProps {
 		locale: Locale
 		slug: string[]
 	}
-}
-
-/**
- * Robots for dynamic chislo routes.
- * Index only when the locale is fully supported (en/ru) AND the page is an
- * allowlisted money URL or a decade hub. ES/TR/HI stay noindex even if the
- * slug matches a Russian historical page.
- */
-function resolveRobots(
-	parsed: ReturnType<typeof parsePropisyuSlug>,
-	locale: Locale,
-): string {
-	if (!isPropisyuIndexableLocale(locale)) {
-		return 'noindex, follow'
-	}
-	if (parsed.kind === 'decade-hub') {
-		return 'index, follow'
-	}
-	if (parsed.kind === 'money' && isMoneySlugIndexable(parsed.canonicalSlug)) {
-		return 'index, follow'
-	}
-	return 'noindex, follow'
 }
 
 export async function generateMetadata({
@@ -98,8 +75,7 @@ export async function generateMetadata({
 		const amount = moneyAmountFromParts(parsed.rubles, parsed.kopecks)
 		title = buildMoneySeoTitle(amount)
 		description = buildMoneySeoDescription(amount)
-		// Prefer historical money slug as self-canonical (normalized).
-		canonicalPath = moneyCanonicalPath(parsed.canonicalSlug)
+		canonicalPath = `/chislo-propisyu/${parsed.canonicalSlug}`
 	} else if (parsed.kind === 'decade-hub') {
 		title =
 			locale === 'ru'
@@ -107,8 +83,8 @@ export async function generateMetadata({
 				: `Numbers ${parsed.start}–${parsed.end} in words — number base`
 		description =
 			locale === 'ru'
-				? `Диапазон ${parsed.slug} из исторической базы чисел first-calc.com. Навигация по суммам прописью.`
-				: `Range ${parsed.slug} from the historical number base. Navigate amounts in words.`
+				? `Диапазон ${parsed.slug} из исторической базы чисел first-calc.com. Примеры написания чисел прописью и навигация по соседним диапазонам.`
+				: `Range ${parsed.slug} from the historical number base with sample spellings and neighbouring ranges.`
 		canonicalPath = `/chislo-propisyu/${parsed.slug}`
 	} else if (parsed.kind === 'plain-number') {
 		try {
@@ -134,7 +110,6 @@ export async function generateMetadata({
 					? `Число ${parsed.canonicalSlug} прописью – калькулятор`
 					: `Number ${parsed.canonicalSlug} in Words – Calculator`
 		}
-		// Keep -en/-ru and decimal segments in the self-canonical path.
 		canonicalPath = `/chislo-propisyu/${parsed.canonicalSlug}`
 	} else if (parsed.kind === 'small-range') {
 		title =
@@ -147,15 +122,7 @@ export async function generateMetadata({
 				: `Convert numbers from ${parsed.start} to ${parsed.end} to words.`
 	}
 
-	const robots = resolveRobots(parsed, locale)
-	const indexableLocale = isPropisyuIndexableLocale(locale)
-	// Historical money/hubs: unprefixed EN path for en/ru. Incomplete locales
-	// keep a self-canonical + noindex so they do not claim another language.
-	const canonicalLocale: Locale =
-		(parsed.kind === 'money' || parsed.kind === 'decade-hub') &&
-		indexableLocale
-			? 'en'
-			: locale
+	const seo = resolvePropisyuSeo(parsed, locale, canonicalPath)
 
 	return {
 		title: parsed.kind === 'money' ? title : `${title} - First Calc`,
@@ -163,22 +130,19 @@ export async function generateMetadata({
 		keywords:
 			content?.keywords[contentLocale]?.join(', ') ||
 			'число прописью, конвертер чисел, пропись, number to words',
-		robots,
+		robots: seo.robots,
 		openGraph: {
 			title: parsed.kind === 'money' ? title : ogTitle,
 			description: parsed.kind === 'money' ? description : ogDescription,
 			type: 'website',
+			locale: seo.contentLanguage === 'ru' ? 'ru_RU' : 'en_US',
 		},
 		twitter: {
 			card: 'summary_large_image',
 			title: parsed.kind === 'money' ? title : ogTitle,
 			description: parsed.kind === 'money' ? description : ogDescription,
 		},
-		alternates: {
-			// Only advertise fully supported locales in hreflang.
-			languages: languageAlternates(canonicalPath, ['en', 'ru']),
-			canonical: localeUrl(canonicalLocale, canonicalPath),
-		},
+		alternates: propisyuAlternates(seo, canonicalPath),
 	}
 }
 
@@ -198,7 +162,7 @@ export default async function ChisloPropisyuPage({
 	const content = getLegacyContent('chislo-propisyu', locale)
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
-	// --- Historical money pages ---
+	// --- Historical money pages (always Russian ruble wording) ---
 	if (parsed.kind === 'money') {
 		const amount = moneyAmountFromParts(parsed.rubles, parsed.kopecks)
 		const h1 = buildMoneySeoH1(amount)
@@ -216,20 +180,23 @@ export default async function ChisloPropisyuPage({
 				relatedLinks={false}
 				breadcrumbs={breadcrumbs}
 			>
-				<div className="mb-8">
-					<NumberToWordsForm
-						locale={locale}
-						toolSlug="chislo-propisyu"
-						initialDict={formDict}
-						exampleLinks={[
-							{ href: '/chislo-propisyu/199-00', label: '/chislo-propisyu/199-00' },
-							{ href: '/chislo-propisyu/420-00', label: '/chislo-propisyu/420-00' },
-							{ href: '/chislo-propisyu/5788-00', label: '/chislo-propisyu/5788-00' },
-						]}
-					/>
-				</div>
+				{/* Mark Russian money content explicitly when the shell locale is not RU. */}
+				<div lang="ru">
+					<div className="mb-8">
+						<NumberToWordsForm
+							locale={locale}
+							toolSlug="chislo-propisyu"
+							initialDict={formDict}
+							exampleLinks={[
+								{ href: '/chislo-propisyu/199-00', label: '/chislo-propisyu/199-00' },
+								{ href: '/chislo-propisyu/420-00', label: '/chislo-propisyu/420-00' },
+								{ href: '/chislo-propisyu/5788-00', label: '/chislo-propisyu/5788-00' },
+							]}
+						/>
+					</div>
 
-				<MoneyResult amount={amount} />
+					<MoneyResult amount={amount} />
+				</div>
 
 				<div className="mt-10">
 					<Link
@@ -278,48 +245,38 @@ export default async function ChisloPropisyuPage({
 		)
 	}
 
-	// --- Legacy currency money format (existing Next URLs) ---
+	// --- Legacy currency money format (strict amount; invalid → 404) ---
 	if (parsed.kind === 'legacy-money-currency') {
-		const number = Number.parseFloat(parsed.numberLabel)
-		if (!Number.isFinite(number) || number < 0) {
-			return (
-				<LegacyPageLayout locale={locale} title="Число прописью" relatedLinks={false}>
-					<ErrorDisplay
-						error="Invalid money amount"
-						locale={locale}
-						examples={[
-							{
-								href: '/chislo-propisyu/555.23-money-rub',
-								label: '/chislo-propisyu/555.23-money-rub',
-							},
-						]}
-					/>
-				</LegacyPageLayout>
-			)
-		}
 		const useEnglish =
 			(parsed.currency === 'usd' || parsed.currency === 'eur') && locale !== 'ru'
-		const wordRepresentation = useEnglish
-			? numberToWordsEnDecimal(number, {
-					format: 'money',
-					currency: parsed.currency,
-				})
-			: numberToWordsRuDecimal(number, {
-					format: 'money',
-					currency: parsed.currency,
-				})
+		let wordRepresentation: string
+		try {
+			wordRepresentation = useEnglish
+				? numberToWordsEnDecimal(parsed.value, {
+						format: 'money',
+						currency: parsed.currency,
+					})
+				: numberToWordsRuDecimal(parsed.value, {
+						format: 'money',
+						currency: parsed.currency,
+					})
+		} catch {
+			notFound()
+		}
 
 		return (
 			<LegacyPageLayout
 				locale={locale}
-				title={`Число ${number} прописью`}
+				title={`Число ${parsed.numberLabel} прописью`}
 				relatedLinks={false}
 			>
 				<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
 					<p className="mb-2 text-sm text-gray-500">
 						{locale === 'ru' ? 'Сумма' : 'Amount'}
 					</p>
-					<p className="mb-4 text-4xl font-bold text-gray-900">{number}</p>
+					<p className="mb-4 text-4xl font-bold text-gray-900">
+						{parsed.numberLabel}
+					</p>
 					<p className="text-3xl font-semibold text-blue-600">
 						{wordRepresentation}
 					</p>
@@ -343,27 +300,15 @@ export default async function ChisloPropisyuPage({
 					? numberToWordsRu(parsed.value)
 					: numberToWordsRuDecimal(parsed.value, { format: 'numeric' })
 			}
-		} catch (error) {
-			return (
-				<LegacyPageLayout locale={locale} title="Число прописью" relatedLinks={false}>
-					<ErrorDisplay
-						error={
-							error instanceof Error ? error.message : 'Ошибка конвертации'
-						}
-						locale={locale}
-						examples={[
-							{ href: '/chislo-propisyu/123', label: '/chislo-propisyu/123' },
-							{
-								href: '/chislo-propisyu/123.45',
-								label: '/chislo-propisyu/123.45',
-							},
-						]}
-					/>
-				</LegacyPageLayout>
-			)
+		} catch {
+			// Out-of-range or engine failure on a user URL → 404, never 500.
+			notFound()
 		}
 
-		const title = `Число ${parsed.canonicalSlug} прописью`
+		const title =
+			targetLanguage === 'en'
+				? `Number ${parsed.canonicalSlug} in words`
+				: `Число ${parsed.canonicalSlug} прописью`
 		const breadcrumbs = getLegacyBreadcrumbs(
 			locale,
 			'chislo-propisyu',
@@ -378,36 +323,34 @@ export default async function ChisloPropisyuPage({
 				relatedLinks={false}
 				breadcrumbs={breadcrumbs}
 			>
-				<div className="mb-8">
-					<NumberToWordsForm
-						locale={locale}
-						toolSlug="chislo-propisyu"
-						initialDict={formDict}
-						exampleLinks={[
-							{ href: '/chislo-propisyu/123', label: '/chislo-propisyu/123' },
-							{ href: '/chislo-propisyu/1000', label: '/chislo-propisyu/1000' },
-							{ href: '/chislo-propisyu/199-00', label: '/chislo-propisyu/199-00' },
-						]}
-					/>
-				</div>
+				<div lang={targetLanguage}>
+					<div className="mb-8">
+						<NumberToWordsForm
+							locale={locale}
+							toolSlug="chislo-propisyu"
+							initialDict={formDict}
+							exampleLinks={[
+								{ href: '/chislo-propisyu/123', label: '/chislo-propisyu/123' },
+								{ href: '/chislo-propisyu/1000', label: '/chislo-propisyu/1000' },
+								{ href: '/chislo-propisyu/199-00', label: '/chislo-propisyu/199-00' },
+							]}
+						/>
+					</div>
 
-				<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
-					<p className="mb-2 text-sm text-gray-500">
-						{locale === 'ru' ? 'Число' : 'Number'}
-					</p>
-					<p className="mb-4 text-4xl font-bold text-gray-900">
-						{parsed.isInteger
-							? parsed.value.toLocaleString(
-									locale === 'ru' ? 'ru-RU' : 'en-US',
-								)
-							: parsed.canonicalSlug}
-					</p>
-					<p className="mb-2 text-sm text-gray-500">
-						{locale === 'ru' ? 'Прописью' : 'In Words'}
-					</p>
-					<p className="text-3xl font-semibold text-blue-600">
-						{wordRepresentation}
-					</p>
+					<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
+						<p className="mb-2 text-sm text-gray-500">
+							{locale === 'ru' ? 'Число' : 'Number'}
+						</p>
+						<p className="mb-4 text-4xl font-bold text-gray-900">
+							{parsed.canonicalSlug}
+						</p>
+						<p className="mb-2 text-sm text-gray-500">
+							{locale === 'ru' ? 'Прописью' : 'In Words'}
+						</p>
+						<p className="text-3xl font-semibold text-blue-600">
+							{wordRepresentation}
+						</p>
+					</div>
 				</div>
 
 				{content && content.text[contentLocale] && (
@@ -447,24 +390,7 @@ export default async function ChisloPropisyuPage({
 			200,
 		)
 		if (!validation.valid) {
-			return (
-				<LegacyPageLayout locale={locale} title="Число прописью" relatedLinks={false}>
-					<ErrorDisplay
-						error={validation.error || 'Invalid range'}
-						locale={locale}
-						examples={[
-							{
-								href: '/chislo-propisyu/100-199',
-								label: 'Range example: /chislo-propisyu/100-199',
-							},
-							{
-								href: '/chislo-propisyu/0-9999',
-								label: 'База чисел: /chislo-propisyu/0-9999',
-							},
-						]}
-					/>
-				</LegacyPageLayout>
-			)
+			notFound()
 		}
 
 		const numbers = generateRange(parsed.start, parsed.end, 200)
@@ -485,13 +411,15 @@ export default async function ChisloPropisyuPage({
 
 		return (
 			<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
-				<ResultsTable
-					columns={[
-						{ header: locale === 'ru' ? 'Число' : 'Number', key: 'number' },
-						{ header: locale === 'ru' ? 'Прописью' : 'In Words', key: 'words' },
-					]}
-					data={tableData}
-				/>
+				<div lang="ru">
+					<ResultsTable
+						columns={[
+							{ header: locale === 'ru' ? 'Число' : 'Number', key: 'number' },
+							{ header: locale === 'ru' ? 'Прописью' : 'In Words', key: 'words' },
+						]}
+						data={tableData}
+					/>
+				</div>
 				{content && content.text[contentLocale] && (
 					<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
 						{content.text[contentLocale].map((paragraph, index) => (
@@ -507,6 +435,6 @@ export default async function ChisloPropisyuPage({
 		)
 	}
 
-	// Truly invalid routes must be HTTP 404 (not 200 + error UI).
+	// Truly invalid routes must be HTTP 404 (not 200 + error UI / not 500).
 	notFound()
 }
