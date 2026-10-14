@@ -89,4 +89,74 @@ test.describe('propisyu final stabilization', () => {
 		expect(html).toMatch(/one billion/i)
 		expect(html.toLowerCase()).not.toContain('internal server error')
 	})
+
+	test('client cannot spoof html lang via x-first-calc-html-lang', async ({
+		request,
+	}) => {
+		const enPath = '/calculators/health/bmi-calculator'
+		const enCalc = await request.get(enPath, {
+			headers: { 'x-first-calc-html-lang': 'ru', 'x-first-calc-ui-locale': 'ru' },
+		})
+		const enHtml = await enCalc.text()
+		expect(enCalc.status()).toBe(200)
+		expect(enHtml).toMatch(/<html[^>]*lang=["']en["']/i)
+
+		const ruCalc = await request.get(`/ru${enPath}`, {
+			headers: {
+				'x-first-calc-html-lang': 'en',
+				'x-first-calc-ui-locale': 'en',
+				'x-first-calc-locale': 'en',
+			},
+		})
+		const ruHtml = await ruCalc.text()
+		expect(ruCalc.status()).toBe(200)
+		expect(ruHtml).toMatch(/<html[^>]*lang=["']ru["']/i)
+
+		const money = await request.get('/chislo-propisyu/420-00')
+		expect(await money.text()).toMatch(/<html[^>]*lang=["']ru["']/i)
+
+		const ordinary = await request.get(enPath)
+		expect(ordinary.status()).toBe(200)
+		expect(await ordinary.text()).toMatch(/<html[^>]*lang=["']en["']/i)
+	})
+
+	test('historical unprefixed money has Russian UI chrome', async ({
+		request,
+	}) => {
+		const res = await request.get('/chislo-propisyu/420-00')
+		const html = await res.text()
+		expect(html).toMatch(/<html[^>]*lang=["']ru["']/i)
+		// Nav / form labels from RU dictionaries (not English chrome).
+		expect(html).toMatch(/Калькуляторы|калькуляторы/)
+		expect(html).toMatch(/Язык|Число|Конвертировать/)
+		expect(html).not.toMatch(/>Language</)
+		expect(html).not.toMatch(/>Convert</)
+	})
+
+	test('invalid numbers-to-words money URLs return 404', async ({
+		request,
+	}) => {
+		for (const path of [
+			'/numbers-to-words/12abc-money-usd',
+			'/numbers-to-words/1.2.3-money-usd',
+			'/numbers-to-words/123.456-money-usd',
+		]) {
+			const res = await request.get(path)
+			expect(res.status(), path).toBe(404)
+		}
+		expect(
+			(await request.get('/numbers-to-words/1.50-money-usd')).status(),
+		).toBe(200)
+	})
+
+	test('RU money max 999999999-99 is valid; 1000000000 rejected', async ({
+		request,
+	}) => {
+		expect(
+			(await request.get('/chislo-propisyu/999999999-99')).status(),
+		).toBe(200)
+		expect(
+			(await request.get('/ru/chislo-propisyu/1000000000-00')).status(),
+		).toBe(404)
+	})
 })

@@ -39,7 +39,25 @@ describe('propisyu form/URL parity', () => {
 			}).ok,
 		).toBe(true)
 		expect(
+			validatePropisyuFormInput('999999999.99', {
+				format: 'money',
+				language: 'ru',
+				tool: 'chislo-propisyu',
+			}),
+		).toEqual({
+			ok: true,
+			normalized: '999999999.99',
+			urlSegment: '999999999-99',
+		})
+		expect(
 			validatePropisyuFormInput('1000000000', {
+				format: 'money',
+				language: 'ru',
+				tool: 'chislo-propisyu',
+			}).ok,
+		).toBe(false)
+		expect(
+			validatePropisyuFormInput('1000000000.00', {
 				format: 'money',
 				language: 'ru',
 				tool: 'chislo-propisyu',

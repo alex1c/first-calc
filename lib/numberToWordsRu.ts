@@ -1,11 +1,25 @@
+export interface NumberToWordsRuOptions {
+	/**
+	 * Feminine ones (одна/две) for the units group — required for fraction
+	 * numerators that agree with feminine fraction nouns (десятая, …).
+	 */
+	feminineOnes?: boolean
+}
+
 /**
  * Converts a number to its Russian word representation (пропись)
  * Supports numbers from 0 to 999,999,999
  *
  * @param n - Number to convert (0 to 999,999,999)
+ * @param options - Optional grammar overrides (feminine ones)
  * @returns Russian word representation of the number
  */
-export function numberToWordsRu(n: number): string {
+export function numberToWordsRu(
+	n: number,
+	options: NumberToWordsRuOptions = {},
+): string {
+	const { feminineOnes = false } = options
+
 	// Validate input range
 	if (n < 0 || n > 999_999_999) {
 		throw new Error(
@@ -31,8 +45,9 @@ export function numberToWordsRu(n: number): string {
 	const groupWords = groups.map((group, index) => {
 		if (group === 0) return null
 
-		// For thousands (index 1), use special forms: одна, две
-		const groupWord = convertHundreds(group, index === 1)
+		// Thousands (index 1) always use feminine ones; units do so when requested.
+		const useFeminineOnes = index === 1 || (feminineOnes && index === 0)
+		const groupWord = convertHundreds(group, useFeminineOnes)
 		const groupName = getGroupName(index, group)
 
 		return groupWord + (groupName ? ' ' + groupName : '')

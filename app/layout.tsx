@@ -6,11 +6,18 @@ import { Footer } from '@/components/footer'
 import { SearchProvider } from '@/components/search/search-provider'
 import { YandexMetrika } from '@/components/analytics/yandex-metrika'
 import { isIndexingDisabled, PRODUCTION_ORIGIN } from '@/lib/site-url'
-import { locales, type Locale } from '@/lib/i18n'
+import type { Locale } from '@/lib/i18n'
+import { loadNamespaces } from '@/lib/i18n'
 import {
 	GOOGLE_SITE_VERIFICATION,
 	YANDEX_WEBMASTER_VERIFICATION,
 } from '@/lib/analytics/yandex-metrika'
+import {
+	HEADER_HTML_LANG,
+	HEADER_ROUTING_LOCALE,
+	HEADER_UI_LOCALE,
+	parseLocaleHeader,
+} from '@/lib/request-headers'
 
 const indexingDisabled = isIndexingDisabled()
 
@@ -33,23 +40,29 @@ export const metadata: Metadata = {
 	}),
 }
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
 	const headerList = headers()
-	const requestedLocale = headerList.get('x-first-calc-locale')
-	const locale: Locale = locales.includes(requestedLocale as Locale)
-		? (requestedLocale as Locale)
-		: 'en'
-	// Optional route-local override (propisyu historical Russian pages on the
-	// unprefixed shell). Falls back to the request locale for all other routes.
-	const htmlLangOverride = headerList.get('x-first-calc-html-lang')
-	const htmlLang =
+	// Values originate from middleware pathname classification only
+	// (client-supplied copies are stripped before these are set).
+	const routingLocale = parseLocaleHeader(
+		headerList.get(HEADER_ROUTING_LOCALE),
+		'en',
+	)
+	const uiLocale = parseLocaleHeader(
+		headerList.get(HEADER_UI_LOCALE),
+		routingLocale,
+	)
+	const htmlLangOverride = headerList.get(HEADER_HTML_LANG)
+	const htmlLang: Locale =
 		htmlLangOverride === 'ru' || htmlLangOverride === 'en'
 			? htmlLangOverride
-			: locale
+			: routingLocale
+	const navDict = await loadNamespaces(uiLocale, ['navigation'])
+
 	return (
 		<html lang={htmlLang}>
 			<head>
@@ -74,19 +87,17 @@ export default function RootLayout({
 					</div>
 				</noscript>
 				<SearchProvider>
-					<Header />
+					{/* Server-passed UI locale + nav dict: no spoofing, no hydration drift. */}
+					<Header
+						locale={uiLocale}
+						initialNav={
+							(navDict.navigation as Record<string, unknown>) || {}
+						}
+					/>
 					<main className="min-h-screen">{children}</main>
-					<Footer />
+					<Footer locale={uiLocale} />
 				</SearchProvider>
 			</body>
 		</html>
 	)
 }
-
-
-
-
-
-
-
-

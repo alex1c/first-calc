@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { ShareButtons } from './footer/share-buttons'
 import { getTelegramContactLink, hasTelegramBot } from '@/lib/contact'
-import { headers } from 'next/headers'
-import { locales, type Locale } from '@/lib/i18n'
+import type { Locale } from '@/lib/i18n'
 import { localePath } from '@/lib/site-url'
 import { loadNamespaces } from '@/lib/i18n/loadNamespaces'
 import { createT } from '@/lib/i18n/t'
@@ -38,13 +37,14 @@ const legalLinks = [
 	{ label: 'Disclaimer', href: '/disclaimer' },
 ]
 
-export async function Footer() {
+interface FooterProps {
+	/** Trusted UI locale from root layout (middleware pathname classification). */
+	locale: Locale
+}
+
+export async function Footer({ locale }: FooterProps) {
 	const year = new Date().getFullYear()
 	const telegramLink = getTelegramContactLink()
-	const requestedLocale = headers().get('x-first-calc-locale')
-	const locale: Locale = locales.includes(requestedLocale as Locale)
-		? (requestedLocale as Locale)
-		: 'en'
 	const t = createT(await loadNamespaces(locale, ['footer']))
 	// Footer category links must land on hubs that exist for this locale;
 	// incomplete locales (es/tr/hi) fall back to English category URLs.

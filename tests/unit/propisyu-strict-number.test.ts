@@ -72,11 +72,28 @@ describe('exact decimal-string precision policy', () => {
 		expect(
 			isWithinExactWholeMax('999999999', '00000001', PROPISYU_RU_MAX),
 		).toBe(false)
+		expect(
+			isWithinExactWholeMax('999999999', '99', PROPISYU_RU_MAX, true),
+		).toBe(true)
 		expect(isWithinExactWholeMax('1000000000', null, PROPISYU_RU_MAX)).toBe(
 			false,
 		)
 		expect(
 			isFaithfulNumberRepresentation('0', '0000001', Number('0.0000001')),
+		).toBe(false)
+		// Must not discard extra digits from Number when comparing.
+		expect(isFaithfulNumberRepresentation('1', '23', 1.234)).toBe(false)
+	})
+
+	it('accepts RU money ceiling with kopecks (999999999.99)', () => {
+		expect(
+			parseStrictMoneyAmount('999999999.99', PROPISYU_RU_MAX),
+		).toMatchObject({ ok: true, normalized: '999999999.99' })
+		expect(
+			parseStrictMoneyAmount('1000000000.00', PROPISYU_RU_MAX).ok,
+		).toBe(false)
+		expect(
+			parseStrictMoneyAmount('1000000000', PROPISYU_RU_MAX).ok,
 		).toBe(false)
 	})
 })

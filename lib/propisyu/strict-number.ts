@@ -10,8 +10,11 @@
  *   matches named RU fraction forms and keeps Number↔string fidelity for the
  *   existing decimalToWords engines (which call `n.toString()`).
  * - Magnitude limits compared with exact decimal-string semantics (BigInt),
- *   not after IEEE rounding: whole > max, or whole == max with any fraction →
- *   out-of-range.
+ *   not after IEEE rounding.
+ * - Numeric: whole > max, or whole == max with any non-zero fraction →
+ *   out-of-range (value exceeds the integer ceiling).
+ * - Money: whole ≤ max inclusive with up to 2 fractional digits allowed at
+ *   the ceiling (RU: 999_999_999 rubles + 99 kopecks). whole > max → reject.
  * - After parsing, Number(literal) must faithfully represent the literal
  *   (no exponent toString, no rounding to a different scaled integer).
  * - RU integer/money ceiling: 999_999_999; EN: 999_999_999_999.
@@ -56,6 +59,11 @@ export interface StrictNumberOptions {
 	maxFractionDigits?: number
 	/** Reject scientific notation (default true). */
 	rejectExponent?: boolean
+	/**
+	 * Money mode: allow a non-zero fraction when whole === maxWhole
+	 * (e.g. 999999999.99 rubles). Numeric mode keeps this false.
+	 */
+	allowFractionAtMax?: boolean
 }
 
 export function converterMaxForLanguage(language: PropisyuWordLanguage): number {
@@ -72,17 +80,24 @@ export function decodeSlugSegment(raw: string): string {
 
 /**
  * Exact string compare of a non-negative decimal against an integer ceiling.
- * Returns true when value ≤ maxWhole as a pure integer (no fractional excess).
+ * When allowFractionAtMax is false (numeric), whole == max with any non-zero
+ * fraction is out of range. When true (money), only whole > max is rejected.
  */
 export function isWithinExactWholeMax(
 	wholeDigits: string,
 	fractionDigits: string | null,
 	maxWhole: number,
+	allowFractionAtMax = false,
 ): boolean {
 	const whole = BigInt(wholeDigits)
 	const max = BigInt(maxWhole)
 	if (whole > max) return false
-	if (whole === max && fractionDigits !== null && /[1-9]/.test(fractionDigits)) {
+	if (
+		!allowFractionAtMax &&
+		whole === max &&
+		fractionDigits !== null &&
+		/[1-9]/.test(fractionDigits)
+	) {
 		return false
 	}
 	return true
@@ -91,6 +106,7 @@ export function isWithinExactWholeMax(
 /**
  * True when Number(literal) still denotes the same finite decimal as the
  * exact digit strings (rejects exponent forms and IEEE rounding).
+ * Compares the full decimal expansion — extra digits on either side fail.
  */
 export function isFaithfulNumberRepresentation(
 	wholeDigits: string,
@@ -101,17 +117,22 @@ export function isFaithfulNumberRepresentation(
 	const fromNumber = value.toString()
 	if (/[eE]/.test(fromNumber)) return false
 
-	const scale = fractionDigits ? fractionDigits.length : 0
-	const scaleFactor = BigInt(10) ** BigInt(scale)
-	const expectedScaled =
-		BigInt(wholeDigits) * scaleFactor +
-		BigInt(fractionDigits && scale > 0 ? fractionDigits : '0')
-
+	const expectedFrac = fractionDigits || ''
 	const [nwRaw, nfRaw = ''] = fromNumber.split('.')
 	const nw = nwRaw.replace(/^0+(?=\d)/, '') || '0'
-	const nfPadded = (nfRaw + '0'.repeat(scale)).slice(0, scale)
+	const expectedWhole = wholeDigits.replace(/^0+(?=\d)/, '') || '0'
+	if (nw !== expectedWhole) return false
+
+	// Compare at the longer fractional length so truncated extras are visible.
+	const scale = Math.max(expectedFrac.length, nfRaw.length)
+	const scaleFactor = BigInt(10) ** BigInt(scale)
+	const expectedPadded = (expectedFrac + '0'.repeat(scale)).slice(0, scale)
+	const actualPadded = (nfRaw + '0'.repeat(scale)).slice(0, scale)
+	const expectedScaled =
+		BigInt(expectedWhole) * scaleFactor +
+		BigInt(scale > 0 ? expectedPadded : '0')
 	const actualScaled =
-		BigInt(nw) * scaleFactor + BigInt(scale > 0 ? nfPadded : '0')
+		BigInt(nw) * scaleFactor + BigInt(scale > 0 ? actualPadded : '0')
 
 	return expectedScaled === actualScaled
 }
@@ -127,6 +148,7 @@ export function parseStrictNonNegativeNumber(
 		maxWhole = PROPISYU_RU_MAX,
 		maxFractionDigits = PROPISYU_MAX_FRACTION_DIGITS_NUMERIC,
 		rejectExponent = true,
+		allowFractionAtMax = false,
 	} = options
 
 	const input = raw.trim()
@@ -186,7 +208,14 @@ export function parseStrictNonNegativeNumber(
 		? wholeNormalized
 		: `${wholeNormalized}.${fractionDigits}`
 
-	if (!isWithinExactWholeMax(wholeNormalized, fractionDigits, maxWhole)) {
+	if (
+		!isWithinExactWholeMax(
+			wholeNormalized,
+			fractionDigits,
+			maxWhole,
+			allowFractionAtMax,
+		)
+	) {
 		return { ok: false, reason: 'out-of-range' }
 	}
 
@@ -222,6 +251,8 @@ export function parseStrictMoneyAmount(
 		maxWhole,
 		maxFractionDigits: PROPISYU_MONEY_MAX_FRACTION_DIGITS,
 		rejectExponent: true,
+		// RU money: 999_999_999.99 (rubles + kopecks) is valid.
+		allowFractionAtMax: true,
 	})
 }
 
@@ -271,6 +302,7 @@ export function parseStrictLegacyMoneySegment(
 		maxWhole,
 		maxFractionDigits: PROPISYU_MONEY_MAX_FRACTION_DIGITS,
 		rejectExponent: true,
+		allowFractionAtMax: true,
 	})
 	if (!amount.ok) {
 		return amount

@@ -18,24 +18,36 @@ const menuItems = [
 	{ href: '/contact', key: 'contact' },
 ]
 
+interface HeaderProps {
+	/**
+	 * Trusted UI locale from root layout (middleware pathname classification).
+	 * Prefer this over pathname guessing so historical unprefixed Russian
+	 * money/hub pages render Russian chrome without hydration drift.
+	 */
+	locale: Locale
+	/** Server-loaded navigation dict (same locale) for SSR + hydration parity. */
+	initialNav?: Record<string, unknown>
+}
+
 // Client-side translation hook (simplified - in production, use proper i18n context)
-function useClientTranslations(locale: Locale) {
-	const [dict, setDict] = useState<Record<string, any>>({})
+function useClientTranslations(
+	locale: Locale,
+	initialDict: Record<string, unknown> = {},
+) {
+	const [dict, setDict] = useState<Record<string, any>>(initialDict)
 
 	useEffect(() => {
-		// Load navigation namespace on client
+		// Keep client dict aligned when the trusted UI locale changes.
 		import(`@/locales/${locale}/navigation.json`)
 			.then((module) => {
 				setDict(module.default || module)
 			})
 			.catch(() => {
-				// Fallback to English
 				import(`@/locales/en/navigation.json`)
 					.then((module) => {
 						setDict(module.default || module)
 					})
 					.catch(() => {
-						// Use fallback labels
 						setDict({
 							menu: {
 								calculators: 'Calculators',
@@ -60,21 +72,13 @@ function useClientTranslations(locale: Locale) {
 	}
 }
 
-export function Header() {
+export function Header({ locale, initialNav = {} }: HeaderProps) {
 	const pathname = usePathname()
+	const currentLocale = locale
 
-	// Extract current locale from pathname
-	// Pathname format: /en, /ru/calculators, etc.
-	const pathSegments = pathname?.split('/').filter(Boolean) || []
-	const currentLocale =
-		(pathSegments[0] && locales.includes(pathSegments[0] as Locale))
-			? (pathSegments[0] as Locale)
-			: 'en'
+	// SSR and first client paint share initialNav to avoid hydration mismatch.
+	const t = useClientTranslations(currentLocale, initialNav)
 
-	// Load translations
-	const t = useClientTranslations(currentLocale)
-
-	// Get path without locale for navigation
 	const getLocalizedPath = (path: string) => {
 		return localePath(currentLocale, path)
 	}
@@ -112,9 +116,9 @@ export function Header() {
 								window.location.href = localePath(newLocale, currentLogicalPath)
 							}}
 						>
-							{locales.map((locale) => (
-								<option key={locale} value={locale}>
-									{locale.toUpperCase()}
+							{locales.map((loc) => (
+								<option key={loc} value={loc}>
+									{loc.toUpperCase()}
 								</option>
 							))}
 						</select>

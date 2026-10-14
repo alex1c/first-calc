@@ -150,10 +150,16 @@ export default async function ChisloPropisyuPage({
 		notFound()
 	}
 
-	const dict = await loadNamespaces(locale, namespaces)
-	const formDict = await loadNamespaces(locale, ['legacy/ui', 'errors'])
-	const t = createT(dict)
 	const parsed = parsePropisyuSlug(slug)
+	// Historical money/hub pages always expose a Russian UI (chrome + form),
+	// even on the unprefixed default-locale shell. Routing/SEO still use
+	// `locale` from the URL rewrite (en shell for unprefixed).
+	const isHistoricalRuUi =
+		parsed.kind === 'money' || parsed.kind === 'decade-hub'
+	const uiLocale: Locale = isHistoricalRuUi ? 'ru' : locale
+	const dict = await loadNamespaces(uiLocale, namespaces)
+	const formDict = await loadNamespaces(uiLocale, ['legacy/ui', 'errors'])
+	const t = createT(dict)
 	const content = getLegacyContent('chislo-propisyu', locale)
 	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
@@ -162,7 +168,7 @@ export default async function ChisloPropisyuPage({
 		const amount = moneyAmountFromParts(parsed.rubles, parsed.kopecks)
 		const h1 = buildMoneySeoH1(amount)
 		const breadcrumbs = getLegacyBreadcrumbs(
-			locale,
+			uiLocale,
 			'chislo-propisyu',
 			[parsed.canonicalSlug],
 			t,
@@ -170,16 +176,16 @@ export default async function ChisloPropisyuPage({
 
 		return (
 			<LegacyPageLayout
-				locale={locale}
+				locale={uiLocale}
 				title={h1}
 				relatedLinks={false}
 				breadcrumbs={breadcrumbs}
 			>
-				{/* Mark Russian money content explicitly when the shell locale is not RU. */}
+				{/* Russian money content + Russian form chrome. */}
 				<div lang="ru">
 					<div className="mb-8">
 						<NumberToWordsForm
-							locale={locale}
+							locale={uiLocale}
 							toolSlug="chislo-propisyu"
 							initialDict={formDict}
 							exampleLinks={[
@@ -195,17 +201,15 @@ export default async function ChisloPropisyuPage({
 
 				<div className="mt-10">
 					<Link
-						href={localePath(locale, '/chislo-propisyu')}
+						href={localePath(uiLocale, '/chislo-propisyu')}
 						className="text-sm font-medium text-blue-700 hover:underline"
 					>
-						{locale === 'ru'
-							? '← Вернуться к конвертеру «Число прописью»'
-							: '← Back to the number-to-words converter'}
+						← Вернуться к конвертеру «Число прописью»
 					</Link>
 				</div>
 
 				<div className="mt-10">
-					<LegacyRelatedLinks locale={locale} toolType="chislo-propisyu" />
+					<LegacyRelatedLinks locale={uiLocale} toolType="chislo-propisyu" />
 				</div>
 			</LegacyPageLayout>
 		)
@@ -220,7 +224,7 @@ export default async function ChisloPropisyuPage({
 		// Historical number-base hubs always present Russian content (SEO family).
 		const title = `Числа ${hub.start}–${hub.end} прописью`
 		const breadcrumbs = getLegacyBreadcrumbs(
-			locale,
+			uiLocale,
 			'chislo-propisyu',
 			[hub.slug],
 			t,
@@ -228,13 +232,13 @@ export default async function ChisloPropisyuPage({
 
 		return (
 			<LegacyPageLayout
-				locale={locale}
+				locale={uiLocale}
 				title={title}
 				relatedLinks={false}
 				breadcrumbs={breadcrumbs}
 			>
 				<div lang="ru">
-					<DecadeHubContent locale={locale} hub={hub} forceRussian />
+					<DecadeHubContent locale={uiLocale} hub={hub} forceRussian />
 				</div>
 			</LegacyPageLayout>
 		)

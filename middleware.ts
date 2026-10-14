@@ -14,20 +14,27 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { locales, defaultLocale } from './lib/i18n'
 import { shouldForceHtmlLangRuForUnprefixedPropisyu } from './lib/propisyu/seo-policy'
+import {
+	HEADER_HTML_LANG,
+	HEADER_ROUTING_LOCALE,
+	HEADER_UI_LOCALE,
+	stripUntrustedInternalHeaders,
+} from './lib/request-headers'
 
 /**
- * Route-local HTML lang override for unprefixed historical propisyu money/hub
- * pages (Russian content under the default-locale shell). Does not change the
- * i18n locale used for dictionaries / routing of other calculators.
+ * Route-local Russian UI + html lang for unprefixed historical propisyu
+ * money/hub pages. Classification is pathname-only (never client headers).
+ * Does not change default-locale routing for other calculators.
  */
-function applyPropisyuHtmlLangHeader(
+function applyPropisyuHistoricalUiHeaders(
 	pathname: string,
 	headers: Headers,
 ): void {
 	const match = pathname.match(/^\/chislo-propisyu\/([^/]+)\/?$/)
 	if (!match) return
 	if (shouldForceHtmlLangRuForUnprefixedPropisyu(match[1])) {
-		headers.set('x-first-calc-html-lang', 'ru')
+		headers.set(HEADER_HTML_LANG, 'ru')
+		headers.set(HEADER_UI_LOCALE, 'ru')
 	}
 }
 
@@ -119,17 +126,20 @@ function isNumericRange(pathname: string): boolean {
 export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl
 
-	// Skip processing for excluded paths (API, static files, etc.)
+	// Always start from a copy with forged internal headers removed.
+	const requestHeaders = new Headers(request.headers)
+	stripUntrustedInternalHeaders(requestHeaders)
+
+	// Skip locale rewrite for API / static, but still forward cleaned headers.
 	if (shouldExclude(pathname)) {
-		return NextResponse.next()
+		return NextResponse.next({ request: { headers: requestHeaders } })
 	}
 
 	const detectedLocale = getLocale(pathname)
-	const requestHeaders = new Headers(request.headers)
-	requestHeaders.set('x-first-calc-locale', detectedLocale || defaultLocale)
-	// Unprefixed historical propisyu money/hubs: Russian content language.
+	requestHeaders.set(HEADER_ROUTING_LOCALE, detectedLocale || defaultLocale)
+	// Unprefixed historical propisyu money/hubs: Russian UI + html lang.
 	if (!detectedLocale) {
-		applyPropisyuHtmlLangHeader(pathname, requestHeaders)
+		applyPropisyuHistoricalUiHeaders(pathname, requestHeaders)
 	}
 
 	// Case 1: Path starts with /en - redirect to path without /en (301 permanent redirect)

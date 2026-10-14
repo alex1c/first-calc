@@ -134,18 +134,54 @@ function getCentsEn(cents: number): string {
 }
 
 /**
- * Get fraction name for decimal precision (Russian)
+ * Russian plural form for fraction nouns agreeing with the numerator.
  */
-function getFractionNameRu(precision: number): string {
-	// Common fraction names for Russian
-	if (precision === 1) return 'десятых'
-	if (precision === 2) return 'сотых'
-	if (precision === 3) return 'тысячных'
-	if (precision === 4) return 'десятитысячных'
-	if (precision === 5) return 'стотысячных'
-	if (precision === 6) return 'миллионных'
-	// For higher precision, use generic form
-	return 'десятичных'
+function fractionPluralForm(n: number): 'one' | 'few' | 'many' {
+	const abs = Math.abs(Math.trunc(n))
+	const mod100 = abs % 100
+	const mod10 = abs % 10
+	if (mod100 >= 11 && mod100 <= 19) return 'many'
+	if (mod10 === 1) return 'one'
+	if (mod10 >= 2 && mod10 <= 4) return 'few'
+	return 'many'
+}
+
+/**
+ * Feminine fraction noun for the given decimal precision and numerator form.
+ * Example: precision 6 + one → «миллионная»; many → «миллионных».
+ */
+function getFractionNameRu(
+	precision: number,
+	form: 'one' | 'few' | 'many',
+): string {
+	const table: Record<
+		number,
+		Record<'one' | 'few' | 'many', string>
+	> = {
+		1: { one: 'десятая', few: 'десятые', many: 'десятых' },
+		2: { one: 'сотая', few: 'сотые', many: 'сотых' },
+		3: { one: 'тысячная', few: 'тысячные', many: 'тысячных' },
+		4: {
+			one: 'десятитысячная',
+			few: 'десятитысячные',
+			many: 'десятитысячных',
+		},
+		5: {
+			one: 'стотысячная',
+			few: 'стотысячные',
+			many: 'стотысячных',
+		},
+		6: { one: 'миллионная', few: 'миллионные', many: 'миллионных' },
+	}
+	const row = table[precision]
+	if (!row) {
+		return form === 'one'
+			? 'десятичная'
+			: form === 'few'
+				? 'десятичные'
+				: 'десятичных'
+	}
+	return row[form]
 }
 
 /**
@@ -210,10 +246,12 @@ export function numberToWordsRuDecimal(
 					// Parse the decimal part as a whole number
 					const decimalNum = parseInt(decimalStr, 10)
 					if (!isNaN(decimalNum) && decimalNum > 0) {
-						// Convert the decimal part as a number
-						const decimalWords = numberToWordsRu(decimalNum)
-						// Add proper fraction name based on precision
-						const fractionName = getFractionNameRu(precision)
+						// Feminine numerator (одна/две) agrees with feminine fraction nouns.
+						const decimalWords = numberToWordsRu(decimalNum, {
+							feminineOnes: true,
+						})
+						const form = fractionPluralForm(decimalNum)
+						const fractionName = getFractionNameRu(precision, form)
 						result += ' целых ' + decimalWords + ' ' + fractionName
 					}
 				}
