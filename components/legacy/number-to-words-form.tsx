@@ -36,6 +36,7 @@ export function NumberToWordsForm({
 		toolSlug === 'chislo-propisyu' ? 'ru' : 'en',
 	)
 	const [error, setError] = useState('')
+	const isChisloPropisyu = toolSlug === 'chislo-propisyu'
 
 	const validateInput = (): boolean => {
 		setError('')
@@ -80,12 +81,19 @@ export function NumberToWordsForm({
 
 		// Handle money format with proper encoding
 		if (format === 'money') {
-			// For money format, append currency indicator
-			// Format: /toolSlug/value-money-currency
-			const currencySuffix = language === 'ru' ? 'rub' : 'usd'
-			// Replace dot with dot in URL (keep as is for proper parsing)
-			const valueStr = value.trim().replace(/\./g, '.')
-			url = `${basePath}/${toolSlug}/${valueStr}-money-${currencySuffix}`
+			// Historical RU money URLs: /chislo-propisyu/{N}-{KK} (exactly two kopeck digits).
+			// Keep the older `-money-currency` shape for EN / non-chislo tools.
+			if (isChisloPropisyu && language === 'ru') {
+				const raw = value.trim().replace(',', '.')
+				const parts = raw.split('.')
+				const rubles = parts[0] || '0'
+				const kopecksRaw = (parts[1] || '0').slice(0, 2).padEnd(2, '0')
+				url = `${basePath}/${toolSlug}/${rubles}-${kopecksRaw}`
+			} else {
+				const currencySuffix = language === 'ru' ? 'rub' : 'usd'
+				const valueStr = value.trim().replace(/\./g, '.')
+				url = `${basePath}/${toolSlug}/${valueStr}-money-${currencySuffix}`
+			}
 		} else {
 			// For numeric format, append language suffix for chislo-propisyu
 			// Format: /toolSlug/value or /toolSlug/value-lang
@@ -101,8 +109,6 @@ export function NumberToWordsForm({
 		// Navigate to the result page
 		router.push(url)
 	}
-
-	const isChisloPropisyu = toolSlug === 'chislo-propisyu'
 
 	return (
 		<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">

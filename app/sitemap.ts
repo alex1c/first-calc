@@ -10,6 +10,7 @@ import {
 	hasLocalizedCalculatorContent,
 	indexableShellLocales,
 } from '@/lib/i18n/content-availability'
+import { DECADE_HUBS } from '@/lib/propisyu/decades'
 
 export type SitemapGroup =
 	| 'pages'
@@ -18,6 +19,7 @@ export type SitemapGroup =
 	| 'articles'
 	| 'standards'
 	| 'other'
+	| 'propisyu-decades'
 
 export interface ClassifiedSitemapEntry {
 	url: string
@@ -159,6 +161,15 @@ export async function buildSitemapEntries(): Promise<ClassifiedSitemapEntry[]> {
 			if (!tool.slug) continue
 			addEntry(entries, seen, locale, tool.path, 'other')
 		}
+	}
+
+	// E2: historical «База чисел» decade hubs (exactly 100 × 10_000).
+	// Canonical family = /chislo-propisyu/{start}-{end} (GSC / archive «База
+	// чисел»), emitted once via default-locale (unprefixed) URLs to match the
+	// 2024 sitemap cardinality. Root `/0-9999/` duplicates and E3 chunks are
+	// not added. Money allowlist pages stay out of sitemap in E1.
+	for (const hub of DECADE_HUBS) {
+		addEntry(entries, seen, 'en', hub.pathname, 'propisyu-decades')
 	}
 
 	return entries

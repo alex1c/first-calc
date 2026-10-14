@@ -15,6 +15,7 @@ import {
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
 import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
+import { NumberBaseNav } from '@/components/propisyu/number-base-nav'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
@@ -103,13 +104,20 @@ export default async function ChisloPropisyuLandingPage({
 				initialDict={formDict}
 				exampleLinks={[
 					{ href: '/chislo-propisyu/123', label: '/chislo-propisyu/123' },
-					{ href: '/chislo-propisyu/1000', label: '/chislo-propisyu/1000' },
-					{ href: '/chislo-propisyu/1000000', label: '/chislo-propisyu/1000000' },
+					{ href: '/chislo-propisyu/199-00', label: '/chislo-propisyu/199-00' },
+					{ href: '/chislo-propisyu/420-00', label: '/chislo-propisyu/420-00' },
 				]}
 			/>
 
+			{/* Historical «База чисел» — 100 decade hubs (E2) */}
+			<div className="mt-10">
+				<NumberBaseNav locale={locale} />
+			</div>
+
 			{/* FAQ */}
-			<LegacyFaqBlock faq={getFaqForLegacyTool('chislo-propisyu')} />
+			<div className="mt-10">
+				<LegacyFaqBlock faq={getFaqForLegacyTool('chislo-propisyu')} />
+			</div>
 		</LegacyPageLayout>
 	)
 }
