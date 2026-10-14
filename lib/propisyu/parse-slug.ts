@@ -110,11 +110,9 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 		return { kind: 'invalid', reason: 'empty-segment' }
 	}
 
-	// Legacy Next format: 555.23-money-usd (strict amount + exact currency).
+	// Legacy Next format: 555.23-money-usd (strict amount + currency-aware ceiling).
 	if (/-money/i.test(segment)) {
-		const legacy = parseStrictLegacyMoneySegment(segment, {
-			max: PROPISYU_RU_MAX,
-		})
+		const legacy = parseStrictLegacyMoneySegment(segment)
 		if (!legacy.ok) {
 			return { kind: 'invalid', reason: legacy.reason }
 		}
@@ -196,7 +194,7 @@ export function parsePropisyuSlug(slug: string[]): PropisyuSlugParseResult {
 
 	// Plain number (default language = Russian ceiling unless -en was used).
 	const plain = parseStrictNonNegativeNumber(segment, {
-		max: converterMaxForLanguage('ru'),
+		maxWhole: converterMaxForLanguage('ru'),
 		rejectExponent: true,
 	})
 	if (plain.ok) {

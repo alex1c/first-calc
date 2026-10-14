@@ -31,11 +31,9 @@ describe('propisyu decade sitemap segment', () => {
 				),
 			).toBe(true)
 			expect(
-				decades.some((e) => e.url.endsWith('/ru/chislo-propisyu/0-9999')),
+				decades.some((e) => e.url.endsWith('/chislo-propisyu/0-9999')),
 			).toBe(true)
-			expect(
-				decades.every((e) => e.url.includes('/ru/chislo-propisyu/')),
-			).toBe(true)
+			expect(decades.every((e) => !e.url.includes('/ru/'))).toBe(true)
 			expect(
 				decades.some((e) => e.url.includes('/chislo-propisyu/420-00')),
 			).toBe(false)

@@ -1,14 +1,20 @@
 /**
  * Shared strict number parsing for chislo-propisyu.
  *
- * Rules (apply to the FULL string — never accept a numeric prefix of garbage):
- * - No exponent notation (`1e3`, `1E309`) — rejected unless explicitly enabled
- *   (money / URL paths never enable it).
- * - Decimal separator: a single `.` or a single `,` (not both, not repeated).
- * - Leading zeros are accepted on input and normalized away in `normalized`
- *   (e.g. `00021.05` → value 21.05, normalized `21.05`).
- * - Money amounts: at most two fractional digits; never silently truncate.
- * - Limits are language-aware: RU ≤ 999_999_999, EN ≤ 999_999_999_999.
+ * PRECISION POLICY (documented, shared by form + routes + conversion):
+ * - Full-string validation only (no parseFloat prefix tricks, no exponents).
+ * - Decimal separator: one `.` or one `,` (not both).
+ * - Leading zeros normalize in `normalized` (e.g. `00021.05` → `21.05`).
+ * - Money: at most 2 fractional digits (kopecks/cents). Never truncate.
+ * - Numeric decimals: at most PROPISYU_MAX_FRACTION_DIGITS_NUMERIC (6) digits —
+ *   matches named RU fraction forms and keeps Number↔string fidelity for the
+ *   existing decimalToWords engines (which call `n.toString()`).
+ * - Magnitude limits compared with exact decimal-string semantics (BigInt),
+ *   not after IEEE rounding: whole > max, or whole == max with any fraction →
+ *   out-of-range.
+ * - After parsing, Number(literal) must faithfully represent the literal
+ *   (no exponent toString, no rounding to a different scaled integer).
+ * - RU integer/money ceiling: 999_999_999; EN: 999_999_999_999.
  */
 
 export type PropisyuWordLanguage = 'ru' | 'en'
@@ -19,6 +25,12 @@ export const PROPISYU_RU_MAX = 999_999_999
 /** Matches `numberToWordsEn` hard ceiling (within Number.isSafeInteger). */
 export const PROPISYU_EN_MAX = 999_999_999_999
 export const PROPISYU_MONEY_MAX_FRACTION_DIGITS = 2
+/**
+ * Max fractional digits for numeric (non-money) conversion.
+ * Named RU fraction labels exist through 6 places; beyond that Number↔engine
+ * round-trips are unreliable — reject rather than silently change the value.
+ */
+export const PROPISYU_MAX_FRACTION_DIGITS_NUMERIC = 6
 
 export interface StrictNumberOk {
 	ok: true
@@ -38,24 +50,18 @@ export interface StrictNumberErr {
 export type StrictNumberResult = StrictNumberOk | StrictNumberErr
 
 export interface StrictNumberOptions {
-	/** Inclusive maximum absolute value. */
-	max?: number
+	/** Inclusive maximum for the integer (whole) part. */
+	maxWhole?: number
 	/** When set, more fractional digits → error (no silent truncate). */
 	maxFractionDigits?: number
 	/** Reject scientific notation (default true). */
 	rejectExponent?: boolean
 }
 
-/**
- * Language converter ceiling — must match the real word engines, not the decade hub.
- */
 export function converterMaxForLanguage(language: PropisyuWordLanguage): number {
 	return language === 'en' ? PROPISYU_EN_MAX : PROPISYU_RU_MAX
 }
 
-/**
- * Strip a single outer layer of percent-encoding safely.
- */
 export function decodeSlugSegment(raw: string): string {
 	try {
 		return decodeURIComponent(raw)
@@ -65,16 +71,61 @@ export function decodeSlugSegment(raw: string): string {
 }
 
 /**
- * Parse a full-string non-negative decimal. Does not use parseFloat as the
- * sole validator — the pattern must consume the entire trimmed input.
+ * Exact string compare of a non-negative decimal against an integer ceiling.
+ * Returns true when value ≤ maxWhole as a pure integer (no fractional excess).
+ */
+export function isWithinExactWholeMax(
+	wholeDigits: string,
+	fractionDigits: string | null,
+	maxWhole: number,
+): boolean {
+	const whole = BigInt(wholeDigits)
+	const max = BigInt(maxWhole)
+	if (whole > max) return false
+	if (whole === max && fractionDigits !== null && /[1-9]/.test(fractionDigits)) {
+		return false
+	}
+	return true
+}
+
+/**
+ * True when Number(literal) still denotes the same finite decimal as the
+ * exact digit strings (rejects exponent forms and IEEE rounding).
+ */
+export function isFaithfulNumberRepresentation(
+	wholeDigits: string,
+	fractionDigits: string | null,
+	value: number,
+): boolean {
+	if (!Number.isFinite(value) || value < 0) return false
+	const fromNumber = value.toString()
+	if (/[eE]/.test(fromNumber)) return false
+
+	const scale = fractionDigits ? fractionDigits.length : 0
+	const scaleFactor = BigInt(10) ** BigInt(scale)
+	const expectedScaled =
+		BigInt(wholeDigits) * scaleFactor +
+		BigInt(fractionDigits && scale > 0 ? fractionDigits : '0')
+
+	const [nwRaw, nfRaw = ''] = fromNumber.split('.')
+	const nw = nwRaw.replace(/^0+(?=\d)/, '') || '0'
+	const nfPadded = (nfRaw + '0'.repeat(scale)).slice(0, scale)
+	const actualScaled =
+		BigInt(nw) * scaleFactor + BigInt(scale > 0 ? nfPadded : '0')
+
+	return expectedScaled === actualScaled
+}
+
+/**
+ * Parse a full-string non-negative decimal with exact magnitude + fidelity checks.
  */
 export function parseStrictNonNegativeNumber(
 	raw: string,
 	options: StrictNumberOptions = {},
 ): StrictNumberResult {
 	const {
-		max = PROPISYU_RU_MAX,
-		maxFractionDigits,
+		maxWhole = PROPISYU_RU_MAX,
+		maxFractionDigits = PROPISYU_MAX_FRACTION_DIGITS_NUMERIC,
 		rejectExponent = true,
 	} = options
 
@@ -83,7 +134,6 @@ export function parseStrictNonNegativeNumber(
 		return { ok: false, reason: 'empty' }
 	}
 
-	// Reject signs and exponent forms early (full-string policy).
 	if (input.startsWith('-') || input.startsWith('+')) {
 		return { ok: false, reason: 'signed-not-allowed' }
 	}
@@ -91,14 +141,15 @@ export function parseStrictNonNegativeNumber(
 		return { ok: false, reason: 'exponent-not-allowed' }
 	}
 
-	// Exactly one decimal separator kind, at most one occurrence.
 	const hasDot = input.includes('.')
 	const hasComma = input.includes(',')
 	if (hasDot && hasComma) {
 		return { ok: false, reason: 'mixed-decimal-separators' }
 	}
-	if ((hasDot && (input.match(/\./g) || []).length > 1) ||
-		(hasComma && (input.match(/,/g) || []).length > 1)) {
+	if (
+		(hasDot && (input.match(/\./g) || []).length > 1) ||
+		(hasComma && (input.match(/,/g) || []).length > 1)
+	) {
 		return { ok: false, reason: 'multiple-decimal-separators' }
 	}
 
@@ -108,14 +159,11 @@ export function parseStrictNonNegativeNumber(
 
 	if (separator) {
 		const parts = input.split(separator)
-		if (parts.length !== 2) {
+		if (parts.length !== 2 || !parts[0] || !parts[1]) {
 			return { ok: false, reason: 'malformed-decimal' }
 		}
 		wholeRaw = parts[0]
 		fracRaw = parts[1]
-		if (!wholeRaw || !fracRaw) {
-			return { ok: false, reason: 'malformed-decimal' }
-		}
 	} else {
 		wholeRaw = input
 	}
@@ -127,33 +175,30 @@ export function parseStrictNonNegativeNumber(
 		return { ok: false, reason: 'non-digit-fraction' }
 	}
 
-	if (
-		maxFractionDigits !== undefined &&
-		fracRaw !== null &&
-		fracRaw.length > maxFractionDigits
-	) {
+	if (fracRaw !== null && fracRaw.length > maxFractionDigits) {
 		return { ok: false, reason: 'too-many-fraction-digits' }
 	}
 
-	// Normalize leading zeros on the whole part (keep a lone "0").
 	const wholeNormalized = wholeRaw.replace(/^0+(?=\d)/, '') || '0'
 	const fractionDigits = fracRaw
 	const isInteger = fractionDigits === null
-
-	// Build a finite Number without accepting garbage prefixes.
 	const numericLiteral = isInteger
 		? wholeNormalized
 		: `${wholeNormalized}.${fractionDigits}`
+
+	if (!isWithinExactWholeMax(wholeNormalized, fractionDigits, maxWhole)) {
+		return { ok: false, reason: 'out-of-range' }
+	}
+
 	const value = Number(numericLiteral)
 	if (!Number.isFinite(value) || value < 0) {
 		return { ok: false, reason: 'not-finite' }
 	}
-	// Guard against values that lose integer identity beyond the safe range.
 	if (isInteger && !Number.isSafeInteger(value)) {
 		return { ok: false, reason: 'not-safe-integer' }
 	}
-	if (value > max) {
-		return { ok: false, reason: 'out-of-range' }
+	if (!isFaithfulNumberRepresentation(wholeNormalized, fractionDigits, value)) {
+		return { ok: false, reason: 'not-faithful-precision' }
 	}
 
 	return {
@@ -167,23 +212,19 @@ export function parseStrictNonNegativeNumber(
 }
 
 /**
- * Parse historical money input for the converter form (≤2 fractional digits).
+ * Parse money amount (≤2 fractional digits) against a whole-unit ceiling.
  */
 export function parseStrictMoneyAmount(
 	raw: string,
-	maxRubles: number = PROPISYU_RU_MAX,
+	maxWhole: number = PROPISYU_RU_MAX,
 ): StrictNumberResult {
 	return parseStrictNonNegativeNumber(raw, {
-		max: maxRubles + 0.99,
+		maxWhole,
 		maxFractionDigits: PROPISYU_MONEY_MAX_FRACTION_DIGITS,
 		rejectExponent: true,
 	})
 }
 
-/**
- * Split a validated money amount into integer rubles + 0…99 kopecks.
- * Requires ≤2 fractional digits (already enforced by parseStrictMoneyAmount).
- */
 export function moneyPartsFromStrictNumber(parsed: StrictNumberOk): {
 	rubles: number
 	kopecks: number
@@ -206,18 +247,15 @@ export interface LegacyMoneyParseOk {
 export type LegacyMoneyParseResult = LegacyMoneyParseOk | StrictNumberErr
 
 /**
- * Parse `{amount}-money-{rub|usd|eur}` with a strict amount and exact currency.
- * Rejects trailing junk after the currency and garbage inside the amount.
+ * Parse `{amount}-money-{rub|usd|eur}` with strict amount and exact currency.
+ * Integer ceiling follows currency language: RUB → RU max, USD/EUR → EN max.
  */
 export function parseStrictLegacyMoneySegment(
 	segment: string,
-	options: { max?: number } = {},
+	options: { maxWhole?: number; currencyHint?: PropisyuMoneyCurrency } = {},
 ): LegacyMoneyParseResult {
-	const match = segment.match(
-		/^(.+)-money-(rub|usd|eur)$/i,
-	)
+	const match = segment.match(/^(.+)-money-(rub|usd|eur)$/i)
 	if (!match) {
-		// Tolerate only the exact historical shape — anything else is invalid.
 		if (/-money/i.test(segment)) {
 			return { ok: false, reason: 'legacy-money-malformed' }
 		}
@@ -226,8 +264,11 @@ export function parseStrictLegacyMoneySegment(
 
 	const amountRaw = match[1]
 	const currency = match[2].toLowerCase() as PropisyuMoneyCurrency
+	const maxWhole =
+		options.maxWhole ??
+		(currency === 'rub' ? PROPISYU_RU_MAX : PROPISYU_EN_MAX)
 	const amount = parseStrictNonNegativeNumber(amountRaw, {
-		max: options.max ?? PROPISYU_RU_MAX,
+		maxWhole,
 		maxFractionDigits: PROPISYU_MONEY_MAX_FRACTION_DIGITS,
 		rejectExponent: true,
 	})
@@ -246,18 +287,21 @@ export function parseStrictLegacyMoneySegment(
 }
 
 /**
- * Parse optional `-en` / `-ru` language suffix on a plain number (int or decimal).
+ * Parse optional `-en` / `-ru` language suffix on a plain number.
  */
 export function parseStrictLanguageSuffixedNumber(
 	segment: string,
-): (StrictNumberOk & { language: PropisyuWordLanguage; canonicalSlug: string }) | StrictNumberErr {
+):
+	| (StrictNumberOk & { language: PropisyuWordLanguage; canonicalSlug: string })
+	| StrictNumberErr {
 	const match = segment.match(/^(.+)-(en|ru)$/i)
 	if (!match) {
 		return { ok: false, reason: 'not-language-suffix' }
 	}
 	const language = match[2].toLowerCase() as PropisyuWordLanguage
 	const amount = parseStrictNonNegativeNumber(match[1], {
-		max: converterMaxForLanguage(language),
+		maxWhole: converterMaxForLanguage(language),
+		maxFractionDigits: PROPISYU_MAX_FRACTION_DIGITS_NUMERIC,
 		rejectExponent: true,
 	})
 	if (!amount.ok) {

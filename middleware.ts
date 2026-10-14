@@ -13,6 +13,23 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { locales, defaultLocale } from './lib/i18n'
+import { shouldForceHtmlLangRuForUnprefixedPropisyu } from './lib/propisyu/seo-policy'
+
+/**
+ * Route-local HTML lang override for unprefixed historical propisyu money/hub
+ * pages (Russian content under the default-locale shell). Does not change the
+ * i18n locale used for dictionaries / routing of other calculators.
+ */
+function applyPropisyuHtmlLangHeader(
+	pathname: string,
+	headers: Headers,
+): void {
+	const match = pathname.match(/^\/chislo-propisyu\/([^/]+)\/?$/)
+	if (!match) return
+	if (shouldForceHtmlLangRuForUnprefixedPropisyu(match[1])) {
+		headers.set('x-first-calc-html-lang', 'ru')
+	}
+}
 
 /**
  * Extract locale from pathname
@@ -110,6 +127,10 @@ export function middleware(request: NextRequest) {
 	const detectedLocale = getLocale(pathname)
 	const requestHeaders = new Headers(request.headers)
 	requestHeaders.set('x-first-calc-locale', detectedLocale || defaultLocale)
+	// Unprefixed historical propisyu money/hubs: Russian content language.
+	if (!detectedLocale) {
+		applyPropisyuHtmlLangHeader(pathname, requestHeaders)
+	}
 
 	// Case 1: Path starts with /en - redirect to path without /en (301 permanent redirect)
 	// This ensures clean URLs for English (default locale)

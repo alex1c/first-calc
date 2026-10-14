@@ -1,24 +1,23 @@
 /**
  * Propisyu SEO policy for money / decade hubs / plain numbers.
  *
- * Chosen scheme (research-backed, no mass 301s):
+ * Historical recovery scheme (no mass 301s, no global locale rewrite):
  *
- * 1. Historical money (`{N}-{KK}`) and «База чисел» hubs are factually Russian
- *    content (ruble wording / RU number-base navigation). They must not claim
- *    English via canonical or hreflang.
- * 2. Indexable surface is `/ru/chislo-propisyu/...` with a self-canonical URL.
- * 3. Unprefixed `/chislo-propisyu/...` stays reachable for historical GSC/bookmarks
- *    but is `noindex,follow` with a self-canonical (no cross-language canonical,
- *    no redirect chains).
- * 4. ES/TR/HI stay `noindex,follow` + self-canonical (incomplete localization).
- * 5. Hreflang for Russian-only money/hubs advertises `ru` + `x-default` → RU only.
- * 6. Plain numbers follow the page locale / `-en|-ru` suffix for content language;
- *    dynamic plain pages stay noindex; self-canonical.
- * 7. Global calculator locale architecture is unchanged.
+ * 1. Primary indexable family = unprefixed historical URLs
+ *    (`/chislo-propisyu/420-00`, `/chislo-propisyu/0-9999`) with Russian content.
+ * 2. Those pages self-canonicalize; robots follow money allowlist / 100 hubs.
+ * 3. Hreflang advertises only `ru` + `x-default` pointing at the unprefixed URL
+ *    (content is Russian; do not invent an English alternate).
+ * 4. `/ru/...` duplicates stay reachable but noindex with canonical → unprefixed.
+ * 5. ES/TR/HI stay noindex + self-canonical.
+ * 6. Plain / legacy pages stay noindex; self-canonical.
+ * 7. Global calculator locale routing is unchanged. HTML `lang` for unprefixed
+ *    Russian money/hubs is set via middleware header `x-first-calc-html-lang`
+ *    (route-local; does not change i18n locale loading).
  */
 
 import type { Locale } from '@/lib/i18n'
-import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { getSiteOrigin, localeUrl } from '@/lib/site-url'
 import { isMoneySlugIndexable } from '@/lib/propisyu/seo-allowlist'
 import type { PropisyuSlugParseResult } from '@/lib/propisyu/parse-slug'
 
@@ -27,12 +26,14 @@ export type PropisyuContentLanguage = 'ru' | 'en'
 export interface PropisyuSeoDecision {
 	robots: string
 	canonicalUrl: string
-	/** Locales advertised in hreflang (subset of real language alternates). */
-	hreflangLocales: readonly Locale[]
-	/** Actual human language of the primary content block. */
+	/** Absolute hreflang map; empty means omit language alternates. */
+	languages: Record<string, string> | null
 	contentLanguage: PropisyuContentLanguage
-	/** True when the route may be indexed. */
 	indexable: boolean
+}
+
+function unprefixedAbsolute(pathname: string): string {
+	return new URL(pathname, `${getSiteOrigin()}/`).toString()
 }
 
 function selfCanonical(locale: Locale, pathname: string): string {
@@ -47,12 +48,11 @@ export function resolvePropisyuSeo(
 	locale: Locale,
 	pathname: string,
 ): PropisyuSeoDecision {
-	// Incomplete localizations never index.
 	if (locale === 'es' || locale === 'tr' || locale === 'hi') {
 		return {
 			robots: 'noindex, follow',
 			canonicalUrl: selfCanonical(locale, pathname),
-			hreflangLocales: [],
+			languages: null,
 			contentLanguage: 'ru',
 			indexable: false,
 		}
@@ -60,21 +60,28 @@ export function resolvePropisyuSeo(
 
 	if (parsed.kind === 'money') {
 		const pathnameNorm = `/chislo-propisyu/${parsed.canonicalSlug}`
+		const primary = unprefixedAbsolute(pathnameNorm)
 		const allowlisted = isMoneySlugIndexable(parsed.canonicalSlug)
-		// Only the Russian URL is the indexable owner of Russian money content.
-		if (locale === 'ru' && allowlisted) {
+
+		// Unprefixed (default-locale shell) owns the historical indexable URL.
+		if (locale === 'en' && allowlisted) {
 			return {
 				robots: 'index, follow',
-				canonicalUrl: selfCanonical('ru', pathnameNorm),
-				hreflangLocales: ['ru'],
+				canonicalUrl: primary,
+				languages: {
+					ru: primary,
+					'x-default': primary,
+				},
 				contentLanguage: 'ru',
 				indexable: true,
 			}
 		}
+
+		// /ru and non-allowlisted: reachable; point canonical at historical URL.
 		return {
 			robots: 'noindex, follow',
-			canonicalUrl: selfCanonical(locale, pathnameNorm),
-			hreflangLocales: [],
+			canonicalUrl: primary,
+			languages: null,
 			contentLanguage: 'ru',
 			indexable: false,
 		}
@@ -82,21 +89,26 @@ export function resolvePropisyuSeo(
 
 	if (parsed.kind === 'decade-hub') {
 		const pathnameNorm = `/chislo-propisyu/${parsed.slug}`
-		if (locale === 'ru') {
+		const primary = unprefixedAbsolute(pathnameNorm)
+
+		if (locale === 'en') {
 			return {
 				robots: 'index, follow',
-				canonicalUrl: selfCanonical('ru', pathnameNorm),
-				hreflangLocales: ['ru'],
+				canonicalUrl: primary,
+				languages: {
+					ru: primary,
+					'x-default': primary,
+				},
 				contentLanguage: 'ru',
 				indexable: true,
 			}
 		}
-		// Unprefixed / en shell: reachable historical URL, not claimed as EN content.
+
 		return {
 			robots: 'noindex, follow',
-			canonicalUrl: selfCanonical(locale, pathnameNorm),
-			hreflangLocales: [],
-			contentLanguage: locale === 'en' ? 'en' : 'ru',
+			canonicalUrl: primary,
+			languages: null,
+			contentLanguage: 'ru',
 			indexable: false,
 		}
 	}
@@ -108,33 +120,44 @@ export function resolvePropisyuSeo(
 		return {
 			robots: 'noindex, follow',
 			canonicalUrl: selfCanonical(locale, pathnameNorm),
-			hreflangLocales: [],
+			languages: null,
 			contentLanguage,
 			indexable: false,
 		}
 	}
 
-	// Ranges / legacy / invalid — never index; self-canonical when rendered.
 	return {
 		robots: 'noindex, follow',
 		canonicalUrl: selfCanonical(locale, pathname),
-		hreflangLocales: [],
+		languages: null,
 		contentLanguage: locale === 'en' ? 'en' : 'ru',
 		indexable: false,
 	}
 }
 
-/**
- * Build Next metadata alternates from a SEO decision.
- */
-export function propisyuAlternates(decision: PropisyuSeoDecision, pathname: string) {
-	if (decision.hreflangLocales.length === 0) {
-		return {
-			canonical: decision.canonicalUrl,
-		}
+export function propisyuAlternates(decision: PropisyuSeoDecision) {
+	if (!decision.languages) {
+		return { canonical: decision.canonicalUrl }
 	}
 	return {
 		canonical: decision.canonicalUrl,
-		languages: languageAlternates(pathname, decision.hreflangLocales),
+		languages: decision.languages,
 	}
+}
+
+/**
+ * True when an unprefixed chislo slug should advertise Russian HTML lang
+ * despite the default-locale shell being `en`.
+ */
+export function shouldForceHtmlLangRuForUnprefixedPropisyu(
+	slugSegment: string | undefined,
+): boolean {
+	if (!slugSegment) return false
+	// Avoid importing the full parser into every call site — lightweight shapes.
+	if (/^\d+-\d{2}$/.test(slugSegment)) return true // money N-KK
+	if (/^\d+-\d+$/.test(slugSegment) && !/^\d+-(en|ru)$/i.test(slugSegment)) {
+		// decade hubs and small ranges are Russian tables / navigation
+		return true
+	}
+	return false
 }

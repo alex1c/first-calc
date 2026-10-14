@@ -10,10 +10,7 @@ import { useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
 import { useClientT, type Dictionary } from '@/lib/i18n/useClientT'
 import { validatePropisyuFormInput } from '@/lib/propisyu/money-input'
-import {
-	converterMaxForLanguage,
-	type PropisyuWordLanguage,
-} from '@/lib/propisyu/strict-number'
+import { type PropisyuWordLanguage } from '@/lib/propisyu/strict-number'
 
 interface NumberToWordsFormProps {
 	locale: Locale
@@ -24,14 +21,21 @@ interface NumberToWordsFormProps {
 }
 
 /**
- * Map validation reasons to existing i18n error keys.
+ * Map validation reasons to i18n error keys (format-aware).
  */
-function formErrorKey(reason: string): string {
+function formErrorKey(
+	reason: string,
+	format: 'numeric' | 'money',
+): string {
 	switch (reason) {
 		case 'empty':
 			return 'errors.validation.enterNumber'
 		case 'too-many-fraction-digits':
-			return 'errors.validation.moneyMaxTwoDecimals'
+			return format === 'money'
+				? 'errors.validation.moneyMaxTwoDecimals'
+				: 'errors.validation.numericMaxSixDecimals'
+		case 'not-faithful-precision':
+			return 'errors.validation.notFaithfulPrecision'
 		case 'out-of-range':
 			return 'errors.validation.numberRangeRu'
 		case 'signed-not-allowed':
@@ -64,38 +68,13 @@ export function NumberToWordsForm({
 	)
 	const [error, setError] = useState('')
 	const isChisloPropisyu = toolSlug === 'chislo-propisyu'
-	const maxForLanguage = converterMaxForLanguage(language)
 
 	const validateInput = (): boolean => {
 		setError('')
-
-		if (!isChisloPropisyu) {
-			// Keep a light check for the EN numbers-to-words tool.
-			const raw = value.trim()
-			if (!raw) {
-				setError(t('errors.validation.enterNumber'))
-				return false
-			}
-			const result = validatePropisyuFormInput(raw, {
-				format,
-				language,
-			})
-			if (!result.ok) {
-				setError(
-					t(
-						result.reason === 'out-of-range'
-							? 'errors.validation.numberRangeEn'
-							: formErrorKey(result.reason),
-					),
-				)
-				return false
-			}
-			return true
-		}
-
 		const result = validatePropisyuFormInput(value, {
 			format,
 			language,
+			tool: toolSlug,
 		})
 		if (!result.ok) {
 			if (result.reason === 'out-of-range') {
@@ -107,7 +86,7 @@ export function NumberToWordsForm({
 					),
 				)
 			} else {
-				setError(t(formErrorKey(result.reason)))
+				setError(t(formErrorKey(result.reason, format)))
 			}
 			return false
 		}
@@ -121,49 +100,40 @@ export function NumberToWordsForm({
 			return
 		}
 
-		const basePath = locale === 'en' ? '' : `/${locale}`
-		let url: string
-
-		if (isChisloPropisyu) {
-			const result = validatePropisyuFormInput(value, {
-				format,
-				language,
-			})
-			if (!result.ok) {
-				setError(t(formErrorKey(result.reason)))
-				return
-			}
-			if (format === 'money') {
-				// Historical RU money URLs: /chislo-propisyu/{N}-{KK}
-				url = `${basePath}/${toolSlug}/${result.urlSegment}`
-			} else {
-				url = `${basePath}/${toolSlug}/${result.urlSegment}`
-			}
-		} else if (format === 'money') {
-			const currencySuffix = language === 'ru' ? 'rub' : 'usd'
-			const result = validatePropisyuFormInput(value, {
-				format: 'money',
-				language,
-			})
-			if (!result.ok) {
-				setError(t(formErrorKey(result.reason)))
-				return
-			}
-			url = `${basePath}/${toolSlug}/${result.normalized}-money-${currencySuffix}`
-		} else {
-			const result = validatePropisyuFormInput(value, {
-				format: 'numeric',
-				language,
-			})
-			if (!result.ok) {
-				setError(t(formErrorKey(result.reason)))
-				return
-			}
-			url = `${basePath}/${toolSlug}/${result.normalized}`
+		const result = validatePropisyuFormInput(value, {
+			format,
+			language,
+			tool: toolSlug,
+		})
+		if (!result.ok) {
+			setError(t(formErrorKey(result.reason, format)))
+			return
 		}
 
+		// EN conversion on chislo-propisyu always uses the unprefixed shell so
+		// money-usd / -en results are not trapped under /ru with mixed SEO.
+		const basePath =
+			toolSlug === 'chislo-propisyu' && language === 'en'
+				? ''
+				: locale === 'en'
+					? ''
+					: `/${locale}`
+		const url = `${basePath}/${toolSlug}/${result.urlSegment}`
 		router.push(url)
 	}
+
+	const helpText = (() => {
+		if (format === 'numeric') {
+			return t('legacy/ui.form.numberToWords.helpNumeric')
+		}
+		if (isChisloPropisyu && language === 'ru') {
+			return t('legacy/ui.form.numberToWords.helpMoneyRuHistorical')
+		}
+		if (isChisloPropisyu && language === 'en') {
+			return t('legacy/ui.form.numberToWords.helpMoneyEnLegacy')
+		}
+		return t('legacy/ui.form.numberToWords.helpMoney')
+	})()
 
 	return (
 		<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -271,18 +241,15 @@ export function NumberToWordsForm({
 						{language === 'ru'
 							? t('legacy/ui.form.numberToWords.rangeRu')
 							: t('legacy/ui.form.numberToWords.rangeEn')}
+						{' · '}
 						{format === 'money'
-							? ' · max 2 decimal places'
-							: ` · max ${maxForLanguage.toLocaleString('en-US')}`}
+							? t('legacy/ui.form.numberToWords.moneyDecimalsHint')
+							: t('legacy/ui.form.numberToWords.numericDecimalsHint')}
 					</p>
 				</div>
 
 				<div className="bg-blue-50 border border-blue-200 rounded-md p-3">
-					<p className="text-sm text-blue-800">
-						{format === 'numeric'
-							? t('legacy/ui.form.numberToWords.helpNumeric')
-							: t('legacy/ui.form.numberToWords.helpMoney')}
-					</p>
+					<p className="text-sm text-blue-800">{helpText}</p>
 				</div>
 
 				<button

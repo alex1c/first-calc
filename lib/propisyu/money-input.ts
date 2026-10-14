@@ -8,6 +8,8 @@ import {
 	moneyPartsFromStrictNumber,
 	parseStrictMoneyAmount,
 	parseStrictNonNegativeNumber,
+	PROPISYU_EN_MAX,
+	PROPISYU_MAX_FRACTION_DIGITS_NUMERIC,
 	PROPISYU_RU_MAX,
 	type PropisyuWordLanguage,
 } from '@/lib/propisyu/strict-number'
@@ -31,12 +33,17 @@ export function isValidMoneyFractionalInput(raw: string): boolean {
 
 /**
  * Validate form input for numeric or money mode against language ceilings.
+ *
+ * chislo-propisyu money:
+ * - RU → historical `{N}-{KK}` RUB URLs (RU ceiling).
+ * - EN → legacy `{amount}-money-usd` (EN ceiling; not Russian RUB pages).
  */
 export function validatePropisyuFormInput(
 	raw: string,
 	options: {
 		format: 'numeric' | 'money'
 		language: PropisyuWordLanguage
+		tool?: 'chislo-propisyu' | 'numbers-to-words'
 	},
 ): { ok: true; normalized: string; urlSegment: string } | { ok: false; reason: string } {
 	const trimmed = raw.trim()
@@ -44,26 +51,45 @@ export function validatePropisyuFormInput(
 		return { ok: false, reason: 'empty' }
 	}
 
+	const tool = options.tool ?? 'chislo-propisyu'
+
 	if (options.format === 'money') {
-		// Historical RU money URLs always use the RU ruble ceiling.
-		const parsed = parseStrictMoneyAmount(trimmed, PROPISYU_RU_MAX)
+		if (tool === 'chislo-propisyu' && options.language === 'ru') {
+			const parsed = parseStrictMoneyAmount(trimmed, PROPISYU_RU_MAX)
+			if (!parsed.ok) {
+				return { ok: false, reason: parsed.reason }
+			}
+			const parts = moneyPartsFromStrictNumber(parsed)
+			if (parts.rubles > PROPISYU_RU_MAX) {
+				return { ok: false, reason: 'out-of-range' }
+			}
+			return {
+				ok: true,
+				normalized: parsed.normalized,
+				urlSegment: `${parts.rubles}-${String(parts.kopecks).padStart(2, '0')}`,
+			}
+		}
+
+		// EN money (chislo) or any money on numbers-to-words → legacy currency route.
+		const currency =
+			options.language === 'ru' ? 'rub' : 'usd'
+		const maxWhole =
+			currency === 'rub' ? PROPISYU_RU_MAX : PROPISYU_EN_MAX
+		const parsed = parseStrictMoneyAmount(trimmed, maxWhole)
 		if (!parsed.ok) {
 			return { ok: false, reason: parsed.reason }
-		}
-		const parts = moneyPartsFromStrictNumber(parsed)
-		if (parts.rubles > PROPISYU_RU_MAX) {
-			return { ok: false, reason: 'out-of-range' }
 		}
 		return {
 			ok: true,
 			normalized: parsed.normalized,
-			urlSegment: `${parts.rubles}-${String(parts.kopecks).padStart(2, '0')}`,
+			urlSegment: `${parsed.normalized}-money-${currency}`,
 		}
 	}
 
-	const max = converterMaxForLanguage(options.language)
+	const maxWhole = converterMaxForLanguage(options.language)
 	const parsed = parseStrictNonNegativeNumber(trimmed, {
-		max,
+		maxWhole,
+		maxFractionDigits: PROPISYU_MAX_FRACTION_DIGITS_NUMERIC,
 		rejectExponent: true,
 	})
 	if (!parsed.ok) {
@@ -71,7 +97,7 @@ export function validatePropisyuFormInput(
 	}
 
 	const urlSegment =
-		options.language === 'en'
+		tool === 'chislo-propisyu' && options.language === 'en'
 			? `${parsed.normalized}-en`
 			: parsed.normalized
 

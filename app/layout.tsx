@@ -38,12 +38,20 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode
 }) {
-	const requestedLocale = headers().get('x-first-calc-locale')
+	const headerList = headers()
+	const requestedLocale = headerList.get('x-first-calc-locale')
 	const locale: Locale = locales.includes(requestedLocale as Locale)
 		? (requestedLocale as Locale)
 		: 'en'
+	// Optional route-local override (propisyu historical Russian pages on the
+	// unprefixed shell). Falls back to the request locale for all other routes.
+	const htmlLangOverride = headerList.get('x-first-calc-html-lang')
+	const htmlLang =
+		htmlLangOverride === 'ru' || htmlLangOverride === 'en'
+			? htmlLangOverride
+			: locale
 	return (
-		<html lang={locale}>
+		<html lang={htmlLang}>
 			<head>
 				{/* Yandex Autoplacement 19853636 */}
 				<script src="https://yandex.ru/ads/system/context.js" async />

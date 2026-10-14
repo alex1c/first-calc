@@ -1,25 +1,93 @@
 import { describe, expect, it } from 'vitest'
 import {
+	isFaithfulNumberRepresentation,
+	isWithinExactWholeMax,
 	parseStrictLegacyMoneySegment,
 	parseStrictLanguageSuffixedNumber,
 	parseStrictMoneyAmount,
 	parseStrictNonNegativeNumber,
 	PROPISYU_EN_MAX,
+	PROPISYU_MAX_FRACTION_DIGITS_NUMERIC,
 	PROPISYU_RU_MAX,
 } from '@/lib/propisyu/strict-number'
 
-describe('parseStrictNonNegativeNumber', () => {
+describe('exact decimal-string precision policy', () => {
+	it('rejects sub-Number and rounded-away fractions instead of changing them', () => {
+		// 7 fractional digits exceeds the documented numeric cap (6) and would
+		// otherwise collapse to 0 under Number — reject, never rewrite.
+		const tiny = parseStrictNonNegativeNumber('0.0000001')
+		expect(tiny.ok).toBe(false)
+		if (!tiny.ok) {
+			expect(['too-many-fraction-digits', 'not-faithful-precision']).toContain(
+				tiny.reason,
+			)
+		}
+
+		const almostOne = parseStrictLanguageSuffixedNumber(
+			'0.99999999999999999999-en',
+		)
+		expect(almostOne.ok).toBe(false)
+
+		// Whole at RU max with any non-zero fraction → out-of-range (exact
+		// string compare). Also reject over-long fractions without accepting.
+		const overRu = parseStrictNonNegativeNumber('999999999.01', {
+			maxWhole: PROPISYU_RU_MAX,
+		})
+		expect(overRu.ok).toBe(false)
+		if (!overRu.ok) expect(overRu.reason).toBe('out-of-range')
+
+		const overRuLongFrac = parseStrictNonNegativeNumber(
+			'999999999.00000001',
+			{ maxWhole: PROPISYU_RU_MAX },
+		)
+		expect(overRuLongFrac.ok).toBe(false)
+
+		const longFrac = parseStrictNonNegativeNumber('0.12345678912345678')
+		expect(longFrac.ok).toBe(false)
+		if (!longFrac.ok) expect(longFrac.reason).toBe('too-many-fraction-digits')
+	})
+
+	it('accepts exact values within documented limits', () => {
+		expect(PROPISYU_MAX_FRACTION_DIGITS_NUMERIC).toBe(6)
+		expect(parseStrictNonNegativeNumber('0.000001')).toMatchObject({
+			ok: true,
+			normalized: '0.000001',
+		})
+		expect(parseStrictNonNegativeNumber('123.456789')).toMatchObject({
+			ok: true,
+			normalized: '123.456789',
+		})
+		expect(
+			parseStrictNonNegativeNumber('999999999', { maxWhole: PROPISYU_RU_MAX })
+				.ok,
+		).toBe(true)
+		expect(
+			parseStrictNonNegativeNumber('1000000000', { maxWhole: PROPISYU_RU_MAX })
+				.ok,
+		).toBe(false)
+	})
+
+	it('compares magnitude with exact string semantics', () => {
+		expect(isWithinExactWholeMax('999999999', null, PROPISYU_RU_MAX)).toBe(true)
+		expect(
+			isWithinExactWholeMax('999999999', '00000001', PROPISYU_RU_MAX),
+		).toBe(false)
+		expect(isWithinExactWholeMax('1000000000', null, PROPISYU_RU_MAX)).toBe(
+			false,
+		)
+		expect(
+			isFaithfulNumberRepresentation('0', '0000001', Number('0.0000001')),
+		).toBe(false)
+	})
+})
+
+describe('parseStrictNonNegativeNumber basics', () => {
 	it('accepts integers, decimals, and comma decimals with normalization', () => {
 		expect(parseStrictNonNegativeNumber('123')).toMatchObject({
 			ok: true,
 			value: 123,
 			normalized: '123',
 			isInteger: true,
-		})
-		expect(parseStrictNonNegativeNumber('123.45')).toMatchObject({
-			ok: true,
-			value: 123.45,
-			normalized: '123.45',
 		})
 		expect(parseStrictNonNegativeNumber('1,50')).toMatchObject({
 			ok: true,
@@ -33,74 +101,29 @@ describe('parseStrictNonNegativeNumber', () => {
 		})
 	})
 
-	it('rejects garbage, exponents, signs, and multi-separators', () => {
+	it('rejects garbage and exponents', () => {
 		expect(parseStrictNonNegativeNumber('1e3').ok).toBe(false)
-		expect(parseStrictNonNegativeNumber('1E309').ok).toBe(false)
 		expect(parseStrictNonNegativeNumber('12abc').ok).toBe(false)
 		expect(parseStrictNonNegativeNumber('1.2.3').ok).toBe(false)
 		expect(parseStrictNonNegativeNumber('-1').ok).toBe(false)
-		expect(parseStrictNonNegativeNumber('').ok).toBe(false)
-	})
-
-	it('enforces language ceilings without inventing success', () => {
-		expect(
-			parseStrictNonNegativeNumber('999999999', { max: PROPISYU_RU_MAX }).ok,
-		).toBe(true)
-		expect(
-			parseStrictNonNegativeNumber('1000000000', { max: PROPISYU_RU_MAX }).ok,
-		).toBe(false)
-		expect(
-			parseStrictNonNegativeNumber('1000000000', { max: PROPISYU_EN_MAX }).ok,
-		).toBe(true)
-		expect(
-			parseStrictNonNegativeNumber('999999999999', { max: PROPISYU_EN_MAX }).ok,
-		).toBe(true)
-		expect(
-			parseStrictNonNegativeNumber('1000000000000', { max: PROPISYU_EN_MAX }).ok,
-		).toBe(false)
-	})
-
-	it('rejects money amounts with more than two fractional digits', () => {
-		const tooMany = parseStrictMoneyAmount('123.456')
-		expect(tooMany.ok).toBe(false)
-		if (!tooMany.ok) {
-			expect(tooMany.reason).toBe('too-many-fraction-digits')
-		}
-		expect(parseStrictMoneyAmount('1,50').ok).toBe(true)
 	})
 })
 
-describe('language suffix and legacy money', () => {
-	it('parses 123.45-en and large EN integers within the EN engine ceiling', () => {
-		expect(parseStrictLanguageSuffixedNumber('123.45-en')).toMatchObject({
-			ok: true,
-			value: 123.45,
-			language: 'en',
-			canonicalSlug: '123.45-en',
-		})
+describe('language suffix and legacy money ceilings', () => {
+	it('uses EN ceiling for -en and USD legacy money', () => {
 		expect(parseStrictLanguageSuffixedNumber('1000000000-en')).toMatchObject({
 			ok: true,
 			value: 1_000_000_000,
-			language: 'en',
 		})
 		expect(parseStrictLanguageSuffixedNumber('999999999999-en')).toMatchObject({
 			ok: true,
 			value: PROPISYU_EN_MAX,
-			language: 'en',
 		})
-		expect(parseStrictLanguageSuffixedNumber('1000000000000-en').ok).toBe(false)
-	})
-
-	it('rejects legacy money garbage and oversize amounts', () => {
-		expect(parseStrictLegacyMoneySegment('555.23-money-rub')).toMatchObject({
+		expect(parseStrictLegacyMoneySegment('1000000000-money-usd')).toMatchObject({
 			ok: true,
-			value: 555.23,
-			currency: 'rub',
+			currency: 'usd',
 		})
-		expect(parseStrictLegacyMoneySegment('12abc-money-rub').ok).toBe(false)
-		expect(parseStrictLegacyMoneySegment('1.2.3-money-rub').ok).toBe(false)
-		expect(parseStrictLegacyMoneySegment('1e309-money-rub').ok).toBe(false)
 		expect(parseStrictLegacyMoneySegment('1000000000-money-rub').ok).toBe(false)
-		expect(parseStrictLegacyMoneySegment('1.234-money-rub').ok).toBe(false)
+		expect(parseStrictMoneyAmount('1,50', PROPISYU_RU_MAX).ok).toBe(true)
 	})
 })

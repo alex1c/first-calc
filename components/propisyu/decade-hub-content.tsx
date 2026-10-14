@@ -16,6 +16,11 @@ import { numberToWordsRu } from '@/lib/numberToWordsRu'
 interface DecadeHubContentProps {
 	locale: Locale
 	hub: DecadeHub
+	/**
+	 * Historical hubs are Russian content even on the unprefixed default-locale
+	 * shell. When true, render Russian copy regardless of shell locale.
+	 */
+	forceRussian?: boolean
 }
 
 interface HubExample {
@@ -50,11 +55,15 @@ function buildHubExamples(hub: DecadeHub, locale: Locale): HubExample[] {
 	}))
 }
 
-export function DecadeHubContent({ locale, hub }: DecadeHubContentProps) {
+export function DecadeHubContent({
+	locale,
+	hub,
+	forceRussian = false,
+}: DecadeHubContentProps) {
 	const { previous, next } = getAdjacentDecadeHubs(hub.start, hub.end)
 	const examples = buildHubExamples(hub, locale)
 	const converterHref = localePath(locale, '/chislo-propisyu')
-	const isRu = locale === 'ru'
+	const isRu = forceRussian || locale === 'ru'
 
 	return (
 		<div className="space-y-10">

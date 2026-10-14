@@ -77,14 +77,9 @@ export async function generateMetadata({
 		description = buildMoneySeoDescription(amount)
 		canonicalPath = `/chislo-propisyu/${parsed.canonicalSlug}`
 	} else if (parsed.kind === 'decade-hub') {
-		title =
-			locale === 'ru'
-				? `Числа ${parsed.start}–${parsed.end} прописью — база чисел`
-				: `Numbers ${parsed.start}–${parsed.end} in words — number base`
-		description =
-			locale === 'ru'
-				? `Диапазон ${parsed.slug} из исторической базы чисел first-calc.com. Примеры написания чисел прописью и навигация по соседним диапазонам.`
-				: `Range ${parsed.slug} from the historical number base with sample spellings and neighbouring ranges.`
+		// Hubs are Russian historical content on every shell locale.
+		title = `Числа ${parsed.start}–${parsed.end} прописью — база чисел`
+		description = `Диапазон ${parsed.slug} из исторической базы чисел first-calc.com. Примеры написания чисел прописью и навигация по соседним диапазонам.`
 		canonicalPath = `/chislo-propisyu/${parsed.slug}`
 	} else if (parsed.kind === 'plain-number') {
 		try {
@@ -142,7 +137,7 @@ export async function generateMetadata({
 			title: parsed.kind === 'money' ? title : ogTitle,
 			description: parsed.kind === 'money' ? description : ogDescription,
 		},
-		alternates: propisyuAlternates(seo, canonicalPath),
+		alternates: propisyuAlternates(seo),
 	}
 }
 
@@ -222,10 +217,8 @@ export default async function ChisloPropisyuPage({
 		if (!hub) {
 			notFound()
 		}
-		const title =
-			locale === 'ru'
-				? `Числа ${hub.start}–${hub.end} прописью`
-				: `Numbers ${hub.start}–${hub.end} in words`
+		// Historical number-base hubs always present Russian content (SEO family).
+		const title = `Числа ${hub.start}–${hub.end} прописью`
 		const breadcrumbs = getLegacyBreadcrumbs(
 			locale,
 			'chislo-propisyu',
@@ -240,15 +233,20 @@ export default async function ChisloPropisyuPage({
 				relatedLinks={false}
 				breadcrumbs={breadcrumbs}
 			>
-				<DecadeHubContent locale={locale} hub={hub} />
+				<div lang="ru">
+					<DecadeHubContent locale={locale} hub={hub} forceRussian />
+				</div>
 			</LegacyPageLayout>
 		)
 	}
 
 	// --- Legacy currency money format (strict amount; invalid → 404) ---
 	if (parsed.kind === 'legacy-money-currency') {
+		// Currency drives the engine: USD/EUR → English; RUB → Russian.
+		// Do not bind conversion language to the shell locale (EN users on /ru
+		// must still get English USD/EUR wording, never RUB N-KK copy).
 		const useEnglish =
-			(parsed.currency === 'usd' || parsed.currency === 'eur') && locale !== 'ru'
+			parsed.currency === 'usd' || parsed.currency === 'eur'
 		let wordRepresentation: string
 		try {
 			wordRepresentation = useEnglish
@@ -264,22 +262,28 @@ export default async function ChisloPropisyuPage({
 			notFound()
 		}
 
+		const pageTitle = useEnglish
+			? `Number ${parsed.numberLabel} in words`
+			: `Число ${parsed.numberLabel} прописью`
+
 		return (
 			<LegacyPageLayout
 				locale={locale}
-				title={`Число ${parsed.numberLabel} прописью`}
+				title={pageTitle}
 				relatedLinks={false}
 			>
-				<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
-					<p className="mb-2 text-sm text-gray-500">
-						{locale === 'ru' ? 'Сумма' : 'Amount'}
-					</p>
-					<p className="mb-4 text-4xl font-bold text-gray-900">
-						{parsed.numberLabel}
-					</p>
-					<p className="text-3xl font-semibold text-blue-600">
-						{wordRepresentation}
-					</p>
+				<div lang={useEnglish ? 'en' : 'ru'}>
+					<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
+						<p className="mb-2 text-sm text-gray-500">
+							{useEnglish ? 'Amount' : 'Сумма'}
+						</p>
+						<p className="mb-4 text-4xl font-bold text-gray-900">
+							{parsed.numberLabel}
+						</p>
+						<p className="text-3xl font-semibold text-blue-600">
+							{wordRepresentation}
+						</p>
+					</div>
 				</div>
 				<LegacyRelatedLinks locale={locale} toolType="chislo-propisyu" />
 			</LegacyPageLayout>
