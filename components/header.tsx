@@ -2,12 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
 import { locales, type Locale } from '@/lib/i18n'
 import { SearchButton } from '@/components/search/search-button'
 import { Logo } from '@/components/logo'
 import { localePath } from '@/lib/site-url'
 import { resolveUiLocaleFromPathname } from '@/lib/i18n/resolve-ui-locale'
+import { useClientT, type Dictionary } from '@/lib/i18n/useClientT'
 
 const menuItems = [
 	{ href: '/calculators', key: 'calculators' },
@@ -29,55 +29,16 @@ interface HeaderProps {
 	initialNav?: Record<string, unknown>
 }
 
-function useClientTranslations(
-	locale: Locale,
-	initialDict: Record<string, unknown> = {},
-	initialLocale: Locale,
-) {
-	const [dict, setDict] = useState<Record<string, any>>(
-		locale === initialLocale ? initialDict : {},
-	)
-
-	useEffect(() => {
-		import(`@/locales/${locale}/navigation.json`)
-			.then((module) => {
-				setDict(module.default || module)
-			})
-			.catch(() => {
-				import(`@/locales/en/navigation.json`)
-					.then((module) => {
-						setDict(module.default || module)
-					})
-					.catch(() => {
-						setDict({
-							menu: {
-								calculators: 'Calculators',
-								standards: 'Standards',
-								tools: 'Tools',
-								learn: 'Learn',
-								about: 'About',
-								contact: 'Contact',
-							},
-						})
-					})
-			})
-	}, [locale])
-
-	return (key: string) => {
-		const keys = key.split('.')
-		let value: any = dict
-		for (const k of keys) {
-			value = value?.[k]
-		}
-		return typeof value === 'string' ? value : key
-	}
-}
-
 export function Header({ initialLocale, initialNav = {} }: HeaderProps) {
 	const pathname = usePathname()
 	// Pathname is the single client-nav source of truth (same helper as SSR).
 	const currentLocale = resolveUiLocaleFromPathname(pathname) || initialLocale
-	const t = useClientTranslations(currentLocale, initialNav, initialLocale)
+	const initialDict: Dictionary =
+		currentLocale === initialLocale
+			? { navigation: initialNav as Dictionary }
+			: {}
+	// Shared race-safe loader — stale RU completions cannot overwrite EN.
+	const t = useClientT(currentLocale, ['navigation'], initialDict)
 
 	const getLocalizedPath = (path: string) => {
 		return localePath(currentLocale, path)
@@ -98,7 +59,7 @@ export function Header({ initialLocale, initialNav = {} }: HeaderProps) {
 								href={getLocalizedPath(item.href)}
 								className="text-gray-700 hover:text-gray-900 transition-colors"
 							>
-								{t(`menu.${item.key}`)}
+								{t(`navigation.menu.${item.key}`)}
 							</Link>
 						))}
 					</nav>
@@ -111,7 +72,10 @@ export function Header({ initialLocale, initialNav = {} }: HeaderProps) {
 							value={currentLocale}
 							onChange={(e) => {
 								const newLocale = e.target.value as Locale
-								window.location.href = localePath(newLocale, currentLogicalPath)
+								window.location.href = localePath(
+									newLocale,
+									currentLogicalPath,
+								)
 							}}
 						>
 							{locales.map((loc) => (

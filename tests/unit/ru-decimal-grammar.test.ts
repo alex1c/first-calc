@@ -25,6 +25,37 @@ describe('Russian decimal grammar (feminine numerator + fraction declension)', (
 		)
 	})
 
+	it('agrees feminine whole-part (целая/целых) with the integer', () => {
+		// Independent whole-part matrix: 1 / 2–4 / 5+ / 11–14 / 21–24 / 101–104.
+		// «целая» only for form=one; feminine одна/две for ones digit.
+		const wholeCases: Array<[number, string]> = [
+			[1.5, 'одна целая пять десятых'],
+			[1.5, 'одна целая пять десятых'], // 1.50 as Number → same as 1.5
+			[2.5, 'две целых пять десятых'],
+			[3.5, 'три целых пять десятых'],
+			[4.5, 'четыре целых пять десятых'],
+			[5.5, 'пять целых пять десятых'],
+			[11.5, 'одиннадцать целых пять десятых'],
+			[12.5, 'двенадцать целых пять десятых'],
+			[13.5, 'тринадцать целых пять десятых'],
+			[14.5, 'четырнадцать целых пять десятых'],
+			[21.05, 'двадцать одна целая пять сотых'],
+			[22.05, 'двадцать две целых пять сотых'],
+			[23.05, 'двадцать три целых пять сотых'],
+			[24.05, 'двадцать четыре целых пять сотых'],
+			[101.5, 'сто одна целая пять десятых'],
+			[102.5, 'сто две целых пять десятых'],
+			[103.5, 'сто три целых пять десятых'],
+			[104.5, 'сто четыре целых пять десятых'],
+		]
+		for (const [value, expected] of wholeCases) {
+			expect(
+				numberToWordsRuDecimal(value, { format: 'numeric' }),
+				String(value),
+			).toBe(expected)
+		}
+	})
+
 	/**
 	 * Boundary matrix: every supported precision (1–6) × one / few / many.
 	 * Few (2–4) must use genitive plural, same as many — never nominative.

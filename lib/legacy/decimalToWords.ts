@@ -184,6 +184,15 @@ function getFractionNameRu(
 }
 
 /**
+ * Whole-part noun for «N целая/целых M <fraction>».
+ * Singular feminine «целая» only when the integer agrees with 1 (not 11–14);
+ * otherwise genitive plural «целых» (including 2–4).
+ */
+function wholePartNounRu(integerPart: number): string {
+	return fractionPluralForm(integerPart) === 'one' ? 'целая' : 'целых'
+}
+
+/**
  * Convert number with decimals to words (Russian)
  */
 export function numberToWordsRuDecimal(
@@ -199,6 +208,9 @@ export function numberToWordsRuDecimal(
 	let result = ''
 	if (integerPart === 0) {
 		result = 'ноль'
+	} else if (format === 'numeric') {
+		// Feminine ones (одна/две) agree with feminine «целая».
+		result = numberToWordsRu(integerPart, { feminineOnes: true })
 	} else {
 		result = numberToWordsRu(integerPart)
 	}
@@ -251,7 +263,8 @@ export function numberToWordsRuDecimal(
 						})
 						const form = fractionPluralForm(decimalNum)
 						const fractionName = getFractionNameRu(precision, form)
-						result += ' целых ' + decimalWords + ' ' + fractionName
+						const wholeNoun = wholePartNounRu(integerPart)
+						result += ` ${wholeNoun} ${decimalWords} ${fractionName}`
 					}
 				}
 			}
