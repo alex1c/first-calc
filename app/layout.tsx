@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import './globals.css'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { HtmlLangSync } from '@/components/html-lang-sync'
 import { SearchProvider } from '@/components/search/search-provider'
 import { YandexMetrika } from '@/components/analytics/yandex-metrika'
 import { isIndexingDisabled, PRODUCTION_ORIGIN } from '@/lib/site-url'
@@ -31,7 +32,6 @@ export const metadata: Metadata = {
 			'yandex-verification': YANDEX_WEBMASTER_VERIFICATION,
 		},
 	},
-	// Add noindex, nofollow for test environment
 	...(indexingDisabled && {
 		robots: {
 			index: false,
@@ -46,8 +46,8 @@ export default async function RootLayout({
 	children: React.ReactNode
 }) {
 	const headerList = headers()
-	// Values originate from middleware pathname classification only
-	// (client-supplied copies are stripped before these are set).
+	// Trusted middleware values for SSR first paint only. Soft navigations
+	// re-resolve UI locale from the pathname in Header/Footer/Search/HtmlLangSync.
 	const routingLocale = parseLocaleHeader(
 		headerList.get(HEADER_ROUTING_LOCALE),
 		'en',
@@ -61,7 +61,7 @@ export default async function RootLayout({
 		htmlLangOverride === 'ru' || htmlLangOverride === 'en'
 			? htmlLangOverride
 			: routingLocale
-	const navDict = await loadNamespaces(uiLocale, ['navigation'])
+	const chromeDict = await loadNamespaces(uiLocale, ['navigation', 'footer'])
 
 	return (
 		<html lang={htmlLang}>
@@ -87,15 +87,18 @@ export default async function RootLayout({
 					</div>
 				</noscript>
 				<SearchProvider>
-					{/* Server-passed UI locale + nav dict: no spoofing, no hydration drift. */}
+					<HtmlLangSync />
 					<Header
-						locale={uiLocale}
+						initialLocale={uiLocale}
 						initialNav={
-							(navDict.navigation as Record<string, unknown>) || {}
+							(chromeDict.navigation as Record<string, unknown>) || {}
 						}
 					/>
 					<main className="min-h-screen">{children}</main>
-					<Footer locale={uiLocale} />
+					<Footer
+						initialLocale={uiLocale}
+						initialDict={chromeDict}
+					/>
 				</SearchProvider>
 			</body>
 		</html>

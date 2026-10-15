@@ -7,8 +7,8 @@ import { locales, type Locale } from '@/lib/i18n'
 import { SearchButton } from '@/components/search/search-button'
 import { Logo } from '@/components/logo'
 import { localePath } from '@/lib/site-url'
+import { resolveUiLocaleFromPathname } from '@/lib/i18n/resolve-ui-locale'
 
-// Navigation menu items (will be replaced with i18n in server component)
 const menuItems = [
 	{ href: '/calculators', key: 'calculators' },
 	{ href: '/standards', key: 'standards' },
@@ -20,24 +20,25 @@ const menuItems = [
 
 interface HeaderProps {
 	/**
-	 * Trusted UI locale from root layout (middleware pathname classification).
-	 * Prefer this over pathname guessing so historical unprefixed Russian
-	 * money/hub pages render Russian chrome without hydration drift.
+	 * SSR-matched UI locale from the request pathname (trusted middleware).
+	 * Client navigations re-resolve from usePathname so chrome updates without
+	 * waiting for a root-layout remount.
 	 */
-	locale: Locale
-	/** Server-loaded navigation dict (same locale) for SSR + hydration parity. */
+	initialLocale: Locale
+	/** Server-loaded navigation dict for the initial locale (hydration parity). */
 	initialNav?: Record<string, unknown>
 }
 
-// Client-side translation hook (simplified - in production, use proper i18n context)
 function useClientTranslations(
 	locale: Locale,
 	initialDict: Record<string, unknown> = {},
+	initialLocale: Locale,
 ) {
-	const [dict, setDict] = useState<Record<string, any>>(initialDict)
+	const [dict, setDict] = useState<Record<string, any>>(
+		locale === initialLocale ? initialDict : {},
+	)
 
 	useEffect(() => {
-		// Keep client dict aligned when the trusted UI locale changes.
 		import(`@/locales/${locale}/navigation.json`)
 			.then((module) => {
 				setDict(module.default || module)
@@ -72,12 +73,11 @@ function useClientTranslations(
 	}
 }
 
-export function Header({ locale, initialNav = {} }: HeaderProps) {
+export function Header({ initialLocale, initialNav = {} }: HeaderProps) {
 	const pathname = usePathname()
-	const currentLocale = locale
-
-	// SSR and first client paint share initialNav to avoid hydration mismatch.
-	const t = useClientTranslations(currentLocale, initialNav)
+	// Pathname is the single client-nav source of truth (same helper as SSR).
+	const currentLocale = resolveUiLocaleFromPathname(pathname) || initialLocale
+	const t = useClientTranslations(currentLocale, initialNav, initialLocale)
 
 	const getLocalizedPath = (path: string) => {
 		return localePath(currentLocale, path)
@@ -89,10 +89,8 @@ export function Header({ locale, initialNav = {} }: HeaderProps) {
 		<header className="border-b border-gray-200 bg-white">
 			<div className="container mx-auto px-4 py-4">
 				<div className="flex items-center justify-between">
-					{/* Logo */}
 					<Logo locale={currentLocale} />
 
-					{/* Navigation menu */}
 					<nav className="hidden lg:flex items-center gap-6">
 						{menuItems.map((item) => (
 							<Link

@@ -10,8 +10,8 @@ import {
 } from 'react'
 import { usePathname } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
-import { locales } from '@/lib/i18n'
 import { SearchModal } from './search-modal'
+import { resolveUiLocaleFromPathname } from '@/lib/i18n/resolve-ui-locale'
 
 interface SearchContextValue {
 	openSearch: () => void
@@ -20,20 +20,14 @@ interface SearchContextValue {
 
 const SearchContext = createContext<SearchContextValue | undefined>(undefined)
 
-function deriveLocale(pathname: string | null): Locale {
-	if (!pathname) return 'en'
-	const segments = pathname.split('/').filter(Boolean)
-	const candidate = segments[0]
-	if (candidate && locales.includes(candidate as Locale)) {
-		return candidate as Locale
-	}
-	return 'en'
-}
-
 export function SearchProvider({ children }: { children: React.ReactNode }) {
 	const pathname = usePathname()
 	const [isOpen, setIsOpen] = useState(false)
-	const locale = useMemo(() => deriveLocale(pathname), [pathname])
+	// Same pathname→locale rules as Header/Footer/html lang (incl. historical RU).
+	const locale = useMemo(
+		() => resolveUiLocaleFromPathname(pathname),
+		[pathname],
+	)
 
 	const openSearch = useCallback(() => setIsOpen(true), [])
 	const closeSearch = useCallback(() => setIsOpen(false), [])

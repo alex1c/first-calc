@@ -148,7 +148,10 @@ function fractionPluralForm(n: number): 'one' | 'few' | 'many' {
 
 /**
  * Feminine fraction noun for the given decimal precision and numerator form.
- * Example: precision 6 + one → «миллионная»; many → «миллионных».
+ *
+ * Russian «N целых M <fraction>» uses genitive plural for 2–4 (and 5+),
+ * not nominative plural: «две десятых», not «две десятые».
+ * Singular feminine remains for 1 (and 21, 31, …): «одна миллионная».
  */
 function getFractionNameRu(
 	precision: number,
@@ -158,28 +161,24 @@ function getFractionNameRu(
 		number,
 		Record<'one' | 'few' | 'many', string>
 	> = {
-		1: { one: 'десятая', few: 'десятые', many: 'десятых' },
-		2: { one: 'сотая', few: 'сотые', many: 'сотых' },
-		3: { one: 'тысячная', few: 'тысячные', many: 'тысячных' },
+		1: { one: 'десятая', few: 'десятых', many: 'десятых' },
+		2: { one: 'сотая', few: 'сотых', many: 'сотых' },
+		3: { one: 'тысячная', few: 'тысячных', many: 'тысячных' },
 		4: {
 			one: 'десятитысячная',
-			few: 'десятитысячные',
+			few: 'десятитысячных',
 			many: 'десятитысячных',
 		},
 		5: {
 			one: 'стотысячная',
-			few: 'стотысячные',
+			few: 'стотысячных',
 			many: 'стотысячных',
 		},
-		6: { one: 'миллионная', few: 'миллионные', many: 'миллионных' },
+		6: { one: 'миллионная', few: 'миллионных', many: 'миллионных' },
 	}
 	const row = table[precision]
 	if (!row) {
-		return form === 'one'
-			? 'десятичная'
-			: form === 'few'
-				? 'десятичные'
-				: 'десятичных'
+		return form === 'one' ? 'десятичная' : 'десятичных'
 	}
 	return row[form]
 }
