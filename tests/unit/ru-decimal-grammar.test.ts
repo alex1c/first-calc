@@ -25,6 +25,30 @@ describe('Russian decimal grammar (feminine numerator + fraction declension)', (
 		)
 	})
 
+	it('uses masculine integers when the fractional part is zero', () => {
+		// .00 values round-trip through Number to integers; no «целая» emitted.
+		const zeroFraction: Array<[number, string]> = [
+			[1, 'один'],
+			[1.0, 'один'],
+			[Number('1.00'), 'один'],
+			[2, 'два'],
+			[2.0, 'два'],
+			[Number('2.00'), 'два'],
+			[21, 'двадцать один'],
+			[21.0, 'двадцать один'],
+			[Number('21.00'), 'двадцать один'],
+			[102, 'сто два'],
+			[102.0, 'сто два'],
+			[Number('102.00'), 'сто два'],
+		]
+		for (const [value, expected] of zeroFraction) {
+			expect(
+				numberToWordsRuDecimal(value, { format: 'numeric' }),
+				String(value),
+			).toBe(expected)
+		}
+	})
+
 	it('agrees feminine whole-part (целая/целых) with the integer', () => {
 		// Independent whole-part matrix: 1 / 2–4 / 5+ / 11–14 / 21–24 / 101–104.
 		// «целая» only for form=one; feminine одна/две for ones digit.

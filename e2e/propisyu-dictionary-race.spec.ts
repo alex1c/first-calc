@@ -1,32 +1,52 @@
-import { test, expect, type Page } from '@playwright/test'
+import { test, expect, type Page, type Route } from '@playwright/test'
 
 /**
- * Chromium regression: delayed RU dictionary loads must not leave Header /
- * Footer / Search on the wrong locale after Back/Forward soft navigation.
+ * Chromium regression: delayed RU dictionary chunk responses must not leave
+ * Header / Footer / Search on the wrong locale after Back/Forward soft nav.
  *
- * Delay is injected via window flags (see useClientT maybeDelayDictionaryLoad)
- * so the race does not depend on opaque webpack chunk URL patterns.
+ * Delay is applied via real network interception: fetch the chunk, detect RU
+ * chrome dictionary payloads, wait, then fulfill. No production window hooks.
  */
 
 const RU_DICT_DELAY_MS = 2500
 
-async function installRuDictionaryDelay(page: Page): Promise<void> {
-	await page.addInitScript(
-		({ ms }) => {
-			;(
-				window as Window & {
-					__FIRST_CALC_DELAY_I18N_MS?: number
-					__FIRST_CALC_DELAY_I18N_LOCALES?: string[]
-				}
-			).__FIRST_CALC_DELAY_I18N_MS = ms
-			;(
-				window as Window & {
-					__FIRST_CALC_DELAY_I18N_LOCALES?: string[]
-				}
-			).__FIRST_CALC_DELAY_I18N_LOCALES = ['ru']
-		},
-		{ ms: RU_DICT_DELAY_MS },
+/**
+ * RU chrome dictionary markers (navigation / footer / search JSON modules).
+ * Keep narrow so unrelated RU page content is not delayed unnecessarily.
+ */
+function isRuChromeDictionaryBody(body: string): boolean {
+	return (
+		body.includes('"calculators":"Калькуляторы"') ||
+		body.includes('"open":"Поиск"') ||
+		(body.includes('"sharePage"') && body.includes('Бесплатные')) ||
+		(body.includes('"tagline"') &&
+			body.includes('Бесплатные калькуляторы')) ||
+		body.includes('Бесплатные калькуляторы')
 	)
+}
+
+async function installRuDictionaryDelay(page: Page): Promise<void> {
+	await page.route('**/_next/static/chunks/**', async (route: Route) => {
+		const request = route.request()
+		// Only delay script/chunk GETs (dictionary modules are JS wrappers).
+		if (request.method() !== 'GET') {
+			await route.continue()
+			return
+		}
+
+		const response = await route.fetch()
+		const body = await response.text()
+		if (isRuChromeDictionaryBody(body)) {
+			await new Promise((r) => setTimeout(r, RU_DICT_DELAY_MS))
+		}
+		await route.fulfill({
+			response,
+			body,
+			headers: {
+				...response.headers(),
+			},
+		})
+	})
 }
 
 async function expectRuChrome(page: Page) {
@@ -86,7 +106,7 @@ test.describe('propisyu delayed dictionary race', () => {
 
 		await page.locator('a[href="/chislo-propisyu/0-9999"]').first().click()
 		await expect(page).toHaveURL(/\/chislo-propisyu\/0-9999/)
-		// Back before the delayed RU dictionaries settle (~2500ms).
+		// Back before the delayed RU dictionary chunks settle (~2500ms).
 		await page.waitForTimeout(200)
 		await page.goBack()
 		await expect(page).toHaveURL(/\/chislo-propisyu\/?$/)

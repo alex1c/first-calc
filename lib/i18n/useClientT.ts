@@ -49,29 +49,10 @@ function mergeNamespaceResults(
 	return merged
 }
 
-/**
- * Optional Chromium/E2E delay: set `window.__FIRST_CALC_DELAY_I18N_MS` and
- * optionally `__FIRST_CALC_DELAY_I18N_LOCALES` (e.g. `['ru']`) via addInitScript
- * so stale-completion races are reproducible without depending on chunk URLs.
- */
-async function maybeDelayDictionaryLoad(locale: Locale): Promise<void> {
-	if (typeof window === 'undefined') return
-	const w = window as Window & {
-		__FIRST_CALC_DELAY_I18N_MS?: number
-		__FIRST_CALC_DELAY_I18N_LOCALES?: string[]
-	}
-	const ms = w.__FIRST_CALC_DELAY_I18N_MS
-	if (typeof ms !== 'number' || ms <= 0) return
-	const only = w.__FIRST_CALC_DELAY_I18N_LOCALES
-	if (only && only.length > 0 && !only.includes(locale)) return
-	await new Promise((resolve) => setTimeout(resolve, ms))
-}
-
 async function defaultLoadNamespacesClient(
 	locale: Locale,
 	namespaceList: string[],
 ): Promise<Dictionary> {
-	await maybeDelayDictionaryLoad(locale)
 	const results = await Promise.all(
 		namespaceList.map((ns) =>
 			import(`@/locales/${locale}/${ns}.json`)
