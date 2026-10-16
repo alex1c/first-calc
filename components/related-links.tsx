@@ -21,8 +21,9 @@ const defaultLegacyLinks: RelatedLink[] = [
 
 // Default related links for new calculators
 const defaultCalculatorLinks: RelatedLink[] = [
-	{ href: '/number-format/in', label: 'Indian Number Format' },
-	{ href: '/factors', label: 'Number Factors' },
+	// Bare /number-format/in and /factors have no pages; use known example routes.
+	{ href: '/number-format/in/1234567', label: 'Indian Number Format' },
+	{ href: '/factors/360', label: 'Number Factors' },
 ]
 
 // Common links for all pages

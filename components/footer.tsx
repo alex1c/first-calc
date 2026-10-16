@@ -23,6 +23,17 @@ const calculatorHrefs = [
 	{ key: 'compatibility', href: '/calculators/compatibility' },
 ] as const
 
+/**
+ * On this main-based integration, RU has no localized calculators in
+ * health / everyday / compatibility, so those category hubs 404 under /ru.
+ * Point those three at the working EN hubs; keep RU for math/finance/construction.
+ */
+const CATEGORY_KEYS_EN_ONLY = new Set<string>([
+	'health',
+	'everyday',
+	'compatibility',
+])
+
 const knowledgeHrefs = [
 	{ key: 'learn', href: '/learn' },
 	{ key: 'standards', href: '/standards' },
@@ -34,6 +45,22 @@ const legalHrefs = [
 	{ href: '/terms', key: 'terms' },
 	{ href: '/disclaimer', key: 'disclaimer' },
 ] as const
+
+/**
+ * Resolve which locale prefix a calculator-category footer link should use.
+ */
+function resolveFooterCategoryLocale(
+	uiLocale: Locale,
+	categoryKey: string,
+): Locale {
+	if (CATEGORY_KEYS_EN_ONLY.has(categoryKey)) {
+		return 'en'
+	}
+	if (uiLocale === 'en' || uiLocale === 'ru') {
+		return uiLocale
+	}
+	return 'en'
+}
 
 interface FooterProps {
 	/** SSR-matched UI locale for the first paint. */
@@ -78,7 +105,10 @@ export function Footer({ initialLocale, initialDict = {} }: FooterProps) {
 							{calculatorHrefs.map((link) => (
 								<li key={link.href}>
 									<Link
-										href={localePath(footerCalcLocale, link.href)}
+										href={localePath(
+											resolveFooterCategoryLocale(locale, link.key),
+											link.href,
+										)}
 										className="text-slate-300 hover:text-white transition-colors"
 									>
 										{t(`navigation.categories.${link.key}`)}
