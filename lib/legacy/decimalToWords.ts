@@ -134,18 +134,96 @@ function getCentsEn(cents: number): string {
 }
 
 /**
- * Get fraction name for decimal precision (Russian)
+ * Russian plural form for fraction nouns agreeing with the numerator.
  */
-function getFractionNameRu(precision: number): string {
-	// Common fraction names for Russian
-	if (precision === 1) return 'десятых'
-	if (precision === 2) return 'сотых'
-	if (precision === 3) return 'тысячных'
-	if (precision === 4) return 'десятитысячных'
-	if (precision === 5) return 'стотысячных'
-	if (precision === 6) return 'миллионных'
-	// For higher precision, use generic form
-	return 'десятичных'
+function fractionPluralForm(n: number): 'one' | 'few' | 'many' {
+	const abs = Math.abs(Math.trunc(n))
+	const mod100 = abs % 100
+	const mod10 = abs % 10
+	if (mod100 >= 11 && mod100 <= 19) return 'many'
+	if (mod10 === 1) return 'one'
+	if (mod10 >= 2 && mod10 <= 4) return 'few'
+	return 'many'
+}
+
+/**
+ * Feminine fraction noun for the given decimal precision and numerator form.
+ *
+ * Russian «N целых M <fraction>» uses genitive plural for 2–4 (and 5+),
+ * not nominative plural: «две десятых», not «две десятые».
+ * Singular feminine remains for 1 (and 21, 31, …): «одна миллионная».
+ */
+function getFractionNameRu(
+	precision: number,
+	form: 'one' | 'few' | 'many',
+): string {
+	const table: Record<
+		number,
+		Record<'one' | 'few' | 'many', string>
+	> = {
+		1: { one: 'десятая', few: 'десятых', many: 'десятых' },
+		2: { one: 'сотая', few: 'сотых', many: 'сотых' },
+		3: { one: 'тысячная', few: 'тысячных', many: 'тысячных' },
+		4: {
+			one: 'десятитысячная',
+			few: 'десятитысячных',
+			many: 'десятитысячных',
+		},
+		5: {
+			one: 'стотысячная',
+			few: 'стотысячных',
+			many: 'стотысячных',
+		},
+		6: { one: 'миллионная', few: 'миллионных', many: 'миллионных' },
+	}
+	const row = table[precision]
+	if (!row) {
+		return form === 'one' ? 'десятичная' : 'десятичных'
+	}
+	return row[form]
+}
+
+/**
+ * Whole-part noun for «N целая/целых M <fraction>».
+ * Singular feminine «целая» only when the integer agrees with 1 (not 11–14);
+ * otherwise genitive plural «целых» (including 2–4).
+ */
+function wholePartNounRu(integerPart: number): string {
+	return fractionPluralForm(integerPart) === 'one' ? 'целая' : 'целых'
+}
+
+/**
+ * Build the Russian «целая/целых … <fraction>» suffix when a non-zero
+ * fractional construction is required. Returns null when no fraction words
+ * should be emitted (including .00 / trailing-zero Number values).
+ */
+function buildRuNumericFractionSuffix(
+	n: number,
+	integerPart: number,
+): string | null {
+	const decimalPart = Math.abs(n) - integerPart
+	if (decimalPart <= 0) return null
+
+	// Preserve precision via the engine's Number→string round-trip.
+	const nStr = n.toString()
+	const parts = nStr.split('.')
+	if (parts.length <= 1) return null
+
+	const decimalStr = parts[1] || ''
+	const precision = decimalStr.length
+	if (precision <= 0) return null
+
+	const decimalNum = parseInt(decimalStr, 10)
+	if (isNaN(decimalNum) || decimalNum <= 0) return null
+
+	// Feminine numerator (одна/две) agrees with feminine fraction nouns.
+	const decimalWords = numberToWordsRu(decimalNum, {
+		feminineOnes: true,
+	})
+	const form = fractionPluralForm(decimalNum)
+	const fractionName = getFractionNameRu(precision, form)
+	const wholeNoun = wholePartNounRu(integerPart)
+	return ` ${wholeNoun} ${decimalWords} ${fractionName}`
 }
 
 /**
@@ -160,10 +238,20 @@ export function numberToWordsRuDecimal(
 	const integerPart = Math.floor(Math.abs(n))
 	const decimalPart = Math.abs(n) - integerPart
 
-	// Convert integer part
+	// Numeric fractions: feminine whole-part words only when we actually emit
+	// «целая/целых …». Zero fractions (.00) stay masculine (один/два/…).
+	const numericFractionSuffix =
+		format === 'numeric'
+			? buildRuNumericFractionSuffix(n, integerPart)
+			: null
+	const useFeminineWhole =
+		format === 'numeric' && numericFractionSuffix !== null
+
 	let result = ''
 	if (integerPart === 0) {
 		result = 'ноль'
+	} else if (useFeminineWhole) {
+		result = numberToWordsRu(integerPart, { feminineOnes: true })
 	} else {
 		result = numberToWordsRu(integerPart)
 	}
@@ -198,26 +286,8 @@ export function numberToWordsRuDecimal(
 					result += ' ' + kopecksWords + ' ' + getKopecksRu(kopecks)
 				}
 			}
-		} else {
-			// For numeric, convert decimal part as a whole number with proper fraction name
-			// Use the original number string to preserve precision
-			const nStr = n.toString()
-			const parts = nStr.split('.')
-			if (parts.length > 1) {
-				const decimalStr = parts[1] || ''
-				const precision = decimalStr.length
-				if (precision > 0 && decimalStr.length > 0) {
-					// Parse the decimal part as a whole number
-					const decimalNum = parseInt(decimalStr, 10)
-					if (!isNaN(decimalNum) && decimalNum > 0) {
-						// Convert the decimal part as a number
-						const decimalWords = numberToWordsRu(decimalNum)
-						// Add proper fraction name based on precision
-						const fractionName = getFractionNameRu(precision)
-						result += ' целых ' + decimalWords + ' ' + fractionName
-					}
-				}
-			}
+		} else if (numericFractionSuffix) {
+			result += numericFractionSuffix
 		}
 	}
 

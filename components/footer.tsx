@@ -1,47 +1,59 @@
+'use client'
+
+/**
+ * Site footer chrome. Locale follows pathname (same resolver as Header/Search)
+ * so soft navigations onto historical Russian propisyu pages update labels.
+ */
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ShareButtons } from './footer/share-buttons'
 import { getTelegramContactLink, hasTelegramBot } from '@/lib/contact'
-import { headers } from 'next/headers'
-import { locales, type Locale } from '@/lib/i18n'
+import type { Locale } from '@/lib/i18n'
 import { localePath } from '@/lib/site-url'
-import { loadNamespaces } from '@/lib/i18n/loadNamespaces'
-import { createT } from '@/lib/i18n/t'
+import { resolveUiLocaleFromPathname } from '@/lib/i18n/resolve-ui-locale'
+import { useClientT, type Dictionary } from '@/lib/i18n/useClientT'
 
-const calculatorLinks = [
-	{ label: 'Math', href: '/calculators/math' },
-	{ label: 'Finance', href: '/calculators/finance' },
-	{ label: 'Construction', href: '/calculators/construction' },
-	{ label: 'Health', href: '/calculators/health' },
-	{ label: 'Life', href: '/calculators/everyday' },
-	{ label: 'Compatibility', href: '/calculators/compatibility' },
-]
+const calculatorHrefs = [
+	{ key: 'math', href: '/calculators/math' },
+	{ key: 'finance', href: '/calculators/finance' },
+	{ key: 'construction', href: '/calculators/construction' },
+	{ key: 'health', href: '/calculators/health' },
+	{ key: 'everyday', href: '/calculators/everyday' },
+	{ key: 'compatibility', href: '/calculators/compatibility' },
+] as const
 
-const knowledgeLinks = [
-	{ label: 'Learn', href: '/learn' },
-	{ label: 'Standards', href: '/standards' },
-	{ label: 'About', href: '/about' },
-]
+const knowledgeHrefs = [
+	{ key: 'learn', href: '/learn' },
+	{ key: 'standards', href: '/standards' },
+	{ key: 'about', href: '/about' },
+] as const
 
-const toolLinks = [
-	{ label: 'All Calculators', href: '/calculators' },
-	{ label: 'Popular Calculators', href: '/calculators#popular-calculators' },
-	{ label: 'Tools Hub', href: '/tools' },
-]
+const legalHrefs = [
+	{ href: '/privacy', key: 'privacy' },
+	{ href: '/terms', key: 'terms' },
+	{ href: '/disclaimer', key: 'disclaimer' },
+] as const
 
-const legalLinks = [
-	{ label: 'Privacy Policy', href: '/privacy' },
-	{ label: 'Terms of Use', href: '/terms' },
-	{ label: 'Disclaimer', href: '/disclaimer' },
-]
+interface FooterProps {
+	/** SSR-matched UI locale for the first paint. */
+	initialLocale: Locale
+	/** Server-loaded footer+navigation dict for hydration parity. */
+	initialDict?: Dictionary
+}
 
-export async function Footer() {
+export function Footer({ initialLocale, initialDict = {} }: FooterProps) {
+	const pathname = usePathname()
+	const locale = resolveUiLocaleFromPathname(pathname) || initialLocale
 	const year = new Date().getFullYear()
 	const telegramLink = getTelegramContactLink()
-	const requestedLocale = headers().get('x-first-calc-locale')
-	const locale: Locale = locales.includes(requestedLocale as Locale)
-		? (requestedLocale as Locale)
-		: 'en'
-	const t = createT(await loadNamespaces(locale, ['footer']))
+	const t = useClientT(
+		locale,
+		['footer', 'navigation'],
+		locale === initialLocale ? initialDict : {},
+	)
+	const footerCalcLocale: Locale =
+		locale === 'en' || locale === 'ru' ? locale : 'en'
 
 	return (
 		<footer className="bg-slate-950 text-slate-100 mt-16">
@@ -51,12 +63,8 @@ export async function Footer() {
 						<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
 							First Calc
 						</p>
-						<p className="text-lg font-bold mb-3">
-							Free calculators for better planning.
-						</p>
-						<p className="text-sm text-slate-300 mb-5">
-							Free calculators and tools for estimation, planning, and self-reflection.
-						</p>
+						<p className="text-lg font-bold mb-3">{t('footer.tagline')}</p>
+						<p className="text-sm text-slate-300 mb-5">{t('footer.blurb')}</p>
 						<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
 							{t('footer.sharePage')}
 						</p>
@@ -64,16 +72,16 @@ export async function Footer() {
 					</div>
 					<div>
 						<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
-							Calculators
+							{t('navigation.menu.calculators')}
 						</p>
 						<ul className="space-y-2 text-sm">
-							{calculatorLinks.map((link) => (
+							{calculatorHrefs.map((link) => (
 								<li key={link.href}>
 									<Link
-									href={localePath(locale, link.href)}
+										href={localePath(footerCalcLocale, link.href)}
 										className="text-slate-300 hover:text-white transition-colors"
 									>
-										{link.label}
+										{t(`navigation.categories.${link.key}`)}
 									</Link>
 								</li>
 							))}
@@ -81,42 +89,48 @@ export async function Footer() {
 					</div>
 					<div>
 						<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
-							Knowledge
+							{t('navigation.menu.learn')}
 						</p>
 						<ul className="space-y-2 text-sm mb-6">
-							{knowledgeLinks.map((link) => (
+							{knowledgeHrefs.map((link) => (
 								<li key={link.href}>
 									<Link
-									href={localePath(locale, link.href)}
+										href={localePath(locale, link.href)}
 										className="text-slate-300 hover:text-white transition-colors"
 									>
-										{link.label}
+										{t(`navigation.menu.${link.key}`)}
 									</Link>
 								</li>
 							))}
 						</ul>
 						<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
-							Tools
+							{t('navigation.menu.tools')}
 						</p>
 						<ul className="space-y-2 text-sm">
-							{toolLinks.map((link) => (
-								<li key={link.href}>
-									<Link
-									href={localePath(locale, link.href)}
-										className="text-slate-300 hover:text-white transition-colors"
-									>
-										{link.label}
-									</Link>
-								</li>
-							))}
+							<li>
+								<Link
+									href={localePath(footerCalcLocale, '/calculators')}
+									className="text-slate-300 hover:text-white transition-colors"
+								>
+									{t('navigation.menu.calculators')}
+								</Link>
+							</li>
+							<li>
+								<Link
+									href={localePath(locale, '/tools')}
+									className="text-slate-300 hover:text-white transition-colors"
+								>
+									{t('navigation.menu.tools')}
+								</Link>
+							</li>
 						</ul>
 					</div>
 					<div>
 						<p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">
-							Contact & Feedback
+							{t('navigation.menu.contact')}
 						</p>
 						<p className="text-sm text-slate-300 mb-3">
-							Have suggestions or found an issue? Contact us.
+							{t('footer.contactPrompt')}
 						</p>
 						{telegramLink ? (
 							<Link
@@ -125,27 +139,28 @@ export async function Footer() {
 								rel="noopener noreferrer"
 								className="inline-flex items-center rounded-md border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-900 bg-white hover:border-blue-400 hover:text-blue-700 transition-colors"
 							>
-								Message us on Telegram
+								Telegram
 							</Link>
 						) : hasTelegramBot() ? (
 							<p className="text-sm text-slate-300">
-								Telegram bot configured. Direct contact link will be published soon.
+								Telegram bot configured. Direct contact link will be published
+								soon.
 							</p>
 						) : (
-							<p className="text-sm text-slate-500">Contact form coming soon.</p>
+							<p className="text-sm text-slate-500">{t('footer.contactSoon')}</p>
 						)}
 					</div>
 				</div>
 				<div className="mt-10 border-t border-slate-800 pt-6 flex flex-col gap-4 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
 					<p>© {year} First Calc</p>
 					<div className="flex flex-wrap gap-4">
-						{legalLinks.map((link) => (
+						{legalHrefs.map((link) => (
 							<Link
 								key={link.href}
 								href={localePath(locale, link.href)}
 								className="hover:text-white transition-colors"
 							>
-								{link.label}
+								{t(`footer.${link.key}`)}
 							</Link>
 						))}
 					</div>
@@ -154,12 +169,3 @@ export async function Footer() {
 		</footer>
 	)
 }
-
-
-
-
-
-
-
-
-

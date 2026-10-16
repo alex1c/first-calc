@@ -121,7 +121,13 @@ export default function NumbersToWordsPage({
 		notFound()
 	}
 
+	// Malformed *-money-* segments must 404 (never 200 with truncated parseFloat).
+	const looksLikeMoney =
+		slug.length > 0 && /money/i.test(slug[0] || '')
 	const moneyFormat = parseMoneyFormat(slug)
+	if (looksLikeMoney && !moneyFormat) {
+		notFound()
+	}
 	const singleNumber = moneyFormat ? moneyFormat.number : parseSingleNumber(slug)
 	const range = parseRange(slug)
 

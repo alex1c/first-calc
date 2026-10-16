@@ -1,66 +1,95 @@
 'use client'
 
 /**
- * Number to words converter form with language and format options
- * Supports: numeric, money formats, different languages
+ * Number to words converter form with language and format options.
+ * Validation shares strict-number rules with URL/slug parsing.
  */
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Locale } from '@/lib/i18n'
-import { useClientT } from '@/lib/i18n/useClientT'
+import { useClientT, type Dictionary } from '@/lib/i18n/useClientT'
+import { validatePropisyuFormInput } from '@/lib/propisyu/money-input'
+import { type PropisyuWordLanguage } from '@/lib/propisyu/strict-number'
 
 interface NumberToWordsFormProps {
 	locale: Locale
 	toolSlug: 'chislo-propisyu' | 'numbers-to-words'
+	/** Server-loaded i18n dict so SSR does not flash raw keys */
+	initialDict?: Dictionary
 	exampleLinks?: Array<{ href: string; label: string }>
 }
 
 /**
- * Number to words converter form component
- * Allows users to convert numbers to words with language and format options
+ * Map validation reasons to i18n error keys (format-aware).
  */
+function formErrorKey(
+	reason: string,
+	format: 'numeric' | 'money',
+): string {
+	switch (reason) {
+		case 'empty':
+			return 'errors.validation.enterNumber'
+		case 'too-many-fraction-digits':
+			return format === 'money'
+				? 'errors.validation.moneyMaxTwoDecimals'
+				: 'errors.validation.numericMaxSixDecimals'
+		case 'not-faithful-precision':
+			return 'errors.validation.notFaithfulPrecision'
+		case 'out-of-range':
+			return 'errors.validation.numberRangeRu'
+		case 'signed-not-allowed':
+		case 'exponent-not-allowed':
+		case 'mixed-decimal-separators':
+		case 'multiple-decimal-separators':
+		case 'malformed-decimal':
+		case 'non-digit-characters':
+		case 'non-digit-fraction':
+		case 'not-finite':
+		case 'not-safe-integer':
+			return 'errors.validation.enterValidNumber'
+		default:
+			return 'errors.validation.enterValidNumber'
+	}
+}
+
 export function NumberToWordsForm({
 	locale,
 	toolSlug,
+	initialDict,
 	exampleLinks = [],
 }: NumberToWordsFormProps) {
 	const router = useRouter()
-	const t = useClientT(locale, ['legacy/ui', 'errors'])
+	const t = useClientT(locale, ['legacy/ui', 'errors'], initialDict)
 	const [value, setValue] = useState('')
 	const [format, setFormat] = useState<'numeric' | 'money'>('numeric')
-	const [language, setLanguage] = useState<'ru' | 'en'>(
+	const [language, setLanguage] = useState<PropisyuWordLanguage>(
 		toolSlug === 'chislo-propisyu' ? 'ru' : 'en',
 	)
 	const [error, setError] = useState('')
+	const isChisloPropisyu = toolSlug === 'chislo-propisyu'
 
 	const validateInput = (): boolean => {
 		setError('')
-
-		if (!value.trim()) {
-			setError(t('errors.validation.enterNumber'))
+		const result = validatePropisyuFormInput(value, {
+			format,
+			language,
+			tool: toolSlug,
+		})
+		if (!result.ok) {
+			if (result.reason === 'out-of-range') {
+				setError(
+					t(
+						language === 'en'
+							? 'errors.validation.numberRangeEn'
+							: 'errors.validation.numberRangeRu',
+					),
+				)
+			} else {
+				setError(t(formErrorKey(result.reason, format)))
+			}
 			return false
 		}
-
-		const num = parseFloat(value.trim())
-		if (isNaN(num) || !Number.isFinite(num)) {
-			setError(t('errors.validation.enterValidNumber'))
-			return false
-		}
-
-		// Validate range based on language
-		if (language === 'ru') {
-			if (num < 0 || num > 999_999_999) {
-				setError(t('errors.validation.numberRangeRu'))
-				return false
-			}
-		} else {
-			if (num < 0 || num > 999_999_999_999) {
-				setError(t('errors.validation.numberRangeEn'))
-				return false
-			}
-		}
-
 		return true
 	}
 
@@ -71,77 +100,80 @@ export function NumberToWordsForm({
 			return
 		}
 
-		// Build the URL path
-		const basePath = locale === 'en' ? '' : `/${locale}`
-		let url: string
-
-		// Handle money format with proper encoding
-		if (format === 'money') {
-			// For money format, append currency indicator
-			// Format: /toolSlug/value-money-currency
-			const currencySuffix = language === 'ru' ? 'rub' : 'usd'
-			// Replace dot with dot in URL (keep as is for proper parsing)
-			const valueStr = value.trim().replace(/\./g, '.')
-			url = `${basePath}/${toolSlug}/${valueStr}-money-${currencySuffix}`
-		} else {
-			// For numeric format, append language suffix for chislo-propisyu
-			// Format: /toolSlug/value or /toolSlug/value-lang
-			const valueStr = value.trim()
-			if (isChisloPropisyu && language === 'en') {
-				// Add language suffix for English (Russian is default, no suffix needed)
-				url = `${basePath}/${toolSlug}/${valueStr}-en`
-			} else {
-				url = `${basePath}/${toolSlug}/${valueStr}`
-			}
+		const result = validatePropisyuFormInput(value, {
+			format,
+			language,
+			tool: toolSlug,
+		})
+		if (!result.ok) {
+			setError(t(formErrorKey(result.reason, format)))
+			return
 		}
 
-		// Navigate to the result page
+		// EN conversion on chislo-propisyu always uses the unprefixed shell so
+		// money-usd / -en results are not trapped under /ru with mixed SEO.
+		const basePath =
+			toolSlug === 'chislo-propisyu' && language === 'en'
+				? ''
+				: locale === 'en'
+					? ''
+					: `/${locale}`
+		const url = `${basePath}/${toolSlug}/${result.urlSegment}`
 		router.push(url)
 	}
 
-	const isChisloPropisyu = toolSlug === 'chislo-propisyu'
+	const helpText = (() => {
+		if (format === 'numeric') {
+			return t('legacy/ui.form.numberToWords.helpNumeric')
+		}
+		if (isChisloPropisyu && language === 'ru') {
+			return t('legacy/ui.form.numberToWords.helpMoneyRuHistorical')
+		}
+		if (isChisloPropisyu && language === 'en') {
+			return t('legacy/ui.form.numberToWords.helpMoneyEnLegacy')
+		}
+		return t('legacy/ui.form.numberToWords.helpMoney')
+	})()
 
 	return (
 		<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-			<form onSubmit={handleSubmit} className="space-y-4">
-				{/* Language selector (only for chislo-propisyu) */}
+			<form onSubmit={handleSubmit} className="space-y-4" noValidate>
 				{isChisloPropisyu && (
 					<div>
-					<label className="block text-sm font-medium text-gray-700 mb-2">
-						{t('legacy/ui.form.numberToWords.language')}
-					</label>
-					<div className="flex gap-4">
-						<label className="flex items-center">
-							<input
-								type="radio"
-								name="language"
-								value="ru"
-								checked={language === 'ru'}
-								onChange={() => setLanguage('ru')}
-								className="mr-2"
-							/>
-							<span className="text-sm text-gray-700">
-								{t('legacy/ui.form.numberToWords.languageRu')}
-							</span>
+						<label className="block text-sm font-medium text-gray-700 mb-2">
+							{t('legacy/ui.form.numberToWords.language')}
 						</label>
-						<label className="flex items-center">
-							<input
-								type="radio"
-								name="language"
-								value="en"
-								checked={language === 'en'}
-								onChange={() => setLanguage('en')}
-								className="mr-2"
-							/>
-							<span className="text-sm text-gray-700">
-								{t('legacy/ui.form.numberToWords.languageEn')}
-							</span>
-						</label>
-					</div>
+						<div className="flex gap-4">
+							<label className="flex items-center">
+								<input
+									type="radio"
+									name="language"
+									value="ru"
+									checked={language === 'ru'}
+									onChange={() => setLanguage('ru')}
+									className="mr-2"
+								/>
+								<span className="text-sm text-gray-700">
+									{t('legacy/ui.form.numberToWords.languageRu')}
+								</span>
+							</label>
+							<label className="flex items-center">
+								<input
+									type="radio"
+									name="language"
+									value="en"
+									checked={language === 'en'}
+									onChange={() => setLanguage('en')}
+									className="mr-2"
+								/>
+								<span className="text-sm text-gray-700">
+									{t('legacy/ui.form.numberToWords.languageEn')}
+								</span>
+							</label>
+						</div>
 					</div>
 				)}
 
-				{/* Format selector */}
 				<div>
 					<label className="block text-sm font-medium text-gray-700 mb-2">
 						{t('legacy/ui.form.numberToWords.format')}
@@ -176,7 +208,6 @@ export function NumberToWordsForm({
 					</div>
 				</div>
 
-				{/* Value input */}
 				<div>
 					<label
 						htmlFor="input-value"
@@ -184,8 +215,13 @@ export function NumberToWordsForm({
 					>
 						{t('legacy/ui.form.numberToWords.number')}
 					</label>
+					{/*
+					 * type=text (not number): browsers silently coerce/reject commas,
+					 * exponents, and leading zeros. We validate with strict-number instead.
+					 */}
 					<input
-						type="number"
+						type="text"
+						inputMode="decimal"
 						id="input-value"
 						value={value}
 						onChange={(e) => {
@@ -193,9 +229,7 @@ export function NumberToWordsForm({
 							setError('')
 						}}
 						placeholder={t('legacy/ui.form.numberToWords.numberPlaceholder')}
-						min="0"
-						max={language === 'ru' ? 999_999_999 : 999_999_999_999}
-						step="0.01"
+						autoComplete="off"
 						className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
 							error ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-white'
 						}`}
@@ -207,16 +241,15 @@ export function NumberToWordsForm({
 						{language === 'ru'
 							? t('legacy/ui.form.numberToWords.rangeRu')
 							: t('legacy/ui.form.numberToWords.rangeEn')}
+						{' · '}
+						{format === 'money'
+							? t('legacy/ui.form.numberToWords.moneyDecimalsHint')
+							: t('legacy/ui.form.numberToWords.numericDecimalsHint')}
 					</p>
 				</div>
 
-				{/* Help text */}
 				<div className="bg-blue-50 border border-blue-200 rounded-md p-3">
-					<p className="text-sm text-blue-800">
-						{format === 'numeric'
-							? t('legacy/ui.form.numberToWords.helpNumeric')
-							: t('legacy/ui.form.numberToWords.helpMoney')}
-					</p>
+					<p className="text-sm text-blue-800">{helpText}</p>
 				</div>
 
 				<button
@@ -253,4 +286,3 @@ export function NumberToWordsForm({
 		</div>
 	)
 }
-

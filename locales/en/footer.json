@@ -3,5 +3,12 @@
 	"share": "Share",
 	"copied": "Copied!",
 	"copyLink": "Copy link",
-	"shareText": "Check out this page on First Calc"
+	"shareText": "Check out this page on First Calc",
+	"tagline": "Free calculators for better planning.",
+	"blurb": "Free calculators and tools for estimation, planning, and self-reflection.",
+	"contactPrompt": "Have suggestions or found an issue? Contact us.",
+	"contactSoon": "Contact form coming soon.",
+	"privacy": "Privacy Policy",
+	"terms": "Terms of Use",
+	"disclaimer": "Disclaimer"
 }

@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { locales, type Locale } from '@/lib/i18n'
 import { numberToWordsRu } from '@/lib/numberToWordsRu'
 import { numberToWordsEn } from '@/lib/legacy/numberToWordsEn'
@@ -7,7 +8,6 @@ import {
 	numberToWordsRuDecimal,
 	numberToWordsEnDecimal,
 } from '@/lib/legacy/decimalToWords'
-import { parseSingleNumber, parseRange, parseMoneyFormat, parseLanguage } from '@/lib/legacy/slugParser'
 import { generateRange, validateRange } from '@/lib/legacy/parsers'
 import { LegacyPageLayout } from '@/components/legacy/legacy-page-layout'
 import { ErrorDisplay } from '@/components/legacy/error-display'
@@ -30,8 +30,21 @@ import {
 import { loadNamespaces, createT } from '@/lib/i18n'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { NumberToWordsForm } from '@/components/legacy/number-to-words-form'
+import { localePath } from '@/lib/site-url'
+import {
+	parsePropisyuSlug,
+	buildMoneySeoTitle,
+	buildMoneySeoH1,
+	buildMoneySeoDescription,
+	moneyAmountFromParts,
+	findDecadeHub,
+	PROPISYU_DECADE_MAX,
+	resolvePropisyuSeo,
+	propisyuAlternates,
+} from '@/lib/propisyu'
+import { MoneyResult } from '@/components/propisyu/money-result'
+import { DecadeHubContent } from '@/components/propisyu/decade-hub-content'
 
-// Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
 
 interface ChisloPropisyuPageProps {
@@ -45,102 +58,86 @@ export async function generateMetadata({
 	params,
 }: ChisloPropisyuPageProps): Promise<Metadata> {
 	const { locale, slug } = params
+	const parsed = parsePropisyuSlug(slug)
 
-	const moneyFormat = parseMoneyFormat(slug)
-	const singleNumber = moneyFormat ? moneyFormat.number : parseSingleNumber(slug)
-	const range = parseRange(slug)
-
-	// Get base content from module
 	const baseTitle = getLegacyTitle('chislo-propisyu', locale)
 	const baseDescription = getLegacyDescription('chislo-propisyu', locale)
 	const ogTitle = getLegacyOgTitle('chislo-propisyu', locale)
 	const ogDescription = getLegacyOgDescription('chislo-propisyu', locale)
 	const content = getLegacyContent('chislo-propisyu', locale)
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
 	let title = baseTitle
 	let description = baseDescription
+	let canonicalPath = `/chislo-propisyu/${slug.join('/')}`
 
-	if (singleNumber !== null) {
+	if (parsed.kind === 'money') {
+		const amount = moneyAmountFromParts(parsed.rubles, parsed.kopecks)
+		title = buildMoneySeoTitle(amount)
+		description = buildMoneySeoDescription(amount)
+		canonicalPath = `/chislo-propisyu/${parsed.canonicalSlug}`
+	} else if (parsed.kind === 'decade-hub') {
+		// Hubs are Russian historical content on every shell locale.
+		title = `Числа ${parsed.start}–${parsed.end} прописью — база чисел`
+		description = `Диапазон ${parsed.slug} из исторической базы чисел first-calc.com. Примеры написания чисел прописью и навигация по соседним диапазонам.`
+		canonicalPath = `/chislo-propisyu/${parsed.slug}`
+	} else if (parsed.kind === 'plain-number') {
 		try {
-			let words = ''
-			if (moneyFormat) {
-				const useEnglish =
-					(moneyFormat.currency === 'usd' || moneyFormat.currency === 'eur') &&
-					locale !== 'ru'
-				if (useEnglish) {
-					words = numberToWordsEnDecimal(singleNumber, {
-						format: 'money',
-						currency: moneyFormat.currency,
-					})
-				} else {
-					words = numberToWordsRuDecimal(singleNumber, {
-						format: 'money',
-						currency: moneyFormat.currency,
-					})
-				}
-			} else if (singleNumber % 1 !== 0) {
-				words = numberToWordsRuDecimal(singleNumber, { format: 'numeric' })
-			} else {
-				words = numberToWordsRu(singleNumber)
-			}
-			title = locale === 'ru'
-				? `Число ${singleNumber} прописью – калькулятор`
-				: `Number ${singleNumber} in Words – Calculator`
-			description = locale === 'ru'
-				? `Конвертируйте число ${singleNumber} в пропись. Результат: ${words}.`
-				: `Convert number ${singleNumber} to words. Result: ${words}.`
+			const words =
+				parsed.language === 'en'
+					? parsed.isInteger
+						? numberToWordsEn(parsed.value)
+						: numberToWordsEnDecimal(parsed.value, { format: 'numeric' })
+					: parsed.isInteger
+						? numberToWordsRu(parsed.value)
+						: numberToWordsRuDecimal(parsed.value, { format: 'numeric' })
+			title =
+				locale === 'ru'
+					? `Число ${parsed.canonicalSlug} прописью – калькулятор`
+					: `Number ${parsed.canonicalSlug} in Words – Calculator`
+			description =
+				locale === 'ru'
+					? `Конвертируйте число ${parsed.canonicalSlug} в пропись. Результат: ${words}.`
+					: `Convert number ${parsed.canonicalSlug} to words. Result: ${words}.`
 		} catch {
-			// Keep default
-			title = locale === 'ru'
-				? `Число ${singleNumber} прописью – калькулятор`
-				: `Number ${singleNumber} in Words – Calculator`
-			description = locale === 'ru'
-				? `Конвертируйте число ${singleNumber} в пропись.`
-				: `Convert number ${singleNumber} to words.`
+			title =
+				locale === 'ru'
+					? `Число ${parsed.canonicalSlug} прописью – калькулятор`
+					: `Number ${parsed.canonicalSlug} in Words – Calculator`
 		}
-		} else if (range) {
-			title = locale === 'ru'
-				? `Числа от ${range.start} до ${range.end} прописью – калькулятор`
-				: `Numbers ${range.start} to ${range.end} in Words – Calculator`
-			description = locale === 'ru'
-				? `Конвертируйте диапазон чисел от ${range.start} до ${range.end} в пропись.`
-				: `Convert numbers from ${range.start} to ${range.end} to words.`
+		canonicalPath = `/chislo-propisyu/${parsed.canonicalSlug}`
+	} else if (parsed.kind === 'small-range') {
+		title =
+			locale === 'ru'
+				? `Числа от ${parsed.start} до ${parsed.end} прописью – калькулятор`
+				: `Numbers ${parsed.start} to ${parsed.end} in Words – Calculator`
+		description =
+			locale === 'ru'
+				? `Конвертируйте диапазон чисел от ${parsed.start} до ${parsed.end} в пропись.`
+				: `Convert numbers from ${parsed.start} to ${parsed.end} to words.`
 	}
 
-	// SEO Safety: Prevent indexing of infinite dynamic legacy pages
-	// Only the landing page (/chislo-propisyu) should be indexed
-	// All dynamic routes (single numbers, ranges) should be noindex
-	const isLandingPage = slug.length === 0
-	const robots = isLandingPage ? 'index, follow' : 'noindex, follow'
-
-	// Use 'en' as fallback for locales that don't have translations
-	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+	const seo = resolvePropisyuSeo(parsed, locale, canonicalPath)
 
 	return {
-		title: `${title} - First Calc`,
+		title: parsed.kind === 'money' ? title : `${title} - First Calc`,
 		description,
-		keywords: content?.keywords[contentLocale]?.join(', ') || 'число прописью, конвертер чисел, пропись, number to words',
-		robots,
+		keywords:
+			content?.keywords[contentLocale]?.join(', ') ||
+			'число прописью, конвертер чисел, пропись, number to words',
+		robots: seo.robots,
 		openGraph: {
-			title: ogTitle,
-			description: ogDescription,
+			title: parsed.kind === 'money' ? title : ogTitle,
+			description: parsed.kind === 'money' ? description : ogDescription,
 			type: 'website',
+			locale: seo.contentLanguage === 'ru' ? 'ru_RU' : 'en_US',
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: ogTitle,
-			description: ogDescription,
+			title: parsed.kind === 'money' ? title : ogTitle,
+			description: parsed.kind === 'money' ? description : ogDescription,
 		},
-		alternates: {
-			languages: {
-				en: `/en/chislo-propisyu/${slug.join('/')}`,
-				ru: `/ru/chislo-propisyu/${slug.join('/')}`,
-				es: `/es/chislo-propisyu/${slug.join('/')}`,
-				tr: `/tr/chislo-propisyu/${slug.join('/')}`,
-				hi: `/hi/chislo-propisyu/${slug.join('/')}`,
-			},
-			canonical: `/${locale}/chislo-propisyu/${slug.join('/')}`,
-		},
+		alternates: propisyuAlternates(seo),
 	}
 }
 
@@ -153,117 +150,177 @@ export default async function ChisloPropisyuPage({
 		notFound()
 	}
 
-	// Load translations for breadcrumbs
-	const dict = await loadNamespaces(locale, namespaces)
+	const parsed = parsePropisyuSlug(slug)
+	// Historical money/hub pages always expose a Russian UI (chrome + form),
+	// even on the unprefixed default-locale shell. Routing/SEO still use
+	// `locale` from the URL rewrite (en shell for unprefixed).
+	const isHistoricalRuUi =
+		parsed.kind === 'money' || parsed.kind === 'decade-hub'
+	const uiLocale: Locale = isHistoricalRuUi ? 'ru' : locale
+	const dict = await loadNamespaces(uiLocale, namespaces)
+	const formDict = await loadNamespaces(uiLocale, ['legacy/ui', 'errors'])
 	const t = createT(dict)
+	const content = getLegacyContent('chislo-propisyu', locale)
+	const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
 
-	const moneyFormat = parseMoneyFormat(slug)
-	const singleNumber = moneyFormat ? moneyFormat.number : parseSingleNumber(slug)
-	const range = parseRange(slug)
-	
-	// Parse language from slug (for numeric format)
-	// For money format, language is determined by currency
-	const targetLanguage = moneyFormat 
-		? ((moneyFormat.currency === 'usd' || moneyFormat.currency === 'eur') && locale !== 'ru' ? 'en' : 'ru')
-		: parseLanguage(slug)
+	// --- Historical money pages (always Russian ruble wording) ---
+	if (parsed.kind === 'money') {
+		const amount = moneyAmountFromParts(parsed.rubles, parsed.kopecks)
+		const h1 = buildMoneySeoH1(amount)
+		const breadcrumbs = getLegacyBreadcrumbs(
+			uiLocale,
+			'chislo-propisyu',
+			[parsed.canonicalSlug],
+			t,
+		)
 
-	// Handle single number
-	if (singleNumber !== null && !range) {
-		// Validate range (support decimals, so check integer part)
-		const integerPart = Math.floor(Math.abs(singleNumber))
-		const maxRange = targetLanguage === 'en' ? 999_999_999_999 : 999_999_999
-		if (singleNumber < 0 || integerPart > maxRange) {
-			return (
-				<LegacyPageLayout
-					locale={locale}
-					title="Число прописью"
-					relatedLinks={false}
-				>
-					<ErrorDisplay
-						error={`Number ${singleNumber} is out of range (0-${maxRange.toLocaleString()})`}
-						locale={locale}
-						examples={[
-							{ href: '/chislo-propisyu/123', label: 'Example: /chislo-propisyu/123' },
-						]}
-					/>
-				</LegacyPageLayout>
-			)
+		return (
+			<LegacyPageLayout
+				locale={uiLocale}
+				title={h1}
+				relatedLinks={false}
+				breadcrumbs={breadcrumbs}
+			>
+				{/* Russian money content + Russian form chrome. */}
+				<div lang="ru">
+					<div className="mb-8">
+						<NumberToWordsForm
+							locale={uiLocale}
+							toolSlug="chislo-propisyu"
+							initialDict={formDict}
+							exampleLinks={[
+								{ href: '/chislo-propisyu/199-00', label: '/chislo-propisyu/199-00' },
+								{ href: '/chislo-propisyu/420-00', label: '/chislo-propisyu/420-00' },
+								{ href: '/chislo-propisyu/5788-00', label: '/chislo-propisyu/5788-00' },
+							]}
+						/>
+					</div>
+
+					<MoneyResult amount={amount} />
+				</div>
+
+				<div className="mt-10">
+					<Link
+						href={localePath(uiLocale, '/chislo-propisyu')}
+						className="text-sm font-medium text-blue-700 hover:underline"
+					>
+						← Вернуться к конвертеру «Число прописью»
+					</Link>
+				</div>
+
+				<div className="mt-10">
+					<LegacyRelatedLinks locale={uiLocale} toolType="chislo-propisyu" />
+				</div>
+			</LegacyPageLayout>
+		)
+	}
+
+	// --- Decade hubs (number base) ---
+	if (parsed.kind === 'decade-hub') {
+		const hub = findDecadeHub(parsed.start, parsed.end)
+		if (!hub) {
+			notFound()
 		}
+		// Historical number-base hubs always present Russian content (SEO family).
+		const title = `Числа ${hub.start}–${hub.end} прописью`
+		const breadcrumbs = getLegacyBreadcrumbs(
+			uiLocale,
+			'chislo-propisyu',
+			[hub.slug],
+			t,
+		)
 
-		// Convert single number (support decimals and money format)
+		return (
+			<LegacyPageLayout
+				locale={uiLocale}
+				title={title}
+				relatedLinks={false}
+				breadcrumbs={breadcrumbs}
+			>
+				<div lang="ru">
+					<DecadeHubContent locale={uiLocale} hub={hub} forceRussian />
+				</div>
+			</LegacyPageLayout>
+		)
+	}
+
+	// --- Legacy currency money format (strict amount; invalid → 404) ---
+	if (parsed.kind === 'legacy-money-currency') {
+		// Currency drives the engine: USD/EUR → English; RUB → Russian.
+		// Do not bind conversion language to the shell locale (EN users on /ru
+		// must still get English USD/EUR wording, never RUB N-KK copy).
+		const useEnglish =
+			parsed.currency === 'usd' || parsed.currency === 'eur'
 		let wordRepresentation: string
 		try {
-			if (moneyFormat) {
-				// For money format, use appropriate language based on currency or locale
-				// If currency is USD/EUR and locale is not ru, use English
-				const useEnglish = (moneyFormat.currency === 'usd' || moneyFormat.currency === 'eur') && locale !== 'ru'
-				
-				if (useEnglish) {
-					wordRepresentation = numberToWordsEnDecimal(singleNumber, {
+			wordRepresentation = useEnglish
+				? numberToWordsEnDecimal(parsed.value, {
 						format: 'money',
-						currency: moneyFormat.currency,
+						currency: parsed.currency,
 					})
-				} else {
-					wordRepresentation = numberToWordsRuDecimal(singleNumber, {
+				: numberToWordsRuDecimal(parsed.value, {
 						format: 'money',
-						currency: moneyFormat.currency,
+						currency: parsed.currency,
 					})
-				}
-			} else if (singleNumber % 1 !== 0) {
-				// Decimal number - use target language
-				if (targetLanguage === 'en') {
-					wordRepresentation = numberToWordsEnDecimal(singleNumber, {
-						format: 'numeric',
-					})
-				} else {
-					wordRepresentation = numberToWordsRuDecimal(singleNumber, {
-						format: 'numeric',
-					})
-				}
-			} else {
-				// Integer number - use target language
-				if (targetLanguage === 'en') {
-					wordRepresentation = numberToWordsEn(singleNumber)
-				} else {
-					wordRepresentation = numberToWordsRu(singleNumber)
-				}
-			}
-		} catch (error) {
-			return (
-				<LegacyPageLayout
-					locale={locale}
-					title="Число прописью"
-					relatedLinks={false}
-				>
-					<ErrorDisplay
-						error={
-							error instanceof Error
-								? error.message
-								: 'Ошибка конвертации'
-						}
-						locale={locale}
-						examples={[
-							{
-								href: '/chislo-propisyu/123',
-								label: 'Example: /chislo-propisyu/123',
-							},
-						]}
-					/>
-				</LegacyPageLayout>
-			)
+		} catch {
+			notFound()
 		}
 
-		const title = `Число ${singleNumber} прописью`
-		const content = getLegacyContent('chislo-propisyu', locale)
+		const pageTitle = useEnglish
+			? `Number ${parsed.numberLabel} in words`
+			: `Число ${parsed.numberLabel} прописью`
 
-		// Use 'en' as fallback for locales that don't have translations
-		const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
+		return (
+			<LegacyPageLayout
+				locale={locale}
+				title={pageTitle}
+				relatedLinks={false}
+			>
+				<div lang={useEnglish ? 'en' : 'ru'}>
+					<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
+						<p className="mb-2 text-sm text-gray-500">
+							{useEnglish ? 'Amount' : 'Сумма'}
+						</p>
+						<p className="mb-4 text-4xl font-bold text-gray-900">
+							{parsed.numberLabel}
+						</p>
+						<p className="text-3xl font-semibold text-blue-600">
+							{wordRepresentation}
+						</p>
+					</div>
+				</div>
+				<LegacyRelatedLinks locale={locale} toolType="chislo-propisyu" />
+			</LegacyPageLayout>
+		)
+	}
 
-		// Generate breadcrumbs
+	// --- Plain number (integer or historical decimal) ---
+	if (parsed.kind === 'plain-number') {
+		const targetLanguage = parsed.language || 'ru'
+		let wordRepresentation: string
+		try {
+			if (targetLanguage === 'en') {
+				wordRepresentation = parsed.isInteger
+					? numberToWordsEn(parsed.value)
+					: numberToWordsEnDecimal(parsed.value, { format: 'numeric' })
+			} else {
+				wordRepresentation = parsed.isInteger
+					? numberToWordsRu(parsed.value)
+					: numberToWordsRuDecimal(parsed.value, { format: 'numeric' })
+			}
+		} catch {
+			// Out-of-range or engine failure on a user URL → 404, never 500.
+			notFound()
+		}
+
+		const title =
+			targetLanguage === 'en'
+				? `Number ${parsed.canonicalSlug} in words`
+				: `Число ${parsed.canonicalSlug} прописью`
 		const breadcrumbs = getLegacyBreadcrumbs(
 			locale,
 			'chislo-propisyu',
-			[String(singleNumber)],
+			[parsed.canonicalSlug],
 			t,
 		)
 
@@ -274,29 +331,28 @@ export default async function ChisloPropisyuPage({
 				relatedLinks={false}
 				breadcrumbs={breadcrumbs}
 			>
-				{/* Form for new conversion - at the top */}
-				<div className="mb-8">
-					<NumberToWordsForm
-						locale={locale}
-						toolSlug="chislo-propisyu"
-						exampleLinks={[
-							{ href: '/chislo-propisyu/123', label: '/chislo-propisyu/123' },
-							{ href: '/chislo-propisyu/1000', label: '/chislo-propisyu/1000' },
-							{ href: '/chislo-propisyu/555.23-money-usd', label: '/chislo-propisyu/555.23-money-usd' },
-						]}
-					/>
-				</div>
+				<div lang={targetLanguage}>
+					<div className="mb-8">
+						<NumberToWordsForm
+							locale={locale}
+							toolSlug="chislo-propisyu"
+							initialDict={formDict}
+							exampleLinks={[
+								{ href: '/chislo-propisyu/123', label: '/chislo-propisyu/123' },
+								{ href: '/chislo-propisyu/1000', label: '/chislo-propisyu/1000' },
+								{ href: '/chislo-propisyu/199-00', label: '/chislo-propisyu/199-00' },
+							]}
+						/>
+					</div>
 
-				{/* Result block */}
-				<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-					<div className="text-center">
-						<p className="text-sm text-gray-500 mb-2">
+					<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
+						<p className="mb-2 text-sm text-gray-500">
 							{locale === 'ru' ? 'Число' : 'Number'}
 						</p>
-						<p className="text-4xl font-bold text-gray-900 mb-4">
-							{singleNumber.toLocaleString(locale === 'ru' ? 'ru-RU' : 'en-US')}
+						<p className="mb-4 text-4xl font-bold text-gray-900">
+							{parsed.canonicalSlug}
 						</p>
-						<p className="text-sm text-gray-500 mb-2">
+						<p className="mb-2 text-sm text-gray-500">
 							{locale === 'ru' ? 'Прописью' : 'In Words'}
 						</p>
 						<p className="text-3xl font-semibold text-blue-600">
@@ -305,72 +361,48 @@ export default async function ChisloPropisyuPage({
 					</div>
 				</div>
 
-				{/* Text content */}
 				{content && content.text[contentLocale] && (
-					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+					<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
 						{content.text[contentLocale].map((paragraph, index) => (
-							<p key={index} className="text-gray-700 mb-4 last:mb-0">
+							<p key={index} className="mb-4 text-gray-700 last:mb-0">
 								{paragraph}
 							</p>
 						))}
 					</div>
 				)}
 
-				{/* Use cases */}
 				{content && content.useCases[contentLocale] && (
-					<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
+					<UseCasesBlock
+						useCases={content.useCases[contentLocale]}
+						locale={locale}
+					/>
 				)}
 
-				{/* Examples */}
 				<LegacyExamplesBlock
 					examples={getExamplesForLegacyTool('chislo-propisyu')}
 					locale={locale}
 				/>
-
-				{/* FAQ */}
 				<LegacyFaqBlock faq={getFaqForLegacyTool('chislo-propisyu')} />
-
-				{/* Related links */}
 				<LegacyRelatedLinks locale={locale} toolType="chislo-propisyu" />
 			</LegacyPageLayout>
 		)
 	}
 
-	// Handle range
-	if (range) {
-		// Validate range
-		const validation = validateRange(range.start, range.end, 0, 999_999_999, 200)
+	// --- Small non-decade ranges (legacy table, still noindex) ---
+	if (parsed.kind === 'small-range') {
+		const validation = validateRange(
+			parsed.start,
+			parsed.end,
+			0,
+			PROPISYU_DECADE_MAX,
+			200,
+		)
 		if (!validation.valid) {
-			return (
-				<LegacyPageLayout
-					locale={locale}
-					title="Число прописью"
-					relatedLinks={false}
-				>
-					<ErrorDisplay
-						error={validation.error || 'Invalid range'}
-						locale={locale}
-						examples={[
-							{
-								href: '/chislo-propisyu/100-199',
-								label: 'Range example: /chislo-propisyu/100-199',
-							},
-						]}
-					/>
-				</LegacyPageLayout>
-			)
+			notFound()
 		}
 
-		// Generate numbers (max 200)
-		const numbers = generateRange(range.start, range.end, 200)
-
-		const title = `Числа от ${range.start} до ${range.end} прописью`
-		const content = getLegacyContent('chislo-propisyu', locale)
-
-		// Use 'en' as fallback for locales that don't have translations
-		const contentLocale: 'en' | 'ru' = locale === 'ru' ? 'ru' : 'en'
-
-		// Prepare table data
+		const numbers = generateRange(parsed.start, parsed.end, 200)
+		const title = `Числа от ${parsed.start} до ${parsed.end} прописью`
 		const tableData = numbers.map((num) => {
 			let wordRepresentation: string
 			try {
@@ -379,7 +411,6 @@ export default async function ChisloPropisyuPage({
 				wordRepresentation =
 					error instanceof Error ? error.message : 'Ошибка конвертации'
 			}
-
 			return {
 				number: num.toLocaleString(locale === 'ru' ? 'ru-RU' : 'en-US'),
 				words: wordRepresentation,
@@ -388,59 +419,30 @@ export default async function ChisloPropisyuPage({
 
 		return (
 			<LegacyPageLayout locale={locale} title={title} relatedLinks={false}>
-				<ResultsTable
-					columns={[
-						{ header: locale === 'ru' ? 'Число' : 'Number', key: 'number' },
-						{ header: locale === 'ru' ? 'Прописью' : 'In Words', key: 'words' },
-					]}
-					data={tableData}
-				/>
-
-				{/* Text content */}
+				<div lang="ru">
+					<ResultsTable
+						columns={[
+							{ header: locale === 'ru' ? 'Число' : 'Number', key: 'number' },
+							{ header: locale === 'ru' ? 'Прописью' : 'In Words', key: 'words' },
+						]}
+						data={tableData}
+					/>
+				</div>
 				{content && content.text[contentLocale] && (
-					<div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+					<div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
 						{content.text[contentLocale].map((paragraph, index) => (
-							<p key={index} className="text-gray-700 mb-4 last:mb-0">
+							<p key={index} className="mb-4 text-gray-700 last:mb-0">
 								{paragraph}
 							</p>
 						))}
 					</div>
 				)}
-
-				{/* Use cases */}
-				{content && content.useCases[contentLocale] && (
-					<UseCasesBlock useCases={content.useCases[contentLocale]} locale={locale} />
-				)}
-
-				{/* Examples */}
-				<LegacyExamplesBlock
-					examples={getExamplesForLegacyTool('chislo-propisyu')}
-					locale={locale}
-				/>
-
-				{/* FAQ */}
 				<LegacyFaqBlock faq={getFaqForLegacyTool('chislo-propisyu')} />
-
-				{/* Related links */}
 				<LegacyRelatedLinks locale={locale} toolType="chislo-propisyu" />
 			</LegacyPageLayout>
 		)
 	}
 
-	// Error case
-	return (
-		<LegacyPageLayout locale={locale} title="Число прописью" relatedLinks={false}>
-			<ErrorDisplay
-				error="Invalid input format"
-				locale={locale}
-				examples={[
-					{ href: '/chislo-propisyu/123', label: 'Example: /chislo-propisyu/123' },
-					{
-						href: '/chislo-propisyu/100-199',
-						label: 'Range example: /chislo-propisyu/100-199',
-					},
-				]}
-			/>
-		</LegacyPageLayout>
-	)
+	// Truly invalid routes must be HTTP 404 (not 200 + error UI / not 500).
+	notFound()
 }
