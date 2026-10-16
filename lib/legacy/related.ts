@@ -23,7 +23,8 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 			},
 			{
 				title: 'Indian Number Format',
-				href: '/number-format/in',
+				// Bare /number-format/in has no page; example number is the valid route.
+				href: '/number-format/in/1234567',
 				description: 'Format numbers in Indian numbering system',
 			},
 			{
@@ -50,7 +51,8 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 			},
 			{
 				title: 'Number Factors',
-				href: '/factors',
+				// Bare /factors has no page; example number is the valid route.
+				href: '/factors/360',
 				description: 'Find all factors of a number',
 			},
 		],
@@ -62,7 +64,7 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 			},
 			{
 				title: 'Number Factors',
-				href: '/factors',
+				href: '/factors/360',
 				description: 'Find all factors of a number',
 			},
 			{
@@ -98,7 +100,7 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 		factors: [
 			{
 				title: 'Indian Number Format',
-				href: '/number-format/in',
+				href: '/number-format/in/1234567',
 				description: 'Format numbers in Indian numbering system',
 			},
 			{
@@ -115,7 +117,7 @@ export function getRelatedLegacyTools(type: string): RelatedTool[] {
 		'number-format-in': [
 			{
 				title: 'Number Factors',
-				href: '/factors',
+				href: '/factors/360',
 				description: 'Find all factors of a number',
 			},
 			{

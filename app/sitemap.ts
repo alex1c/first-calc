@@ -6,6 +6,7 @@ import { legacyTools } from '@/lib/tools/registry'
 import { locales, type Locale } from '@/lib/i18n'
 import { isIndexingDisabled, localeUrl } from '@/lib/site-url'
 import { hasLocalizedCalculatorContent } from '@/lib/i18n/content-availability'
+import { DECADE_HUBS } from '@/lib/propisyu/decades'
 
 export type SitemapGroup =
 	| 'pages'
@@ -14,6 +15,7 @@ export type SitemapGroup =
 	| 'articles'
 	| 'standards'
 	| 'other'
+	| 'propisyu-decades'
 
 export interface ClassifiedSitemapEntry {
 	url: string
@@ -136,6 +138,13 @@ export async function buildSitemapEntries(): Promise<ClassifiedSitemapEntry[]> {
 			if (!tool.slug) continue
 			addEntry(entries, seen, locale, tool.path, 'other')
 		}
+	}
+
+	// Historical «База чисел» decade hubs (exactly 100 × 10_000).
+	// Canonical indexable family = unprefixed /chislo-propisyu/{start}-{end}.
+	// Money allowlist pages stay out of the sitemap (controlled robots only).
+	for (const hub of DECADE_HUBS) {
+		addEntry(entries, seen, 'en', hub.pathname, 'propisyu-decades')
 	}
 
 	return entries

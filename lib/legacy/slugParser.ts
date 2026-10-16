@@ -4,6 +4,7 @@
  */
 
 import { isValidRoman } from '@/lib/romanNumerals'
+import { parseStrictLegacyMoneySegment } from '@/lib/propisyu/strict-number'
 
 /**
  * Parse single number from slug (supports decimals and language suffix)
@@ -86,7 +87,7 @@ export function parseLanguage(slug: string[]): 'ru' | 'en' {
 
 /**
  * Parse money format from slug
- * Format: "number-money-currency" or "number-money"
+ * Format: "number-money-currency" (strict amount; no silent truncate)
  * Supports decimals: "555.23-money-usd"
  * @param slug - Array of slug segments
  * @returns Object with number, format, and currency or null if invalid
@@ -100,45 +101,28 @@ export function parseMoneyFormat(slug: string[]): {
 		return null
 	}
 
-	// Decode URL-encoded values (handles dots in decimals)
-	// Use try-catch to handle malformed URLs
 	let firstSegment: string
 	try {
 		firstSegment = decodeURIComponent(slug[0])
 	} catch {
-		// If decode fails, use original segment
 		firstSegment = slug[0]
 	}
 
-	// Check if it's a money format
-	if (!firstSegment.includes('-money')) {
+	if (!/-money/i.test(firstSegment)) {
 		return null
 	}
 
-	// Extract number part (handle decimals properly)
-	// Split by '-money' and take the first part
-	const numberPart = firstSegment.split('-money')[0]
-	const number = parseFloat(numberPart)
-
-	if (isNaN(number) || !Number.isFinite(number)) {
+	// Shared strict currency-aware parser (rejects 12abc, 1.2.3, 123.456, …).
+	const parsed = parseStrictLegacyMoneySegment(firstSegment)
+	if (!parsed.ok) {
 		return null
 	}
 
-	// Extract currency from the rest of the segment
-	// Format: "number-money-currency" or "number-money"
-	let currency: 'rub' | 'usd' | 'eur' = 'rub'
-	
-	// Get the part after '-money'
-	const afterMoney = firstSegment.split('-money')[1]
-	if (afterMoney) {
-		// Remove leading dash if present
-		const currencyPart = afterMoney.replace(/^-/, '').toLowerCase()
-		if (currencyPart === 'usd' || currencyPart === 'eur' || currencyPart === 'rub') {
-			currency = currencyPart
-		}
+	return {
+		number: parsed.value,
+		format: 'money',
+		currency: parsed.currency,
 	}
-
-	return { number, format: 'money', currency }
 }
 
 /**

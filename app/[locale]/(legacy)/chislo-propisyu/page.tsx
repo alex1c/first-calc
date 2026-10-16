@@ -14,10 +14,12 @@ import {
 } from '@/lib/legacy/content'
 import { getLegacyBreadcrumbs } from '@/lib/navigation/breadcrumbs'
 import { getFaqForLegacyTool } from '@/lib/legacy/faqExamples'
-import { languageAlternates, localeUrl } from '@/lib/site-url'
+import { primaryLocalePageMetadata } from '@/lib/seo/limited-locale-metadata'
+import { NumberBaseNav } from '@/components/propisyu/number-base-nav'
 
 // Declare required namespaces for this page
 const namespaces = ['common', 'navigation'] as const
+const formNamespaces = ['legacy/ui', 'errors'] as const
 
 interface ChisloPropisyuLandingPageProps {
 	params: {
@@ -48,10 +50,7 @@ export async function generateMetadata({
 			title: ogTitle,
 			description: ogDescription,
 		},
-		alternates: {
-			languages: languageAlternates('/chislo-propisyu', ['en', 'ru']),
-			canonical: localeUrl(locale, '/chislo-propisyu'),
-		},
+		...primaryLocalePageMetadata(locale, '/chislo-propisyu'),
 	}
 }
 
@@ -64,8 +63,9 @@ export default async function ChisloPropisyuLandingPage({
 		notFound()
 	}
 
-	// Load translations for breadcrumbs
+	// Load translations for breadcrumbs + hydrate client form (no key flash)
 	const dict = await loadNamespaces(locale, namespaces)
+	const formDict = await loadNamespaces(locale, formNamespaces)
 	const t = createT(dict)
 
 	// Get content
@@ -101,15 +101,23 @@ export default async function ChisloPropisyuLandingPage({
 			<NumberToWordsForm
 				locale={locale}
 				toolSlug="chislo-propisyu"
+				initialDict={formDict}
 				exampleLinks={[
 					{ href: '/chislo-propisyu/123', label: '/chislo-propisyu/123' },
-					{ href: '/chislo-propisyu/1000', label: '/chislo-propisyu/1000' },
-					{ href: '/chislo-propisyu/1000000', label: '/chislo-propisyu/1000000' },
+					{ href: '/chislo-propisyu/199-00', label: '/chislo-propisyu/199-00' },
+					{ href: '/chislo-propisyu/420-00', label: '/chislo-propisyu/420-00' },
 				]}
 			/>
 
+			{/* Historical number base — 100 decade hubs */}
+			<div className="mt-10">
+				<NumberBaseNav locale={locale} />
+			</div>
+
 			{/* FAQ */}
-			<LegacyFaqBlock faq={getFaqForLegacyTool('chislo-propisyu')} />
+			<div className="mt-10">
+				<LegacyFaqBlock faq={getFaqForLegacyTool('chislo-propisyu')} />
+			</div>
 		</LegacyPageLayout>
 	)
 }

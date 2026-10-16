@@ -11,8 +11,12 @@
 			"formatMoney": "Money",
 			"rangeRu": "Range: 0 - 999,999,999",
 			"rangeEn": "Range: 0 - 999,999,999,999",
+			"moneyDecimalsHint": "Money: at most 2 decimal places (no silent truncation)",
+			"numericDecimalsHint": "Numeric: at most 6 decimal places (exact representation required)",
 			"helpNumeric": "Numeric format: Converts number to words (e.g., 123 → one hundred twenty-three)",
 			"helpMoney": "Money format: Converts amount to words with currency (e.g., 123 → one hundred twenty-three dollars)",
+			"helpMoneyRuHistorical": "Russian money uses historical /N-KK ruble URLs (e.g., 1.50 → /1-50).",
+			"helpMoneyEnLegacy": "English money uses the USD legacy route (e.g., 1.50 → /1.50-money-usd).",
 			"convert": "Convert"
 		},
 		"romanNumerals": {
